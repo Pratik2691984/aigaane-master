@@ -7,12 +7,42 @@
   "framework": null,
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "src": "/shared/(.*)",
+      "dest": "/shared/$1"
     },
     {
       "src": "/api/(.*)",
       "dest": "/api/$1"
+    },
+    {
+      "src": "/tools/(.*)",
+      "dest": "/tools/$1"
+    },
+    {
+      "src": "/ui/(.*)",
+      "dest": "/ui/$1"
+    },
+    {
+      "src": "/app.js",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/(.*\\.js)",
+      "headers": {
+        "Content-Type": "application/javascript"
+      },
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*\\.css)",
+      "headers": {
+        "Content-Type": "text/css"
+      },
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
