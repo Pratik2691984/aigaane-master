@@ -1,4 +1,5 @@
-// Music Tab Controller
+// C:\aigaane-master\ui\tabs\music\controller.js
+// Music Tab – Sonic Mandala with Rāga Constraint Display
 
 let mountNode = null;
 
@@ -76,9 +77,56 @@ function updateDisplay(padaId, shrutiRatio) {
     }
 }
 
+function updateRagaDisplay() {
+    const root = mountNode || document;
+    const ragaState = window._ragaState;
+    
+    console.log('[Music] Updating Rāga display:', ragaState);
+    
+    const ragaNameEl = root.querySelector('#raga-name');
+    const ragaRasaEl = root.querySelector('#raga-rasa');
+    
+    if (ragaState) {
+        if (ragaNameEl) {
+            ragaNameEl.innerText = ragaState.ragaName || '---';
+            console.log('[Music] Set Rāga name to:', ragaState.ragaName);
+        }
+        if (ragaRasaEl) {
+            ragaRasaEl.innerText = ragaState.ragaRasa || '---';
+        }
+    } else {
+        if (ragaNameEl) ragaNameEl.innerText = '---';
+        if (ragaRasaEl) ragaRasaEl.innerText = '---';
+    }
+}
+
+function initRagaSelector() {
+    const root = mountNode || document;
+    const ragaSelect = root.querySelector('#raga-select');
+    
+    if (ragaSelect && window.setRaga) {
+        // Clear existing listeners
+        const newSelect = ragaSelect.cloneNode(true);
+        ragaSelect.parentNode.replaceChild(newSelect, ragaSelect);
+        
+        newSelect.addEventListener('change', (e) => {
+            console.log('[Music] Rāga changed to:', e.target.value);
+            window.setRaga(e.target.value);
+            // Update display after raga change
+            setTimeout(() => updateRagaDisplay(), 50);
+        });
+        
+        // Set initial value from current raga state
+        if (window._ragaState && window._ragaState.currentRaga) {
+            newSelect.value = window._ragaState.currentRaga;
+        }
+    }
+}
+
 export function init(node) {
     mountNode = node;
     buildMandala();
+    initRagaSelector();
     console.log('[Music] Tab mounted');
 }
 
@@ -100,6 +148,8 @@ export function render(state, node) {
     
     highlightPada(padaId);
     updateDisplay(padaId, shrutiRatio);
+    updateRagaDisplay();
+    initRagaSelector();
 }
 
 export function destroy() {

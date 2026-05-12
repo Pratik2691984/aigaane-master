@@ -35,6 +35,15 @@
       "enabled": true
     },
     {
+      "id": "raga_engine",
+      "path": "/tools/raga_engine.tool.js",
+      "type": "background",
+      "subscriptions": ["shruti_id", "shruti_ratio"],
+      "timeout_ms": 10,
+      "always_run": true,
+      "enabled": true
+    },
+    {
       "id": "resonance",
       "path": "/tools/resonance.tool.js",
       "type": "ui",

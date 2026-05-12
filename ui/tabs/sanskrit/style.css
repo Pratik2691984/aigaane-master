@@ -1,8 +1,6 @@
-/* Sanskrit Tab Styles */
+/* C:\aigaane-master\ui\tabs\sanskrit\style.css */
 
 .sanskrit-tab {
-    max-width: 1000px;
-    margin: 0 auto;
     padding: 1.5rem;
     animation: fadeIn 0.4s ease-out;
 }
@@ -14,16 +12,18 @@
     min-width: 0;
 }
 
+/* Responsive collapse */
 @media (max-width: 900px) {
     .sanskrit-layout {
         grid-template-columns: 1fr;
     }
 }
 
+/* Responsive grid */
 .akshara-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+    gap: 8px;
 }
 
 .akshara-node {
@@ -34,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(1rem, 3vw, 1.8rem);
+    font-size: 1.2rem;
     color: #e0e6ed;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -50,41 +50,39 @@
 }
 
 .display-glyph {
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: 4rem;
     color: var(--gold);
     text-align: center;
-    text-shadow: var(--border-glow);
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .phoneme-info {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .focus-card {
     background: var(--glass-bg);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: var(--border-radius);
+    text-align: center;
     border: 1px solid var(--gold);
 }
 
 .data-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .data-item {
     background: rgba(255, 255, 255, 0.03);
-    padding: 10px 15px;
+    padding: 8px 12px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    font-size: 0.85rem;
 }
 
 @keyframes fadeIn {

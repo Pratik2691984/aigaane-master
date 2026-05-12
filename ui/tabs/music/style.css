@@ -1,88 +1,36 @@
-/* Music Tab Styles */
-
-.music-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 1rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.mandala-container {
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.mandala-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.mandala-center .label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #7c8ba0;
-}
-
-.mandala-center h1 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+/* Add these styles for Rāga display in mandala center */
+#raga-name {
+    font-size: 1rem;
     margin: 0.2rem 0;
-    color: var(--gold);
-}
-
-.mandala-center h2 {
-    font-size: clamp(1rem, 3vw, 1.2rem);
-    margin: 0;
-    color: #e0e6ed;
-}
-
-.pada-segment {
-    fill: rgba(212, 175, 55, 0.05);
-    stroke: rgba(255, 255, 255, 0.1);
-    stroke-width: 0.8;
-    transition: fill 0.2s;
-    cursor: pointer;
-}
-
-.pada-segment.active {
-    fill: var(--vedic-saffron);
-    stroke: var(--gold);
-}
-
-.music-controls {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    width: 100%;
-    max-width: 500px;
-}
-
-.info-panel {
-    background: var(--glass-bg);
-    border-radius: var(--border-radius);
-    padding: 0.8rem 1.2rem;
-    text-align: center;
-    border-left: 3px solid var(--gold);
-}
-
-.info-panel .label {
-    font-size: 0.7rem;
+    color: var(--vedic-saffron);
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #a0b0c8;
 }
 
-.info-panel .value {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    font-weight: bold;
-    display: block;
+#raga-rasa {
+    font-size: 0.65rem;
+    margin: 0;
+    color: #a0b0c8;
+    font-style: italic;
+}
+
+#raga-select {
+    background: var(--glass-bg);
+    color: var(--gold);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    width: 100%;
     margin-top: 0.3rem;
+}
+
+#raga-select:hover {
+    border-color: var(--gold);
+}
+
+#raga-select option {
+    background: var(--deep-space);
+    color: #e0e6ed;
 }
