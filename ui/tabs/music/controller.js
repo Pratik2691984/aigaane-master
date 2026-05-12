@@ -65,10 +65,9 @@ function highlightPada(padaId) {
 
 function updateDisplay(padaId, shrutiRatio) {
     const padaDisplay = mountNode?.querySelector('#active-pada');
-    const freqDisplay = mountNode?.querySelector('#active-freq');
-    const ratioDisplay = mountNode?.querySelector('#ratio-display');
+    const displayPada = padaId + 1;  // ✅ Convert to 1-based
     
-    if (padaDisplay) padaDisplay.innerText = padaId;
+    if (padaDisplay) padaDisplay.innerText = displayPada;
     
     if (freqDisplay && shrutiRatio) {
         const freq = (240 * shrutiRatio).toFixed(1);

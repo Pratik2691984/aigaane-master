@@ -60,7 +60,8 @@ function highlightRasa(rasaId) {
 
 function updatePada(padaId) {
     const padaEl = mountNode?.querySelector('#associatedPada');
-    if (padaEl) padaEl.innerText = padaId;
+    const displayPada = padaId + 1;  // ✅ Convert to 1-based
+    if (padaEl) padaEl.innerText = displayPada;
 }
 
 export function init(node) {

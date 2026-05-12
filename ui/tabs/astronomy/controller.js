@@ -32,14 +32,20 @@ function renderWheel(padaId) {
   });
 }
 
-function updateDetails(padaId) {
-  const padaEl = mountNode?.querySelector('#padaValue');
-  const nakshatraEl = mountNode?.querySelector('#nakshatraName');
-  const quarterEl = mountNode?.querySelector('#padaQuarter');
-  
-  if (padaEl) padaEl.innerText = padaId;
-  if (nakshatraEl) nakshatraEl.innerText = NAKSHATRA_LIST[Math.floor(padaId / 4)];
-  if (quarterEl) quarterEl.innerText = (padaId % 4) + 1;
+function updateDetails(state) {
+    const padaId = state.pada_id;  // 0-based (0-107)
+    const displayPada = padaId + 1;  // ✅ Convert to 1-based for display
+    const quarter = (padaId % 4) + 1;
+    const nakshatraIndex = Math.floor(padaId / 4);
+    const nakshatraName = NAKSHATRA_LIST[nakshatraIndex];
+    
+    const padaEl = mountNode?.querySelector('#padaValue');
+    const nakshatraEl = mountNode?.querySelector('#nakshatraName');
+    const quarterEl = mountNode?.querySelector('#padaQuarter');
+    
+    if (padaEl) padaEl.innerText = displayPada;  // ✅ Shows 68 instead of 67
+    if (nakshatraEl) nakshatraEl.innerText = nakshatraName;
+    if (quarterEl) quarterEl.innerText = quarter;
 }
 
 export function init(node) {

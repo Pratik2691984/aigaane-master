@@ -7,10 +7,17 @@ const NAKSHATRA_LIST = [
 ];
 
 function updateDisplay(padaId, nakshatraId, padaProgress = 0) {
-    const currentPadaEl = mountNode?.querySelector('#currentPada');
-    const currentNakshatraEl = mountNode?.querySelector('#currentNakshatra');
+    const displayPada = padaId + 1;  // ✅ Convert to 1-based
+    const nextPada = ((padaId + 1) % 108);
+    const displayNextPada = nextPada + 1;  // ✅ Convert next to 1-based
     
-    if (currentPadaEl) currentPadaEl.innerText = padaId;
+    const currentPadaEl = mountNode?.querySelector('#currentPada');
+    const nextPadaEl = mountNode?.querySelector('#nextPada');
+    
+    if (currentPadaEl) currentPadaEl.innerText = displayPada;
+    if (nextPadaEl) nextPadaEl.innerText = displayNextPada;
+    // ... rest unchanged
+}
     if (currentNakshatraEl) currentNakshatraEl.innerText = NAKSHATRA_LIST[nakshatraId];
     
     // Calculate next pāda
@@ -35,7 +42,6 @@ function updateDisplay(padaId, nakshatraId, padaProgress = 0) {
         const remainingPercent = ((1 - progress) * 100).toFixed(1);
         timeToTransitionEl.innerText = `${remainingPercent}% of pāda`;
     }
-}
 
 function buildTimeline() {
     const bar = mountNode?.querySelector('#timelineBar');
