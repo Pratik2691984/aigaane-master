@@ -1,9 +1,9 @@
 // C:\aigaane-master\app.js
 // TIS v1.0 Orchestrator – Manifest Loader, Tool Dispatcher, Tab Manager
 
-import { resolveResonance } from './api/resolve_resonance.js';
-import { validateState } from './shared/invariant.js';
-import { runTools } from './shared/tool_runner.js';
+import { resolveResonance } from '/api/resolve_resonance.js';
+import { validateState } from '/shared/invariant.js';
+import { runTools } from '/shared/tool_runner.js';
 
 let manifest = null;
 let activeToolId = null;
@@ -19,12 +19,10 @@ async function loadManifest() {
     console.log('[TIS] Manifest loaded successfully');
   } catch (err) {
     console.error('[TIS] Failed to load manifest:', err);
-    // Fallback to empty manifest
     manifest = { tools: [] };
     return [];
   }
   
-  // Load modules for all tools
   for (const tool of manifest.tools) {
     try {
       const mod = await import(tool.path);
@@ -46,7 +44,6 @@ async function switchTab(toolId) {
     return;
   }
   
-  // Destroy previous UI tool
   if (activeToolId) {
     const prevTool = manifest.tools.find(t => t.id === activeToolId);
     if (prevTool?.module?.destroy) {
@@ -66,7 +63,6 @@ async function switchTab(toolId) {
   }
   
   try {
-    // Load view.html
     const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);
     if (!viewRes.ok) {
       throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
@@ -74,22 +70,18 @@ async function switchTab(toolId) {
     const html = await viewRes.text();
     viewport.innerHTML = html;
     
-    // Load style.css (relative path works because browser resolves from root)
     const styleLink = document.getElementById('tab-style');
     if (styleLink) {
       styleLink.href = `/ui/tabs/${toolId}/style.css`;
     }
     
-    // Ensure DOM is painted
     await new Promise(resolve => requestAnimationFrame(resolve));
     
-    // Mount tool
     currentMountNode = document.getElementById('viewport');
     if (toolDef.module?.init) {
       toolDef.module.init(currentMountNode);
     }
     
-    // Initial sync
     sync();
     console.log(`[App] Switched to tab: ${toolId}`);
   } catch (err) {
@@ -120,7 +112,6 @@ async function sync() {
   }
 }
 
-// Audio unlock (browser policy)
 document.body.addEventListener('click', () => {
   if (!window.audioUnlocked) {
     window.audioUnlocked = true;
@@ -128,7 +119,6 @@ document.body.addEventListener('click', () => {
   }
 });
 
-// Slider binding – wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
   const slider = document.getElementById('main-slider');
   if (slider) {
@@ -136,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Tab navigation
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     const tabName = e.target.dataset.tab;
@@ -148,16 +137,13 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   });
 });
 
-// Initialize the application
 async function init() {
   console.log('[App] Initializing Aigaane V3 PRO...');
-  
   await loadManifest();
   await switchTab('astronomy');
   sync();
 }
 
-// Start the application
 init().catch(err => {
   console.error('[App] Fatal initialization error:', err);
   const viewport = document.getElementById('viewport');
@@ -166,6 +152,5 @@ init().catch(err => {
   }
 });
 
-// Expose for debugging (optional)
 window.switchTab = switchTab;
 window.getManifest = () => manifest;
