@@ -10,8 +10,9 @@ let activeToolId = null;
 let currentMountNode = null;
 
 async function loadManifest() {
-  const res = await fetch('./tools/manifest.json');
+  const res = await fetch('/tools/manifest.json');  // ✅ Absolute path
   manifest = await res.json();
+  // ...
   
   for (const tool of manifest.tools) {
     try {
@@ -41,7 +42,7 @@ async function switchTab(toolId) {
   const toolDef = manifest.tools.find(t => t.id === toolId);
   if (!toolDef) return;
   
-  const viewRes = await fetch(`./ui/tabs/${toolId}/view.html`);
+  const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);  // ✅ Absolute path
   const html = await viewRes.text();
   viewport.innerHTML = html;
   
