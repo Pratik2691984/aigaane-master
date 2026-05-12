@@ -1,4 +1,4 @@
-/* C:\aigaane-master\ui\tabs\astronomy\style.css */
+/* Astronomy Tab Styles */
 
 .astronomy-tab {
     max-width: 1000px;
@@ -20,7 +20,7 @@
     border: 2px solid var(--gold);
     box-shadow: var(--border-glow);
     display: grid;
-    grid-template-columns: repeat(9, 1fr);  /* ✅ 9 columns for 27 items */
+    grid-template-columns: repeat(9, 1fr);
     gap: 4px;
     padding: 1rem;
 }

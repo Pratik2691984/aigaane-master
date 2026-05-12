@@ -1,7 +1,6 @@
 // C:\aigaane-master\tools\astronomy.tool.js
-// UI Tool Adapter – Wraps Astronomy Tab Controller
 
-import { init as tabInit, render as tabRender, destroy as tabDestroy } from '../ui/tabs/astronomy/controller.js';
+import { init, render, destroy } from '../ui/tabs/astronomy/controller.js';
 
 let mountNode = null;
 
@@ -13,17 +12,16 @@ export const tool = {
   
   run(state) {
     if (!mountNode) return;
-    // Pass filtered state to original render
-    tabRender(state, mountNode);
+    render(state, mountNode);
   },
   
   init(node) {
     mountNode = node;
-    tabInit(mountNode);
+    init(mountNode);
   },
   
   destroy() {
-    tabDestroy();
+    destroy();
     mountNode = null;
   }
 };

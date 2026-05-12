@@ -1,7 +1,6 @@
 // C:\aigaane-master\tools\sanskrit.tool.js
-// UI Tool Adapter – Wraps Sanskrit Tab Controller
 
-import { init as tabInit, render as tabRender, destroy as tabDestroy } from '../ui/tabs/sanskrit/controller.js';
+import { init, render, destroy } from '../ui/tabs/sanskrit/controller.js';
 
 let mountNode = null;
 
@@ -13,16 +12,16 @@ export const tool = {
   
   run(state) {
     if (!mountNode) return;
-    tabRender(state, mountNode);
+    render(state, mountNode);
   },
   
   init(node) {
     mountNode = node;
-    tabInit(mountNode);
+    init(mountNode);
   },
   
   destroy() {
-    tabDestroy();
+    destroy();
     mountNode = null;
   }
 };

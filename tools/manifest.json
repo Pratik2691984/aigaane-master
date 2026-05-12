@@ -3,7 +3,7 @@
   "tools": [
     {
       "id": "astronomy",
-      "path": "./tools/astronomy.tool.js",
+      "path": "/tools/astronomy.tool.js",
       "type": "ui",
       "subscriptions": ["pada_id", "nakshatra_id"],
       "timeout_ms": 10,
@@ -11,7 +11,7 @@
     },
     {
       "id": "sanskrit",
-      "path": "./tools/sanskrit.tool.js",
+      "path": "/tools/sanskrit.tool.js",
       "type": "ui",
       "subscriptions": ["phoneme_id"],
       "timeout_ms": 10,
@@ -19,7 +19,7 @@
     },
     {
       "id": "music",
-      "path": "./tools/music.tool.js",
+      "path": "/tools/music.tool.js",
       "type": "ui",
       "subscriptions": ["pada_id", "shruti_ratio"],
       "timeout_ms": 20,
@@ -27,7 +27,7 @@
     },
     {
       "id": "music_audio",
-      "path": "./tools/music.background.js",
+      "path": "/tools/music.background.js",
       "type": "background",
       "subscriptions": ["shruti_ratio"],
       "timeout_ms": 20,
@@ -36,7 +36,7 @@
     },
     {
       "id": "resonance",
-      "path": "./tools/resonance.tool.js",
+      "path": "/tools/resonance.tool.js",
       "type": "ui",
       "subscriptions": ["rasa_id", "pada_id"],
       "timeout_ms": 10,
@@ -44,7 +44,7 @@
     },
     {
       "id": "anumana",
-      "path": "./tools/anumana.tool.js",
+      "path": "/tools/anumana.tool.js",
       "type": "ui",
       "subscriptions": ["pada_id", "nakshatra_id"],
       "timeout_ms": 10,

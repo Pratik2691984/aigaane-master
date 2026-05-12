@@ -1,4 +1,4 @@
-// C:\aigaane-master\ui\tabs\music\controller.js
+// Music Tab Controller
 
 let mountNode = null;
 
@@ -15,10 +15,7 @@ function generateSectorPath(cx, cy, r, startAngle, endAngle) {
 
 function buildMandala() {
     const svg = mountNode?.querySelector('#sonic-mandala');
-    if (!svg) {
-        console.warn('[Music] SVG element not found');
-        return;
-    }
+    if (!svg) return;
     
     const existingSegments = svg.querySelectorAll('.pada-segment');
     existingSegments.forEach(seg => seg.remove());
@@ -59,36 +56,23 @@ function highlightPada(padaId) {
 }
 
 function updateDisplay(padaId, shrutiRatio) {
-    // Use global document query as fallback if mountNode fails
     const root = mountNode || document;
     
     const padaDisplay = root.querySelector('#active-pada');
     const freqDisplay = root.querySelector('#active-freq');
     const ratioDisplay = root.querySelector('#ratio-display');
-    const baseFreqDisplay = root.querySelector('#base-freq-display');
-    
-    console.log('[Music] DOM elements found - pada:', !!padaDisplay, 'freq:', !!freqDisplay);
     
     const displayPada = (padaId !== undefined && padaId !== null) ? padaId + 1 : '---';
     
-    if (padaDisplay) {
-        padaDisplay.innerText = displayPada;
-        console.log('[Music] Set Pāda to:', displayPada);
-    }
+    if (padaDisplay) padaDisplay.innerText = displayPada;
     
     if (freqDisplay && shrutiRatio) {
         const freq = (240 * shrutiRatio).toFixed(1);
         freqDisplay.innerText = `${freq} Hz`;
-        console.log('[Music] Set Frequency to:', freq, 'Hz');
     }
     
     if (ratioDisplay && shrutiRatio) {
         ratioDisplay.innerText = shrutiRatio.toFixed(4);
-        console.log('[Music] Set Ratio to:', shrutiRatio.toFixed(4));
-    }
-    
-    if (baseFreqDisplay) {
-        baseFreqDisplay.innerText = "240 Hz (Sa)";
     }
 }
 
@@ -100,21 +84,16 @@ export function init(node) {
 
 export function render(state, node) {
     if (node) mountNode = node;
-    const root = mountNode || document;
-    if (!root) return;
-    
+    if (!mountNode) return;
     if (!state) {
         console.error('[Music] State is undefined!');
         return;
     }
     
-    console.log('[Music] render received state:', state);
-    
     const padaId = state.pada_id ?? 0;
     const shrutiRatio = state.shruti_ratio ?? 1;
     
-    // Rebuild mandala if empty
-    const svg = root.querySelector('#sonic-mandala');
+    const svg = mountNode?.querySelector('#sonic-mandala');
     if (svg && svg.querySelectorAll('.pada-segment').length === 0) {
         buildMandala();
     }

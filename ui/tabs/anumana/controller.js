@@ -1,4 +1,4 @@
-// C:\aigaane-master\ui\tabs\anumana\controller.js
+// Anumana Tab Controller
 
 let mountNode = null;
 
@@ -9,18 +9,13 @@ const NAKSHATRA_LIST = [
 ];
 
 function updateDisplay(padaId, nakshatraId, padaProgress = 0) {
-    // Use global document query as fallback if mountNode fails
     const root = mountNode || document;
-    
-    console.log('[Anumana] updateDisplay - padaId:', padaId, 'nakshatraId:', nakshatraId, 'progress:', padaProgress);
     
     const displayPada = (padaId !== undefined && padaId !== null) ? padaId + 1 : '---';
     const displayNakshatra = (nakshatraId !== undefined && NAKSHATRA_LIST[nakshatraId]) ? NAKSHATRA_LIST[nakshatraId] : '---';
     
     const currentPadaEl = root.querySelector('#currentPada');
     const currentNakshatraEl = root.querySelector('#currentNakshatra');
-    
-    console.log('[Anumana] DOM elements - currentPada:', !!currentPadaEl, 'currentNakshatra:', !!currentNakshatraEl);
     
     if (currentPadaEl) currentPadaEl.innerText = displayPada;
     if (currentNakshatraEl) currentNakshatraEl.innerText = displayNakshatra;
@@ -68,17 +63,13 @@ export function init(node) {
 
 export function render(state, node) {
     if (node) mountNode = node;
-    const root = mountNode || document;
-    if (!root) return;
-    
+    if (!mountNode) return;
     if (!state) {
         console.error('[Anumana] State is undefined!');
         return;
     }
     
-    console.log('[Anumana] render received state:', state);
-    
-    if (!root.querySelector('#timelineProgress')) {
+    if (!mountNode?.querySelector('#timelineProgress')) {
         buildTimeline();
     }
     

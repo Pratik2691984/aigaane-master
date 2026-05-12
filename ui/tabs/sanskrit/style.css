@@ -1,4 +1,4 @@
-/* C:\aigaane-master\ui\tabs\sanskrit\style.css */
+/* Sanskrit Tab Styles */
 
 .sanskrit-tab {
     max-width: 1000px;
@@ -14,14 +14,12 @@
     min-width: 0;
 }
 
-/* Responsive collapse – prevents horizontal overflow */
 @media (max-width: 900px) {
     .sanskrit-layout {
         grid-template-columns: 1fr;
     }
 }
 
-/* Responsive grid – auto-fit + min width */
 .akshara-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));

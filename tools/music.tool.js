@@ -1,5 +1,4 @@
 // C:\aigaane-master\tools\music.tool.js
-// UI Tool – Sonic Mandala Visualizer
 
 import { init, render, destroy } from '../ui/tabs/music/controller.js';
 

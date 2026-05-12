@@ -21,7 +21,6 @@ function setNested(obj, path, value) {
 }
 
 export async function runTools(currentState, tools) {
-  // Initialize prevState on first run
   if (prevState === null) {
     prevState = {};
   }
@@ -35,17 +34,14 @@ export async function runTools(currentState, tools) {
       continue;
     }
     
-    // Subscription-based diff check
     const hasChanged = toolDef.subscriptions.some(path => {
       const prev = getNested(prevState, path);
       const curr = getNested(currentState, path);
       return prev !== curr;
     });
     
-    // Skip if no change and not always_run
     if (!hasChanged && !toolDef.always_run) continue;
     
-    // Build filtered nested state
     const filtered = {};
     toolDef.subscriptions.forEach(path => {
       const value = getNested(currentState, path);
@@ -54,10 +50,8 @@ export async function runTools(currentState, tools) {
     
     console.log(`[tool_runner] Tool ${toolDef.id} - filtered:`, filtered);
     
-    // Clone + freeze (read-only guarantee)
     const safeState = Object.freeze(structuredClone(filtered));
     
-    // Execute with timeout isolation
     try {
       await Promise.race([
         Promise.resolve().then(() => tool.run(safeState)),

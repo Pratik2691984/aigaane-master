@@ -1,3 +1,5 @@
+// Resonance Tab Controller
+
 let mountNode = null;
 
 const RASAS = [
@@ -24,11 +26,7 @@ function buildRasaWheel() {
             div.style.background = rasa.color;
             div.style.opacity = '0.3';
             div.dataset.rasaId = idx;
-            // ✅ Add click interaction for manual exploration
-            div.onclick = () => {
-                highlightRasa(idx);
-                console.log(`[Resonance] Manual selection: ${rasa.name}`);
-            };
+            div.onclick = () => highlightRasa(idx);
             wheel.appendChild(div);
         });
     }
@@ -38,7 +36,6 @@ function highlightRasa(rasaId) {
     const wheel = mountNode?.querySelector('#rasaWheel');
     if (!wheel) return;
     
-    // ✅ Safeguard against invalid rasa_id
     const validId = Math.min(Math.max(0, rasaId), 8);
     const rasa = RASAS[validId] || RASAS[0];
     
@@ -60,8 +57,7 @@ function highlightRasa(rasaId) {
 
 function updatePada(padaId) {
     const padaEl = mountNode?.querySelector('#associatedPada');
-    const displayPada = padaId + 1;  // ✅ Convert to 1-based
-    if (padaEl) padaEl.innerText = displayPada;
+    if (padaEl) padaEl.innerText = padaId + 1;
 }
 
 export function init(node) {
@@ -73,9 +69,13 @@ export function init(node) {
 export function render(state, node) {
     if (node) mountNode = node;
     if (!mountNode) return;
+    if (!state) {
+        console.error('[Resonance] State is undefined!');
+        return;
+    }
     
-    const rasaId = state?.rasa_id ?? 0;
-    const padaId = state?.pada_id ?? 0;
+    const rasaId = state.rasa_id ?? 0;
+    const padaId = state.pada_id ?? 0;
     
     highlightRasa(rasaId);
     updatePada(padaId);

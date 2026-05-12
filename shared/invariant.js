@@ -20,7 +20,6 @@ export function validateState(state) {
   return true;
 }
 
-// Deep freeze utility
 export function deepFreeze(obj) {
   Object.freeze(obj);
   Object.getOwnPropertyNames(obj).forEach(prop => {

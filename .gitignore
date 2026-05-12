@@ -1,5 +1,3 @@
-# C:\aigaane-master\.gitignore
-
 # OS junk
 .DS_Store
 Thumbs.db
@@ -11,13 +9,12 @@ Thumbs.db
 # Logs
 *.log
 
-# Dependencies (if any later)
+# Dependencies
 node_modules/
 
 # Backup files
 *.bak
 *.backup
 
-# State backups (exclude from version control)
-state/backups/
+# Vercel
 .vercel

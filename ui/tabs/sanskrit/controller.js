@@ -1,23 +1,19 @@
-// C:\aigaane-master\ui\tabs\sanskrit\controller.js
-// Sanskrit Tab – 49 Phoneme Grid (CORRECTED)
+// Sanskrit Tab Controller
 
 let mountNode = null;
 
-// Complete 49 phonemes in correct Vedic order
 const PHONEMES = [
-    "अ","आ","इ","ई","उ","ऊ","ऋ","ॠ","लृ","ॡ","ए","ऐ","ओ","औ","अं","अः",
+    "अ","आ","इ","ई","उ","ऊ","ऋ","ॠ","लृ","ॡ","ए"," ऐ","ओ","औ","अं","अः",
     "क","ख","ग","घ","ङ","च","छ","ज","झ","ञ","ट","ठ","ड","ढ","ण","त","थ","द","ध","न",
     "प","फ","ब","भ","म","य","र","ल","व","श","ष","स","ह"
 ];
 
-// IAST Transliteration mapping (same order)
 const TRANSLIT = [
     "a","ā","i","ī","u","ū","ṛ","ṝ","ḷ","ḹ","e","ai","o","au","aṃ","aḥ",
     "ka","kha","ga","gha","ṅa","ca","cha","ja","jha","ña","ṭa","ṭha","ḍa","ḍha","ṇa",
     "ta","tha","da","dha","na","pa","pha","ba","bha","ma","ya","ra","la","va","śa","ṣa","sa","ha"
 ];
 
-// Varga grouping
 const VARGA_MAP = [
     "Svara","Svara","Svara","Svara","Svara","Svara","Svara","Svara","Svara","Svara",
     "Svara","Svara","Svara","Svara","Svara","Svara",
@@ -50,7 +46,6 @@ function highlightPhoneme(phonemeId) {
     const grid = mountNode?.querySelector('#matrikaGrid');
     if (!grid) return;
     
-    // Clamp phonemeId to valid range
     const validId = Math.min(Math.max(0, phonemeId), 48);
     
     Array.from(grid.children).forEach((node, idx) => {
@@ -79,9 +74,12 @@ export function init(node) {
 export function render(state, node) {
     if (node) mountNode = node;
     if (!mountNode) return;
+    if (!state) {
+        console.error('[Sanskrit] State is undefined!');
+        return;
+    }
     
-    // Get phoneme_id from canonical state
-    const phonemeId = state?.phoneme_id ?? 0;
+    const phonemeId = state.phoneme_id ?? 0;
     highlightPhoneme(phonemeId);
 }
 

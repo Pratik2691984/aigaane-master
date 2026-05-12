@@ -1,9 +1,12 @@
+// C:\aigaane-master\tools\resonance.tool.js
+
 import { init, render, destroy } from '../ui/tabs/resonance/controller.js';
 
 let mountNode = null;
 
 export const tool = {
   id: "resonance",
+  type: "ui",
   subscriptions: ["rasa_id", "pada_id"],
   timeout: 10,
   

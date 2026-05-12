@@ -1,11 +1,10 @@
 // C:\aigaane-master\tools\music.background.js
-// Background Audio Tool – TIS v1.0 Compliant
 
 let audioCtx = null;
 let oscillator = null;
 let gainNode = null;
 
-const BASE_FREQ = 240; // Traditional Indian Sa (can be tuned)
+const BASE_FREQ = 240;
 
 export const tool = {
   id: "music_audio",
@@ -20,9 +19,7 @@ export const tool = {
     
     const freq = BASE_FREQ * ratio;
     
-    // Lazy init (user gesture required)
     if (!audioCtx) {
-      // Wait for user unlock (handled in app.js)
       if (!window.audioUnlocked) return;
       
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -37,7 +34,6 @@ export const tool = {
       oscillator.start();
     }
     
-    // Smooth frequency transition (no clicks)
     if (oscillator && audioCtx) {
       oscillator.frequency.setTargetAtTime(freq, audioCtx.currentTime, 0.02);
     }
