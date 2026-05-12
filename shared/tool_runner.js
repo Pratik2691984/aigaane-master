@@ -21,35 +21,43 @@ function setNested(obj, path, value) {
 }
 
 export async function runTools(currentState, tools) {
-  // First run: initialize prevState
+  // Initialize prevState on first run
   if (prevState === null) {
     prevState = {};
   }
-
+  
+  console.log('[tool_runner] Running tools with state:', currentState);
+  
   for (const toolDef of tools) {
     const tool = toolDef.module;
-
-    // 1. Subscription-based diff check
+    if (!tool) {
+      console.warn(`[tool_runner] No module for tool ${toolDef.id}`);
+      continue;
+    }
+    
+    // Subscription-based diff check
     const hasChanged = toolDef.subscriptions.some(path => {
       const prev = getNested(prevState, path);
       const curr = getNested(currentState, path);
       return prev !== curr;
     });
-
-    // Skip if no change and not forced
+    
+    // Skip if no change and not always_run
     if (!hasChanged && !toolDef.always_run) continue;
-
-    // 2. Build filtered nested state
+    
+    // Build filtered nested state
     const filtered = {};
     toolDef.subscriptions.forEach(path => {
       const value = getNested(currentState, path);
       setNested(filtered, path, value);
     });
-
-    // 3. Clone + freeze (read-only guarantee)
+    
+    console.log(`[tool_runner] Tool ${toolDef.id} - filtered:`, filtered);
+    
+    // Clone + freeze (read-only guarantee)
     const safeState = Object.freeze(structuredClone(filtered));
-
-    // 4. Execute with timeout isolation
+    
+    // Execute with timeout isolation
     try {
       await Promise.race([
         Promise.resolve().then(() => tool.run(safeState)),
@@ -61,6 +69,6 @@ export async function runTools(currentState, tools) {
       console.warn(`[TIS Error] ${toolDef.id}:`, err.message);
     }
   }
-
+  
   prevState = currentState;
 }

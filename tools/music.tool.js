@@ -6,7 +6,7 @@ import { init, render, destroy } from '../ui/tabs/music/controller.js';
 let mountNode = null;
 
 export const tool = {
-  id: "music_ui",
+  id: "music",
   type: "ui",
   subscriptions: ["pada_id", "shruti_ratio"],
   timeout: 20,

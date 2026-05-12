@@ -1,5 +1,4 @@
 // C:\aigaane-master\ui\tabs\music\controller.js
-// Music Tab – SVG Mandala Visualizer
 
 let mountNode = null;
 
@@ -17,18 +16,16 @@ function generateSectorPath(cx, cy, r, startAngle, endAngle) {
 function buildMandala() {
     const svg = mountNode?.querySelector('#sonic-mandala');
     if (!svg) {
-        console.warn('[Music] SVG element #sonic-mandala not found');
+        console.warn('[Music] SVG element not found');
         return;
     }
     
-    // Clear existing segments except background circle
     const existingSegments = svg.querySelectorAll('.pada-segment');
     existingSegments.forEach(seg => seg.remove());
     
     const radius = 180;
     const center = 200;
     
-    // Generate 108 segments
     for (let i = 0; i < 108; i++) {
         const startAngle = i * (360 / 108);
         const endAngle = (i + 1) * (360 / 108);
@@ -38,12 +35,10 @@ function buildMandala() {
         path.setAttribute("data-pada", i);
         path.style.fill = "rgba(212, 175, 55, 0.05)";
         path.style.stroke = "rgba(255, 255, 255, 0.1)";
-        path.style.strokeWidth = "0.5";
+        path.style.strokeWidth = "0.8";
         path.style.transition = "fill 0.2s";
-        path.style.cursor = "pointer";
         svg.appendChild(path);
     }
-    
     console.log('[Music] Mandala built with 108 segments');
 }
 
@@ -64,18 +59,36 @@ function highlightPada(padaId) {
 }
 
 function updateDisplay(padaId, shrutiRatio) {
-    const padaDisplay = mountNode?.querySelector('#active-pada');
-    const displayPada = padaId + 1;  // ✅ Convert to 1-based
+    // Use global document query as fallback if mountNode fails
+    const root = mountNode || document;
     
-    if (padaDisplay) padaDisplay.innerText = displayPada;
+    const padaDisplay = root.querySelector('#active-pada');
+    const freqDisplay = root.querySelector('#active-freq');
+    const ratioDisplay = root.querySelector('#ratio-display');
+    const baseFreqDisplay = root.querySelector('#base-freq-display');
+    
+    console.log('[Music] DOM elements found - pada:', !!padaDisplay, 'freq:', !!freqDisplay);
+    
+    const displayPada = (padaId !== undefined && padaId !== null) ? padaId + 1 : '---';
+    
+    if (padaDisplay) {
+        padaDisplay.innerText = displayPada;
+        console.log('[Music] Set Pāda to:', displayPada);
+    }
     
     if (freqDisplay && shrutiRatio) {
         const freq = (240 * shrutiRatio).toFixed(1);
         freqDisplay.innerText = `${freq} Hz`;
+        console.log('[Music] Set Frequency to:', freq, 'Hz');
     }
     
     if (ratioDisplay && shrutiRatio) {
         ratioDisplay.innerText = shrutiRatio.toFixed(4);
+        console.log('[Music] Set Ratio to:', shrutiRatio.toFixed(4));
+    }
+    
+    if (baseFreqDisplay) {
+        baseFreqDisplay.innerText = "240 Hz (Sa)";
     }
 }
 
@@ -87,16 +100,24 @@ export function init(node) {
 
 export function render(state, node) {
     if (node) mountNode = node;
-    if (!mountNode) return;
+    const root = mountNode || document;
+    if (!root) return;
     
-    // Rebuild mandala if SVG is empty (safety)
-    const svg = mountNode?.querySelector('#sonic-mandala');
+    if (!state) {
+        console.error('[Music] State is undefined!');
+        return;
+    }
+    
+    console.log('[Music] render received state:', state);
+    
+    const padaId = state.pada_id ?? 0;
+    const shrutiRatio = state.shruti_ratio ?? 1;
+    
+    // Rebuild mandala if empty
+    const svg = root.querySelector('#sonic-mandala');
     if (svg && svg.querySelectorAll('.pada-segment').length === 0) {
         buildMandala();
     }
-    
-    const padaId = state?.pada_id ?? 0;
-    const shrutiRatio = state?.shruti_ratio ?? 1;
     
     highlightPada(padaId);
     updateDisplay(padaId, shrutiRatio);

@@ -15,7 +15,6 @@ function renderWheel(padaId) {
   
   const nakshatraIndex = Math.floor(padaId / 4);
   
-  // Create wheel if empty
   if (wheel.children.length === 0) {
     for (let i = 0; i < NAKSHATRA_LIST.length; i++) {
       const div = document.createElement('div');
@@ -26,26 +25,27 @@ function renderWheel(padaId) {
     }
   }
   
-  // Highlight active
   Array.from(wheel.children).forEach((child, idx) => {
     child.classList.toggle('active', idx === nakshatraIndex);
   });
 }
 
 function updateDetails(state) {
-    const padaId = state.pada_id;  // 0-based (0-107)
-    const displayPada = padaId + 1;  // ✅ Convert to 1-based for display
-    const quarter = (padaId % 4) + 1;
-    const nakshatraIndex = Math.floor(padaId / 4);
-    const nakshatraName = NAKSHATRA_LIST[nakshatraIndex];
-    
-    const padaEl = mountNode?.querySelector('#padaValue');
-    const nakshatraEl = mountNode?.querySelector('#nakshatraName');
-    const quarterEl = mountNode?.querySelector('#padaQuarter');
-    
-    if (padaEl) padaEl.innerText = displayPada;  // ✅ Shows 68 instead of 67
-    if (nakshatraEl) nakshatraEl.innerText = nakshatraName;
-    if (quarterEl) quarterEl.innerText = quarter;
+  if (!state) return;
+  
+  const padaId = state.pada_id;  // 0-based (0-107)
+  const displayPada = padaId + 1;  // Convert to 1-based for display
+  const quarter = (padaId % 4) + 1;
+  const nakshatraIndex = Math.floor(padaId / 4);
+  const nakshatraName = NAKSHATRA_LIST[nakshatraIndex];
+  
+  const padaEl = mountNode?.querySelector('#padaValue');
+  const nakshatraEl = mountNode?.querySelector('#nakshatraName');
+  const quarterEl = mountNode?.querySelector('#padaQuarter');
+  
+  if (padaEl) padaEl.innerText = displayPada;
+  if (nakshatraEl) nakshatraEl.innerText = nakshatraName;
+  if (quarterEl) quarterEl.innerText = quarter;
 }
 
 export function init(node) {
@@ -56,10 +56,16 @@ export function init(node) {
 export function render(state, node) {
   if (node) mountNode = node;
   if (!mountNode) return;
+  if (!state) {
+    console.error('[Astronomy] State is undefined!');
+    return;
+  }
   
   const padaId = state.pada_id;
+  console.log('[Astronomy] render - pada_id:', padaId, 'nakshatra_id:', state.nakshatra_id);
+  
   renderWheel(padaId);
-  updateDetails(padaId);
+  updateDetails(state);  // ✅ PASS THE FULL STATE, NOT JUST padaId
 }
 
 export function destroy() {

@@ -1,3 +1,5 @@
+// C:\aigaane-master\ui\tabs\anumana\controller.js
+
 let mountNode = null;
 
 const NAKSHATRA_LIST = [
@@ -7,44 +9,47 @@ const NAKSHATRA_LIST = [
 ];
 
 function updateDisplay(padaId, nakshatraId, padaProgress = 0) {
-    const displayPada = padaId + 1;  // ✅ Convert to 1-based
-    const nextPada = ((padaId + 1) % 108);
-    const displayNextPada = nextPada + 1;  // ✅ Convert next to 1-based
+    // Use global document query as fallback if mountNode fails
+    const root = mountNode || document;
     
-    const currentPadaEl = mountNode?.querySelector('#currentPada');
-    const nextPadaEl = mountNode?.querySelector('#nextPada');
+    console.log('[Anumana] updateDisplay - padaId:', padaId, 'nakshatraId:', nakshatraId, 'progress:', padaProgress);
+    
+    const displayPada = (padaId !== undefined && padaId !== null) ? padaId + 1 : '---';
+    const displayNakshatra = (nakshatraId !== undefined && NAKSHATRA_LIST[nakshatraId]) ? NAKSHATRA_LIST[nakshatraId] : '---';
+    
+    const currentPadaEl = root.querySelector('#currentPada');
+    const currentNakshatraEl = root.querySelector('#currentNakshatra');
+    
+    console.log('[Anumana] DOM elements - currentPada:', !!currentPadaEl, 'currentNakshatra:', !!currentNakshatraEl);
     
     if (currentPadaEl) currentPadaEl.innerText = displayPada;
-    if (nextPadaEl) nextPadaEl.innerText = displayNextPada;
-    // ... rest unchanged
-}
-    if (currentNakshatraEl) currentNakshatraEl.innerText = NAKSHATRA_LIST[nakshatraId];
+    if (currentNakshatraEl) currentNakshatraEl.innerText = displayNakshatra;
     
-    // Calculate next pāda
-    const nextPada = (padaId + 1) % 108;
-    const nextNakshatraId = Math.floor(nextPada / 4);
-    
-    // ✅ FIXED: Use pada_progress from state (0 to 1)
-    const progress = Math.min(Math.max(0, padaProgress), 1);
-    
-    const nextPadaEl = mountNode?.querySelector('#nextPada');
-    const nextNakshatraEl = mountNode?.querySelector('#nextNakshatra');
-    const timeToTransitionEl = mountNode?.querySelector('#timeToTransition');
-    
-    if (nextPadaEl) nextPadaEl.innerText = nextPada;
-    if (nextNakshatraEl) nextNakshatraEl.innerText = NAKSHATRA_LIST[nextNakshatraId];
-    
-    // ✅ FIXED: Update timeline progress
-    const timelineProgress = mountNode?.querySelector('#timelineProgress');
-    if (timelineProgress) timelineProgress.style.width = `${progress * 100}%`;
-    
-    if (timeToTransitionEl) {
+    if (padaId !== undefined && padaId !== null) {
+        const nextPada = (padaId + 1) % 108;
+        const nextNakshatraId = Math.floor(nextPada / 4);
+        const displayNextPada = nextPada + 1;
+        const displayNextNakshatra = NAKSHATRA_LIST[nextNakshatraId];
+        
+        const nextPadaEl = root.querySelector('#nextPada');
+        const nextNakshatraEl = root.querySelector('#nextNakshatra');
+        const timeToTransitionEl = root.querySelector('#timeToTransition');
+        
+        if (nextPadaEl) nextPadaEl.innerText = displayNextPada;
+        if (nextNakshatraEl) nextNakshatraEl.innerText = displayNextNakshatra;
+        
+        const progress = Math.min(Math.max(0, padaProgress), 1);
         const remainingPercent = ((1 - progress) * 100).toFixed(1);
-        timeToTransitionEl.innerText = `${remainingPercent}% of pāda`;
+        if (timeToTransitionEl) timeToTransitionEl.innerText = `${remainingPercent}% of pāda`;
+        
+        const timelineProgress = root.querySelector('#timelineProgress');
+        if (timelineProgress) timelineProgress.style.width = `${progress * 100}%`;
     }
+}
 
 function buildTimeline() {
-    const bar = mountNode?.querySelector('#timelineBar');
+    const root = mountNode || document;
+    const bar = root.querySelector('#timelineBar');
     if (!bar) return;
     
     if (bar.children.length === 0) {
@@ -63,16 +68,23 @@ export function init(node) {
 
 export function render(state, node) {
     if (node) mountNode = node;
-    if (!mountNode) return;
+    const root = mountNode || document;
+    if (!root) return;
     
-    // ✅ Ensure timeline is built
-    if (!mountNode?.querySelector('#timelineProgress')) {
+    if (!state) {
+        console.error('[Anumana] State is undefined!');
+        return;
+    }
+    
+    console.log('[Anumana] render received state:', state);
+    
+    if (!root.querySelector('#timelineProgress')) {
         buildTimeline();
     }
     
-    const padaId = state?.pada_id ?? 0;
-    const nakshatraId = state?.nakshatra_id ?? 0;
-    const padaProgress = state?.pada_progress ?? 0;
+    const padaId = state.pada_id ?? 0;
+    const nakshatraId = state.nakshatra_id ?? 0;
+    const padaProgress = state.pada_progress ?? 0;
     
     updateDisplay(padaId, nakshatraId, padaProgress);
 }
