@@ -1,8 +1,12 @@
+/* C:\aigaane-master\ui\tabs\resonance\style.css */
+
 .resonance-tab {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .rasa-container {
@@ -18,6 +22,9 @@
     background: var(--glass-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .rasa-segment {
@@ -27,9 +34,12 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    padding: clamp(0.5rem, 2vw, 1rem);
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid transparent;
+    text-align: center;
 }
 
 .rasa-segment.active {
@@ -59,9 +69,15 @@
 }
 
 .rasa-card h1 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin: 0.5rem 0;
     color: var(--gold);
+}
+
+.rasa-card h2 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    margin: 0.5rem 0;
+    color: #e0e6ed;
 }
 
 .rasa-color {
@@ -75,5 +91,9 @@
 @media (max-width: 700px) {
     .rasa-container {
         grid-template-columns: 1fr;
+    }
+    
+    .rasa-wheel {
+        max-width: 100%;
     }
 }

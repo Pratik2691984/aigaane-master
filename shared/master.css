@@ -22,6 +22,9 @@
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 2rem;
+    
+    /* Responsive scaling */
+    --scale-ratio: clamp(0.9, 1vw, 1.1);
 }
 
 * {
@@ -38,19 +41,19 @@ body {
     color: #e0e0e0;
     font-family: var(--font-sans);
 
-    min-height: 100vh;      /* ✅ allows expansion beyond viewport */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 
     overflow-x: hidden;
-    overflow-y: auto;       /* ✅ enables page-level scrolling */
+    overflow-y: auto;
 }
 
 /* App Shell – ensures proper flex layout */
 #app-shell {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 /* Navigation */
@@ -62,6 +65,7 @@ nav {
     gap: var(--spacing-md);
     justify-content: center;
     flex-shrink: 0;
+    flex-wrap: wrap;
 }
 
 .nav-btn {
@@ -85,12 +89,12 @@ nav {
     color: var(--deep-space);
 }
 
-/* Viewport – Scrollable Content Area */
 #viewport {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;   /* ✅ prevents sideways lock illusion */
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
     padding: var(--spacing-lg);
+    overflow-x: hidden;
 }
 
 /* Footer with Slider – stays at bottom */
@@ -107,6 +111,8 @@ nav {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .slider-container label {
@@ -158,7 +164,7 @@ input[type="range"]::-webkit-slider-thumb {
     background: var(--gold);
     box-shadow: var(--border-glow);
     cursor: pointer;
-    margin-top: -7px;  /* Centers thumb on the 4px track */
+    margin-top: -7px;
     border: none;
 }
 
