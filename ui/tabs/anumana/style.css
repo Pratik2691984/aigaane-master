@@ -1,0 +1,73 @@
+.anumana-tab {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.prediction-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.current-state, .next-state {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.prediction-card {
+    background: var(--glass-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    text-align: center;
+    border-left: 3px solid var(--gold);
+}
+
+.prediction-card .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a0b0c8;
+}
+
+.prediction-card h1 {
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    color: var(--gold);
+}
+
+.timeline {
+    margin-top: 1rem;
+}
+
+.timeline-bar {
+    height: 8px;
+    background: var(--glass-border);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-progress {
+    height: 100%;
+    width: 0%;
+    background: var(--vedic-saffron);
+    border-radius: 4px;
+    transition: width 0.1s ease;
+}
+
+.timeline-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: #7c8ba0;
+}
+
+@media (max-width: 600px) {
+    .current-state, .next-state {
+        grid-template-columns: 1fr;
+    }
+}

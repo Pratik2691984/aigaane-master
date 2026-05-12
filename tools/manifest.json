@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "tools": [
+    {
+      "id": "astronomy",
+      "path": "./tools/astronomy.tool.js",
+      "type": "ui",
+      "subscriptions": ["pada_id", "nakshatra_id"],
+      "timeout_ms": 10,
+      "enabled": true
+    },
+    {
+      "id": "sanskrit",
+      "path": "./tools/sanskrit.tool.js",
+      "type": "ui",
+      "subscriptions": ["phoneme_id"],
+      "timeout_ms": 10,
+      "enabled": true
+    },
+    {
+      "id": "music",
+      "path": "./tools/music.tool.js",
+      "type": "ui",
+      "subscriptions": ["pada_id", "shruti_ratio"],
+      "timeout_ms": 20,
+      "enabled": true
+    },
+    {
+      "id": "music_audio",
+      "path": "./tools/music.background.js",
+      "type": "background",
+      "subscriptions": ["shruti_ratio"],
+      "timeout_ms": 20,
+      "always_run": true,
+      "enabled": true
+    },
+    {
+      "id": "resonance",
+      "path": "./tools/resonance.tool.js",
+      "type": "ui",
+      "subscriptions": ["rasa_id", "pada_id"],
+      "timeout_ms": 10,
+      "enabled": true
+    },
+    {
+      "id": "anumana",
+      "path": "./tools/anumana.tool.js",
+      "type": "ui",
+      "subscriptions": ["pada_id", "nakshatra_id"],
+      "timeout_ms": 10,
+      "enabled": true
+    }
+  ]
+}

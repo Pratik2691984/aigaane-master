@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aigaane V3 PRO | Digital Sanctuary</title>
+    <link rel="stylesheet" href="shared/master.css">
+    <link id="tab-style" rel="stylesheet" href="">
+</head>
+<body>
+
+<div id="app-shell">
+    <nav>
+    <button class="nav-btn active" data-tab="astronomy">✨ Nakshatra</button>
+    <button class="nav-btn" data-tab="sanskrit">🕉️ Sanskrit</button>
+    <button class="nav-btn" data-tab="music">🎵 Sonic Mandala</button>
+    <button class="nav-btn" data-tab="resonance">🎭 Resonance</button>
+    <button class="nav-btn" data-tab="anumana">🔮 Anumāna</button>
+</nav>
+
+    <main id="viewport">
+        <div class="loader">Loading Aigaane Engine...</div>
+    </main>
+
+    <footer id="global-footer">
+        <div class="slider-container">
+            <label>🌞 COSMIC ANGLE</label>
+            <input type="range" id="main-slider" min="0" max="360" step="0.1" value="180">
+            <span id="angle-readout">180.0°</span>
+        </div>
+    </footer>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

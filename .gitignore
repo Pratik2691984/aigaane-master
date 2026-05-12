@@ -1,0 +1,23 @@
+# C:\aigaane-master\.gitignore
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Dependencies (if any later)
+node_modules/
+
+# Backup files
+*.bak
+*.backup
+
+# State backups (exclude from version control)
+state/backups/
+.vercel

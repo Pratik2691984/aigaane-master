@@ -1,0 +1,91 @@
+/* C:\aigaane-master\ui\tabs\sanskrit\style.css */
+
+.sanskrit-tab {
+    padding: 1.5rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.sanskrit-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    min-width: 0;   /* ✅ Prevents grid children from refusing to shrink */
+}
+
+/* 🔑 FIX 1: Responsive collapse – prevents horizontal overflow */
+@media (max-width: 900px) {
+    .sanskrit-layout {
+        grid-template-columns: 1fr;   /* ✅ stack vertically on smaller screens */
+    }
+}
+
+/* 🔑 FIX 2: Responsive grid – auto-fit + min width */
+.akshara-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 12px;
+}
+
+.akshara-node {
+    aspect-ratio: 1;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #e0e6ed;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.akshara-node.active {
+    background: var(--vedic-saffron);
+    color: var(--deep-space);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--vedic-saffron);
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.display-glyph {
+    font-size: 6rem;
+    color: var(--gold);
+    text-align: center;
+    text-shadow: var(--border-glow);
+    margin: 1rem 0;
+}
+
+.phoneme-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.focus-card {
+    background: var(--glass-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gold);
+}
+
+.data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.data-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

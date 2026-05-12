@@ -1,0 +1,194 @@
+/* C:\aigaane-master\shared\master.css */
+/* Global Design Tokens – The Soul of Aigaane */
+
+:root {
+    /* Brand Colors */
+    --gold: #D4AF37;
+    --deep-space: #0a0c12;
+    --vedic-saffron: #FF9933;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(212, 175, 55, 0.2);
+    
+    /* Effects */
+    --border-glow: 0 0 15px rgba(212, 175, 55, 0.2);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* Spacing */
+    --border-radius: 1rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================ */
+/* FIXED: Body allows scrolling now            */
+/* ============================================ */
+body {
+    background: var(--deep-space);
+    color: #e0e0e0;
+    font-family: var(--font-sans);
+
+    min-height: 100vh;      /* ✅ allows expansion beyond viewport */
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+    overflow-y: auto;       /* ✅ enables page-level scrolling */
+}
+
+/* App Shell – ensures proper flex layout */
+#app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    background: var(--glass-bg);
+    border-bottom: 1px solid var(--gold);
+    padding: var(--spacing-md);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--gold);
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.nav-btn:hover {
+    border-color: var(--gold);
+    background: var(--glass-bg);
+}
+
+.nav-btn.active {
+    background: var(--gold);
+    color: var(--deep-space);
+}
+
+/* Viewport – Scrollable Content Area */
+#viewport {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;   /* ✅ prevents sideways lock illusion */
+    padding: var(--spacing-lg);
+}
+
+/* Footer with Slider – stays at bottom */
+#global-footer {
+    background: var(--glass-bg);
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--glass-border);
+    flex-shrink: 0;
+}
+
+.slider-container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.slider-container label {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+/* ============================================ */
+/* SLIDER STYLES – Cross-Browser Compatible     */
+/* ============================================ */
+
+/* Reset default appearance */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+/* Focus state – remove default outline */
+input[type="range"]:focus {
+    outline: none;
+}
+
+/* Track (Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: var(--glass-border);
+    border-radius: 2px;
+}
+
+/* Track (Firefox) */
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: var(--glass-border);
+    border-radius: 2px;
+}
+
+/* Thumb (Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: var(--border-glow);
+    cursor: pointer;
+    margin-top: -7px;  /* Centers thumb on the 4px track */
+    border: none;
+}
+
+/* Thumb (Firefox) */
+input[type="range"]::-moz-range-thumb {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: var(--border-glow);
+    cursor: pointer;
+    border: none;
+}
+
+/* Angle Readout */
+#angle-readout {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--gold);
+    min-width: 70px;
+}
+
+/* Loader */
+.loader {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: #7c8ba0;
+}
+
+/* Utility */
+.hidden {
+    display: none;
+}

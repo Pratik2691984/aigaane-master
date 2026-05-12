@@ -1,0 +1,66 @@
+// C:\aigaane-master\shared\tool_runner.js
+// TIS v1.0 Execution Firewall – Diff, Filter, Clone, Freeze, Timeout
+
+let prevState = null;
+
+function getNested(obj, path) {
+  return path.split('.').reduce((o, k) => o?.[k], obj);
+}
+
+function setNested(obj, path, value) {
+  const keys = path.split('.');
+  let curr = obj;
+  keys.forEach((key, i) => {
+    if (i === keys.length - 1) {
+      curr[key] = value;
+    } else {
+      curr[key] = curr[key] || {};
+      curr = curr[key];
+    }
+  });
+}
+
+export async function runTools(currentState, tools) {
+  // First run: initialize prevState
+  if (prevState === null) {
+    prevState = {};
+  }
+
+  for (const toolDef of tools) {
+    const tool = toolDef.module;
+
+    // 1. Subscription-based diff check
+    const hasChanged = toolDef.subscriptions.some(path => {
+      const prev = getNested(prevState, path);
+      const curr = getNested(currentState, path);
+      return prev !== curr;
+    });
+
+    // Skip if no change and not forced
+    if (!hasChanged && !toolDef.always_run) continue;
+
+    // 2. Build filtered nested state
+    const filtered = {};
+    toolDef.subscriptions.forEach(path => {
+      const value = getNested(currentState, path);
+      setNested(filtered, path, value);
+    });
+
+    // 3. Clone + freeze (read-only guarantee)
+    const safeState = Object.freeze(structuredClone(filtered));
+
+    // 4. Execute with timeout isolation
+    try {
+      await Promise.race([
+        Promise.resolve().then(() => tool.run(safeState)),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error(`Tool ${toolDef.id} timeout`)), toolDef.timeout_ms || 10)
+        )
+      ]);
+    } catch (err) {
+      console.warn(`[TIS Error] ${toolDef.id}:`, err.message);
+    }
+  }
+
+  prevState = currentState;
+}
