@@ -10,10 +10,21 @@ let activeToolId = null;
 let currentMountNode = null;
 
 async function loadManifest() {
-  const res = await fetch('/tools/manifest.json');  // ✅ Absolute path
-  manifest = await res.json();
-  // ...
+  try {
+    const res = await fetch('/tools/manifest.json');
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+    manifest = await res.json();
+    console.log('[TIS] Manifest loaded successfully');
+  } catch (err) {
+    console.error('[TIS] Failed to load manifest:', err);
+    // Fallback to empty manifest
+    manifest = { tools: [] };
+    return [];
+  }
   
+  // Load modules for all tools
   for (const tool of manifest.tools) {
     try {
       const mod = await import(tool.path);
@@ -30,50 +41,86 @@ async function loadManifest() {
 
 async function switchTab(toolId) {
   const viewport = document.getElementById('viewport');
+  if (!viewport) {
+    console.error('[App] Viewport not found');
+    return;
+  }
   
+  // Destroy previous UI tool
   if (activeToolId) {
     const prevTool = manifest.tools.find(t => t.id === activeToolId);
     if (prevTool?.module?.destroy) {
-      prevTool.module.destroy();
+      try {
+        prevTool.module.destroy();
+      } catch (err) {
+        console.warn(`[App] Error destroying ${activeToolId}:`, err);
+      }
     }
   }
   
   activeToolId = toolId;
   const toolDef = manifest.tools.find(t => t.id === toolId);
-  if (!toolDef) return;
-  
-  const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);  // ✅ Absolute path
-  const html = await viewRes.text();
-  viewport.innerHTML = html;
-  
-  document.getElementById('tab-style').href = `./ui/tabs/${toolId}/style.css`;
-  
-  await new Promise(resolve => requestAnimationFrame(resolve));
-  
-  currentMountNode = document.getElementById('viewport');
-  if (toolDef.module?.init) {
-    toolDef.module.init(currentMountNode);
+  if (!toolDef) {
+    console.error(`[App] Tool ${toolId} not found in manifest`);
+    return;
   }
   
-  sync();
+  try {
+    // Load view.html
+    const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);
+    if (!viewRes.ok) {
+      throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
+    }
+    const html = await viewRes.text();
+    viewport.innerHTML = html;
+    
+    // Load style.css (relative path works because browser resolves from root)
+    const styleLink = document.getElementById('tab-style');
+    if (styleLink) {
+      styleLink.href = `/ui/tabs/${toolId}/style.css`;
+    }
+    
+    // Ensure DOM is painted
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    
+    // Mount tool
+    currentMountNode = document.getElementById('viewport');
+    if (toolDef.module?.init) {
+      toolDef.module.init(currentMountNode);
+    }
+    
+    // Initial sync
+    sync();
+    console.log(`[App] Switched to tab: ${toolId}`);
+  } catch (err) {
+    console.error(`[App] Failed to load tab ${toolId}:`, err);
+    viewport.innerHTML = `<div class="error">Failed to load ${toolId} tab. Please refresh.</div>`;
+  }
 }
 
 async function sync() {
   const slider = document.getElementById('main-slider');
   const readout = document.getElementById('angle-readout');
   
+  if (!slider || !readout) return;
+  
   const angle = parseFloat(slider.value);
   readout.innerText = `${angle.toFixed(1)}°`;
   
-  const state = resolveResonance(angle);
-  console.log('[app.js] Resolved state:', state);
-  
-  validateState(state);
-  
-  const enabledTools = manifest.tools.filter(t => t.enabled !== false);
-  await runTools(state, enabledTools);
+  try {
+    const state = resolveResonance(angle);
+    console.log('[app.js] Resolved state:', state);
+    
+    validateState(state);
+    
+    const enabledTools = manifest?.tools?.filter(t => t.enabled !== false) || [];
+    await runTools(state, enabledTools);
+  } catch (err) {
+    console.error('[App] Sync error:', err);
+  }
 }
 
+// Audio unlock (browser policy)
 document.body.addEventListener('click', () => {
   if (!window.audioUnlocked) {
     window.audioUnlocked = true;
@@ -81,23 +128,44 @@ document.body.addEventListener('click', () => {
   }
 });
 
-document.getElementById('main-slider').oninput = sync;
+// Slider binding – wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', () => {
+  const slider = document.getElementById('main-slider');
+  if (slider) {
+    slider.oninput = sync;
+  }
+});
 
+// Tab navigation
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     const tabName = e.target.dataset.tab;
+    if (!tabName) return;
+    
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     e.target.classList.add('active');
     switchTab(tabName);
   });
 });
 
+// Initialize the application
 async function init() {
+  console.log('[App] Initializing Aigaane V3 PRO...');
+  
   await loadManifest();
   await switchTab('astronomy');
   sync();
 }
 
-init().catch(console.error);
+// Start the application
+init().catch(err => {
+  console.error('[App] Fatal initialization error:', err);
+  const viewport = document.getElementById('viewport');
+  if (viewport) {
+    viewport.innerHTML = '<div class="error">Failed to initialize engine. Please refresh the page.</div>';
+  }
+});
 
+// Expose for debugging (optional)
 window.switchTab = switchTab;
+window.getManifest = () => manifest;
