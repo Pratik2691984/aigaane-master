@@ -93,3 +93,10 @@ Desktop.ini
 *.swp
 *.swo
 *~
+
+# Python files (excluded from Vercel)
+*.py
+api/*.py
+requirements.txt
+api/requirements.txt
+__pycache__/
