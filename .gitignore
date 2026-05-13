@@ -100,3 +100,10 @@ api/*.py
 requirements.txt
 api/requirements.txt
 __pycache__/
+
+# Python files (excluded from Vercel)
+*.py
+api/*.py
+requirements.txt
+api/requirements.txt
+__pycache__/
