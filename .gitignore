@@ -1,4 +1,7 @@
-﻿# Vercel
+﻿# Exempt the specific requirements file needed for Render
+!api/requirements.txt
+
+# Vercel
 .vercel
 
 # Dependencies
@@ -93,13 +96,6 @@ Desktop.ini
 *.swp
 *.swo
 *~
-
-# Python files (excluded from Vercel)
-*.py
-api/*.py
-requirements.txt
-api/requirements.txt
-__pycache__/
 
 # Python files (excluded from Vercel)
 *.py
