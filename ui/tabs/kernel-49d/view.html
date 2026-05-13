@@ -1,0 +1,87 @@
+<div class="tab-container kernel-49d-tab">
+  <h2>🌀 49‑Dimensional Kernel</h2>
+  <p class="subtitle">Raw parametric vector | Krittika + Pleiades emission model</p>
+  
+  <!-- Action Buttons -->
+  <div class="action-bar">
+    <button id="export-vector-btn" class="action-btn export-btn">📥 Export 49D JSON</button>
+    <button id="capture-state-btn" class="action-btn capture-btn">📸 Capture Current State</button>
+    <button id="compare-state-btn" class="action-btn compare-btn" disabled>🔍 Compare with Captured</button>
+  </div>
+  
+  <!-- Threshold Alerts -->
+  <div id="threshold-alerts" class="threshold-alerts"></div>
+  
+  <!-- Metrics Summary (7 cards) -->
+  <div class="vector-summary">
+    <div class="metric-card">
+      <span class="label">🎯 Nakshatra</span>
+      <span id="kernel-nakshatra" class="value">—</span>
+    </div>
+    <div class="metric-card">
+      <span class="label">📐 Pada</span>
+      <span id="kernel-pada" class="value">—</span>
+    </div>
+    <div class="metric-card">
+      <span class="label">🌟 Stellar Emission</span>
+      <span id="kernel-emission" class="value">—</span>
+    </div>
+    <div class="metric-card">
+      <span class="label">🎵 Śruti Ratio</span>
+      <span id="kernel-shruti" class="value">—</span>
+    </div>
+    <div class="metric-card">
+      <span class="label">⚡ Energy Status</span>
+      <span id="energy-status" class="value">—</span>
+    </div>
+    <div class="metric-card">
+      <span class="label">🔗 Phase-Lock</span>
+      <span id="phase-lock-status" class="value">—</span>
+    </div>
+    <div class="metric-card">
+      <span class="label">📊 Planetary Mean</span>
+      <span id="planetary-mean" class="value">—</span>
+    </div>
+  </div>
+
+  <!-- Heatmap Visualization -->
+  <div class="heatmap-section">
+    <h3>🔥 49D Heatmap</h3>
+    <div class="heatmap-container">
+      <div class="heatmap-grid" id="heatmap-grid"></div>
+      <div class="heatmap-legend">
+        <span>⬛ Low (0)</span>
+        <span>🟫 Mid (0.5)</span>
+        <span>🟡 High (1.0)</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Anomaly Detection Panel -->
+  <div class="anomaly-section">
+    <h3>⚠️ Anomaly Detection</h3>
+    <div id="anomaly-panel" class="anomaly-panel">
+      <div class="anomaly-clear">✅ No anomalies detected</div>
+    </div>
+  </div>
+  
+  <!-- Historical Trend -->
+  <div class="trend-section">
+    <h3>📈 Historical Trend (Last 10 States)</h3>
+    <div class="trend-panel">
+      <div class="trend-stats" id="trend-stats">—</div>
+      <canvas id="trend-canvas" width="400" height="100" style="width:100%; max-width:400px; height:100px"></canvas>
+    </div>
+  </div>
+  
+  <!-- 7 Layers Visualization -->
+  <div class="vector-layers" id="vector-layers"></div>
+  
+  <!-- Raw Vector Export -->
+  <div class="vector-raw">
+    <details>
+      <summary>📋 Raw 49D Vector (copy/paste)</summary>
+      <pre id="raw-vector">[]</pre>
+    </details>
+  </div>
+</div>

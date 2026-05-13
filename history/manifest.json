@@ -1,0 +1,22 @@
+{
+  "total_vectors": 10,
+  "unique_vectors": 1,
+  "current_build": "Viśākhā 210.0°",
+  "notes": "All 10 exports are identical - captured at same angle",
+  "vectors": [
+    {
+      "file": "vector_01.json",
+      "angle": 210.0,
+      "nakshatra": "Viśākhā",
+      "pada": 64,
+      "type": "golden_build",
+      "status": "OPTIMAL",
+      "phase_lock": "LOCKED",
+      "timestamp": "2026-05-14T00:56:01Z"
+    }
+  ],
+  "duplicates": [
+    "vector_02.json", "vector_03.json", "vector_04.json", "vector_05.json",
+    "vector_06.json", "vector_07.json", "vector_08.json", "vector_09.json", "vector_10.json"
+  ]
+}

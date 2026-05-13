@@ -58,6 +58,15 @@
       "subscriptions": ["pada_id", "nakshatra_id"],
       "timeout_ms": 10,
       "enabled": true
+    },
+    {
+      "id": "kernel-49d",
+      "path": "/tools/kernel_49d.tool.js",
+      "type": "ui",
+      "subscriptions": ["pada_id", "nakshatra_id", "shruti_ratio", "rasa_id", "angle"],
+      "timeout_ms": 10,
+      "enabled": true
     }
+    
   ]
 }
