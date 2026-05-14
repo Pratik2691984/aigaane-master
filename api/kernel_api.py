@@ -1,8 +1,9 @@
 # C:\aigaane-master\api\kernel_api.py
-# FastAPI Endpoint for External Queries
+# FastAPI Endpoint for External Queries + Static Frontend Hosting
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles  # <-- ADDED for static files
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -222,6 +223,14 @@ async def server_info():
         "total_history_states": len(history_states),
         "current_golden_build": current_golden_build.get("metadata", {}).get("build_name") if current_golden_build else None
     }
+
+# ============ Serve Static Frontend (HTML, JS, CSS) ============
+# Mount the repository root (one level above /api) so that index.html, app.js, etc. are accessible.
+frontend_root = os.path.join(os.path.dirname(__file__), "..")
+if os.path.exists(frontend_root):
+    app.mount("/", StaticFiles(directory=frontend_root, html=True), name="frontend")
+else:
+    print(f"[Startup] Warning: Frontend directory not found at {frontend_root}")
 
 # ============ Startup ============
 
