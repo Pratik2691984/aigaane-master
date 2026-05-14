@@ -1,15 +1,9 @@
-// C:\aigaane-master\tools\anumana.tool.js
-
+// /tools/anumana.tool.js
 import { init, render, destroy } from '../ui/tabs/anumana/controller.js';
 
 let mountNode = null;
 
 export const tool = {
-  id: "anumana",
-  type: "ui",
-  subscriptions: ["pada_id", "nakshatra_id"],
-  timeout: 10,
-  
   run(state) {
     if (!mountNode) return;
     render(state, mountNode);

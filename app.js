@@ -1,5 +1,12 @@
 // C:\aigaane-master\app.js
 // TIS v1.0 Orchestrator – Manifest Loader, Tool Dispatcher, Tab Manager
+//
+// API Configuration:
+// - For local development, set to '' (empty string) or 'http://localhost:8000'
+// - For production with Render backend, set to 'https://aigaane-master.onrender.com'
+// - For GoDaddy frontend (no backend API used yet), keep empty (no change needed).
+
+const API_BASE = '';  // Change to your Render URL when you add backend calls
 
 import { resolveResonance } from '/api/resolve_resonance.js';
 import { validateState } from '/shared/invariant.js';

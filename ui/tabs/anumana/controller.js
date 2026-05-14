@@ -63,7 +63,10 @@ export function init(node) {
 
 export function render(state, node) {
     if (node) mountNode = node;
-    if (!mountNode) return;
+    if (!mountNode) {
+        console.warn('[Anumana] No mount node, skipping render');
+        return;
+    }
     if (!state) {
         console.error('[Anumana] State is undefined!');
         return;
