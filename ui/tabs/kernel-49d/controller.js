@@ -3,6 +3,7 @@
 
 import { resolve49D } from '../../../api/resolve_49d.js';
 import { historyBuffer } from './history-buffer.js';
+import { playSpectralField } from '../../../shared/spectralEngine.js';
 
 let mountNode = null;
 let currentVector = null;
@@ -26,7 +27,6 @@ const LAYER_NAMES = [
   "⚡ Energy", "🧬 Biological", "🌟 Stellar"
 ];
 
-// Threshold definitions
 const THRESHOLDS = {
   energy: { min: 0.8, max: 1.2, criticalMin: 0.5, criticalMax: 1.5 },
   guna: { rajasMin: 0.7, rajasMax: 0.9, sattvaMin: 0.6 },
@@ -35,7 +35,6 @@ const THRESHOLDS = {
   spatial: { maxAngle: 360 }
 };
 
-// Anomaly detection thresholds
 const ANOMALY_THRESHOLDS = {
   sruti_deviation: 0.07,
   guna_rajas_threshold: 0.85,
@@ -43,21 +42,20 @@ const ANOMALY_THRESHOLDS = {
   biological_layer_anomaly: 0.5
 };
 
-// ============ HELPER FUNCTIONS ============
-
 function getHeatmapColor(value) {
   const v = Math.min(1, Math.max(0, value));
-  if (v < 0.2) return '#0a0c12';
-  if (v < 0.4) return '#2a2a3a';
-  if (v < 0.6) return '#4a6a5a';
-  if (v < 0.8) return '#c8a84a';
-  return '#ffcc44';
+  // Low values are deep blue/cool, medium are gold, high are bright yellow/white
+  if (v < 0.1) return '#1a1f35';      // dark indigo (visible, not black)
+  if (v < 0.25) return '#2c3e66';     // dark blue
+  if (v < 0.4) return '#4a6a8a';      // muted steel
+  if (v < 0.6) return '#d4af37';      // Vedic gold (your brand color)
+  if (v < 0.8) return '#f5d76e';      // bright gold
+  return '#fff3ad';                    // stellar white
 }
 
 function renderHeatmap(vector) {
   const container = mountNode?.querySelector('#heatmap-grid');
   if (!container) return;
-  
   let html = '';
   for (let i = 0; i < 49; i++) {
     const value = vector[i];
@@ -71,7 +69,6 @@ function renderHeatmap(vector) {
 
 function detectAnomalies(vector, meta, srutiRatio, previousState) {
   const anomalies = [];
-  
   const baseSruti = 1.4063;
   const srutiDeviation = Math.abs(srutiRatio - baseSruti) / baseSruti;
   if (srutiDeviation > ANOMALY_THRESHOLDS.sruti_deviation) {
@@ -81,7 +78,6 @@ function detectAnomalies(vector, meta, srutiRatio, previousState) {
       message: `🎵 Śruti Discordance: ${(srutiDeviation * 100).toFixed(1)}% deviation`
     });
   }
-  
   const gunaValues = vector.slice(21, 28);
   const rajas = gunaValues[1];
   if (rajas > ANOMALY_THRESHOLDS.guna_rajas_threshold) {
@@ -91,7 +87,6 @@ function detectAnomalies(vector, meta, srutiRatio, previousState) {
       message: `🌪️ Extreme Rajas: ${(rajas * 100).toFixed(0)}%`
     });
   }
-  
   const energyValues = vector.slice(28, 35);
   const maxEnergy = Math.max(...energyValues);
   if (maxEnergy > ANOMALY_THRESHOLDS.energy_spike) {
@@ -101,7 +96,6 @@ function detectAnomalies(vector, meta, srutiRatio, previousState) {
       message: `⚡ Energy Spike: ${maxEnergy.toFixed(3)}`
     });
   }
-  
   const biologicalValues = vector.slice(35, 42);
   const planetaryValues = vector.slice(14, 21);
   const planetaryMean = planetaryValues.reduce((a, b) => a + b, 0) / planetaryValues.length;
@@ -113,7 +107,6 @@ function detectAnomalies(vector, meta, srutiRatio, previousState) {
       message: `🔄 Phase-Lock Error: delta ${bioPlanetaryCorrelation.toFixed(4)}`
     });
   }
-  
   if (previousState) {
     const drift = historyBuffer.calculateDrift(previousState, {
       angle: currentAngle,
@@ -123,7 +116,6 @@ function detectAnomalies(vector, meta, srutiRatio, previousState) {
       pada_id: meta.pada_id - 1,
       shruti_ratio: srutiRatio
     });
-    
     if (drift && drift.velocity > 0.015) {
       anomalies.push({
         type: 'vector_drift',
@@ -132,19 +124,16 @@ function detectAnomalies(vector, meta, srutiRatio, previousState) {
       });
     }
   }
-  
   return anomalies;
 }
 
 function renderAnomalies(anomalies) {
   const container = mountNode?.querySelector('#anomaly-panel');
   if (!container) return;
-  
   if (anomalies.length === 0) {
     container.innerHTML = '<div class="anomaly-clear">✅ No anomalies detected</div>';
     return;
   }
-  
   container.innerHTML = `
     <div class="anomaly-header">⚠️ Active Anomalies (${anomalies.length})</div>
     ${anomalies.map(a => `
@@ -158,27 +147,21 @@ function renderAnomalies(anomalies) {
 
 function renderTrendChart(trend) {
   if (!trendCanvas || !trend) return;
-  
   const ctx = trendCanvas.getContext('2d');
   const width = trendCanvas.width;
   const height = trendCanvas.height;
-  
   ctx.clearRect(0, 0, width, height);
-  
   if (!trend.drifts || trend.drifts.length === 0) {
     ctx.fillStyle = '#7c8ba0';
     ctx.font = '10px monospace';
     ctx.fillText('Not enough data', width/2 - 40, height/2);
     return;
   }
-  
   const drifts = trend.drifts.slice(-20);
   const maxDrift = Math.max(...drifts.map(d => d.avg_vector_delta), 0.05);
-  
   ctx.beginPath();
   ctx.strokeStyle = '#D4AF37';
   ctx.lineWidth = 2;
-  
   for (let i = 0; i < drifts.length; i++) {
     const x = (i / (drifts.length - 1)) * width;
     const y = height - (drifts[i].avg_vector_delta / maxDrift) * height;
@@ -186,7 +169,6 @@ function renderTrendChart(trend) {
     else ctx.lineTo(x, y);
   }
   ctx.stroke();
-  
   ctx.beginPath();
   const thresholdY = height - (0.015 / maxDrift) * height;
   ctx.moveTo(0, thresholdY);
@@ -195,7 +177,6 @@ function renderTrendChart(trend) {
   ctx.setLineDash([5, 5]);
   ctx.stroke();
   ctx.setLineDash([]);
-  
   ctx.fillStyle = '#7c8ba0';
   ctx.font = '8px monospace';
   ctx.fillText('Drift velocity', 5, 15);
@@ -205,7 +186,6 @@ function renderTrendChart(trend) {
 function updateTrendDisplay() {
   const trend = historyBuffer.getTrend(10);
   const trendStatsEl = mountNode?.querySelector('#trend-stats');
-  
   if (trendStatsEl && trend) {
     trendStatsEl.innerHTML = `
       Avg Drift: ${trend.average_drift.toFixed(4)} | 
@@ -213,53 +193,42 @@ function updateTrendDisplay() {
       ${trend.stable ? '✅ Stable' : '⚠️ In Flux'}
     `;
   }
-  
   renderTrendChart(trend);
 }
 
 function checkThresholds(vector, angle) {
   const alerts = [];
-  
   const energyValues = vector.slice(28, 35);
-  const avgEnergy = energyValues.reduce((a, b) => a + b, 0) / energyValues.length;
-  
+  const avgEnergy = energyValues.reduce((a, b) => a + b, 0) / 7;
   if (avgEnergy > THRESHOLDS.energy.max) {
     alerts.push({ type: 'warning', message: `⚡ Energy peak: ${avgEnergy.toFixed(3)}` });
   } else if (avgEnergy < THRESHOLDS.energy.min) {
     alerts.push({ type: 'warning', message: `⚠️ Energy low: ${avgEnergy.toFixed(3)}` });
   }
-  
   if (avgEnergy > THRESHOLDS.energy.criticalMax) {
     alerts.push({ type: 'critical', message: `🔥 CRITICAL: Energy overflow` });
   } else if (avgEnergy < THRESHOLDS.energy.criticalMin) {
     alerts.push({ type: 'critical', message: `❄️ CRITICAL: Energy depletion` });
   }
-  
   const gunaValues = vector.slice(21, 28);
   const rajas = gunaValues[1];
-  
   if (rajas > THRESHOLDS.guna.rajasMax) {
     alerts.push({ type: 'warning', message: `🌪️ High Rajas: ${(rajas * 100).toFixed(0)}%` });
   } else if (rajas > THRESHOLDS.guna.rajasMin) {
     alerts.push({ type: 'info', message: `⚡ Elevated Rajas: ${(rajas * 100).toFixed(0)}%` });
   }
-  
   return alerts;
 }
 
 function renderLayers(vector) {
   const container = mountNode?.querySelector('#vector-layers');
   if (!container) return;
-  
   let html = '';
-  
   for (let layer = 0; layer < 7; layer++) {
     const start = layer * 7;
     const values = vector.slice(start, start + 7);
-    
     let hasWarning = false;
     let hasCritical = false;
-    
     if (layer === 4) {
       const avgEnergy = values.reduce((a, b) => a + b, 0) / 7;
       hasWarning = avgEnergy > THRESHOLDS.energy.max || avgEnergy < THRESHOLDS.energy.min;
@@ -269,7 +238,6 @@ function renderLayers(vector) {
       const rajas = values[1];
       hasWarning = rajas > THRESHOLDS.guna.rajasMin;
     }
-    
     html += `
       <div class="layer-card ${hasWarning ? 'threshold-active' : ''} ${hasCritical ? 'threshold-critical' : ''}">
         <div class="layer-header">${LAYER_NAMES[layer]}</div>
@@ -285,9 +253,7 @@ function renderLayers(vector) {
       </div>
     `;
   }
-  
   container.innerHTML = html;
-  
   const rawPre = mountNode?.querySelector('#raw-vector');
   if (rawPre) {
     rawPre.textContent = JSON.stringify(vector.map(v => parseFloat(v.toFixed(4))), null, 2);
@@ -297,12 +263,10 @@ function renderLayers(vector) {
 function renderAlerts(alerts) {
   const alertContainer = mountNode?.querySelector('#threshold-alerts');
   if (!alertContainer) return;
-  
   if (alerts.length === 0) {
     alertContainer.innerHTML = '';
     return;
   }
-  
   alertContainer.innerHTML = alerts.map(alert => `
     <div class="alert alert-${alert.type}">
       ${alert.type === 'warning' ? '⚠️' : alert.type === 'critical' ? '🔥' : 'ℹ️'} ${alert.message}
@@ -316,16 +280,13 @@ function updateMetrics(meta, shrutiRatio, vector) {
   const emissionEl = mountNode?.querySelector('#kernel-emission');
   const shrutiEl = mountNode?.querySelector('#kernel-shruti');
   const energyStatusEl = mountNode?.querySelector('#energy-status');
-
   if (nakshatraEl) nakshatraEl.textContent = NAKSHATRA_NAMES[meta.nakshatra_id] || '—';
   if (padaEl) padaEl.textContent = meta.pada_id;
   if (emissionEl) emissionEl.textContent = meta.emission?.toFixed(4) || '—';
   if (shrutiEl) shrutiEl.textContent = shrutiRatio?.toFixed(4) || '—';
-  
   if (energyStatusEl && vector) {
     const energyValues = vector.slice(28, 35);
     const avgEnergy = energyValues.reduce((a, b) => a + b, 0) / 7;
-    
     let status = '⚡ Normal';
     let statusClass = '';
     if (avgEnergy > THRESHOLDS.energy.max) {
@@ -344,17 +305,14 @@ function updateMetrics(meta, shrutiRatio, vector) {
       status = '✅ Optimal';
       statusClass = 'success';
     }
-    
     energyStatusEl.textContent = status;
     energyStatusEl.className = `value ${statusClass}`;
   }
-  
   const phaseLockEl = mountNode?.querySelector('#phase-lock-status');
   if (phaseLockEl && meta.phase_lock_status) {
     phaseLockEl.textContent = meta.phase_lock_status;
     phaseLockEl.className = `value ${meta.phase_lock_status === 'LOCKED' ? 'success' : 'warning'}`;
   }
-  
   const planetaryMeanEl = mountNode?.querySelector('#planetary-mean');
   if (planetaryMeanEl && meta.planetary_mean) {
     planetaryMeanEl.textContent = meta.planetary_mean.toFixed(4);
@@ -363,29 +321,27 @@ function updateMetrics(meta, shrutiRatio, vector) {
 
 // ============ GOLDEN BUILD FUNCTIONS ============
 
-// NEW: Auto-load Golden Build from backend on tab init
 async function fetchAndApplyGoldenBuild() {
-    try {
-        const response = await fetch('https://aigaane-master.onrender.com/kernel/v3/golden/current');
-        if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
-        if (data.vector && data.vector.length === 49) {
-            currentVector = data.vector;
-            if (currentMeta) currentMeta.phase_lock_status = "LOCKED";
-            renderLayers(currentVector);
-            renderHeatmap(currentVector);
-            const rawPre = mountNode?.querySelector('#raw-vector');
-            if (rawPre) rawPre.textContent = JSON.stringify(currentVector.map(v => parseFloat(v.toFixed(4))), null, 2);
-            console.log('[49D Kernel] Golden Build auto‑loaded from backend');
-        }
-    } catch (err) {
-        console.warn('[49D Kernel] Could not load Golden Build from backend, using local state.');
+  try {
+    const response = await fetch('https://aigaane-master.onrender.com/kernel/v3/golden/current');
+    if (!response.ok) throw new Error('Failed to fetch');
+    const data = await response.json();
+    if (data.vector && data.vector.length === 49) {
+      currentVector = data.vector;
+      if (currentMeta) currentMeta.phase_lock_status = "LOCKED";
+      renderLayers(currentVector);
+      renderHeatmap(currentVector);
+      const rawPre = mountNode?.querySelector('#raw-vector');
+      if (rawPre) rawPre.textContent = JSON.stringify(currentVector.map(v => parseFloat(v.toFixed(4))), null, 2);
+      console.log('[49D Kernel] Golden Build auto‑loaded from backend');
+    }
+      } catch (err) {
+        // Silent fallback – no backend Golden Build yet
     }
 }
 
 async function importGoldenBuild() {
   const alertContainer = mountNode?.querySelector('#threshold-alerts');
-  
   try {
     if (alertContainer) {
       const loadAlert = document.createElement('div');
@@ -393,16 +349,11 @@ async function importGoldenBuild() {
       loadAlert.innerHTML = '⏳ Loading Viśākhā Golden Build (210.0°)...';
       alertContainer.prepend(loadAlert);
     }
-    
-    // UPDATED: Load Viśākhā Golden Build instead of Chitrā
     const response = await fetch('/golden_build_vishakha_210.json');
-    
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: File not found. Make sure golden_build_vishakha_210.json is in the root folder.`);
     }
-    
     const data = await response.json();
-    
     let newVector;
     if (data.vector && data.vector.length === 49) {
       newVector = data.vector;
@@ -411,43 +362,33 @@ async function importGoldenBuild() {
     } else {
       throw new Error('Invalid format: Expected 49D array');
     }
-    
     currentVector = newVector;
     if (currentMeta) {
       currentMeta.phase_lock_status = "LOCKED";
       currentMeta.planetary_mean = data.constraints?.planetary_mean || 0.5071;
     }
-    
     renderLayers(currentVector);
     renderHeatmap(currentVector);
-    
     const rawPre = mountNode?.querySelector('#raw-vector');
     if (rawPre) {
       rawPre.textContent = JSON.stringify(currentVector.map(v => parseFloat(v.toFixed(4))), null, 2);
     }
-    
     saveGoldenBuild();
-    
     if (alertContainer) {
       const loadingAlert = alertContainer.querySelector('.alert-info');
       if (loadingAlert) loadingAlert.remove();
-      
       const successAlert = document.createElement('div');
       successAlert.className = 'alert alert-success';
       successAlert.innerHTML = `🏆 Viśākhā Golden Build Imported: 210.0°<br>✅ Stellar temp: 8900K | Phase-Lock: LOCKED | Discordance: CLEARED`;
       alertContainer.prepend(successAlert);
       setTimeout(() => successAlert.remove(), 5000);
     }
-    
     console.log('[49D Kernel] Viśākhā Golden Build imported');
-    
   } catch (error) {
     console.error('[49D Kernel] Import failed:', error);
-    
     if (alertContainer) {
       const loadingAlert = alertContainer.querySelector('.alert-info');
       if (loadingAlert) loadingAlert.remove();
-      
       const errorAlert = document.createElement('div');
       errorAlert.className = 'alert alert-critical';
       errorAlert.innerHTML = `❌ Import failed: ${error.message}<br><small>Place golden_build_vishakha_210.json in C:\\aigaane-master\\</small>`;
@@ -459,7 +400,6 @@ async function importGoldenBuild() {
 
 function saveGoldenBuild() {
   if (!currentVector || !currentMeta) return;
-  
   goldenBuildState = {
     timestamp: new Date().toISOString(),
     angle: currentAngle,
@@ -468,9 +408,7 @@ function saveGoldenBuild() {
     vector: [...currentVector],
     meta: { ...currentMeta }
   };
-  
   localStorage.setItem('aigaane_golden_build', JSON.stringify(goldenBuildState));
-  
   const alertContainer = mountNode?.querySelector('#threshold-alerts');
   if (alertContainer) {
     const tempAlert = document.createElement('div');
@@ -479,10 +417,8 @@ function saveGoldenBuild() {
     alertContainer.prepend(tempAlert);
     setTimeout(() => tempAlert.remove(), 4000);
   }
-  
   const compareBtn = mountNode?.querySelector('#compare-golden-btn');
   if (compareBtn) compareBtn.disabled = false;
-  
   console.log('[49D Kernel] Golden Build saved');
 }
 
@@ -498,11 +434,9 @@ function compareWithGolden() {
     }
     return;
   }
-  
   const differences = currentVector.map((v, i) => (v - goldenBuildState.vector[i]).toFixed(4));
   const sumDiff = differences.reduce((a, b) => a + Math.abs(parseFloat(b)), 0);
   const avgDiff = (sumDiff / 49).toFixed(4);
-  
   const alertContainer = mountNode?.querySelector('#threshold-alerts');
   if (alertContainer) {
     const diffAlert = document.createElement('div');
@@ -524,7 +458,6 @@ function loadGoldenBuild() {
     try {
       goldenBuildState = JSON.parse(saved);
       console.log('[49D Kernel] Golden Build loaded from localStorage');
-      
       const compareBtn = mountNode?.querySelector('#compare-golden-btn');
       if (compareBtn) compareBtn.disabled = false;
     } catch (e) {
@@ -536,23 +469,19 @@ function loadGoldenBuild() {
 function addGoldenBuildButtons() {
   const actionBar = mountNode?.querySelector('.action-bar');
   if (!actionBar) return;
-  
   if (actionBar.querySelector('#import-golden-btn')) return;
-  
   const importBtn = document.createElement('button');
   importBtn.id = 'import-golden-btn';
   importBtn.className = 'action-btn import-btn';
   importBtn.innerHTML = '🏆 Import Viśākhā Golden (210°)';
   importBtn.style.background = 'rgba(76, 175, 80, 0.15)';
   importBtn.style.borderColor = '#4caf50';
-  
   const saveBtn = document.createElement('button');
   saveBtn.id = 'save-golden-btn';
   saveBtn.className = 'action-btn golden-btn';
   saveBtn.innerHTML = '💾 Save Golden Build';
   saveBtn.style.background = 'rgba(212, 175, 55, 0.2)';
   saveBtn.style.borderColor = '#D4AF37';
-  
   const compareBtn = document.createElement('button');
   compareBtn.id = 'compare-golden-btn';
   compareBtn.className = 'action-btn compare-golden-btn';
@@ -560,11 +489,9 @@ function addGoldenBuildButtons() {
   compareBtn.disabled = !goldenBuildState;
   compareBtn.style.background = 'rgba(100, 150, 200, 0.1)';
   compareBtn.style.borderColor = '#6496c8';
-  
   importBtn.addEventListener('click', () => importGoldenBuild());
   saveBtn.addEventListener('click', () => saveGoldenBuild());
   compareBtn.addEventListener('click', () => compareWithGolden());
-  
   actionBar.appendChild(importBtn);
   actionBar.appendChild(saveBtn);
   actionBar.appendChild(compareBtn);
@@ -577,7 +504,6 @@ function setupEventListeners() {
   if (exportBtn) {
     exportBtn.addEventListener('click', () => {
       if (!currentVector || !currentMeta) return;
-      
       const exportData = {
         timestamp: new Date().toISOString(),
         angle: currentAngle,
@@ -596,7 +522,6 @@ function setupEventListeners() {
           stellar: currentVector.slice(42, 49)
         }
       };
-      
       const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -604,7 +529,6 @@ function setupEventListeners() {
       a.download = `49d-vector-${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
-      
       const alertContainer = mountNode?.querySelector('#threshold-alerts');
       if (alertContainer) {
         const tempAlert = document.createElement('div');
@@ -615,7 +539,7 @@ function setupEventListeners() {
       }
     });
   }
-  
+
   const captureBtn = mountNode?.querySelector('#capture-state-btn');
   if (captureBtn) {
     captureBtn.addEventListener('click', () => {
@@ -625,10 +549,8 @@ function setupEventListeners() {
         vector: [...currentVector],
         meta: { ...currentMeta }
       };
-      
       const compareBtn = mountNode?.querySelector('#compare-state-btn');
       if (compareBtn) compareBtn.disabled = false;
-      
       const alertContainer = mountNode?.querySelector('#threshold-alerts');
       if (alertContainer) {
         const tempAlert = document.createElement('div');
@@ -639,16 +561,14 @@ function setupEventListeners() {
       }
     });
   }
-  
-  const compareBtn = mountNode?.querySelector('#compare-state-btn');
-  if (compareBtn) {
-    compareBtn.addEventListener('click', () => {
+
+  const compareStateBtn = mountNode?.querySelector('#compare-state-btn');
+  if (compareStateBtn) {
+    compareStateBtn.addEventListener('click', () => {
       if (!capturedState || !currentVector) return;
-      
       const differences = currentVector.map((v, i) => (v - capturedState.vector[i]).toFixed(4));
       const sumDiff = differences.reduce((a, b) => a + Math.abs(parseFloat(b)), 0);
       const avgDiff = (sumDiff / 49).toFixed(4);
-      
       const alertContainer = mountNode?.querySelector('#threshold-alerts');
       if (alertContainer) {
         const diffAlert = document.createElement('div');
@@ -659,7 +579,29 @@ function setupEventListeners() {
       }
     });
   }
-  
+
+      const playSoundBtn = mountNode?.querySelector('#play-sound-btn');
+  if (playSoundBtn) {
+    playSoundBtn.addEventListener('click', () => {
+      if (!currentVector) {
+        const alertContainer = mountNode?.querySelector('#threshold-alerts');
+        if (alertContainer) {
+          const tempAlert = document.createElement('div');
+          tempAlert.className = 'alert alert-warning';
+          tempAlert.innerHTML = '⚠️ No vector available. Move the slider first.';
+          alertContainer.prepend(tempAlert);
+          setTimeout(() => tempAlert.remove(), 2000);
+        }
+        return;
+      }
+      // Re‑compute anomalies using current vector and meta
+      const prevState = historyBuffer.getPrevious();
+      const shrutiRatio = currentMeta?.shruti_ratio || 1.0;
+      const anomalies = detectAnomalies(currentVector, currentMeta, shrutiRatio, prevState);
+      playSpectralField(currentVector, currentMeta, anomalies);
+    });
+  }
+
   trendCanvas = mountNode?.querySelector('#trend-canvas');
   if (trendCanvas) {
     trendCanvas.width = 400;
@@ -674,13 +616,11 @@ export function init(node) {
   setupEventListeners();
   addGoldenBuildButtons();
   loadGoldenBuild();
-  fetchAndApplyGoldenBuild(); // NEW: Auto-load Golden Build from backend
-  
+  fetchAndApplyGoldenBuild();
   if (unsubscribeHistory) unsubscribeHistory();
   unsubscribeHistory = historyBuffer.subscribe(({ event }) => {
     if (event === 'push') updateTrendDisplay();
   });
-  
   console.log('[49D Kernel] Tab mounted with Viśākhā Golden Build support');
 }
 
@@ -691,25 +631,33 @@ export function render(state, node) {
     console.error('[49D Kernel] State is undefined');
     return;
   }
-  
   currentAngle = state.angle || (state.pada_id * 3.3333);
-  
   const result = resolve49D(state);
   currentVector = result.vector;
   currentMeta = result.meta;
-  
+
+  // Update vector preview (first 5 dims)
+    // Update vector preview (first 5 dims) – with error guard
+  const previewSpan = mountNode?.querySelector('#vectorPreview');
+  if (previewSpan && currentVector && currentVector.length >= 5) {
+      try {
+          const firstFive = currentVector.slice(0, 5).map(v => (v !== undefined ? v.toFixed(4) : '0.0000')).join(', ');
+          previewSpan.textContent = `[ ${firstFive} ... ]`;
+      } catch (e) {
+          previewSpan.textContent = '[ preview unavailable ]';
+      }
+  } else if (previewSpan) {
+      previewSpan.textContent = '[ waiting for vector ]';
+  }
+
   const previousState = historyBuffer.getPrevious();
-  
   const alerts = checkThresholds(currentVector, currentAngle);
   renderAlerts(alerts);
-  
   const anomalies = detectAnomalies(currentVector, currentMeta, state.shruti_ratio, previousState);
   renderAnomalies(anomalies);
-  
   updateMetrics(currentMeta, state.shruti_ratio, currentVector);
   renderLayers(currentVector);
   renderHeatmap(currentVector);
-  
   historyBuffer.push({
     angle: currentAngle,
     nakshatra_id: currentMeta.nakshatra_id,
@@ -718,7 +666,6 @@ export function render(state, node) {
     meta: currentMeta,
     shruti_ratio: state.shruti_ratio
   });
-  
   updateTrendDisplay();
   setupEventListeners();
   addGoldenBuildButtons();

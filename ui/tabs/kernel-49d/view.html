@@ -7,6 +7,7 @@
     <button id="export-vector-btn" class="action-btn export-btn">📥 Export 49D JSON</button>
     <button id="capture-state-btn" class="action-btn capture-btn">📸 Capture Current State</button>
     <button id="compare-state-btn" class="action-btn compare-btn" disabled>🔍 Compare with Captured</button>
+    <button id="play-sound-btn" class="action-btn play-sound-btn" style="background: rgba(212,175,55,0.2); border-color: #D4AF37;">🎵 Play 49D Sound</button>
   </div>
   
   <!-- Threshold Alerts -->
@@ -42,6 +43,12 @@
       <span class="label">📊 Planetary Mean</span>
       <span id="planetary-mean" class="value">—</span>
     </div>
+  </div>
+
+  <!-- 49D Vector Preview (first 5 dimensions) -->
+  <div class="vector-preview" style="margin: 1rem 0; padding: 0.8rem; background: var(--glass-bg); border-radius: 8px; text-align: center;">
+    <span class="label">📊 49D Preview (first 5 dims)</span>
+    <span id="vectorPreview" class="value" style="font-size: 0.85rem; font-family: monospace; display: block; margin-top: 0.3rem;">—</span>
   </div>
 
   <!-- Heatmap Visualization -->
