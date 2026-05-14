@@ -26,10 +26,18 @@
 
     <footer id="global-footer">
         <div class="slider-container">
-            <label for="main-slider">🌞 COSMIC ANGLE</label>
-            <input type="range" id="main-slider" min="0" max="360" step="0.1" value="180"
-                   aria-label="Cosmic angle in degrees">
-            <span id="angle-readout">180.0°</span>
+            <!-- Label with explicit id for aria-labelledby -->
+            <label id="cosmic-angle-label" for="main-slider">🌞 COSMIC ANGLE</label>
+            <input type="range" 
+                   id="main-slider" 
+                   min="0" 
+                   max="360" 
+                   step="0.1" 
+                   value="180"
+                   aria-label="Cosmic angle in degrees"
+                   aria-labelledby="cosmic-angle-label"
+                   title="Cosmic angle slider">
+            <span id="angle-readout" aria-live="polite">180.0°</span>
         </div>
     </footer>
 </div>
