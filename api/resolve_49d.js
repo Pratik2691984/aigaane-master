@@ -108,4 +108,4 @@ export function resolve49D(state) {
     };
     
     return { vector, meta };
-}
+}   

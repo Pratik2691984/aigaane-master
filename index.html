@@ -18,6 +18,8 @@
         <button class="nav-btn" data-tab="resonance">🎭 Resonance</button>
         <button class="nav-btn" data-tab="anumana">🔮 Anumāna</button>
         <button class="nav-btn" data-tab="kernel-49d">🌀 49D Kernel</button>
+        <!-- 👇 SEVENTH TAB (new) -->
+        <button class="nav-btn" data-tab="anumana-engine">🧠 Anumāna Engine</button>
     </nav>
 
     <main id="viewport">
@@ -26,7 +28,6 @@
 
     <footer id="global-footer">
         <div class="slider-container">
-            <!-- Label with explicit id for aria-labelledby -->
             <label id="cosmic-angle-label" for="main-slider">🌞 COSMIC ANGLE</label>
             <input type="range" 
                    id="main-slider" 
@@ -36,7 +37,8 @@
                    value="180"
                    aria-label="Cosmic angle in degrees"
                    aria-labelledby="cosmic-angle-label"
-                   title="Cosmic angle slider">
+                   title="Cosmic angle slider"
+                   oninput="document.getElementById('angle-readout').innerText = this.value + '°'; window.dispatchEvent(new CustomEvent('sliderMoved', {detail: parseFloat(this.value)}));">
             <span id="angle-readout" aria-live="polite">180.0°</span>
         </div>
     </footer>

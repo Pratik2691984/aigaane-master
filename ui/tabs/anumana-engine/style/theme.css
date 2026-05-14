@@ -1,0 +1,94 @@
+/* === BASE === */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: #e2e8f0;
+}
+
+/* === GLASS CARD === */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* === GRID === */
+.grid-49 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+/* === CELL === */
+.cell {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  transition: all 0.2s ease;
+}
+
+.cell:hover {
+  transform: scale(1.1);
+}
+
+/* === ENERGY COLORS === */
+.energy-0 { background: #1e293b; }
+.energy-1 { background: #60a5fa; }
+.energy-2 { background: #22d3ee; }
+.energy-3 { background: #facc15; }
+
+/* === PULSE ANIMATION === */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0px rgba(255,255,255,0.2); }
+  50% { box-shadow: 0 0 12px rgba(255,255,255,0.6); }
+  100% { box-shadow: 0 0 0px rgba(255,255,255,0.2); }
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* === ENERGY BAR === */
+.energy-bar {
+  height: 10px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #22d3ee, #facc15);
+  margin: 6px 0;
+}
+
+/* === TYPOGRAPHY === */
+h1, h2, h3 {
+  margin: 0 0 10px;
+}
+
+p {
+  opacity: 0.85;
+}
+.math-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.math-cell {
+  padding: 6px;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 6px;
+  color: white;
+  font-family: monospace;
+}

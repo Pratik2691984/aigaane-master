@@ -66,6 +66,12 @@
       "subscriptions": ["pada_id", "nakshatra_id", "shruti_ratio", "rasa_id", "angle"],
       "timeout_ms": 10,
       "enabled": true
+    },
+    {
+      "id": "anumana-engine",
+      "name": "Anumāna Engine",
+      "path": "/ui/tabs/anumana-engine/tool.js",
+      "enabled": true
     }
     
   ]

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anumāna Flow</title>
+</head>
+<body>
+  <h1>Flow Mode</h1>
+  <div id="flow"></div>
+
+  <script type="module">
+    import { getMoonState } from "../core/lunar-engine.js";
+    import { getNakshatraProfile } from "../core/nakshatra-engine.js";
+    import { computeAnumana } from "../core/anumana-engine.js";
+    import { toFlowOutput } from "../core/translator.js";
+
+    function update() {
+      const moon = getMoonState();
+      const profile = getNakshatraProfile(moon.nakshatraIndex, moon.pada);
+
+      const engine = computeAnumana({
+        S_base: profile.S_base,
+        theta: moon.theta
+      });
+
+      const flow = toFlowOutput(engine);
+
+      document.getElementById("flow").innerText =
+        JSON.stringify(flow, null, 2);
+    }
+
+    setInterval(update, 2000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anumāna Core</title>
+</head>
+<body>
+  <h1>Academic Mode</h1>
+  <div id="grid"></div>
+<div class="academic-tab">
+
+  <div id="math"></div>
+  <div id="action"></div>
+  <div id="insight"></div>
+
+</div>
+  <script type="module">
+    import { getMoonState } from "../core/lunar-engine.js";
+    import { getNakshatraProfile } from "../core/nakshatra-engine.js";
+    import { computeAnumana } from "../core/anumana-engine.js";
+
+    function update() {
+      const moon = getMoonState();
+      const profile = getNakshatraProfile(moon.nakshatraIndex, moon.pada);
+
+      const result = computeAnumana({
+        S_base: profile.S_base,
+        theta: moon.theta
+      });
+
+      document.getElementById("grid").innerText =
+        JSON.stringify(result, null, 2);
+    }
+
+    setInterval(update, 2000);
+  </script>
+</body>
+</html>
