@@ -1,13 +1,214 @@
 /* Glass theme + grid + cards */
-body { background: radial-gradient(circle at top, #0f172a, #020617); color: #e2e8f0; }
-.glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(14px); border-radius: 16px; padding: 16px; margin-bottom: 20px; }
-.grid-49 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-.cell { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; transition: all 0.2s; }
-.cell:hover { transform: scale(1.1); }
+body {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: #e2e8f0;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+/* Force axis selector to be above glass layers */
+.axis-selector {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 16px 0;
+  pointer-events: auto;
+}
+
+.axis-btn {
+  cursor: pointer !important;
+  pointer-events: all !important;
+  transition: all 0.2s ease;
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* Responsive 49D grid */
+.grid-49 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: min(6px, 2vw);
+}
+
+/* Flexible cells – square, scalable, with smooth animations */
+.cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: min(11px, 3vw);
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.2s ease;
+  background: #1e293b;
+  color: white;
+  cursor: default;
+}
+
+.cell:hover {
+  transform: scale(1.05);
+  z-index: 1;
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+/* Energy levels – keep your original colour scheme */
 .energy-0 { background: #1e293b; }
 .energy-1 { background: #60a5fa; }
 .energy-2 { background: #22d3ee; }
 .energy-3 { background: #facc15; }
-.energy-bar { height: 10px; border-radius: 10px; background: linear-gradient(to right, #22d3ee, #facc15); margin: 6px 0; }
-.mode-btn { background: rgba(255,255,255,0.1); border: none; padding: 8px 16px; margin: 0 8px 16px 0; border-radius: 20px; cursor: pointer; }
-.mode-btn.active { background: #facc15; color: #0f172a; }
+
+/* Energy bar (used in action card) */
+.energy-bar {
+  height: 10px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #22d3ee, #facc15);
+  margin: 6px 0;
+}
+
+/* Mode toggle buttons */
+.mode-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 8px 16px;
+  margin: 0 8px 16px 0;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #e2e8f0;
+  transition: all 0.2s;
+}
+
+.mode-btn.active {
+  background: #facc15;
+  color: #0f172a;
+}
+
+/* Layout containers */
+.anumana-container {
+  padding: 20px;
+}
+
+.anumana-toolbar {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  padding: 10px 0;
+  z-index: 10;
+  margin-bottom: 20px;
+}
+
+/* Typography for cards */
+.anumana-action p,
+.anumana-insight p {
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+h3 {
+  margin: 0 0 10px;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  .anumana-container {
+    padding: 12px;
+  }
+  .cell {
+    font-size: 8px;
+  }
+  .glass-card {
+    padding: 12px;
+  }
+}
+
+/* ========== Resonance Floor Styles ========== */
+/* Breathing effect when intensity is at resonance floor */
+.resonance-floor-active {
+  border: 1px solid rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.01); }
+}
+
+/* Cyan highlight for resonance intensity value */
+.resonance-value {
+  color: #00f2ff;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
+}
+
+/* ========== Axis Selector Buttons ========== */
+.axis-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.axis-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #e2e8f0;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+}
+
+.axis-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.axis-btn.active {
+  background: #facc15;
+  color: #0f172a;
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);
+}
+
+/* ========== Predictive Card Specific ========== */
+.status-stabilized {
+  border-left: 3px solid #00f2ff;
+  background: rgba(0, 242, 255, 0.05);
+}
+
+.floor-badge {
+  font-size: 0.7rem;
+  background: #00f2ff;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.trend-rising {
+  color: #00ff88;
+}
+
+.trend-falling {
+  color: #facc15;
+}
+
+.sparkline-container canvas {
+  width: 100%;
+  height: 50px;
+  display: block;
+}

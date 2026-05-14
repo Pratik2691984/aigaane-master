@@ -1,4 +1,3 @@
-// C:\aigaane-master\shared\tool_runner.js
 // TIS v1.0 Execution Firewall – Diff, Filter, Clone, Freeze, Timeout
 
 let prevState = null;
@@ -34,19 +33,24 @@ export async function runTools(currentState, tools) {
       continue;
     }
     
-    const hasChanged = toolDef.subscriptions.some(path => {
-      const prev = getNested(prevState, path);
-      const curr = getNested(currentState, path);
-      return prev !== curr;
-    });
+    // ✅ FIX: Check if subscriptions exists and is an array before calling .some()
+    const hasChanged = toolDef.subscriptions && Array.isArray(toolDef.subscriptions)
+      ? toolDef.subscriptions.some(path => {
+          const prev = getNested(prevState, path);
+          const curr = getNested(currentState, path);
+          return prev !== curr;
+        })
+      : false;
     
     if (!hasChanged && !toolDef.always_run) continue;
     
     const filtered = {};
-    toolDef.subscriptions.forEach(path => {
-      const value = getNested(currentState, path);
-      setNested(filtered, path, value);
-    });
+    if (toolDef.subscriptions && Array.isArray(toolDef.subscriptions)) {
+      toolDef.subscriptions.forEach(path => {
+        const value = getNested(currentState, path);
+        setNested(filtered, path, value);
+      });
+    }
     
     console.log(`[tool_runner] Tool ${toolDef.id} - filtered:`, filtered);
     

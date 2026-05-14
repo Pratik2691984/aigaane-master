@@ -1,4 +1,3 @@
-// C:\aigaane-master\app.js
 // TIS v1.0 Orchestrator – Manifest Loader, Tool Dispatcher, Tab Manager
 
 const API_BASE = '';
@@ -93,16 +92,24 @@ async function sync() {
   readout.innerText = `${angle.toFixed(1)}°`;
 
   try {
-    const state = resolveResonance(angle);
+    const rawState = resolveResonance(angle);
+    // Clone to make it mutable (fixes "object is not extensible")
+    const state = { ...rawState };
+
+    // Now safe to add properties
+    state.plugins = state.plugins || [];
+    state.items = state.items || [];
+    if (state.resonance === undefined) state.resonance = {};
+    if (state.resonance.tools === undefined) state.resonance.tools = [];
+
     console.log('[app.js] Resolved state:', state);
     validateState(state);
-    const enabledTools = manifest?.tools?.filter(t => t.enabled !== false) || [];
+    const enabledTools = (manifest?.tools?.filter(t => t.enabled !== false)) || [];
     await runTools(state, enabledTools);
   } catch (err) {
     console.error('[App] Sync error:', err);
   }
 }
-
 document.body.addEventListener('click', () => {
   if (!window.audioUnlocked) {
     window.audioUnlocked = true;
@@ -131,6 +138,11 @@ window.addEventListener('sliderMoved', (e) => {
   if (typeof sync === 'function') sync();
   else {
     const state = resolveResonance(angle);
+    // FIX: same safe initializers
+    state.plugins = state.plugins || [];
+    state.items = state.items || [];
+    if (state.resonance === undefined) state.resonance = {};
+    if (state.resonance.tools === undefined) state.resonance.tools = [];
     validateState(state);
     const enabledTools = manifest?.tools?.filter(t => t.enabled !== false) || [];
     runTools(state, enabledTools);
