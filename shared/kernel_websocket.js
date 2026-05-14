@@ -2,7 +2,7 @@
 // WebSocket client for real-time API communication with Golden Build broadcast
 
 class KernelAPIClient {
-  constructor(apiUrl = 'http://localhost:8000') {
+  constructor(apiUrl = 'https://aigaane-master.onrender.com') {
     this.apiUrl = apiUrl;
     this.ws = null;
     this.listeners = [];
@@ -137,7 +137,9 @@ class KernelAPIClient {
     this.isConnecting = true;
     
     try {
-      this.ws = new WebSocket(`ws://${this.apiUrl.split('//')[1]}/ws`);
+      // Ensure WebSocket URL uses WSS protocol for Render
+      const wsUrl = this.apiUrl.replace('https://', 'wss://') + '/ws';
+      this.ws = new WebSocket(wsUrl);
       
       this.ws.onopen = () => {
         console.log('[KernelAPI] WebSocket connected');

@@ -363,6 +363,26 @@ function updateMetrics(meta, shrutiRatio, vector) {
 
 // ============ GOLDEN BUILD FUNCTIONS ============
 
+// NEW: Auto-load Golden Build from backend on tab init
+async function fetchAndApplyGoldenBuild() {
+    try {
+        const response = await fetch('https://aigaane-master.onrender.com/kernel/v3/golden/current');
+        if (!response.ok) throw new Error('Failed to fetch');
+        const data = await response.json();
+        if (data.vector && data.vector.length === 49) {
+            currentVector = data.vector;
+            if (currentMeta) currentMeta.phase_lock_status = "LOCKED";
+            renderLayers(currentVector);
+            renderHeatmap(currentVector);
+            const rawPre = mountNode?.querySelector('#raw-vector');
+            if (rawPre) rawPre.textContent = JSON.stringify(currentVector.map(v => parseFloat(v.toFixed(4))), null, 2);
+            console.log('[49D Kernel] Golden Build auto‑loaded from backend');
+        }
+    } catch (err) {
+        console.warn('[49D Kernel] Could not load Golden Build from backend, using local state.');
+    }
+}
+
 async function importGoldenBuild() {
   const alertContainer = mountNode?.querySelector('#threshold-alerts');
   
@@ -654,6 +674,7 @@ export function init(node) {
   setupEventListeners();
   addGoldenBuildButtons();
   loadGoldenBuild();
+  fetchAndApplyGoldenBuild(); // NEW: Auto-load Golden Build from backend
   
   if (unsubscribeHistory) unsubscribeHistory();
   unsubscribeHistory = historyBuffer.subscribe(({ event }) => {
