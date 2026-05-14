@@ -1,9 +1,17 @@
-{
+﻿{
   "version": 2,
   "framework": null,
   "outputDirectory": ".",
   "routes": [
     { "handle": "filesystem" },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)\\.(js|css|json|png|jpg|svg|ico|html)$",
+      "dest": "/$1.$2"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
