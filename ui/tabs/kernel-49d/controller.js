@@ -1,7 +1,7 @@
 // C:\aigaane-master\ui\tabs\kernel-49d\controller.js
 // 49D Kernel Controller with Golden Build Import (Viśākhā 210.0°)
 
-import { resolve49D } from '../../../api/resolve_49d.js';
+import { resolve49D } from '/lib/resolve_49d.js';
 import { historyBuffer } from './history-buffer.js';
 import { playSpectralField } from '../../../shared/spectralEngine.js';
 
@@ -44,13 +44,12 @@ const ANOMALY_THRESHOLDS = {
 
 function getHeatmapColor(value) {
   const v = Math.min(1, Math.max(0, value));
-  // Low values are deep blue/cool, medium are gold, high are bright yellow/white
-  if (v < 0.1) return '#1a1f35';      // dark indigo (visible, not black)
-  if (v < 0.25) return '#2c3e66';     // dark blue
-  if (v < 0.4) return '#4a6a8a';      // muted steel
-  if (v < 0.6) return '#d4af37';      // Vedic gold (your brand color)
-  if (v < 0.8) return '#f5d76e';      // bright gold
-  return '#fff3ad';                    // stellar white
+  if (v < 0.1) return '#1a1f35';
+  if (v < 0.25) return '#2c3e66';
+  if (v < 0.4) return '#4a6a8a';
+  if (v < 0.6) return '#d4af37';
+  if (v < 0.8) return '#f5d76e';
+  return '#fff3ad';
 }
 
 function renderHeatmap(vector) {
@@ -319,11 +318,12 @@ function updateMetrics(meta, shrutiRatio, vector) {
   }
 }
 
-// ============ GOLDEN BUILD FUNCTIONS ============
+// ============ GOLDEN BUILD FUNCTIONS (fixed API paths) ============
 
 async function fetchAndApplyGoldenBuild() {
   try {
-    const response = await fetch('https://aigaane-master.onrender.com/kernel/v3/golden/current');
+    // Use the local API endpoint (now under /api prefix)
+    const response = await fetch('/api/kernel/v3/golden/current');
     if (!response.ok) throw new Error('Failed to fetch');
     const data = await response.json();
     if (data.vector && data.vector.length === 49) {
@@ -335,9 +335,10 @@ async function fetchAndApplyGoldenBuild() {
       if (rawPre) rawPre.textContent = JSON.stringify(currentVector.map(v => parseFloat(v.toFixed(4))), null, 2);
       console.log('[49D Kernel] Golden Build auto‑loaded from backend');
     }
-      } catch (err) {
-        // Silent fallback – no backend Golden Build yet
-    }
+  } catch (err) {
+    // Silent fallback – no backend Golden Build yet
+    console.warn('[49D Kernel] Could not load Golden Build from API', err);
+  }
 }
 
 async function importGoldenBuild() {
@@ -391,7 +392,7 @@ async function importGoldenBuild() {
       if (loadingAlert) loadingAlert.remove();
       const errorAlert = document.createElement('div');
       errorAlert.className = 'alert alert-critical';
-      errorAlert.innerHTML = `❌ Import failed: ${error.message}<br><small>Place golden_build_vishakha_210.json in C:\\aigaane-master\\</small>`;
+      errorAlert.innerHTML = `❌ Import failed: ${error.message}<br><small>Place golden_build_vishakha_210.json in project root</small>`;
       alertContainer.prepend(errorAlert);
       setTimeout(() => errorAlert.remove(), 8000);
     }
@@ -580,7 +581,7 @@ function setupEventListeners() {
     });
   }
 
-      const playSoundBtn = mountNode?.querySelector('#play-sound-btn');
+  const playSoundBtn = mountNode?.querySelector('#play-sound-btn');
   if (playSoundBtn) {
     playSoundBtn.addEventListener('click', () => {
       if (!currentVector) {
@@ -594,7 +595,6 @@ function setupEventListeners() {
         }
         return;
       }
-      // Re‑compute anomalies using current vector and meta
       const prevState = historyBuffer.getPrevious();
       const shrutiRatio = currentMeta?.shruti_ratio || 1.0;
       const anomalies = detectAnomalies(currentVector, currentMeta, shrutiRatio, prevState);
@@ -636,18 +636,16 @@ export function render(state, node) {
   currentVector = result.vector;
   currentMeta = result.meta;
 
-  // Update vector preview (first 5 dims)
-    // Update vector preview (first 5 dims) – with error guard
   const previewSpan = mountNode?.querySelector('#vectorPreview');
   if (previewSpan && currentVector && currentVector.length >= 5) {
-      try {
-          const firstFive = currentVector.slice(0, 5).map(v => (v !== undefined ? v.toFixed(4) : '0.0000')).join(', ');
-          previewSpan.textContent = `[ ${firstFive} ... ]`;
-      } catch (e) {
-          previewSpan.textContent = '[ preview unavailable ]';
-      }
+    try {
+      const firstFive = currentVector.slice(0, 5).map(v => (v !== undefined ? v.toFixed(4) : '0.0000')).join(', ');
+      previewSpan.textContent = `[ ${firstFive} ... ]`;
+    } catch (e) {
+      previewSpan.textContent = '[ preview unavailable ]';
+    }
   } else if (previewSpan) {
-      previewSpan.textContent = '[ waiting for vector ]';
+    previewSpan.textContent = '[ waiting for vector ]';
   }
 
   const previousState = historyBuffer.getPrevious();

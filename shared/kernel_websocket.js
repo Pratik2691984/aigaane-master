@@ -1,23 +1,24 @@
 // C:\aigaane-master\shared\kernel_websocket.js
-// WebSocket client for real-time API communication with Golden Build broadcast
+// HTTP API client for Vercel deployment (WebSockets disabled)
 
 class KernelAPIClient {
-  constructor(apiUrl = 'https://aigaane-master.onrender.com') {
-    this.apiUrl = apiUrl;
-    this.ws = null;
+  constructor() {
+    // Use relative URLs – works on any origin (Vercel, localhost, custom domain)
+    this.baseUrl = '';  // empty = same origin
     this.listeners = [];
     this.goldenBuildState = null;
-    this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
-    this.reconnectDelay = 3000;
-    this.isConnecting = false;
+  }
+
+  // Helper to build full URL
+  _url(path) {
+    return `${this.baseUrl}${path}`;
   }
 
   // ============ Core API Methods ============
 
   async getCurrent() {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/current`);
+      const response = await fetch(this._url('/api/kernel/v3/current'));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.json();
     } catch (error) {
@@ -28,7 +29,7 @@ class KernelAPIClient {
 
   async updateState(state) {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/update`, {
+      const response = await fetch(this._url('/api/kernel/v3/update'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(state)
@@ -43,7 +44,7 @@ class KernelAPIClient {
 
   async getHistory(limit = 50) {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/history?limit=${limit}`);
+      const response = await fetch(this._url(`/api/kernel/v3/history?limit=${limit}`));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.json();
     } catch (error) {
@@ -54,7 +55,7 @@ class KernelAPIClient {
 
   async compareStates(indexA = -2, indexB = -1) {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/compare?index_a=${indexA}&index_b=${indexB}`);
+      const response = await fetch(this._url(`/api/kernel/v3/compare?index_a=${indexA}&index_b=${indexB}`));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.json();
     } catch (error) {
@@ -67,7 +68,7 @@ class KernelAPIClient {
 
   async broadcastGoldenBuild(goldenBuildData) {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/golden/build`, {
+      const response = await fetch(this._url('/api/kernel/v3/golden/build'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -88,7 +89,7 @@ class KernelAPIClient {
 
   async getGoldenBuild() {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/golden/current`);
+      const response = await fetch(this._url('/api/kernel/v3/golden/current'));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.json();
     } catch (error) {
@@ -99,7 +100,7 @@ class KernelAPIClient {
 
   async listGoldenBuilds() {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/golden/list`);
+      const response = await fetch(this._url('/api/kernel/v3/golden/list'));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.json();
     } catch (error) {
@@ -110,7 +111,7 @@ class KernelAPIClient {
 
   async deleteGoldenBuild(buildId) {
     try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/golden/${buildId}`, {
+      const response = await fetch(this._url(`/api/kernel/v3/golden/${buildId}`), {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -121,206 +122,27 @@ class KernelAPIClient {
     }
   }
 
-  // ============ WebSocket Methods ============
+  // ============ WebSocket methods removed (not supported on Vercel) ============
+  // All real-time features are now HTTP‑only. If you need live updates,
+  // consider polling or a separate WebSocket service.
 
-  connectWebSocket(onMessage, onOpen, onClose, onError) {
-    if (this.isConnecting) {
-      console.log('[KernelAPI] Connection already in progress');
-      return null;
-    }
-    
-    if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log('[KernelAPI] WebSocket already connected or connecting');
-      return this.ws;
-    }
-    
-    this.isConnecting = true;
-    
-    try {
-      // Ensure WebSocket URL uses WSS protocol for Render
-      const wsUrl = this.apiUrl.replace('https://', 'wss://') + '/ws';
-      this.ws = new WebSocket(wsUrl);
-      
-      this.ws.onopen = () => {
-        console.log('[KernelAPI] WebSocket connected');
-        this.reconnectAttempts = 0;
-        this.isConnecting = false;
-        
-        // Subscribe to channels
-        this.subscribeToChannel('golden_build');
-        this.subscribeToChannel('kernel_state');
-        this.subscribeToChannel('anomaly_alerts');
-        
-        if (onOpen) onOpen();
-      };
-      
-      this.ws.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          
-          // Handle different message types
-          switch (data.type) {
-            case 'golden_build_update':
-              this.goldenBuildState = data.payload;
-              console.log('[KernelAPI] Golden Build update received:', {
-                build: data.payload.metadata?.build_name,
-                angle: data.payload.metadata?.cosmic_angle,
-                timestamp: data.timestamp
-              });
-              break;
-            case 'kernel_state_update':
-              console.log('[KernelAPI] Kernel state update:', data.payload);
-              break;
-            case 'anomaly_alert':
-              console.warn('[KernelAPI] Anomaly alert:', data.payload);
-              break;
-            case 'subscription_confirmed':
-              console.log('[KernelAPI] Subscribed to:', data.channel);
-              break;
-            default:
-              break;
-          }
-          
-          if (onMessage) onMessage(data);
-          this.notify(data);
-          
-        } catch (error) {
-          console.error('[KernelAPI] Failed to parse WebSocket message:', error);
-        }
-      };
-      
-      this.ws.onerror = (error) => {
-        console.error('[KernelAPI] WebSocket error:', error);
-        this.isConnecting = false;
-        if (onError) onError(error);
-      };
-      
-      this.ws.onclose = (event) => {
-        console.log(`[KernelAPI] WebSocket closed: ${event.code} - ${event.reason}`);
-        this.isConnecting = false;
-        if (onClose) onClose(event);
-        
-        // Auto-reconnect
-        if (this.reconnectAttempts < this.maxReconnectAttempts) {
-          this.reconnectAttempts++;
-          console.log(`[KernelAPI] Reconnecting in ${this.reconnectDelay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
-          setTimeout(() => {
-            this.connectWebSocket(onMessage, onOpen, onClose, onError);
-          }, this.reconnectDelay);
-        }
-      };
-      
-      return this.ws;
-      
-    } catch (error) {
-      console.error('[KernelAPI] Failed to create WebSocket:', error);
-      this.isConnecting = false;
-      return null;
-    }
+  // Dummy methods to avoid breaking existing imports
+  connectWebSocket() {
+    console.warn('[KernelAPI] WebSockets disabled on Vercel');
+    return null;
   }
 
-  subscribeToChannel(channel) {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({
-        type: 'subscribe',
-        channel: channel
-      }));
-    } else {
-      console.log(`[KernelAPI] Cannot subscribe to ${channel}: WebSocket not open`);
-    }
-  }
+  disconnectWebSocket() {}
 
-  unsubscribeFromChannel(channel) {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({
-        type: 'unsubscribe',
-        channel: channel
-      }));
-    }
-  }
+  subscribeToChannel() {}
 
-  sendMessage(message) {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify(message));
-      return true;
-    }
-    console.error('[KernelAPI] Cannot send message: WebSocket not open');
-    return false;
-  }
+  unsubscribeFromChannel() {}
 
-  disconnectWebSocket() {
-    if (this.ws) {
-      this.ws.close();
-      this.ws = null;
-      console.log('[KernelAPI] WebSocket disconnected');
-    }
-  }
+  sendMessage() { return false; }
 
-  // ============ Golden Build Specific Methods ============
+  isConnected() { return false; }
 
-  async fetchAndBroadcastGoldenBuild() {
-    try {
-      // Fetch the Golden Build JSON from root
-      const response = await fetch('/golden_build_chitra_53.json');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      
-      const goldenBuild = await response.json();
-      
-      // Broadcast via WebSocket
-      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-        this.sendMessage({
-          type: 'golden_build_import',
-          payload: goldenBuild,
-          timestamp: new Date().toISOString()
-        });
-      }
-      
-      // Also broadcast via HTTP
-      await this.broadcastGoldenBuild(goldenBuild);
-      
-      console.log('[KernelAPI] Golden Build fetched and broadcasted');
-      return goldenBuild;
-      
-    } catch (error) {
-      console.error('[KernelAPI] Failed to fetch and broadcast Golden Build:', error);
-      return null;
-    }
-  }
-
-  async syncGoldenBuildToAllClients(goldenBuildData) {
-    const clients = await this.getConnectedClients();
-    for (const client of clients) {
-      await this.sendToClient(client.id, {
-        type: 'force_golden_sync',
-        payload: goldenBuildData
-      });
-    }
-  }
-
-  async getConnectedClients() {
-    try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/clients`);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return await response.json();
-    } catch (error) {
-      console.error('[KernelAPI] Failed to get connected clients:', error);
-      return [];
-    }
-  }
-
-  async sendToClient(clientId, message) {
-    try {
-      const response = await fetch(`${this.apiUrl}/kernel/v3/send/${clientId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(message)
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(`[KernelAPI] Failed to send to client ${clientId}:`, error);
-      return null;
-    }
-  }
+  getConnectionState() { return 'DISABLED'; }
 
   // ============ Event System ============
 
@@ -341,21 +163,22 @@ class KernelAPIClient {
     });
   }
 
-  // ============ Status Methods ============
-
-  isConnected() {
-    return this.ws && this.ws.readyState === WebSocket.OPEN;
+  // ============ Removed Methods (WebSocket dependent) ============
+  async fetchAndBroadcastGoldenBuild() {
+    console.warn('[KernelAPI] fetchAndBroadcastGoldenBuild not implemented without WebSocket');
+    return null;
   }
 
-  getConnectionState() {
-    if (!this.ws) return 'DISCONNECTED';
-    switch (this.ws.readyState) {
-      case WebSocket.CONNECTING: return 'CONNECTING';
-      case WebSocket.OPEN: return 'OPEN';
-      case WebSocket.CLOSING: return 'CLOSING';
-      case WebSocket.CLOSED: return 'CLOSED';
-      default: return 'UNKNOWN';
-    }
+  async syncGoldenBuildToAllClients() {
+    console.warn('[KernelAPI] syncGoldenBuildToAllClients not implemented without WebSocket');
+  }
+
+  async getConnectedClients() {
+    return [];
+  }
+
+  async sendToClient() {
+    return null;
   }
 
   getGoldenBuildState() {
@@ -366,7 +189,7 @@ class KernelAPIClient {
 
   async healthCheck() {
     try {
-      const response = await fetch(`${this.apiUrl}/health`);
+      const response = await fetch(this._url('/api/health'));
       return response.ok;
     } catch {
       return false;
@@ -375,7 +198,7 @@ class KernelAPIClient {
 
   async getServerInfo() {
     try {
-      const response = await fetch(`${this.apiUrl}/info`);
+      const response = await fetch(this._url('/api/info'));
       return await response.json();
     } catch (error) {
       console.error('[KernelAPI] Failed to get server info:', error);
