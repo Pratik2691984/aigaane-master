@@ -1,5 +1,5 @@
 # C:\aigaane-master\api\kernel_api.py
-# Vercel‑compatible ASGI handler (using Mangum) – WebSockets disabled for serverless
+# Vercel‑compatible ASGI handler (using Mangum) – WebSockets disabled, routes prefixed with /api
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,7 +9,7 @@ from datetime import datetime
 import json
 import os
 
-from mangum import Mangum  # Adapter for Vercel serverless
+from mangum import Mangum
 
 app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
 
@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ============ Data Models ============
+# ============ Data Models (unchanged) ============
 class Vector49D(BaseModel):
     spatial: List[float]
     temporal: List[float]
@@ -69,19 +69,7 @@ history_states: List[KernelState] = []
 golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
 
-# ============ WebSocket Support DISABLED for Vercel ============
-# Vercel serverless functions do NOT support persistent WebSocket connections.
-# The entire WebSocket code is commented out to avoid deployment errors.
-# If you need real‑time features later, use a separate service (Pusher, Ably, etc.).
-
-# class ConnectionManager:
-#     ...
-# manager = ConnectionManager()
-# @app.websocket("/ws")
-# async def websocket_endpoint(...):
-#     ...
-
-# Dummy placeholder for health endpoint (avoids NameError)
+# ============ WebSocket disabled for Vercel ============
 manager = None
 
 # ============ Helper Functions ============
@@ -94,14 +82,14 @@ def list_to_vector(vector: List[float]) -> Vector49D:
         guna=vector[21:28], energy=vector[28:35], biological=vector[35:42], stellar=vector[42:49]
     )
 
-# ============ Core Endpoints ============
-@app.get("/kernel/v3/current")
+# ============ Core Endpoints (now under /api) ============
+@app.get("/api/kernel/v3/current")
 async def get_current_kernel():
     if current_state is None:
         raise HTTPException(status_code=404, detail="No kernel state available")
     return current_state
 
-@app.post("/kernel/v3/update")
+@app.post("/api/kernel/v3/update")
 async def update_kernel(state: KernelState):
     global current_state
     current_state = state
@@ -110,11 +98,11 @@ async def update_kernel(state: KernelState):
         history_states.pop(0)
     return {"status": "updated", "timestamp": state.timestamp}
 
-@app.get("/kernel/v3/history")
+@app.get("/api/kernel/v3/history")
 async def get_history(limit: int = 50):
     return history_states[-limit:]
 
-@app.get("/kernel/v3/compare")
+@app.get("/api/kernel/v3/compare")
 async def compare_states(index_a: int = -2, index_b: int = -1):
     if len(history_states) < 2:
         raise HTTPException(status_code=404, detail="Not enough history")
@@ -130,8 +118,8 @@ async def compare_states(index_a: int = -2, index_b: int = -1):
         "deltas": deltas[:10]
     }
 
-# ============ Golden Build Endpoints ============
-@app.post("/kernel/v3/golden/build")
+# ============ Golden Build Endpoints (under /api) ============
+@app.post("/api/kernel/v3/golden/build")
 async def create_golden_build(data: GoldenBuildData):
     global current_golden_build, golden_builds
     build_data = data.dict()
@@ -142,17 +130,17 @@ async def create_golden_build(data: GoldenBuildData):
     current_golden_build = build_data
     return {"status": "created", "id": build_id}
 
-@app.get("/kernel/v3/golden/current")
+@app.get("/api/kernel/v3/golden/current")
 async def get_current_golden_build():
     if current_golden_build is None:
         raise HTTPException(status_code=404, detail="No Golden Build set")
     return current_golden_build
 
-@app.get("/kernel/v3/golden/list")
+@app.get("/api/kernel/v3/golden/list")
 async def list_golden_builds():
     return golden_builds
 
-@app.delete("/kernel/v3/golden/{build_id}")
+@app.delete("/api/kernel/v3/golden/{build_id}")
 async def delete_golden_build(build_id: str):
     global golden_builds, current_golden_build
     for i, build in enumerate(golden_builds):
@@ -163,19 +151,19 @@ async def delete_golden_build(build_id: str):
             return {"status": "deleted", "id": build_id}
     raise HTTPException(status_code=404, detail="Golden Build not found")
 
-# ============ Health Endpoints (WebSocket references removed) ============
-@app.get("/health")
+# ============ Health & Info (under /api) ============
+@app.get("/api/health")
 async def health_check():
     return {
         "status": "healthy",
         "version": "3.0_PRO",
         "golden_builds": len(golden_builds),
         "history_states": len(history_states),
-        "active_connections": 0,          # WebSockets disabled on Vercel
+        "active_connections": 0,
         "timestamp": datetime.now().isoformat()
     }
 
-@app.get("/info")
+@app.get("/api/info")
 async def server_info():
     return {
         "version": "3.0_PRO",
@@ -210,5 +198,4 @@ async def startup_event():
             print(f"[Startup] ⚠️ Failed to load Golden Build: {e}")
 
 # ============ Vercel Handler ============
-# Mangum adapts the ASGI app to Vercel's serverless format
 handler = Mangum(app)
