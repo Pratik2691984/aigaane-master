@@ -1,7 +1,7 @@
 # C:\aigaane-master\api\kernel_api.py
-# Vercel‑compatible ASGI handler (using Mangum)
+# Vercel‑compatible ASGI handler (using Mangum) – WebSockets disabled for serverless
 
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
@@ -9,7 +9,7 @@ from datetime import datetime
 import json
 import os
 
-from mangum import Mangum  # <-- Adapter for serverless
+from mangum import Mangum  # Adapter for Vercel serverless
 
 app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
 
@@ -69,35 +69,20 @@ history_states: List[KernelState] = []
 golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
 
-# ============ WebSocket Manager (optional – WebSockets not fully supported on Vercel) ============
-# Note: Vercel does not support WebSockets in serverless functions.
-# If you need WebSockets, consider a separate service.
-# For now, we'll keep the code but they won't work on Vercel.
+# ============ WebSocket Support DISABLED for Vercel ============
+# Vercel serverless functions do NOT support persistent WebSocket connections.
+# The entire WebSocket code is commented out to avoid deployment errors.
+# If you need real‑time features later, use a separate service (Pusher, Ably, etc.).
 
-class ConnectionManager:
-    def __init__(self):
-        self.active_connections: List[WebSocket] = []
-        self.channel_subscriptions: Dict[str, List[WebSocket]] = {
-            "golden_build": [], "kernel_state": [], "anomaly_alerts": []
-        }
-    async def connect(self, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections.append(websocket)
-    def disconnect(self, websocket: WebSocket):
-        if websocket in self.active_connections:
-            self.active_connections.remove(websocket)
-        for channel in self.channel_subscriptions:
-            if websocket in self.channel_subscriptions[channel]:
-                self.channel_subscriptions[channel].remove(websocket)
-    async def broadcast_to_channel(self, channel: str, message: dict):
-        if channel in self.channel_subscriptions:
-            for connection in self.channel_subscriptions[channel]:
-                try:
-                    await connection.send_json(message)
-                except:
-                    pass
+# class ConnectionManager:
+#     ...
+# manager = ConnectionManager()
+# @app.websocket("/ws")
+# async def websocket_endpoint(...):
+#     ...
 
-manager = ConnectionManager()
+# Dummy placeholder for health endpoint (avoids NameError)
+manager = None
 
 # ============ Helper Functions ============
 def vector_to_list(v: Vector49D) -> List[float]:
@@ -108,22 +93,6 @@ def list_to_vector(vector: List[float]) -> Vector49D:
         spatial=vector[0:7], temporal=vector[7:14], planetary=vector[14:21],
         guna=vector[21:28], energy=vector[28:35], biological=vector[35:42], stellar=vector[42:49]
     )
-
-# ============ WebSocket Endpoint ============
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    try:
-        while True:
-            data = await websocket.receive_text()
-            try:
-                message = json.loads(data)
-                if message.get("type") == "subscribe":
-                    await manager.broadcast_to_channel(message.get("channel"), {"type": "subscribed"})
-            except:
-                pass
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
 
 # ============ Core Endpoints ============
 @app.get("/kernel/v3/current")
@@ -194,7 +163,7 @@ async def delete_golden_build(build_id: str):
             return {"status": "deleted", "id": build_id}
     raise HTTPException(status_code=404, detail="Golden Build not found")
 
-# ============ Health Endpoints ============
+# ============ Health Endpoints (WebSocket references removed) ============
 @app.get("/health")
 async def health_check():
     return {
@@ -202,7 +171,7 @@ async def health_check():
         "version": "3.0_PRO",
         "golden_builds": len(golden_builds),
         "history_states": len(history_states),
-        "active_connections": len(manager.active_connections),
+        "active_connections": 0,          # WebSockets disabled on Vercel
         "timestamp": datetime.now().isoformat()
     }
 
