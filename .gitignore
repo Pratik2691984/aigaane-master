@@ -99,3 +99,4 @@ Desktop.ini
 
 
 .vercel
+.env*.local

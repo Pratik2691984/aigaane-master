@@ -1,15 +1,15 @@
 # C:\aigaane-master\api\kernel_api.py
-# FastAPI Endpoint for External Queries + Static Frontend Hosting
+# Vercel‑compatible ASGI handler (using Mangum)
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles  # <-- ADDED for static files
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 import json
 import os
-import asyncio
+
+from mangum import Mangum  # <-- Adapter for serverless
 
 app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
 
@@ -22,7 +22,6 @@ app.add_middleware(
 )
 
 # ============ Data Models ============
-
 class Vector49D(BaseModel):
     spatial: List[float]
     temporal: List[float]
@@ -65,13 +64,15 @@ class GoldenBuildData(BaseModel):
     phase_lock: str = "LOCKED"
 
 # ============ Storage ============
-
 current_state: Optional[KernelState] = None
 history_states: List[KernelState] = []
 golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
 
-# ============ WebSocket Manager ============
+# ============ WebSocket Manager (optional – WebSockets not fully supported on Vercel) ============
+# Note: Vercel does not support WebSockets in serverless functions.
+# If you need WebSockets, consider a separate service.
+# For now, we'll keep the code but they won't work on Vercel.
 
 class ConnectionManager:
     def __init__(self):
@@ -79,18 +80,15 @@ class ConnectionManager:
         self.channel_subscriptions: Dict[str, List[WebSocket]] = {
             "golden_build": [], "kernel_state": [], "anomaly_alerts": []
         }
-    
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
-    
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
         for channel in self.channel_subscriptions:
             if websocket in self.channel_subscriptions[channel]:
                 self.channel_subscriptions[channel].remove(websocket)
-    
     async def broadcast_to_channel(self, channel: str, message: dict):
         if channel in self.channel_subscriptions:
             for connection in self.channel_subscriptions[channel]:
@@ -102,7 +100,6 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 # ============ Helper Functions ============
-
 def vector_to_list(v: Vector49D) -> List[float]:
     return v.spatial + v.temporal + v.planetary + v.guna + v.energy + v.biological + v.stellar
 
@@ -113,7 +110,6 @@ def list_to_vector(vector: List[float]) -> Vector49D:
     )
 
 # ============ WebSocket Endpoint ============
-
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
@@ -130,7 +126,6 @@ async def websocket_endpoint(websocket: WebSocket):
         manager.disconnect(websocket)
 
 # ============ Core Endpoints ============
-
 @app.get("/kernel/v3/current")
 async def get_current_kernel():
     if current_state is None:
@@ -167,7 +162,6 @@ async def compare_states(index_a: int = -2, index_b: int = -1):
     }
 
 # ============ Golden Build Endpoints ============
-
 @app.post("/kernel/v3/golden/build")
 async def create_golden_build(data: GoldenBuildData):
     global current_golden_build, golden_builds
@@ -201,7 +195,6 @@ async def delete_golden_build(build_id: str):
     raise HTTPException(status_code=404, detail="Golden Build not found")
 
 # ============ Health Endpoints ============
-
 @app.get("/health")
 async def health_check():
     return {
@@ -224,19 +217,10 @@ async def server_info():
         "current_golden_build": current_golden_build.get("metadata", {}).get("build_name") if current_golden_build else None
     }
 
-# ============ Serve Static Frontend (HTML, JS, CSS) ============
-# Mount the repository root (one level above /api) so that index.html, app.js, etc. are accessible.
-frontend_root = os.path.join(os.path.dirname(__file__), "..")
-if os.path.exists(frontend_root):
-    app.mount("/", StaticFiles(directory=frontend_root, html=True), name="frontend")
-else:
-    print(f"[Startup] Warning: Frontend directory not found at {frontend_root}")
-
-# ============ Startup ============
-
+# ============ Startup: load Golden Build from file ============
 @app.on_event("startup")
 async def startup_event():
-    golden_build_path = "golden_build_chitra_53.json"
+    golden_build_path = os.path.join(os.path.dirname(__file__), "..", "golden_build_chitra_53.json")
     if os.path.exists(golden_build_path):
         try:
             with open(golden_build_path, 'r', encoding='utf-8') as f:
@@ -256,6 +240,6 @@ async def startup_event():
         except Exception as e:
             print(f"[Startup] ⚠️ Failed to load Golden Build: {e}")
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+# ============ Vercel Handler ============
+# Mangum adapts the ASGI app to Vercel's serverless format
+handler = Mangum(app)
