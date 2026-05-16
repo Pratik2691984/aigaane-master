@@ -2,13 +2,57 @@
 
 const API_BASE = '';
 
-import { resolveResonance } from '/api/resolve_resonance.js';
+import { resolveResonance } from '/lib/resolve_resonance.js';
 import { validateState } from '/shared/invariant.js';
 import { runTools } from '/shared/tool_runner.js';
 
 let manifest = null;
 let activeToolId = null;
 let currentMountNode = null;
+let manifestLoaded = false;
+let queuedToolId = null;
+
+async function importToolModule(path) {
+  try {
+    return await import(path);
+  } catch (err) {
+    if (!path.endsWith('.jsx')) throw err;
+    const blobUrls = [];
+    try {
+      return await import(await bundleJsxModule(path, new Map(), blobUrls));
+    } finally {
+      blobUrls.forEach(url => URL.revokeObjectURL(url));
+    }
+  }
+}
+
+async function bundleJsxModule(path, cache, blobUrls) {
+  if (cache.has(path)) return cache.get(path);
+
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  let source = await res.text();
+  const importPattern = /from\s+["'](\.[^"']+\.jsx)["']/g;
+  const replacements = [];
+  let match = importPattern.exec(source);
+
+  while (match) {
+    const relativePath = match[1];
+    const absolutePath = new URL(relativePath, `${window.location.origin}${path}`).pathname;
+    replacements.push([relativePath, await bundleJsxModule(absolutePath, cache, blobUrls)]);
+    match = importPattern.exec(source);
+  }
+
+  for (const [relativePath, blobUrl] of replacements) {
+    source = source.replaceAll(`from "${relativePath}"`, `from "${blobUrl}"`);
+    source = source.replaceAll(`from '${relativePath}'`, `from "${blobUrl}"`);
+  }
+
+  const blobUrl = URL.createObjectURL(new Blob([source], { type: 'text/javascript' }));
+  blobUrls.push(blobUrl);
+  cache.set(path, blobUrl);
+  return blobUrl;
+}
 
 async function loadManifest() {
   try {
@@ -24,7 +68,7 @@ async function loadManifest() {
 
   for (const tool of manifest.tools) {
     try {
-      const mod = await import(tool.path);
+      const mod = await importToolModule(tool.path);
       tool.module = mod.tool;
       console.log(`[TIS] Loaded tool: ${tool.id}`);
     } catch (err) {
@@ -33,10 +77,16 @@ async function loadManifest() {
     }
   }
 
+  manifestLoaded = true;
   return manifest.tools.filter(t => t.enabled !== false);
 }
 
 async function switchTab(toolId) {
+  if (!manifestLoaded) {
+    queuedToolId = toolId;
+    return;
+  }
+
   const viewport = document.getElementById('viewport');
   if (!viewport) {
     console.error('[App] Viewport not found');
@@ -62,13 +112,20 @@ async function switchTab(toolId) {
   }
 
   try {
-    const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);
-    if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
-    const html = await viewRes.text();
-    viewport.innerHTML = html;
+    if (toolDef.view) {
+      const viewRes = await fetch(toolDef.view);
+      if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
+      viewport.innerHTML = await viewRes.text();
+    } else if (toolDef.component || toolDef.module?.component) {
+      viewport.innerHTML = '';
+    } else {
+      const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);
+      if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
+      viewport.innerHTML = await viewRes.text();
+    }
 
     const styleLink = document.getElementById('tab-style');
-    if (styleLink) styleLink.href = `/ui/tabs/${toolId}/style.css`;
+    if (styleLink) styleLink.href = toolDef.style || `/ui/tabs/${toolId}/style.css`;
 
     await new Promise(resolve => requestAnimationFrame(resolve));
 
@@ -165,7 +222,7 @@ setInterval(() => {
 async function init() {
   console.log('[App] Initializing Aigaane V3 PRO...');
   await loadManifest();
-  await switchTab('astronomy');
+  await switchTab(queuedToolId || 'astronomy');
   sync();
 }
 

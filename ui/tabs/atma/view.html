@@ -1,0 +1,59 @@
+<div class="tab-container atma-tab">
+  <header class="atma-header">
+    <div>
+      <h2>Atma Clock</h2>
+      <p class="subtitle">Vedic time intelligence, dosha rhythm, and action alignment.</p>
+    </div>
+    <span id="abhijit-indicator" class="abhijit-indicator" hidden>Abhijit Muhurta active</span>
+  </header>
+
+  <section class="atma-grid" aria-label="Atma clock readings">
+    <article class="atma-card">
+      <span class="label">Vedic Time</span>
+      <strong id="vedic-time" class="vedic-time">--:--</strong>
+      <span class="support">ghaṭī-pala</span>
+    </article>
+
+    <article class="atma-card">
+      <span class="label">Current Dosha</span>
+      <strong id="current-dosha" class="dosha-badge" data-dosha="">--</strong>
+      <span id="dosha-window" class="support">Awaiting clock</span>
+    </article>
+
+    <article class="atma-card">
+      <span class="label">Agni</span>
+      <strong id="agni-value" class="agni-value">--%</strong>
+      <span id="tithi-value" class="support">Tithi --</span>
+    </article>
+  </section>
+
+  <section class="conflict-panel" aria-label="Conflict meter">
+    <div class="conflict-heading">
+      <div>
+        <h3>Conflict Meter</h3>
+        <p>Kapha favors rest/eating, Pitta favors physical action, Vata favors mental work.</p>
+      </div>
+      <span id="conflict-label">0% conflict</span>
+    </div>
+    <progress id="conflict-meter" value="0" max="1"></progress>
+    <div id="atma-recommendation" class="atma-recommendation">
+      Log an action to receive an Anumana recommendation.
+    </div>
+  </section>
+
+  <form id="daily-log-form" class="atma-form">
+    <label for="action-select">Current Action</label>
+    <select id="action-select" required>
+      <option value="mental">Mental work</option>
+      <option value="physical">Physical work</option>
+      <option value="rest">Rest or sleep</option>
+      <option value="eat">Eating or meal</option>
+    </select>
+    <button type="submit">Log Action</button>
+  </form>
+
+  <section class="atma-log">
+    <h3>Daily Log</h3>
+    <div id="atma-log-list" class="log-list">No actions logged today.</div>
+  </section>
+</div>

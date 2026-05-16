@@ -1,7 +1,7 @@
 // C:\aigaane-master\tools\music.background.js (UPDATED)
 // Background Audio Tool – Now uses Rāga-constrained frequency
 
-import { SHRUTI_RATIOS } from '../api/shruti_ratios.js';
+import { SHRUTI_RATIOS } from '../lib/shruti_ratios.js';
 
 let audioCtx = null;
 let oscillator = null;

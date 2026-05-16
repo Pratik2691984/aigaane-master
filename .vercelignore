@@ -1,3 +1,6 @@
-﻿api/requirements.txt
-api/kernel_api.py
-api/golden_build_chitra_53.json
+.git
+.vscode
+__pycache__
+*.pyc
+.venv
+

@@ -8,8 +8,12 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 import json
 import os
+import sys
 
 from mangum import Mangum
+
+sys.path.insert(0, os.path.dirname(__file__))
+from engines.anumana import calculate_friction
 
 app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
 
@@ -62,6 +66,14 @@ class GoldenBuildData(BaseModel):
     status: str = "OPTIMAL"
     direction: str = "→ Forward"
     phase_lock: str = "LOCKED"
+
+class AtmaFrictionRequest(BaseModel):
+    solar_time: float
+    lunar_velocity: float = 1.0
+    user_action: str
+    current_dosha: str
+    agni_factor: float
+    cosmic_angle: float = 0.0
 
 # ============ Storage ============
 current_state: Optional[KernelState] = None
@@ -173,6 +185,21 @@ async def server_info():
         "total_history_states": len(history_states),
         "current_golden_build": current_golden_build.get("metadata", {}).get("build_name") if current_golden_build else None
     }
+
+@app.post("/api/calculate-friction")
+async def calculate_atma_friction(payload: AtmaFrictionRequest):
+    return calculate_friction(
+        user_action=payload.user_action,
+        current_dosha=payload.current_dosha,
+        agni_factor=payload.agni_factor,
+        solar_time=payload.solar_time,
+        lunar_velocity=payload.lunar_velocity,
+        cosmic_angle=payload.cosmic_angle,
+    )
+
+@app.post("/api/atma/calculate-friction")
+async def calculate_atma_friction_alias(payload: AtmaFrictionRequest):
+    return await calculate_atma_friction(payload)
 
 # ============ Startup: load Golden Build from file ============
 @app.on_event("startup")

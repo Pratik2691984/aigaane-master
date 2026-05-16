@@ -1,11 +1,14 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/kernel_api.py", "use": "@vercel/python" },
+    { "src": "api/index.py", "use": "@vercel/python" },
+    { "src": "api/test.py", "use": "@vercel/python" },
     { "src": "**/*", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/kernel_api" },
+    { "src": "/api/test", "dest": "/api/test.py" },
+    { "src": "/api/(.*)", "dest": "/api/index.py" },
+    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

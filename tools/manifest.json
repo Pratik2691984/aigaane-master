@@ -68,11 +68,37 @@
       "enabled": true
     },
     {
+      "id": "atma",
+      "name": "Atma Clock",
+      "path": "/tools/atma.tool.js",
+      "type": "ui",
+      "subscriptions": ["angle"],
+      "timeout_ms": 20,
+      "enabled": true
+    },
+    {
+      "id": "atma_background",
+      "name": "Atma Conflict Logger",
+      "path": "/tools/atma.background.js",
+      "type": "background",
+      "timeout_ms": 20,
+      "always_run": true,
+      "enabled": true
+    },
+    {
       "id": "anumana-engine",
       "name": "Anumāna Engine",
       "path": "/ui/tabs/anumana-engine/tool.js",
       "enabled": true
+    },
+    {
+      "id": "collapse-lab",
+      "label": "Collapse Lab",
+      "component": "CollapseLab",
+      "path": "/ui/tabs/CollapseLab/CollapseLab.jsx",
+      "style": "/ui/tabs/CollapseLab/styles.css",
+      "type": "ui",
+      "enabled": true
     }
-    
   ]
 }

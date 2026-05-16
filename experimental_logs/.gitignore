@@ -1,0 +1,9 @@
+*.json
+*.csv
+*.zip
+*.ndjson
+
+!important_keep.json
+!README.md
+!.keep
+!manifests/session_index.json
