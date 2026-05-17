@@ -43,10 +43,23 @@ const node = (id, name, type, layer, category, canonicalStatus, data = {}) => ({
   layer,
   category,
   canonicalStatus,
+  gunaClassification: null,
   ...data
 });
 
-const veda = (id, name, data) => node(id, name, "veda", "sruti", "veda", "primary", data);
+const veda = (id, name, data) => node(id, name, "veda", "sruti", "veda", "mukhya", data);
+
+const puranaItem = (id, name, gunaClassification, essence, keywords = []) => node(id, name, "purana", "smriti", "mahapurana", "mukhya", {
+  essence,
+  gunaClassification,
+  keywords: [...keywords, "purana", "mahapurana", gunaClassification],
+  relatedNodes: ["puranas", "lokas-studio"],
+  aigaaneLink: {
+    module: "lokas-studio",
+    futureTarget: "lokas-studio",
+    note: "Purāṇic cosmology connects to Lokas Studio and Guna classification."
+  }
+});
 
 export const scriptureTreeData = {
   id: "sastra-root",
@@ -57,8 +70,10 @@ export const scriptureTreeData = {
   canonicalStatus: "root",
   essence: "A layered sacred and intellectual library preserving revelation, remembered tradition, ritual practice, philosophy, and cultural memory.",
   keywords: ["sastra", "scripture", "veda", "smriti", "sruti"],
+  relatedNodes: [],
+  gunaClassification: null,
   children: [
-    node("sruti", "ŚRUTI", "top-level", "sruti", "sruti", "revealed", {
+    node("sruti", "ŚRUTI", "top-level", "sruti", "sruti", "mukhya", {
       essence: "Revealed Vedic knowledge: mantra, ritual exposition, forest teaching, and Upaniṣadic inquiry.",
       keywords: ["sruti", "veda", "revelation", "apauruseya", "mantra"],
       notes: "Śruti is traditionally treated as apauruṣeya, not authored by a human person.",
@@ -77,7 +92,7 @@ export const scriptureTreeData = {
           notes: "Central to mantra, chandas, early cosmology, and yajña language.",
           relatedNodes: ["chandas", "shiksha", "itihasas"]
         }),
-        node("yajurveda", "Yajurveda", "veda", "sruti", "veda", "primary", {
+        node("yajurveda", "Yajurveda", "veda", "sruti", "veda", "mukhya", {
           essence: "The Veda of sacrificial formulae, coordinating mantra with ritual action.",
           keywords: ["yajurveda", "yajus", "sacrifice", "ritual", "yajna"],
           sakhas: ["Śukla Yajurveda", "Kṛṣṇa Yajurveda"],
@@ -121,8 +136,8 @@ export const scriptureTreeData = {
             })
           ]
         }),
-        veda("samaveda", "Sāmaveda", {
-          essence: "The Veda of chant, recasting mantra into melodic liturgical performance.",
+        node("samaveda", "Sāmaveda", "veda", "sruti", "sound", "mukhya", {
+          essence: "The Veda of melodies and chant transformation.",
           keywords: ["samaveda", "saman", "chant", "music", "shruti", "melody"],
           sakhas: ["Kauthuma", "Rāṇāyanīya", "Jaiminīya"],
           components: {
@@ -168,7 +183,7 @@ export const scriptureTreeData = {
         })
       ]
     }),
-    node("smriti", "SMṚTI", "top-level", "smriti", "smriti", "remembered", {
+    node("smriti", "SMṚTI", "top-level", "smriti", "smriti", "mukhya", {
       essence: "Remembered tradition: narrative, law, ritual manuals, philosophy, Purāṇic cosmology, devotion, and applied sacred culture.",
       keywords: ["smriti", "tradition", "dharma", "purana", "itihasa"],
       children: [
@@ -221,38 +236,59 @@ export const scriptureTreeData = {
             })
           ]
         }),
-        node("itihasas", "Itihāsas", "epic", "smriti", "itihasa", "major", {
+        node("itihasas", "Itihāsas", "epic", "smriti", "itihasa", "mukhya", {
           essence: "Sacred histories presenting dharma through narrative, character, conflict, and divine descent.",
           keywords: ["itihasa", "ramayana", "mahabharata", "gita", "dharma"],
           items: ["Rāmāyaṇa", "Mahābhārata", "Bhagavad Gītā", "Harivaṃśa"],
           notes: "The Bhagavad Gītā stands inside the Mahābhārata as a compact theological and yogic teaching.",
           relatedNodes: ["dharma", "vedanta", "bhakti-vangmaya"]
         }),
-        node("puranas", "Purāṇas", "purana-group", "smriti", "purana", "major", {
+        node("puranas", "Purāṇas", "purana-group", "smriti", "purana", "mukhya", {
           essence: "Purāṇic literature teaches cosmology, avatāra, genealogy, pilgrimage, ritual, devotion, sacred time, and narrative theology.",
           keywords: ["purana", "mahapurana", "upapurana", "cosmology", "lokas", "narakas"],
           notes: "Purāṇic classification varies by tradition; the guṇa grouping below follows a common received schema.",
           relatedNodes: ["lokas-studio", "bhakti-vangmaya", "itihasas"],
           aigaaneLink: aigaaneLinks.puranas,
           children: [
-            node("mahapuranas", "Mahāpurāṇas", "purana-collection", "smriti", "purana", "major", {
+            node("mahapuranas", "Mahāpurāṇas", "purana-collection", "smriti", "purana", "mukhya", {
               essence: "The eighteen great Purāṇas grouped here by a traditional guṇa classification.",
               keywords: ["mahapurana", "eighteen puranas", "sattvika", "rajasika", "tamasika"],
               groups: [
                 {
                   name: "Sāttvika Purāṇas",
                   gunaClassification: "sattva",
-                  texts: ["Viṣṇu", "Bhāgavata", "Nārada", "Garuḍa", "Padma", "Varāha"]
+                  texts: [
+                    puranaItem("vishnu-purana", "Viṣṇu Purāṇa", "sattva", "A major Vaiṣṇava Purāṇa teaching cosmology, dharma, avatāra, and Viṣṇu-centered theology.", ["vishnu", "vaishnava", "cosmology"]),
+                    puranaItem("bhagavata-purana", "Bhāgavata Purāṇa", "sattva", "A devotional Purāṇa centered on Bhagavān, avatāra, bhakti, cosmology, and sacred narrative.", ["bhagavata", "krishna", "bhakti"]),
+                    puranaItem("narada-purana", "Nārada Purāṇa", "sattva", "A Purāṇa associated with Nārada, devotion, ritual, pilgrimage, and Vaiṣṇava teaching.", ["narada", "bhakti", "pilgrimage"]),
+                    puranaItem("garuda-purana", "Garuḍa Purāṇa", "sattva", "A Purāṇa covering cosmology, dharma, rites, afterlife teachings, and Viṣṇu devotion.", ["garuda", "afterlife", "dharma"]),
+                    puranaItem("padma-purana", "Padma Purāṇa", "sattva", "A large Purāṇa rich in pilgrimage, devotion, cosmology, and sacred geography.", ["padma", "pilgrimage", "sacred geography"]),
+                    puranaItem("varaha-purana", "Varāha Purāṇa", "sattva", "A Purāṇa connected with Varāha, sacred places, cosmology, and Vaiṣṇava devotion.", ["varaha", "vishnu", "sacred places"])
+                  ]
                 },
                 {
                   name: "Rājasika Purāṇas",
                   gunaClassification: "rajas",
-                  texts: ["Brahma", "Brahmāṇḍa", "Brahmavaivarta", "Mārkaṇḍeya", "Bhaviṣya", "Vāmana"]
+                  texts: [
+                    puranaItem("brahma-purana", "Brahma Purāṇa", "rajas", "A Purāṇa associated with creation, sacred geography, pilgrimage, and cosmological memory.", ["brahma", "creation", "pilgrimage"]),
+                    puranaItem("brahmanda-purana", "Brahmāṇḍa Purāṇa", "rajas", "A Purāṇa of cosmic egg cosmology, genealogies, sacred time, and Lalitā traditions.", ["brahmanda", "cosmic egg", "lalita"]),
+                    puranaItem("brahmavaivarta-purana", "Brahmavaivarta Purāṇa", "rajas", "A Purāṇa emphasizing Kṛṣṇa, Rādhā, creation, and devotional cosmology.", ["brahmavaivarta", "krishna", "radha"]),
+                    puranaItem("markandeya-purana", "Mārkaṇḍeya Purāṇa", "rajas", "A Purāṇa known especially for the Devī Māhātmya and cycles of cosmic narration.", ["markandeya", "devi mahatmya", "cycles"]),
+                    puranaItem("bhavishya-purana", "Bhaviṣya Purāṇa", "rajas", "A Purāṇa concerned with future-oriented narrative, rites, and later historical imagination.", ["bhavishya", "future", "rites"]),
+                    puranaItem("vamana-purana", "Vāmana Purāṇa", "rajas", "A Purāṇa associated with Vāmana, sacred geography, ritual, and narrative theology.", ["vamana", "vishnu", "sacred geography"])
+                  ]
                 },
                 {
                   name: "Tāmasika Purāṇas",
                   gunaClassification: "tamas",
-                  texts: ["Śiva or Vāyu", "Liṅga", "Skanda", "Agni", "Matsya", "Kūrma"]
+                  texts: [
+                    puranaItem("shiva-vayu-purana", "Śiva or Vāyu Purāṇa", "tamas", "A Purāṇic slot traditionally represented by Śiva or Vāyu in varying lists, associated with Śaiva cosmology and sacred history.", ["shiva", "vayu", "shaiva"]),
+                    puranaItem("linga-purana", "Liṅga Purāṇa", "tamas", "A Śaiva Purāṇa centered on the liṅga, cosmology, ritual, and Śiva theology.", ["linga", "shiva", "ritual"]),
+                    puranaItem("skanda-purana", "Skanda Purāṇa", "tamas", "A very large Purāṇa rich in pilgrimage, sacred geography, Śaiva themes, and Skanda narratives.", ["skanda", "pilgrimage", "shaiva"]),
+                    puranaItem("agni-purana", "Agni Purāṇa", "tamas", "An encyclopedic Purāṇa covering ritual, polity, arts, mantra, cosmology, and practical knowledge.", ["agni", "encyclopedic", "ritual"]),
+                    puranaItem("matsya-purana", "Matsya Purāṇa", "tamas", "A Purāṇa associated with Matsya, flood narrative, cosmology, temple lore, and sacred instruction.", ["matsya", "flood", "cosmology"]),
+                    puranaItem("kurma-purana", "Kūrma Purāṇa", "tamas", "A Purāṇa connected with Kūrma, cosmology, yoga, devotion, and theological synthesis.", ["kurma", "yoga", "cosmology"])
+                  ]
                 }
               ],
               relatedNodes: ["puranas", "lokas-studio"]
@@ -265,18 +301,18 @@ export const scriptureTreeData = {
             })
           ]
         }),
-        node("dharmasastras", "Dharmaśāstras", "law", "smriti", "dharma", "normative", {
+        node("dharmasastras", "Dharmaśāstras", "law", "smriti", "dharma", "mukhya", {
           essence: "Texts on dharma, conduct, rites, social duties, jurisprudence, penance, and life-stage obligations.",
           keywords: ["dharmashastra", "dharma", "law", "smriti", "achara"],
           items: ["Manusmṛti", "Yājñavalkya Smṛti", "Nārada Smṛti", "Parāśara Smṛti", "Gautama Dharma Sūtra", "Āpastamba Dharma Sūtra"],
           notes: "Historically interpreted through commentaries, region, custom, and institutional context.",
           relatedNodes: ["kalpa", "itihasas"]
         }),
-        node("darshanas", "Ṣaḍ Darśanas", "philosophy-group", "smriti", "darshana", "classical", {
+        node("darshanas", "Ṣaḍ Darśanas", "philosophy-group", "smriti", "darshana", "mukhya", {
           essence: "Six classical philosophical systems reasoning about reality, knowledge, liberation, causality, ritual, and consciousness.",
           keywords: ["darshana", "philosophy", "nyaya", "vedanta", "sankhya", "yoga"],
           children: [
-            node("nyaya", "Nyāya", "darshana", "smriti", "darshana", "classical", {
+            node("nyaya", "Nyāya", "darshana", "smriti", "darshana", "mukhya", {
               essence: "A system centered on logic, debate, valid cognition, and inference.",
               keywords: ["nyaya", "logic", "inference", "anumana", "pramana"],
               foundationalText: "Gautama's Nyāya Sūtra",
@@ -284,14 +320,14 @@ export const scriptureTreeData = {
               relatedNodes: ["anumana", "vaisheshika"],
               aigaaneLink: aigaaneLinks.nyaya
             }),
-            node("vaisheshika", "Vaiśeṣika", "darshana", "smriti", "darshana", "classical", {
+            node("vaisheshika", "Vaiśeṣika", "darshana", "smriti", "darshana", "mukhya", {
               essence: "A realist system of categories, substances, qualities, motion, universals, particularity, and inherence.",
               keywords: ["vaisheshika", "kanada", "atomism", "categories", "padartha"],
               foundationalText: "Kaṇāda's Vaiśeṣika Sūtra",
               majorCommentaries: ["Praśastapāda Bhāṣya", "Śrīdhara", "Udayana"],
               relatedNodes: ["nyaya"]
             }),
-            node("sankhya", "Sāṃkhya", "darshana", "smriti", "darshana", "classical", {
+            node("sankhya", "Sāṃkhya", "darshana", "smriti", "darshana", "mukhya", {
               essence: "A dualist analysis of puruṣa and prakṛti, guṇas, tattvas, bondage, and discriminative liberation.",
               keywords: ["sankhya", "samkhya", "prakriti", "purusha", "guna", "tattva"],
               foundationalText: "Sāṃkhya Kārikā as the earliest extant systematic exposition; Sāṃkhya Sūtras as a later attributed aphoristic tradition.",
@@ -299,21 +335,21 @@ export const scriptureTreeData = {
               notes: "The Sāṃkhya Kārikā is the earliest extant systematic exposition; Sāṃkhya Sūtras represent a later attributed aphoristic tradition.",
               relatedNodes: ["yoga", "vedanta"]
             }),
-            node("yoga", "Yoga", "darshana", "smriti", "darshana", "classical", {
+            node("yoga", "Yoga", "darshana", "smriti", "darshana", "mukhya", {
               essence: "A discipline of citta, meditation, ethics, samādhi, and liberation closely related to Sāṃkhya metaphysics.",
               keywords: ["yoga", "patanjali", "citta", "samadhi", "ashtanga"],
               foundationalText: "Patañjali's Yoga Sūtra",
               majorCommentaries: ["Vyāsa Bhāṣya", "Vācaspati Miśra's Tattvavaiśāradī", "Vijñānabhikṣu"],
               relatedNodes: ["sankhya", "upanishad"]
             }),
-            node("purva-mimamsa", "Pūrva Mīmāṃsā", "darshana", "smriti", "darshana", "classical", {
+            node("purva-mimamsa", "Pūrva Mīmāṃsā", "darshana", "smriti", "darshana", "mukhya", {
               essence: "A hermeneutic and ritual-philosophical system focused on Vedic injunction, dharma, language, and action.",
               keywords: ["mimamsa", "jaimini", "ritual", "dharma", "hermeneutics"],
               foundationalText: "Jaimini's Mīmāṃsā Sūtra",
               majorCommentaries: ["Śabara Bhāṣya", "Kumārila Bhaṭṭa", "Prabhākara"],
               relatedNodes: ["yajurveda", "kalpa", "dharmasastras"]
             }),
-            node("vedanta", "Vedānta", "darshana", "smriti", "darshana", "classical", {
+            node("vedanta", "Vedānta", "darshana", "smriti", "darshana", "mukhya", {
               essence: "The Upaniṣadic philosophical stream focused on Brahman, self, liberation, and interpretation of the Brahma Sūtra.",
               keywords: ["vedanta", "brahman", "atman", "upanishad", "shankara", "ramanuja", "madhva"],
               foundationalText: "Bādarāyaṇa's Brahma Sūtra",
@@ -323,83 +359,83 @@ export const scriptureTreeData = {
             })
           ]
         }),
-        node("upavedas", "Upavedas", "applied-knowledge-group", "smriti", "upaveda", "applied", {
+        node("upavedas", "Upavedas", "applied-knowledge-group", "smriti", "upaveda", "auxiliary", {
           essence: "Applied sciences traditionally linked with the Vedic world.",
           keywords: ["upaveda", "ayurveda", "dhanurveda", "gandharvaveda", "sthaptya"],
           children: [
-            node("ayurveda", "Āyurveda", "upaveda", "smriti", "upaveda", "applied", {
+            node("ayurveda", "Āyurveda", "upaveda", "smriti", "upaveda", "auxiliary", {
               essence: "Medical and life-science knowledge concerned with health, balance, disease, diet, and longevity.",
               keywords: ["ayurveda", "medicine", "health", "dosha", "charaka"],
               foundationalText: "Caraka Saṃhitā and Suśruta Saṃhitā traditions",
               majorCommentaries: ["Cakrapāṇidatta", "Dalhaṇa"]
             }),
-            node("dhanurveda", "Dhanurveda", "upaveda", "smriti", "upaveda", "applied", {
+            node("dhanurveda", "Dhanurveda", "upaveda", "smriti", "upaveda", "auxiliary", {
               essence: "Martial knowledge, archery, warfare, discipline, and protective skill.",
               keywords: ["dhanurveda", "archery", "martial", "warfare"],
               notes: "Survives in scattered textual and traditional references."
             }),
-            node("gandharvaveda", "Gāndharvaveda", "upaveda", "smriti", "upaveda", "applied", {
+            node("gandharvaveda", "Gāndharvaveda", "upaveda", "smriti", "upaveda", "auxiliary", {
               essence: "Music, performance, sound, and aesthetic experience.",
               keywords: ["gandharvaveda", "music", "rasa", "sound", "performance"],
               items: ["Gāna", "Vādya", "Nāṭya", "Rasa", "Melodic discipline"],
               relatedNodes: ["samaveda", "natyasastra"],
               aigaaneLink: aigaaneLinks.gandharvaveda
             }),
-            node("sthapatyaveda", "Sthāpatyaveda", "upaveda", "smriti", "upaveda", "applied", {
+            node("sthapatyaveda", "Sthāpatyaveda", "upaveda", "smriti", "upaveda", "auxiliary", {
               essence: "Architecture, sacred layout, image-making, building, and spatial design.",
               keywords: ["sthaptya", "vastu", "architecture", "temple", "murti"],
               relatedNodes: ["agamas-tantras"]
             })
           ]
         }),
-        node("agamas-tantras", "Āgamas & Tantras", "practice-group", "smriti", "agama", "sectarian-practice", {
+        node("agamas-tantras", "Āgamas & Tantras", "practice-group", "smriti", "agama", "sectarian", {
           essence: "Temple, mantra, deity, yoga, initiation, ritual, and subtle-body traditions across Vaiṣṇava, Śaiva, Śākta, and other streams.",
           keywords: ["agama", "tantra", "mantra", "temple", "diksha", "sri vidya"],
           notes: "Representative list only; full sectarian corpora are much larger.",
           children: [
-            node("vaishnava-agamas", "Vaiṣṇava Āgamas", "agama-branch", "smriti", "agama", "sectarian-practice", {
+            node("vaishnava-agamas", "Vaiṣṇava Āgamas", "agama-branch", "smriti", "agama", "sectarian", {
               essence: "Vaiṣṇava ritual, temple, icon, mantra, and theology traditions.",
               keywords: ["vaishnava agama", "pancaratra", "vaikhanasa", "vishnu"],
               items: ["Pāñcarātra Saṃhitās", "Vaikhānasa texts", "Nārada Pāñcarātra", "Jayākhya Saṃhitā"]
             }),
-            node("shaiva-agamas", "Śaiva Āgamas", "agama-branch", "smriti", "agama", "sectarian-practice", {
+            node("shaiva-agamas", "Śaiva Āgamas", "agama-branch", "smriti", "agama", "sectarian", {
               essence: "Śaiva ritual, yoga, mantra, temple, and nondual or dual Śaiva traditions.",
               keywords: ["shaiva agama", "shiva sutras", "vijnana bhairava", "mrgendra"],
               items: ["Kāmika Āgama", "Mṛgendra Āgama", "Śiva Sūtras", "Vijñāna Bhairava Tantra"]
             }),
-            node("shakta-tantras", "Śākta Tantras", "tantra-branch", "smriti", "agama", "sectarian-practice", {
+            node("shakta-tantras", "Śākta Tantras", "tantra-branch", "smriti", "agama", "sectarian", {
               essence: "Śākta mantra, deity, ritual, subtle-body, Śrī Vidyā, and goddess-centered traditions.",
               keywords: ["shakta tantra", "kularnava", "tripura rahasya", "lalita sahasranama", "sri vidya"],
               items: ["Kularṇava Tantra", "Tripurā Rahasya", "Lalitā Sahasranāma / Śrī Vidyā notes", "Tantrarāja Tantra"]
             })
           ]
         }),
-        node("bhakti-vangmaya", "Bhakti Sādhana Vāṅmaya", "devotional-literature-group", "smriti", "bhakti", "devotional", {
+        node("bhakti-vangmaya", "Bhakti Sādhana Vāṅmaya", "devotional-literature-group", "smriti", "bhakti", "representative", {
           essence: "Devotional literature for practice, song, remembrance, theology, and surrender.",
           keywords: ["bhakti", "devotion", "vernacular", "kirtan", "poetry"],
           notes: "Representative works only.",
           children: [
-            node("sanskrit-bhakti", "Sanskrit Bhakti", "devotional-literature", "smriti", "bhakti", "devotional", {
+            node("sanskrit-bhakti", "Sanskrit Bhakti", "devotional-literature", "smriti", "bhakti", "representative", {
               essence: "Sanskrit devotional works and theological poetry.",
               keywords: ["sanskrit bhakti", "gita govinda", "narada bhakti sutra"],
               items: ["Gīta Govinda", "Nārada Bhakti Sūtra", "Śāṇḍilya Bhakti Sūtra", "Stotra literature"]
             }),
-            node("tamil-bhakti", "Tamil Bhakti", "devotional-literature", "smriti", "bhakti", "devotional", {
+            node("tamil-bhakti", "Tamil Bhakti", "devotional-literature", "smriti", "bhakti", "regional", {
               essence: "Tamil Vaiṣṇava and Śaiva devotional canons.",
               keywords: ["tamil bhakti", "divya prabandham", "tevaram", "alvar", "nayanmar"],
               items: ["Divya Prabandham", "Tēvāram", "Tiruvācakam", "Tiruvāymoḻi"]
             }),
-            node("marathi-bhakti", "Marathi Bhakti", "devotional-literature", "smriti", "bhakti", "devotional", {
+            node("marathi-bhakti", "Marathi Bhakti", "devotional-literature", "smriti", "bhakti", "regional", {
               essence: "Vārkarī and Marathi devotional streams.",
               keywords: ["marathi bhakti", "jnaneshwari", "tukaram", "abhang"],
               items: ["Jñāneśvarī", "Tukārām Gāthā", "Abhaṅgas", "Eknāthī Bhāgavata"]
             }),
-            node("hindi-bhakti", "Hindi Bhakti", "devotional-literature", "smriti", "bhakti", "devotional", {
+            node("hindi-bhakti", "Hindi Bhakti", "devotional-literature", "smriti", "bhakti", "regional", {
               essence: "North Indian devotional poetry and retellings.",
               keywords: ["hindi bhakti", "ramcharitmanas", "surdas", "tulsidas", "kabir"],
               items: ["Rāmcaritmānas", "Sūrsāgar", "Kabīr poetry", "Vinaya Patrikā"]
             }),
-            node("bengali-bhakti", "Bengali Bhakti", "devotional-literature", "smriti", "bhakti", "devotional", {
+            node("bengali-bhakti", "Bengali Bhakti", "devotional-literature", "smriti", "bhakti", "regional", {
               essence: "Bengali Vaiṣṇava devotional theology, biography, and song.",
               keywords: ["bengali bhakti", "chaitanya", "charitamrita", "gaudiya"],
               items: ["Caitanya-caritāmṛta", "Caitanya-bhāgavata", "Padāvalī kīrtana"]
@@ -411,7 +447,7 @@ export const scriptureTreeData = {
             })
           ]
         }),
-        node("independent-granths", "Independent Advaita / Bhakti Granths", "granth-group", "smriti", "granth", "commentarial-devotional", {
+        node("independent-granths", "Independent Advaita / Bhakti Granths", "granth-group", "smriti", "granth", "commentarial", {
           essence: "Influential standalone works of philosophy, practice, and devotion.",
           keywords: ["advaita", "bhakti", "granth", "shankara", "ramanuja", "madhva"],
           items: ["Vivekacūḍāmaṇi", "Ātma-bodha", "Upadeśa Sāhasrī", "Vedānta Sāra", "Śrī Bhāṣya", "Gītā Bhāṣyas", "Bhakti-rasāmṛta-sindhu"],
@@ -420,34 +456,34 @@ export const scriptureTreeData = {
         })
       ]
     }),
-    node("secular-supporting", "SECULAR / SUPPORTING TEXTS", "top-level", "secular", "secular", "supporting", {
+    node("secular-supporting", "SECULAR / SUPPORTING TEXTS", "top-level", "secular", "secular", "representative", {
       essence: "Classical knowledge systems supporting polity, arts, ethics, poetics, social life, omens, and narrative education.",
       keywords: ["secular", "supporting texts", "artha", "natya", "kama", "pancatantra"],
       notes: "These are culturally important supporting texts but not the same authority class as Śruti.",
       children: [
-        node("arthasastra", "Arthaśāstra", "statecraft", "secular", "supporting-text", "classical", {
+        node("arthasastra", "Arthaśāstra", "statecraft", "secular", "supporting-text", "representative", {
           essence: "Treatise on polity, governance, economics, diplomacy, law, and statecraft.",
           keywords: ["arthashastra", "kautilya", "chanakya", "statecraft", "politics"],
           items: ["Kauṭilya / Cāṇakya tradition"],
           notes: "A political science text and supporting knowledge source."
         }),
-        node("natyasastra", "Nāṭyaśāstra", "arts", "secular", "supporting-text", "classical", {
+        node("natyasastra", "Nāṭyaśāstra", "arts", "secular", "supporting-text", "representative", {
           essence: "Foundational treatise on drama, performance, rasa, music, gesture, staging, and aesthetics.",
           keywords: ["natyashastra", "rasa", "bharata", "performance", "music"],
           items: ["Bharata Muni", "Rasa theory", "Abhinaya", "Gāna", "Nāṭya"],
           relatedNodes: ["gandharvaveda", "bhakti-vangmaya"]
         }),
-        node("kamasutra", "Kāma Sūtra", "social-art", "secular", "supporting-text", "classical", {
+        node("kamasutra", "Kāma Sūtra", "social-art", "secular", "supporting-text", "representative", {
           essence: "Classical text on kāma, refined social life, relationships, aesthetics, and household culture.",
           keywords: ["kamasutra", "kama", "social life", "aesthetics"],
           notes: "Best read in its broader puruṣārtha context, not as a single-topic manual."
         }),
-        node("brhat-samhita", "Bṛhat Saṃhitā", "encyclopedic", "secular", "supporting-text", "classical", {
+        node("brhat-samhita", "Bṛhat Saṃhitā", "encyclopedic", "secular", "supporting-text", "representative", {
           essence: "Varāhamihira's encyclopedic compendium on astral omens, architecture, weather, gems, rituals, and cultural sciences.",
           keywords: ["brhat samhita", "varahamihira", "omens", "architecture", "weather"],
           relatedNodes: ["jyotisha", "sthapatyaveda"]
         }),
-        node("pancatantra-hitopadesha", "Pañcatantra / Hitopadeśa", "narrative", "secular", "supporting-text", "classical", {
+        node("pancatantra-hitopadesha", "Pañcatantra / Hitopadeśa", "narrative", "secular", "supporting-text", "representative", {
           essence: "Didactic story collections teaching practical wisdom, ethics, diplomacy, and human behavior through narrative.",
           keywords: ["pancatantra", "hitopadesha", "fables", "niti", "wisdom"],
           notes: "Widely transmitted across languages and cultures."

@@ -75,7 +75,11 @@ function categoryMatches(node) {
   if (activeFilter === "all") return true;
   if (activeFilter === "aigaane-link") return Boolean(node.aigaaneLink);
   const category = scriptureCategories.find((item) => item.id === activeFilter);
-  return Boolean(category?.matches?.includes(node.category) || node.layer === activeFilter);
+  return Boolean(
+    category?.matches?.includes(node.category) ||
+    node.layer === activeFilter ||
+    node.type === activeFilter
+  );
 }
 
 function nodeMatchesSelf(node) {
@@ -159,7 +163,16 @@ function renderGroups(groups, label = "Groups") {
         <div class="scriptures-group">
           <strong>${escapeHtml(group.name || group.gunaClassification || "Group")}</strong>
           ${group.gunaClassification ? `<span class="scriptures-badge">${escapeHtml(group.gunaClassification)}</span>` : ""}
-          ${(group.texts || group.items) ? `<p>${escapeHtml((group.texts || group.items).join(" • "))}</p>` : ""}
+          ${(group.texts || group.items) ? `
+            <ul>
+              ${(group.texts || group.items).map((item) => {
+                if (typeof item === "object") {
+                  return `<li><strong>${escapeHtml(item.name)}</strong>${item.essence ? ` — ${escapeHtml(item.essence)}` : ""}</li>`;
+                }
+                return `<li>${escapeHtml(item)}</li>`;
+              }).join("")}
+            </ul>
+          ` : ""}
         </div>
       `).join("")}
     </div>
