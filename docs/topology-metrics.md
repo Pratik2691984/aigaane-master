@@ -2,26 +2,30 @@
 
 ## Purpose
 
-This document defines the topology, synchronization, and spectral metrics used by Collapse Lab to describe non-equilibrium phase-space behavior. It is a permanent documentation reference and is separate from runtime-generated files in `experimental_logs/`.
+This document defines the topology, synchronization, and spectral metrics used by Collapse Lab to describe non-equilibrium phase-space behavior. It is a permanent documentation reference and remains separate from runtime-generated files in `experimental_logs/`.
 
 ## Metric Table
 
-| Metric | Runtime Field | Definition | Interpretation |
+| Metric | Symbol | Runtime Key | Meaning |
 | --- | --- | --- | --- |
-| Component count | `k` | Number of detected dominant connected components or clusters. | `k = 2` indicates dual topology during pre-collapse classification. |
-| Spectral gap | `lambda2` | Second-smallest eigenvalue of the normalized graph Laplacian. | Lower values indicate weaker global connectivity; `lambda2 <= 1e-4` supports pre-collapse classification. |
-| Collapse Probability Index | `CPI` | Bounded collapse-likelihood score derived from topology, synchronization, and spectral signals. | `CPI >= 0.85` indicates high collapse likelihood. |
-| Entropy | `entropy` | Information dispersion measure for the current phase/topology state. | Lower entropy indicates contraction or compression of system state. |
-| Sync ratio | `R_sync` | Bounded synchronization ratio for oscillator phase coherence. | Higher values indicate stronger collective phase alignment. |
-| Cluster balance ratio | `clusterBalanceRatio` | Ratio measuring whether dominant clusters are meaningfully balanced. | `clusterBalanceRatio >= 0.35` rejects giant-component + singleton degeneracy. |
+| Component count | `k` | `k` | Number of detected dominant connected components. |
+| Spectral gap | `lambda2` | `lambda2` | Second-smallest eigenvalue of the normalized graph Laplacian. |
+| Collapse Probability Index | `CPI` | `cpi` | Bounded collapse-likelihood score derived from topology, synchronization, and spectral signals. |
+| Entropy | `H` | `entropy` | Information dispersion measure for the current phase/topology state. |
+| Sync ratio | `R_sync` | `syncRatio` | Bounded synchronization ratio for oscillator phase coherence. |
+| Cluster balance ratio | `B` | `clusterBalanceRatio` | Balance ratio measuring whether the two dominant clusters are both substantial. |
+| Residual mass | `M_residual` | `residualMass` | Remaining non-dominant or boundary mass retained by the topology. |
+| Modularity | `Q` | `modularity` | Approximate modular structure score for the current graph state. |
+
+## Synchronization Notation
+
+Sync ratio must be written as `R_sync`, with runtime key `syncRatio`.
+
+Do not use sigma for sync ratio. Sigma is reserved for entropy production and dissipation in the broader thermodynamic model.
 
 ## Spectral Extraction
 
-The spectral gap is extracted from the normalized graph Laplacian so that connectivity estimates remain comparable across frames with changing topology. The `lambda2` value is interpreted as algebraic connectivity: values near zero indicate that the graph is weakly connected or approaching separation into independent components.
-
-## Synchronization Extraction
-
-`R_sync` represents phase coherence across the oscillator population. It should be read as a synchronization ratio, not as a standard deviation or variance term. This notation avoids ambiguity with sigma-based statistical notation.
+The spectral gap is extracted from the normalized graph Laplacian so connectivity estimates remain comparable across frames with changing topology. The `lambda2` value is interpreted as algebraic connectivity: values near zero indicate that the graph is weakly connected or approaching separation into independent components.
 
 ## Cluster Balance
 
@@ -31,11 +35,13 @@ The spectral gap is extracted from the normalized graph Laplacian so that connec
 
 The engine applies:
 
-* epsilon padding (`EPSILON = 1e-12`)
-* normalized Laplacian scaling
-* capped metric histories
-* `Float64Array` typed vectors
-* bounded gamma transforms
+- epsilon padding (`EPSILON = 1e-12`)
+- normalized Laplacian scaling
+- capped metric histories
+- `Float64Array` typed vectors
+- bounded gamma transforms
+- deterministic UI cadence
+- cached canvas contexts
 
 to preserve stable spectral extraction under high-frequency rendering conditions.
 

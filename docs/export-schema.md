@@ -2,14 +2,20 @@
 
 ## Purpose
 
-This document describes the stable telemetry export shape used by Collapse Lab experiments. It is intended for review, replication, and downstream analysis while keeping permanent documentation separate from runtime-generated telemetry in `experimental_logs/`.
+This document describes the stable telemetry export shape used by Collapse Lab experiments. It supports review, replication, and downstream analysis while keeping permanent documentation separate from runtime-generated telemetry in `experimental_logs/`.
 
-## Top-Level Schema
+## Top-Level JSON Schema
 
 ```json
 {
-  "timestamp": "2026-05-17T00:00:00.000Z",
-  "controls": {},
+  "timestamp": "ISO-8601 string",
+  "totalFrames": 0,
+  "controls": {
+    "noise": 0,
+    "coupling": 0,
+    "gamma": 0,
+    "speed": 0
+  },
   "frames": [],
   "replayFrames": []
 }
@@ -21,12 +27,16 @@ Each exported frame preserves the metrics required to analyze collapse topology,
 
 ```json
 {
-  "timestamp": "2026-05-17T00:00:00.000Z",
-  "CPI": 0.0,
-  "lambda2": 0.0,
-  "entropy": 0.0,
+  "t": 0,
+  "phase": "NORMAL | PRE_COLLAPSE | COLLAPSED",
+  "cpi": 0,
+  "lambda2": 0,
+  "entropy": 0,
+  "residualMass": 0,
+  "clusterBalanceRatio": 0,
+  "syncRatio": 0,
   "k": 0,
-  "clusterBalanceRatio": 0.0
+  "modularity": 0
 }
 ```
 
@@ -34,15 +44,29 @@ Each exported frame preserves the metrics required to analyze collapse topology,
 
 | Field | Location | Type | Description |
 | --- | --- | --- | --- |
-| `timestamp` | top level, frame | string | ISO-8601 timestamp for export creation or frame capture. |
+| `timestamp` | top level | string | ISO-8601 timestamp for export creation. |
+| `totalFrames` | top level | number | Count of exported live telemetry frames. |
 | `controls` | top level | object | Runtime control state used for the experiment. |
 | `frames` | top level | array | Ordered telemetry frames captured during the run. |
 | `replayFrames` | top level | array | Replay history supported by runtime exports. |
-| `CPI` | frame | number | Collapse Probability Index. |
+| `t` | frame | number | Runtime frame time. |
+| `phase` | frame | string | `NORMAL`, `PRE_COLLAPSE`, or `COLLAPSED`. |
+| `cpi` | frame | number | Collapse Probability Index. |
 | `lambda2` | frame | number | Normalized Laplacian spectral gap. |
 | `entropy` | frame | number | Entropy value for the current frame. |
-| `k` | frame | number | Detected component or dominant-cluster count. |
+| `residualMass` | frame | number | Residual cluster or boundary mass. |
 | `clusterBalanceRatio` | frame | number | Balance ratio for dominant clusters. |
+| `syncRatio` | frame | number | Runtime synchronization ratio. |
+| `k` | frame | number | Detected component or dominant-cluster count. |
+| `modularity` | frame | number | Approximate modular structure score. |
+
+## CSV Columns
+
+The documented CSV analysis column order is:
+
+```csv
+t,phase,cpi,lambda2,entropy,residualMass,clusterBalanceRatio,syncRatio,k,modularity
+```
 
 ## Replay History
 
