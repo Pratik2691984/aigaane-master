@@ -99,6 +99,14 @@
       "style": "/ui/tabs/CollapseLab/styles.css",
       "type": "ui",
       "enabled": true
+    },
+    {
+      "id": "lokas-studio",
+      "label": "Lokas Studio",
+      "path": "/ui/tabs/lokas-studio/view.html",
+      "style": "/ui/tabs/lokas-studio/style.css",
+      "type": "ui",
+      "enabled": true
     }
   ]
 }

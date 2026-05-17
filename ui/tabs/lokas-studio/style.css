@@ -1,0 +1,391 @@
+.lokas-studio {
+  min-height: calc(100vh - 170px);
+  padding: clamp(1rem, 2.4vw, 2rem);
+  color: #eef4ff;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.3), transparent 30rem),
+    radial-gradient(circle at 82% 4%, rgba(34, 211, 238, 0.2), transparent 28rem),
+    radial-gradient(circle at 50% 100%, rgba(245, 158, 11, 0.1), transparent 30rem),
+    linear-gradient(135deg, rgba(7, 10, 27, 0.98), rgba(13, 18, 39, 0.97) 52%, rgba(4, 20, 30, 0.98));
+}
+
+.lokas-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  max-width: 1180px;
+  margin: 0 auto 1.25rem;
+}
+
+.lokas-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0;
+  color: #fff8d8;
+}
+
+.lokas-header p {
+  margin: 0.55rem 0 0;
+  color: #b9c7e8;
+}
+
+.lokas-kicker {
+  margin: 0 0 0.45rem;
+  color: #7dd3fc;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.lokas-path-card,
+.lokas-note,
+.lokas-card {
+  background: rgba(13, 22, 44, 0.72);
+  border: 1px solid rgba(166, 199, 255, 0.18);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+}
+
+.lokas-path-card {
+  border-radius: 8px;
+  padding: 0.8rem 0.95rem;
+  min-width: min(100%, 230px);
+}
+
+.lokas-path-card span {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #8ea1c8;
+  font-size: 0.78rem;
+}
+
+.lokas-path-card code {
+  color: #fde68a;
+  font-size: 0.9rem;
+}
+
+.lokas-search {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 1180px;
+  margin: 0 auto 1rem;
+  color: #aebbe0;
+  font-size: 0.85rem;
+}
+
+.lokas-search input {
+  width: 100%;
+  border: 1px solid rgba(125, 211, 252, 0.28);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  background: rgba(6, 12, 27, 0.82);
+  color: #f8fbff;
+  outline: none;
+}
+
+.lokas-search input:focus {
+  border-color: rgba(250, 204, 21, 0.75);
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.12);
+}
+
+.lokas-inner-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  max-width: 1180px;
+  margin: 0 auto 1.1rem;
+}
+
+.lokas-inner-tab {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  padding: 0.62rem 0.95rem;
+  background: rgba(15, 23, 42, 0.72);
+  color: #c8d5f2;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.lokas-inner-tab.active {
+  border-color: rgba(250, 204, 21, 0.78);
+  background: linear-gradient(135deg, rgba(250, 204, 21, 0.22), rgba(34, 211, 238, 0.13));
+  color: #fff7cd;
+}
+
+.lokas-panel {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.lokas-panel.hidden {
+  display: none;
+}
+
+.lokas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.lokas-card {
+  position: relative;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.lokas-card.is-selectable {
+  cursor: pointer;
+}
+
+.lokas-card.is-selected {
+  border-color: rgba(250, 204, 21, 0.85);
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35), 0 22px 70px rgba(0, 0, 0, 0.35);
+}
+
+.lokas-card h2,
+.lokas-card h3 {
+  margin: 0 0 0.6rem;
+  color: #fff8dd;
+  font-size: 1.08rem;
+  line-height: 1.25;
+}
+
+.lokas-card p {
+  margin: 0.6rem 0 0;
+  color: #cfdbf6;
+  line-height: 1.55;
+}
+
+.lokas-card small,
+.lokas-muted {
+  display: block;
+  margin-top: 0.75rem;
+  color: #91a4cb;
+  line-height: 1.45;
+}
+
+.lokas-card pre {
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre-wrap;
+  color: #dce8ff;
+  background: rgba(2, 6, 23, 0.54);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.lokas-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.55rem;
+  margin: 0 0.35rem 0.55rem 0;
+  border-radius: 999px;
+  padding: 0.22rem 0.58rem;
+  color: #06111f;
+  background: #7dd3fc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lokas-guna,
+.lokas-badge[data-guna="Sattva"] {
+  background: #a7f3d0;
+}
+
+.lokas-badge[data-guna="Rajas"] {
+  background: #fda4af;
+}
+
+.lokas-badge[data-guna="Tamas"] {
+  background: #c4b5fd;
+}
+
+.lokas-badge[data-guna="Mixed"] {
+  background: #fde68a;
+}
+
+.lokas-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(13, 22, 44, 0.72);
+  border: 1px solid rgba(166, 199, 255, 0.16);
+}
+
+.lokas-table th,
+.lokas-table td {
+  padding: 0.85rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  text-align: left;
+  vertical-align: top;
+}
+
+.lokas-table th {
+  color: #fde68a;
+  background: rgba(2, 6, 23, 0.45);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.lokas-table td {
+  color: #dce6fb;
+  line-height: 1.45;
+}
+
+.lokas-studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.lokas-studio-actions button {
+  border: 1px solid rgba(250, 204, 21, 0.45);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  background: rgba(250, 204, 21, 0.16);
+  color: #fff4be;
+  cursor: pointer;
+}
+
+.lokas-studio-actions button:hover,
+.lokas-inner-tab:hover,
+.lokas-pingala-cell:hover {
+  transform: translateY(-1px);
+}
+
+.lokas-note {
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 0.95rem 1rem;
+  color: #cfe4ff;
+  white-space: pre-wrap;
+}
+
+.lokas-empty {
+  border: 1px dashed rgba(148, 163, 184, 0.32);
+  border-radius: 8px;
+  padding: 1.25rem;
+  color: #aebbe0;
+  background: rgba(15, 23, 42, 0.48);
+}
+
+.lokas-aparadhas,
+.lokas-guna-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lokas-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #dce6fb;
+  line-height: 1.55;
+}
+
+.lokas-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.lokas-metrics span {
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 999px;
+  padding: 0.26rem 0.55rem;
+  color: #cfe8ff;
+  background: rgba(14, 165, 233, 0.1);
+  font-size: 0.76rem;
+}
+
+.lokas-metrics-large span {
+  border-color: rgba(250, 204, 21, 0.25);
+  background: rgba(250, 204, 21, 0.09);
+  color: #fff4be;
+  font-size: 0.9rem;
+}
+
+.lokas-slider {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.95rem;
+  color: #dce8ff;
+}
+
+.lokas-slider span {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lokas-slider input {
+  accent-color: #22d3ee;
+  width: 100%;
+}
+
+.lokas-pingala-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 1rem 0;
+}
+
+.lokas-pingala-cell {
+  min-height: 5rem;
+  border: 1px solid rgba(125, 211, 252, 0.24);
+  border-radius: 8px;
+  background: rgba(6, 12, 27, 0.72);
+  color: #eef6ff;
+  cursor: pointer;
+}
+
+.lokas-pingala-cell strong,
+.lokas-pingala-cell span {
+  display: block;
+}
+
+.lokas-pingala-cell strong {
+  color: #fde68a;
+}
+
+.lokas-pingala-cell span {
+  margin-top: 0.35rem;
+  color: #9eb4db;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 860px) {
+  .lokas-header,
+  .lokas-aparadhas,
+  .lokas-guna-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .lokas-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .lokas-pingala-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .lokas-inner-tab {
+    flex: 1 1 auto;
+  }
+
+  .lokas-pingala-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
