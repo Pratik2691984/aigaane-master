@@ -13,6 +13,10 @@ let manifestLoaded = false;
 let queuedToolId = null;
 
 async function importToolModule(path) {
+  if (path.endsWith('.html')) {
+    return {};
+  }
+
   if (path.endsWith('.jsx')) {
     const blobUrls = [];
     try {
@@ -75,7 +79,10 @@ async function loadManifest() {
 
   for (const tool of manifest.tools) {
     try {
-      const mod = await importToolModule(tool.path);
+      const modulePath = tool.path?.endsWith('.html')
+        ? tool.path.replace(/\/[^/]+\.html$/, '/controller.js')
+        : tool.path;
+      const mod = await importToolModule(modulePath);
       tool.rawModule = mod;
       tool.module = mod.tool || mod;
       console.log(`[TIS] Loaded tool: ${tool.id}`);
@@ -105,7 +112,10 @@ function resolveComponentMount(toolDef) {
 
 async function ensureToolModule(toolDef) {
   if (toolDef.module || !toolDef.path) return;
-  const mod = await importToolModule(toolDef.path);
+  const modulePath = toolDef.path.endsWith('.html')
+    ? toolDef.path.replace(/\/[^/]+\.html$/, '/controller.js')
+    : toolDef.path;
+  const mod = await importToolModule(modulePath);
   toolDef.rawModule = mod;
   toolDef.module = mod.tool || mod;
   toolDef.loadError = null;
@@ -153,6 +163,10 @@ async function switchTab(toolId) {
 
     if (toolDef.view) {
       const viewRes = await fetch(toolDef.view);
+      if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
+      viewport.innerHTML = await viewRes.text();
+    } else if (toolDef.path?.endsWith('.html')) {
+      const viewRes = await fetch(toolDef.path);
       if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
       viewport.innerHTML = await viewRes.text();
     } else if (isComponentTab(toolDef)) {
