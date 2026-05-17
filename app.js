@@ -13,16 +13,19 @@ let manifestLoaded = false;
 let queuedToolId = null;
 
 async function importToolModule(path) {
-  try {
-    return await import(path);
-  } catch (err) {
-    if (!path.endsWith('.jsx')) throw err;
+  if (path.endsWith('.jsx')) {
     const blobUrls = [];
     try {
       return await import(await bundleJsxModule(path, new Map(), blobUrls));
     } finally {
       blobUrls.forEach(url => URL.revokeObjectURL(url));
     }
+  }
+
+  try {
+    return await import(path);
+  } catch (err) {
+    throw err;
   }
 }
 
@@ -69,16 +72,46 @@ async function loadManifest() {
   for (const tool of manifest.tools) {
     try {
       const mod = await importToolModule(tool.path);
-      tool.module = mod.tool;
+      tool.rawModule = mod;
+      tool.module = mod.tool || mod;
       console.log(`[TIS] Loaded tool: ${tool.id}`);
     } catch (err) {
       console.warn(`[TIS] Failed to load tool ${tool.id}:`, err.message);
-      tool.enabled = false;
+      tool.loadError = err;
+      if (!tool.component) tool.enabled = false;
     }
   }
 
   manifestLoaded = true;
   return manifest.tools.filter(t => t.enabled !== false);
+}
+
+function isComponentTab(toolDef) {
+  return Boolean(toolDef.component || toolDef.module?.component);
+}
+
+function resolveComponentMount(toolDef) {
+  if (!toolDef) return null;
+  if (toolDef.module?.component) return toolDef.module.component;
+  if (toolDef.component && toolDef.rawModule?.[toolDef.component]) {
+    return toolDef.rawModule[toolDef.component];
+  }
+  return null;
+}
+
+async function ensureToolModule(toolDef) {
+  if (toolDef.module || !toolDef.path) return;
+  const mod = await importToolModule(toolDef.path);
+  toolDef.rawModule = mod;
+  toolDef.module = mod.tool || mod;
+  toolDef.loadError = null;
+}
+
+function getTabLoadErrorMessage(toolId) {
+  if (toolId === 'collapse-lab') {
+    return 'Collapse Lab failed to load. Check console for module path/transpile errors.';
+  }
+  return `Failed to load ${toolId} tab. Please refresh.`;
 }
 
 async function switchTab(toolId) {
@@ -112,12 +145,14 @@ async function switchTab(toolId) {
   }
 
   try {
+    await ensureToolModule(toolDef);
+
     if (toolDef.view) {
       const viewRes = await fetch(toolDef.view);
       if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
       viewport.innerHTML = await viewRes.text();
-    } else if (toolDef.component || toolDef.module?.component) {
-      viewport.innerHTML = '';
+    } else if (isComponentTab(toolDef)) {
+      viewport.innerHTML = '<div data-component-mount></div>';
     } else {
       const viewRes = await fetch(`/ui/tabs/${toolId}/view.html`);
       if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
@@ -129,14 +164,24 @@ async function switchTab(toolId) {
 
     await new Promise(resolve => requestAnimationFrame(resolve));
 
-    currentMountNode = document.getElementById('viewport');
-    if (toolDef.module?.init) toolDef.module.init(currentMountNode);
+    currentMountNode = isComponentTab(toolDef)
+      ? viewport.querySelector('[data-component-mount]') || viewport
+      : viewport;
+
+    if (toolDef.module?.init) {
+      await toolDef.module.init(currentMountNode);
+    } else {
+      const mountComponent = resolveComponentMount(toolDef);
+      if (mountComponent) {
+        await mountComponent(currentMountNode);
+      }
+    }
 
     sync();
     console.log(`[App] Switched to tab: ${toolId}`);
   } catch (err) {
     console.error(`[App] Failed to load tab ${toolId}:`, err);
-    viewport.innerHTML = `<div class="error">Failed to load ${toolId} tab. Please refresh.</div>`;
+    viewport.innerHTML = `<div class="error">${getTabLoadErrorMessage(toolId)}</div>`;
   }
 }
 
@@ -235,3 +280,4 @@ init().catch(err => {
 window.switchTab = switchTab;
 window.getManifest = () => manifest;
 window.sync = sync;
+window.importToolModule = importToolModule;
