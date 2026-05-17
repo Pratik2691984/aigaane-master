@@ -26,6 +26,14 @@ async function importToolModule(path) {
   }
 }
 
+function getToolModulePath(tool) {
+  if (tool.controller) return tool.controller;
+  if (tool.path?.endsWith('.html')) {
+    return tool.path.replace(/\/[^/]+\.html$/, '/controller.js');
+  }
+  return tool.path;
+}
+
 async function bundleJsxModule(path, cache, blobUrls) {
   if (cache.has(path)) return cache.get(path);
 
@@ -72,8 +80,11 @@ async function loadManifest() {
 
   for (const tool of manifest.tools) {
     try {
-      const mod = await importToolModule(tool.path);
-      tool.module = mod.tool;
+      const modulePath = getToolModulePath(tool);
+      if (!modulePath) continue;
+      const mod = await importToolModule(modulePath);
+      tool.rawModule = mod;
+      tool.module = mod.tool || mod.default || mod;
       console.log(`[TIS] Loaded tool: ${tool.id}`);
     } catch (err) {
       console.warn(`[TIS] Failed to load tool ${tool.id}:`, err.message);
@@ -116,8 +127,18 @@ async function switchTab(toolId) {
   }
 
   try {
+    if (!toolDef.module && getToolModulePath(toolDef)) {
+      const mod = await importToolModule(getToolModulePath(toolDef));
+      toolDef.rawModule = mod;
+      toolDef.module = mod.tool || mod.default || mod;
+    }
+
     if (toolDef.view) {
       const viewRes = await fetch(toolDef.view);
+      if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
+      viewport.innerHTML = await viewRes.text();
+    } else if (toolDef.path?.endsWith('.html')) {
+      const viewRes = await fetch(toolDef.path);
       if (!viewRes.ok) throw new Error(`HTTP ${viewRes.status}: ${viewRes.statusText}`);
       viewport.innerHTML = await viewRes.text();
     } else if (toolDef.component || toolDef.module?.component) {

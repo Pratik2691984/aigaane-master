@@ -104,6 +104,7 @@
       "id": "lokas-studio",
       "label": "Lokas Studio",
       "path": "/ui/tabs/lokas-studio/view.html",
+      "controller": "/ui/tabs/lokas-studio/controller.js",
       "style": "/ui/tabs/lokas-studio/style.css",
       "type": "ui",
       "enabled": true

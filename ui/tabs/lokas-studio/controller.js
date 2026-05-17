@@ -405,6 +405,18 @@ function renderCurrentPanel() {
   if (currentPanel === "pingala") renderPingalaPanel();
 }
 
+function switchPanel(panelName) {
+  currentPanel = panelName || "lokas";
+  qsa("[data-lokas-panel-button]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lokasPanelButton === currentPanel);
+  });
+  qsa(".lokas-panel").forEach((panel) => {
+    panel.classList.toggle("hidden", panel.dataset.panel !== currentPanel);
+  });
+  console.info("[Lokas Studio] switched panel:", currentPanel);
+  renderCurrentPanel();
+}
+
 function setupSearch() {
   const input = qs("#lokas-search");
   on(input, "input", () => {
@@ -414,16 +426,9 @@ function setupSearch() {
 }
 
 function setupInternalTabs() {
-  qsa("[data-lokas-panel-target]").forEach((tab) => {
+  qsa("[data-lokas-panel-button]").forEach((tab) => {
     on(tab, "click", () => {
-      currentPanel = tab.dataset.lokasPanelTarget || "lokas";
-      qsa("[data-lokas-panel-target]").forEach((item) => {
-        item.classList.toggle("active", item === tab);
-      });
-      qsa("[data-panel]").forEach((panel) => {
-        panel.classList.toggle("hidden", panel.dataset.panel !== currentPanel);
-      });
-      renderCurrentPanel();
+      switchPanel(tab.dataset.lokasPanelButton);
     });
   });
 }
@@ -468,6 +473,7 @@ function setupStudioActions() {
 }
 
 export async function init(root) {
+  console.info("[Lokas Studio] init");
   mountNode = root?.querySelector?.("[data-lokas-studio]") || root || document.querySelector("[data-lokas-studio]");
   currentPanel = "lokas";
   searchTerm = "";
