@@ -108,6 +108,15 @@
       "style": "/ui/tabs/lokas-studio/style.css",
       "type": "ui",
       "enabled": true
+    },
+    {
+      "id": "hindu-scriptures",
+      "label": "📜 Hindu Scriptures",
+      "path": "/ui/tabs/hindu-scriptures/view.html",
+      "controller": "/ui/tabs/hindu-scriptures/controller.js",
+      "style": "/ui/tabs/hindu-scriptures/style.css",
+      "type": "ui",
+      "enabled": true
     }
   ]
 }
