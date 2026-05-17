@@ -1,4 +1,4 @@
-import { runNeuroCollapseFrame } from "/app/core/neuro-collapse-engine.js";
+import { runNeuroCollapseFrame } from "../../../app/core/neuro-collapse-engine.js";
 import { TensorHeatmap, renderTensorHeatmap } from "./TensorHeatmap.jsx";
 import { MetricTimeline, renderMetricTimeline } from "./MetricTimeline.jsx";
 import { PhaseBanner, renderPhaseBanner } from "./PhaseBanner.jsx";

@@ -32,14 +32,18 @@ async function bundleJsxModule(path, cache, blobUrls) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   let source = await res.text();
-  const importPattern = /from\s+["'](\.[^"']+\.jsx)["']/g;
+  const sourceUrl = new URL(path, window.location.origin);
+  const importPattern = /from\s+["'](\.[^"']+\.(?:js|jsx))["']/g;
   const replacements = [];
   let match = importPattern.exec(source);
 
   while (match) {
     const relativePath = match[1];
-    const absolutePath = new URL(relativePath, `${window.location.origin}${path}`).pathname;
-    replacements.push([relativePath, await bundleJsxModule(absolutePath, cache, blobUrls)]);
+    const absolutePath = new URL(relativePath, sourceUrl);
+    const replacementUrl = absolutePath.pathname.endsWith('.jsx')
+      ? await bundleJsxModule(absolutePath.href, cache, blobUrls)
+      : absolutePath.href;
+    replacements.push([relativePath, replacementUrl]);
     match = importPattern.exec(source);
   }
 
