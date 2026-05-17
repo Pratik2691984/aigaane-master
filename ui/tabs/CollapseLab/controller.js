@@ -1,4 +1,4 @@
-const COLLAPSE_LAB_MODULE = "/ui/tabs/CollapseLab/CollapseLab.jsx";
+const COLLAPSE_LAB_MODULE = new URL("./CollapseLab.jsx", import.meta.url).href;
 
 let activeModule = null;
 
