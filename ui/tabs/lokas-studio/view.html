@@ -1,0 +1,58 @@
+<section class="lokas-studio" data-lokas-studio>
+  <header class="lokas-header">
+    <div>
+      <p class="lokas-kicker">Aigaane Cosmology Lab</p>
+      <h1>🌌 Lokas Studio</h1>
+      <p>14 Lokas • 28 Narakas • Guna Physics • Prompt Studio</p>
+    </div>
+    <div class="lokas-path-card">
+      <span>Project root</span>
+      <code>C:\aigaane-master</code>
+    </div>
+  </header>
+
+  <label class="lokas-search" for="lokas-search">
+    <span>Search cosmology data</span>
+    <input id="lokas-search" type="search" placeholder="Search Lokas, Narakas, Aparādhas, prompts, or Pingala" autocomplete="off">
+  </label>
+
+  <div class="lokas-inner-tabs" role="tablist" aria-label="Lokas Studio sections">
+    <button class="lokas-inner-tab active" type="button" data-lokas-panel-target="lokas">14 Lokas</button>
+    <button class="lokas-inner-tab" type="button" data-lokas-panel-target="narakas">28 Narakas</button>
+    <button class="lokas-inner-tab" type="button" data-lokas-panel-target="aparadhas">Aparādhas</button>
+    <button class="lokas-inner-tab" type="button" data-lokas-panel-target="gunas">Guna Mixer</button>
+    <button class="lokas-inner-tab" type="button" data-lokas-panel-target="studio">Prompt Studio</button>
+    <button class="lokas-inner-tab" type="button" data-lokas-panel-target="pingala">Pingala Sequencer</button>
+  </div>
+
+  <div class="lokas-panels">
+    <section class="lokas-panel" data-panel="lokas">
+      <div id="lokas-cards" class="lokas-grid"></div>
+    </section>
+
+    <section class="lokas-panel hidden" data-panel="narakas">
+      <div id="narakas-table"></div>
+    </section>
+
+    <section class="lokas-panel hidden" data-panel="aparadhas">
+      <div id="aparadhas-panel"></div>
+    </section>
+
+    <section class="lokas-panel hidden" data-panel="gunas">
+      <div id="guna-mixer"></div>
+    </section>
+
+    <section class="lokas-panel hidden" data-panel="studio">
+      <div class="lokas-studio-actions">
+        <button type="button" data-action="generate-selected">Generate for Selected Loka</button>
+        <button type="button" data-action="run-simulation">Run Simulation Placeholder</button>
+      </div>
+      <div class="lokas-note" data-studio-message>Select a Loka card, then generate a prompt preview here.</div>
+      <div id="prompt-templates" class="lokas-grid"></div>
+    </section>
+
+    <section class="lokas-panel hidden" data-panel="pingala">
+      <div id="pingala-panel"></div>
+    </section>
+  </div>
+</section>
