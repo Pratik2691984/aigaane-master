@@ -1,20 +1,23 @@
-# Numerical Stability
+# Numerical Stability and Error Bound Constraints
 
-## Overview
+## 1. Overview
 
-Collapse Lab uses bounded transforms and controlled numerical methods to prevent instability during high-frequency browser execution. The runtime is designed to keep graph metrics, tensor values, replay buffers, and canvas renderers stable without external math libraries.
+Collapse Lab uses bounded coordinate transforms and controlled numerical methods to prevent floating-point degradation, accumulator overflow, and divergence during high-frequency browser execution.
 
-## Float Precision
+The stability layer protects oscillator updates, graph metrics, spectral extraction, tensor projection, replay buffers, exports, and canvas renderers.
 
-Collapse Lab uses typed numeric vectors where stable repeated computation is needed:
+## 2. Floating-Point Precision
+
+Collapse Lab relies on browser-native JavaScript number semantics and typed numeric vectors where stable repeated computation is needed:
 
 - `Float64Array` usage
 - typed vectors
-- reduced precision drift across repeated frame updates
+- reduced precision drift
+- browser-native JavaScript number semantics
 
-Typed arrays also make numeric intent explicit and reduce accidental object-shape churn during animation.
+Typed arrays make numeric intent explicit and reduce accidental allocation churn in high-frequency paths.
 
-## EPSILON Padding
+## 3. EPSILON Padding
 
 Small epsilon constants protect numerically sensitive operations:
 
@@ -22,61 +25,68 @@ Small epsilon constants protect numerically sensitive operations:
 - divide-by-zero prevention
 - logarithm protection
 - entropy stability
+- denominator safety
 
 `EPSILON` padding is especially important when probabilities, graph degrees, cluster masses, or normalized values approach zero.
 
-## Phase Wrapping
+## 4. Phase Wrapping
 
 Oscillator phases are wrapped into a bounded range:
 
 ```text
-[0, 2π)
+[0, 2*pi)
 ```
 
-Phase wrapping prevents runaway oscillator values and keeps trigonometric operations stable over long sessions.
+This prevents runaway oscillator values and keeps trigonometric operations stable over long sessions.
 
-## Bounded Metric Normalization
+## 5. Bounded Metric Normalization
 
-Metric normalization prevents one runtime signal from overwhelming the geometry:
+Metric normalization prevents one runtime signal from overwhelming tensor geometry:
 
 - `tanh` normalization
-- clamping
+- clamping to `[0, 1]`
 - bounded tensor values
+- preventing sudden metric spikes from dominating the 49D tensor
 
-This applies to metrics such as `lambda2`, `crossCoupling`, `phaseMomentum`, entropy, and noise. Bounded ranges improve visual comparability and reduce frame-to-frame discontinuities.
+This applies to metrics such as `lambda2`, `crossCoupling`, `phaseMomentum`, entropy, and noise.
 
-## Spectral Stability
+## 6. Spectral Solver Stability
 
-Spectral extraction is stabilized by graph normalization:
+Spectral extraction is stabilized by graph normalization and bounded estimation:
 
-- normalized Laplacian construction
-- bounded eigenvalue ranges
-- `lambda2` extraction constraints
+- normalized Laplacian
+- bounded eigenvalue range
+- `lambda2` extraction
+- projected power iteration / bounded eigenvalue estimation if used
+
+The solver uses bounded iteration counts and convergence tolerance as defined in `app/core/neuro-collapse-engine.js`.
 
 The normalized Laplacian keeps spectral values comparable across changing graph density and component count. This is essential for PRE_COLLAPSE and COLLAPSED boundary interpretation.
 
-## Replay Stability
+## 7. Replay and Export Isolation
 
-Replay stability depends on bounded histories and snapshot isolation:
+Replay and export stability require historical state to remain isolated from active simulation:
 
 - capped replay histories
 - snapshot isolation
 - stable export serialization
+- export must not mutate active simulation state
 
-Replay mode should repaint stored frames without advancing simulation, recomputing stochastic terms, or mutating historical tensor snapshots.
+Replay should repaint stored frames without advancing simulation, recomputing stochastic terms, or mutating historical tensor snapshots.
 
-## Canvas Runtime Safety
+## 8. Canvas Runtime Safety
 
 Canvas renderers are designed for high-frequency updates:
 
 - cached canvas contexts
-- `alpha:false` contexts where opaque rendering is appropriate
+- `alpha:false` contexts where used
 - frame reuse
 - avoiding allocation churn
+- avoiding unnecessary SVG/DOM node creation in high-frequency paths
 
 Reducing per-frame allocation keeps animation smoother and lowers garbage-collection pressure.
 
-## Adaptive Gamma Stability
+## 9. Adaptive Gamma Stability
 
 Adaptive gamma controls visual intensity without allowing luminance blowout:
 
@@ -86,7 +96,7 @@ Adaptive gamma controls visual intensity without allowing luminance blowout:
 
 Gamma adaptation should make boundary transitions legible while keeping NORMAL and COLLAPSED states visually comparable.
 
-## Stochastic Integration Stability
+## 10. Stochastic Integration Stability
 
 The synthetic oscillator layer relies on controlled stochastic integration:
 
@@ -97,17 +107,22 @@ The synthetic oscillator layer relies on controlled stochastic integration:
 
 Noise acts as a stress test for topology classification. It should perturb the boundary without destroying the interpretability of `lambda2`, `syncRatio`, `clusterBalanceRatio`, or `cpi`.
 
-## Browser Runtime Constraints
+## 11. Browser Runtime Constraints
 
 Collapse Lab is designed for browser-safe execution:
 
 - no external math libraries
 - browser-safe execution
 - deterministic fallback logic
+- static Vercel deployment compatibility
 
 These constraints keep deployment simple and reduce dependency-related reproducibility risks.
 
-## Future Stability Work
+## 12. Runtime Contract Warning
+
+This document describes the current Collapse Lab architecture and should be updated whenever runtime contracts change.
+
+## 13. Future Stability Work
 
 Future stability work may include:
 
@@ -115,9 +130,8 @@ Future stability work may include:
 - GPU tensor rendering
 - online PCA
 - sparse tensor compression
-
-These additions should preserve existing runtime invariants and export semantics.
+- larger node-count scaling
 
 ## Documentation Boundary
 
-This document describes numerical stability constraints. It does not modify runtime code, phase detection equations, CPI formulas, entropy logic, `lambda2` extraction, replay/export behavior, tensor projection, or UI rendering.
+This document does not modify runtime code, phase detection equations, CPI formulas, entropy logic, `lambda2` extraction, replay/export behavior, tensor projection, or UI rendering.

@@ -1,43 +1,39 @@
-# Replay Buffer Architecture
+# Replay Buffer Architecture and Memory Lifecycle
 
-## Overview
+## 1. Overview
 
-Collapse Lab maintains bounded in-memory replay buffers for live review, export, and deterministic renderer repainting. These buffers store:
+Collapse Lab maintains bounded in-memory replay buffers to store high-frequency time-series datasets during execution. These buffers support real-time rendering, deterministic session replay, and standardized analytical exports without unbounded browser memory growth.
 
-- tensor snapshots
-- phase states
-- scalar metrics
-- exported trajectories
+The replay layer stores tensor snapshots, phase states, scalar metrics, and exported trajectories. It is designed for inspection and analysis, not for changing the live simulation after the fact.
 
-The replay layer is runtime-local and bounded so browser memory does not grow without limit during long sessions.
-
-## Runtime Replay Pipeline
-
-The replay pipeline follows the live simulation frame:
+## 2. Runtime Replay Pipeline
 
 ```text
-simulation frame
--> metrics extraction
--> tensor projection
--> replay snapshot
--> export buffer
--> visualization render
+Simulation Frame (Kuramoto Phases)
+->
+Metrics Extraction (lambda2, CPI, entropy)
+->
+Tensor Projection (7x7 Matrix)
+->
+Replay Snapshot Generation
+->
+Export Buffer Integration
+->
+Visualization Render (Canvas/Charts)
 ```
 
-Live simulation writes current metrics and tensor state into replay-safe buffers. Replay mode reads from those historical snapshots rather than advancing the simulation.
+Live simulation generates the current frame, extracts topology and synchronization metrics, projects those metrics into tensor space, then writes bounded snapshots for replay and export.
 
-## Replay Buffer Types
+## 3. Replay Buffer Types
 
 | Buffer | Purpose |
 | --- | --- |
-| `phaseHistory` | Recent phase labels used for phase-state review and transition context. |
-| `exportFrames` | Flattened scalar metric frames used for JSON and CSV export. |
-| `replayFrames` | Replay snapshots containing phase, metrics, tensor data, and phase-space index. |
-| timeline metric buffers | Short histories for `cpi`, `lambda2`, and `entropy` timeline rendering. |
+| `phaseHistory` | Recent phase labels used to inspect state transitions. |
+| `exportFrames` | Scalar metric frames prepared for JSON and CSV export. |
+| `replayFrames` | Historical snapshots used to repaint replay views without advancing simulation. |
+| timeline metric buffers | Short rolling histories for `cpi`, `lambda2`, and `entropy` timeline rendering. |
 
-## Replay Snapshot Structure
-
-A scalar replay/export frame has this representative shape:
+## 4. Replay Snapshot Structure
 
 ```json
 {
@@ -48,46 +44,51 @@ A scalar replay/export frame has this representative shape:
   "entropy": 0.12,
   "k": 2,
   "modularity": 0.08,
-  "clusterBalanceRatio": 0.88
+  "clusterBalanceRatio": 0.88,
+  "syncRatio": 0.93
 }
 ```
 
-Full replay frames may also include tensor snapshots, `syncRatio`, residual mass, and phase-space indexing metadata used by replay renderers.
+Full replay snapshots may also include tensor data, residual mass, and phase-space indexing metadata. Export frames keep the scalar view compact for downstream analysis.
 
-## Ring Buffer Strategy
+## 5. Capped Buffer Strategy
 
-Collapse Lab uses ring-style bounded histories to avoid unbounded browser memory growth:
+The current implementation uses capped rolling buffers to prevent unbounded browser memory growth. Future versions may replace push/shift behavior with pointer-wrapped fixed arrays for lower allocation pressure.
 
-- capped metric histories
-- fixed-size arrays
-- overwrite or truncate behavior after caps are reached
-- predictable memory usage during long browser sessions
+Documented caps and constraints:
 
-When a buffer exceeds its cap, the oldest entries are removed and the newest frame remains available for live inspection.
+- UI timeline buffer cap: 120 samples
+- `exportFrames` cap: 5000 samples
+- `replayFrames` cap: implementation-defined / capped snapshot stream if present
+- capping avoids memory leaks during long sessions
 
-## Timeline Buffers
+Without caps, long-running browser sessions could accumulate unbounded frame history and degrade rendering, replay, and export performance.
 
-Timeline rendering uses short scalar histories:
+## 6. Timeline Buffers
 
-- `cpi` history
+Timeline buffers support live monitoring rendering:
+
+- CPI history
 - `lambda2` history
 - `entropy` history
 - 120-frame visualization cap
 
-The cap keeps the timeline readable and prevents the canvas renderer from redrawing arbitrarily large histories.
+Timeline rendering is for live monitoring, not full archival storage. Long-horizon analysis should use exported telemetry rather than the on-screen timeline buffer.
 
-## Export Recording
+## 7. Export Recording
 
-Export recording separates compact metric frames from richer replay snapshots:
+Collapse Lab records export-ready histories for post-session analysis:
 
-- `exportFrames` are capped at 5000 frames.
-- JSON export includes session metadata, controls, `frames`, and `replayFrames`.
-- CSV export writes scalar metric columns for tabular analysis.
-- `replayFrames` are included in the JSON schema for deterministic review.
+- JSON export
+- CSV export
+- `frames`
+- `replayFrames`
+- controls metadata
+- export history capped to avoid memory degradation
 
-Export buffers are intended for post-session analysis, not as a replacement for permanent telemetry storage in `experimental_logs/`.
+JSON exports preserve structured session context, while CSV exports provide a compact scalar table for external analysis.
 
-## Replay Controls
+## 8. Replay Controls
 
 Replay mode supports:
 
@@ -95,30 +96,35 @@ Replay mode supports:
 - pause
 - reset
 - scrub
-- frame stepping
+- step forward
+- step backward
 
-These controls allow review of historical frames without perturbing the live simulation state.
+These controls allow historical review without forcing new simulation frames.
 
-## Deterministic Replay
+## 9. Deterministic Replay Mechanics
 
-Replay bypasses live simulation. Historical frames directly repaint renderers using stored phase, metric, tensor, and phase-space data.
+Replay Mode bypasses live simulation evolution. Historical snapshots repaint renderers directly. Replay state must not mutate Kuramoto physics. Replay exists for inspection, not simulation.
 
-Replay state is isolated from live simulation state so scrubbing or stepping through history does not create new frames, change `crossCoupling`, alter `lambda2`, or mutate phase detection results.
+This isolation keeps replay deterministic: frame stepping should inspect previously captured state rather than recomputing stochastic dynamics, `lambda2`, `syncRatio`, `clusterBalanceRatio`, or tensor projection from live inputs.
 
-## Numerical Safety
+## 10. Numerical Safety
 
-Replay safety depends on stable snapshot handling:
+Replay and export stability rely on:
 
-- immutable snapshot copies where frame history is stored
-- `Float64Array` use for stable numeric vectors where applicable
-- replay-safe tensor serialization into plain array structures for export
-- bounded memory allocation through capped histories
+- immutable snapshot copies
+- `Float64Array` where applicable
+- serialization safeguards
+- bounded memory allocation
 
-Snapshot isolation prevents later live frames from accidentally modifying historical replay data.
+Snapshot copies prevent later live frames from mutating historical replay state.
 
-## Future Work
+## 11. Runtime Contract Warning
 
-Future replay architecture may include:
+This document describes the current Collapse Lab architecture and should be updated whenever runtime contracts change.
+
+## 12. Future Work
+
+Future replay work may include:
 
 - compressed replay streams
 - NDJSON export
@@ -126,8 +132,6 @@ Future replay architecture may include:
 - time-window bookmarks
 - WebWorker replay decoding
 
-These additions should preserve the current invariant detection layer and export schema compatibility.
-
 ## Documentation Boundary
 
-This document describes replay and buffering architecture. It does not modify runtime code, phase detection equations, CPI formulas, entropy logic, `lambda2` extraction, tensor projection, or UI rendering.
+This document does not modify runtime code, phase detection equations, CPI formulas, entropy logic, `lambda2` extraction, replay/export behavior, tensor projection, or UI rendering.

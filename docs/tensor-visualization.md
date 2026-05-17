@@ -1,26 +1,34 @@
-# Tensor Visualization
+# Tensor Visualization Mechanics and Perceptual Mapping
 
-## Overview
+## 1. Overview
 
-Collapse Lab renders a 49D tensor as a `7x7` heatmap. The visualization is deterministic: scalar topology and synchronization metrics are projected into tensor channels, then translated into color and intensity on canvas.
+Collapse Lab renders a 49D tensor as a `7x7` heatmap. The visualization system provides:
 
-The heatmap is a topology-to-color translation layer. It does not replace invariant detection based on graph state, `lambda2`, `syncRatio`, `clusterBalanceRatio`, entropy, or `cpi`.
+- deterministic visual mapping
+- topology-to-color translation
+- `TensorHeatmap.jsx` as the main renderer
 
-## Tensor Geometry
+The heatmap is a visual interpretation layer. It does not replace invariant detection based on graph state, `lambda2`, `syncRatio`, `clusterBalanceRatio`, entropy, or `cpi`.
+
+## 2. Tensor Geometry
 
 The tensor is generated from an outer-product projection:
 
 ```text
-T = b ⊗ b
+T = outer_product(b, b)
 ```
 
-Each `tensor[i][j]` cell represents an interaction between channel `i` and channel `j`. A nonlinear contrast sharpening step can emphasize strong interactions while suppressing low-energy background terms.
+Each `tensor[i][j]` cell maps the interaction between channel `i` and channel `j`.
+
+Nonlinear contrast sharpening is represented as:
 
 ```text
 T_ij = (b_i * b_j)^1.5
 ```
 
-## Channel Definitions
+The exponent emphasizes strong channel interactions while suppressing low-energy background terms.
+
+## 3. Channel Definitions
 
 | Channel | Meaning |
 | --- | --- |
@@ -32,9 +40,9 @@ T_ij = (b_i * b_j)^1.5
 | `5` | Stochastic Fluctuation |
 | `6` | Phase Momentum |
 
-Machine-readable related identifiers include `lambda2`, `crossCoupling`, `phaseMomentum`, and `clusterBalanceRatio`.
+Machine-readable related identifiers include `lambda2`, `crossCoupling`, `phaseMomentum`, `clusterBalanceRatio`, and `syncRatio`.
 
-## Color Mapping
+## 4. Color Mapping
 
 The current palette maps tensor semantics into stable color families:
 
@@ -46,99 +54,110 @@ The current palette maps tensor semantics into stable color families:
 - white = stochasticity
 - yellow = momentum
 
-Color is used as a reading aid, not as a separate classifier.
+Off-diagonal cells blend the row and column channel colors so that each pixel represents an interaction between two metrics.
 
-## Heatmap Rendering
+Color is a reading aid, not a separate classifier.
+
+## 5. Heatmap Rendering Loop
 
 The heatmap renderer uses direct canvas drawing:
 
 - discrete cell rendering
 - `cellWidth` / `cellHeight`
+- `tensor[row][col]` maps to one grid cell
 - direct tensor intensity mapping
 - canvas repaint flow
 
-Each frame clears or updates the canvas, maps tensor values into color intensity, and paints the `7x7` field.
+Each frame maps tensor values into color intensity and repaints the `7x7` field.
 
-## Adaptive Gamma
+## 6. Adaptive Gamma
 
 Adaptive gamma adjusts heatmap intensity to preserve readability:
 
 - gamma adaptation
 - PRE_COLLAPSE visibility enhancement
 - collapse sharpening
+- gamma values should remain bounded
 
-The purpose is visual legibility. Gamma should not change the underlying tensor values or phase classification.
+Gamma affects visual legibility. It should not change tensor values or phase classification.
 
-## Temporal Glow Buffer
+## 7. Temporal Glow Buffer
 
 The temporal glow buffer adds short visual memory:
 
 - exponential decay memory
 - previous frame blending
 - alpha persistence factor
+- glow shows metastable persistence
 
-This helps transitions remain visible across high-frequency frame updates without making the replay state non-deterministic.
+This makes boundary transitions visible across high-frequency frame updates without making replay state non-deterministic.
 
-## Phase Appearance
+## 8. Phase Appearance Profiles
 
 ### NORMAL
 
-`NORMAL` appears as a dispersed low-energy tensor:
+`NORMAL` appears as:
 
-- entropy and fragmentation channels remain visible
-- no single coherence cell dominates
-- energy is spread across multiple channels
+- dispersed low-energy tensor
+- blue/violet fragmentation and entropy channels
 
 ### PRE_COLLAPSE
 
-`PRE_COLLAPSE` appears as concentrated boundary tension cells:
+`PRE_COLLAPSE` appears as:
 
-- `[1][1]` brightens
-- `[1][4]` and `[4][1]` show boundary tension coupled with cross-network energy
-- phase-boundary interactions become easier to distinguish
+- concentrated boundary tension cells
+- orange `[1][1]`
+- interaction bands `[1][4]` and `[4][1]`
 
 ### COLLAPSED
 
-`COLLAPSED` appears as axis-dominant coherence ignition at `[0][0]`:
+`COLLAPSED` appears as:
 
-- `[0][0]` becomes the dominant global coherence cell
-- entropy and fragmentation channels contract
-- the tensor reads as rank-concentrated rather than isotropic
+- axis-dominant coherence ignition at `[0][0]`
+- globally connected synchronized topology
 
-## Timeline Visualization
+This should not be overstated as total network integration or consciousness.
 
-The timeline renderer tracks short metric histories:
+## 9. Timeline Visualization
 
-- `CPI`
+Timeline visualization is handled by `MetricTimeline.jsx` and tracks:
+
+- CPI
 - `lambda2`
-- `entropy`
+- entropy
+- 120-frame rolling history
 - canvas timeline renderer
-- 120-frame history
 
 The timeline gives local temporal context for phase changes without requiring a full export.
 
-## Phase Space Projection
+## 10. Phase Space Projection
 
-The phase-space view uses deterministic 2D projection:
+Phase-space visualization is handled by `PhaseSpaceView.jsx` and uses:
 
 - deterministic 2D projection
-- `CPI` / `lambda2` trajectory
+- CPI/lambda2 or tensor-derived trajectory depending on current implementation
 - non-PCA scaffold
+- future PCA should not alter invariant detection
 
-The current scaffold is interpretable and deterministic. Future PCA or manifold methods can be added without changing the invariant detection layer.
+The current scaffold is interpretable and deterministic. Adaptive embedding layers can be added later without changing phase detection logic.
 
-## Runtime Safety
+## 11. Runtime Safety
 
 The visualization layer is optimized for browser-native rendering:
 
 - cached canvas contexts
 - bounded histories
-- no SVG dependency
+- no heavy chart libraries
+- no SVG dependency for high-frequency charts
 - lightweight browser rendering
 
 Canvas rendering keeps the heatmap responsive while avoiding DOM-heavy updates.
 
-## Future Visualization Work
+## 12. Runtime Contract Warning
+
+This document describes the current Collapse Lab architecture and should be updated whenever runtime contracts change.
+
+## 13. Future Visualization Work
 
 Future visualization work may include:
 
@@ -148,8 +167,6 @@ Future visualization work may include:
 - WebGL tensor rendering
 - manifold embeddings
 
-These improvements should preserve existing runtime metrics, export schemas, and phase classification rules.
-
 ## Documentation Boundary
 
-This document describes tensor visualization behavior. It does not modify runtime code, phase detection equations, CPI formulas, entropy logic, `lambda2` extraction, replay/export behavior, tensor projection, or UI rendering.
+This document does not modify runtime code, phase detection equations, CPI formulas, entropy logic, `lambda2` extraction, replay/export behavior, tensor projection, or UI rendering.
