@@ -1,88 +1,215 @@
-/* C:\aigaane-master\ui\tabs\sanskrit\style.css */
+/* Sanskrit deterministic linguistic interface */
 
 .sanskrit-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     padding: 1.5rem;
     animation: fadeIn 0.4s ease-out;
 }
 
-.sanskrit-layout {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 2rem;
-    min-width: 0;
+.sanskrit-header h2 {
+    color: var(--gold);
+    margin-bottom: 0.3rem;
 }
 
-/* Responsive collapse */
-@media (max-width: 900px) {
-    .sanskrit-layout {
-        grid-template-columns: 1fr;
-    }
+.sanskrit-header p {
+    color: #9fb0c7;
+    font-size: 0.9rem;
 }
 
-/* Responsive grid */
-.akshara-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
-    gap: 8px;
-}
-
-.akshara-node {
-    aspect-ratio: 1;
+.analysis-panel,
+.result-section,
+.summary-item {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: #e0e6ed;
-    transition: all 0.2s ease;
-    cursor: pointer;
+    padding: 1rem;
 }
 
-.akshara-node.active {
-    background: var(--vedic-saffron);
-    color: var(--deep-space);
-    border-color: var(--gold);
-    box-shadow: 0 0 15px var(--vedic-saffron);
-    transform: scale(1.05);
-    z-index: 2;
-}
-
-.display-glyph {
-    font-size: 4rem;
-    color: var(--gold);
-    text-align: center;
-    margin: 0.5rem 0;
-}
-
-.phoneme-info {
+.analysis-panel {
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
+}
+
+.analysis-panel label,
+.summary-item span,
+.result-section h3 {
+    color: #b9c7d9;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+#sanskrit-input {
+    width: 100%;
+    resize: vertical;
+    min-height: 110px;
+    background: rgba(10, 12, 18, 0.88);
+    color: #eef3f8;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    font: 1rem/1.5 var(--font-sans);
+}
+
+.analysis-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+#analyze-sanskrit {
+    border: 1px solid var(--gold);
+    background: var(--gold);
+    color: var(--deep-space);
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#analyze-sanskrit:disabled {
+    cursor: progress;
+    opacity: 0.6;
+}
+
+#sanskrit-status {
+    color: #9fb0c7;
+    font-size: 0.9rem;
+}
+
+#sanskrit-status.error {
+    color: #ff9b9b;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.summary-item strong {
+    color: var(--gold);
+    font-size: 1.25rem;
+}
+
+.sanskrit-results {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
 }
 
-.focus-card {
-    background: var(--glass-bg);
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-    border: 1px solid var(--gold);
+.result-section {
+    min-width: 0;
 }
 
-.data-list {
+.result-section h3 {
+    margin-bottom: 0.75rem;
+}
+
+.result-text,
+.compact-list,
+.pada-list,
+.syllable-list,
+.graph-list,
+.lexical-list {
+    color: #eef3f8;
+    line-height: 1.5;
+}
+
+.compact-list {
+    padding-left: 1.2rem;
+}
+
+.compact-list li + li {
+    margin-top: 0.35rem;
+}
+
+.pada-list,
+.graph-list,
+.lexical-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
-.data-item {
+.pada-row,
+.graph-node,
+.lexical-row {
+    display: grid;
+    grid-template-columns: minmax(80px, 0.4fr) minmax(0, 1fr);
+    gap: 0.4rem 0.75rem;
     background: rgba(255, 255, 255, 0.03);
-    padding: 8px 12px;
     border-radius: 8px;
+    padding: 0.65rem;
+}
+
+.pada-row small,
+.lexical-row small {
+    grid-column: 1 / -1;
+    color: #9fb0c7;
+}
+
+.syllable-list {
     display: flex;
-    justify-content: space-between;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+}
+
+.syllable-chip {
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    padding: 0.25rem 0.55rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: #d7e4f2;
     font-size: 0.85rem;
+}
+
+.syllable-chip.guru {
+    border-color: rgba(212, 175, 55, 0.65);
+}
+
+.experimental-panel {
+    border-color: rgba(104, 190, 255, 0.35);
+}
+
+.experimental-note {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.symbolic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+    gap: 0.4rem;
+}
+
+.symbolic-cell {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(104, 190, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(104, 190, 255, 0.07);
+    color: #cfeeff;
+}
+
+@media (max-width: 900px) {
+    .summary-grid,
+    .sanskrit-results {
+        grid-template-columns: 1fr;
+    }
 }
 
 @keyframes fadeIn {

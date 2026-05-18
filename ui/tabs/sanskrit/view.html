@@ -1,35 +1,74 @@
 <div class="tab-container sanskrit-tab">
-    <header class="varga-header">
-        <h2>Mātṛkā Phonetic Engine</h2>
-        <p id="active-varga-name">All Vargas</p>
+    <header class="sanskrit-header">
+        <h2>Sanskrit Computational Engine</h2>
+        <p>Input -> transliteration -> sandhi -> chandas -> vyakarana -> prakriya graph</p>
     </header>
 
-    <div class="sanskrit-layout">
-        <!-- The 7x7 Matrika Grid -->
-        <div class="akshara-grid" id="matrikaGrid">
-            <!-- 49 Aksharas injected by controller -->
+    <section class="analysis-panel">
+        <label for="sanskrit-input">Sanskrit input</label>
+        <textarea id="sanskrit-input" rows="4" spellcheck="false">agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam</textarea>
+        <div class="analysis-actions">
+            <button id="analyze-sanskrit" type="button">Analyze</button>
+            <span id="sanskrit-status" role="status" aria-live="polite">Ready</span>
         </div>
+    </section>
 
-        <!-- Detail Analysis Panel -->
-        <aside class="phoneme-info">
-            <div class="focus-card">
-                <span class="label">Current Akshara</span>
-                <div id="bigAkshara" class="display-glyph">अ</div>
-            </div>
-            <div class="data-list">
-                <div class="data-item">
-                    <span>Transliteration</span>
-                    <strong id="translitValue">a</strong>
-                </div>
-                <div class="data-item">
-                    <span>Varga Group</span>
-                    <strong id="vargaValue">Svara</strong>
-                </div>
-                <div class="data-item">
-                    <span>Phoneme ID</span>
-                    <strong id="phonemeIdValue">0</strong>
-                </div>
-            </div>
-        </aside>
+    <section class="summary-grid" aria-label="Analysis summary">
+        <div class="summary-item">
+            <span>Overall stanza meter</span>
+            <strong id="overall-stanza-meter">-</strong>
+        </div>
+        <div class="summary-item">
+            <span>Total mātrā count</span>
+            <strong id="total-matra-count">0</strong>
+        </div>
+        <div class="summary-item">
+            <span>Parser diagnostics</span>
+            <strong id="diagnostic-count">0</strong>
+        </div>
+    </section>
+
+    <div class="sanskrit-results">
+        <section class="result-section">
+            <h3>Transliteration</h3>
+            <div id="transliteration-output" class="result-text">-</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Sandhi</h3>
+            <ol id="sandhi-output" class="compact-list"></ol>
+        </section>
+
+        <section class="result-section">
+            <h3>Chandas / Guru-Laghu</h3>
+            <div id="padas-output" class="pada-list"></div>
+            <div id="phonological-syllables-output" class="syllable-list"></div>
+        </section>
+
+        <section class="result-section">
+            <h3>Vyākaraṇa / Derivation Trace</h3>
+            <ol id="derivation-history-output" class="compact-list"></ol>
+        </section>
+
+        <section class="result-section">
+            <h3>Prakriyā Graph</h3>
+            <div id="prakriya-graph-output" class="graph-list"></div>
+        </section>
+
+        <section class="result-section">
+            <h3>Lexical Lookup</h3>
+            <div id="lexical-output" class="lexical-list"></div>
+        </section>
+
+        <section class="result-section">
+            <h3>Parser Diagnostics</h3>
+            <ol id="parser-diagnostics-output" class="compact-list"></ol>
+        </section>
+
+        <section class="result-section experimental-panel" aria-label="Experimental symbolic panel">
+            <h3>Experimental Symbolic Structural Projection Field Map</h3>
+            <p class="experimental-note">Symbolic visualization only; not acoustic, audio, or DSP output.</p>
+            <div id="experimental-payload-output" class="symbolic-grid"></div>
+        </section>
     </div>
 </div>

@@ -13,7 +13,7 @@
       "id": "sanskrit",
       "path": "/tools/sanskrit.tool.js",
       "type": "ui",
-      "subscriptions": ["phoneme_id"],
+      "subscriptions": [],
       "timeout_ms": 10,
       "enabled": true
     },

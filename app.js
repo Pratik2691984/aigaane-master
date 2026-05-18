@@ -1,6 +1,7 @@
 // TIS v1.0 Orchestrator – Manifest Loader, Tool Dispatcher, Tab Manager
 
 const API_BASE = '';
+const DEFAULT_STATE_ANGLE = 180;
 
 import { resolveResonance } from '/lib/resolve_resonance.js';
 import { validateState } from '/shared/invariant.js';
@@ -166,15 +167,8 @@ async function switchTab(toolId) {
 }
 
 async function sync() {
-  const slider = document.getElementById('main-slider');
-  const readout = document.getElementById('angle-readout');
-  if (!slider || !readout) return;
-
-  const angle = parseFloat(slider.value);
-  readout.innerText = `${angle.toFixed(1)}°`;
-
   try {
-    const rawState = resolveResonance(angle);
+    const rawState = resolveResonance(DEFAULT_STATE_ANGLE);
     // Clone to make it mutable (fixes "object is not extensible")
     const state = { ...rawState };
 
@@ -199,11 +193,6 @@ document.body.addEventListener('click', () => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const slider = document.getElementById('main-slider');
-  if (slider) slider.oninput = sync;
-});
-
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     const tabName = e.target.dataset.tab;
@@ -213,36 +202,6 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     switchTab(tabName);
   });
 });
-
-window.addEventListener('sliderMoved', (e) => {
-  const angle = e.detail;
-  console.log('[Manual] Slider moved to', angle);
-  if (typeof sync === 'function') sync();
-  else {
-    const state = resolveResonance(angle);
-    // FIX: same safe initializers
-    state.plugins = state.plugins || [];
-    state.items = state.items || [];
-    if (state.resonance === undefined) state.resonance = {};
-    if (state.resonance.tools === undefined) state.resonance.tools = [];
-    validateState(state);
-    const enabledTools = manifest?.tools?.filter(t => t.enabled !== false) || [];
-    runTools(state, enabledTools);
-  }
-});
-
-setInterval(() => {
-  const slider = document.getElementById('main-slider');
-  const readout = document.getElementById('angle-readout');
-  if (slider && readout) {
-    const currentValue = parseFloat(slider.value);
-    const displayedValue = parseFloat(readout.innerText);
-    if (Math.abs(currentValue - displayedValue) > 0.1) {
-      readout.innerText = currentValue.toFixed(1) + '°';
-      if (typeof sync === 'function') sync();
-    }
-  }
-}, 200);
 
 async function init() {
   console.log('[App] Initializing Aigaane V3 PRO...');

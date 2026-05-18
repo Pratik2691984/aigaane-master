@@ -10,10 +10,14 @@ import json
 import os
 import sys
 
-from mangum import Mangum
+try:
+    from mangum import Mangum
+except ImportError:
+    Mangum = None
 
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
+from engines.vyakarana import SanskritTabException, analyze_sanskrit
 
 app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
 
@@ -74,6 +78,9 @@ class AtmaFrictionRequest(BaseModel):
     current_dosha: str
     agni_factor: float
     cosmic_angle: float = 0.0
+
+class SanskritAnalyzeRequest(BaseModel):
+    input_text: str
 
 # ============ Storage ============
 current_state: Optional[KernelState] = None
@@ -201,6 +208,24 @@ async def calculate_atma_friction(payload: AtmaFrictionRequest):
 async def calculate_atma_friction_alias(payload: AtmaFrictionRequest):
     return await calculate_atma_friction(payload)
 
+@app.post("/api/v3/analyze")
+async def analyze_sanskrit_v3(payload: SanskritAnalyzeRequest):
+    try:
+        return analyze_sanskrit(payload.input_text)
+    except SanskritTabException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={
+                "code": exc.code,
+                "message": exc.message,
+                "parser_diagnostics": exc.diagnostics,
+            },
+        ) from exc
+
+@app.options("/api/v3/analyze")
+async def analyze_sanskrit_v3_options():
+    return {"allow": "POST, OPTIONS", "headers": "Content-Type"}
+
 # ============ Startup: load Golden Build from file ============
 @app.on_event("startup")
 async def startup_event():
@@ -225,4 +250,4 @@ async def startup_event():
             print(f"[Startup] ⚠️ Failed to load Golden Build: {e}")
 
 # ============ Vercel Handler ============
-handler = Mangum(app)
+handler = Mangum(app) if Mangum else None

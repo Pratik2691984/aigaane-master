@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aigaane V3 PRO – 49D Kernel API, Nakshatra, Sanskrit, Sonic Mandala, Resonance, and Anumāna tools for digital sanctuary.">
+    <meta name="description" content="Aigaane V3 PRO - 49D Kernel API, Nakshatra, Sanskrit, Sonic Mandala, Resonance, and Anumana tools for digital sanctuary.">
     <title>Aigaane V3 PRO | Digital Sanctuary</title>
     <link rel="stylesheet" href="/shared/master.css">
     <link id="tab-style" rel="stylesheet" href="">
@@ -12,40 +12,22 @@
 
 <div id="app-shell">
     <nav>
-        <button class="nav-btn active" data-tab="astronomy">✨ Nakshatra</button>
-        <button class="nav-btn" data-tab="sanskrit">🕉️ Sanskrit</button>
-        <button class="nav-btn" data-tab="music">🎵 Sonic Mandala</button>
-        <button class="nav-btn" data-tab="resonance">🎭 Resonance</button>
-        <button class="nav-btn" data-tab="anumana">🔮 Anumāna</button>
-        <button class="nav-btn" data-tab="kernel-49d">🌀 49D Kernel</button>
-        <button class="nav-btn" data-tab="atma">🕰️ Atma Clock</button>
-        <!-- 👇 SEVENTH TAB (new) -->
-        <button class="nav-btn" data-tab="anumana-engine">🧠 Anumāna Engine</button>
+        <button class="nav-btn active" data-tab="astronomy">Nakshatra</button>
+        <button class="nav-btn" data-tab="sanskrit">Sanskrit</button>
+        <button class="nav-btn" data-tab="music">Sonic Mandala</button>
+        <button class="nav-btn" data-tab="resonance">Resonance</button>
+        <button class="nav-btn" data-tab="anumana">Anumana</button>
+        <button class="nav-btn" data-tab="kernel-49d">49D Kernel</button>
+        <button class="nav-btn" data-tab="atma">Atma Clock</button>
+        <button class="nav-btn" data-tab="anumana-engine">Anumana Engine</button>
         <button class="nav-btn" data-tab="collapse-lab">Collapse Lab</button>
-        <button class="nav-btn" data-tab="lokas-studio">🌌 Lokas Studio</button>
-        <button class="nav-btn" data-tab="hindu-scriptures">📜 Hindu Scriptures</button>
+        <button class="nav-btn" data-tab="lokas-studio">Lokas Studio</button>
+        <button class="nav-btn" data-tab="hindu-scriptures">Hindu Scriptures</button>
     </nav>
 
     <main id="viewport">
         <div class="loader">Loading Aigaane Engine...</div>
     </main>
-
-    <footer id="global-footer">
-        <div class="slider-container">
-            <label id="cosmic-angle-label" for="main-slider">🌞 COSMIC ANGLE</label>
-            <input type="range" 
-                   id="main-slider" 
-                   min="0" 
-                   max="360" 
-                   step="0.1" 
-                   value="180"
-                   aria-label="Cosmic angle in degrees"
-                   aria-labelledby="cosmic-angle-label"
-                   title="Cosmic angle slider"
-                   oninput="document.getElementById('angle-readout').innerText = this.value + '°'; window.dispatchEvent(new CustomEvent('sliderMoved', {detail: parseFloat(this.value)}));">
-            <span id="angle-readout" aria-live="polite">180.0°</span>
-        </div>
-    </footer>
 </div>
 
 <script type="module" src="/app.js"></script>
