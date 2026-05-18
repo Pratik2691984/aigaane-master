@@ -3,6 +3,7 @@
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -17,9 +18,14 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
+from engines.sandhi import SandhiException, analyze_vowel_sandhi
 from engines.vyakarana import SanskritTabException, analyze_sanskrit
 
-app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
+app = FastAPI(
+    title="Aigaane Sanskrit Engine",
+    version="3.0",
+    default_response_class=JSONResponse,
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -81,6 +87,26 @@ class AtmaFrictionRequest(BaseModel):
 
 class SanskritAnalyzeRequest(BaseModel):
     input_text: str
+
+class SandhiAnalyzeRequest(BaseModel):
+    word1: str
+    word2: str
+
+class SandhiTraceStep(BaseModel):
+    layer: str
+    word1: Optional[str] = None
+    word2: Optional[str] = None
+    left_vowel: Optional[str] = None
+    right_vowel: Optional[str] = None
+    sutra: Optional[str] = None
+    merged: Optional[str] = None
+
+class SandhiAnalyzeResponse(BaseModel):
+    merged: str
+    sutra: str
+    sutra_name: str
+    type: str
+    trace: List[SandhiTraceStep]
 
 # ============ Storage ============
 current_state: Optional[KernelState] = None
@@ -211,7 +237,10 @@ async def calculate_atma_friction_alias(payload: AtmaFrictionRequest):
 @app.post("/api/v3/analyze")
 async def analyze_sanskrit_v3(payload: SanskritAnalyzeRequest):
     try:
-        return analyze_sanskrit(payload.input_text)
+        return JSONResponse(
+            content=analyze_sanskrit(payload.input_text),
+            media_type="application/json; charset=utf-8",
+        )
     except SanskritTabException as exc:
         raise HTTPException(
             status_code=exc.status_code,
@@ -224,6 +253,23 @@ async def analyze_sanskrit_v3(payload: SanskritAnalyzeRequest):
 
 @app.options("/api/v3/analyze")
 async def analyze_sanskrit_v3_options():
+    return {"allow": "POST, OPTIONS", "headers": "Content-Type"}
+
+@app.post("/api/v3/sandhi", response_model=SandhiAnalyzeResponse)
+async def analyze_sandhi_v3(payload: SandhiAnalyzeRequest):
+    try:
+        return JSONResponse(
+            content=analyze_vowel_sandhi(payload.word1, payload.word2),
+            media_type="application/json; charset=utf-8",
+        )
+    except SandhiException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={"code": exc.code, "message": exc.message},
+        ) from exc
+
+@app.options("/api/v3/sandhi")
+async def analyze_sandhi_v3_options():
     return {"allow": "POST, OPTIONS", "headers": "Content-Type"}
 
 # ============ Startup: load Golden Build from file ============
