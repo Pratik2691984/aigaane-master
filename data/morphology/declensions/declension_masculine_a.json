@@ -1,0 +1,14 @@
+{
+  "version": "node3_morphology_phase1",
+  "declension": "masculine_a",
+  "gender": "masculine",
+  "stem_class": "a",
+  "forms": {
+    "nominative": {
+      "singular": "{stem}ः"
+    },
+    "accusative": {
+      "singular": "{stem}म्"
+    }
+  }
+}

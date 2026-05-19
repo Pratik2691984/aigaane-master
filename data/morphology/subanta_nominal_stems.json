@@ -1,0 +1,12 @@
+{
+  "version": "node3_morphology_phase1",
+  "stems": {
+    "राम": {
+      "stem": "राम",
+      "gender": "masculine",
+      "stem_class": "a",
+      "declension": "masculine_a",
+      "meaning": "Rama"
+    }
+  }
+}

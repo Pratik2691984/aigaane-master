@@ -10,6 +10,7 @@ from datetime import datetime
 import json
 import os
 import sys
+import unicodedata
 
 try:
     from mangum import Mangum
@@ -18,7 +19,14 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
+from engines.morphology import (
+    MorphologyException,
+    conjugate_verb,
+    inflect_noun,
+    morphology_meta,
+)
 from engines.sandhi import SandhiException, analyze_vowel_sandhi
+from engines.visarga_sandhi import VisargaSandhiException, analyze_visarga_sandhi
 from engines.vyakarana import SanskritTabException, analyze_sanskrit
 
 app = FastAPI(
@@ -98,6 +106,10 @@ class SandhiTraceStep(BaseModel):
     word2: Optional[str] = None
     left_vowel: Optional[str] = None
     right_vowel: Optional[str] = None
+    left_visarga: Optional[str] = None
+    preceding_vowel: Optional[str] = None
+    right_initial: Optional[str] = None
+    right_class: Optional[str] = None
     sutra: Optional[str] = None
     merged: Optional[str] = None
 
@@ -107,6 +119,31 @@ class SandhiAnalyzeResponse(BaseModel):
     sutra_name: str
     type: str
     trace: List[SandhiTraceStep]
+
+class MorphologyNounRequest(BaseModel):
+    stem: str
+    case: str
+    number: str
+
+class MorphologyVerbRequest(BaseModel):
+    dhatu: str
+    lakara: str
+    person: str
+    number: str
+
+class MorphologyResponse(BaseModel):
+    type: str
+    input: Dict[str, str]
+    form: str
+    metadata: Dict[str, Any]
+    rule: Dict[str, Any]
+
+class MorphologyMetaResponse(BaseModel):
+    engine: str
+    phase: str
+    scope: Dict[str, List[str]]
+    nouns: List[Dict[str, Any]]
+    dhatus: List[Dict[str, Any]]
 
 # ============ Storage ============
 current_state: Optional[KernelState] = None
@@ -258,10 +295,21 @@ async def analyze_sanskrit_v3_options():
 @app.post("/api/v3/sandhi", response_model=SandhiAnalyzeResponse)
 async def analyze_sandhi_v3(payload: SandhiAnalyzeRequest):
     try:
+        word1 = unicodedata.normalize("NFC", payload.word1.strip()) if isinstance(payload.word1, str) else payload.word1
+        if isinstance(word1, str) and word1.endswith("\u0903"):
+            return JSONResponse(
+                content=analyze_visarga_sandhi(payload.word1, payload.word2),
+                media_type="application/json; charset=utf-8",
+            )
         return JSONResponse(
             content=analyze_vowel_sandhi(payload.word1, payload.word2),
             media_type="application/json; charset=utf-8",
         )
+    except VisargaSandhiException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={"code": exc.code, "message": exc.message},
+        ) from exc
     except SandhiException as exc:
         raise HTTPException(
             status_code=exc.status_code,
@@ -271,6 +319,39 @@ async def analyze_sandhi_v3(payload: SandhiAnalyzeRequest):
 @app.options("/api/v3/sandhi")
 async def analyze_sandhi_v3_options():
     return {"allow": "POST, OPTIONS", "headers": "Content-Type"}
+
+@app.get("/api/v3/morphology/meta", response_model=MorphologyMetaResponse)
+async def morphology_meta_v3():
+    return JSONResponse(
+        content=morphology_meta(),
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/morphology/noun/inflect", response_model=MorphologyResponse)
+async def inflect_noun_v3(payload: MorphologyNounRequest):
+    try:
+        return JSONResponse(
+            content=inflect_noun(payload.stem, payload.case, payload.number),
+            media_type="application/json; charset=utf-8",
+        )
+    except MorphologyException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={"code": exc.code, "message": exc.message},
+        ) from exc
+
+@app.post("/api/v3/morphology/verb/conjugate", response_model=MorphologyResponse)
+async def conjugate_verb_v3(payload: MorphologyVerbRequest):
+    try:
+        return JSONResponse(
+            content=conjugate_verb(payload.dhatu, payload.lakara, payload.person, payload.number),
+            media_type="application/json; charset=utf-8",
+        )
+    except MorphologyException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={"code": exc.code, "message": exc.message},
+        ) from exc
 
 # ============ Startup: load Golden Build from file ============
 @app.on_event("startup")

@@ -1,0 +1,68 @@
+{
+  "version": "node3_morphology_phase1",
+  "dhatus": {
+    "भू": {
+      "dhatu": "भू",
+      "class": "1",
+      "meaning": "to be, to become",
+      "lat": {
+        "3": {
+          "1": "भवति"
+        },
+        "prathama": {
+          "ekavacana": "भवति"
+        }
+      },
+      "laṭ": {
+        "3": {
+          "1": "भवति"
+        },
+        "prathama": {
+          "ekavacana": "भवति"
+        }
+      }
+    },
+    "पठ्": {
+      "dhatu": "पठ्",
+      "class": "1",
+      "meaning": "to read, to recite",
+      "lat": {
+        "3": {
+          "1": "पठति"
+        },
+        "prathama": {
+          "ekavacana": "पठति"
+        }
+      },
+      "laṭ": {
+        "3": {
+          "1": "पठति"
+        },
+        "prathama": {
+          "ekavacana": "पठति"
+        }
+      }
+    },
+    "गम्": {
+      "dhatu": "गम्",
+      "class": "1",
+      "meaning": "to go",
+      "lat": {
+        "3": {
+          "1": "गच्छति"
+        },
+        "prathama": {
+          "ekavacana": "गच्छति"
+        }
+      },
+      "laṭ": {
+        "3": {
+          "1": "गच्छति"
+        },
+        "prathama": {
+          "ekavacana": "गच्छति"
+        }
+      }
+    }
+  }
+}
