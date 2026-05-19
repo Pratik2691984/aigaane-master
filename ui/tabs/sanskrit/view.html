@@ -13,6 +13,50 @@
         </div>
     </section>
 
+    <section class="execution-grid" aria-label="Sanskrit execution panels">
+        <div class="analysis-panel execution-panel">
+            <h3>Sandhi Execution</h3>
+            <div class="field-grid">
+                <label for="sandhi-word1">Word 1</label>
+                <input id="sandhi-word1" type="text" spellcheck="false" value="राम">
+                <label for="sandhi-word2">Word 2</label>
+                <input id="sandhi-word2" type="text" spellcheck="false" value="अस्ति">
+            </div>
+            <div class="analysis-actions">
+                <button id="run-sandhi" type="button">Run Sandhi</button>
+            </div>
+        </div>
+
+        <div class="analysis-panel execution-panel">
+            <h3>Morphology Execution</h3>
+            <div class="mode-row" role="group" aria-label="Morphology mode">
+                <label><input type="radio" name="morphology-mode" value="noun" checked> Noun</label>
+                <label><input type="radio" name="morphology-mode" value="verb"> Verb</label>
+            </div>
+            <div class="field-grid" data-morphology-fields="noun">
+                <label for="morphology-stem">Stem</label>
+                <input id="morphology-stem" type="text" spellcheck="false" value="राम">
+                <label for="morphology-case">Case</label>
+                <input id="morphology-case" type="text" spellcheck="false" value="nominative">
+                <label for="morphology-number">Number</label>
+                <input id="morphology-number" type="text" spellcheck="false" value="singular">
+            </div>
+            <div class="field-grid hidden" data-morphology-fields="verb">
+                <label for="morphology-dhatu">Dhatu</label>
+                <input id="morphology-dhatu" type="text" spellcheck="false" value="भू">
+                <label for="morphology-lakara">Lakara</label>
+                <input id="morphology-lakara" type="text" spellcheck="false" value="lat">
+                <label for="morphology-person">Person</label>
+                <input id="morphology-person" type="text" spellcheck="false" value="3">
+                <label for="morphology-verb-number">Number</label>
+                <input id="morphology-verb-number" type="text" spellcheck="false" value="1">
+            </div>
+            <div class="analysis-actions">
+                <button id="run-morphology" type="button">Run Morphology</button>
+            </div>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>
@@ -29,6 +73,36 @@
     </section>
 
     <div class="sanskrit-results">
+        <section class="result-section">
+            <h3>Sandhi Result</h3>
+            <div id="sandhi-result-output" class="inspection-panel">No sandhi result</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Morphology Result</h3>
+            <div id="morphology-result-output" class="inspection-panel">No morphology result</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Governance Metadata</h3>
+            <div id="governance-output" class="inspection-panel">No governance metadata</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Derivation Timeline</h3>
+            <ol id="derivation-timeline-output" class="timeline-list"></ol>
+        </section>
+
+        <section class="result-section">
+            <h3>Ambiguity</h3>
+            <div id="ambiguity-output" class="inspection-panel">No ambiguity payload</div>
+        </section>
+
+        <section class="result-section error-section" aria-live="polite">
+            <h3>API Error</h3>
+            <div id="api-error-output" class="inspection-panel">No API error</div>
+        </section>
+
         <section class="result-section">
             <h3>Transliteration</h3>
             <div id="transliteration-output" class="result-text">-</div>
