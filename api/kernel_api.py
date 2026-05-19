@@ -20,6 +20,15 @@ except ImportError:
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
+from engines.lexical_governance import (
+    ANALYZE_GOVERNANCE,
+    MORPHOLOGY_GOVERNANCE,
+    SANDHI_GOVERNANCE,
+    LexicalGovernanceException,
+    attach_governance,
+    sanitize_mixed_chandas_input,
+    validate_devanagari_only,
+)
 from engines.morphology import (
     MorphologyException,
     conjugate_verb,
@@ -124,6 +133,11 @@ class DerivationPathStep(BaseModel):
     output_state: str
     engine_node: str
 
+class GovernanceResponse(BaseModel):
+    normalization: str
+    script_policy: str
+    source: str
+
 class SandhiAnalyzeResponse(BaseModel):
     merged: str
     sutra: str
@@ -131,6 +145,7 @@ class SandhiAnalyzeResponse(BaseModel):
     type: str
     trace: List[SandhiTraceStep]
     derivation_path: Optional[List[DerivationPathStep]] = None
+    governance: Optional[GovernanceResponse] = None
 
 class MorphologyNounRequest(BaseModel):
     stem: str
@@ -150,6 +165,7 @@ class MorphologyResponse(BaseModel):
     metadata: Dict[str, Any]
     rule: Dict[str, Any]
     derivation_path: Optional[List[DerivationPathStep]] = None
+    governance: Optional[GovernanceResponse] = None
 
 class MorphologyMetaResponse(BaseModel):
     engine: str
@@ -287,10 +303,22 @@ async def calculate_atma_friction_alias(payload: AtmaFrictionRequest):
 @app.post("/api/v3/analyze")
 async def analyze_sanskrit_v3(payload: SanskritAnalyzeRequest):
     try:
+        input_text = sanitize_mixed_chandas_input(payload.input_text, "input_text")
+        result = analyze_sanskrit(input_text)
+        result["governance"] = ANALYZE_GOVERNANCE.to_dict()
         return JSONResponse(
-            content=analyze_sanskrit(payload.input_text),
+            content=result,
             media_type="application/json; charset=utf-8",
         )
+    except LexicalGovernanceException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={
+                "code": exc.code,
+                "message": exc.message,
+                "invalid_characters": exc.invalid_characters,
+            },
+        ) from exc
     except SanskritTabException as exc:
         raise HTTPException(
             status_code=exc.status_code,
@@ -308,21 +336,32 @@ async def analyze_sanskrit_v3_options():
 @app.post("/api/v3/sandhi", response_model=SandhiAnalyzeResponse)
 async def analyze_sandhi_v3(payload: SandhiAnalyzeRequest):
     try:
-        word1 = unicodedata.normalize("NFC", payload.word1.strip()) if isinstance(payload.word1, str) else payload.word1
+        governed_word1 = validate_devanagari_only(payload.word1, "word1")
+        governed_word2 = validate_devanagari_only(payload.word2, "word2")
+        word1 = unicodedata.normalize("NFC", governed_word1.strip()) if isinstance(governed_word1, str) else governed_word1
         if isinstance(word1, str) and word1.endswith("\u0903"):
             return JSONResponse(
-                content=analyze_visarga_sandhi(payload.word1, payload.word2),
+                content=attach_governance(analyze_visarga_sandhi(governed_word1, governed_word2), SANDHI_GOVERNANCE),
                 media_type="application/json; charset=utf-8",
             )
         if isinstance(word1, str) and word1.endswith("\u094d"):
             return JSONResponse(
-                content=analyze_consonant_sandhi(payload.word1, payload.word2),
+                content=attach_governance(analyze_consonant_sandhi(governed_word1, governed_word2), SANDHI_GOVERNANCE),
                 media_type="application/json; charset=utf-8",
             )
         return JSONResponse(
-            content=analyze_vowel_sandhi(payload.word1, payload.word2),
+            content=attach_governance(analyze_vowel_sandhi(governed_word1, governed_word2), SANDHI_GOVERNANCE),
             media_type="application/json; charset=utf-8",
         )
+    except LexicalGovernanceException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={
+                "code": exc.code,
+                "message": exc.message,
+                "invalid_characters": exc.invalid_characters,
+            },
+        ) from exc
     except ConsonantSandhiException as exc:
         raise HTTPException(
             status_code=exc.status_code,
@@ -353,10 +392,20 @@ async def morphology_meta_v3():
 @app.post("/api/v3/morphology/noun/inflect", response_model=MorphologyResponse)
 async def inflect_noun_v3(payload: MorphologyNounRequest):
     try:
+        stem = validate_devanagari_only(payload.stem, "stem")
         return JSONResponse(
-            content=inflect_noun(payload.stem, payload.case, payload.number),
+            content=attach_governance(inflect_noun(stem, payload.case, payload.number), MORPHOLOGY_GOVERNANCE),
             media_type="application/json; charset=utf-8",
         )
+    except LexicalGovernanceException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={
+                "code": exc.code,
+                "message": exc.message,
+                "invalid_characters": exc.invalid_characters,
+            },
+        ) from exc
     except MorphologyException as exc:
         raise HTTPException(
             status_code=exc.status_code,
@@ -366,10 +415,20 @@ async def inflect_noun_v3(payload: MorphologyNounRequest):
 @app.post("/api/v3/morphology/verb/conjugate", response_model=MorphologyResponse)
 async def conjugate_verb_v3(payload: MorphologyVerbRequest):
     try:
+        dhatu = validate_devanagari_only(payload.dhatu, "dhatu")
         return JSONResponse(
-            content=conjugate_verb(payload.dhatu, payload.lakara, payload.person, payload.number),
+            content=attach_governance(conjugate_verb(dhatu, payload.lakara, payload.person, payload.number), MORPHOLOGY_GOVERNANCE),
             media_type="application/json; charset=utf-8",
         )
+    except LexicalGovernanceException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={
+                "code": exc.code,
+                "message": exc.message,
+                "invalid_characters": exc.invalid_characters,
+            },
+        ) from exc
     except MorphologyException as exc:
         raise HTTPException(
             status_code=exc.status_code,
