@@ -19,6 +19,7 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
+from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.morphology import (
     MorphologyException,
     conjugate_verb,
@@ -110,6 +111,8 @@ class SandhiTraceStep(BaseModel):
     preceding_vowel: Optional[str] = None
     right_initial: Optional[str] = None
     right_class: Optional[str] = None
+    left_consonant: Optional[str] = None
+    right_consonant: Optional[str] = None
     sutra: Optional[str] = None
     merged: Optional[str] = None
 
@@ -311,10 +314,20 @@ async def analyze_sandhi_v3(payload: SandhiAnalyzeRequest):
                 content=analyze_visarga_sandhi(payload.word1, payload.word2),
                 media_type="application/json; charset=utf-8",
             )
+        if isinstance(word1, str) and word1.endswith("\u094d"):
+            return JSONResponse(
+                content=analyze_consonant_sandhi(payload.word1, payload.word2),
+                media_type="application/json; charset=utf-8",
+            )
         return JSONResponse(
             content=analyze_vowel_sandhi(payload.word1, payload.word2),
             media_type="application/json; charset=utf-8",
         )
+    except ConsonantSandhiException as exc:
+        raise HTTPException(
+            status_code=exc.status_code,
+            detail={"code": exc.code, "message": exc.message},
+        ) from exc
     except VisargaSandhiException as exc:
         raise HTTPException(
             status_code=exc.status_code,
