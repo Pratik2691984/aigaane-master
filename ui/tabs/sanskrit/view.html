@@ -180,6 +180,31 @@
         </div>
     </section>
 
+    <section class="semantic-trace-inspector" aria-label="Semantic trace inspector">
+        <header class="semantic-trace-inspector-header">
+            <h3>Semantic Trace Inspector</h3>
+            <p>Read-only semantically enriched derivation trace inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="semantic-trace-load-demo" type="button">Load Demo Semantic Trace</button>
+            <button id="semantic-trace-link-custom" type="button">Link Custom Trace</button>
+            <span id="semantic-trace-status" class="semantic-trace-status" role="status" aria-live="polite">Semantic trace idle</span>
+        </div>
+
+        <div class="semantic-trace-grid">
+            <section class="semantic-trace-card">
+                <h4>Demo Semantic Trace</h4>
+                <div id="semantic-trace-demo-output" class="semantic-trace-list">No demo trace loaded</div>
+            </section>
+
+            <section class="semantic-trace-card">
+                <h4>Linked Trace Output</h4>
+                <div id="semantic-trace-linked-output" class="semantic-trace-list">No linked trace loaded</div>
+            </section>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>

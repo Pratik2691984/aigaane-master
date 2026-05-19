@@ -23,7 +23,8 @@
 .summary-item,
 .debug-inspector,
 .lexicon-inspector,
-.sutra-inspector {
+.sutra-inspector,
+.semantic-trace-inspector {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
@@ -45,6 +46,8 @@
 .lexicon-card h4,
 .sutra-inspector h3,
 .sutra-card h4,
+.semantic-trace-inspector h3,
+.semantic-trace-card h4,
 .summary-item span,
 .result-section h3 {
     color: #b9c7d9;
@@ -123,6 +126,8 @@
 #sutra-load-samples,
 #sutra-load-sources,
 #sutra-validate-registry,
+#semantic-trace-load-demo,
+#semantic-trace-link-custom,
 .debug-storage-row button {
     border: 1px solid var(--gold);
     background: var(--gold);
@@ -148,6 +153,8 @@
 #sutra-load-samples:disabled,
 #sutra-load-sources:disabled,
 #sutra-validate-registry:disabled,
+#semantic-trace-load-demo:disabled,
+#semantic-trace-link-custom:disabled,
 .debug-storage-row button:disabled {
     cursor: progress;
     opacity: 0.6;
@@ -512,6 +519,115 @@
     color: #ffb3b3;
 }
 
+.semantic-trace-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-color: rgba(104, 190, 255, 0.28);
+    background: rgba(8, 16, 24, 0.62);
+}
+
+.semantic-trace-inspector-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.semantic-trace-inspector-header p,
+.semantic-trace-status {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.semantic-trace-status.success {
+    color: #9ee6b4;
+}
+
+.semantic-trace-status.error {
+    color: #ff9b9b;
+}
+
+.semantic-trace-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.semantic-trace-card {
+    min-width: 0;
+    border: 1px solid rgba(104, 190, 255, 0.22);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.semantic-trace-card h4 {
+    margin-bottom: 0.75rem;
+}
+
+.semantic-trace-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #eef3f8;
+    line-height: 1.5;
+}
+
+.semantic-trace-row,
+.semantic-sutra-metadata {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.65rem;
+}
+
+.semantic-trace-row strong {
+    color: #f0d77a;
+}
+
+.semantic-sutra-metadata {
+    margin-top: 0.5rem;
+    border-color: rgba(104, 190, 255, 0.18);
+}
+
+.semantic-sutra-metadata small,
+.semantic-trace-unresolved {
+    display: block;
+    color: #9fb0c7;
+    margin-top: 0.2rem;
+    overflow-wrap: anywhere;
+}
+
+.semantic-trace-unresolved {
+    color: #ffb3b3;
+}
+
+.semantic-trace-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 999px;
+    padding: 0.1rem 0.45rem;
+    margin: 0.35rem 0.35rem 0 0;
+    color: #d7e4f2;
+    font-size: 0.75rem;
+}
+
+.semantic-trace-badge.domain {
+    border-color: rgba(104, 190, 255, 0.55);
+    color: #cfeeff;
+}
+
+.semantic-trace-badge.canonical {
+    border-color: rgba(158, 230, 180, 0.65);
+    color: #9ee6b4;
+}
+
+.semantic-trace-badge.provisional {
+    border-color: rgba(255, 215, 128, 0.55);
+    color: #ffe0a3;
+}
+
 .debug-card {
     min-width: 0;
     border: 1px solid rgba(104, 190, 255, 0.22);
@@ -695,6 +811,7 @@
     .debug-grid,
     .lexicon-grid,
     .sutra-grid,
+    .semantic-trace-grid,
     .sanskrit-results {
         grid-template-columns: 1fr;
     }

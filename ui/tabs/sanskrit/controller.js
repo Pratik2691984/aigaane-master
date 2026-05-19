@@ -17,6 +17,8 @@ let lexiconValidateButton = null;
 let sutraSamplesButton = null;
 let sutraSourcesButton = null;
 let sutraValidateButton = null;
+let semanticTraceDemoButton = null;
+let semanticTraceCustomButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -617,6 +619,32 @@ async function getSutraJson(url) {
   return readLexiconJsonResponse(response);
 }
 
+async function postSemanticTraceJson(url, body) {
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+  return readLexiconJsonResponse(response);
+}
+
+async function getSemanticTraceJson(url) {
+  let response = await fetch(url);
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`);
+  }
+  return readLexiconJsonResponse(response);
+}
+
 function renderLexiconStatus(message, type = "neutral") {
   const node = byId("lexicon-status");
   if (!node) return;
@@ -808,6 +836,71 @@ function renderSutraValidation(data) {
 
   errors.forEach((error, index) => {
     appendInspectionRow(container, `Error ${index + 1}`, typeof error === "object" ? JSON.stringify(error) : error);
+  });
+}
+
+function renderSemanticTraceStatus(message, type = "neutral") {
+  const node = byId("semantic-trace-status");
+  if (!node) return;
+  node.textContent = text(message, "Semantic trace idle");
+  node.classList.toggle("success", type === "success");
+  node.classList.toggle("error", type === "error");
+}
+
+function renderSemanticTraceError(message) {
+  renderSemanticTraceStatus(message || "Semantic trace request failed", "error");
+}
+
+function renderSemanticTraceStep(step) {
+  const row = document.createElement("div");
+  row.className = "semantic-trace-row";
+
+  const title = document.createElement("strong");
+  const sutra = document.createElement("span");
+  title.textContent = text(step?.operation, "unknown_operation");
+  sutra.textContent = ` sutra: ${text(step?.sutra, "unresolved")}`;
+  row.append(title, sutra);
+
+  const ref = step?.sutra_ref || null;
+  if (!ref) {
+    const unresolved = document.createElement("small");
+    unresolved.className = "semantic-trace-unresolved";
+    unresolved.textContent = "unresolved canonical sutra reference";
+    row.appendChild(unresolved);
+    return row;
+  }
+
+  const metadata = document.createElement("div");
+  metadata.className = "semantic-sutra-metadata";
+
+  const devanagari = document.createElement("span");
+  const iast = document.createElement("small");
+  const domain = document.createElement("span");
+  const status = document.createElement("span");
+  devanagari.textContent = text(ref.sutra_text_devanagari);
+  iast.textContent = text(ref.sutra_text_iast);
+  domain.className = "semantic-trace-badge domain";
+  domain.textContent = text(ref.domain, "unknown");
+  status.className = `semantic-trace-badge ${ref.status === "canonical" ? "canonical" : "provisional"}`;
+  status.textContent = text(ref.status, "unknown");
+  metadata.append(devanagari, iast, domain, status);
+  row.appendChild(metadata);
+  return row;
+}
+
+function renderSemanticTrace(trace, targetId = "semantic-trace-linked-output") {
+  const container = byId(targetId);
+  clearChildren(container);
+  if (!container) return;
+
+  const steps = Array.isArray(trace) ? trace : [];
+  if (steps.length === 0) {
+    appendEmpty(container, "No semantic trace steps");
+    return;
+  }
+
+  steps.forEach((step) => {
+    container.appendChild(renderSemanticTraceStep(step));
   });
 }
 
@@ -1287,6 +1380,58 @@ async function handleValidateSutraRegistry() {
   }
 }
 
+async function handleLoadSemanticTraceDemo() {
+  setStatus("Loading semantic trace demo...");
+  renderSemanticTraceStatus("Loading semantic trace demo...");
+  setBusy(semanticTraceDemoButton, true);
+
+  try {
+    const data = await getSemanticTraceJson("/api/v3/debug/trace/demo");
+    renderSemanticTrace(data?.linked_trace, "semantic-trace-demo-output");
+    renderSemanticTraceStatus("Demo semantic trace loaded", "success");
+    setStatus("Semantic trace demo loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Semantic trace demo error:", error);
+    renderSemanticTraceError(error.message);
+    setStatus("Semantic trace demo unavailable", true);
+  } finally {
+    setBusy(semanticTraceDemoButton, false);
+  }
+}
+
+async function handleLinkSemanticTrace() {
+  setStatus("Linking semantic trace...");
+  renderSemanticTraceStatus("Linking custom trace...");
+  setBusy(semanticTraceCustomButton, true);
+
+  try {
+    const data = await postSemanticTraceJson(
+      "/api/v3/debug/trace/link",
+      {
+        trace: [
+          {
+            operation: "savarna_dirgha",
+            sutra: "6.1.101",
+          },
+          {
+            operation: "scutva",
+            sutra: "8.4.40",
+          },
+        ],
+      },
+    );
+    renderSemanticTrace(data?.linked_trace, "semantic-trace-linked-output");
+    renderSemanticTraceStatus("Custom trace linked", "success");
+    setStatus("Semantic trace linked");
+  } catch (error) {
+    console.error("[Sanskrit] Semantic trace link error:", error);
+    renderSemanticTraceError(error.message);
+    setStatus("Semantic trace link unavailable", true);
+  } finally {
+    setBusy(semanticTraceCustomButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -1322,6 +1467,9 @@ function renderInitialState() {
   renderSutraSources(null);
   renderSutraValidation(null);
   renderSutraStatus("Sutra registry idle");
+  renderSemanticTrace(null, "semantic-trace-demo-output");
+  renderSemanticTrace(null, "semantic-trace-linked-output");
+  renderSemanticTraceStatus("Semantic trace idle");
 }
 
 export function init(node) {
@@ -1341,6 +1489,8 @@ export function init(node) {
   sutraSamplesButton = byId("sutra-load-samples");
   sutraSourcesButton = byId("sutra-load-sources");
   sutraValidateButton = byId("sutra-validate-registry");
+  semanticTraceDemoButton = byId("semantic-trace-load-demo");
+  semanticTraceCustomButton = byId("semantic-trace-link-custom");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -1358,6 +1508,8 @@ export function init(node) {
   sutraSamplesButton?.addEventListener("click", handleLoadSutraSamples);
   sutraSourcesButton?.addEventListener("click", handleLoadSutraSources);
   sutraValidateButton?.addEventListener("click", handleValidateSutraRegistry);
+  semanticTraceDemoButton?.addEventListener("click", handleLoadSemanticTraceDemo);
+  semanticTraceCustomButton?.addEventListener("click", handleLinkSemanticTrace);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -1392,6 +1544,8 @@ export function destroy() {
   sutraSamplesButton?.removeEventListener("click", handleLoadSutraSamples);
   sutraSourcesButton?.removeEventListener("click", handleLoadSutraSources);
   sutraValidateButton?.removeEventListener("click", handleValidateSutraRegistry);
+  semanticTraceDemoButton?.removeEventListener("click", handleLoadSemanticTraceDemo);
+  semanticTraceCustomButton?.removeEventListener("click", handleLinkSemanticTrace);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -1409,6 +1563,8 @@ export function destroy() {
   sutraSamplesButton = null;
   sutraSourcesButton = null;
   sutraValidateButton = null;
+  semanticTraceDemoButton = null;
+  semanticTraceCustomButton = null;
   currentDebugSession = null;
   inputNode = null;
 }
