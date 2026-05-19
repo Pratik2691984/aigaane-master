@@ -1,0 +1,29 @@
+{
+  "version": "node3b_morphology_phase1",
+  "declension": "masculine_i",
+  "paradigm": "kavi_masculine",
+  "gender": "masculine",
+  "stem_class": "i",
+  "forms": {
+    "nominative": {
+      "singular": "हरिः",
+      "plural": "हरयः"
+    },
+    "accusative": {
+      "singular": "हरिम्",
+      "plural": "हरीन्"
+    },
+    "instrumental": {
+      "singular": "हरिणा"
+    },
+    "dative": {
+      "singular": "हरये"
+    },
+    "genitive": {
+      "singular": "हरेः"
+    },
+    "locative": {
+      "singular": "हरौ"
+    }
+  }
+}

@@ -56,7 +56,7 @@ def morphology_meta() -> Dict[str, Any]:
         "engine": "Node 3 Morphology Engine",
         "phase": "phase1",
         "scope": {
-            "subanta": ["masculine_a"],
+            "subanta": ["masculine_a", "masculine_i"],
             "tinganta": ["lat_prathama_ekavacana"],
         },
         "nouns": list(noun_data.get("stems", {}).values()),
@@ -96,7 +96,7 @@ def inflect_noun(stem: str, case: str, number: str) -> Dict[str, Any]:
         "form": form,
         "metadata": entry,
         "rule": {
-            "engine": "table_driven_masculine_a_declension",
+            "engine": "table_driven_subanta_declension",
             "declension": entry["declension"],
         },
         "derivation_path": _morphology_path(

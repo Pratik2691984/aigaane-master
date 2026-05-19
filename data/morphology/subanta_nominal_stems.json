@@ -7,6 +7,14 @@
       "stem_class": "a",
       "declension": "masculine_a",
       "meaning": "Rama"
+    },
+    "हरि": {
+      "stem": "हरि",
+      "gender": "masculine",
+      "stem_class": "i",
+      "declension": "masculine_i",
+      "paradigm": "kavi_masculine",
+      "meaning": "Hari"
     }
   }
 }

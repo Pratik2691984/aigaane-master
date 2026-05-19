@@ -38,6 +38,42 @@ class MorphologyPipelineTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["form"], "\u0930\u093e\u092e\u092e\u094d")
 
+    def assert_hari_form(self, case, number, expected):
+        response = self.client.post(
+            "/api/v3/morphology/noun/inflect",
+            json={"stem": "\u0939\u0930\u093f", "case": case, "number": number},
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["form"], expected)
+        self.assertEqual(payload["metadata"]["declension"], "masculine_i")
+        self.assertEqual(payload["metadata"]["paradigm"], "kavi_masculine")
+        self.assertIn("derivation_path", payload)
+
+    def test_hari_nominative_singular(self):
+        self.assert_hari_form("nominative", "singular", "\u0939\u0930\u093f\u0903")
+
+    def test_hari_accusative_singular(self):
+        self.assert_hari_form("accusative", "singular", "\u0939\u0930\u093f\u092e\u094d")
+
+    def test_hari_instrumental_singular(self):
+        self.assert_hari_form("instrumental", "singular", "\u0939\u0930\u093f\u0923\u093e")
+
+    def test_hari_dative_singular(self):
+        self.assert_hari_form("dative", "singular", "\u0939\u0930\u092f\u0947")
+
+    def test_hari_genitive_singular(self):
+        self.assert_hari_form("genitive", "singular", "\u0939\u0930\u0947\u0903")
+
+    def test_hari_locative_singular(self):
+        self.assert_hari_form("locative", "singular", "\u0939\u0930\u094c")
+
+    def test_hari_nominative_plural(self):
+        self.assert_hari_form("nominative", "plural", "\u0939\u0930\u092f\u0903")
+
+    def test_hari_accusative_plural(self):
+        self.assert_hari_form("accusative", "plural", "\u0939\u0930\u0940\u0928\u094d")
+
     def test_bhu_lat_prathama_ekavacana(self):
         response = self.client.post(
             "/api/v3/morphology/verb/conjugate",
