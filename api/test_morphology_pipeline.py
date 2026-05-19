@@ -111,6 +111,43 @@ class MorphologyPipelineTests(unittest.TestCase):
     def test_nadi_accusative_plural(self):
         self.assert_nadi_form("accusative", "plural", "\u0928\u0926\u0940\u0903")
 
+    def assert_phala_form(self, case, number, expected):
+        response = self.client.post(
+            "/api/v3/morphology/noun/inflect",
+            json={"stem": "\u092b\u0932", "case": case, "number": number},
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["form"], expected)
+        self.assertEqual(payload["metadata"]["gender"], "neuter")
+        self.assertEqual(payload["metadata"]["declension"], "neuter_a")
+        self.assertEqual(payload["metadata"]["paradigm"], "phala_neuter")
+        self.assertIn("derivation_path", payload)
+
+    def test_phala_nominative_singular(self):
+        self.assert_phala_form("nominative", "singular", "\u092b\u0932\u092e\u094d")
+
+    def test_phala_accusative_singular(self):
+        self.assert_phala_form("accusative", "singular", "\u092b\u0932\u092e\u094d")
+
+    def test_phala_instrumental_singular(self):
+        self.assert_phala_form("instrumental", "singular", "\u092b\u0932\u0947\u0928")
+
+    def test_phala_dative_singular(self):
+        self.assert_phala_form("dative", "singular", "\u092b\u0932\u093e\u092f")
+
+    def test_phala_genitive_singular(self):
+        self.assert_phala_form("genitive", "singular", "\u092b\u0932\u0938\u094d\u092f")
+
+    def test_phala_locative_singular(self):
+        self.assert_phala_form("locative", "singular", "\u092b\u0932\u0947")
+
+    def test_phala_nominative_plural(self):
+        self.assert_phala_form("nominative", "plural", "\u092b\u0932\u093e\u0928\u093f")
+
+    def test_phala_accusative_plural(self):
+        self.assert_phala_form("accusative", "plural", "\u092b\u0932\u093e\u0928\u093f")
+
     def test_bhu_lat_prathama_ekavacana(self):
         response = self.client.post(
             "/api/v3/morphology/verb/conjugate",

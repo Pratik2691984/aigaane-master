@@ -24,6 +24,15 @@
       "declension": "feminine_ii",
       "paradigm": "nadi_feminine",
       "meaning": "river"
+    },
+    "फल": {
+      "stem": "फल",
+      "gender": "neuter",
+      "ending": "a",
+      "stem_class": "neuter_a",
+      "declension": "neuter_a",
+      "paradigm": "phala_neuter",
+      "meaning": "fruit"
     }
   }
 }

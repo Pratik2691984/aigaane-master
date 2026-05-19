@@ -1,0 +1,30 @@
+{
+  "version": "node3d_morphology_phase1",
+  "declension": "neuter_a",
+  "paradigm": "phala_neuter",
+  "gender": "neuter",
+  "stem_class": "neuter_a",
+  "ending": "a",
+  "forms": {
+    "nominative": {
+      "singular": "फलम्",
+      "plural": "फलानि"
+    },
+    "accusative": {
+      "singular": "फलम्",
+      "plural": "फलानि"
+    },
+    "instrumental": {
+      "singular": "फलेन"
+    },
+    "dative": {
+      "singular": "फलाय"
+    },
+    "genitive": {
+      "singular": "फलस्य"
+    },
+    "locative": {
+      "singular": "फले"
+    }
+  }
+}

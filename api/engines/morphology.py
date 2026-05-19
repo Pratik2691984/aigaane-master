@@ -56,7 +56,7 @@ def morphology_meta() -> Dict[str, Any]:
         "engine": "Node 3 Morphology Engine",
         "phase": "phase1",
         "scope": {
-            "subanta": ["masculine_a", "masculine_i", "feminine_ii"],
+            "subanta": ["masculine_a", "masculine_i", "feminine_ii", "neuter_a"],
             "tinganta": ["lat_prathama_ekavacana"],
         },
         "nouns": list(noun_data.get("stems", {}).values()),
