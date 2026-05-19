@@ -8,6 +8,7 @@ let inputNode = null;
 let debugCreateButton = null;
 let debugAppendButton = null;
 let debugAmbiguityButton = null;
+let debugPipelineButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -374,8 +375,12 @@ function renderDebugSessionSteps(steps) {
     const title = document.createElement("strong");
     const body = document.createElement("span");
     const meta = document.createElement("small");
+    const input = step?.input_state || {};
+    const output = step?.output_state || {};
+    const inputText = input.text || input.word1 || input.request?.stem || JSON.stringify(input);
+    const outputText = output.text || output.merged || output.form || JSON.stringify(output);
     title.textContent = `${text(step?.step_id)} ${text(step?.operation)}`;
-    body.textContent = ` ${text(step?.input_state?.text)} -> ${text(step?.output_state?.text)}`;
+    body.textContent = ` ${text(inputText)} -> ${text(outputText)}`;
     meta.textContent = `engine: ${text(step?.engine)}; parent: ${text(step?.parent_step_id, "none")}`;
     item.append(title, body, meta);
     container.appendChild(item);
@@ -416,6 +421,35 @@ function renderDebugAmbiguity(ambiguity) {
     row.append(title, output, reason);
     appendDebugDerivationPath(row, candidate?.derivation_path);
     container.appendChild(row);
+  });
+}
+
+function renderDebugPipelineResult(data) {
+  const container = byId("debug-pipeline-output");
+  clearChildren(container);
+  if (!container) return;
+  if (!data) {
+    appendEmpty(container, "No pipeline run");
+    return;
+  }
+
+  appendInspectionRow(container, "Final Output", data.final_output || "No final output");
+
+  const pipelineSteps = Array.isArray(data.pipeline_steps) ? data.pipeline_steps : [];
+  if (pipelineSteps.length === 0) {
+    appendEmpty(container, "No pipeline steps returned");
+    return;
+  }
+
+  pipelineSteps.forEach((step, index) => {
+    const output = step?.output_state || {};
+    const renderedOutput = output.merged || output.form || JSON.stringify(output);
+    appendInspectionRow(
+      container,
+      `Step ${index + 1}`,
+      renderedOutput,
+      `${text(step?.engine)} · ${text(step?.operation)}`,
+    );
   });
 }
 
@@ -673,6 +707,59 @@ async function handleDebugAmbiguityDemo() {
   }
 }
 
+async function handleDebugPipelineDemo() {
+  if (!currentDebugSession) {
+    renderDebugError("debug-session-error-output", {
+      detail: {
+        code: "debug_session_missing",
+        message: "Create a debug session first.",
+      },
+    });
+    setStatus("Create a debug session first.", true);
+    return;
+  }
+
+  setStatus("Running debug pipeline...");
+  setBusy(debugPipelineButton, true);
+
+  try {
+    const data = await postDebugJson(
+      "/api/v3/debug/session/run-pipeline",
+      {
+        session: currentDebugSession,
+        pipeline: [
+          {
+            engine: "morphology",
+            request: {
+              mode: "noun",
+              stem: "राम",
+              case: "nominative",
+              number: "singular",
+            },
+          },
+          {
+            engine: "sandhi",
+            request: {
+              word2: "अस्ति",
+            },
+          },
+        ],
+      },
+      "debug-session-error-output",
+    );
+    currentDebugSession = data?.session || currentDebugSession;
+    renderDebugSession(currentDebugSession);
+    renderDebugSessionSteps(currentDebugSession?.steps);
+    renderDebugPipelineResult(data);
+    setStatus("Debug pipeline complete");
+  } catch (error) {
+    console.error("[Sanskrit] Debug pipeline error:", error);
+    setStatus("Debug pipeline unavailable", true);
+  } finally {
+    setBusy(debugPipelineButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -696,6 +783,7 @@ function renderInitialState() {
   renderDebugSession(null);
   renderDebugSessionSteps(null);
   renderDebugAmbiguity(null);
+  renderDebugPipelineResult(null);
   renderDebugError("debug-session-error-output", null);
 }
 
@@ -707,6 +795,7 @@ export function init(node) {
   debugCreateButton = byId("debug-create-session");
   debugAppendButton = byId("debug-append-step");
   debugAmbiguityButton = byId("debug-load-ambiguity");
+  debugPipelineButton = byId("debug-run-pipeline");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -715,6 +804,7 @@ export function init(node) {
   debugCreateButton?.addEventListener("click", handleDebugSessionCreate);
   debugAppendButton?.addEventListener("click", handleDebugSessionAppend);
   debugAmbiguityButton?.addEventListener("click", handleDebugAmbiguityDemo);
+  debugPipelineButton?.addEventListener("click", handleDebugPipelineDemo);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -740,6 +830,7 @@ export function destroy() {
   debugCreateButton?.removeEventListener("click", handleDebugSessionCreate);
   debugAppendButton?.removeEventListener("click", handleDebugSessionAppend);
   debugAmbiguityButton?.removeEventListener("click", handleDebugAmbiguityDemo);
+  debugPipelineButton?.removeEventListener("click", handleDebugPipelineDemo);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -748,6 +839,7 @@ export function destroy() {
   debugCreateButton = null;
   debugAppendButton = null;
   debugAmbiguityButton = null;
+  debugPipelineButton = null;
   currentDebugSession = null;
   inputNode = null;
 }
