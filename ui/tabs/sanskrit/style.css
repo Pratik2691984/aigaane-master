@@ -22,7 +22,8 @@
 .result-section,
 .summary-item,
 .debug-inspector,
-.lexicon-inspector {
+.lexicon-inspector,
+.sutra-inspector {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
@@ -42,6 +43,8 @@
 .debug-card h4,
 .lexicon-inspector h3,
 .lexicon-card h4,
+.sutra-inspector h3,
+.sutra-card h4,
 .summary-item span,
 .result-section h3 {
     color: #b9c7d9;
@@ -117,6 +120,9 @@
 #lexicon-load-samples,
 #lexicon-load-sources,
 #lexicon-validate-registry,
+#sutra-load-samples,
+#sutra-load-sources,
+#sutra-validate-registry,
 .debug-storage-row button {
     border: 1px solid var(--gold);
     background: var(--gold);
@@ -139,6 +145,9 @@
 #lexicon-load-samples:disabled,
 #lexicon-load-sources:disabled,
 #lexicon-validate-registry:disabled,
+#sutra-load-samples:disabled,
+#sutra-load-sources:disabled,
+#sutra-validate-registry:disabled,
 .debug-storage-row button:disabled {
     cursor: progress;
     opacity: 0.6;
@@ -388,6 +397,121 @@
     color: #ffb3b3;
 }
 
+.sutra-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-color: rgba(104, 190, 255, 0.28);
+    background: rgba(8, 16, 24, 0.62);
+}
+
+.sutra-inspector-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.sutra-inspector-header p,
+.sutra-status {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.sutra-status.success {
+    color: #9ee6b4;
+}
+
+.sutra-status.error {
+    color: #ff9b9b;
+}
+
+.sutra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.sutra-card {
+    min-width: 0;
+    border: 1px solid rgba(104, 190, 255, 0.22);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.sutra-card h4 {
+    margin-bottom: 0.75rem;
+}
+
+.sutra-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #eef3f8;
+    line-height: 1.5;
+}
+
+.sutra-row {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.65rem;
+}
+
+.sutra-row strong {
+    color: #f0d77a;
+}
+
+.sutra-row small {
+    display: block;
+    color: #9fb0c7;
+    margin-top: 0.2rem;
+    overflow-wrap: anywhere;
+}
+
+.sutra-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 999px;
+    padding: 0.1rem 0.45rem;
+    margin: 0.35rem 0.35rem 0 0;
+    color: #d7e4f2;
+    font-size: 0.75rem;
+}
+
+.sutra-badge.domain {
+    border-color: rgba(104, 190, 255, 0.55);
+    color: #cfeeff;
+}
+
+.sutra-badge.canonical {
+    border-color: rgba(158, 230, 180, 0.65);
+    color: #9ee6b4;
+}
+
+.sutra-badge.provisional {
+    border-color: rgba(255, 215, 128, 0.55);
+    color: #ffe0a3;
+}
+
+.sutra-validation-summary {
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 8px;
+    padding: 0.65rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.sutra-validation-summary.success {
+    border-color: rgba(158, 230, 180, 0.5);
+    color: #9ee6b4;
+}
+
+.sutra-validation-summary.error {
+    border-color: rgba(255, 155, 155, 0.5);
+    color: #ffb3b3;
+}
+
 .debug-card {
     min-width: 0;
     border: 1px solid rgba(104, 190, 255, 0.22);
@@ -570,6 +694,7 @@
     .execution-grid,
     .debug-grid,
     .lexicon-grid,
+    .sutra-grid,
     .sanskrit-results {
         grid-template-columns: 1fr;
     }

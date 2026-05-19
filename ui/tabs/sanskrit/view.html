@@ -149,6 +149,37 @@
         </div>
     </section>
 
+    <section class="sutra-inspector" aria-label="Canonical sutra governance inspector">
+        <header class="sutra-inspector-header">
+            <h3>Canonical Sutra Governance Inspector</h3>
+            <p>Read-only canonical Paninian sutra inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="sutra-load-samples" type="button">Load Sutra Registry</button>
+            <button id="sutra-load-sources" type="button">Load Sutra Sources</button>
+            <button id="sutra-validate-registry" type="button">Validate Sutra Registry</button>
+            <span id="sutra-status" class="sutra-status" role="status" aria-live="polite">Sutra registry idle</span>
+        </div>
+
+        <div class="sutra-grid">
+            <section class="sutra-card">
+                <h4>Operational Sutras</h4>
+                <div id="sutra-samples-output" class="sutra-list">No sutras loaded</div>
+            </section>
+
+            <section class="sutra-card">
+                <h4>Sutra Sources</h4>
+                <div id="sutra-sources-output" class="sutra-list">No sutra sources loaded</div>
+            </section>
+
+            <section class="sutra-card">
+                <h4>Validation Summary</h4>
+                <div id="sutra-validation-output" class="sutra-list">No validation run</div>
+            </section>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>

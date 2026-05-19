@@ -14,6 +14,9 @@ let debugRefreshSessionsButton = null;
 let lexiconSamplesButton = null;
 let lexiconSourcesButton = null;
 let lexiconValidateButton = null;
+let sutraSamplesButton = null;
+let sutraSourcesButton = null;
+let sutraValidateButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -605,6 +608,15 @@ async function getLexiconJson(url) {
   return readLexiconJsonResponse(response);
 }
 
+async function getSutraJson(url) {
+  let response = await fetch(url);
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`);
+  }
+  return readLexiconJsonResponse(response);
+}
+
 function renderLexiconStatus(message, type = "neutral") {
   const node = byId("lexicon-status");
   if (!node) return;
@@ -691,6 +703,106 @@ function renderLexiconValidation(data) {
   if (errors.length === 0) {
     appendInspectionRow(container, "Errors", "none");
     renderLexiconStatus("Registry validation passed", "success");
+    return;
+  }
+
+  errors.forEach((error, index) => {
+    appendInspectionRow(container, `Error ${index + 1}`, typeof error === "object" ? JSON.stringify(error) : error);
+  });
+}
+
+function renderSutraStatus(message, type = "neutral") {
+  const node = byId("sutra-status");
+  if (!node) return;
+  node.textContent = text(message, "Sutra registry idle");
+  node.classList.toggle("success", type === "success");
+  node.classList.toggle("error", type === "error");
+}
+
+function renderSutraError(message) {
+  renderSutraStatus(message || "Sutra registry request failed", "error");
+}
+
+function renderSutraSamples(data) {
+  const container = byId("sutra-samples-output");
+  clearChildren(container);
+  if (!container) return;
+
+  const sutras = Array.isArray(data?.sutras) ? data.sutras : [];
+  if (sutras.length === 0) {
+    appendEmpty(container, "No operational sutras");
+    return;
+  }
+
+  sutras.forEach((sutra) => {
+    const row = document.createElement("div");
+    row.className = "sutra-row";
+    const title = document.createElement("strong");
+    const body = document.createElement("span");
+    const domain = document.createElement("span");
+    const status = document.createElement("span");
+    const meta = document.createElement("small");
+    title.textContent = text(sutra?.sutra_id);
+    body.textContent = ` ${text(sutra?.sutra_text_devanagari)} · ${text(sutra?.sutra_text_iast)}`;
+    domain.className = "sutra-badge domain";
+    domain.textContent = text(sutra?.domain, "unknown");
+    status.className = `sutra-badge ${sutra?.status === "canonical" ? "canonical" : "provisional"}`;
+    status.textContent = text(sutra?.status, "unknown");
+    meta.textContent = `${text(sutra?.source)} · ${text(sutra?.source_type)}`;
+    row.append(title, body, domain, status, meta);
+    container.appendChild(row);
+  });
+}
+
+function renderSutraSources(data) {
+  const container = byId("sutra-sources-output");
+  clearChildren(container);
+  if (!container) return;
+
+  const sources = Array.isArray(data?.sources) ? data.sources : [];
+  if (sources.length === 0) {
+    appendEmpty(container, "No sutra sources");
+    return;
+  }
+
+  sources.forEach((source) => {
+    const row = document.createElement("div");
+    row.className = "sutra-row";
+    const title = document.createElement("strong");
+    const body = document.createElement("span");
+    const badge = document.createElement("span");
+    const provenance = document.createElement("small");
+    title.textContent = text(source?.name);
+    body.textContent = ` ${text(source?.source_type || source?.type, "unknown")}`;
+    badge.className = "sutra-badge canonical";
+    badge.textContent = text(source?.verified === false ? "unverified" : "governed");
+    provenance.textContent = text(source?.provenance || source?.description || source?.citation, "No provenance");
+    row.append(title, body, badge, provenance);
+    container.appendChild(row);
+  });
+}
+
+function renderSutraValidation(data) {
+  const container = byId("sutra-validation-output");
+  clearChildren(container);
+  if (!container) return;
+  if (!data) {
+    appendEmpty(container, "No validation run");
+    return;
+  }
+
+  const summary = document.createElement("div");
+  summary.className = `sutra-validation-summary ${data.valid ? "success" : "error"}`;
+  summary.textContent = `valid: ${data.valid === true ? "true" : "false"} · sutras: ${text(data.sutra_count, 0)}`;
+  container.appendChild(summary);
+
+  const ids = Array.isArray(data.validated_ids) ? data.validated_ids : [];
+  appendInspectionRow(container, "Validated IDs", ids.length > 0 ? ids.join(", ") : "none");
+
+  const errors = Array.isArray(data.errors) ? data.errors : [];
+  if (errors.length === 0) {
+    appendInspectionRow(container, "Errors", "none");
+    renderSutraStatus("Sutra registry validation passed", "success");
     return;
   }
 
@@ -1113,6 +1225,68 @@ async function handleValidateLexiconRegistry() {
   }
 }
 
+async function handleLoadSutraSamples() {
+  setStatus("Loading sutra registry...");
+  renderSutraStatus("Loading operational sutras...");
+  setBusy(sutraSamplesButton, true);
+
+  try {
+    const data = await getSutraJson("/api/v3/debug/sutras/samples");
+    renderSutraSamples(data);
+    renderSutraStatus(`${text(data?.count, 0)} sutras loaded`, "success");
+    setStatus("Sutra registry loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Sutra samples error:", error);
+    renderSutraError(error.message);
+    setStatus("Sutra registry unavailable", true);
+  } finally {
+    setBusy(sutraSamplesButton, false);
+  }
+}
+
+async function handleLoadSutraSources() {
+  setStatus("Loading sutra sources...");
+  renderSutraStatus("Loading sutra sources...");
+  setBusy(sutraSourcesButton, true);
+
+  try {
+    const data = await getSutraJson("/api/v3/debug/sutras/sources");
+    renderSutraSources(data);
+    renderSutraStatus(`${text(data?.count, 0)} sutra sources loaded`, "success");
+    setStatus("Sutra sources loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Sutra sources error:", error);
+    renderSutraError(error.message);
+    setStatus("Sutra sources unavailable", true);
+  } finally {
+    setBusy(sutraSourcesButton, false);
+  }
+}
+
+async function handleValidateSutraRegistry() {
+  setStatus("Validating sutra registry...");
+  renderSutraStatus("Validating sutra registry...");
+  setBusy(sutraValidateButton, true);
+
+  try {
+    const data = await getSutraJson("/api/v3/debug/sutras/validate");
+    renderSutraValidation(data);
+    if (data?.valid === true) {
+      renderSutraStatus("Sutra registry validation passed", "success");
+      setStatus("Sutra registry valid");
+    } else {
+      renderSutraStatus("Sutra registry validation found issues", "error");
+      setStatus("Sutra registry validation issues", true);
+    }
+  } catch (error) {
+    console.error("[Sanskrit] Sutra validation error:", error);
+    renderSutraError(error.message);
+    setStatus("Sutra validation unavailable", true);
+  } finally {
+    setBusy(sutraValidateButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -1144,6 +1318,10 @@ function renderInitialState() {
   renderLexiconSources(null);
   renderLexiconValidation(null);
   renderLexiconStatus("Lexicon idle");
+  renderSutraSamples(null);
+  renderSutraSources(null);
+  renderSutraValidation(null);
+  renderSutraStatus("Sutra registry idle");
 }
 
 export function init(node) {
@@ -1160,6 +1338,9 @@ export function init(node) {
   lexiconSamplesButton = byId("lexicon-load-samples");
   lexiconSourcesButton = byId("lexicon-load-sources");
   lexiconValidateButton = byId("lexicon-validate-registry");
+  sutraSamplesButton = byId("sutra-load-samples");
+  sutraSourcesButton = byId("sutra-load-sources");
+  sutraValidateButton = byId("sutra-validate-registry");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -1174,6 +1355,9 @@ export function init(node) {
   lexiconSamplesButton?.addEventListener("click", handleLoadLexiconSamples);
   lexiconSourcesButton?.addEventListener("click", handleLoadLexiconSources);
   lexiconValidateButton?.addEventListener("click", handleValidateLexiconRegistry);
+  sutraSamplesButton?.addEventListener("click", handleLoadSutraSamples);
+  sutraSourcesButton?.addEventListener("click", handleLoadSutraSources);
+  sutraValidateButton?.addEventListener("click", handleValidateSutraRegistry);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -1205,6 +1389,9 @@ export function destroy() {
   lexiconSamplesButton?.removeEventListener("click", handleLoadLexiconSamples);
   lexiconSourcesButton?.removeEventListener("click", handleLoadLexiconSources);
   lexiconValidateButton?.removeEventListener("click", handleValidateLexiconRegistry);
+  sutraSamplesButton?.removeEventListener("click", handleLoadSutraSamples);
+  sutraSourcesButton?.removeEventListener("click", handleLoadSutraSources);
+  sutraValidateButton?.removeEventListener("click", handleValidateSutraRegistry);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -1219,6 +1406,9 @@ export function destroy() {
   lexiconSamplesButton = null;
   lexiconSourcesButton = null;
   lexiconValidateButton = null;
+  sutraSamplesButton = null;
+  sutraSourcesButton = null;
+  sutraValidateButton = null;
   currentDebugSession = null;
   inputNode = null;
 }
