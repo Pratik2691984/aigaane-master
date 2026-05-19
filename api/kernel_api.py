@@ -29,6 +29,10 @@ try:
 except ModuleNotFoundError:
     from engines.derivation_session import DerivationSession
 try:
+    from api.engines.derivation_graph_exporter import DerivationGraphExporter
+except ModuleNotFoundError:
+    from engines.derivation_graph_exporter import DerivationGraphExporter
+try:
     from api.engines.session_storage import DebugSessionStorage
 except ModuleNotFoundError:
     from engines.session_storage import DebugSessionStorage
@@ -210,6 +214,7 @@ debug_session_storage = DebugSessionStorage()
 lexical_registry_validator = LexicalRegistryValidator()
 sutra_registry_validator = SutraRegistryValidator()
 sutra_trace_linker = SutraTraceLinker()
+derivation_graph_exporter = DerivationGraphExporter()
 
 # ============ WebSocket disabled for Vercel ============
 manager = None
@@ -567,6 +572,15 @@ def semantic_trace_error(message: str) -> HTTPException:
         },
     )
 
+def derivation_graph_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "derivation_graph_error",
+            "message": message,
+        },
+    )
+
 @app.get("/api/v3/debug/lexicon/samples")
 async def debug_lexicon_samples_v3():
     try:
@@ -715,6 +729,82 @@ async def debug_trace_demo_v3():
 
     return JSONResponse(
         content={"linked_trace": linked_trace},
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/graph/export")
+async def debug_graph_export_v3(payload: Dict[str, Any]):
+    if "session" not in payload:
+        raise derivation_graph_error("session is required.")
+
+    try:
+        session = DerivationSession.from_dict(payload["session"])
+        graph = derivation_graph_exporter.export_session_graph(session)
+    except (KeyError, TypeError, ValueError) as exc:
+        raise derivation_graph_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={"graph": graph},
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/graph/demo")
+async def debug_graph_demo_v3():
+    try:
+        session = DerivationSession.create(
+            input_text="\u0930\u093e\u092e\u0903 \u0905\u0938\u094d\u0924\u093f",
+            metadata={
+                "source": "debug_graph_demo",
+                "semantic_layer": "derivation_graph_export",
+            },
+        )
+        morphology_step = session.add_step(
+            engine="Node 3 Morphology",
+            operation="noun_inflection",
+            input_state={
+                "request": {
+                    "mode": "noun",
+                    "stem": "\u0930\u093e\u092e",
+                    "case": "nominative",
+                    "number": "singular",
+                },
+                "semantic": {
+                    "node_role": "morphology_source",
+                },
+            },
+            output_state={
+                "form": "\u0930\u093e\u092e\u0903",
+                "type": "noun",
+                "semantic": {
+                    "surface_form": "\u0930\u093e\u092e\u0903",
+                },
+            },
+        )
+        session.add_step(
+            engine="Node 2 Sandhi",
+            operation="sandhi_execution",
+            input_state={
+                "word1": "\u0930\u093e\u092e\u0903",
+                "word2": "\u0905\u0938\u094d\u0924\u093f",
+                "semantic": {
+                    "boundary": "visarga_vowel",
+                },
+            },
+            output_state={
+                "merged": "\u0930\u093e\u092e\u094b\u093d\u0938\u094d\u0924\u093f",
+                "sutra": "8.3.15",
+                "semantic": {
+                    "surface_form": "\u0930\u093e\u092e\u094b\u093d\u0938\u094d\u0924\u093f",
+                },
+            },
+            parent_step_id=morphology_step.step_id,
+        )
+        graph = derivation_graph_exporter.export_session_graph(session)
+    except (KeyError, TypeError, ValueError) as exc:
+        raise derivation_graph_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={"graph": graph},
         media_type="application/json; charset=utf-8",
     )
 
