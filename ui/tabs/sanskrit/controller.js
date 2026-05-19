@@ -11,6 +11,9 @@ let debugAmbiguityButton = null;
 let debugPipelineButton = null;
 let debugSaveButton = null;
 let debugRefreshSessionsButton = null;
+let lexiconSamplesButton = null;
+let lexiconSourcesButton = null;
+let lexiconValidateButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -584,6 +587,118 @@ async function getDebugJson(url, targetId) {
   return readDebugJsonResponse(response, targetId);
 }
 
+async function readLexiconJsonResponse(response) {
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    const detail = payload?.detail || payload || {};
+    throw new Error(detail.message || `HTTP ${response.status}`);
+  }
+  return payload;
+}
+
+async function getLexiconJson(url) {
+  let response = await fetch(url);
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`);
+  }
+  return readLexiconJsonResponse(response);
+}
+
+function renderLexiconStatus(message, type = "neutral") {
+  const node = byId("lexicon-status");
+  if (!node) return;
+  node.textContent = text(message, "Lexicon idle");
+  node.classList.toggle("success", type === "success");
+  node.classList.toggle("error", type === "error");
+}
+
+function renderLexiconError(message) {
+  renderLexiconStatus(message || "Lexicon request failed", "error");
+}
+
+function renderLexiconSamples(data) {
+  const container = byId("lexicon-samples-output");
+  clearChildren(container);
+  if (!container) return;
+
+  const entries = Array.isArray(data?.entries) ? data.entries : [];
+  if (entries.length === 0) {
+    appendEmpty(container, "No sample entries");
+    return;
+  }
+
+  entries.forEach((entry) => {
+    const row = document.createElement("div");
+    row.className = "lexicon-row";
+    const title = document.createElement("strong");
+    const body = document.createElement("span");
+    const meta = document.createElement("small");
+    title.textContent = text(entry?.lemma_devanagari);
+    body.textContent = ` ${text(entry?.lemma_iast)} · ${text(entry?.category)}`;
+    meta.textContent = `${text(entry?.lexical_id)} · status: ${text(entry?.status)}`;
+    row.append(title, body, meta);
+    container.appendChild(row);
+  });
+}
+
+function renderLexiconSources(data) {
+  const container = byId("lexicon-sources-output");
+  clearChildren(container);
+  if (!container) return;
+
+  const sources = Array.isArray(data?.sources) ? data.sources : [];
+  if (sources.length === 0) {
+    appendEmpty(container, "No registry sources");
+    return;
+  }
+
+  sources.forEach((source) => {
+    const row = document.createElement("div");
+    row.className = "lexicon-row";
+    const title = document.createElement("strong");
+    const body = document.createElement("span");
+    const badge = document.createElement("span");
+    const citation = document.createElement("small");
+    title.textContent = text(source?.name);
+    body.textContent = ` ${text(source?.type)}`;
+    badge.className = `lexicon-badge ${source?.verified ? "verified" : "draft"}`;
+    badge.textContent = source?.verified ? "verified" : "unverified";
+    citation.textContent = text(source?.citation, "No citation");
+    row.append(title, body, badge, citation);
+    container.appendChild(row);
+  });
+}
+
+function renderLexiconValidation(data) {
+  const container = byId("lexicon-validation-output");
+  clearChildren(container);
+  if (!container) return;
+  if (!data) {
+    appendEmpty(container, "No validation run");
+    return;
+  }
+
+  const summary = document.createElement("div");
+  summary.className = `lexicon-validation-summary ${data.valid ? "success" : "error"}`;
+  summary.textContent = `valid: ${data.valid === true ? "true" : "false"} · entries: ${text(data.entry_count, 0)}`;
+  container.appendChild(summary);
+
+  const ids = Array.isArray(data.validated_ids) ? data.validated_ids : [];
+  appendInspectionRow(container, "Validated IDs", ids.length > 0 ? ids.join(", ") : "none");
+
+  const errors = Array.isArray(data.errors) ? data.errors : [];
+  if (errors.length === 0) {
+    appendInspectionRow(container, "Errors", "none");
+    renderLexiconStatus("Registry validation passed", "success");
+    return;
+  }
+
+  errors.forEach((error, index) => {
+    appendInspectionRow(container, `Error ${index + 1}`, typeof error === "object" ? JSON.stringify(error) : error);
+  });
+}
+
 async function analyzeCurrentInput() {
   if (!inputNode) return;
   const inputText = inputNode.value.trim();
@@ -936,6 +1051,68 @@ async function handleDebugSessionDelete(sessionId) {
   }
 }
 
+async function handleLoadLexiconSamples() {
+  setStatus("Loading lexical samples...");
+  renderLexiconStatus("Loading sample entries...");
+  setBusy(lexiconSamplesButton, true);
+
+  try {
+    const data = await getLexiconJson("/api/v3/debug/lexicon/samples");
+    renderLexiconSamples(data);
+    renderLexiconStatus(`${text(data?.count, 0)} sample entries loaded`, "success");
+    setStatus("Lexical samples loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Lexicon samples error:", error);
+    renderLexiconError(error.message);
+    setStatus("Lexicon samples unavailable", true);
+  } finally {
+    setBusy(lexiconSamplesButton, false);
+  }
+}
+
+async function handleLoadLexiconSources() {
+  setStatus("Loading lexical sources...");
+  renderLexiconStatus("Loading registry sources...");
+  setBusy(lexiconSourcesButton, true);
+
+  try {
+    const data = await getLexiconJson("/api/v3/debug/lexicon/sources");
+    renderLexiconSources(data);
+    renderLexiconStatus(`${text(data?.count, 0)} registry sources loaded`, "success");
+    setStatus("Lexical sources loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Lexicon sources error:", error);
+    renderLexiconError(error.message);
+    setStatus("Lexicon sources unavailable", true);
+  } finally {
+    setBusy(lexiconSourcesButton, false);
+  }
+}
+
+async function handleValidateLexiconRegistry() {
+  setStatus("Validating lexical registry...");
+  renderLexiconStatus("Validating registry...");
+  setBusy(lexiconValidateButton, true);
+
+  try {
+    const data = await getLexiconJson("/api/v3/debug/lexicon/validate");
+    renderLexiconValidation(data);
+    if (data?.valid === true) {
+      renderLexiconStatus("Registry validation passed", "success");
+      setStatus("Lexical registry valid");
+    } else {
+      renderLexiconStatus("Registry validation found issues", "error");
+      setStatus("Lexical registry validation issues", true);
+    }
+  } catch (error) {
+    console.error("[Sanskrit] Lexicon validation error:", error);
+    renderLexiconError(error.message);
+    setStatus("Lexicon validation unavailable", true);
+  } finally {
+    setBusy(lexiconValidateButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -963,6 +1140,10 @@ function renderInitialState() {
   renderDebugSessionStorageList(null);
   renderDebugStorageStatus("Storage idle");
   renderDebugError("debug-session-error-output", null);
+  renderLexiconSamples(null);
+  renderLexiconSources(null);
+  renderLexiconValidation(null);
+  renderLexiconStatus("Lexicon idle");
 }
 
 export function init(node) {
@@ -976,6 +1157,9 @@ export function init(node) {
   debugPipelineButton = byId("debug-run-pipeline");
   debugSaveButton = byId("debug-save-session");
   debugRefreshSessionsButton = byId("debug-refresh-sessions");
+  lexiconSamplesButton = byId("lexicon-load-samples");
+  lexiconSourcesButton = byId("lexicon-load-sources");
+  lexiconValidateButton = byId("lexicon-validate-registry");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -987,6 +1171,9 @@ export function init(node) {
   debugPipelineButton?.addEventListener("click", handleDebugPipelineDemo);
   debugSaveButton?.addEventListener("click", handleDebugSessionSave);
   debugRefreshSessionsButton?.addEventListener("click", handleDebugSessionList);
+  lexiconSamplesButton?.addEventListener("click", handleLoadLexiconSamples);
+  lexiconSourcesButton?.addEventListener("click", handleLoadLexiconSources);
+  lexiconValidateButton?.addEventListener("click", handleValidateLexiconRegistry);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -1015,6 +1202,9 @@ export function destroy() {
   debugPipelineButton?.removeEventListener("click", handleDebugPipelineDemo);
   debugSaveButton?.removeEventListener("click", handleDebugSessionSave);
   debugRefreshSessionsButton?.removeEventListener("click", handleDebugSessionList);
+  lexiconSamplesButton?.removeEventListener("click", handleLoadLexiconSamples);
+  lexiconSourcesButton?.removeEventListener("click", handleLoadLexiconSources);
+  lexiconValidateButton?.removeEventListener("click", handleValidateLexiconRegistry);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -1026,6 +1216,9 @@ export function destroy() {
   debugPipelineButton = null;
   debugSaveButton = null;
   debugRefreshSessionsButton = null;
+  lexiconSamplesButton = null;
+  lexiconSourcesButton = null;
+  lexiconValidateButton = null;
   currentDebugSession = null;
   inputNode = null;
 }

@@ -118,6 +118,37 @@
         </div>
     </section>
 
+    <section class="lexicon-inspector" aria-label="Lexical governance inspector">
+        <header class="lexicon-inspector-header">
+            <h3>Lexical Governance Inspector</h3>
+            <p>Read-only governed lexical registry inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="lexicon-load-samples" type="button">Load Sample Entries</button>
+            <button id="lexicon-load-sources" type="button">Load Registry Sources</button>
+            <button id="lexicon-validate-registry" type="button">Validate Registry</button>
+            <span id="lexicon-status" class="lexicon-status" role="status" aria-live="polite">Lexicon idle</span>
+        </div>
+
+        <div class="lexicon-grid">
+            <section class="lexicon-card">
+                <h4>Sample Lexical Entries</h4>
+                <div id="lexicon-samples-output" class="lexicon-list">No sample entries loaded</div>
+            </section>
+
+            <section class="lexicon-card">
+                <h4>Registry Sources</h4>
+                <div id="lexicon-sources-output" class="lexicon-list">No registry sources loaded</div>
+            </section>
+
+            <section class="lexicon-card">
+                <h4>Validation Summary</h4>
+                <div id="lexicon-validation-output" class="lexicon-list">No validation run</div>
+            </section>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>
