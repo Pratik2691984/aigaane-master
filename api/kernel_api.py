@@ -19,6 +19,7 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
+from engines.ambiguity import AmbiguityPayload
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -146,6 +147,7 @@ class SandhiAnalyzeResponse(BaseModel):
     trace: List[SandhiTraceStep]
     derivation_path: Optional[List[DerivationPathStep]] = None
     governance: Optional[GovernanceResponse] = None
+    ambiguity: Optional[AmbiguityPayload] = None
 
 class MorphologyNounRequest(BaseModel):
     stem: str
@@ -166,6 +168,7 @@ class MorphologyResponse(BaseModel):
     rule: Dict[str, Any]
     derivation_path: Optional[List[DerivationPathStep]] = None
     governance: Optional[GovernanceResponse] = None
+    ambiguity: Optional[AmbiguityPayload] = None
 
 class MorphologyMetaResponse(BaseModel):
     engine: str
