@@ -7,6 +7,51 @@ from engines.trace_graph import DerivationStep, DerivationTraceGraph
 
 VIRAMA = "\u094d"
 CONSONANTS = set("\u0915\u0916\u0917\u0918\u0919\u091a\u091b\u091c\u091d\u091e\u091f\u0920\u0921\u0922\u0923\u0924\u0925\u0926\u0927\u0928\u092a\u092b\u092c\u092d\u092e\u092f\u0930\u0932\u0935\u0936\u0937\u0938\u0939")
+INDEPENDENT_VOWELS = {
+    "\u0905",
+    "\u0906",
+    "\u0907",
+    "\u0908",
+    "\u0909",
+    "\u090a",
+    "\u090b",
+    "\u0960",
+    "\u090f",
+    "\u0910",
+    "\u0913",
+    "\u0914",
+}
+VOWEL_SIGNS = {
+    "\u093e",
+    "\u093f",
+    "\u0940",
+    "\u0941",
+    "\u0942",
+    "\u0943",
+    "\u0944",
+    "\u0947",
+    "\u0948",
+    "\u094b",
+    "\u094c",
+}
+INDEPENDENT_VOWEL_TO_SIGN = {
+    "\u0905": "",
+    "\u0906": "\u093e",
+    "\u0907": "\u093f",
+    "\u0908": "\u0940",
+    "\u0909": "\u0941",
+    "\u090a": "\u0942",
+    "\u090b": "\u0943",
+    "\u0960": "\u0944",
+    "\u090f": "\u0947",
+    "\u0910": "\u0948",
+    "\u0913": "\u094b",
+    "\u0914": "\u094c",
+}
+VOICED_CONSONANTS = set("\u0917\u0918\u0919\u091c\u091d\u091e\u0921\u0922\u0923\u0926\u0927\u0928\u092c\u092d\u092e\u092f\u0930\u0932\u0935\u0939")
+JHAL_TO_JAS = {
+    "\u0915\u094d": "\u0917\u094d",
+}
 
 
 class ConsonantSandhiException(Exception):
@@ -31,6 +76,8 @@ RULES = {
         "sutra": "8.4.40",
         "sutra_name": "\u0938\u094d\u0924\u094b\u0903 \u0936\u094d\u091a\u0941\u0928\u093e \u0936\u094d\u091a\u0941\u0903",
         "operation": "dental_to_palatal_assimilation",
+        "consume_right": True,
+        "compose_initial_vowel": False,
     }
 }
 
@@ -81,6 +128,24 @@ def initial_consonant_token(word: str) -> Optional[str]:
     return None
 
 
+def initial_phonological_token(word: str) -> Optional[str]:
+    for char in word:
+        if char.isspace():
+            continue
+        return char
+    return None
+
+
+def is_voiced_or_vowel_initial(token: str) -> bool:
+    normalized = unicodedata.normalize("NFC", token.strip()) if isinstance(token, str) else ""
+    if not normalized:
+        return False
+    if normalized in INDEPENDENT_VOWELS or normalized in VOWEL_SIGNS:
+        return True
+    consonant = normalized[:-1] if normalized.endswith(VIRAMA) else normalized
+    return len(consonant) == 1 and consonant in VOICED_CONSONANTS
+
+
 def build_rule_key(left_token: str, right_token: str) -> str:
     return f"{normalize_halant_token(left_token)}+{right_token}"
 
@@ -120,9 +185,19 @@ def derivation_path(
     ).to_list()
 
 
-def substitute_boundary(word1: str, word2: str, boundary: ConsonantBoundary, replacement: str) -> str:
+def substitute_boundary(
+    word1: str,
+    word2: str,
+    boundary: ConsonantBoundary,
+    replacement: str,
+    consume_right: bool,
+    compose_initial_vowel: bool,
+) -> str:
     left_base = word1[: -len(boundary.left_token)]
-    right_remainder = word2[len(boundary.right_token) :]
+    if compose_initial_vowel and replacement.endswith(VIRAMA) and boundary.right_token in INDEPENDENT_VOWEL_TO_SIGN:
+        replacement = replacement[:-1] + INDEPENDENT_VOWEL_TO_SIGN[boundary.right_token]
+        consume_right = True
+    right_remainder = word2[len(boundary.right_token) :] if consume_right else word2
     return left_base + replacement + right_remainder
 
 
@@ -133,7 +208,7 @@ def analyze_consonant_sandhi(word1: str, word2: str) -> Dict[str, Any]:
         raise ConsonantSandhiException("Only Devanagari consonant sandhi is enabled in this phase.")
 
     left_token = final_consonant_token(left_word)
-    right_token = initial_consonant_token(right_word)
+    right_token = initial_phonological_token(right_word)
     if left_token is None or right_token is None:
         raise ConsonantSandhiException("Both words must expose consonant boundaries.")
 
@@ -142,11 +217,29 @@ def analyze_consonant_sandhi(word1: str, word2: str) -> Dict[str, Any]:
         right_token=right_token,
         rule_key=build_rule_key(left_token, right_token),
     )
+
     rule = RULES.get(boundary.rule_key)
+    if rule is None and boundary.left_token in JHAL_TO_JAS and is_voiced_or_vowel_initial(boundary.right_token):
+        rule = {
+            "replacement": JHAL_TO_JAS[boundary.left_token],
+            "sutra": "8.2.39",
+            "sutra_name": "\u091d\u0932\u093e\u0902 \u091c\u0936\u094b\u093d\u0928\u094d\u0924\u0947",
+            "operation": "jastva",
+            "consume_right": False,
+            "compose_initial_vowel": True,
+        }
+
     if rule is None:
         raise ConsonantSandhiException("No supported consonant sandhi rule matched.")
 
-    merged = substitute_boundary(left_word, right_word, boundary, rule["replacement"])
+    merged = substitute_boundary(
+        left_word,
+        right_word,
+        boundary,
+        rule["replacement"],
+        rule["consume_right"],
+        rule["compose_initial_vowel"],
+    )
     return {
         "merged": merged,
         "sutra": rule["sutra"],
@@ -162,3 +255,8 @@ def analyze_consonant_sandhi(word1: str, word2: str) -> Dict[str, Any]:
             merged,
         ),
     }
+
+
+class ConsonantSandhiEngine:
+    def process(self, word1: str, word2: str) -> Dict[str, Any]:
+        return analyze_consonant_sandhi(word1, word2)
