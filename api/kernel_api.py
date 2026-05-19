@@ -40,6 +40,10 @@ try:
     from api.engines.sutra_registry import SUTRA_ROOT, SutraRegistryValidator
 except ModuleNotFoundError:
     from engines.sutra_registry import SUTRA_ROOT, SutraRegistryValidator
+try:
+    from api.engines.sutra_linker import SutraTraceLinker
+except ModuleNotFoundError:
+    from engines.sutra_linker import SutraTraceLinker
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -205,6 +209,7 @@ current_golden_build: Optional[Dict[str, Any]] = None
 debug_session_storage = DebugSessionStorage()
 lexical_registry_validator = LexicalRegistryValidator()
 sutra_registry_validator = SutraRegistryValidator()
+sutra_trace_linker = SutraTraceLinker()
 
 # ============ WebSocket disabled for Vercel ============
 manager = None
@@ -553,6 +558,15 @@ def sutra_registry_error(message: str) -> HTTPException:
         },
     )
 
+def semantic_trace_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "semantic_trace_error",
+            "message": message,
+        },
+    )
+
 @app.get("/api/v3/debug/lexicon/samples")
 async def debug_lexicon_samples_v3():
     try:
@@ -654,6 +668,53 @@ async def debug_sutras_validate_v3():
             "validated_ids": [sutra["sutra_id"] for sutra in validated_sutras],
             "errors": [],
         },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/trace/link")
+async def debug_trace_link_v3(payload: Dict[str, Any]):
+    if "trace" not in payload:
+        raise semantic_trace_error("trace is required.")
+    trace = payload["trace"]
+    if not isinstance(trace, list):
+        raise semantic_trace_error("trace must be a list.")
+
+    try:
+        linked_trace = sutra_trace_linker.link_trace(trace)
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        raise semantic_trace_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={"linked_trace": linked_trace},
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/trace/demo")
+async def debug_trace_demo_v3():
+    demo_trace = [
+        {
+            "operation": "savarna_dirgha_substitution",
+            "sutra": "6.1.101",
+            "input_state": "\u0930\u093e\u092e + \u0905\u0938\u094d\u0924\u093f",
+            "output_state": "\u0930\u093e\u092e\u093e\u0938\u094d\u0924\u093f",
+            "engine_node": "Node 2A Vowel Sandhi",
+        },
+        {
+            "operation": "dental_to_palatal_assimilation",
+            "sutra": "8.4.40",
+            "input_state": "\u0924\u0924\u094d + \u091a",
+            "output_state": "\u0924\u091a\u094d\u091a",
+            "engine_node": "Node 2C Consonant Sandhi",
+        },
+    ]
+
+    try:
+        linked_trace = sutra_trace_linker.link_trace(demo_trace)
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        raise semantic_trace_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={"linked_trace": linked_trace},
         media_type="application/json; charset=utf-8",
     )
 
