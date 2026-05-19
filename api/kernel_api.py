@@ -28,6 +28,10 @@ try:
     from api.engines.derivation_session import DerivationSession
 except ModuleNotFoundError:
     from engines.derivation_session import DerivationSession
+try:
+    from api.engines.session_storage import DebugSessionStorage
+except ModuleNotFoundError:
+    from engines.session_storage import DebugSessionStorage
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -190,6 +194,7 @@ current_state: Optional[KernelState] = None
 history_states: List[KernelState] = []
 golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
+debug_session_storage = DebugSessionStorage()
 
 # ============ WebSocket disabled for Vercel ============
 manager = None
@@ -511,6 +516,15 @@ def session_pipeline_error(message: str) -> HTTPException:
         },
     )
 
+def session_storage_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "session_storage_error",
+            "message": message,
+        },
+    )
+
 @app.post("/api/v3/debug/session/create")
 async def debug_session_create_v3(payload: Dict[str, Any]):
     input_text = payload.get("input_text")
@@ -558,6 +572,70 @@ async def debug_session_append_v3(payload: Dict[str, Any]):
 
     return JSONResponse(
         content=session.to_dict(),
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/save")
+async def debug_session_save_v3(payload: Dict[str, Any]):
+    if "session" not in payload:
+        raise session_storage_error("session is required.")
+
+    try:
+        session = DerivationSession.from_dict(payload["session"])
+        path = debug_session_storage.save_session(session)
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_storage_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "saved": True,
+            "session_id": session.session_id,
+            "path": path,
+        },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/load")
+async def debug_session_load_v3(payload: Dict[str, Any]):
+    if "session_id" not in payload:
+        raise session_storage_error("session_id is required.")
+
+    try:
+        session = debug_session_storage.load_session(payload["session_id"])
+    except ValueError as exc:
+        raise session_storage_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={"session": session.to_dict()},
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/session/list")
+async def debug_session_list_v3():
+    try:
+        sessions = debug_session_storage.list_sessions()
+    except ValueError as exc:
+        raise session_storage_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={"sessions": sessions},
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/delete")
+async def debug_session_delete_v3(payload: Dict[str, Any]):
+    if "session_id" not in payload:
+        raise session_storage_error("session_id is required.")
+
+    try:
+        deleted = debug_session_storage.delete_session(payload["session_id"])
+    except ValueError as exc:
+        raise session_storage_error(str(exc)) from exc
+    if not deleted:
+        raise session_storage_error("Session not found.")
+
+    return JSONResponse(
+        content={"deleted": True},
         media_type="application/json; charset=utf-8",
     )
 
