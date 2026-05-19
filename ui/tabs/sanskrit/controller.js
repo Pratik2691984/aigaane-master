@@ -5,6 +5,10 @@ let analyzeButton = null;
 let sandhiButton = null;
 let morphologyButton = null;
 let inputNode = null;
+let debugCreateButton = null;
+let debugAppendButton = null;
+let debugAmbiguityButton = null;
+let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -71,6 +75,10 @@ function appendInspectionRow(node, label, value, detail) {
     row.appendChild(small);
   }
   node.appendChild(row);
+}
+
+function appendDebugErrorRow(node, label, value) {
+  appendInspectionRow(node, label, value);
 }
 
 function appendListItems(node, items, formatter) {
@@ -319,6 +327,98 @@ function renderApiError(detail) {
   }
 }
 
+function renderDebugError(targetId, error) {
+  const container = byId(targetId);
+  clearChildren(container);
+  if (!container) return;
+  if (!error) {
+    appendEmpty(container, "No debug error");
+    return;
+  }
+
+  const detail = error.detail || error;
+  appendDebugErrorRow(container, "Code", detail.code || "debug_error");
+  appendDebugErrorRow(container, "Message", detail.message || text(detail));
+}
+
+function renderDebugSession(session) {
+  const container = byId("debug-session-output");
+  clearChildren(container);
+  if (!container) return;
+  if (!session) {
+    appendEmpty(container, "No debug session");
+    return;
+  }
+
+  appendInspectionRow(container, "Session ID", session.session_id);
+  appendInspectionRow(container, "Created At", session.created_at);
+  appendInspectionRow(container, "Input Text", session.input_text);
+  appendInspectionRow(container, "Total Steps", session.total_steps, `ambiguity branches: ${text(session.total_ambiguity_branches, 0)}`);
+}
+
+function renderDebugSessionSteps(steps) {
+  const container = byId("debug-session-steps-output");
+  clearChildren(container);
+  if (!container) return;
+
+  const values = Array.isArray(steps) ? steps : [];
+  if (values.length === 0) {
+    const empty = document.createElement("li");
+    empty.textContent = "No debug session steps";
+    container.appendChild(empty);
+    return;
+  }
+
+  values.forEach((step) => {
+    const item = document.createElement("li");
+    const title = document.createElement("strong");
+    const body = document.createElement("span");
+    const meta = document.createElement("small");
+    title.textContent = `${text(step?.step_id)} ${text(step?.operation)}`;
+    body.textContent = ` ${text(step?.input_state?.text)} -> ${text(step?.output_state?.text)}`;
+    meta.textContent = `engine: ${text(step?.engine)}; parent: ${text(step?.parent_step_id, "none")}`;
+    item.append(title, body, meta);
+    container.appendChild(item);
+  });
+}
+
+function appendDebugDerivationPath(node, path) {
+  const steps = Array.isArray(path) ? path : [];
+  steps.forEach((step, index) => {
+    const meta = document.createElement("small");
+    meta.textContent = `path ${index + 1}: ${text(step?.sutra)} ${text(step?.operation)} ${text(step?.input_state)} -> ${text(step?.output_state)}`;
+    node.appendChild(meta);
+  });
+}
+
+function renderDebugAmbiguity(ambiguity) {
+  const container = byId("debug-ambiguity-output");
+  clearChildren(container);
+  if (!container) return;
+  if (!ambiguity) {
+    appendEmpty(container, "No ambiguity demo loaded");
+    return;
+  }
+
+  const candidates = Array.isArray(ambiguity.candidates) ? ambiguity.candidates : [];
+  appendInspectionRow(container, "Ambiguous", ambiguity.is_ambiguous ? "true" : "false");
+  appendInspectionRow(container, "Candidate Count", candidates.length);
+
+  candidates.forEach((candidate) => {
+    const row = document.createElement("div");
+    row.className = "candidate-row";
+    const title = document.createElement("strong");
+    const output = document.createElement("span");
+    const reason = document.createElement("small");
+    title.textContent = text(candidate?.candidate_id);
+    output.textContent = `: ${text(candidate?.final_output)}`;
+    reason.textContent = text(candidate?.reason);
+    row.append(title, output, reason);
+    appendDebugDerivationPath(row, candidate?.derivation_path);
+    container.appendChild(row);
+  });
+}
+
 function renderPayload(payload) {
   setText("overall-stanza-meter", payload?.overall_stanza_meter);
   setText("total-matra-count", payload?.total_matra_count, 0);
@@ -353,6 +453,35 @@ async function postJson(url, body) {
     body: JSON.stringify(body),
   });
   return readJsonResponse(response);
+}
+
+async function readDebugJsonResponse(response, targetId) {
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    const detail = payload || { detail: { code: "debug_api_error", message: `HTTP ${response.status}` } };
+    renderDebugError(targetId, detail);
+    throw new Error(detail.detail?.message || `HTTP ${response.status}`);
+  }
+  renderDebugError(targetId, null);
+  return payload;
+}
+
+async function postDebugJson(url, body, targetId) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return readDebugJsonResponse(response, targetId);
+}
+
+async function getDebugJson(url, targetId) {
+  let response = await fetch(url);
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`);
+  }
+  return readDebugJsonResponse(response, targetId);
 }
 
 async function analyzeCurrentInput() {
@@ -459,6 +588,91 @@ async function runMorphology() {
   }
 }
 
+async function handleDebugSessionCreate() {
+  setStatus("Creating debug session...");
+  setBusy(debugCreateButton, true);
+
+  try {
+    currentDebugSession = await postDebugJson(
+      "/api/v3/debug/session/create",
+      {
+        input_text: fieldValue("debug-session-input"),
+        metadata: { source: "sanskrit_tab_debug_ui" },
+      },
+      "debug-session-error-output",
+    );
+    renderDebugSession(currentDebugSession);
+    renderDebugSessionSteps(currentDebugSession?.steps);
+    setStatus("Debug session created");
+  } catch (error) {
+    console.error("[Sanskrit] Debug session create error:", error);
+    setStatus("Debug session unavailable", true);
+  } finally {
+    setBusy(debugCreateButton, false);
+  }
+}
+
+async function handleDebugSessionAppend() {
+  if (!currentDebugSession) {
+    renderDebugError("debug-session-error-output", {
+      detail: {
+        code: "debug_session_missing",
+        message: "Create a debug session before appending a step.",
+      },
+    });
+    setStatus("Create a debug session first.", true);
+    return;
+  }
+
+  setStatus("Appending debug step...");
+  setBusy(debugAppendButton, true);
+
+  try {
+    const steps = Array.isArray(currentDebugSession.steps) ? currentDebugSession.steps : [];
+    const lastStep = steps.length > 0 ? steps[steps.length - 1] : null;
+    currentDebugSession = await postDebugJson(
+      "/api/v3/debug/session/append",
+      {
+        session: currentDebugSession,
+        step: {
+          engine: "debug.ui",
+          operation: "manual_debug_step",
+          input_state: { text: "debug-input" },
+          output_state: { text: "debug-output" },
+          parent_step_id: lastStep?.step_id || null,
+          derivation_path: [],
+          metadata: { source: "sanskrit_tab_debug_ui" },
+        },
+      },
+      "debug-session-error-output",
+    );
+    renderDebugSession(currentDebugSession);
+    renderDebugSessionSteps(currentDebugSession?.steps);
+    setStatus("Debug step appended");
+  } catch (error) {
+    console.error("[Sanskrit] Debug session append error:", error);
+    setStatus("Debug append unavailable", true);
+  } finally {
+    setBusy(debugAppendButton, false);
+  }
+}
+
+async function handleDebugAmbiguityDemo() {
+  setStatus("Loading ambiguity demo...");
+  setBusy(debugAmbiguityButton, true);
+
+  try {
+    const ambiguity = await getDebugJson("/api/v3/debug/ambiguity-demo", "debug-session-error-output");
+    renderDebugAmbiguity(ambiguity);
+    setStatus("Ambiguity demo loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Debug ambiguity error:", error);
+    setStatus("Ambiguity demo unavailable", true);
+  } finally {
+    setBusy(debugAmbiguityButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -479,6 +693,10 @@ function renderInitialState() {
   renderGovernancePanel(null);
   renderAmbiguityPanel(null);
   renderApiError(null);
+  renderDebugSession(null);
+  renderDebugSessionSteps(null);
+  renderDebugAmbiguity(null);
+  renderDebugError("debug-session-error-output", null);
 }
 
 export function init(node) {
@@ -486,11 +704,17 @@ export function init(node) {
   analyzeButton = byId("analyze-sanskrit");
   sandhiButton = byId("run-sandhi");
   morphologyButton = byId("run-morphology");
+  debugCreateButton = byId("debug-create-session");
+  debugAppendButton = byId("debug-append-step");
+  debugAmbiguityButton = byId("debug-load-ambiguity");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
   sandhiButton?.addEventListener("click", runSandhi);
   morphologyButton?.addEventListener("click", runMorphology);
+  debugCreateButton?.addEventListener("click", handleDebugSessionCreate);
+  debugAppendButton?.addEventListener("click", handleDebugSessionAppend);
+  debugAmbiguityButton?.addEventListener("click", handleDebugAmbiguityDemo);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -513,10 +737,17 @@ export function destroy() {
   analyzeButton?.removeEventListener("click", analyzeCurrentInput);
   sandhiButton?.removeEventListener("click", runSandhi);
   morphologyButton?.removeEventListener("click", runMorphology);
+  debugCreateButton?.removeEventListener("click", handleDebugSessionCreate);
+  debugAppendButton?.removeEventListener("click", handleDebugSessionAppend);
+  debugAmbiguityButton?.removeEventListener("click", handleDebugAmbiguityDemo);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
   sandhiButton = null;
   morphologyButton = null;
+  debugCreateButton = null;
+  debugAppendButton = null;
+  debugAmbiguityButton = null;
+  currentDebugSession = null;
   inputNode = null;
 }

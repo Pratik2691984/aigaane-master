@@ -20,7 +20,8 @@
 
 .analysis-panel,
 .result-section,
-.summary-item {
+.summary-item,
+.debug-inspector {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
@@ -35,6 +36,8 @@
 
 .analysis-panel label,
 .execution-panel h3,
+.debug-inspector h3,
+.debug-card h4,
 .summary-item span,
 .result-section h3 {
     color: #b9c7d9;
@@ -100,7 +103,10 @@
 
 #analyze-sanskrit,
 #run-sandhi,
-#run-morphology {
+#run-morphology,
+#debug-create-session,
+#debug-append-step,
+#debug-load-ambiguity {
     border: 1px solid var(--gold);
     background: var(--gold);
     color: var(--deep-space);
@@ -112,7 +118,10 @@
 
 #analyze-sanskrit:disabled,
 #run-sandhi:disabled,
-#run-morphology:disabled {
+#run-morphology:disabled,
+#debug-create-session:disabled,
+#debug-append-step:disabled,
+#debug-load-ambiguity:disabled {
     cursor: progress;
     opacity: 0.6;
 }
@@ -141,6 +150,57 @@
 .summary-item strong {
     color: var(--gold);
     font-size: 1.25rem;
+}
+
+.debug-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-color: rgba(104, 190, 255, 0.35);
+    background: rgba(8, 16, 24, 0.7);
+}
+
+.debug-inspector-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.debug-inspector-header p {
+    color: #9fb0c7;
+    font-size: 0.9rem;
+}
+
+.debug-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.debug-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.debug-card {
+    min-width: 0;
+    border: 1px solid rgba(104, 190, 255, 0.22);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.debug-card h4 {
+    margin-bottom: 0.75rem;
+}
+
+.debug-error-card {
+    border-color: rgba(255, 155, 155, 0.28);
+}
+
+.debug-error-card .inspection-row {
+    border-color: rgba(255, 155, 155, 0.28);
 }
 
 .sanskrit-results {
@@ -303,6 +363,7 @@
 @media (max-width: 900px) {
     .summary-grid,
     .execution-grid,
+    .debug-grid,
     .sanskrit-results {
         grid-template-columns: 1fr;
     }

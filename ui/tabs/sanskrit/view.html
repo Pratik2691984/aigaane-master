@@ -57,6 +57,47 @@
         </div>
     </section>
 
+    <section class="debug-inspector" aria-label="Debug derivation session inspector">
+        <header class="debug-inspector-header">
+            <h3>Debug Derivation Session Inspector</h3>
+            <p>Debug sandbox for serialized derivation sessions and ambiguity payloads.</p>
+        </header>
+
+        <div class="debug-controls">
+            <div class="field-grid">
+                <label for="debug-session-input">Session input</label>
+                <input id="debug-session-input" type="text" spellcheck="false" value="&#2352;&#2366;&#2350;&#2307; &#2327;&#2330;&#2381;&#2331;&#2340;&#2367;">
+            </div>
+            <div class="analysis-actions">
+                <button id="debug-create-session" type="button">Create Debug Session</button>
+                <button id="debug-append-step" type="button">Append Debug Step</button>
+                <button id="debug-load-ambiguity" type="button">Load Ambiguity Demo</button>
+            </div>
+        </div>
+
+        <div class="debug-grid">
+            <section class="debug-card">
+                <h4>Session</h4>
+                <div id="debug-session-output" class="inspection-panel">No debug session</div>
+            </section>
+
+            <section class="debug-card">
+                <h4>Step Timeline</h4>
+                <ol id="debug-session-steps-output" class="timeline-list"></ol>
+            </section>
+
+            <section class="debug-card">
+                <h4>Ambiguity Demo</h4>
+                <div id="debug-ambiguity-output" class="inspection-panel">No ambiguity demo loaded</div>
+            </section>
+
+            <section class="debug-card debug-error-card" aria-live="polite">
+                <h4>Debug Error</h4>
+                <div id="debug-session-error-output" class="inspection-panel">No debug error</div>
+            </section>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>
