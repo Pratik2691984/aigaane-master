@@ -1,0 +1,156 @@
+[
+  {
+    "lexical_id": "lex-rama-noun-001",
+    "lemma_devanagari": "राम",
+    "lemma_iast": "rāma",
+    "category": "noun",
+    "gender": "masculine",
+    "stem_class": "masculine_a",
+    "dhatu_class": null,
+    "meaning": "Rama; a proper noun used as a masculine a-stem sample.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  },
+  {
+    "lexical_id": "lex-hari-noun-001",
+    "lemma_devanagari": "हरि",
+    "lemma_iast": "hari",
+    "category": "noun",
+    "gender": "masculine",
+    "stem_class": "masculine_i",
+    "dhatu_class": null,
+    "meaning": "Hari; a masculine i-stem sample.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  },
+  {
+    "lexical_id": "lex-nadi-noun-001",
+    "lemma_devanagari": "नदी",
+    "lemma_iast": "nadī",
+    "category": "noun",
+    "gender": "feminine",
+    "stem_class": "feminine_ii",
+    "dhatu_class": null,
+    "meaning": "river; a feminine ī-stem sample.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  },
+  {
+    "lexical_id": "lex-phala-noun-001",
+    "lemma_devanagari": "फल",
+    "lemma_iast": "phala",
+    "category": "noun",
+    "gender": "neuter",
+    "stem_class": "neuter_a",
+    "dhatu_class": null,
+    "meaning": "fruit; a neuter a-stem sample.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  },
+  {
+    "lexical_id": "lex-bhu-verb-001",
+    "lemma_devanagari": "भू",
+    "lemma_iast": "bhū",
+    "category": "verb",
+    "gender": null,
+    "stem_class": null,
+    "dhatu_class": "1",
+    "meaning": "to be, become.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  },
+  {
+    "lexical_id": "lex-path-verb-001",
+    "lemma_devanagari": "पठ्",
+    "lemma_iast": "paṭh",
+    "category": "verb",
+    "gender": null,
+    "stem_class": null,
+    "dhatu_class": "1",
+    "meaning": "to read, recite.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  },
+  {
+    "lexical_id": "lex-gam-verb-001",
+    "lemma_devanagari": "गम्",
+    "lemma_iast": "gam",
+    "category": "verb",
+    "gender": null,
+    "stem_class": null,
+    "dhatu_class": "1",
+    "meaning": "to go.",
+    "source": {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    },
+    "normalization": {
+      "unicode": "NFC",
+      "script_policy": "devanagari_primary"
+    },
+    "status": "validated"
+  }
+]
