@@ -502,6 +502,15 @@ def session_orchestration_error(message: str) -> HTTPException:
         },
     )
 
+def session_pipeline_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "session_pipeline_error",
+            "message": message,
+        },
+    )
+
 @app.post("/api/v3/debug/session/create")
 async def debug_session_create_v3(payload: Dict[str, Any]):
     input_text = payload.get("input_text")
@@ -681,6 +690,147 @@ async def debug_session_run_sandhi_v3(payload: Dict[str, Any]):
 
     return JSONResponse(
         content=session.to_dict(),
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/run-pipeline")
+async def debug_session_run_pipeline_v3(payload: Dict[str, Any]):
+    if "session" not in payload:
+        raise session_pipeline_error("session is required.")
+    if "pipeline" not in payload:
+        raise session_pipeline_error("pipeline is required.")
+
+    pipeline = payload["pipeline"]
+    if not isinstance(pipeline, list):
+        raise session_pipeline_error("pipeline must be a list.")
+    if len(pipeline) != 2:
+        raise session_pipeline_error("pipeline must contain exactly 2 steps.")
+    if not all(isinstance(step, dict) for step in pipeline):
+        raise session_pipeline_error("pipeline steps must be dicts.")
+
+    morphology_step = pipeline[0]
+    sandhi_step = pipeline[1]
+    if morphology_step.get("engine") != "morphology":
+        raise session_pipeline_error("first pipeline step must use morphology.")
+    if sandhi_step.get("engine") != "sandhi":
+        raise session_pipeline_error("second pipeline step must use sandhi.")
+
+    morphology_request = morphology_step.get("request")
+    sandhi_request = sandhi_step.get("request")
+    if not isinstance(morphology_request, dict):
+        raise session_pipeline_error("morphology request must be a dict.")
+    if not isinstance(sandhi_request, dict):
+        raise session_pipeline_error("sandhi request must be a dict.")
+    if morphology_request.get("mode") != "noun":
+        raise session_pipeline_error("morphology mode must be noun.")
+    if morphology_request.get("stem") is None:
+        raise session_pipeline_error("morphology stem is required.")
+    if morphology_request.get("case") is None:
+        raise session_pipeline_error("morphology case is required.")
+    if morphology_request.get("number") is None:
+        raise session_pipeline_error("morphology number is required.")
+    if sandhi_request.get("word2") is None:
+        raise session_pipeline_error("sandhi word2 is required.")
+
+    try:
+        session = DerivationSession.from_dict(payload["session"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_pipeline_error(str(exc)) from exc
+
+    pipeline_steps = []
+
+    try:
+        stem = validate_devanagari_only(morphology_request.get("stem"), "stem")
+        morphology_result = attach_governance(
+            inflect_noun(stem, morphology_request.get("case"), morphology_request.get("number")),
+            MORPHOLOGY_GOVERNANCE,
+        )
+    except LexicalGovernanceException as exc:
+        raise session_pipeline_error(exc.message) from exc
+    except MorphologyException as exc:
+        raise session_pipeline_error(exc.message) from exc
+    except (TypeError, ValueError) as exc:
+        raise session_pipeline_error(str(exc)) from exc
+
+    try:
+        morphology_parent_step_id = session.steps[-1].step_id if session.steps else None
+        morphology_session_step = session.add_step(
+            engine="Node 3 Morphology",
+            operation="noun_inflection",
+            input_state={"request": morphology_request},
+            output_state={
+                "form": morphology_result["form"],
+                "type": morphology_result.get("type"),
+            },
+            parent_step_id=morphology_parent_step_id,
+            derivation_path=morphology_result.get("derivation_path") or [],
+            metadata={
+                "source": "debug_session_pipeline",
+                "pipeline_index": 0,
+                "rule": morphology_result.get("rule"),
+                "governance": morphology_result.get("governance"),
+            },
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_pipeline_error(str(exc)) from exc
+
+    previous_output = morphology_result["form"]
+    pipeline_steps.append(morphology_session_step.to_dict())
+
+    try:
+        word1 = validate_devanagari_only(previous_output, "word1")
+        word2 = validate_devanagari_only(sandhi_request.get("word2"), "word2")
+        normalized_word1 = unicodedata.normalize("NFC", word1.strip())
+        if normalized_word1.endswith("\u0903"):
+            sandhi_result = attach_governance(analyze_visarga_sandhi(word1, word2), SANDHI_GOVERNANCE)
+        elif final_vowel_boundary(word1) is not None and initial_vowel_boundary(word2) is not None:
+            sandhi_result = attach_governance(analyze_vowel_sandhi(word1, word2), SANDHI_GOVERNANCE)
+        elif normalized_word1.endswith("\u094d"):
+            sandhi_result = attach_governance(analyze_consonant_sandhi(word1, word2), SANDHI_GOVERNANCE)
+        else:
+            raise session_pipeline_error("Unsupported sandhi boundary.")
+    except LexicalGovernanceException as exc:
+        raise session_pipeline_error(exc.message) from exc
+    except (SandhiException, VisargaSandhiException, ConsonantSandhiException) as exc:
+        raise session_pipeline_error(exc.message) from exc
+    except (TypeError, ValueError) as exc:
+        raise session_pipeline_error(str(exc)) from exc
+
+    try:
+        sandhi_session_step = session.add_step(
+            engine="Node 2 Sandhi",
+            operation="sandhi_execution",
+            input_state={
+                "word1": previous_output,
+                "word2": word2,
+            },
+            output_state={
+                "merged": sandhi_result["merged"],
+                "sutra": sandhi_result.get("sutra"),
+                "sutra_name": sandhi_result.get("sutra_name"),
+                "type": sandhi_result.get("type"),
+            },
+            parent_step_id=morphology_session_step.step_id,
+            derivation_path=sandhi_result.get("derivation_path") or [],
+            metadata={
+                "source": "debug_session_pipeline",
+                "pipeline_index": 1,
+                "trace": sandhi_result.get("trace"),
+                "governance": sandhi_result.get("governance"),
+            },
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_pipeline_error(str(exc)) from exc
+
+    previous_output = sandhi_result["merged"]
+    pipeline_steps.append(sandhi_session_step.to_dict())
+
+    return JSONResponse(
+        content={
+            "session": session.to_dict(),
+            "final_output": previous_output,
+            "pipeline_steps": pipeline_steps,
+        },
         media_type="application/json; charset=utf-8",
     )
 
