@@ -24,7 +24,8 @@
 .debug-inspector,
 .lexicon-inspector,
 .sutra-inspector,
-.semantic-trace-inspector {
+.semantic-trace-inspector,
+.graph-inspector {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
@@ -48,6 +49,8 @@
 .sutra-card h4,
 .semantic-trace-inspector h3,
 .semantic-trace-card h4,
+.graph-inspector h3,
+.graph-card h4,
 .summary-item span,
 .result-section h3 {
     color: #b9c7d9;
@@ -128,6 +131,8 @@
 #sutra-validate-registry,
 #semantic-trace-load-demo,
 #semantic-trace-link-custom,
+#graph-load-demo,
+#graph-export-session,
 .debug-storage-row button {
     border: 1px solid var(--gold);
     background: var(--gold);
@@ -155,6 +160,8 @@
 #sutra-validate-registry:disabled,
 #semantic-trace-load-demo:disabled,
 #semantic-trace-link-custom:disabled,
+#graph-load-demo:disabled,
+#graph-export-session:disabled,
 .debug-storage-row button:disabled {
     cursor: progress;
     opacity: 0.6;
@@ -628,6 +635,112 @@
     color: #ffe0a3;
 }
 
+.graph-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-color: rgba(104, 190, 255, 0.28);
+    background: rgba(8, 16, 24, 0.62);
+}
+
+.graph-inspector-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.graph-inspector-header p,
+.graph-status {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.graph-status.success {
+    color: #9ee6b4;
+}
+
+.graph-status.error {
+    color: #ff9b9b;
+}
+
+.graph-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.graph-card {
+    min-width: 0;
+    border: 1px solid rgba(104, 190, 255, 0.22);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.graph-card h4 {
+    margin-bottom: 0.75rem;
+}
+
+.graph-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    color: #eef3f8;
+    line-height: 1.5;
+}
+
+.graph-metadata-panel,
+.graph-section-block,
+.graph-node-card,
+.graph-edge-row {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.65rem;
+}
+
+.graph-section-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.graph-section-block > strong,
+.graph-node-card strong,
+.graph-edge-row strong {
+    color: #f0d77a;
+}
+
+.graph-node-card,
+.graph-edge-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.graph-node-card small,
+.graph-edge-row span {
+    color: #9fb0c7;
+    overflow-wrap: anywhere;
+}
+
+.graph-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 999px;
+    padding: 0.1rem 0.45rem;
+    color: #cfeeff;
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+}
+
+.graph-badge.ambiguity {
+    border-color: rgba(255, 215, 128, 0.55);
+    color: #ffe0a3;
+}
+
 .debug-card {
     min-width: 0;
     border: 1px solid rgba(104, 190, 255, 0.22);
@@ -812,6 +925,7 @@
     .lexicon-grid,
     .sutra-grid,
     .semantic-trace-grid,
+    .graph-grid,
     .sanskrit-results {
         grid-template-columns: 1fr;
     }

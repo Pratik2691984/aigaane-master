@@ -205,6 +205,31 @@
         </div>
     </section>
 
+    <section class="graph-inspector" aria-label="Derivation graph inspector">
+        <header class="graph-inspector-header">
+            <h3>Derivation Graph Inspector</h3>
+            <p>Read-only portable derivation graph inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="graph-load-demo" type="button">Load Demo Graph</button>
+            <button id="graph-export-session" type="button">Export Current Session Graph</button>
+            <span id="graph-status" class="graph-status" role="status" aria-live="polite">Graph inspector idle</span>
+        </div>
+
+        <div class="graph-grid">
+            <section class="graph-card">
+                <h4>Demo Graph Export</h4>
+                <div id="graph-demo-output" class="graph-list">No demo graph loaded</div>
+            </section>
+
+            <section class="graph-card">
+                <h4>Exported Session Graph</h4>
+                <div id="graph-session-output" class="graph-list">No session graph exported</div>
+            </section>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>

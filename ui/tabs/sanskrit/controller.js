@@ -19,6 +19,8 @@ let sutraSourcesButton = null;
 let sutraValidateButton = null;
 let semanticTraceDemoButton = null;
 let semanticTraceCustomButton = null;
+let graphDemoButton = null;
+let graphExportButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -645,6 +647,32 @@ async function getSemanticTraceJson(url) {
   return readLexiconJsonResponse(response);
 }
 
+async function postGraphJson(url, body) {
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+  return readLexiconJsonResponse(response);
+}
+
+async function getGraphJson(url) {
+  let response = await fetch(url);
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`);
+  }
+  return readLexiconJsonResponse(response);
+}
+
 function renderLexiconStatus(message, type = "neutral") {
   const node = byId("lexicon-status");
   if (!node) return;
@@ -902,6 +930,99 @@ function renderSemanticTrace(trace, targetId = "semantic-trace-linked-output") {
   steps.forEach((step) => {
     container.appendChild(renderSemanticTraceStep(step));
   });
+}
+
+function renderGraphStatus(message, type = "neutral") {
+  const node = byId("graph-status");
+  if (!node) return;
+  node.textContent = text(message, "Graph inspector idle");
+  node.classList.toggle("success", type === "success");
+  node.classList.toggle("error", type === "error");
+}
+
+function renderGraphError(message) {
+  renderGraphStatus(message || "Graph request failed", "error");
+}
+
+function renderGraphNode(node) {
+  const row = document.createElement("div");
+  row.className = "graph-node-card";
+
+  const title = document.createElement("strong");
+  const meta = document.createElement("span");
+  const detail = document.createElement("small");
+  title.textContent = text(node?.title, text(node?.node_id, "graph node"));
+  meta.textContent = `${text(node?.engine)} · ${text(node?.operation)}`;
+  detail.textContent = `${text(node?.node_id)} · step ${text(node?.step_id)} · ${text(node?.timestamp)}`;
+  row.append(title, meta, detail);
+
+  const branchIds = Array.isArray(node?.ambiguity_branch_ids) ? node.ambiguity_branch_ids : [];
+  if (branchIds.length > 0) {
+    const badge = document.createElement("span");
+    badge.className = "graph-badge ambiguity";
+    badge.textContent = `ambiguity: ${branchIds.join(", ")}`;
+    row.appendChild(badge);
+  }
+
+  return row;
+}
+
+function renderGraphEdge(edge) {
+  const row = document.createElement("div");
+  row.className = "graph-edge-row";
+
+  const title = document.createElement("strong");
+  const detail = document.createElement("span");
+  title.textContent = text(edge?.relation, "derives_to");
+  detail.textContent = `${text(edge?.source)} -> ${text(edge?.target)}`;
+  row.append(title, detail);
+  return row;
+}
+
+function renderDerivationGraph(graph, targetId = "graph-session-output") {
+  const container = byId(targetId);
+  clearChildren(container);
+  if (!container) return;
+  if (!graph || typeof graph !== "object") {
+    appendEmpty(container, "No graph exported");
+    return;
+  }
+
+  const metadata = graph.metadata || {};
+  const nodes = Array.isArray(graph.nodes) ? graph.nodes : [];
+  const edges = Array.isArray(graph.edges) ? graph.edges : [];
+
+  const summary = document.createElement("div");
+  summary.className = "graph-metadata-panel";
+  appendInspectionRow(summary, "Session", metadata.session_id);
+  appendInspectionRow(summary, "Input", metadata.input_text);
+  appendInspectionRow(summary, "Nodes", text(metadata.total_nodes, nodes.length));
+  appendInspectionRow(summary, "Edges", text(metadata.total_edges, edges.length));
+  container.appendChild(summary);
+
+  const nodeSection = document.createElement("div");
+  nodeSection.className = "graph-section-block";
+  const nodeTitle = document.createElement("strong");
+  nodeTitle.textContent = "Nodes";
+  nodeSection.appendChild(nodeTitle);
+  if (nodes.length === 0) {
+    appendEmpty(nodeSection, "No graph nodes");
+  } else {
+    nodes.forEach((node) => nodeSection.appendChild(renderGraphNode(node)));
+  }
+  container.appendChild(nodeSection);
+
+  const edgeSection = document.createElement("div");
+  edgeSection.className = "graph-section-block";
+  const edgeTitle = document.createElement("strong");
+  edgeTitle.textContent = "Edges";
+  edgeSection.appendChild(edgeTitle);
+  if (edges.length === 0) {
+    appendEmpty(edgeSection, "No graph edges");
+  } else {
+    edges.forEach((edge) => edgeSection.appendChild(renderGraphEdge(edge)));
+  }
+  container.appendChild(edgeSection);
 }
 
 async function analyzeCurrentInput() {
@@ -1432,6 +1553,53 @@ async function handleLinkSemanticTrace() {
   }
 }
 
+async function handleLoadGraphDemo() {
+  setStatus("Loading graph demo...");
+  renderGraphStatus("Loading demo graph...");
+  setBusy(graphDemoButton, true);
+
+  try {
+    const data = await getGraphJson("/api/v3/debug/graph/demo");
+    renderDerivationGraph(data?.graph, "graph-demo-output");
+    renderGraphStatus("Demo graph loaded", "success");
+    setStatus("Graph demo loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Graph demo error:", error);
+    renderGraphError(error.message);
+    setStatus("Graph demo unavailable", true);
+  } finally {
+    setBusy(graphDemoButton, false);
+  }
+}
+
+async function handleExportSessionGraph() {
+  if (!currentDebugSession) {
+    renderGraphError("Create or load a debug session first.");
+    setStatus("Create or load a debug session first.", true);
+    return;
+  }
+
+  setStatus("Exporting session graph...");
+  renderGraphStatus("Exporting current session graph...");
+  setBusy(graphExportButton, true);
+
+  try {
+    const data = await postGraphJson(
+      "/api/v3/debug/graph/export",
+      { session: currentDebugSession },
+    );
+    renderDerivationGraph(data?.graph, "graph-session-output");
+    renderGraphStatus("Session graph exported", "success");
+    setStatus("Session graph exported");
+  } catch (error) {
+    console.error("[Sanskrit] Session graph export error:", error);
+    renderGraphError(error.message);
+    setStatus("Session graph export unavailable", true);
+  } finally {
+    setBusy(graphExportButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -1470,6 +1638,9 @@ function renderInitialState() {
   renderSemanticTrace(null, "semantic-trace-demo-output");
   renderSemanticTrace(null, "semantic-trace-linked-output");
   renderSemanticTraceStatus("Semantic trace idle");
+  renderDerivationGraph(null, "graph-demo-output");
+  renderDerivationGraph(null, "graph-session-output");
+  renderGraphStatus("Graph inspector idle");
 }
 
 export function init(node) {
@@ -1491,6 +1662,8 @@ export function init(node) {
   sutraValidateButton = byId("sutra-validate-registry");
   semanticTraceDemoButton = byId("semantic-trace-load-demo");
   semanticTraceCustomButton = byId("semantic-trace-link-custom");
+  graphDemoButton = byId("graph-load-demo");
+  graphExportButton = byId("graph-export-session");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -1510,6 +1683,8 @@ export function init(node) {
   sutraValidateButton?.addEventListener("click", handleValidateSutraRegistry);
   semanticTraceDemoButton?.addEventListener("click", handleLoadSemanticTraceDemo);
   semanticTraceCustomButton?.addEventListener("click", handleLinkSemanticTrace);
+  graphDemoButton?.addEventListener("click", handleLoadGraphDemo);
+  graphExportButton?.addEventListener("click", handleExportSessionGraph);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -1546,6 +1721,8 @@ export function destroy() {
   sutraValidateButton?.removeEventListener("click", handleValidateSutraRegistry);
   semanticTraceDemoButton?.removeEventListener("click", handleLoadSemanticTraceDemo);
   semanticTraceCustomButton?.removeEventListener("click", handleLinkSemanticTrace);
+  graphDemoButton?.removeEventListener("click", handleLoadGraphDemo);
+  graphExportButton?.removeEventListener("click", handleExportSessionGraph);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -1565,6 +1742,8 @@ export function destroy() {
   sutraValidateButton = null;
   semanticTraceDemoButton = null;
   semanticTraceCustomButton = null;
+  graphDemoButton = null;
+  graphExportButton = null;
   currentDebugSession = null;
   inputNode = null;
 }
