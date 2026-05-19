@@ -493,6 +493,15 @@ def session_error(message: str) -> HTTPException:
         },
     )
 
+def session_orchestration_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "session_orchestration_error",
+            "message": message,
+        },
+    )
+
 @app.post("/api/v3/debug/session/create")
 async def debug_session_create_v3(payload: Dict[str, Any]):
     input_text = payload.get("input_text")
@@ -537,6 +546,67 @@ async def debug_session_append_v3(payload: Dict[str, Any]):
         raise session_error(f"step is missing required field: {exc.args[0]}.") from exc
     except (TypeError, ValueError) as exc:
         raise session_error(str(exc)) from exc
+
+    return JSONResponse(
+        content=session.to_dict(),
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/run-morphology")
+async def debug_session_run_morphology_v3(payload: Dict[str, Any]):
+    if "session" not in payload:
+        raise session_orchestration_error("session is required.")
+    if "request" not in payload:
+        raise session_orchestration_error("request is required.")
+
+    request_payload = payload["request"]
+    if not isinstance(request_payload, dict):
+        raise session_orchestration_error("request must be a dict.")
+
+    try:
+        session = DerivationSession.from_dict(payload["session"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_orchestration_error(str(exc)) from exc
+
+    mode = request_payload.get("mode")
+    if mode != "noun":
+        raise session_orchestration_error("Unsupported morphology mode.")
+
+    try:
+        stem = validate_devanagari_only(request_payload.get("stem"), "stem")
+        morphology_result = attach_governance(
+            inflect_noun(stem, request_payload.get("case"), request_payload.get("number")),
+            MORPHOLOGY_GOVERNANCE,
+        )
+    except LexicalGovernanceException as exc:
+        raise session_orchestration_error(exc.message) from exc
+    except MorphologyException as exc:
+        raise session_orchestration_error(exc.message) from exc
+    except (TypeError, ValueError) as exc:
+        raise session_orchestration_error(str(exc)) from exc
+
+    parent_step_id = session.steps[-1].step_id if session.steps else None
+    metadata = {"source": "debug_session_run_morphology"}
+    if morphology_result.get("governance") is not None:
+        metadata["governance"] = morphology_result["governance"]
+    if morphology_result.get("rule") is not None:
+        metadata["rule"] = morphology_result["rule"]
+
+    try:
+        session.add_step(
+            engine="Node 3 Morphology",
+            operation="noun_inflection",
+            input_state={"request": request_payload},
+            output_state={
+                "form": morphology_result["form"],
+                "type": morphology_result["type"],
+            },
+            parent_step_id=parent_step_id,
+            derivation_path=morphology_result.get("derivation_path") or [],
+            metadata=metadata,
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_orchestration_error(str(exc)) from exc
 
     return JSONResponse(
         content=session.to_dict(),
