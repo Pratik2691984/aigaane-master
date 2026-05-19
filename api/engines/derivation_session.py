@@ -41,6 +41,54 @@ class DerivationSession:
             metadata=metadata or {},
         )
 
+    @classmethod
+    def from_dict(cls, payload: Dict[str, Any]) -> "DerivationSession":
+        if not isinstance(payload, dict):
+            raise ValueError("Derivation session payload must be a dict.")
+
+        required_fields = ["session_id", "created_at", "input_text"]
+        missing_fields = [field_name for field_name in required_fields if field_name not in payload]
+        if missing_fields:
+            raise ValueError(f"Malformed derivation session payload; missing {', '.join(missing_fields)}.")
+
+        raw_steps = payload.get("steps", [])
+        if not isinstance(raw_steps, list):
+            raise ValueError("Malformed derivation session payload; steps must be a list.")
+
+        steps: List[DerivationSessionStep] = []
+        for raw_step in raw_steps:
+            if not isinstance(raw_step, dict):
+                raise ValueError("Malformed derivation session payload; each step must be a dict.")
+            steps.append(
+                DerivationSessionStep(
+                    step_id=raw_step["step_id"],
+                    engine=raw_step["engine"],
+                    operation=raw_step["operation"],
+                    input_state=raw_step["input_state"],
+                    output_state=raw_step["output_state"],
+                    parent_step_id=raw_step.get("parent_step_id"),
+                    derivation_path=raw_step.get("derivation_path") or [],
+                    metadata=raw_step.get("metadata") or {},
+                )
+            )
+
+        ambiguity_branches = payload.get("ambiguity_branches", [])
+        if not isinstance(ambiguity_branches, list):
+            raise ValueError("Malformed derivation session payload; ambiguity_branches must be a list.")
+
+        metadata = payload.get("metadata", {})
+        if not isinstance(metadata, dict):
+            raise ValueError("Malformed derivation session payload; metadata must be a dict.")
+
+        return cls(
+            session_id=payload["session_id"],
+            created_at=payload["created_at"],
+            input_text=payload["input_text"],
+            steps=steps,
+            ambiguity_branches=ambiguity_branches,
+            metadata=metadata,
+        )
+
     def add_step(
         self,
         engine: str,

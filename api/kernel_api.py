@@ -24,6 +24,10 @@ try:
     from api.engines.ambiguity_resolver import ExecutableAmbiguityDAG
 except ModuleNotFoundError:
     from engines.ambiguity_resolver import ExecutableAmbiguityDAG
+try:
+    from api.engines.derivation_session import DerivationSession
+except ModuleNotFoundError:
+    from engines.derivation_session import DerivationSession
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -477,6 +481,65 @@ async def debug_ambiguity_demo_v3():
                 },
             ],
         ),
+        media_type="application/json; charset=utf-8",
+    )
+
+def session_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "session_error",
+            "message": message,
+        },
+    )
+
+@app.post("/api/v3/debug/session/create")
+async def debug_session_create_v3(payload: Dict[str, Any]):
+    input_text = payload.get("input_text")
+    if input_text is None:
+        raise session_error("input_text is required.")
+    if not isinstance(input_text, str) or not input_text.strip():
+        raise session_error("input_text must not be blank.")
+
+    metadata = payload.get("metadata") or {}
+    if not isinstance(metadata, dict):
+        raise session_error("metadata must be a dict.")
+
+    session = DerivationSession.create(input_text=input_text, metadata=metadata)
+    return JSONResponse(
+        content=session.to_dict(),
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/append")
+async def debug_session_append_v3(payload: Dict[str, Any]):
+    if "session" not in payload:
+        raise session_error("session is required.")
+    if "step" not in payload:
+        raise session_error("step is required.")
+
+    step_payload = payload["step"]
+    if not isinstance(step_payload, dict):
+        raise session_error("step must be a dict.")
+
+    try:
+        session = DerivationSession.from_dict(payload["session"])
+        session.add_step(
+            engine=step_payload["engine"],
+            operation=step_payload["operation"],
+            input_state=step_payload["input_state"],
+            output_state=step_payload["output_state"],
+            parent_step_id=step_payload.get("parent_step_id"),
+            derivation_path=step_payload.get("derivation_path"),
+            metadata=step_payload.get("metadata"),
+        )
+    except KeyError as exc:
+        raise session_error(f"step is missing required field: {exc.args[0]}.") from exc
+    except (TypeError, ValueError) as exc:
+        raise session_error(str(exc)) from exc
+
+    return JSONResponse(
+        content=session.to_dict(),
         media_type="application/json; charset=utf-8",
     )
 
