@@ -3,6 +3,8 @@ from typing import Any, Dict, List, Optional
 import re
 import unicodedata
 
+from engines.trace_graph import DerivationStep, DerivationTraceGraph
+
 
 INDEPENDENT_VOWELS = {
     "\u0905": "a",
@@ -148,6 +150,28 @@ def trace(rule: str, word1: str, word2: str, left: VowelBoundary, right: VowelBo
     ]
 
 
+def derivation_path(
+    rule: str,
+    sutra_name: str,
+    operation: str,
+    word1: str,
+    word2: str,
+    merged: str,
+) -> List[Dict[str, str]]:
+    return DerivationTraceGraph(
+        steps=[
+            DerivationStep(
+                sutra=rule,
+                sutra_name=sutra_name,
+                operation=operation,
+                input_state=f"{word1} + {word2}",
+                output_state=merged,
+                engine_node="Node 2A Vowel Sandhi",
+            )
+        ]
+    ).to_list()
+
+
 def analyze_vowel_sandhi(word1: str, word2: str) -> Dict[str, Any]:
     left_word = normalize_word(word1, "word1")
     right_word = normalize_word(word2, "word2")
@@ -179,32 +203,38 @@ def analyze_vowel_sandhi(word1: str, word2: str) -> Dict[str, Any]:
     long_vowel = savarna_dirgha.get((left.vowel, right.vowel))
     if long_vowel:
         merged = add_vowel_to_final_carrier(base, left, long_vowel) + remainder
+        sutra_name = "\u0905\u0915\u0903 \u0938\u0935\u0930\u094d\u0923\u0947 \u0926\u0940\u0930\u094d\u0918\u0903"
         return {
             "merged": merged,
             "sutra": "6.1.101",
-            "sutra_name": "\u0905\u0915\u0903 \u0938\u0935\u0930\u094d\u0923\u0947 \u0926\u0940\u0930\u094d\u0918\u0903",
+            "sutra_name": sutra_name,
             "type": "vowel_sandhi",
             "trace": trace("6.1.101", left_word, right_word, left, right, merged),
+            "derivation_path": derivation_path("6.1.101", sutra_name, "savarna_dirgha_substitution", left_word, right_word, merged),
         }
 
     if left.vowel in {"a", "\u0101"} and right.vowel in {"i", "\u012b"}:
         merged = add_vowel_to_final_carrier(base, left, "e") + remainder
+        sutra_name = "\u0906\u0926\u094d \u0917\u0941\u0923\u0903"
         return {
             "merged": merged,
             "sutra": "6.1.87",
-            "sutra_name": "\u0906\u0926\u094d \u0917\u0941\u0923\u0903",
+            "sutra_name": sutra_name,
             "type": "vowel_sandhi",
             "trace": trace("6.1.87", left_word, right_word, left, right, merged),
+            "derivation_path": derivation_path("6.1.87", sutra_name, "guna_substitution", left_word, right_word, merged),
         }
 
     if left.vowel in {"i", "\u012b"} and right.vowel in {"a", "\u0101", "i", "\u012b", "u", "\u016b", "e", "o", "ai", "au"}:
         merged = compose_yan(base, left, "\u092f", right.vowel, remainder)
+        sutra_name = "\u0907\u0915\u094b \u092f\u0923\u091a\u093f"
         return {
             "merged": merged,
             "sutra": "6.1.77",
-            "sutra_name": "\u0907\u0915\u094b \u092f\u0923\u091a\u093f",
+            "sutra_name": sutra_name,
             "type": "vowel_sandhi",
             "trace": trace("6.1.77", left_word, right_word, left, right, merged),
+            "derivation_path": derivation_path("6.1.77", sutra_name, "yan_substitution", left_word, right_word, merged),
         }
 
     raise SandhiException("No supported vowel sandhi rule matched.")

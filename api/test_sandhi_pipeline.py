@@ -75,7 +75,7 @@ class SandhiPipelineTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         payload = response.json()
-        self.assertEqual(set(payload.keys()), {"merged", "sutra", "sutra_name", "type", "trace"})
+        self.assertTrue({"merged", "sutra", "sutra_name", "type", "trace"}.issubset(payload.keys()))
         self.assertEqual(payload["sutra"], "6.1.87")
         self.assertEqual(payload["trace"][0]["layer"], "orthographic_input")
 

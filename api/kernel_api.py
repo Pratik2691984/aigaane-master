@@ -113,12 +113,21 @@ class SandhiTraceStep(BaseModel):
     sutra: Optional[str] = None
     merged: Optional[str] = None
 
+class DerivationPathStep(BaseModel):
+    sutra: str
+    sutra_name: str
+    operation: str
+    input_state: str
+    output_state: str
+    engine_node: str
+
 class SandhiAnalyzeResponse(BaseModel):
     merged: str
     sutra: str
     sutra_name: str
     type: str
     trace: List[SandhiTraceStep]
+    derivation_path: Optional[List[DerivationPathStep]] = None
 
 class MorphologyNounRequest(BaseModel):
     stem: str
@@ -137,6 +146,7 @@ class MorphologyResponse(BaseModel):
     form: str
     metadata: Dict[str, Any]
     rule: Dict[str, Any]
+    derivation_path: Optional[List[DerivationPathStep]] = None
 
 class MorphologyMetaResponse(BaseModel):
     engine: str
