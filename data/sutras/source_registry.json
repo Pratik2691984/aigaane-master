@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "name": "Ashtadhyayi",
+      "source_type": "ashtadhyayi",
+      "description": "Canonical Paninian sutra source."
+    },
+    {
+      "name": "Kashika",
+      "source_type": "commentary",
+      "description": "Traditional commentary source for future registry cross-reference."
+    },
+    {
+      "name": "Siddhanta Kaumudi",
+      "source_type": "commentary",
+      "description": "Traditional pedagogical rearrangement for future registry cross-reference."
+    },
+    {
+      "name": "Internal Registry",
+      "source_type": "internal_registry",
+      "description": "Aigaane governed internal registry metadata."
+    }
+  ]
+}

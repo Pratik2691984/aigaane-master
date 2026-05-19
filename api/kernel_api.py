@@ -36,6 +36,10 @@ try:
     from api.engines.lexical_registry import LEXICON_ROOT, LexicalRegistryValidator
 except ModuleNotFoundError:
     from engines.lexical_registry import LEXICON_ROOT, LexicalRegistryValidator
+try:
+    from api.engines.sutra_registry import SUTRA_ROOT, SutraRegistryValidator
+except ModuleNotFoundError:
+    from engines.sutra_registry import SUTRA_ROOT, SutraRegistryValidator
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -200,6 +204,7 @@ golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
 debug_session_storage = DebugSessionStorage()
 lexical_registry_validator = LexicalRegistryValidator()
+sutra_registry_validator = SutraRegistryValidator()
 
 # ============ WebSocket disabled for Vercel ============
 manager = None
@@ -539,6 +544,15 @@ def lexical_registry_error(message: str) -> HTTPException:
         },
     )
 
+def sutra_registry_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "sutra_registry_error",
+            "message": message,
+        },
+    )
+
 @app.get("/api/v3/debug/lexicon/samples")
 async def debug_lexicon_samples_v3():
     try:
@@ -586,6 +600,58 @@ async def debug_lexicon_validate_v3():
             "valid": True,
             "entry_count": len(validated_entries),
             "validated_ids": [entry["lexical_id"] for entry in validated_entries],
+            "errors": [],
+        },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/sutras/samples")
+async def debug_sutras_samples_v3():
+    try:
+        sutras = sutra_registry_validator.load_sample_sutras()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise sutra_registry_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "sutras": sutras,
+            "count": len(sutras),
+        },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/sutras/sources")
+async def debug_sutras_sources_v3():
+    try:
+        with (SUTRA_ROOT / "source_registry.json").open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+        sources = payload.get("sources")
+        if not isinstance(sources, list):
+            raise ValueError("source_registry.json must contain a sources list.")
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise sutra_registry_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "sources": sources,
+            "count": len(sources),
+        },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/sutras/validate")
+async def debug_sutras_validate_v3():
+    try:
+        sutras = sutra_registry_validator.load_sample_sutras()
+        validated_sutras = sutra_registry_validator.validate_registry(sutras)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise sutra_registry_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "valid": True,
+            "sutra_count": len(validated_sutras),
+            "validated_ids": [sutra["sutra_id"] for sutra in validated_sutras],
             "errors": [],
         },
         media_type="application/json; charset=utf-8",

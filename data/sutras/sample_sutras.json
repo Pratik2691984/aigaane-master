@@ -1,0 +1,121 @@
+[
+  {
+    "sutra_id": "6.1.101",
+    "sutra_text_devanagari": "अकः सवर्णे दीर्घः",
+    "sutra_text_iast": "akaḥ savarṇe dīrghaḥ",
+    "chapter": 6,
+    "pada": 1,
+    "sutra_number": "101",
+    "domain": "vowel_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "vowel sandhi savarna dirgha"
+    },
+    "notes": "Operational in the vowel sandhi engine."
+  },
+  {
+    "sutra_id": "6.1.87",
+    "sutra_text_devanagari": "आद्गुणः",
+    "sutra_text_iast": "ādguṇaḥ",
+    "chapter": 6,
+    "pada": 1,
+    "sutra_number": "87",
+    "domain": "vowel_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "vowel sandhi guna substitution"
+    },
+    "notes": "Operational in the vowel sandhi engine."
+  },
+  {
+    "sutra_id": "6.1.77",
+    "sutra_text_devanagari": "इको यणचि",
+    "sutra_text_iast": "iko yaṇaci",
+    "chapter": 6,
+    "pada": 1,
+    "sutra_number": "77",
+    "domain": "vowel_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "vowel sandhi yan substitution"
+    },
+    "notes": "Operational in the vowel sandhi engine."
+  },
+  {
+    "sutra_id": "8.3.15",
+    "sutra_text_devanagari": "खरवसानयोर्विसर्जनीयः",
+    "sutra_text_iast": "kharavasānayor visarjanīyaḥ",
+    "chapter": 8,
+    "pada": 3,
+    "sutra_number": "15",
+    "domain": "visarga_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "visarga sandhi"
+    },
+    "notes": "Seeded as an operational visarga sandhi reference."
+  },
+  {
+    "sutra_id": "8.3.34",
+    "sutra_text_devanagari": "विसर्जनीयस्य सः",
+    "sutra_text_iast": "visarjanīyasya saḥ",
+    "chapter": 8,
+    "pada": 3,
+    "sutra_number": "34",
+    "domain": "visarga_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "visarga to sibilant substitution"
+    },
+    "notes": "Operational in the visarga sandhi engine."
+  },
+  {
+    "sutra_id": "8.4.40",
+    "sutra_text_devanagari": "स्तोः श्चुना श्चुः",
+    "sutra_text_iast": "stoḥ ścunā ścuḥ",
+    "chapter": 8,
+    "pada": 4,
+    "sutra_number": "40",
+    "domain": "consonant_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "dental to palatal assimilation"
+    },
+    "notes": "Operational in the consonant sandhi engine."
+  },
+  {
+    "sutra_id": "8.2.39",
+    "sutra_text_devanagari": "झलां जशोऽन्ते",
+    "sutra_text_iast": "jhalāṃ jaśo'nte",
+    "chapter": 8,
+    "pada": 2,
+    "sutra_number": "39",
+    "domain": "consonant_sandhi",
+    "source": "Ashtadhyayi",
+    "source_type": "ashtadhyayi",
+    "status": "canonical",
+    "provenance": {
+      "registry": "aigaane_seed_sutra_registry",
+      "operational_context": "jastva"
+    },
+    "notes": "Operational in the consonant sandhi engine."
+  }
+]
