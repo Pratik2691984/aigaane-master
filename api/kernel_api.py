@@ -44,7 +44,7 @@ from engines.morphology import (
     inflect_noun,
     morphology_meta,
 )
-from engines.sandhi import SandhiException, analyze_vowel_sandhi
+from engines.sandhi import SandhiException, analyze_vowel_sandhi, final_vowel_boundary, initial_vowel_boundary
 from engines.visarga_sandhi import VisargaSandhiException, analyze_visarga_sandhi
 from engines.vyakarana import SanskritTabException, analyze_sanskrit
 
@@ -604,6 +604,77 @@ async def debug_session_run_morphology_v3(payload: Dict[str, Any]):
             parent_step_id=parent_step_id,
             derivation_path=morphology_result.get("derivation_path") or [],
             metadata=metadata,
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_orchestration_error(str(exc)) from exc
+
+    return JSONResponse(
+        content=session.to_dict(),
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.post("/api/v3/debug/session/run-sandhi")
+async def debug_session_run_sandhi_v3(payload: Dict[str, Any]):
+    if "session" not in payload:
+        raise session_orchestration_error("session is required.")
+    if "request" not in payload:
+        raise session_orchestration_error("request is required.")
+
+    request_payload = payload["request"]
+    if not isinstance(request_payload, dict):
+        raise session_orchestration_error("request must be a dict.")
+    if request_payload.get("word1") is None:
+        raise session_orchestration_error("word1 is required.")
+    if request_payload.get("word2") is None:
+        raise session_orchestration_error("word2 is required.")
+
+    try:
+        session = DerivationSession.from_dict(payload["session"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise session_orchestration_error(str(exc)) from exc
+
+    try:
+        word1 = validate_devanagari_only(request_payload.get("word1"), "word1")
+        word2 = validate_devanagari_only(request_payload.get("word2"), "word2")
+        normalized_word1 = unicodedata.normalize("NFC", word1.strip())
+        if normalized_word1.endswith("\u0903"):
+            sandhi_result = attach_governance(analyze_visarga_sandhi(word1, word2), SANDHI_GOVERNANCE)
+        elif final_vowel_boundary(word1) is not None and initial_vowel_boundary(word2) is not None:
+            sandhi_result = attach_governance(analyze_vowel_sandhi(word1, word2), SANDHI_GOVERNANCE)
+        elif normalized_word1.endswith("\u094d"):
+            sandhi_result = attach_governance(analyze_consonant_sandhi(word1, word2), SANDHI_GOVERNANCE)
+        else:
+            raise session_orchestration_error("Unsupported sandhi boundary.")
+    except LexicalGovernanceException as exc:
+        raise session_orchestration_error(exc.message) from exc
+    except (SandhiException, VisargaSandhiException, ConsonantSandhiException) as exc:
+        raise session_orchestration_error(exc.message) from exc
+    except (TypeError, ValueError) as exc:
+        raise session_orchestration_error(str(exc)) from exc
+
+    parent_step_id = session.steps[-1].step_id if session.steps else None
+
+    try:
+        session.add_step(
+            engine="Node 2 Sandhi",
+            operation="sandhi_execution",
+            input_state={
+                "word1": word1,
+                "word2": word2,
+            },
+            output_state={
+                "merged": sandhi_result["merged"],
+                "sutra": sandhi_result.get("sutra"),
+                "sutra_name": sandhi_result.get("sutra_name"),
+                "type": sandhi_result.get("type"),
+            },
+            parent_step_id=parent_step_id,
+            derivation_path=sandhi_result.get("derivation_path") or [],
+            metadata={
+                "source": "debug_session_run_sandhi",
+                "governance": sandhi_result.get("governance"),
+                "trace": sandhi_result.get("trace"),
+            },
         )
     except (KeyError, TypeError, ValueError) as exc:
         raise session_orchestration_error(str(exc)) from exc
