@@ -20,6 +20,10 @@ except ImportError:
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
 from engines.ambiguity import AmbiguityPayload
+try:
+    from api.engines.ambiguity_resolver import ExecutableAmbiguityDAG
+except ModuleNotFoundError:
+    from engines.ambiguity_resolver import ExecutableAmbiguityDAG
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -437,6 +441,44 @@ async def conjugate_verb_v3(payload: MorphologyVerbRequest):
             status_code=exc.status_code,
             detail={"code": exc.code, "message": exc.message},
         ) from exc
+
+@app.get("/api/v3/debug/ambiguity-demo")
+async def debug_ambiguity_demo_v3():
+    dag = ExecutableAmbiguityDAG()
+    return JSONResponse(
+        content=dag.execute_fork(
+            "Node 6C Debug Ambiguity Demo",
+            [
+                {
+                    "final_output": "तच्च",
+                    "reason": "Optional Ścutva assimilation via Sutra 8.4.40",
+                    "derivation_path": [
+                        {
+                            "sutra": "8.4.40",
+                            "sutra_name": "स्तोः श्चुना श्चुः",
+                            "operation": "dental_to_palatal_assimilation",
+                            "input_state": "तत् + च",
+                            "output_state": "तच्च",
+                        }
+                    ],
+                },
+                {
+                    "final_output": "तद् च",
+                    "reason": "Padānta preservation fallback candidate",
+                    "derivation_path": [
+                        {
+                            "sutra": "debug.default",
+                            "sutra_name": "Debug fallback candidate",
+                            "operation": "padanta_preservation_fallback",
+                            "input_state": "तत् + च",
+                            "output_state": "तद् च",
+                        }
+                    ],
+                },
+            ],
+        ),
+        media_type="application/json; charset=utf-8",
+    )
 
 # ============ Startup: load Golden Build from file ============
 @app.on_event("startup")
