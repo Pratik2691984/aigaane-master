@@ -230,6 +230,31 @@
         </div>
     </section>
 
+    <section class="replay-inspector" aria-label="Replay timeline inspector">
+        <header class="replay-inspector-header">
+            <h3>Replay Timeline Inspector</h3>
+            <p>Read-only deterministic derivation replay inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="replay-load-demo" type="button">Load Demo Replay</button>
+            <button id="replay-export-session" type="button">Export Current Session Replay</button>
+            <span id="replay-status" class="replay-status" role="status" aria-live="polite">Replay inspector idle</span>
+        </div>
+
+        <div class="replay-grid">
+            <section class="replay-card">
+                <h4>Demo Replay Timeline</h4>
+                <div id="replay-demo-output" class="replay-list">No demo replay loaded</div>
+            </section>
+
+            <section class="replay-card">
+                <h4>Exported Session Replay</h4>
+                <div id="replay-session-output" class="replay-list">No session replay exported</div>
+            </section>
+        </div>
+    </section>
+
     <section class="summary-grid" aria-label="Analysis summary">
         <div class="summary-item">
             <span>Overall stanza meter</span>

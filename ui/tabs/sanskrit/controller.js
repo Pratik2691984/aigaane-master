@@ -21,6 +21,8 @@ let semanticTraceDemoButton = null;
 let semanticTraceCustomButton = null;
 let graphDemoButton = null;
 let graphExportButton = null;
+let replayDemoButton = null;
+let replayExportButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -673,6 +675,32 @@ async function getGraphJson(url) {
   return readLexiconJsonResponse(response);
 }
 
+async function postReplayJson(url, body) {
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+  return readLexiconJsonResponse(response);
+}
+
+async function getReplayJson(url) {
+  let response = await fetch(url);
+  const isLocalFrontend = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+  if (!response.ok && response.status === 404 && isLocalFrontend && url.startsWith("/api/")) {
+    response = await fetch(`http://127.0.0.1:8000${url}`);
+  }
+  return readLexiconJsonResponse(response);
+}
+
 function renderLexiconStatus(message, type = "neutral") {
   const node = byId("lexicon-status");
   if (!node) return;
@@ -1023,6 +1051,74 @@ function renderDerivationGraph(graph, targetId = "graph-session-output") {
     edges.forEach((edge) => edgeSection.appendChild(renderGraphEdge(edge)));
   }
   container.appendChild(edgeSection);
+}
+
+function renderReplayStatus(message, type = "neutral") {
+  const node = byId("replay-status");
+  if (!node) return;
+  node.textContent = text(message, "Replay inspector idle");
+  node.classList.toggle("success", type === "success");
+  node.classList.toggle("error", type === "error");
+}
+
+function renderReplayError(message) {
+  renderReplayStatus(message || "Replay request failed", "error");
+}
+
+function renderReplayFrame(frame) {
+  const row = document.createElement("div");
+  row.className = "replay-frame-card";
+
+  const title = document.createElement("strong");
+  const meta = document.createElement("span");
+  const detail = document.createElement("small");
+  title.textContent = text(frame?.title, text(frame?.frame_id, "replay frame"));
+  meta.textContent = `${text(frame?.engine)} · ${text(frame?.operation)}`;
+  detail.textContent = `${text(frame?.frame_id)} · step ${text(frame?.step_id)} · ${text(frame?.timestamp)}`;
+  row.append(title, meta, detail);
+
+  const branchIds = Array.isArray(frame?.ambiguity_branch_ids) ? frame.ambiguity_branch_ids : [];
+  if (branchIds.length > 0) {
+    const badge = document.createElement("span");
+    badge.className = "replay-badge ambiguity";
+    badge.textContent = `ambiguity replay: ${branchIds.join(", ")}`;
+    row.appendChild(badge);
+  }
+
+  return row;
+}
+
+function renderReplayTimeline(replay, targetId = "replay-session-output") {
+  const container = byId(targetId);
+  clearChildren(container);
+  if (!container) return;
+  if (!replay || typeof replay !== "object") {
+    appendEmpty(container, "No replay exported");
+    return;
+  }
+
+  const metadata = replay.metadata || {};
+  const frames = Array.isArray(replay.timeline) ? replay.timeline : [];
+
+  const summary = document.createElement("div");
+  summary.className = "replay-metadata-panel";
+  appendInspectionRow(summary, "Replay", replay.replay_id);
+  appendInspectionRow(summary, "Session", metadata.session_id);
+  appendInspectionRow(summary, "Input", metadata.input_text);
+  appendInspectionRow(summary, "Frames", text(metadata.total_frames, frames.length));
+  container.appendChild(summary);
+
+  const frameSection = document.createElement("div");
+  frameSection.className = "replay-section-block";
+  const frameTitle = document.createElement("strong");
+  frameTitle.textContent = "Frames";
+  frameSection.appendChild(frameTitle);
+  if (frames.length === 0) {
+    appendEmpty(frameSection, "No replay frames");
+  } else {
+    frames.forEach((frame) => frameSection.appendChild(renderReplayFrame(frame)));
+  }
+  container.appendChild(frameSection);
 }
 
 async function analyzeCurrentInput() {
@@ -1600,6 +1696,53 @@ async function handleExportSessionGraph() {
   }
 }
 
+async function handleLoadReplayDemo() {
+  setStatus("Loading replay demo...");
+  renderReplayStatus("Loading demo replay...");
+  setBusy(replayDemoButton, true);
+
+  try {
+    const data = await getReplayJson("/api/v3/debug/replay/demo");
+    renderReplayTimeline(data?.replay, "replay-demo-output");
+    renderReplayStatus("Demo replay loaded", "success");
+    setStatus("Replay demo loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Replay demo error:", error);
+    renderReplayError(error.message);
+    setStatus("Replay demo unavailable", true);
+  } finally {
+    setBusy(replayDemoButton, false);
+  }
+}
+
+async function handleExportSessionReplay() {
+  if (!currentDebugSession) {
+    renderReplayError("Create or load a debug session first.");
+    setStatus("Create or load a debug session first.", true);
+    return;
+  }
+
+  setStatus("Exporting session replay...");
+  renderReplayStatus("Exporting current session replay...");
+  setBusy(replayExportButton, true);
+
+  try {
+    const data = await postReplayJson(
+      "/api/v3/debug/replay/export",
+      { session: currentDebugSession },
+    );
+    renderReplayTimeline(data?.replay, "replay-session-output");
+    renderReplayStatus("Session replay exported", "success");
+    setStatus("Session replay exported");
+  } catch (error) {
+    console.error("[Sanskrit] Session replay export error:", error);
+    renderReplayError(error.message);
+    setStatus("Session replay export unavailable", true);
+  } finally {
+    setBusy(replayExportButton, false);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -1641,6 +1784,9 @@ function renderInitialState() {
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
   renderGraphStatus("Graph inspector idle");
+  renderReplayTimeline(null, "replay-demo-output");
+  renderReplayTimeline(null, "replay-session-output");
+  renderReplayStatus("Replay inspector idle");
 }
 
 export function init(node) {
@@ -1664,6 +1810,8 @@ export function init(node) {
   semanticTraceCustomButton = byId("semantic-trace-link-custom");
   graphDemoButton = byId("graph-load-demo");
   graphExportButton = byId("graph-export-session");
+  replayDemoButton = byId("replay-load-demo");
+  replayExportButton = byId("replay-export-session");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -1685,6 +1833,8 @@ export function init(node) {
   semanticTraceCustomButton?.addEventListener("click", handleLinkSemanticTrace);
   graphDemoButton?.addEventListener("click", handleLoadGraphDemo);
   graphExportButton?.addEventListener("click", handleExportSessionGraph);
+  replayDemoButton?.addEventListener("click", handleLoadReplayDemo);
+  replayExportButton?.addEventListener("click", handleExportSessionReplay);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -1723,6 +1873,8 @@ export function destroy() {
   semanticTraceCustomButton?.removeEventListener("click", handleLinkSemanticTrace);
   graphDemoButton?.removeEventListener("click", handleLoadGraphDemo);
   graphExportButton?.removeEventListener("click", handleExportSessionGraph);
+  replayDemoButton?.removeEventListener("click", handleLoadReplayDemo);
+  replayExportButton?.removeEventListener("click", handleExportSessionReplay);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -1744,6 +1896,8 @@ export function destroy() {
   semanticTraceCustomButton = null;
   graphDemoButton = null;
   graphExportButton = null;
+  replayDemoButton = null;
+  replayExportButton = null;
   currentDebugSession = null;
   inputNode = null;
 }
