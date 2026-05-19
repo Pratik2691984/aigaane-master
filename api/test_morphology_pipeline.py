@@ -74,6 +74,43 @@ class MorphologyPipelineTests(unittest.TestCase):
     def test_hari_accusative_plural(self):
         self.assert_hari_form("accusative", "plural", "\u0939\u0930\u0940\u0928\u094d")
 
+    def assert_nadi_form(self, case, number, expected):
+        response = self.client.post(
+            "/api/v3/morphology/noun/inflect",
+            json={"stem": "\u0928\u0926\u0940", "case": case, "number": number},
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["form"], expected)
+        self.assertEqual(payload["metadata"]["declension"], "feminine_ii")
+        self.assertEqual(payload["metadata"]["paradigm"], "nadi_feminine")
+        self.assertEqual(payload["metadata"]["ending"], "\u012b")
+        self.assertIn("derivation_path", payload)
+
+    def test_nadi_nominative_singular(self):
+        self.assert_nadi_form("nominative", "singular", "\u0928\u0926\u0940")
+
+    def test_nadi_accusative_singular(self):
+        self.assert_nadi_form("accusative", "singular", "\u0928\u0926\u0940\u092e\u094d")
+
+    def test_nadi_instrumental_singular(self):
+        self.assert_nadi_form("instrumental", "singular", "\u0928\u0926\u094d\u092f\u093e")
+
+    def test_nadi_dative_singular(self):
+        self.assert_nadi_form("dative", "singular", "\u0928\u0926\u094d\u092f\u0948")
+
+    def test_nadi_genitive_singular(self):
+        self.assert_nadi_form("genitive", "singular", "\u0928\u0926\u094d\u092f\u093e\u0903")
+
+    def test_nadi_locative_singular(self):
+        self.assert_nadi_form("locative", "singular", "\u0928\u0926\u094d\u092f\u093e\u092e\u094d")
+
+    def test_nadi_nominative_plural(self):
+        self.assert_nadi_form("nominative", "plural", "\u0928\u0926\u094d\u092f\u0903")
+
+    def test_nadi_accusative_plural(self):
+        self.assert_nadi_form("accusative", "plural", "\u0928\u0926\u0940\u0903")
+
     def test_bhu_lat_prathama_ekavacana(self):
         response = self.client.post(
             "/api/v3/morphology/verb/conjugate",

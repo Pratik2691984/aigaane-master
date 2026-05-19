@@ -15,6 +15,15 @@
       "declension": "masculine_i",
       "paradigm": "kavi_masculine",
       "meaning": "Hari"
+    },
+    "नदी": {
+      "stem": "नदी",
+      "gender": "feminine",
+      "stem_class": "feminine_ii",
+      "ending": "ī",
+      "declension": "feminine_ii",
+      "paradigm": "nadi_feminine",
+      "meaning": "river"
     }
   }
 }
