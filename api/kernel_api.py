@@ -32,6 +32,10 @@ try:
     from api.engines.session_storage import DebugSessionStorage
 except ModuleNotFoundError:
     from engines.session_storage import DebugSessionStorage
+try:
+    from api.engines.lexical_registry import LEXICON_ROOT, LexicalRegistryValidator
+except ModuleNotFoundError:
+    from engines.lexical_registry import LEXICON_ROOT, LexicalRegistryValidator
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -195,6 +199,7 @@ history_states: List[KernelState] = []
 golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
 debug_session_storage = DebugSessionStorage()
+lexical_registry_validator = LexicalRegistryValidator()
 
 # ============ WebSocket disabled for Vercel ============
 manager = None
@@ -523,6 +528,67 @@ def session_storage_error(message: str) -> HTTPException:
             "code": "session_storage_error",
             "message": message,
         },
+    )
+
+def lexical_registry_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=400,
+        detail={
+            "code": "lexical_registry_error",
+            "message": message,
+        },
+    )
+
+@app.get("/api/v3/debug/lexicon/samples")
+async def debug_lexicon_samples_v3():
+    try:
+        entries = lexical_registry_validator.load_sample_entries()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise lexical_registry_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "entries": entries,
+            "count": len(entries),
+        },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/lexicon/sources")
+async def debug_lexicon_sources_v3():
+    try:
+        with (LEXICON_ROOT / "registry_sources.json").open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+        sources = payload.get("sources")
+        if not isinstance(sources, list):
+            raise ValueError("registry_sources.json must contain a sources list.")
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise lexical_registry_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "sources": sources,
+            "count": len(sources),
+        },
+        media_type="application/json; charset=utf-8",
+    )
+
+@app.get("/api/v3/debug/lexicon/validate")
+async def debug_lexicon_validate_v3():
+    try:
+        entries = lexical_registry_validator.load_sample_entries()
+        validated_entries = lexical_registry_validator.validate_registry(entries)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        raise lexical_registry_error(str(exc)) from exc
+
+    return JSONResponse(
+        content={
+            "valid": True,
+            "entry_count": len(validated_entries),
+            "validated_ids": [entry["lexical_id"] for entry in validated_entries],
+            "errors": [],
+        },
+        media_type="application/json; charset=utf-8",
     )
 
 @app.post("/api/v3/debug/session/create")
