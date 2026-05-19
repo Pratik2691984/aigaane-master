@@ -203,6 +203,45 @@ class MorphologyPipelineTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["form"], "\u092a\u0920\u0924\u093f")
 
+    def assert_path_lat_form(self, person, number, expected):
+        response = self.client.post(
+            "/api/v3/morphology/verb/conjugate",
+            json={"dhatu": "\u092a\u0920\u094d", "lakara": "la\u1e6d", "person": person, "number": number},
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["form"], expected)
+        self.assertEqual(payload["metadata"]["pada"], "parasmaipada")
+        self.assertEqual(payload["metadata"]["model_stem"], "\u092a\u0920")
+        self.assertIn("derivation_path", payload)
+
+    def test_path_lat_3_1(self):
+        self.assert_path_lat_form("3", "1", "\u092a\u0920\u0924\u093f")
+
+    def test_path_lat_3_2(self):
+        self.assert_path_lat_form("3", "2", "\u092a\u0920\u0924\u0903")
+
+    def test_path_lat_3_3(self):
+        self.assert_path_lat_form("3", "3", "\u092a\u0920\u0928\u094d\u0924\u093f")
+
+    def test_path_lat_2_1(self):
+        self.assert_path_lat_form("2", "1", "\u092a\u0920\u0938\u093f")
+
+    def test_path_lat_2_2(self):
+        self.assert_path_lat_form("2", "2", "\u092a\u0920\u0925\u0903")
+
+    def test_path_lat_2_3(self):
+        self.assert_path_lat_form("2", "3", "\u092a\u0920\u0925")
+
+    def test_path_lat_1_1(self):
+        self.assert_path_lat_form("1", "1", "\u092a\u0920\u093e\u092e\u093f")
+
+    def test_path_lat_1_2(self):
+        self.assert_path_lat_form("1", "2", "\u092a\u0920\u093e\u0935\u0903")
+
+    def test_path_lat_1_3(self):
+        self.assert_path_lat_form("1", "3", "\u092a\u0920\u093e\u092e\u0903")
+
     def test_gam_lat_prathama_ekavacana(self):
         response = self.client.post(
             "/api/v3/morphology/verb/conjugate",
@@ -210,6 +249,45 @@ class MorphologyPipelineTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["form"], "\u0917\u091a\u094d\u091b\u0924\u093f")
+
+    def assert_gam_lat_form(self, person, number, expected):
+        response = self.client.post(
+            "/api/v3/morphology/verb/conjugate",
+            json={"dhatu": "\u0917\u092e\u094d", "lakara": "la\u1e6d", "person": person, "number": number},
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["form"], expected)
+        self.assertEqual(payload["metadata"]["pada"], "parasmaipada")
+        self.assertEqual(payload["metadata"]["model_stem"], "\u0917\u091a\u094d\u091b")
+        self.assertIn("derivation_path", payload)
+
+    def test_gam_lat_3_1(self):
+        self.assert_gam_lat_form("3", "1", "\u0917\u091a\u094d\u091b\u0924\u093f")
+
+    def test_gam_lat_3_2(self):
+        self.assert_gam_lat_form("3", "2", "\u0917\u091a\u094d\u091b\u0924\u0903")
+
+    def test_gam_lat_3_3(self):
+        self.assert_gam_lat_form("3", "3", "\u0917\u091a\u094d\u091b\u0928\u094d\u0924\u093f")
+
+    def test_gam_lat_2_1(self):
+        self.assert_gam_lat_form("2", "1", "\u0917\u091a\u094d\u091b\u0938\u093f")
+
+    def test_gam_lat_2_2(self):
+        self.assert_gam_lat_form("2", "2", "\u0917\u091a\u094d\u091b\u0925\u0903")
+
+    def test_gam_lat_2_3(self):
+        self.assert_gam_lat_form("2", "3", "\u0917\u091a\u094d\u091b\u0925")
+
+    def test_gam_lat_1_1(self):
+        self.assert_gam_lat_form("1", "1", "\u0917\u091a\u094d\u091b\u093e\u092e\u093f")
+
+    def test_gam_lat_1_2(self):
+        self.assert_gam_lat_form("1", "2", "\u0917\u091a\u094d\u091b\u093e\u0935\u0903")
+
+    def test_gam_lat_1_3(self):
+        self.assert_gam_lat_form("1", "3", "\u0917\u091a\u094d\u091b\u093e\u092e\u0903")
 
     def test_named_lat_prathama_ekavacana_remains_supported(self):
         response = self.client.post(
