@@ -37,6 +37,7 @@
 .analysis-panel label,
 .execution-panel h3,
 .debug-inspector h3,
+.debug-storage-header h4,
 .debug-card h4,
 .summary-item span,
 .result-section h3 {
@@ -107,7 +108,10 @@
 #debug-create-session,
 #debug-append-step,
 #debug-load-ambiguity,
-#debug-run-pipeline {
+#debug-run-pipeline,
+#debug-save-session,
+#debug-refresh-sessions,
+.debug-storage-row button {
     border: 1px solid var(--gold);
     background: var(--gold);
     color: var(--deep-space);
@@ -123,7 +127,10 @@
 #debug-create-session:disabled,
 #debug-append-step:disabled,
 #debug-load-ambiguity:disabled,
-#debug-run-pipeline:disabled {
+#debug-run-pipeline:disabled,
+#debug-save-session:disabled,
+#debug-refresh-sessions:disabled,
+.debug-storage-row button:disabled {
     cursor: progress;
     opacity: 0.6;
 }
@@ -182,6 +189,78 @@
 .debug-action-note {
     color: #9fb0c7;
     font-size: 0.85rem;
+}
+
+.debug-storage-panel {
+    border: 1px solid rgba(104, 190, 255, 0.22);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.debug-storage-header {
+    margin-bottom: 0.75rem;
+}
+
+.debug-storage-header p,
+.debug-storage-status {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.debug-storage-status.success {
+    color: #9ee6b4;
+}
+
+.debug-storage-status.error {
+    color: #ff9b9b;
+}
+
+.debug-storage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    color: #eef3f8;
+}
+
+.debug-storage-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.65rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.debug-storage-meta {
+    min-width: 0;
+}
+
+.debug-storage-meta strong {
+    color: #f0d77a;
+    overflow-wrap: anywhere;
+}
+
+.debug-storage-meta small {
+    display: block;
+    color: #9fb0c7;
+    margin-top: 0.2rem;
+}
+
+.debug-storage-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.debug-storage-row button.delete {
+    border-color: rgba(255, 155, 155, 0.65);
+    background: transparent;
+    color: #ffb3b3;
 }
 
 .debug-grid {

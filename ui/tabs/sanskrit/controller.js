@@ -9,6 +9,8 @@ let debugCreateButton = null;
 let debugAppendButton = null;
 let debugAmbiguityButton = null;
 let debugPipelineButton = null;
+let debugSaveButton = null;
+let debugRefreshSessionsButton = null;
 let currentDebugSession = null;
 
 const DEFAULT_PAYLOAD = {
@@ -453,6 +455,70 @@ function renderDebugPipelineResult(data) {
   });
 }
 
+function pipelineDataFromSession(session) {
+  const steps = Array.isArray(session?.steps) ? session.steps : [];
+  const pipelineSteps = steps.filter((step) => step?.metadata?.source === "debug_session_pipeline");
+  if (pipelineSteps.length === 0) return null;
+  const lastStep = pipelineSteps[pipelineSteps.length - 1];
+  const output = lastStep?.output_state || {};
+  return {
+    final_output: output.merged || output.form || "",
+    pipeline_steps: pipelineSteps,
+  };
+}
+
+function renderDebugStorageStatus(message, type = "neutral") {
+  const node = byId("debug-storage-status");
+  if (!node) return;
+  node.textContent = text(message, "Storage idle");
+  node.classList.toggle("success", type === "success");
+  node.classList.toggle("error", type === "error");
+}
+
+function renderDebugSessionStorageList(data) {
+  const container = byId("debug-storage-list");
+  clearChildren(container);
+  if (!container) return;
+
+  const sessions = Array.isArray(data?.sessions) ? [...data.sessions] : [];
+  if (sessions.length === 0) {
+    appendEmpty(container, "No saved sessions");
+    return;
+  }
+
+  sessions.sort((left, right) => text(right?.created_at, "").localeCompare(text(left?.created_at, "")));
+
+  sessions.forEach((session) => {
+    const row = document.createElement("div");
+    row.className = "debug-storage-row";
+
+    const meta = document.createElement("div");
+    meta.className = "debug-storage-meta";
+    const sessionId = document.createElement("strong");
+    const details = document.createElement("small");
+    sessionId.textContent = text(session?.session_id, "unknown-session");
+    details.textContent = `${text(session?.created_at, "created_at unavailable")} - steps: ${text(session?.step_count, "unknown")}`;
+    meta.append(sessionId, details);
+
+    const actions = document.createElement("div");
+    actions.className = "debug-storage-actions";
+    const loadButton = document.createElement("button");
+    loadButton.type = "button";
+    loadButton.textContent = "Load";
+    loadButton.addEventListener("click", () => handleDebugSessionLoad(session?.session_id));
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "delete";
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", () => handleDebugSessionDelete(session?.session_id));
+    actions.append(loadButton, deleteButton);
+
+    row.append(meta, actions);
+    container.appendChild(row);
+  });
+}
+
 function renderPayload(payload) {
   setText("overall-stanza-meter", payload?.overall_stanza_meter);
   setText("total-matra-count", payload?.total_matra_count, 0);
@@ -760,6 +826,116 @@ async function handleDebugPipelineDemo() {
   }
 }
 
+async function handleDebugSessionSave() {
+  if (!currentDebugSession) {
+    renderDebugError("debug-session-error-output", {
+      detail: {
+        code: "debug_session_missing",
+        message: "Create a debug session first.",
+      },
+    });
+    renderDebugStorageStatus("Create a debug session first.", "error");
+    setStatus("Create a debug session first.", true);
+    return;
+  }
+
+  setStatus("Saving debug session...");
+  renderDebugStorageStatus("Saving session...");
+  setBusy(debugSaveButton, true);
+
+  try {
+    const data = await postDebugJson(
+      "/api/v3/debug/session/save",
+      { session: currentDebugSession },
+      "debug-session-error-output",
+    );
+    renderDebugStorageStatus(`Saved ${text(data?.session_id, "session")}`, "success");
+    await handleDebugSessionList();
+    setStatus("Debug session saved");
+  } catch (error) {
+    console.error("[Sanskrit] Debug session save error:", error);
+    renderDebugStorageStatus("Save unavailable", "error");
+    setStatus("Debug save unavailable", true);
+  } finally {
+    setBusy(debugSaveButton, false);
+  }
+}
+
+async function handleDebugSessionList() {
+  setStatus("Refreshing saved sessions...");
+  renderDebugStorageStatus("Refreshing saved sessions...");
+  setBusy(debugRefreshSessionsButton, true);
+
+  try {
+    const data = await getDebugJson("/api/v3/debug/session/list", "debug-session-error-output");
+    renderDebugSessionStorageList(data);
+    const count = Array.isArray(data?.sessions) ? data.sessions.length : 0;
+    renderDebugStorageStatus(`${count} saved session${count === 1 ? "" : "s"}`, "success");
+    setStatus("Saved sessions refreshed");
+  } catch (error) {
+    console.error("[Sanskrit] Debug session list error:", error);
+    renderDebugStorageStatus("Saved sessions unavailable", "error");
+    setStatus("Saved sessions unavailable", true);
+  } finally {
+    setBusy(debugRefreshSessionsButton, false);
+  }
+}
+
+async function handleDebugSessionLoad(sessionId) {
+  if (!sessionId) {
+    renderDebugStorageStatus("Cannot load session without an id.", "error");
+    return;
+  }
+
+  setStatus("Loading saved session...");
+  renderDebugStorageStatus("Loading saved session...");
+
+  try {
+    const data = await postDebugJson(
+      "/api/v3/debug/session/load",
+      { session_id: sessionId },
+      "debug-session-error-output",
+    );
+    currentDebugSession = data?.session || null;
+    const branches = Array.isArray(currentDebugSession?.ambiguity_branches) ? currentDebugSession.ambiguity_branches : [];
+    renderDebugSession(currentDebugSession);
+    renderDebugSessionSteps(currentDebugSession?.steps);
+    renderDebugAmbiguity(branches.length > 0 ? { is_ambiguous: branches.length > 1, candidates: branches } : null);
+    renderDebugPipelineResult(pipelineDataFromSession(currentDebugSession));
+    renderDebugStorageStatus(`Loaded ${text(currentDebugSession?.session_id, "session")}`, "success");
+    setStatus("Saved session loaded");
+  } catch (error) {
+    console.error("[Sanskrit] Debug session load error:", error);
+    renderDebugStorageStatus("Load unavailable", "error");
+    setStatus("Debug load unavailable", true);
+  }
+}
+
+async function handleDebugSessionDelete(sessionId) {
+  if (!sessionId) {
+    renderDebugStorageStatus("Cannot delete session without an id.", "error");
+    return;
+  }
+
+  setStatus("Deleting saved session...");
+  renderDebugStorageStatus("Deleting saved session...");
+
+  try {
+    await postDebugJson(
+      "/api/v3/debug/session/delete",
+      { session_id: sessionId },
+      "debug-session-error-output",
+    );
+    renderDebugStorageStatus("Deleted saved session", "success");
+    await handleDebugSessionList();
+    setStatus("Saved session deleted");
+  } catch (error) {
+    console.error("[Sanskrit] Debug session delete error:", error);
+    renderDebugStorageStatus("Delete unavailable", "error");
+    setStatus("Debug delete unavailable", true);
+  }
+}
+
 function renderInitialState() {
   renderPayload({
     overall_stanza_meter: "-",
@@ -784,6 +960,8 @@ function renderInitialState() {
   renderDebugSessionSteps(null);
   renderDebugAmbiguity(null);
   renderDebugPipelineResult(null);
+  renderDebugSessionStorageList(null);
+  renderDebugStorageStatus("Storage idle");
   renderDebugError("debug-session-error-output", null);
 }
 
@@ -796,6 +974,8 @@ export function init(node) {
   debugAppendButton = byId("debug-append-step");
   debugAmbiguityButton = byId("debug-load-ambiguity");
   debugPipelineButton = byId("debug-run-pipeline");
+  debugSaveButton = byId("debug-save-session");
+  debugRefreshSessionsButton = byId("debug-refresh-sessions");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -805,6 +985,8 @@ export function init(node) {
   debugAppendButton?.addEventListener("click", handleDebugSessionAppend);
   debugAmbiguityButton?.addEventListener("click", handleDebugAmbiguityDemo);
   debugPipelineButton?.addEventListener("click", handleDebugPipelineDemo);
+  debugSaveButton?.addEventListener("click", handleDebugSessionSave);
+  debugRefreshSessionsButton?.addEventListener("click", handleDebugSessionList);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -831,6 +1013,8 @@ export function destroy() {
   debugAppendButton?.removeEventListener("click", handleDebugSessionAppend);
   debugAmbiguityButton?.removeEventListener("click", handleDebugAmbiguityDemo);
   debugPipelineButton?.removeEventListener("click", handleDebugPipelineDemo);
+  debugSaveButton?.removeEventListener("click", handleDebugSessionSave);
+  debugRefreshSessionsButton?.removeEventListener("click", handleDebugSessionList);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -840,6 +1024,8 @@ export function destroy() {
   debugAppendButton = null;
   debugAmbiguityButton = null;
   debugPipelineButton = null;
+  debugSaveButton = null;
+  debugRefreshSessionsButton = null;
   currentDebugSession = null;
   inputNode = null;
 }

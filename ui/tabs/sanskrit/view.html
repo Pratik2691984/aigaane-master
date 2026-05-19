@@ -77,6 +77,19 @@
             <p class="debug-action-note">Runs Morphology &#8594; Sandhi through the debug session pipeline endpoint.</p>
         </div>
 
+        <section class="debug-storage-panel" aria-label="Persistent debug session storage">
+            <header class="debug-storage-header">
+                <h4>Persistent Debug Session Storage</h4>
+                <p>Filesystem-backed debug-only derivation sessions.</p>
+            </header>
+            <div class="analysis-actions">
+                <button id="debug-save-session" type="button">Save Current Session</button>
+                <button id="debug-refresh-sessions" type="button">Refresh Saved Sessions</button>
+                <span id="debug-storage-status" class="debug-storage-status" role="status" aria-live="polite">Storage idle</span>
+            </div>
+            <div id="debug-storage-list" class="debug-storage-list">No saved sessions loaded</div>
+        </section>
+
         <div class="debug-grid">
             <section class="debug-card">
                 <h4>Session</h4>
