@@ -57,7 +57,7 @@ def morphology_meta() -> Dict[str, Any]:
         "phase": "phase1",
         "scope": {
             "subanta": ["masculine_a", "masculine_i", "feminine_ii", "neuter_a"],
-            "tinganta": ["lat_prathama_ekavacana"],
+            "tinganta": ["bhu_lat_parasmaipada_3x3", "lat_prathama_ekavacana"],
         },
         "nouns": list(noun_data.get("stems", {}).values()),
         "dhatus": list(dhatu_data.get("dhatus", {}).values()),

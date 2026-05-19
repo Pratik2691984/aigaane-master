@@ -156,6 +156,45 @@ class MorphologyPipelineTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["form"], "\u092d\u0935\u0924\u093f")
 
+    def assert_bhu_lat_form(self, person, number, expected):
+        response = self.client.post(
+            "/api/v3/morphology/verb/conjugate",
+            json={"dhatu": "\u092d\u0942", "lakara": "la\u1e6d", "person": person, "number": number},
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["form"], expected)
+        self.assertEqual(payload["metadata"]["pada"], "parasmaipada")
+        self.assertEqual(payload["metadata"]["model_stem"], "\u092d\u0935")
+        self.assertIn("derivation_path", payload)
+
+    def test_bhu_lat_3_1(self):
+        self.assert_bhu_lat_form("3", "1", "\u092d\u0935\u0924\u093f")
+
+    def test_bhu_lat_3_2(self):
+        self.assert_bhu_lat_form("3", "2", "\u092d\u0935\u0924\u0903")
+
+    def test_bhu_lat_3_3(self):
+        self.assert_bhu_lat_form("3", "3", "\u092d\u0935\u0928\u094d\u0924\u093f")
+
+    def test_bhu_lat_2_1(self):
+        self.assert_bhu_lat_form("2", "1", "\u092d\u0935\u0938\u093f")
+
+    def test_bhu_lat_2_2(self):
+        self.assert_bhu_lat_form("2", "2", "\u092d\u0935\u0925\u0903")
+
+    def test_bhu_lat_2_3(self):
+        self.assert_bhu_lat_form("2", "3", "\u092d\u0935\u0925")
+
+    def test_bhu_lat_1_1(self):
+        self.assert_bhu_lat_form("1", "1", "\u092d\u0935\u093e\u092e\u093f")
+
+    def test_bhu_lat_1_2(self):
+        self.assert_bhu_lat_form("1", "2", "\u092d\u0935\u093e\u0935\u0903")
+
+    def test_bhu_lat_1_3(self):
+        self.assert_bhu_lat_form("1", "3", "\u092d\u0935\u093e\u092e\u0903")
+
     def test_path_lat_prathama_ekavacana(self):
         response = self.client.post(
             "/api/v3/morphology/verb/conjugate",
@@ -199,7 +238,7 @@ class MorphologyPipelineTests(unittest.TestCase):
     def test_unsupported_verb_slot_returns_structured_morphology_error(self):
         response = self.client.post(
             "/api/v3/morphology/verb/conjugate",
-            json={"dhatu": "\u092d\u0942", "lakara": "la\u1e6d", "person": "2", "number": "1"},
+            json={"dhatu": "\u092d\u0942", "lakara": "la\u1e6d", "person": "4", "number": "1"},
         )
         self.assertEqual(response.status_code, 404)
         self.assertEqual(response.json()["detail"]["code"], "morphology_error")
