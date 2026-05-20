@@ -12,8 +12,10 @@ PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
 PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
 REVIEW_SCRIPT_PATH = ROOT / "scripts" / "apply_dhatu_review_decisions.py"
 LOCK_SCRIPT_PATH = ROOT / "scripts" / "lock_dhatu_promotion_readiness.py"
+PROMOTE_SCRIPT_PATH = ROOT / "scripts" / "promote_ready_dhatu_to_canonical.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
+READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -64,6 +66,11 @@ lock_spec = importlib.util.spec_from_file_location("lock_dhatu_promotion_readine
 locker = importlib.util.module_from_spec(lock_spec)
 sys.modules["lock_dhatu_promotion_readiness"] = locker
 lock_spec.loader.exec_module(locker)
+
+promote_spec = importlib.util.spec_from_file_location("promote_ready_dhatu_to_canonical", PROMOTE_SCRIPT_PATH)
+promoter = importlib.util.module_from_spec(promote_spec)
+sys.modules["promote_ready_dhatu_to_canonical"] = promoter
+promote_spec.loader.exec_module(promoter)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -124,6 +131,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_lock_script_exists(self):
         self.assertTrue(LOCK_SCRIPT_PATH.exists())
+
+    def test_promote_script_exists(self):
+        self.assertTrue(PROMOTE_SCRIPT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -234,6 +244,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["promotionReadinessLockFile"],
             "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
+        )
+
+    def test_manifest_declares_canonical_promotion_audit_file(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionAuditFile"],
+            "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -507,6 +523,38 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         self.assertEqual(lock_one, lock_two)
 
+    def test_disabled_promotion_audit_refuses_canonical_write(self):
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+        audit = promoter.build_disabled_audit(lock)
+
+        self.assertFalse(audit["canonicalWriteAttempted"])
+        self.assertFalse(audit["canonicalWriteEnabled"])
+        self.assertEqual(audit["promotedCount"], 0)
+        self.assertEqual(audit["promotedRecordIds"], [])
+        self.assertEqual(len(audit["skippedRecordIds"]), 12)
+        self.assertIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", audit["refusalReason"])
+
+    def test_default_promotion_path_writes_disabled_audit_only(self):
+        import os
+        import tempfile
+
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+        original = os.environ.pop(promoter.WRITE_FLAG, None)
+        try:
+            with tempfile.TemporaryDirectory(prefix="disabled-audit-") as tmp:
+                audit = promoter.build_disabled_audit(lock)
+                path = promoter.write_promotion_audit(
+                    audit,
+                    Path(tmp) / "canonical_promotion_audit.v1.json",
+                )
+
+                self.assertTrue(path.exists())
+                self.assertEqual(json.loads(path.read_text(encoding="utf-8")), audit)
+                self.assertFalse(audit["canonicalWriteEnabled"])
+        finally:
+            if original is not None:
+                os.environ[promoter.WRITE_FLAG] = original
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -656,6 +704,41 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(before_goldset, after_goldset)
         self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
 
+    def test_disabled_promoter_does_not_modify_protected_files(self):
+        import os
+
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+        before_reviews = REVIEW_DECISIONS_PATH.read_text(encoding="utf-8")
+        before_lock = READINESS_LOCK_PATH.read_text(encoding="utf-8")
+        original = os.environ.pop(promoter.WRITE_FLAG, None)
+        try:
+            promoter.promote_ready_dhatus(MANIFEST_PATH)
+        finally:
+            if original is not None:
+                os.environ[promoter.WRITE_FLAG] = original
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+        self.assertEqual(before_reviews, REVIEW_DECISIONS_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(before_lock, READINESS_LOCK_PATH.read_text(encoding="utf-8"))
+
     def test_validator_does_not_import_runtime_grammar_engines(self):
         import_lines = [
             line.strip()
@@ -700,6 +783,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in LOCK_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_promote_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PROMOTE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
@@ -761,6 +854,20 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), lock)
+
+    def test_promotion_audit_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="promotion-audit-") as tmp:
+            lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+            audit = promoter.build_disabled_audit(lock)
+            path = promoter.write_promotion_audit(
+                audit,
+                Path(tmp) / "canonical_promotion_audit.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), audit)
 
 
 if __name__ == "__main__":
