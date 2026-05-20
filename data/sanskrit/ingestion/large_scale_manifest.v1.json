@@ -5,6 +5,7 @@
   "canonicalPromotionPlanFile": "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
   "reviewDecisionsFile": "data/sanskrit/ingestion/review_decisions.v1.json",
   "reviewedCanonicalPromotionPlanFile": "data/sanskrit/ingestion/canonical_promotion_plan.reviewed.v1.json",
+  "promotionReadinessLockFile": "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

@@ -1,0 +1,38 @@
+{
+  "blockedCount": 0,
+  "blockedRecordIds": [],
+  "canonicalWriteEnabled": false,
+  "deferredRecordIds": [
+    "01.STAGED.0004",
+    "01.STAGED.0005",
+    "01.STAGED.0006",
+    "01.STAGED.0007",
+    "01.STAGED.0008",
+    "01.STAGED.0009",
+    "01.STAGED.0010",
+    "01.STAGED.0011",
+    "01.STAGED.0012"
+  ],
+  "generatedBy": "scripts/lock_dhatu_promotion_readiness.py",
+  "needsReviewCount": 9,
+  "readyCount": 3,
+  "readyRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "safetyChecks": {
+    "batchMutation": false,
+    "canonicalPromotionPlanRegenerated": true,
+    "canonicalRegistryMutation": false,
+    "deterministicOrdering": true,
+    "goldsetMutation": false,
+    "promotionPreviewRegenerated": true,
+    "reviewDecisionsApplied": true,
+    "safeToRegenerate": true,
+    "stagedValidationPassed": true
+  },
+  "schemaVersion": "1.0.0",
+  "sourceReviewedPlanFile": "data/sanskrit/ingestion/canonical_promotion_plan.reviewed.v1.json",
+  "totalRecords": 12
+}

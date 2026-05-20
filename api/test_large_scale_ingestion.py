@@ -11,6 +11,7 @@ SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
 PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
 PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
 REVIEW_SCRIPT_PATH = ROOT / "scripts" / "apply_dhatu_review_decisions.py"
+LOCK_SCRIPT_PATH = ROOT / "scripts" / "lock_dhatu_promotion_readiness.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
@@ -58,6 +59,11 @@ review_spec = importlib.util.spec_from_file_location("apply_dhatu_review_decisio
 reviewer = importlib.util.module_from_spec(review_spec)
 sys.modules["apply_dhatu_review_decisions"] = reviewer
 review_spec.loader.exec_module(reviewer)
+
+lock_spec = importlib.util.spec_from_file_location("lock_dhatu_promotion_readiness", LOCK_SCRIPT_PATH)
+locker = importlib.util.module_from_spec(lock_spec)
+sys.modules["lock_dhatu_promotion_readiness"] = locker
+lock_spec.loader.exec_module(locker)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -115,6 +121,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_review_script_and_decisions_exist(self):
         self.assertTrue(REVIEW_SCRIPT_PATH.exists())
         self.assertTrue(REVIEW_DECISIONS_PATH.exists())
+
+    def test_lock_script_exists(self):
+        self.assertTrue(LOCK_SCRIPT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -219,6 +228,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["reviewedCanonicalPromotionPlanFile"],
             "data/sanskrit/ingestion/canonical_promotion_plan.reviewed.v1.json",
+        )
+
+    def test_manifest_declares_promotion_readiness_lock_file(self):
+        self.assertEqual(
+            self.payload["promotionReadinessLockFile"],
+            "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -329,15 +344,41 @@ class LargeScaleIngestionTests(unittest.TestCase):
         decisions = reviewer.load_review_decisions(REVIEW_DECISIONS_PATH)
 
         self.assertEqual(decisions["policy"]["defaultDecision"], "defer")
-        self.assertEqual(decisions["decisions"], {})
+        self.assertEqual(len(decisions["decisions"]), 12)
+        self.assertEqual(
+            {
+                root_id
+                for root_id, decision in decisions["decisions"].items()
+                if decision["decision"] == "approve"
+            },
+            {"01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"},
+        )
 
-    def test_reviewed_plan_defaults_missing_decisions_to_defer(self):
+    def test_reviewed_plan_applies_seeded_approvals_and_defers_remainder(self):
         reviewed = reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
 
         self.assertEqual(reviewed["totalRecords"], 12)
+        self.assertEqual(reviewed["readyCount"], 3)
+        self.assertEqual(reviewed["needsReviewCount"], 9)
+        self.assertEqual(reviewed["blockedCount"], 0)
+        self.assertEqual(reviewer.decision_counts(reviewed["plannedRecords"]), {"approve": 3, "defer": 9})
+
+    def test_missing_review_decisions_still_default_to_defer_in_fixture_data(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        decisions = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {},
+        }
+        reviewed = reviewer.apply_review_decisions(plan, reviewer.validate_review_decisions(decisions))
+
         self.assertEqual(reviewed["readyCount"], 0)
         self.assertEqual(reviewed["needsReviewCount"], 12)
-        self.assertEqual(reviewed["blockedCount"], 0)
         self.assertEqual(reviewer.decision_counts(reviewed["plannedRecords"]), {"defer": 12})
 
     def test_review_approve_converts_needs_review_to_ready(self):
@@ -436,6 +477,35 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             reviewer.validate_review_decisions(payload)
+
+    def test_promotion_readiness_lock_reports_seeded_ready_records(self):
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        self.assertEqual(lock["schemaVersion"], "1.0.0")
+        self.assertEqual(lock["totalRecords"], 12)
+        self.assertEqual(lock["readyCount"], 3)
+        self.assertEqual(lock["needsReviewCount"], 9)
+        self.assertEqual(lock["blockedCount"], 0)
+        self.assertEqual(
+            lock["readyRecordIds"],
+            ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"],
+        )
+        self.assertEqual(lock["blockedRecordIds"], [])
+        self.assertEqual(len(lock["deferredRecordIds"]), 9)
+
+    def test_promotion_readiness_lock_keeps_canonical_write_disabled(self):
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        self.assertFalse(lock["canonicalWriteEnabled"])
+        self.assertFalse(lock["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertFalse(lock["safetyChecks"]["goldsetMutation"])
+        self.assertFalse(lock["safetyChecks"]["batchMutation"])
+
+    def test_promotion_readiness_lock_is_deterministic(self):
+        lock_one = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+        lock_two = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        self.assertEqual(lock_one, lock_two)
 
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
@@ -561,6 +631,31 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(before_goldset, after_goldset)
         self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
 
+    def test_readiness_lock_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
     def test_validator_does_not_import_runtime_grammar_engines(self):
         import_lines = [
             line.strip()
@@ -595,6 +690,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in REVIEW_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_lock_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in LOCK_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
@@ -643,6 +748,19 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), reviewed)
+
+    def test_readiness_lock_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="readiness-lock-") as tmp:
+            lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+            path = locker.write_promotion_readiness_lock(
+                lock,
+                Path(tmp) / "promotion_readiness_lock.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), lock)
 
 
 if __name__ == "__main__":

@@ -8,5 +8,66 @@
     "goldsetMutation": false,
     "batchMutation": false
   },
-  "decisions": {}
+  "decisions": {
+    "01.STAGED.0001": {
+      "decision": "approve",
+      "reviewer": "manual-reviewer",
+      "rationale": "Seeded small-subset approval for promotion readiness testing; canonical write remains disabled."
+    },
+    "01.STAGED.0002": {
+      "decision": "approve",
+      "reviewer": "manual-reviewer",
+      "rationale": "Seeded small-subset approval for promotion readiness testing; canonical write remains disabled."
+    },
+    "01.STAGED.0003": {
+      "decision": "approve",
+      "reviewer": "manual-reviewer",
+      "rationale": "Seeded small-subset approval for promotion readiness testing; canonical write remains disabled."
+    },
+    "01.STAGED.0004": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0005": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0006": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0007": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0008": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0009": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0010": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0011": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    },
+    "01.STAGED.0012": {
+      "decision": "defer",
+      "reviewer": "manual-reviewer",
+      "rationale": "Deferred pending fuller metadata and governance review."
+    }
+  }
 }
