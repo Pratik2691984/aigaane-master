@@ -1,0 +1,143 @@
+{
+  "promotionVersion": "1.0.0",
+  "description": "Reviewed dhatu records approved for canonical promotion",
+  "sourceBatch": "BATCH_0002_CONTROLLED_EXPANSION_25",
+  "sourceFile": "raw/dhatupatha_controlled_batch_01.csv",
+  "records": [
+    {
+      "id": "01.0101",
+      "root": "गम्",
+      "canonicalForm": "गच्छति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "08.0101",
+      "root": "कृ",
+      "canonicalForm": "करोति",
+      "gana_id": "08",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0102",
+      "root": "स्था",
+      "canonicalForm": "तिष्ठति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "09.0101",
+      "root": "ज्ञा",
+      "canonicalForm": "जानाति",
+      "gana_id": "09",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "02.0101",
+      "root": "हन्",
+      "canonicalForm": "हन्ति",
+      "gana_id": "02",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0103",
+      "root": "नी",
+      "canonicalForm": "नयति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0104",
+      "root": "पा",
+      "canonicalForm": "पिबति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0105",
+      "root": "दृश्",
+      "canonicalForm": "पश्यति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "05.0101",
+      "root": "श्रु",
+      "canonicalForm": "शृणोति",
+      "gana_id": "05",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0106",
+      "root": "वद्",
+      "canonicalForm": "वदति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0107",
+      "root": "पठ्",
+      "canonicalForm": "पठति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0108",
+      "root": "लिख्",
+      "canonicalForm": "लिखति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0109",
+      "root": "स्मृ",
+      "canonicalForm": "स्मरति",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0110",
+      "root": "लभ्",
+      "canonicalForm": "लभते",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    },
+    {
+      "id": "01.0111",
+      "root": "सेव्",
+      "canonicalForm": "सेवते",
+      "gana_id": "01",
+      "status": "deferred",
+      "reviewNotes": "Deferred pending traditional dhatupatha id/order verification before canonical promotion.",
+      "sourceConfidence": "medium"
+    }
+  ]
+}
