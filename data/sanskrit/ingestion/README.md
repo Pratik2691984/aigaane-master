@@ -14,3 +14,5 @@ Recommended staged path:
 - `21A.4`: complete dhātupāṭha
 
 Large ingestion should proceed by small, reviewable batches with reports committed only when intentionally promoted.
+
+`raw/dhatupatha_controlled_batch_01.csv` is a validation-ready controlled expansion batch. It should be dry-run first and should not be written into the canonical registry until its ids, gaṇa assignments, and philological details are reviewed.

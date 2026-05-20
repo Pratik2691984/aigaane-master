@@ -24,6 +24,14 @@
       "status": "planned",
       "expectedMinimumRecords": 25,
       "notes": "Next controlled expansion before large-scale ingestion"
+    },
+    {
+      "batchId": "BATCH_0002_CONTROLLED_EXPANSION_25",
+      "input": "raw/dhatupatha_controlled_batch_01.csv",
+      "limit": 15,
+      "status": "planned",
+      "expectedMinimumRecords": 15,
+      "notes": "Controlled validation-only expansion toward 25 curated dhatu records; ids follow project shape for importer validation and are not canonicalized until reviewed"
     }
   ]
 }

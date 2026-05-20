@@ -17,6 +17,7 @@ SCRIPT_PATH = ROOT / "scripts" / "ingest_dhatupatha_batches.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "manifest.v1.json"
 REPORTS_DIR = ROOT / "data" / "sanskrit" / "ingestion" / "reports"
 SCHEMA_PATH = ROOT / "data" / "sanskrit" / "schemas" / "dhatu.schema.v2.json"
+CONTROLLED_BATCH_INPUT = ROOT / "raw" / "dhatupatha_controlled_batch_01.csv"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
     "engines.sandhi",
@@ -79,6 +80,31 @@ class DhatupathaIngestionTests(unittest.TestCase):
         self.assertEqual(report["mode"], "dry-run")
         self.assertFalse(report_dir.exists())
 
+    def test_manifest_contains_controlled_expansion_batch(self):
+        batch = ingest.find_batch(self.manifest, "BATCH_0002_CONTROLLED_EXPANSION_25")
+
+        self.assertEqual(batch["input"], "raw/dhatupatha_controlled_batch_01.csv")
+        self.assertEqual(batch["limit"], 15)
+        self.assertEqual(batch["status"], "planned")
+
+    def test_controlled_batch_input_exists(self):
+        self.assertTrue(CONTROLLED_BATCH_INPUT.exists())
+
+    def test_controlled_batch_dry_run_succeeds(self):
+        batch = ingest.find_batch(self.manifest, "BATCH_0002_CONTROLLED_EXPANSION_25")
+
+        report = ingest.run_ingestion_batch(batch, write=False, report_dir=self.tmp / "reports")
+
+        self.assertEqual(report["mode"], "dry-run")
+        self.assertEqual(report["summary"]["parsed"], 15)
+        self.assertEqual(report["summary"]["valid"], 15)
+        self.assertEqual(report["summary"]["errors"], 0)
+
+    def test_controlled_batch_is_local_only(self):
+        batch = ingest.find_batch(self.manifest, "BATCH_0002_CONTROLLED_EXPANSION_25")
+
+        self.assertFalse(str(batch["input"]).startswith(("http://", "https://")))
+
     def test_invalid_batch_id_fails_safely(self):
         with self.assertRaises(ValueError):
             ingest.find_batch(self.manifest, "NO_SUCH_BATCH")
@@ -139,6 +165,12 @@ class DhatupathaIngestionTests(unittest.TestCase):
 
         self.assertGreaterEqual(len(context["records"]), 10)
         self.assertIn("records", context["semanticOverlay"])
+
+    def test_ingestion_reports_are_controlled(self):
+        report_files = [path.name for path in REPORTS_DIR.iterdir()]
+
+        self.assertIn(".gitkeep", report_files)
+        self.assertFalse(any(name.endswith(".report.json") for name in report_files))
 
     def _write_sample_csv(self):
         path = self.tmp / "sample.csv"
