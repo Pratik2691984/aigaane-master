@@ -1,0 +1,173 @@
+{
+  "schema": "aigaane.dhatu_file.v1",
+  "version": "20A.seed.1",
+  "gana": {
+    "id": "01",
+    "slug": "bhvadi",
+    "name": "भ्वादि"
+  },
+  "records": [
+    {
+      "schema": "aigaane.dhatu.v2",
+      "version": "20A.seed.1",
+      "id": "01.0001",
+      "identity": {
+        "root": "भू",
+        "rootIast": "bhū",
+        "canonicalForm": "भवति",
+        "gloss": "to be, to become"
+      },
+      "grammar": {
+        "gana": {
+          "id": "01",
+          "slug": "bhvadi",
+          "name": "भ्वादि"
+        },
+        "setClass": "aniṭ",
+        "primaryPada": "parasmaipada"
+      },
+      "semantics": {
+        "coreMeaning": "existence, becoming",
+        "semanticTags": ["existence", "becoming"]
+      },
+      "padaProfile": {
+        "primary": "parasmaipada",
+        "ruleTriggers": ["1.3.78"]
+      },
+      "forms": {
+        "kartari": {
+          "lat": {
+            "parasmaipada": [
+              ["भवति", "भवतः", "भवन्ति"],
+              ["भवसि", "भवथः", "भवथ"],
+              ["भवामि", "भवावः", "भवामः"]
+            ]
+          },
+          "lot": {
+            "parasmaipada": [
+              ["भवतु", "भवताम्", "भवन्तु"],
+              ["भव", "भवतम्", "भवत"],
+              ["भवानि", "भवाव", "भवाम"]
+            ]
+          }
+        },
+        "bhavaKarmani": {
+          "lat": {
+            "atmanepada": [
+              ["भूयते", "भूयेते", "भूयन्ते"],
+              ["भूयसे", "भूयेथे", "भूयध्वे"],
+              ["भूये", "भूयावहे", "भूयामहे"]
+            ]
+          }
+        }
+      },
+      "derivations": [
+        {
+          "type": "sananta",
+          "base": "बुभूष",
+          "notes": "Desiderative base only; finite tiṅ forms are intentionally out of scope."
+        },
+        {
+          "type": "nijanta",
+          "base": "भावि",
+          "notes": "Causative derivation base only."
+        },
+        {
+          "type": "yanganta",
+          "base": "बोभूय",
+          "notes": "Intensive derivation base only."
+        }
+      ],
+      "upasargaVariants": [],
+      "prakriyaRefs": [
+        {
+          "sutra": "3.1.68",
+          "label": "bhvadi class present stem reference"
+        }
+      ],
+      "sources": [
+        {
+          "name": "Aigaane canonical seed",
+          "type": "manual",
+          "citation": "Node 20A seed record curated for registry structure",
+          "license": "internal"
+        }
+      ],
+      "tags": ["seed", "bhvadi", "canonical"]
+    },
+    {
+      "schema": "aigaane.dhatu.v2",
+      "version": "20A.seed.1",
+      "id": "01.0002",
+      "identity": {
+        "root": "एध्",
+        "rootIast": "edh",
+        "canonicalForm": "एधते",
+        "gloss": "to grow, to prosper"
+      },
+      "grammar": {
+        "gana": {
+          "id": "01",
+          "slug": "bhvadi",
+          "name": "भ्वादि"
+        },
+        "setClass": "seṭ",
+        "primaryPada": "atmanepada"
+      },
+      "semantics": {
+        "coreMeaning": "growth, prosperity",
+        "semanticTags": ["growth", "prosperity"]
+      },
+      "padaProfile": {
+        "primary": "atmanepada",
+        "ruleTriggers": ["1.3.12"]
+      },
+      "forms": {
+        "kartari": {
+          "lat": {
+            "atmanepada": [
+              ["एधते", "एधेते", "एधन्ते"],
+              ["एधसे", "एधेथे", "एधध्वे"],
+              ["एधे", "एधावहे", "एधामहे"]
+            ]
+          },
+          "lot": {
+            "atmanepada": [
+              ["एधताम्", "एधेताम्", "एधन्ताम्"],
+              ["एधस्व", "एधेथाम्", "एधध्वम्"],
+              ["एधै", "एधावहै", "एधामहै"]
+            ]
+          }
+        }
+      },
+      "derivations": [
+        {
+          "type": "sananta",
+          "base": "एधिष",
+          "notes": "Desiderative base only."
+        },
+        {
+          "type": "nijanta",
+          "base": "एधय",
+          "notes": "Causative base only."
+        }
+      ],
+      "upasargaVariants": [],
+      "prakriyaRefs": [
+        {
+          "sutra": "1.3.12",
+          "label": "atmanepada rule linkage"
+        }
+      ],
+      "sources": [
+        {
+          "name": "Aigaane canonical seed",
+          "type": "manual",
+          "citation": "Node 20A seed record curated for registry structure",
+          "license": "internal"
+        }
+      ],
+      "tags": ["seed", "bhvadi", "canonical"]
+    }
+  ]
+}
