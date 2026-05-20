@@ -1,0 +1,53 @@
+{
+  "resolutionVersion": "1.0.0",
+  "model": "aigaane-local-editorial-resolution",
+  "description": "Editorial resolution decisions and recommendations for dhatu variant readings",
+  "policy": {
+    "autoPromote": false,
+    "requiresHumanReview": true,
+    "preserveRejectedAlternatives": true,
+    "mutationTarget": "none"
+  },
+  "scoring": {
+    "weights": {
+      "sourceConfidence": 0.4,
+      "recensionSupport": 0.25,
+      "canonicalConsistency": 0.2,
+      "goldsetAgreement": 0.15
+    },
+    "scoreBands": {
+      "high": 0.8,
+      "medium": 0.5,
+      "low": 0.0
+    }
+  },
+  "decisions": {
+    "01.0001": {"decisionId": "ED_01_0001_001", "dhatuId": "01.0001", "status": "accepted", "preferredReadingId": "VR_01_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "01.0002": {"decisionId": "ED_01_0002_001", "dhatuId": "01.0002", "status": "accepted", "preferredReadingId": "VR_01_0002_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "02.0001": {"decisionId": "ED_02_0001_001", "dhatuId": "02.0001", "status": "accepted", "preferredReadingId": "VR_02_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "03.0001": {"decisionId": "ED_03_0001_001", "dhatuId": "03.0001", "status": "accepted", "preferredReadingId": "VR_03_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "04.0001": {"decisionId": "ED_04_0001_001", "dhatuId": "04.0001", "status": "accepted", "preferredReadingId": "VR_04_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "06.0001": {"decisionId": "ED_06_0001_001", "dhatuId": "06.0001", "status": "accepted", "preferredReadingId": "VR_06_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "07.0001": {"decisionId": "ED_07_0001_001", "dhatuId": "07.0001", "status": "accepted", "preferredReadingId": "VR_07_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "08.0001": {"decisionId": "ED_08_0001_001", "dhatuId": "08.0001", "status": "accepted", "preferredReadingId": "VR_08_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "09.0001": {"decisionId": "ED_09_0001_001", "dhatuId": "09.0001", "status": "accepted", "preferredReadingId": "VR_09_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []},
+    "10.0001": {"decisionId": "ED_10_0001_001", "dhatuId": "10.0001", "status": "accepted", "preferredReadingId": "VR_10_0001_001", "evidenceScore": 1.0, "reviewStatus": "reviewed", "reviewer": "manual-reviewer", "rationale": "Seed canonical goldset reading", "preservedAlternatives": [], "recommendedAction": "keep-canonical", "notes": []}
+  },
+  "recommendations": {
+    "01.0101": {"recommendationId": "REC_01_0101_001", "status": "defer", "candidateRoot": "गम्", "candidateCanonicalForm": "गच्छति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "08.0101": {"recommendationId": "REC_08_0101_001", "status": "defer", "candidateRoot": "कृ", "candidateCanonicalForm": "करोति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0102": {"recommendationId": "REC_01_0102_001", "status": "defer", "candidateRoot": "स्था", "candidateCanonicalForm": "तिष्ठति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "09.0101": {"recommendationId": "REC_09_0101_001", "status": "defer", "candidateRoot": "ज्ञा", "candidateCanonicalForm": "जानाति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "02.0101": {"recommendationId": "REC_02_0101_001", "status": "defer", "candidateRoot": "हन्", "candidateCanonicalForm": "हन्ति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0103": {"recommendationId": "REC_01_0103_001", "status": "defer", "candidateRoot": "नी", "candidateCanonicalForm": "नयति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0104": {"recommendationId": "REC_01_0104_001", "status": "defer", "candidateRoot": "पा", "candidateCanonicalForm": "पिबति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0105": {"recommendationId": "REC_01_0105_001", "status": "defer", "candidateRoot": "दृश्", "candidateCanonicalForm": "पश्यति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "05.0101": {"recommendationId": "REC_05_0101_001", "status": "defer", "candidateRoot": "श्रु", "candidateCanonicalForm": "शृणोति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0106": {"recommendationId": "REC_01_0106_001", "status": "defer", "candidateRoot": "वद्", "candidateCanonicalForm": "वदति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0107": {"recommendationId": "REC_01_0107_001", "status": "defer", "candidateRoot": "पठ्", "candidateCanonicalForm": "पठति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0108": {"recommendationId": "REC_01_0108_001", "status": "defer", "candidateRoot": "लिख्", "candidateCanonicalForm": "लिखति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0109": {"recommendationId": "REC_01_0109_001", "status": "defer", "candidateRoot": "स्मृ", "candidateCanonicalForm": "स्मरति", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0110": {"recommendationId": "REC_01_0110_001", "status": "defer", "candidateRoot": "लभ्", "candidateCanonicalForm": "लभते", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []},
+    "01.0111": {"recommendationId": "REC_01_0111_001", "status": "defer", "candidateRoot": "सेव्", "candidateCanonicalForm": "सेवते", "reason": "Traditional dhatupatha id/order not yet verified", "recommendedAction": "manual-review-required", "notes": []}
+  }
+}
