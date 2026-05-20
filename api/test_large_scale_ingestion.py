@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
+PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
@@ -39,6 +40,11 @@ spec = importlib.util.spec_from_file_location("validate_large_scale_ingestion", 
 validator = importlib.util.module_from_spec(spec)
 sys.modules["validate_large_scale_ingestion"] = validator
 spec.loader.exec_module(validator)
+
+preview_spec = importlib.util.spec_from_file_location("preview_dhatu_batch_promotion", PREVIEW_SCRIPT_PATH)
+previewer = importlib.util.module_from_spec(preview_spec)
+sys.modules["preview_dhatu_batch_promotion"] = previewer
+preview_spec.loader.exec_module(previewer)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -86,6 +92,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_validator_script_exists(self):
         self.assertTrue(SCRIPT_PATH.exists())
+
+    def test_preview_script_exists(self):
+        self.assertTrue(PREVIEW_SCRIPT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -170,6 +179,59 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(report["ganaCount"], 10)
         self.assertEqual(report["plannedBatches"], 10)
 
+    def test_manifest_declares_promotion_preview_file(self):
+        self.assertEqual(
+            self.payload["promotionPreviewFile"],
+            "data/sanskrit/ingestion/promotion_preview.v1.json",
+        )
+
+    def test_promotion_preview_reports_staged_totals(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertEqual(preview["previewVersion"], "1.0.0")
+        self.assertEqual(preview["mode"], "dry-run-preview")
+        self.assertEqual(preview["totalStagedRecords"], 12)
+        self.assertEqual(preview["recordsByGana"], {"01": 12})
+        self.assertEqual(preview["recordsByPada"], {"atmanepada": 2, "parasmaipada": 10})
+
+    def test_promotion_preview_does_not_allow_mutation(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertFalse(preview["canonicalMutation"])
+        self.assertFalse(preview["goldsetMutation"])
+        self.assertFalse(preview["batchMutation"])
+
+    def test_promotion_preview_duplicate_candidates_are_empty_for_current_batch(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertEqual(preview["duplicateCanonicalCandidates"], [])
+
+    def test_duplicate_canonical_candidates_are_detected_in_fixture_data(self):
+        duplicates = previewer.detect_duplicate_canonical_candidates(
+            [
+                {"root_id": "A", "gana": "01", "devanagari": "गम्", "iast": "gam"},
+                {"root_id": "B", "gana": "01", "devanagari": "गम्", "iast": "gam"},
+                {"root_id": "C", "gana": "01", "devanagari": "स्था", "iast": "stha"},
+            ]
+        )
+
+        self.assertEqual(duplicates[0]["rootIds"], ["A", "B"])
+
+    def test_promotion_preview_reports_missing_optional_metadata(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertEqual(len(preview["missingOptionalMetadata"]), 12)
+        self.assertIn("01.STAGED.0001", preview["missingOptionalMetadata"])
+        self.assertIn("upadesha", preview["missingOptionalMetadata"]["01.STAGED.0001"])
+
+    def test_preview_summary_contains_required_counts(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+        summary = previewer.build_summary(preview)
+
+        self.assertEqual(summary["totalStagedRecords"], 12)
+        self.assertEqual(summary["recordsByGana"], {"01": 12})
+        self.assertFalse(summary["canonicalMutation"])
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -219,10 +281,45 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(before_dhatus, after_dhatus)
         self.assertEqual(before_goldset, after_goldset)
 
+    def test_preview_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        previewer.build_promotion_preview(MANIFEST_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
     def test_validator_does_not_import_runtime_grammar_engines(self):
         import_lines = [
             line.strip()
             for line in SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_preview_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PREVIEW_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
@@ -238,6 +335,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), report)
+
+    def test_preview_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="promotion-preview-") as tmp:
+            preview = previewer.build_promotion_preview(MANIFEST_PATH)
+            path = previewer.write_promotion_preview(preview, Path(tmp) / "promotion_preview.v1.json")
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), preview)
 
 
 if __name__ == "__main__":
