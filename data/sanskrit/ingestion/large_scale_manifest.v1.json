@@ -2,6 +2,7 @@
   "manifestVersion": "1.0.0",
   "batchFileCount": 1,
   "promotionPreviewFile": "data/sanskrit/ingestion/promotion_preview.v1.json",
+  "canonicalPromotionPlanFile": "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

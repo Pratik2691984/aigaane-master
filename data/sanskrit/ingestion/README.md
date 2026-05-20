@@ -2,6 +2,8 @@
 
 `scripts/preview_dhatu_batch_promotion.py` builds a dry-run-only promotion preview from staged batch JSON after the large-scale validator passes. It writes only `data/sanskrit/ingestion/promotion_preview.v1.json`, reports staged totals and duplicate candidate risks, and does not modify canonical dhatu, goldset, or staged batch files.
 
+`scripts/plan_dhatu_canonical_promotion.py` converts that preview into a deterministic canonical promotion plan at `data/sanskrit/ingestion/canonical_promotion_plan.v1.json`. It assigns proposed canonical ids only inside the plan, classifies staged records as ready, needs-review, or blocked, and leaves canonical registry and goldset files untouched.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

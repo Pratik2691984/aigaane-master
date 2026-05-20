@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
 PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
+PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
@@ -45,6 +46,11 @@ preview_spec = importlib.util.spec_from_file_location("preview_dhatu_batch_promo
 previewer = importlib.util.module_from_spec(preview_spec)
 sys.modules["preview_dhatu_batch_promotion"] = previewer
 preview_spec.loader.exec_module(previewer)
+
+plan_spec = importlib.util.spec_from_file_location("plan_dhatu_canonical_promotion", PLAN_SCRIPT_PATH)
+planner = importlib.util.module_from_spec(plan_spec)
+sys.modules["plan_dhatu_canonical_promotion"] = planner
+plan_spec.loader.exec_module(planner)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -95,6 +101,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_preview_script_exists(self):
         self.assertTrue(PREVIEW_SCRIPT_PATH.exists())
+
+    def test_plan_script_exists(self):
+        self.assertTrue(PLAN_SCRIPT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -185,6 +194,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
             "data/sanskrit/ingestion/promotion_preview.v1.json",
         )
 
+    def test_manifest_declares_canonical_promotion_plan_file(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionPlanFile"],
+            "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
+        )
+
     def test_promotion_preview_reports_staged_totals(self):
         preview = previewer.build_promotion_preview(MANIFEST_PATH)
 
@@ -231,6 +246,63 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(summary["totalStagedRecords"], 12)
         self.assertEqual(summary["recordsByGana"], {"01": 12})
         self.assertFalse(summary["canonicalMutation"])
+
+    def test_canonical_promotion_plan_reports_review_counts(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        self.assertEqual(plan["schemaVersion"], "1.0.0")
+        self.assertEqual(plan["totalRecords"], 12)
+        self.assertEqual(plan["readyCount"], 0)
+        self.assertEqual(plan["needsReviewCount"], 12)
+        self.assertEqual(plan["blockedCount"], 0)
+
+    def test_canonical_promotion_plan_assigns_deterministic_ids(self):
+        plan_one = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        plan_two = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        ids_one = [record["proposedCanonicalId"] for record in plan_one["plannedRecords"]]
+        ids_two = [record["proposedCanonicalId"] for record in plan_two["plannedRecords"]]
+
+        self.assertEqual(ids_one, ids_two)
+        self.assertEqual(ids_one, [f"01.{value:04d}" for value in range(3, 15)])
+
+    def test_canonical_promotion_plan_safety_checks_prevent_mutation(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        self.assertTrue(plan["safetyChecks"]["stagedValidationPassed"])
+        self.assertTrue(plan["safetyChecks"]["promotionPreviewRegenerated"])
+        self.assertFalse(plan["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertFalse(plan["safetyChecks"]["goldsetMutation"])
+        self.assertFalse(plan["safetyChecks"]["batchMutation"])
+
+    def test_canonical_promotion_plan_conflict_summary_is_empty_for_current_batch(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        self.assertEqual(plan["conflictSummary"]["totalConflicts"], 0)
+        self.assertEqual(plan["conflictSummary"]["blockedRootIds"], [])
+
+    def test_canonical_conflict_blocks_record_in_fixture_data(self):
+        canonical = {
+            "ids": {"01.0003"},
+            "rootsByGana": {"01": {"गम्"}},
+            "iastByGana": {"01": {"gam"}},
+        }
+        record = {
+            "root_id": "X",
+            "devanagari": "गम्",
+            "iast": "gam",
+            "gana": "01",
+        }
+        conflicts = planner.detect_record_conflicts(record, "01.0003", canonical, set())
+
+        self.assertEqual(planner.classify_record(conflicts, []), "blocked")
+        self.assertIn("proposedCanonicalId already exists", conflicts)
+        self.assertIn("canonical root already exists in gana", conflicts)
+        self.assertIn("canonical IAST root already exists in gana", conflicts)
+
+    def test_ready_classification_requires_no_conflicts_or_missing_optional_metadata(self):
+        self.assertEqual(planner.classify_record([], []), "ready")
+        self.assertEqual(planner.classify_record([], ["upadesha"]), "needs_review")
+        self.assertEqual(planner.classify_record(["canonical root already exists in gana"], []), "blocked")
 
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
@@ -306,6 +378,31 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(before_goldset, after_goldset)
         self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
 
+    def test_planner_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
     def test_validator_does_not_import_runtime_grammar_engines(self):
         import_lines = [
             line.strip()
@@ -320,6 +417,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in PREVIEW_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_plan_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PLAN_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
@@ -345,6 +452,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), preview)
+
+    def test_plan_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-plan-") as tmp:
+            plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+            path = planner.write_canonical_promotion_plan(plan, Path(tmp) / "canonical_promotion_plan.v1.json")
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), plan)
 
 
 if __name__ == "__main__":
