@@ -22,3 +22,7 @@ This first goldset contains 10 records:
 - `10.0001` चुर्
 
 `expected_records.v1.json` must match the canonical records exactly. `expected_prakriya_refs.v1.json` is a valid stub until derivation-level gold expectations are curated.
+
+`semantic_enrichment.v1.json` is a semantic overlay for the goldset, not canonical grammar data. It must not mutate or replace records in `data/sanskrit/dhatus/`; it only adds reviewable, machine-readable labels for regression and future query/referee work.
+
+Bija, chakra, mantra, sonic, deity, mandala, and 49D vector layers belong to separate future registries and must not be added to the dhatu goldset overlay.

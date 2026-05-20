@@ -18,6 +18,7 @@ GOLDSET_FILES = [
     "dhatu_goldset.v1.json",
     "expected_records.v1.json",
     "expected_prakriya_refs.v1.json",
+    "semantic_enrichment.v1.json",
 ]
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
@@ -36,6 +37,7 @@ class SanskritGoldsetTests(unittest.TestCase):
         self.goldset = self._load_json("dhatu_goldset.v1.json")
         self.expected_records = self._load_json("expected_records.v1.json")
         self.expected_prakriya_refs = self._load_json("expected_prakriya_refs.v1.json")
+        self.semantic_enrichment = self._load_json("semantic_enrichment.v1.json")
         self.registry_by_id = {record["id"]: record for record in load_all_dhatus(DHATU_ROOT)}
 
     def test_goldset_files_exist(self):
@@ -47,6 +49,8 @@ class SanskritGoldsetTests(unittest.TestCase):
         self.assertEqual(self.metadata["schemaVersion"], "dhatu.schema.v2")
         self.assertEqual(self.metadata["recordCount"], len(self.metadata["records"]))
         self.assertGreaterEqual(self.metadata["recordCount"], 10)
+        self.assertEqual(self.semantic_enrichment["goldsetVersion"], "1.0.0")
+        self.assertEqual(self.semantic_enrichment["semanticVersion"], "1.0.0")
 
     def test_dhatu_goldset_ids_are_unique(self):
         ids = [entry["id"] for entry in self.goldset["records"]]

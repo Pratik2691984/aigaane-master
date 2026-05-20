@@ -1,0 +1,145 @@
+{
+  "goldsetVersion": "1.0.0",
+  "semanticVersion": "1.0.0",
+  "description": "Semantic overlay for canonical dhatu goldset records",
+  "records": {
+    "01.0001": {
+      "root": "भू",
+      "semanticDomains": [
+        "existence",
+        "becoming"
+      ],
+      "transitivitySemantics": "intransitive-existential",
+      "actionType": "state-change",
+      "coreGlosses": [
+        "to be",
+        "to become",
+        "to exist"
+      ],
+      "semanticNotes": []
+    },
+    "01.0002": {
+      "root": "एध्",
+      "semanticDomains": [
+        "growth",
+        "increase"
+      ],
+      "transitivitySemantics": "intransitive-growth",
+      "actionType": "process",
+      "coreGlosses": [
+        "to grow",
+        "to prosper",
+        "to increase"
+      ],
+      "semanticNotes": []
+    },
+    "02.0001": {
+      "root": "???",
+      "semanticDomains": [
+        "consumption",
+        "eating"
+      ],
+      "transitivitySemantics": "transitive-consumption",
+      "actionType": "consumption",
+      "coreGlosses": [
+        "to eat"
+      ],
+      "semanticNotes": []
+    },
+    "03.0001": {
+      "root": "हु",
+      "semanticDomains": [
+        "offering",
+        "ritual-action"
+      ],
+      "transitivitySemantics": "transitive-ritual",
+      "actionType": "ritual-action",
+      "coreGlosses": [
+        "to sacrifice",
+        "to offer"
+      ],
+      "semanticNotes": []
+    },
+    "04.0001": {
+      "root": "दिव्",
+      "semanticDomains": [
+        "play"
+      ],
+      "transitivitySemantics": "intransitive-activity",
+      "actionType": "activity",
+      "coreGlosses": [
+        "to play",
+        "to sport"
+      ],
+      "semanticNotes": [
+        "requires manual philological review"
+      ]
+    },
+    "06.0001": {
+      "root": "तुद्",
+      "semanticDomains": [
+        "striking",
+        "piercing",
+        "impact"
+      ],
+      "transitivitySemantics": "transitive-impact",
+      "actionType": "impact",
+      "coreGlosses": [
+        "to strike"
+      ],
+      "semanticNotes": []
+    },
+    "07.0001": {
+      "root": "रुध्",
+      "semanticDomains": [
+        "obstruction",
+        "restraint"
+      ],
+      "transitivitySemantics": "transitive-obstruction",
+      "actionType": "constraint",
+      "coreGlosses": [
+        "to obstruct"
+      ],
+      "semanticNotes": []
+    },
+    "08.0001": {
+      "root": "तनु",
+      "semanticDomains": [
+        "extension",
+        "stretching"
+      ],
+      "transitivitySemantics": "transitive-extension",
+      "actionType": "extension",
+      "coreGlosses": [
+        "to stretch"
+      ],
+      "semanticNotes": []
+    },
+    "09.0001": {
+      "root": "क्री",
+      "semanticDomains": [
+        "buying",
+        "exchange"
+      ],
+      "transitivitySemantics": "transitive-exchange",
+      "actionType": "exchange",
+      "coreGlosses": [
+        "to buy"
+      ],
+      "semanticNotes": []
+    },
+    "10.0001": {
+      "root": "चुर्",
+      "semanticDomains": [
+        "stealing",
+        "taking"
+      ],
+      "transitivitySemantics": "transitive-taking",
+      "actionType": "taking",
+      "coreGlosses": [
+        "to steal"
+      ],
+      "semanticNotes": []
+    }
+  }
+}
