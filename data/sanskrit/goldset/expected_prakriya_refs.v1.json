@@ -1,36 +1,116 @@
 {
   "goldsetVersion": "1.0.0",
-  "traceVersion": "0.1.0",
+  "traceVersion": "0.2.0",
   "records": {
     "PR_01_0001_LAT_KARTARI_PARASMAI_3S": {
+      "traceId": "PR_01_0001_LAT_KARTARI_PARASMAI_3S",
       "dhatuId": "01.0001",
       "targetForm": "भवति",
       "traceCompleteness": "stub",
-      "sutraTrace": []
+      "sutraTrace": [
+        {
+          "stepId": "STEP_001",
+          "seq": 1,
+          "sutra": "1.3.1",
+          "name": "\u092d\u0942\u0935\u093e\u0926\u092f\u094b \u0927\u093e\u0924\u0935\u0903",
+          "role": "dhatu-samjna",
+          "inputState": "\u092d\u0942",
+          "outputState": "\u092d\u0942",
+          "operation": "designation",
+          "confidence": "stub",
+          "notes": []
+        }
+      ],
+      "canonicalized": true,
+      "traceVersion": "0.2.0"
     },
     "PR_01_0002_LAT_KARTARI_ATMANE_3S": {
+      "traceId": "PR_01_0002_LAT_KARTARI_ATMANE_3S",
       "dhatuId": "01.0002",
       "targetForm": "एधते",
       "traceCompleteness": "stub",
-      "sutraTrace": []
+      "sutraTrace": [
+        {
+          "stepId": "STEP_001",
+          "seq": 1,
+          "sutra": "1.3.1",
+          "name": "\u092d\u0942\u0935\u093e\u0926\u092f\u094b \u0927\u093e\u0924\u0935\u0903",
+          "role": "dhatu-samjna",
+          "inputState": "\u090f\u0927\u094d",
+          "outputState": "\u090f\u0927\u094d",
+          "operation": "designation",
+          "confidence": "stub",
+          "notes": []
+        }
+      ],
+      "canonicalized": true,
+      "traceVersion": "0.2.0"
     },
     "PR_02_0001_LAT_KARTARI_PARASMAI_3S": {
+      "traceId": "PR_02_0001_LAT_KARTARI_PARASMAI_3S",
       "dhatuId": "02.0001",
-      "targetForm": "\u0905\u0924\u094d\u0924\u093f",
+      "targetForm": "अत्ति",
       "traceCompleteness": "stub",
-      "sutraTrace": []
+      "sutraTrace": [
+        {
+          "stepId": "STEP_001",
+          "seq": 1,
+          "sutra": "1.3.1",
+          "name": "\u092d\u0942\u0935\u093e\u0926\u092f\u094b \u0927\u093e\u0924\u0935\u0903",
+          "role": "dhatu-samjna",
+          "inputState": "\u0905\u0926\u094d",
+          "outputState": "\u0905\u0926\u094d",
+          "operation": "designation",
+          "confidence": "stub",
+          "notes": []
+        }
+      ],
+      "canonicalized": true,
+      "traceVersion": "0.2.0"
     },
     "PR_03_0001_LAT_KARTARI_PARASMAI_3S": {
+      "traceId": "PR_03_0001_LAT_KARTARI_PARASMAI_3S",
       "dhatuId": "03.0001",
-      "targetForm": "\u091c\u0941\u0939\u094b\u0924\u093f",
+      "targetForm": "जुहोति",
       "traceCompleteness": "stub",
-      "sutraTrace": []
+      "sutraTrace": [
+        {
+          "stepId": "STEP_001",
+          "seq": 1,
+          "sutra": "1.3.1",
+          "name": "\u092d\u0942\u0935\u093e\u0926\u092f\u094b \u0927\u093e\u0924\u0935\u0903",
+          "role": "dhatu-samjna",
+          "inputState": "\u0939\u0941",
+          "outputState": "\u0939\u0941",
+          "operation": "designation",
+          "confidence": "stub",
+          "notes": []
+        }
+      ],
+      "canonicalized": true,
+      "traceVersion": "0.2.0"
     },
     "PR_04_0001_LAT_KARTARI_PARASMAI_3S": {
+      "traceId": "PR_04_0001_LAT_KARTARI_PARASMAI_3S",
       "dhatuId": "04.0001",
-      "targetForm": "\u0926\u0940\u0935\u094d\u092f\u0924\u093f",
+      "targetForm": "दीव्यति",
       "traceCompleteness": "stub",
-      "sutraTrace": []
+      "sutraTrace": [
+        {
+          "stepId": "STEP_001",
+          "seq": 1,
+          "sutra": "1.3.1",
+          "name": "\u092d\u0942\u0935\u093e\u0926\u092f\u094b \u0927\u093e\u0924\u0935\u0903",
+          "role": "dhatu-samjna",
+          "inputState": "\u0926\u093f\u0935\u094d",
+          "outputState": "\u0926\u093f\u0935\u094d",
+          "operation": "designation",
+          "confidence": "stub",
+          "notes": []
+        }
+      ],
+      "canonicalized": true,
+      "traceVersion": "0.2.0"
     }
   }
 }

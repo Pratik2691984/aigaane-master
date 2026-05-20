@@ -90,10 +90,12 @@ class PrakriyaRefereeTests(unittest.TestCase):
             payload = json.load(handle)
 
         self.assertEqual(payload["goldsetVersion"], "1.0.0")
-        self.assertEqual(payload["traceVersion"], "0.1.0")
+        self.assertEqual(payload["traceVersion"], "0.2.0")
         self.assertIn("PR_01_0001_LAT_KARTARI_PARASMAI_3S", payload["records"])
         for ref_id, ref in payload["records"].items():
             self.assertTrue(ref_id.startswith("PR_"))
+            self.assertTrue(ref["canonicalized"])
+            self.assertEqual(ref["traceVersion"], "0.2.0")
             self.assertIn("dhatuId", ref)
             self.assertIn("targetForm", ref)
             self.assertIn("traceCompleteness", ref)

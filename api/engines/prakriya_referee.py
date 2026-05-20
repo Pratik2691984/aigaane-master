@@ -6,9 +6,11 @@ import json
 try:
     from api.engines.dhatu_registry import load_all_dhatus
     from api.engines.dhatu_semantic_overlay import get_semantics_for_dhatu, load_semantic_overlay
+    from api.engines.sutra_trace_canonicalizer import canonicalize_trace
 except ModuleNotFoundError:
     from engines.dhatu_registry import load_all_dhatus
     from engines.dhatu_semantic_overlay import get_semantics_for_dhatu, load_semantic_overlay
+    from engines.sutra_trace_canonicalizer import canonicalize_trace
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -71,8 +73,12 @@ def resolve_prakriya_query(context: Dict[str, Any], query: Dict[str, Any]) -> Di
 
     ref_payload = _lookup_prakriya_ref(context.get("prakriyaRefs", {}), result["prakriyaRef"])
     if ref_payload:
-        result["sutraTrace"] = copy.deepcopy(ref_payload.get("sutraTrace", []))
-        result["confidence"]["traceCompleteness"] = ref_payload.get("traceCompleteness", "stub")
+        canonical_ref = canonicalize_trace(ref_payload)
+        result["sutraTrace"] = copy.deepcopy(canonical_ref["sutraTrace"])
+        result["canonicalTrace"] = canonical_ref
+        result["canonicalized"] = canonical_ref["canonicalized"]
+        result["traceVersion"] = canonical_ref["traceVersion"]
+        result["confidence"]["traceCompleteness"] = canonical_ref["traceCompleteness"]
     else:
         result["confidence"]["traceCompleteness"] = "stub"
         result["notes"].append("No canonical prakriya trace is available yet; returning deterministic stub.")
@@ -189,6 +195,9 @@ def _base_result(status: str, dhatu_id: str, record: Optional[Dict[str, Any]], q
         "semanticDomains": [],
         "prakriyaRef": build_prakriya_ref_id(query),
         "sutraTrace": [],
+        "canonicalTrace": None,
+        "canonicalized": False,
+        "traceVersion": None,
         "confidence": {
             "formFound": False,
             "goldsetBacked": False,

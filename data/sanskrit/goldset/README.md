@@ -21,9 +21,11 @@ This first goldset contains 10 records:
 - `09.0001` क्री
 - `10.0001` चुर्
 
-`expected_records.v1.json` must match the canonical records exactly. `expected_prakriya_refs.v1.json` stores referee trace stubs for deterministic goldset lookups; it is not a full derivation generator.
+`expected_records.v1.json` must match the canonical records exactly. `expected_prakriya_refs.v1.json` stores referee trace stubs in canonical trace format for deterministic goldset lookups; it is not a full derivation generator.
 
 Node 20C adds a Prakriya Referee layer that resolves canonical forms and stable trace references from existing data. Full sutra execution and trace normalization will be refined later in Node 20C.1.
+
+Node 20C.1 standardizes trace ids, step ids, step ordering, trace completeness, and comparison-ready sutra trace shape. It still does not generate full derivations.
 
 `semantic_enrichment.v1.json` is a semantic overlay for the goldset, not canonical grammar data. It must not mutate or replace records in `data/sanskrit/dhatus/`; it only adds reviewable, machine-readable labels for regression and future query/referee work.
 
