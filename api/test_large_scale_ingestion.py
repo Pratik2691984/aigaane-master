@@ -10,7 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
 PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
 PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
+REVIEW_SCRIPT_PATH = ROOT / "scripts" / "apply_dhatu_review_decisions.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
+REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -51,6 +53,11 @@ plan_spec = importlib.util.spec_from_file_location("plan_dhatu_canonical_promoti
 planner = importlib.util.module_from_spec(plan_spec)
 sys.modules["plan_dhatu_canonical_promotion"] = planner
 plan_spec.loader.exec_module(planner)
+
+review_spec = importlib.util.spec_from_file_location("apply_dhatu_review_decisions", REVIEW_SCRIPT_PATH)
+reviewer = importlib.util.module_from_spec(review_spec)
+sys.modules["apply_dhatu_review_decisions"] = reviewer
+review_spec.loader.exec_module(reviewer)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -104,6 +111,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_plan_script_exists(self):
         self.assertTrue(PLAN_SCRIPT_PATH.exists())
+
+    def test_review_script_and_decisions_exist(self):
+        self.assertTrue(REVIEW_SCRIPT_PATH.exists())
+        self.assertTrue(REVIEW_DECISIONS_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -198,6 +209,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalPromotionPlanFile"],
             "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
+        )
+
+    def test_manifest_declares_review_gate_files(self):
+        self.assertEqual(
+            self.payload["reviewDecisionsFile"],
+            "data/sanskrit/ingestion/review_decisions.v1.json",
+        )
+        self.assertEqual(
+            self.payload["reviewedCanonicalPromotionPlanFile"],
+            "data/sanskrit/ingestion/canonical_promotion_plan.reviewed.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -304,6 +325,118 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(planner.classify_record([], ["upadesha"]), "needs_review")
         self.assertEqual(planner.classify_record(["canonical root already exists in gana"], []), "blocked")
 
+    def test_review_decisions_load_and_default_to_defer(self):
+        decisions = reviewer.load_review_decisions(REVIEW_DECISIONS_PATH)
+
+        self.assertEqual(decisions["policy"]["defaultDecision"], "defer")
+        self.assertEqual(decisions["decisions"], {})
+
+    def test_reviewed_plan_defaults_missing_decisions_to_defer(self):
+        reviewed = reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
+
+        self.assertEqual(reviewed["totalRecords"], 12)
+        self.assertEqual(reviewed["readyCount"], 0)
+        self.assertEqual(reviewed["needsReviewCount"], 12)
+        self.assertEqual(reviewed["blockedCount"], 0)
+        self.assertEqual(reviewer.decision_counts(reviewed["plannedRecords"]), {"defer": 12})
+
+    def test_review_approve_converts_needs_review_to_ready(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        decisions = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {
+                plan["plannedRecords"][0]["sourceRootId"]: {
+                    "decision": "approve",
+                    "reviewer": "unit-reviewer",
+                    "rationale": "Fixture approval",
+                }
+            },
+        }
+        reviewed = reviewer.apply_review_decisions(plan, reviewer.validate_review_decisions(decisions))
+
+        self.assertEqual(reviewed["readyCount"], 1)
+        self.assertEqual(reviewed["needsReviewCount"], 11)
+        self.assertEqual(reviewed["blockedCount"], 0)
+
+    def test_review_reject_converts_record_to_blocked(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        decisions = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {
+                plan["plannedRecords"][0]["sourceRootId"]: {
+                    "decision": "reject",
+                    "reviewer": "unit-reviewer",
+                    "rationale": "Fixture rejection",
+                }
+            },
+        }
+        reviewed = reviewer.apply_review_decisions(plan, reviewer.validate_review_decisions(decisions))
+        record = reviewed["plannedRecords"][0]
+
+        self.assertEqual(reviewed["blockedCount"], 1)
+        self.assertEqual(record["classification"], "blocked")
+        self.assertIn("reviewer rejected", record["conflicts"])
+
+    def test_blocked_records_remain_blocked_after_approval(self):
+        record = {
+            "sourceRootId": "X",
+            "classification": "blocked",
+            "conflicts": ["canonical root already exists in gana"],
+        }
+        reviewed = reviewer.apply_decision_to_record(
+            record,
+            {"decision": "approve", "reviewer": "unit-reviewer", "rationale": "Fixture approval"},
+        )
+
+        self.assertEqual(reviewed["classification"], "blocked")
+
+    def test_ready_records_remain_ready_unless_rejected(self):
+        record = {
+            "sourceRootId": "X",
+            "classification": "ready",
+            "conflicts": [],
+        }
+        deferred = reviewer.apply_decision_to_record(
+            record,
+            {"decision": "defer", "reviewer": "unit-reviewer", "rationale": "Fixture defer"},
+        )
+        rejected = reviewer.apply_decision_to_record(
+            record,
+            {"decision": "reject", "reviewer": "unit-reviewer", "rationale": "Fixture rejection"},
+        )
+
+        self.assertEqual(deferred["classification"], "ready")
+        self.assertEqual(rejected["classification"], "blocked")
+
+    def test_invalid_review_decision_fails_validation(self):
+        payload = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {
+                "X": {"decision": "maybe", "reviewer": "unit-reviewer", "rationale": "Invalid"}
+            },
+        }
+
+        with self.assertRaises(ValueError):
+            reviewer.validate_review_decisions(payload)
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -403,6 +536,31 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(before_goldset, after_goldset)
         self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
 
+    def test_review_resolver_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
     def test_validator_does_not_import_runtime_grammar_engines(self):
         import_lines = [
             line.strip()
@@ -427,6 +585,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in PLAN_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_review_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in REVIEW_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
@@ -462,6 +630,19 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), plan)
+
+    def test_reviewed_plan_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="reviewed-plan-") as tmp:
+            reviewed = reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
+            path = reviewer.write_reviewed_promotion_plan(
+                reviewed,
+                Path(tmp) / "canonical_promotion_plan.reviewed.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), reviewed)
 
 
 if __name__ == "__main__":

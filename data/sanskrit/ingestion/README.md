@@ -4,6 +4,8 @@
 
 `scripts/plan_dhatu_canonical_promotion.py` converts that preview into a deterministic canonical promotion plan at `data/sanskrit/ingestion/canonical_promotion_plan.v1.json`. It assigns proposed canonical ids only inside the plan, classifies staged records as ready, needs-review, or blocked, and leaves canonical registry and goldset files untouched.
 
+`scripts/apply_dhatu_review_decisions.py` applies explicit local decisions from `review_decisions.v1.json` and writes only `canonical_promotion_plan.reviewed.v1.json`. Missing decisions default to defer, rejected records become blocked, and no review decision promotes or mutates canonical dhatu files.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

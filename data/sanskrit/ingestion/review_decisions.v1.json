@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "model": "aigaane-dhatu-review-decisions",
+  "description": "Explicit reviewer decisions for staged dhatu promotion plans",
+  "policy": {
+    "defaultDecision": "defer",
+    "canonicalMutation": false,
+    "goldsetMutation": false,
+    "batchMutation": false
+  },
+  "decisions": {}
+}
