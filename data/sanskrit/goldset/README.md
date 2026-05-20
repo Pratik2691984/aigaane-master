@@ -29,4 +29,6 @@ Node 20C.1 standardizes trace ids, step ids, step ordering, trace completeness, 
 
 `semantic_enrichment.v1.json` is a semantic overlay for the goldset, not canonical grammar data. It must not mutate or replace records in `data/sanskrit/dhatus/`; it only adds reviewable, machine-readable labels for regression and future query/referee work.
 
+Node 20D uses the semantic enrichment overlay, grammar metadata, pada metadata, karmatva metadata, gaṇa metadata, rule triggers, and prakriyā trace metadata for deterministic read-only query overlays. It does not execute grammar derivations.
+
 Bija, chakra, mantra, sonic, deity, mandala, and 49D vector layers belong to separate future registries and must not be added to the dhatu goldset overlay.
