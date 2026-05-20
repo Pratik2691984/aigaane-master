@@ -1,0 +1,29 @@
+{
+  "manifestVersion": "1.0.0",
+  "description": "Governed staged ingestion manifest for Dhātupāṭha records",
+  "sourcePolicy": {
+    "mode": "local-only",
+    "networkScraping": false,
+    "requiresDryRunBeforeWrite": true,
+    "requiresGoldsetValidation": true
+  },
+  "batches": [
+    {
+      "batchId": "BATCH_0001_GOLDSET_BASE",
+      "input": "raw/dhatupatha.csv",
+      "limit": 10,
+      "status": "completed",
+      "expectedMinimumRecords": 10,
+      "notes": "Initial curated multi-gana/goldset seed"
+    },
+    {
+      "batchId": "BATCH_0002_CONTROLLED_EXPANSION",
+      "input": "raw/dhatupatha.csv",
+      "offset": 10,
+      "limit": 25,
+      "status": "planned",
+      "expectedMinimumRecords": 25,
+      "notes": "Next controlled expansion before large-scale ingestion"
+    }
+  ]
+}
