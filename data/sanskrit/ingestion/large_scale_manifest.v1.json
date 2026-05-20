@@ -18,9 +18,10 @@
       "ganaId": "01",
       "slug": "bhvadi",
       "rawDir": "raw/dhatupatha_batches/01_bhvadi",
+      "batchFiles": ["raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json"],
       "status": "planned",
       "targetScale": "100+",
-      "notes": "Large-scale Bhvādi expansion placeholder"
+      "notes": "Large-scale Bhvādi expansion placeholder with first staged sample batch"
     },
     {
       "ganaId": "02",

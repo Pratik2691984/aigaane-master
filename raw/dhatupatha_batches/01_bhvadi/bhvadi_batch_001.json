@@ -1,0 +1,20 @@
+{
+  "batchId": "BHVADI_BATCH_001",
+  "ganaId": "01",
+  "slug": "bhvadi",
+  "description": "First staged Bhvadi-gana sample batch for large-scale ingestion readiness",
+  "records": [
+    {"root_id": "01.STAGED.0001", "devanagari": "गम्", "iast": "gam", "gana": "01", "pada": "parasmaipada", "artha": "to go", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0002", "devanagari": "स्था", "iast": "sthā", "gana": "01", "pada": "parasmaipada", "artha": "to stand", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0003", "devanagari": "नी", "iast": "nī", "gana": "01", "pada": "parasmaipada", "artha": "to lead", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0004", "devanagari": "पा", "iast": "pā", "gana": "01", "pada": "parasmaipada", "artha": "to drink", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0005", "devanagari": "दृश्", "iast": "dṛś", "gana": "01", "pada": "parasmaipada", "artha": "to see", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0006", "devanagari": "वद्", "iast": "vad", "gana": "01", "pada": "parasmaipada", "artha": "to speak", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0007", "devanagari": "पठ्", "iast": "paṭh", "gana": "01", "pada": "parasmaipada", "artha": "to read or recite", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0008", "devanagari": "लिख्", "iast": "likh", "gana": "01", "pada": "parasmaipada", "artha": "to write", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0009", "devanagari": "स्मृ", "iast": "smṛ", "gana": "01", "pada": "parasmaipada", "artha": "to remember", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0010", "devanagari": "लभ्", "iast": "labh", "gana": "01", "pada": "atmanepada", "artha": "to obtain", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0011", "devanagari": "सेव्", "iast": "sev", "gana": "01", "pada": "atmanepada", "artha": "to serve", "source": "local-staged-bhvadi-batch-001", "status": "staged"},
+    {"root_id": "01.STAGED.0012", "devanagari": "चर्", "iast": "car", "gana": "01", "pada": "parasmaipada", "artha": "to move or wander", "source": "local-staged-bhvadi-batch-001", "status": "staged"}
+  ]
+}

@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
+BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
     "engines.sandhi",
@@ -84,6 +85,40 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_validator_script_exists(self):
         self.assertTrue(SCRIPT_PATH.exists())
 
+    def test_first_bhvadi_batch_file_exists(self):
+        self.assertTrue(BHVADI_BATCH.exists())
+        bhvadi = validator.find_gana_batch(self.payload, "01")
+
+        self.assertIn("raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json", bhvadi["batchFiles"])
+
+    def test_first_bhvadi_batch_json_is_valid(self):
+        payload = json.loads(BHVADI_BATCH.read_text(encoding="utf-8"))
+
+        self.assertEqual(payload["ganaId"], "01")
+        self.assertGreaterEqual(len(payload["records"]), 10)
+        self.assertLessEqual(len(payload["records"]), 25)
+
+    def test_first_bhvadi_batch_records_have_required_fields(self):
+        records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
+        required = {"root_id", "devanagari", "iast", "gana", "pada", "artha", "source", "status"}
+
+        self.assertGreaterEqual(len(records), 10)
+        for record in records:
+            self.assertTrue(required.issubset(record), record)
+            self.assertEqual(record["status"], "staged")
+            self.assertEqual(record["gana"], "01")
+
+    def test_first_bhvadi_batch_root_ids_are_unique(self):
+        records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
+
+        self.assertEqual(validator.detect_duplicate_ids(records), [])
+
+    def test_first_bhvadi_batch_readiness_has_records(self):
+        readiness = validator.validate_batch_readiness(validator.find_gana_batch(self.payload, "01"))
+
+        self.assertEqual(readiness["recordCount"], 12)
+        self.assertEqual(readiness["errors"], [])
+
     def test_validate_large_scale_manifest_passes(self):
         validated = validator.validate_large_scale_manifest(copy.deepcopy(self.payload))
 
@@ -107,7 +142,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(report["plannedBatches"], 10)
 
     def test_duplicate_ids_are_detected_in_fixture_data(self):
-        records = [{"id": "01.0001"}, {"id": "01.0001"}, {"id": "01.0002"}]
+        records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
         self.assertEqual(validator.detect_duplicate_ids(records), ["01.0001"])
 

@@ -10,10 +10,12 @@ from typing import Any, Dict, List, Optional
 
 
 ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_MANIFEST = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 DEFAULT_REPORT_DIR = ROOT / "data" / "sanskrit" / "ingestion" / "reports"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 GANA_ID_RE = re.compile(r"^[0-9]{2}$")
 VALID_BATCH_STATUSES = {"planned", "ready", "paused", "completed"}
+REQUIRED_STAGED_FIELDS = {"root_id", "devanagari", "iast", "gana", "pada", "artha", "source", "status"}
 
 
 def load_large_scale_manifest(path: Any) -> Dict[str, Any]:
@@ -86,6 +88,8 @@ def scan_raw_batch_directory(raw_dir: Any) -> List[Dict[str, str]]:
                 record = {key: (value or "").strip() for key, value in row.items()}
                 record["sourceFile"] = str(csv_path.relative_to(ROOT)).replace("\\", "/")
                 records.append(record)
+    for json_path in sorted(raw_path.glob("*.json")):
+        records.extend(_load_json_batch_records(json_path))
     return records
 
 
@@ -93,7 +97,7 @@ def detect_duplicate_ids(records: List[Dict[str, Any]]) -> List[str]:
     seen = set()
     duplicates = set()
     for record in records:
-        record_id = record.get("id")
+        record_id = record.get("root_id") or record.get("id")
         if not record_id:
             continue
         if record_id in seen:
@@ -106,7 +110,7 @@ def detect_cross_batch_collisions(batch_records: Dict[str, List[Dict[str, Any]]]
     owners: Dict[str, List[str]] = {}
     for batch_id, records in batch_records.items():
         for record in records:
-            record_id = record.get("id")
+            record_id = record.get("root_id") or record.get("id")
             if record_id:
                 owners.setdefault(record_id, []).append(batch_id)
     return {
@@ -120,6 +124,8 @@ def validate_batch_readiness(batch: Dict[str, Any]) -> Dict[str, Any]:
     records = scan_raw_batch_directory(batch["rawDir"])
     duplicate_ids = detect_duplicate_ids(records)
     errors = [f"Duplicate id in batch: {record_id}." for record_id in duplicate_ids]
+    for record in records:
+        errors.extend(_validate_staged_record(record, batch))
     ready = batch.get("status") == "ready" and not errors and bool(records)
     return {
         "ganaId": batch["ganaId"],
@@ -168,7 +174,7 @@ def write_large_scale_report(report: Dict[str, Any], report_dir: Any = DEFAULT_R
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate large-scale local Dhātupāṭha ingestion readiness.")
-    parser.add_argument("--manifest", required=True)
+    parser.add_argument("--manifest", default=str(DEFAULT_MANIFEST))
     parser.add_argument("--gana")
     parser.add_argument("--report", action="store_true")
     parser.add_argument("--report-dir", default=str(DEFAULT_REPORT_DIR))
@@ -208,8 +214,57 @@ def _validate_gana_batch(batch: Dict[str, Any]) -> None:
         raise ValueError(f"rawDir must stay under raw/dhatupatha_batches: {raw_dir}.")
     if "data/sanskrit/dhatus" in raw_dir:
         raise ValueError("Large-scale batches must not target canonical dhatu registry.")
-    if not _resolve_path(raw_dir).exists():
+    raw_path = _resolve_path(raw_dir)
+    if not raw_path.exists():
         raise ValueError(f"rawDir does not exist: {raw_dir}.")
+    for batch_file in batch.get("batchFiles", []):
+        normalized_file = str(batch_file).replace("\\", "/")
+        batch_file_path = _resolve_path(normalized_file)
+        if normalized_file.startswith(("http://", "https://")):
+            raise ValueError(f"Network source is not allowed: {normalized_file}.")
+        if not normalized_file.startswith(f"{raw_dir}/"):
+            raise ValueError(f"batchFile must stay under rawDir: {normalized_file}.")
+        if "data/sanskrit/dhatus" in normalized_file:
+            raise ValueError("Large-scale batch files must not target canonical dhatu registry.")
+        if not batch_file_path.exists():
+            raise ValueError(f"batchFile does not exist: {normalized_file}.")
+        if batch_file_path.suffix != ".json":
+            raise ValueError(f"batchFile must be JSON: {normalized_file}.")
+
+
+def _load_json_batch_records(json_path: Path) -> List[Dict[str, str]]:
+    with json_path.open("r", encoding="utf-8") as handle:
+        payload = json.load(handle)
+    if isinstance(payload, list):
+        records = payload
+    elif isinstance(payload, dict) and isinstance(payload.get("records"), list):
+        records = payload["records"]
+    else:
+        raise ValueError(f"JSON batch must contain a records list: {json_path}.")
+    normalized = []
+    for record in records:
+        if not isinstance(record, dict):
+            raise ValueError(f"JSON batch record must be an object: {json_path}.")
+        item = {key: str(value).strip() for key, value in record.items()}
+        item["sourceFile"] = str(json_path.relative_to(ROOT)).replace("\\", "/")
+        normalized.append(item)
+    return normalized
+
+
+def _validate_staged_record(record: Dict[str, Any], batch: Dict[str, Any]) -> List[str]:
+    record_id = record.get("root_id") or record.get("id") or "<missing>"
+    errors: List[str] = []
+    missing = sorted(REQUIRED_STAGED_FIELDS - set(record.keys()))
+    if missing:
+        errors.append(f"{record_id}: missing required fields: {', '.join(missing)}.")
+    if record.get("status") != "staged":
+        errors.append(f"{record_id}: status must be staged.")
+    if record.get("gana") != batch.get("ganaId"):
+        errors.append(f"{record_id}: record gana does not match folder gana {batch.get('ganaId')}.")
+    source = str(record.get("source", ""))
+    if source.startswith(("http://", "https://")):
+        errors.append(f"{record_id}: network source is not allowed.")
+    return errors
 
 
 def _resolve_path(path: Any) -> Path:
