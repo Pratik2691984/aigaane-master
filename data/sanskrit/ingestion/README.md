@@ -25,4 +25,6 @@ Large ingestion should proceed by small, reviewable batches with reports committ
 
 `promotion_batches.v1.json` coordinates actual approved promotion runs. It does not approve candidates itself; approval remains in `verified_promotions.v1.json`, while canonical preference, editorial, recension, and source attribution layers provide cross-checks. Batch execution defaults to dry-run and requires `--write` for any canonical mutation through the existing safe promotion path.
 
+Node 22A prepares large-scale ingestion only. `large_scale_manifest.v1.json` and the gaṇa-wise folders under `raw/dhatupatha_batches/` are local-only staging zones for future reviewed intake; no bulk canonical import happens in this node. Canonical mutation remains gated by verified promotion and approved promotion batch workflows.
+
 `raw/dhatupatha_controlled_batch_01.csv` is a validation-ready controlled expansion batch. It should be dry-run first and should not be written into the canonical registry until its ids, gaṇa assignments, and philological details are reviewed.

@@ -1,0 +1,98 @@
+{
+  "manifestVersion": "1.0.0",
+  "description": "Large-scale governed Dhātupāṭha ingestion manifest",
+  "policy": {
+    "mode": "local-only",
+    "networkScraping": false,
+    "defaultOperation": "dry-run",
+    "requiresGoldsetValidation": true,
+    "requiresSourceAttribution": true,
+    "requiresRecensionTracking": true,
+    "requiresEditorialResolution": true,
+    "requiresCanonicalPreference": true,
+    "requiresPromotionBatch": true,
+    "allowDirectCanonicalWrite": false
+  },
+  "ganaBatches": [
+    {
+      "ganaId": "01",
+      "slug": "bhvadi",
+      "rawDir": "raw/dhatupatha_batches/01_bhvadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Bhvādi expansion placeholder"
+    },
+    {
+      "ganaId": "02",
+      "slug": "adadi",
+      "rawDir": "raw/dhatupatha_batches/02_adadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Adādi expansion placeholder"
+    },
+    {
+      "ganaId": "03",
+      "slug": "juhotyadi",
+      "rawDir": "raw/dhatupatha_batches/03_juhotyadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Juhotyādi expansion placeholder"
+    },
+    {
+      "ganaId": "04",
+      "slug": "divadi",
+      "rawDir": "raw/dhatupatha_batches/04_divadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Divādi expansion placeholder"
+    },
+    {
+      "ganaId": "05",
+      "slug": "svadi",
+      "rawDir": "raw/dhatupatha_batches/05_svadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Svādi expansion placeholder"
+    },
+    {
+      "ganaId": "06",
+      "slug": "tudadi",
+      "rawDir": "raw/dhatupatha_batches/06_tudadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Tudādi expansion placeholder"
+    },
+    {
+      "ganaId": "07",
+      "slug": "rudhadi",
+      "rawDir": "raw/dhatupatha_batches/07_rudhadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Rudhādi expansion placeholder"
+    },
+    {
+      "ganaId": "08",
+      "slug": "tanadi",
+      "rawDir": "raw/dhatupatha_batches/08_tanadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Tanādi expansion placeholder"
+    },
+    {
+      "ganaId": "09",
+      "slug": "kryadi",
+      "rawDir": "raw/dhatupatha_batches/09_kryadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Kryādi expansion placeholder"
+    },
+    {
+      "ganaId": "10",
+      "slug": "curadi",
+      "rawDir": "raw/dhatupatha_batches/10_curadi",
+      "status": "planned",
+      "targetScale": "100+",
+      "notes": "Large-scale Curādi expansion placeholder"
+    }
+  ]
+}
