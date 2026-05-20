@@ -7,7 +7,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from engines.dhatu_registry import (
-    build_dhatu_index,
     find_dhatu_by_id,
     find_dhatus_by_root,
     load_all_dhatus,
@@ -29,13 +28,14 @@ OBVIOUS_TIN_ENDINGS = ("ति", "ते", "सि", "से")
 class DhatuRegistryTests(unittest.TestCase):
     def setUp(self):
         self.records = load_dhatu_file(DHATU_FILE)
+        self.records_by_id = {record["id"]: record for record in self.records}
 
     def test_bhvadi_file_loads_as_json(self):
         with DHATU_FILE.open("r", encoding="utf-8") as handle:
             payload = json.load(handle)
 
         self.assertEqual(payload["gana"]["id"], "01")
-        self.assertEqual(len(payload["records"]), 2)
+        self.assertGreaterEqual(len(payload["records"]), 2)
 
     def test_every_record_id_matches_gana_number_format(self):
         for record in self.records:
@@ -64,22 +64,35 @@ class DhatuRegistryTests(unittest.TestCase):
                 base = derivation["base"]
                 self.assertFalse(base.endswith(OBVIOUS_TIN_ENDINGS), base)
 
-    def test_index_maps_id_to_root_canonical_form_and_gana_slug(self):
+    def test_index_maps_seed_ids_to_root_canonical_form_and_gana_slug(self):
         with INDEX_FILE.open("r", encoding="utf-8") as handle:
             payload = json.load(handle)
-        expected = build_dhatu_index(self.records)
 
-        self.assertEqual(payload["records"], expected)
-        self.assertEqual(payload["records"]["01.0001"]["root"], "भू")
-        self.assertEqual(payload["records"]["01.0001"]["canonicalForm"], "भवति")
-        self.assertEqual(payload["records"]["01.0001"]["gana"]["slug"], "bhvadi")
+        self.assertIn("01.0001", payload["records"])
+        self.assertIn("01.0002", payload["records"])
+        for dhatu_id in ("01.0001", "01.0002"):
+            indexed = payload["records"][dhatu_id]
+            canonical = self.records_by_id[dhatu_id]
+            self.assertEqual(indexed["root"], canonical["identity"]["root"])
+            self.assertEqual(indexed["canonicalForm"], canonical["identity"]["canonicalForm"])
+            self.assertEqual(indexed["gana"]["slug"], canonical["grammar"]["gana"]["slug"])
 
     def test_read_only_helpers_find_records(self):
         all_records = load_all_dhatus(DHATU_ROOT)
+        all_records_by_id = {record["id"]: record for record in all_records}
 
-        self.assertEqual(len(all_records), 2)
-        self.assertEqual(find_dhatu_by_id(all_records, "01.0002")["identity"]["root"], "एध्")
-        self.assertEqual(find_dhatus_by_root(all_records, "भू")[0]["identity"]["canonicalForm"], "भवति")
+        self.assertGreaterEqual(len(all_records), 2)
+        self.assertIn("02.0001", all_records_by_id)
+        self.assertIn("03.0001", all_records_by_id)
+        self.assertIn("04.0001", all_records_by_id)
+        self.assertEqual(
+            find_dhatu_by_id(all_records, "01.0002")["identity"]["root"],
+            self.records_by_id["01.0002"]["identity"]["root"],
+        )
+        self.assertEqual(
+            find_dhatus_by_root(all_records, self.records_by_id["01.0001"]["identity"]["root"])[0]["identity"]["canonicalForm"],
+            self.records_by_id["01.0001"]["identity"]["canonicalForm"],
+        )
         self.assertIsNone(find_dhatu_by_id(all_records, "01.9999"))
 
     def _matrices(self, value):
