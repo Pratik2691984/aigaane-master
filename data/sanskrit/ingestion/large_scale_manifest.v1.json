@@ -1,5 +1,6 @@
 {
   "manifestVersion": "1.0.0",
+  "batchFileCount": 1,
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

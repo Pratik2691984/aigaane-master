@@ -11,6 +11,8 @@ SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
+DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
+GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
     "engines.sandhi",
@@ -91,6 +93,13 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         self.assertIn("raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json", bhvadi["batchFiles"])
 
+    def test_discovered_batch_files_match_manifest_entries(self):
+        discovered = validator.discover_staged_batch_files()
+        manifest_files = validator.list_manifest_batch_files(self.payload)
+
+        self.assertEqual(discovered, manifest_files)
+        self.assertEqual(self.payload["batchFileCount"], len(discovered))
+
     def test_first_bhvadi_batch_json_is_valid(self):
         payload = json.loads(BHVADI_BATCH.read_text(encoding="utf-8"))
 
@@ -113,6 +122,11 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         self.assertEqual(validator.detect_duplicate_ids(records), [])
 
+    def test_global_root_ids_are_unique_across_staged_batches(self):
+        batch_records = validator.scan_all_staged_batch_files(self.payload)
+
+        self.assertEqual(validator.detect_cross_batch_collisions(batch_records), {})
+
     def test_first_bhvadi_batch_readiness_has_records(self):
         readiness = validator.validate_batch_readiness(validator.find_gana_batch(self.payload, "01"))
 
@@ -123,6 +137,21 @@ class LargeScaleIngestionTests(unittest.TestCase):
         validated = validator.validate_large_scale_manifest(copy.deepcopy(self.payload))
 
         self.assertEqual(validated["manifestVersion"], "1.0.0")
+
+    def test_manifest_batch_file_count_mismatch_fails(self):
+        payload = copy.deepcopy(self.payload)
+        payload["batchFileCount"] = 2
+
+        with self.assertRaises(ValueError):
+            validator.validate_large_scale_manifest(payload)
+
+    def test_manifest_missing_discovered_batch_file_fails(self):
+        payload = copy.deepcopy(self.payload)
+        payload["ganaBatches"][0]["batchFiles"] = []
+        payload["batchFileCount"] = 0
+
+        with self.assertRaises(ValueError):
+            validator.validate_large_scale_manifest(payload)
 
     def test_find_gana_batch_works_by_id(self):
         batch = validator.find_gana_batch(self.payload, "01")
@@ -156,6 +185,39 @@ class LargeScaleIngestionTests(unittest.TestCase):
         )
 
         self.assertEqual(collisions, {"X001": ["01", "02"]})
+
+    def test_empty_batch_file_fails_validation(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="empty-batch-") as tmp:
+            path = Path(tmp) / "empty.json"
+            path.write_text(json.dumps({"records": []}), encoding="utf-8")
+
+            with self.assertRaises(ValueError):
+                validator._validate_json_batch_file(path, validator.find_gana_batch(self.payload, "01"))
+
+    def test_validation_does_not_modify_canonical_or_goldset_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+
+        validator.build_large_scale_readiness_report(self.payload)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
 
     def test_validator_does_not_import_runtime_grammar_engines(self):
         import_lines = [

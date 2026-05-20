@@ -63,6 +63,8 @@ def validate_large_scale_manifest(payload: Dict[str, Any]) -> Dict[str, Any]:
     expected_ids = {f"{value:02d}" for value in range(1, 11)}
     if seen_ids != expected_ids:
         raise ValueError("Large-scale manifest must include gana ids 01 through 10.")
+    _validate_batch_file_coverage(payload)
+    _validate_global_staged_records(payload)
     return payload
 
 
@@ -75,6 +77,24 @@ def find_gana_batch(payload: Dict[str, Any], gana_id_or_slug: str) -> Dict[str, 
         if batch.get("ganaId") == gana_id_or_slug or batch.get("slug") == gana_id_or_slug:
             return dict(batch)
     raise ValueError(f"Unknown gana batch: {gana_id_or_slug}.")
+
+
+def discover_staged_batch_files(root_dir: Any = RAW_BATCH_ROOT) -> List[str]:
+    root_path = _resolve_path(root_dir)
+    if not root_path.exists():
+        return []
+    return [
+        str(path.relative_to(ROOT)).replace("\\", "/")
+        for path in sorted(root_path.rglob("*.json"))
+    ]
+
+
+def list_manifest_batch_files(payload: Dict[str, Any]) -> List[str]:
+    batch_files: List[str] = []
+    for batch in payload.get("ganaBatches", []):
+        for batch_file in batch.get("batchFiles", []):
+            batch_files.append(str(batch_file).replace("\\", "/"))
+    return sorted(batch_files)
 
 
 def scan_raw_batch_directory(raw_dir: Any) -> List[Dict[str, str]]:
@@ -91,6 +111,13 @@ def scan_raw_batch_directory(raw_dir: Any) -> List[Dict[str, str]]:
     for json_path in sorted(raw_path.glob("*.json")):
         records.extend(_load_json_batch_records(json_path))
     return records
+
+
+def scan_all_staged_batch_files(payload: Dict[str, Any]) -> Dict[str, List[Dict[str, str]]]:
+    return {
+        batch_file: _load_json_batch_records(_resolve_path(batch_file))
+        for batch_file in list_manifest_batch_files(payload)
+    }
 
 
 def detect_duplicate_ids(records: List[Dict[str, Any]]) -> List[str]:
@@ -140,11 +167,17 @@ def validate_batch_readiness(batch: Dict[str, Any]) -> Dict[str, Any]:
 def build_large_scale_readiness_report(payload: Dict[str, Any]) -> Dict[str, Any]:
     validate_large_scale_manifest(payload)
     batch_results = [validate_batch_readiness(batch) for batch in payload["ganaBatches"]]
+    batch_records = scan_all_staged_batch_files(payload)
+    global_collisions = detect_cross_batch_collisions(batch_records)
     errors = [
         error
         for result in batch_results
         for error in result["errors"]
     ]
+    errors.extend(
+        f"Global root_id collision: {record_id} in {', '.join(batch_files)}."
+        for record_id, batch_files in global_collisions.items()
+    )
     warnings = [
         f"{result['ganaId']}: {warning}"
         for result in batch_results
@@ -157,6 +190,8 @@ def build_large_scale_readiness_report(payload: Dict[str, Any]) -> Dict[str, Any
         "ganaCount": len(payload["ganaBatches"]),
         "readyBatches": len([result for result in batch_results if result["ready"]]),
         "plannedBatches": len([batch for batch in payload["ganaBatches"] if batch.get("status") == "planned"]),
+        "stagedBatchFiles": len(batch_records),
+        "stagedRecords": sum(len(records) for records in batch_records.values()),
         "errors": errors,
         "warnings": warnings,
     }
@@ -230,6 +265,29 @@ def _validate_gana_batch(batch: Dict[str, Any]) -> None:
             raise ValueError(f"batchFile does not exist: {normalized_file}.")
         if batch_file_path.suffix != ".json":
             raise ValueError(f"batchFile must be JSON: {normalized_file}.")
+        _validate_json_batch_file(batch_file_path, batch)
+
+
+def _validate_batch_file_coverage(payload: Dict[str, Any]) -> None:
+    manifest_files = set(list_manifest_batch_files(payload))
+    discovered_files = set(discover_staged_batch_files())
+    if manifest_files != discovered_files:
+        missing = sorted(discovered_files - manifest_files)
+        stale = sorted(manifest_files - discovered_files)
+        if missing:
+            raise ValueError(f"Discovered batch files missing from manifest: {', '.join(missing)}.")
+        if stale:
+            raise ValueError(f"Manifest batch files not discovered on disk: {', '.join(stale)}.")
+    expected_count = payload.get("batchFileCount")
+    if expected_count is not None and expected_count != len(discovered_files):
+        raise ValueError("Manifest batchFileCount does not match discovered batch files.")
+
+
+def _validate_global_staged_records(payload: Dict[str, Any]) -> None:
+    collisions = detect_cross_batch_collisions(scan_all_staged_batch_files(payload))
+    if collisions:
+        collision_text = ", ".join(sorted(collisions))
+        raise ValueError(f"Global root_id collisions detected: {collision_text}.")
 
 
 def _load_json_batch_records(json_path: Path) -> List[Dict[str, str]]:
@@ -246,9 +304,23 @@ def _load_json_batch_records(json_path: Path) -> List[Dict[str, str]]:
         if not isinstance(record, dict):
             raise ValueError(f"JSON batch record must be an object: {json_path}.")
         item = {key: str(value).strip() for key, value in record.items()}
-        item["sourceFile"] = str(json_path.relative_to(ROOT)).replace("\\", "/")
+        item["sourceFile"] = _display_path(json_path)
         normalized.append(item)
     return normalized
+
+
+def _validate_json_batch_file(json_path: Path, batch: Dict[str, Any]) -> None:
+    records = _load_json_batch_records(json_path)
+    if not records:
+        raise ValueError(f"JSON batch must not be empty: {json_path}.")
+    duplicate_ids = detect_duplicate_ids(records)
+    if duplicate_ids:
+        raise ValueError(f"Duplicate root_id values in {json_path}: {', '.join(duplicate_ids)}.")
+    errors: List[str] = []
+    for record in records:
+        errors.extend(_validate_staged_record(record, batch))
+    if errors:
+        raise ValueError(f"Invalid staged records in {json_path}: {'; '.join(errors)}")
 
 
 def _validate_staged_record(record: Dict[str, Any], batch: Dict[str, Any]) -> List[str]:
@@ -270,6 +342,13 @@ def _validate_staged_record(record: Dict[str, Any], batch: Dict[str, Any]) -> Li
 def _resolve_path(path: Any) -> Path:
     value = Path(path)
     return value if value.is_absolute() else ROOT / value
+
+
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT)).replace("\\", "/")
+    except ValueError:
+        return str(path).replace("\\", "/")
 
 
 def _require_dict(value: Any, name: str) -> Dict[str, Any]:
