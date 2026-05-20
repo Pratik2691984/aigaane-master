@@ -1,0 +1,12 @@
+{
+  "schema": "aigaane.goldset.metadata.v1",
+  "version": "1.0.0",
+  "name": "Aigaane Sanskrit Dhatu Goldset",
+  "description": "Initial canonical dhatu goldset seeded from the curated registry.",
+  "registrySource": "data/sanskrit/dhatus/01_bhvadi.json",
+  "dhatuIds": [
+    "01.0001",
+    "01.0002"
+  ],
+  "createdForNode": "goldset-seed-1"
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "aigaane.dhatu_goldset.v1",
+  "version": "1.0.0",
+  "entries": [
+    {
+      "id": "01.0001",
+      "root": "भू",
+      "canonicalForm": "भवति",
+      "gana": "bhvadi",
+      "expectedRecordRef": "expected_records.v1.json#/records/01.0001"
+    },
+    {
+      "id": "01.0002",
+      "root": "एध्",
+      "canonicalForm": "एधते",
+      "gana": "bhvadi",
+      "expectedRecordRef": "expected_records.v1.json#/records/01.0002"
+    }
+  ]
+}
