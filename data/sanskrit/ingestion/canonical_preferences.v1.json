@@ -1,0 +1,38 @@
+{
+  "preferenceVersion": "1.0.0",
+  "model": "aigaane-canonical-preference-resolver",
+  "policy": {
+    "autoPromote": false,
+    "mutationTarget": "none",
+    "requiresHumanReview": true
+  },
+  "preferences": {
+    "01.0001": {"dhatuId": "01.0001", "preferredReadingId": "VR_01_0001_001", "decisionId": "ED_01_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "01.0002": {"dhatuId": "01.0002", "preferredReadingId": "VR_01_0002_001", "decisionId": "ED_01_0002_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "02.0001": {"dhatuId": "02.0001", "preferredReadingId": "VR_02_0001_001", "decisionId": "ED_02_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "03.0001": {"dhatuId": "03.0001", "preferredReadingId": "VR_03_0001_001", "decisionId": "ED_03_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "04.0001": {"dhatuId": "04.0001", "preferredReadingId": "VR_04_0001_001", "decisionId": "ED_04_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "06.0001": {"dhatuId": "06.0001", "preferredReadingId": "VR_06_0001_001", "decisionId": "ED_06_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "07.0001": {"dhatuId": "07.0001", "preferredReadingId": "VR_07_0001_001", "decisionId": "ED_07_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "08.0001": {"dhatuId": "08.0001", "preferredReadingId": "VR_08_0001_001", "decisionId": "ED_08_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "09.0001": {"dhatuId": "09.0001", "preferredReadingId": "VR_09_0001_001", "decisionId": "ED_09_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"},
+    "10.0001": {"dhatuId": "10.0001", "preferredReadingId": "VR_10_0001_001", "decisionId": "ED_10_0001_001", "preferenceStatus": "canonical", "confidence": "high", "recommendedAction": "keep-canonical", "rationale": "Accepted editorial decision with canonical seed support"}
+  },
+  "candidatePreferences": {
+    "01.0101": {"candidateId": "01.0101", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "08.0101": {"candidateId": "08.0101", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0102": {"candidateId": "01.0102", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "09.0101": {"candidateId": "09.0101", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "02.0101": {"candidateId": "02.0101", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0103": {"candidateId": "01.0103", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0104": {"candidateId": "01.0104", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0105": {"candidateId": "01.0105", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "05.0101": {"candidateId": "05.0101", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0106": {"candidateId": "01.0106", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0107": {"candidateId": "01.0107", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0108": {"candidateId": "01.0108", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0109": {"candidateId": "01.0109", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0110": {"candidateId": "01.0110", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"},
+    "01.0111": {"candidateId": "01.0111", "preferenceStatus": "deferred", "confidence": "medium", "recommendedAction": "manual-review-required", "rationale": "Traditional dhatupatha id/order not yet verified"}
+  }
+}

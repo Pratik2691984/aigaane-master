@@ -21,4 +21,6 @@ Large ingestion should proceed by small, reviewable batches with reports committ
 
 `editorial_resolutions.v1.json` records editorial decisions and recommendations only. It provides review rationale, evidence scoring, and reversible machine-readable actions for variant readings, but it does not promote or mutate canonical dhatu records. Promotion still happens only through `verified_promotions.v1.json` and `scripts/promote_verified_dhatus.py`.
 
+`canonical_preferences.v1.json` stores deterministic canonical preference recommendations resolved from recensions, editorial decisions, source attribution, and verified promotion metadata. It is read-only, keeps auto-promotion disabled, and does not mutate canonical dhatu JSON.
+
 `raw/dhatupatha_controlled_batch_01.csv` is a validation-ready controlled expansion batch. It should be dry-run first and should not be written into the canonical registry until its ids, gaṇa assignments, and philological details are reviewed.
