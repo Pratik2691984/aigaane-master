@@ -8,3 +8,4 @@
 - Added a valid empty prakriya reference stub for future derivation expectations.
 - Expanded the v1 benchmark to 10 records with the first curated Tudadi, Rudhadi, Tanadi, Kryadi, and Curadi records.
 - Added Node 20G.2 semantic enrichment overlay with conservative domains and read-only validation helpers.
+- Added Node 20C Prakriya Referee trace stubs for deterministic goldset-supported form checks.

@@ -1,4 +1,36 @@
 {
   "goldsetVersion": "1.0.0",
-  "records": {}
+  "traceVersion": "0.1.0",
+  "records": {
+    "PR_01_0001_LAT_KARTARI_PARASMAI_3S": {
+      "dhatuId": "01.0001",
+      "targetForm": "भवति",
+      "traceCompleteness": "stub",
+      "sutraTrace": []
+    },
+    "PR_01_0002_LAT_KARTARI_ATMANE_3S": {
+      "dhatuId": "01.0002",
+      "targetForm": "एधते",
+      "traceCompleteness": "stub",
+      "sutraTrace": []
+    },
+    "PR_02_0001_LAT_KARTARI_PARASMAI_3S": {
+      "dhatuId": "02.0001",
+      "targetForm": "\u0905\u0924\u094d\u0924\u093f",
+      "traceCompleteness": "stub",
+      "sutraTrace": []
+    },
+    "PR_03_0001_LAT_KARTARI_PARASMAI_3S": {
+      "dhatuId": "03.0001",
+      "targetForm": "\u091c\u0941\u0939\u094b\u0924\u093f",
+      "traceCompleteness": "stub",
+      "sutraTrace": []
+    },
+    "PR_04_0001_LAT_KARTARI_PARASMAI_3S": {
+      "dhatuId": "04.0001",
+      "targetForm": "\u0926\u0940\u0935\u094d\u092f\u0924\u093f",
+      "traceCompleteness": "stub",
+      "sutraTrace": []
+    }
+  }
 }
