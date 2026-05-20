@@ -1,0 +1,61 @@
+{
+  "gana": {
+    "id": "07",
+    "name": "रुधादिगणः",
+    "slug": "rudhadi"
+  },
+  "records": [
+    {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "07",
+          "name": "रुधादिगणः",
+          "slug": "rudhadi"
+        },
+        "itStatus": "anit",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "07.0001",
+      "identity": {
+        "canonicalForm": "रुणद्धि",
+        "root": "रुध्",
+        "rootIast": "rudh",
+        "upadesha": "रुध्"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "to obstruct",
+        "sanskrit": "आवरणे"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/07.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/07.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "anit",
+        "dhatu",
+        "parasmaipada",
+        "rudhadi",
+        "sakarmaka"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    }
+  ],
+  "schema": "aigaane.dhatu_file.v1",
+  "version": "20B.import.1"
+}

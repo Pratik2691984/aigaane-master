@@ -2,6 +2,8 @@
 
 ## 1.0.0
 
-- Seeded the initial dhatu goldset with `01.0001` and `01.0002`.
-- Added expected canonical records copied from the curated Bhvadi registry.
-- Added an empty prakriya reference stub for future derivation-level expectations.
+- Added canonical goldset infrastructure for curated dhatu regression checks.
+- Seeded five records: `01.0001`, `01.0002`, `02.0001`, `03.0001`, and `04.0001`.
+- Copied expected records exactly from the canonical dhatu registry.
+- Added a valid empty prakriya reference stub for future derivation expectations.
+- Expanded the v1 benchmark to 10 records with the first curated Tudadi, Rudhadi, Tanadi, Kryadi, and Curadi records.

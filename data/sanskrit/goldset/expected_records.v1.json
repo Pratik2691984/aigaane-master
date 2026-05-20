@@ -1,6 +1,5 @@
 {
-  "schema": "aigaane.expected_dhatu_records.v1",
-  "version": "1.0.0",
+  "goldsetVersion": "1.0.0",
   "records": {
     "01.0001": {
       "schema": "aigaane.dhatu.v2",
@@ -241,6 +240,406 @@
         "bhvadi",
         "canonical"
       ]
+    },
+    "02.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "02",
+          "name": "अदादिगणः",
+          "slug": "adadi"
+        },
+        "itStatus": "anit",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "02.0001",
+      "identity": {
+        "canonicalForm": "?????",
+        "root": "???",
+        "rootIast": "ad",
+        "upadesha": "???"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "[\"to eat\"]",
+        "sanskrit": "??????"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/02.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/02.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "adadi",
+        "anit",
+        "dhatu",
+        "parasmaipada",
+        "sakarmaka"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "03.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "03",
+          "name": "जुहोत्यादिगणः",
+          "slug": "juhotyadi"
+        },
+        "itStatus": "anit",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "03.0001",
+      "identity": {
+        "canonicalForm": "जुहोति",
+        "root": "हु",
+        "rootIast": "hu",
+        "upadesha": "हुँ"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "[to sacrifice,to offer]",
+        "sanskrit": "हवने"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/03.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/03.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "anit",
+        "dhatu",
+        "juhotyadi",
+        "parasmaipada",
+        "sakarmaka"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "04.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "04",
+          "name": "दिवादिगणः",
+          "slug": "divadi"
+        },
+        "itStatus": "set",
+        "karmatva": "akarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "04.0001",
+      "identity": {
+        "canonicalForm": "दीव्यति",
+        "root": "दिव्",
+        "rootIast": "div",
+        "upadesha": "दिवुँ"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "[to play,to sport]",
+        "sanskrit": "क्रीडायाम्"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/04.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/04.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "akarmaka",
+        "dhatu",
+        "divadi",
+        "parasmaipada",
+        "set"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "06.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "06",
+          "name": "तुदादिगणः",
+          "slug": "tudadi"
+        },
+        "itStatus": "anit",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "06.0001",
+      "identity": {
+        "canonicalForm": "तुदति",
+        "root": "तुद्",
+        "rootIast": "tud",
+        "upadesha": "तुद्"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "to strike",
+        "sanskrit": "व्यथने"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/06.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/06.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "anit",
+        "dhatu",
+        "parasmaipada",
+        "sakarmaka",
+        "tudadi"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "07.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "07",
+          "name": "रुधादिगणः",
+          "slug": "rudhadi"
+        },
+        "itStatus": "anit",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "07.0001",
+      "identity": {
+        "canonicalForm": "रुणद्धि",
+        "root": "रुध्",
+        "rootIast": "rudh",
+        "upadesha": "रुध्"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "to obstruct",
+        "sanskrit": "आवरणे"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/07.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/07.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "anit",
+        "dhatu",
+        "parasmaipada",
+        "rudhadi",
+        "sakarmaka"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "08.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "08",
+          "name": "तनादिगणः",
+          "slug": "tanadi"
+        },
+        "itStatus": "set",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "08.0001",
+      "identity": {
+        "canonicalForm": "तनोति",
+        "root": "तनु",
+        "rootIast": "tanu",
+        "upadesha": "तनु"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "to stretch",
+        "sanskrit": "विस्तारे"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/08.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/08.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "dhatu",
+        "parasmaipada",
+        "sakarmaka",
+        "set",
+        "tanadi"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "09.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "09",
+          "name": "क्र्यादिगणः",
+          "slug": "kryadi"
+        },
+        "itStatus": "anit",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "09.0001",
+      "identity": {
+        "canonicalForm": "क्रीणाति",
+        "root": "क्री",
+        "rootIast": "krī",
+        "upadesha": "क्री"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "to buy",
+        "sanskrit": "द्रव्यविनिमये"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/09.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/09.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "anit",
+        "dhatu",
+        "kryadi",
+        "parasmaipada",
+        "sakarmaka"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    },
+    "10.0001": {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "10",
+          "name": "चुरादिगणः",
+          "slug": "curadi"
+        },
+        "itStatus": "set",
+        "karmatva": "sakarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "10.0001",
+      "identity": {
+        "canonicalForm": "चोरयति",
+        "root": "चुर्",
+        "rootIast": "cur",
+        "upadesha": "चुर्"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "to steal",
+        "sanskrit": "स्तेये"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/10.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/10.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "curadi",
+        "dhatu",
+        "parasmaipada",
+        "sakarmaka",
+        "set"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
     }
   }
 }

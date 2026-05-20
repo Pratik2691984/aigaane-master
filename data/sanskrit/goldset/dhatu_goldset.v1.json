@@ -1,20 +1,75 @@
 {
-  "schema": "aigaane.dhatu_goldset.v1",
-  "version": "1.0.0",
-  "entries": [
+  "goldsetVersion": "1.0.0",
+  "records": [
     {
       "id": "01.0001",
       "root": "भू",
       "canonicalForm": "भवति",
       "gana": "bhvadi",
-      "expectedRecordRef": "expected_records.v1.json#/records/01.0001"
+      "reason": "Initial Bhvadi parasmaipada seed record."
     },
     {
       "id": "01.0002",
       "root": "एध्",
       "canonicalForm": "एधते",
       "gana": "bhvadi",
-      "expectedRecordRef": "expected_records.v1.json#/records/01.0002"
+      "reason": "Initial Bhvadi atmanepada seed record."
+    },
+    {
+      "id": "02.0001",
+      "root": "???",
+      "canonicalForm": "?????",
+      "gana": "adadi",
+      "reason": "First imported Adadi expansion record."
+    },
+    {
+      "id": "03.0001",
+      "root": "हु",
+      "canonicalForm": "जुहोति",
+      "gana": "juhotyadi",
+      "reason": "First imported Juhotyadi expansion record."
+    },
+    {
+      "id": "04.0001",
+      "root": "दिव्",
+      "canonicalForm": "दीव्यति",
+      "gana": "divadi",
+      "reason": "First imported Divadi expansion record."
+    },
+    {
+      "id": "06.0001",
+      "root": "तुद्",
+      "canonicalForm": "तुदति",
+      "gana": "tudadi",
+      "reason": "First curated Tudadi expansion record."
+    },
+    {
+      "id": "07.0001",
+      "root": "रुध्",
+      "canonicalForm": "रुणद्धि",
+      "gana": "rudhadi",
+      "reason": "First curated Rudhadi expansion record."
+    },
+    {
+      "id": "08.0001",
+      "root": "तनु",
+      "canonicalForm": "तनोति",
+      "gana": "tanadi",
+      "reason": "First curated Tanadi expansion record."
+    },
+    {
+      "id": "09.0001",
+      "root": "क्री",
+      "canonicalForm": "क्रीणाति",
+      "gana": "kryadi",
+      "reason": "First curated Kryadi expansion record."
+    },
+    {
+      "id": "10.0001",
+      "root": "चुर्",
+      "canonicalForm": "चोरयति",
+      "gana": "curadi",
+      "reason": "First curated Curadi expansion record."
     }
   ]
 }

@@ -1,5 +1,4 @@
 {
-  "schema": "aigaane.expected_prakriya_refs.v1",
-  "version": "1.0.0",
-  "refs": {}
+  "goldsetVersion": "1.0.0",
+  "records": {}
 }

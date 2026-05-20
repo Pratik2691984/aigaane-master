@@ -13,6 +13,62 @@
         "slug": "bhvadi"
       },
       "root": "एध्"
+    },
+    "02.0001": {
+      "canonicalForm": "?????",
+      "gana": {
+        "slug": "adadi"
+      },
+      "root": "???"
+    },
+    "03.0001": {
+      "canonicalForm": "जुहोति",
+      "gana": {
+        "slug": "juhotyadi"
+      },
+      "root": "हु"
+    },
+    "04.0001": {
+      "canonicalForm": "दीव्यति",
+      "gana": {
+        "slug": "divadi"
+      },
+      "root": "दिव्"
+    },
+    "06.0001": {
+      "canonicalForm": "तुदति",
+      "gana": {
+        "slug": "tudadi"
+      },
+      "root": "तुद्"
+    },
+    "07.0001": {
+      "canonicalForm": "रुणद्धि",
+      "gana": {
+        "slug": "rudhadi"
+      },
+      "root": "रुध्"
+    },
+    "08.0001": {
+      "canonicalForm": "तनोति",
+      "gana": {
+        "slug": "tanadi"
+      },
+      "root": "तनु"
+    },
+    "09.0001": {
+      "canonicalForm": "क्रीणाति",
+      "gana": {
+        "slug": "kryadi"
+      },
+      "root": "क्री"
+    },
+    "10.0001": {
+      "canonicalForm": "चोरयति",
+      "gana": {
+        "slug": "curadi"
+      },
+      "root": "चुर्"
     }
   },
   "schema": "aigaane.dhatu_index.v1",
