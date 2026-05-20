@@ -23,4 +23,6 @@ Large ingestion should proceed by small, reviewable batches with reports committ
 
 `canonical_preferences.v1.json` stores deterministic canonical preference recommendations resolved from recensions, editorial decisions, source attribution, and verified promotion metadata. It is read-only, keeps auto-promotion disabled, and does not mutate canonical dhatu JSON.
 
+`promotion_batches.v1.json` coordinates actual approved promotion runs. It does not approve candidates itself; approval remains in `verified_promotions.v1.json`, while canonical preference, editorial, recension, and source attribution layers provide cross-checks. Batch execution defaults to dry-run and requires `--write` for any canonical mutation through the existing safe promotion path.
+
 `raw/dhatupatha_controlled_batch_01.csv` is a validation-ready controlled expansion batch. It should be dry-run first and should not be written into the canonical registry until its ids, gaṇa assignments, and philological details are reviewed.
