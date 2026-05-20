@@ -102,3 +102,7 @@ Desktop.ini
 .env*.local
 __pycache__/
 *.pyc
+
+# Dhatu import transient logs
+data/sanskrit/dhatus/import.log
+data/sanskrit/dhatus/import_errors.jsonl
