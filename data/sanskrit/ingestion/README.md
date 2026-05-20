@@ -17,4 +17,6 @@ Large ingestion should proceed by small, reviewable batches with reports committ
 
 `source_attribution.v1.json` tracks local provenance for ingestion and promotion decisions. It uses a lightweight entity/activity/agent model inspired by provenance systems, but it remains plain local JSON with no external dependency. This attribution layer does not mutate canonical dhatu records and does not grant promotion approval by itself; verified promotion still depends on the separate review manifest and importer validation.
 
+`recensions.v1.json` stores local variant and recension readings for dhatu review. It separates attested readings, alternate upadesha forms, alternate meanings, ordering questions, and editorial notes from canonical registry truth. This file is a read-only review aid, not a promotion mechanism. Promotion still happens only through `verified_promotions.v1.json` and `scripts/promote_verified_dhatus.py`.
+
 `raw/dhatupatha_controlled_batch_01.csv` is a validation-ready controlled expansion batch. It should be dry-run first and should not be written into the canonical registry until its ids, gaṇa assignments, and philological details are reviewed.

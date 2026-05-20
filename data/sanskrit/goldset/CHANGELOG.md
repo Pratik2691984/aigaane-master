@@ -2,6 +2,7 @@
 
 ## 1.0.0
 
+- Added Node 21C read-only recension and variant reading layer for local dhatu review, with canonical seed readings and deferred controlled-batch unresolved readings.
 - Added canonical goldset infrastructure for curated dhatu regression checks.
 - Seeded five records: `01.0001`, `01.0002`, `02.0001`, `03.0001`, and `04.0001`.
 - Copied expected records exactly from the canonical dhatu registry.

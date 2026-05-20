@@ -1,0 +1,257 @@
+{
+  "recensionVersion": "1.0.0",
+  "model": "aigaane-local-variant-readings",
+  "description": "Local variant reading layer for dhatu ingestion and canonicalization review",
+  "recensions": {
+    "canonical-seed": {
+      "label": "Canonical seed registry",
+      "sourceType": "project-canonical",
+      "description": "Current project-approved canonical dhatu records"
+    },
+    "controlled-batch-01": {
+      "label": "Controlled validation batch 01",
+      "sourceType": "local-csv",
+      "sourceEntity": "raw/dhatupatha_controlled_batch_01.csv",
+      "description": "Validation-ready batch awaiting traditional ID review"
+    }
+  },
+  "variantReadings": {
+    "01.0001": {
+      "canonicalDhatuId": "01.0001",
+      "canonicalRoot": "भू",
+      "canonicalUpadesha": "भूँ",
+      "readings": [
+        {
+          "readingId": "VR_01_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "भूँ",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_01_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "01.0002": {
+      "canonicalDhatuId": "01.0002",
+      "canonicalRoot": "एध्",
+      "canonicalUpadesha": "एध्",
+      "readings": [
+        {
+          "readingId": "VR_01_0002_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "एध्",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_01_0002_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "02.0001": {
+      "canonicalDhatuId": "02.0001",
+      "canonicalRoot": "अद्",
+      "canonicalUpadesha": "अद्",
+      "readings": [
+        {
+          "readingId": "VR_02_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "अद्",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_02_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "03.0001": {
+      "canonicalDhatuId": "03.0001",
+      "canonicalRoot": "हु",
+      "canonicalUpadesha": "हुँ",
+      "readings": [
+        {
+          "readingId": "VR_03_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "हुँ",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_03_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "04.0001": {
+      "canonicalDhatuId": "04.0001",
+      "canonicalRoot": "दिव्",
+      "canonicalUpadesha": "दिवुँ",
+      "readings": [
+        {
+          "readingId": "VR_04_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "दिवुँ",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_04_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "06.0001": {
+      "canonicalDhatuId": "06.0001",
+      "canonicalRoot": "तुद्",
+      "canonicalUpadesha": "तुद्",
+      "readings": [
+        {
+          "readingId": "VR_06_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "तुद्",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_06_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "07.0001": {
+      "canonicalDhatuId": "07.0001",
+      "canonicalRoot": "रुध्",
+      "canonicalUpadesha": "रुध्",
+      "readings": [
+        {
+          "readingId": "VR_07_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "रुध्",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_07_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "08.0001": {
+      "canonicalDhatuId": "08.0001",
+      "canonicalRoot": "तनु",
+      "canonicalUpadesha": "तनु",
+      "readings": [
+        {
+          "readingId": "VR_08_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "तनु",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_08_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "09.0001": {
+      "canonicalDhatuId": "09.0001",
+      "canonicalRoot": "क्री",
+      "canonicalUpadesha": "क्री",
+      "readings": [
+        {
+          "readingId": "VR_09_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "क्री",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_09_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    },
+    "10.0001": {
+      "canonicalDhatuId": "10.0001",
+      "canonicalRoot": "चुर्",
+      "canonicalUpadesha": "चुर्",
+      "readings": [
+        {
+          "readingId": "VR_10_0001_001",
+          "recension": "canonical-seed",
+          "field": "upadesha",
+          "value": "चुर्",
+          "readingType": "canonical",
+          "confidence": "high",
+          "sourceEntities": ["raw/dhatupatha.csv"],
+          "notes": []
+        }
+      ],
+      "canonicalPreference": {
+        "preferredReadingId": "VR_10_0001_001",
+        "status": "accepted",
+        "rationale": "Seed canonical reading"
+      }
+    }
+  },
+  "unresolvedReadings": {
+    "01.0101": {"candidateRoot": "गम्", "candidateCanonicalForm": "गच्छति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "08.0101": {"candidateRoot": "कृ", "candidateCanonicalForm": "करोति", "candidateGanaId": "08", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0102": {"candidateRoot": "स्था", "candidateCanonicalForm": "तिष्ठति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "09.0101": {"candidateRoot": "ज्ञा", "candidateCanonicalForm": "जानाति", "candidateGanaId": "09", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "02.0101": {"candidateRoot": "हन्", "candidateCanonicalForm": "हन्ति", "candidateGanaId": "02", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0103": {"candidateRoot": "नी", "candidateCanonicalForm": "नयति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0104": {"candidateRoot": "पा", "candidateCanonicalForm": "पिबति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0105": {"candidateRoot": "दृश्", "candidateCanonicalForm": "पश्यति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "05.0101": {"candidateRoot": "श्रु", "candidateCanonicalForm": "शृणोति", "candidateGanaId": "05", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0106": {"candidateRoot": "वद्", "candidateCanonicalForm": "वदति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0107": {"candidateRoot": "पठ्", "candidateCanonicalForm": "पठति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0108": {"candidateRoot": "लिख्", "candidateCanonicalForm": "लिखति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0109": {"candidateRoot": "स्मृ", "candidateCanonicalForm": "स्मरति", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0110": {"candidateRoot": "लभ्", "candidateCanonicalForm": "लभते", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]},
+    "01.0111": {"candidateRoot": "सेव्", "candidateCanonicalForm": "सेवते", "candidateGanaId": "01", "status": "deferred", "reason": "Traditional dhatupatha id/order not yet verified", "sourceEntities": ["raw/dhatupatha_controlled_batch_01.csv"]}
+  }
+}
