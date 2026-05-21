@@ -1,19 +1,14 @@
 {
-  "approvalStatus": "NOT_APPROVED",
-  "approvalValid": false,
-  "approvedRecordIds": [],
-  "generatedBy": "scripts/validate_dhatu_canonical_write_approval.py",
-  "missingAuthorizedRecordIds": [
+  "approvalStatus": "APPROVED",
+  "approvalValid": true,
+  "approvedRecordIds": [
     "01.STAGED.0001",
     "01.STAGED.0002",
     "01.STAGED.0003"
   ],
-  "refusalReasons": [
-    "Approval status is not APPROVED.",
-    "Approval does not include every authorized ready record id.",
-    "Approval token missing approvedBy.",
-    "Approval token missing approvedAt."
-  ],
+  "generatedBy": "scripts/validate_dhatu_canonical_write_approval.py",
+  "missingAuthorizedRecordIds": [],
+  "refusalReasons": [],
   "rejectedRecordIds": [
     "01.STAGED.0004",
     "01.STAGED.0005",
@@ -26,8 +21,8 @@
     "01.STAGED.0012"
   ],
   "safetyChecks": {
-    "approvalMetadataPresent": false,
-    "approvalStatusApproved": false,
+    "approvalMetadataPresent": true,
+    "approvalStatusApproved": true,
     "approvedIdsPresentWhenApproved": true,
     "approvedIdsSubsetOfAuthorization": true,
     "authorizationReady": false,

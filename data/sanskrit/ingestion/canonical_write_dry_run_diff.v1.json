@@ -1,17 +1,17 @@
 {
-  "afterCountIfApplied": 10,
+  "afterCountIfApplied": 13,
   "beforeCount": 10,
   "canonicalRegistryPath": "data/sanskrit/dhatus/index.json",
-  "commandStatus": "REFUSED_APPROVAL_INVALID",
+  "commandStatus": "READY_FOR_MANUAL_EXECUTION",
   "contractChecks": {
-    "approvalValidationValid": false,
+    "approvalValidationValid": true,
     "approvedIdsInReadinessLock": true,
     "approvedRecordsExistInStaging": true,
     "canonicalRegistryMutation": false,
-    "commandManifestReady": false,
+    "commandManifestReady": true,
     "dryRunOnly": true,
     "noDuplicateIds": true,
-    "passed": false,
+    "passed": true,
     "violations": {
       "approvedIdsNotInReadinessLock": [],
       "duplicateIds": [],
@@ -23,9 +23,6 @@
   "generatedBy": "scripts/diff_dhatu_canonical_write_dry_run.py",
   "missingStagedRecords": [],
   "recordsBlocked": [
-    "01.STAGED.0001",
-    "01.STAGED.0002",
-    "01.STAGED.0003",
     "01.STAGED.0004",
     "01.STAGED.0005",
     "01.STAGED.0006",
@@ -36,20 +33,66 @@
     "01.STAGED.0011",
     "01.STAGED.0012"
   ],
-  "recordsToAdd": [],
+  "recordsToAdd": [
+    {
+      "canonicalId": "01.0005",
+      "canonicalRecord": {
+        "canonicalForm": "गम्",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to go",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0001"
+        },
+        "root": "गम्",
+        "rootIast": "gam"
+      },
+      "sourceRootId": "01.STAGED.0001"
+    },
+    {
+      "canonicalId": "01.0013",
+      "canonicalRecord": {
+        "canonicalForm": "स्था",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to stand",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0002"
+        },
+        "root": "स्था",
+        "rootIast": "sthā"
+      },
+      "sourceRootId": "01.STAGED.0002"
+    },
+    {
+      "canonicalId": "01.0008",
+      "canonicalRecord": {
+        "canonicalForm": "नी",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to lead",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0003"
+        },
+        "root": "नी",
+        "rootIast": "nī"
+      },
+      "sourceRootId": "01.STAGED.0003"
+    }
+  ],
   "refusalReasons": [
-    "Command manifest is not READY_FOR_MANUAL_EXECUTION.",
-    "Approval validation failed.",
-    "Approval status is not APPROVED.",
-    "Approval does not include every authorized ready record id.",
-    "Approval token missing approvedBy.",
-    "Approval token missing approvedAt.",
-    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
     "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
-    "Approved record ids do not match authorized ready record ids.",
     "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
-    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE.",
-    "Approval validation is not valid."
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
   ],
   "schemaVersion": "1.0.0"
 }

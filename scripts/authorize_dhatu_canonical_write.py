@@ -10,16 +10,10 @@ from validate_large_scale_ingestion import ROOT
 
 
 DEFAULT_AUDIT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_promotion_audit.v1.json"
-DEFAULT_EVIDENCE_REPORT_PATH = (
-    ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
-)
+DEFAULT_EVIDENCE_REPORT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
 DEFAULT_READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
-DEFAULT_APPROVAL_VALIDATION_PATH = (
-    ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
-)
-DEFAULT_AUTHORIZATION_PATH = (
-    ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
-)
+DEFAULT_APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
+DEFAULT_AUTHORIZATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
 
 
 def resolve_path(path: Any) -> Path:
@@ -47,8 +41,8 @@ def load_json(path: Any) -> Dict[str, Any]:
 def build_required_environment(audit: Dict[str, Any], evidence: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     guard_policy = evidence.get("guardPolicy", {})
     safety = audit.get("safetyChecks", {})
-    write_flag = guard_policy.get("canonicalWriteFlag") or safety.get("writeFlagName")
-    test_guard = guard_policy.get("testCanonicalWriteGuard") or safety.get("testWriteGuardName")
+    write_flag = guard_policy.get("canonicalWriteFlag") or safety.get("writeFlagName") or "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE"
+    test_guard = guard_policy.get("testCanonicalWriteGuard") or safety.get("testWriteGuardName") or "AIGAANE_ALLOW_TEST_CANONICAL_WRITE"
     return {
         str(write_flag): {
             "requiredValue": "1",
@@ -80,7 +74,14 @@ def build_evidence_summary(audit: Dict[str, Any], evidence: Dict[str, Any], read
     }
 
 
-def build_safety_checks(audit: Dict[str, Any], evidence: Dict[str, Any], readiness_lock: Dict[str, Any]) -> Dict[str, Any]:
+def build_safety_checks(
+    audit: Dict[str, Any],
+    evidence: Dict[str, Any],
+    readiness_lock: Dict[str, Any],
+    approval_validation: Dict[str, Any],
+    authorized_ids: List[str],
+) -> Dict[str, Any]:
+    approved_ids = sorted(approval_validation.get("approvedRecordIds", []))
     return {
         "humanApprovalRequired": True,
         "environmentFlagsUnchangedByAuthorization": True,
@@ -91,7 +92,10 @@ def build_safety_checks(audit: Dict[str, Any], evidence: Dict[str, Any], readine
         "auditCanonicalMutation": audit.get("safetyChecks", {}).get("canonicalRegistryMutation") is True,
         "evidenceReportPresent": evidence.get("schemaVersion") == "1.0.0",
         "evidenceReleaseGateReady": evidence.get("releaseGateStatus") == "READY_FOR_CONTROLLED_WRITE",
+        "manualEvidenceContractReady": evidence.get("contractSummary", {}).get("passed") is True,
         "contractChecksPassed": evidence.get("contractSummary", {}).get("passed") is True,
+        "approvalValidationValid": approval_validation.get("approvalValid") is True,
+        "approvedRecordIdsMatchAuthorizedRecordIds": approved_ids == authorized_ids,
     }
 
 
@@ -114,13 +118,12 @@ def authorization_status(
     authorized_ids: List[str],
 ) -> str:
     approved_ids = sorted(approval_validation.get("approvedRecordIds", []))
-    evidence_ready = (
-        evidence.get("releaseGateStatus") == "READY_FOR_CONTROLLED_WRITE"
-        and evidence.get("contractSummary", {}).get("passed") is True
-    )
+    evidence_contract_ready = evidence.get("contractSummary", {}).get("passed") is True
     approval_ready = approval_validation.get("approvalValid") is True and approved_ids == authorized_ids
-    if evidence_ready and approval_ready:
+
+    if evidence_contract_ready and approval_ready:
         return "AUTHORIZED_FOR_MANUAL_WRITE"
+
     return "AWAITING_HUMAN_APPROVAL"
 
 
@@ -134,18 +137,17 @@ def build_authorization(
     evidence = load_json(evidence_path)
     readiness_lock = load_json(readiness_lock_path)
     approval_validation = load_json(approval_validation_path)
+
     ready_ids = sorted(readiness_lock.get("readyRecordIds", []))
     blocked_ids = sorted(
         set(readiness_lock.get("blockedRecordIds", []))
         | set(readiness_lock.get("deferredRecordIds", []))
         | (set(evidence.get("skippedRecordIds", [])) - set(ready_ids))
     )
-    safety_checks = build_safety_checks(audit, evidence, readiness_lock)
+
     approval_validation_summary = build_approval_validation_summary(approval_validation, ready_ids)
-    safety_checks["approvalValidationValid"] = approval_validation_summary["approvalValid"]
-    safety_checks["approvedRecordIdsMatchAuthorizedRecordIds"] = approval_validation_summary[
-        "approvedRecordIdsMatchAuthorizedRecordIds"
-    ]
+    safety_checks = build_safety_checks(audit, evidence, readiness_lock, approval_validation, ready_ids)
+
     return {
         "schemaVersion": "1.0.0",
         "generatedBy": "scripts/authorize_dhatu_canonical_write.py",

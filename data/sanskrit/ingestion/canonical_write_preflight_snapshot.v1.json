@@ -1,46 +1,89 @@
 {
-  "approvalStatus": "NOT_APPROVED",
-  "approvalValid": false,
+  "approvalStatus": "APPROVED",
+  "approvalValid": true,
   "blockingReasons": [
-    "Release checklist is not safe for production write.",
-    "Command manifest is not READY_FOR_MANUAL_EXECUTION.",
-    "Approval validation is not valid.",
-    "Approval status is not APPROVED.",
-    "Approval does not include every authorized ready record id.",
-    "Approval token missing approvedBy.",
-    "Approval token missing approvedAt.",
-    "Approval validation failed.",
-    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
     "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
-    "Approved record ids do not match authorized ready record ids.",
     "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
-    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE.",
-    "Authorization is not ready for manual write.",
-    "Command manifest is not ready for manual execution."
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
   ],
   "canonicalRegistryPath": "data/sanskrit/dhatus/index.json",
   "canonicalRegistryRecordCount": 10,
   "canonicalRegistrySha256": "9c7faa2d69235b26e31a122e7069ef62c9b6b555566123e5cb3429a85cfe5801",
-  "commandStatus": "REFUSED_APPROVAL_INVALID",
-  "currentBranch": "feature/dhatu-goldset",
-  "currentGitHead": "e824817ea1ebbed13b808d94a4eacfa47694e09b",
-  "generatedAt": "2026-05-21T05:25:34Z",
+  "commandStatus": "READY_FOR_MANUAL_EXECUTION",
+  "currentBranch": "release/dhatu-canonical-write-approval",
+  "currentGitHead": "73e3d273729a1666a5d64b89f93e1297f498d81a",
+  "generatedAt": "2026-05-21T11:36:30Z",
   "generatedBy": "scripts/snapshot_dhatu_pre_canonical_write_state.py",
   "readyRecordIds": [
     "01.STAGED.0001",
     "01.STAGED.0002",
     "01.STAGED.0003"
   ],
-  "recordsToAdd": [],
+  "recordsToAdd": [
+    {
+      "canonicalId": "01.0005",
+      "canonicalRecord": {
+        "canonicalForm": "गम्",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to go",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0001"
+        },
+        "root": "गम्",
+        "rootIast": "gam"
+      },
+      "sourceRootId": "01.STAGED.0001"
+    },
+    {
+      "canonicalId": "01.0013",
+      "canonicalRecord": {
+        "canonicalForm": "स्था",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to stand",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0002"
+        },
+        "root": "स्था",
+        "rootIast": "sthā"
+      },
+      "sourceRootId": "01.STAGED.0002"
+    },
+    {
+      "canonicalId": "01.0008",
+      "canonicalRecord": {
+        "canonicalForm": "नी",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to lead",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0003"
+        },
+        "root": "नी",
+        "rootIast": "nī"
+      },
+      "sourceRootId": "01.STAGED.0003"
+    }
+  ],
   "rollbackReference": {
-    "branch": "feature/dhatu-goldset",
+    "branch": "release/dhatu-canonical-write-approval",
     "canonicalRegistryPath": "data/sanskrit/dhatus/index.json",
     "canonicalRegistryRecordCount": 10,
     "canonicalRegistrySha256": "9c7faa2d69235b26e31a122e7069ef62c9b6b555566123e5cb3429a85cfe5801",
-    "gitHead": "e824817ea1ebbed13b808d94a4eacfa47694e09b"
+    "gitHead": "73e3d273729a1666a5d64b89f93e1297f498d81a"
   },
-  "safeToProceed": false,
+  "safeToProceed": true,
   "schemaVersion": "1.0.0",
-  "snapshotStatus": "BLOCKED_PREWRITE",
-  "verificationStatus": "BLOCKED"
+  "snapshotStatus": "READY_PREWRITE",
+  "verificationStatus": "READY"
 }
