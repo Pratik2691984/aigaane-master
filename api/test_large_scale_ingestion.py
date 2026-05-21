@@ -14,10 +14,12 @@ REVIEW_SCRIPT_PATH = ROOT / "scripts" / "apply_dhatu_review_decisions.py"
 LOCK_SCRIPT_PATH = ROOT / "scripts" / "lock_dhatu_promotion_readiness.py"
 PROMOTE_SCRIPT_PATH = ROOT / "scripts" / "promote_ready_dhatu_to_canonical.py"
 EVIDENCE_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_promotion_evidence.py"
+AUTHORIZATION_SCRIPT_PATH = ROOT / "scripts" / "authorize_dhatu_canonical_write.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
 EVIDENCE_REPORT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
+AUTHORIZATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -78,6 +80,11 @@ evidence_spec = importlib.util.spec_from_file_location("report_dhatu_promotion_e
 evidence_reporter = importlib.util.module_from_spec(evidence_spec)
 sys.modules["report_dhatu_promotion_evidence"] = evidence_reporter
 evidence_spec.loader.exec_module(evidence_reporter)
+
+authorization_spec = importlib.util.spec_from_file_location("authorize_dhatu_canonical_write", AUTHORIZATION_SCRIPT_PATH)
+authorizer = importlib.util.module_from_spec(authorization_spec)
+sys.modules["authorize_dhatu_canonical_write"] = authorizer
+authorization_spec.loader.exec_module(authorizer)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -144,6 +151,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_evidence_report_script_exists(self):
         self.assertTrue(EVIDENCE_SCRIPT_PATH.exists())
+
+    def test_authorization_script_exists(self):
+        self.assertTrue(AUTHORIZATION_SCRIPT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -266,6 +276,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["dhatuPromotionEvidenceReportFile"],
             "data/sanskrit/ingestion/dhatu_promotion_evidence_report.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_authorization_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteAuthorizationFile"],
+            "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -722,6 +738,43 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(evidence_reporter.release_gate_status({"canonicalWriteEnabled": True}), "BLOCKED")
         self.assertEqual(evidence_reporter.release_gate_status({"writeGuardSatisfied": True}), "BLOCKED")
 
+    def test_canonical_write_authorization_defaults_to_human_approval(self):
+        import os
+
+        before_write_flag = os.environ.get(promoter.WRITE_FLAG)
+        before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        authorization = authorizer.build_authorization()
+
+        self.assertEqual(authorization["schemaVersion"], "1.0.0")
+        self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+        self.assertTrue(authorization["humanApprovalRequired"])
+        self.assertEqual(authorization["authorizedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+        self.assertEqual(len(authorization["blockedRecordIds"]), 9)
+        self.assertEqual(
+            set(authorization["requiredEnvironment"].keys()),
+            {promoter.WRITE_FLAG, promoter.TEST_WRITE_FLAG},
+        )
+        self.assertFalse(authorization["requiredEnvironment"][promoter.WRITE_FLAG]["currentlySatisfied"])
+        self.assertFalse(authorization["requiredEnvironment"][promoter.TEST_WRITE_FLAG]["currentlySatisfied"])
+        self.assertEqual(authorization["evidenceSummary"]["releaseGateStatus"], "BLOCKED")
+        self.assertFalse(authorization["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertTrue(authorization["safetyChecks"]["environmentFlagsUnchangedByAuthorization"])
+        self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
+        self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_canonical_write_authorization_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-") as tmp:
+            authorization = authorizer.build_authorization()
+            path = authorizer.write_authorization(
+                authorization,
+                Path(tmp) / "canonical_write_authorization.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), authorization)
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -970,6 +1023,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in EVIDENCE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_authorization_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in AUTHORIZATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 

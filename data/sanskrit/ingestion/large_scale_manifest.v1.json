@@ -8,6 +8,7 @@
   "promotionReadinessLockFile": "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
   "canonicalPromotionAuditFile": "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
   "dhatuPromotionEvidenceReportFile": "data/sanskrit/ingestion/dhatu_promotion_evidence_report.v1.json",
+  "canonicalWriteAuthorizationFile": "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

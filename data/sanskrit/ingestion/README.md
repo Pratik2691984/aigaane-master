@@ -12,6 +12,8 @@
 
 `scripts/report_dhatu_promotion_evidence.py` compiles the release evidence from the manifest, preview, canonical promotion plan, review decisions, readiness lock, and canonical promotion audit. It writes `dhatu_promotion_evidence_report.v1.json` with counts, guard policy, contract summary, ready/skipped ids, and a release gate status. The current default status remains `BLOCKED` until both canonical write guards are satisfied.
 
+`scripts/authorize_dhatu_canonical_write.py` prepares the final production-write authorization packet from the canonical promotion audit, evidence report, and readiness lock. It writes `canonical_write_authorization.v1.json` with required environment flags, authorized ready ids, blocked non-ready ids, evidence summary, and safety checks. This node does not set environment flags or mutate the production canonical registry; the default authorization status remains `AWAITING_HUMAN_APPROVAL`.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.
