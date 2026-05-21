@@ -52,6 +52,8 @@
 
 `data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json` adds a safe placeholder graph for dhatu semantic relationships. `scripts/validate_dhatu_semantic_graph.py` and `scripts/query_dhatu_semantic_neighbors.py` validate and traverse this graph without making exact grammatical or Paninian derivation claims.
 
+`scripts/export_dhatu_semantic_graph_examples.py` regenerates deterministic neighbor API response fixtures under `data/sanskrit/dhatus/semantic/examples/graph/` for `/api/dhatu/semantic/neighbors`. These examples cover `nodeId=01.0005`, `nodeId=motion&depth=2`, `nodeId=guidance&relationType=guides`, and the empty query safety response.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

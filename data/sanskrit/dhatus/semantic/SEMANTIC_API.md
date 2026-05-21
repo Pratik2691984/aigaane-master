@@ -83,6 +83,55 @@ Regenerate them with:
 python scripts/export_dhatu_semantic_examples.py
 ```
 
+## Graph Neighbor Endpoint
+
+`GET /api/dhatu/semantic/neighbors`
+
+Supported query parameters:
+
+- `nodeId`
+- `depth`
+- `relationType`
+
+Examples:
+
+```powershell
+/api/dhatu/semantic/neighbors?nodeId=01.0005
+/api/dhatu/semantic/neighbors?nodeId=motion&depth=2
+/api/dhatu/semantic/neighbors?nodeId=guidance&relationType=guides
+/api/dhatu/semantic/neighbors
+```
+
+Response shape:
+
+```json
+{
+  "schemaVersion": "1.0.0",
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/neighbors",
+  "query": {
+    "nodeId": "01.0005",
+    "depth": 1,
+    "relationType": null
+  },
+  "nodeId": "01.0005",
+  "depth": 1,
+  "relationType": null,
+  "neighborCount": 1,
+  "neighbors": [
+    {
+      "nodeType": "semantic_cluster",
+      "nodeId": "motion",
+      "depth": 1,
+      "viaEdgeIds": ["edge.semantic.0001"],
+      "relationTypes": ["associated_with"]
+    }
+  ],
+  "traversedEdgeIds": ["edge.semantic.0001"]
+}
+```
+
+Empty graph-neighbor requests return `error.code` as `empty_semantic_graph_query` with an empty `neighbors` array.
+
 ## Graph And Neighbor Queries
 
 Semantic graph edges live at `edges/semantic_edges.v1.json`. They are local semantic model placeholders and do not make exact grammatical or Paninian derivation claims.
@@ -102,6 +151,21 @@ python scripts/query_dhatu_semantic_neighbors.py --node-id guidance --relation-t
 ```
 
 Neighbor responses include `schemaVersion`, `generatedBy`, `nodeId`, `depth`, `relationType`, `neighborCount`, `neighbors`, and `traversedEdgeIds`.
+
+## Graph Reproducible Examples
+
+- `examples/graph/neighbor_01_0005.response.v1.json`
+- `examples/graph/neighbor_motion_depth2.response.v1.json`
+- `examples/graph/neighbor_guidance_guides.response.v1.json`
+- `examples/graph/neighbor_empty_query.response.v1.json`
+
+Regenerate them with:
+
+```powershell
+python scripts/export_dhatu_semantic_graph_examples.py
+```
+
+Graph edges are foundation-placeholder semantic links only. They do not make exact Paninian derivation claims.
 
 ## Safety
 

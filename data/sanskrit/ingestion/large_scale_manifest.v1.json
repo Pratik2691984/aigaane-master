@@ -33,6 +33,9 @@
   "canonicalDhatuSemanticEdgesFile": "data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json",
   "canonicalDhatuSemanticGraphValidatorScript": "scripts/validate_dhatu_semantic_graph.py",
   "canonicalDhatuSemanticNeighborQueryScript": "scripts/query_dhatu_semantic_neighbors.py",
+  "canonicalDhatuSemanticGraphApiSmokeScript": "scripts/smoke_dhatu_semantic_graph_api.py",
+  "canonicalDhatuSemanticGraphExampleExportScript": "scripts/export_dhatu_semantic_graph_examples.py",
+  "canonicalDhatuSemanticGraphExamplesRoot": "data/sanskrit/dhatus/semantic/examples/graph",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

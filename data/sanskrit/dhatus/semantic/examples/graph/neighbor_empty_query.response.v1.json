@@ -1,0 +1,19 @@
+{
+  "depth": 1,
+  "error": {
+    "code": "empty_semantic_graph_query",
+    "message": "Provide nodeId to query semantic graph neighbors."
+  },
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/neighbors",
+  "neighborCount": 0,
+  "neighbors": [],
+  "nodeId": null,
+  "query": {
+    "depth": 1,
+    "nodeId": null,
+    "relationType": null
+  },
+  "relationType": null,
+  "schemaVersion": "1.0.0",
+  "traversedEdgeIds": []
+}

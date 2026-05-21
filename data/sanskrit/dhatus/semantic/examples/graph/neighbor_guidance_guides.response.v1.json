@@ -1,0 +1,29 @@
+{
+  "depth": 1,
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/neighbors",
+  "neighborCount": 1,
+  "neighbors": [
+    {
+      "depth": 1,
+      "nodeId": "motion",
+      "nodeType": "semantic_cluster",
+      "relationTypes": [
+        "guides"
+      ],
+      "viaEdgeIds": [
+        "edge.semantic.0006"
+      ]
+    }
+  ],
+  "nodeId": "guidance",
+  "query": {
+    "depth": 1,
+    "nodeId": "guidance",
+    "relationType": "guides"
+  },
+  "relationType": "guides",
+  "schemaVersion": "1.0.0",
+  "traversedEdgeIds": [
+    "edge.semantic.0006"
+  ]
+}
