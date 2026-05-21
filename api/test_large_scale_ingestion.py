@@ -17,6 +17,7 @@ EVIDENCE_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_promotion_evidence.py"
 AUTHORIZATION_SCRIPT_PATH = ROOT / "scripts" / "authorize_dhatu_canonical_write.py"
 COMMAND_SCRIPT_PATH = ROOT / "scripts" / "prepare_dhatu_canonical_write_command.py"
 APPROVAL_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_canonical_write_approval.py"
+SIMULATE_APPROVAL_SCRIPT_PATH = ROOT / "scripts" / "simulate_dhatu_canonical_write_approval.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -25,6 +26,7 @@ AUTHORIZATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write
 APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.v1.json"
 COMMAND_MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_command_manifest.v1.json"
 APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
+SIMULATED_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.simulated.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -104,6 +106,14 @@ approval_validator = importlib.util.module_from_spec(approval_validation_spec)
 sys.modules["validate_dhatu_canonical_write_approval"] = approval_validator
 approval_validation_spec.loader.exec_module(approval_validator)
 
+simulate_approval_spec = importlib.util.spec_from_file_location(
+    "simulate_dhatu_canonical_write_approval",
+    SIMULATE_APPROVAL_SCRIPT_PATH,
+)
+approval_simulator = importlib.util.module_from_spec(simulate_approval_spec)
+sys.modules["simulate_dhatu_canonical_write_approval"] = approval_simulator
+simulate_approval_spec.loader.exec_module(approval_simulator)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -178,6 +188,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_approval_validation_script_exists(self):
         self.assertTrue(APPROVAL_VALIDATION_SCRIPT_PATH.exists())
+
+    def test_simulated_approval_script_exists(self):
+        self.assertTrue(SIMULATE_APPROVAL_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -325,6 +338,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteApprovalValidationFile"],
             "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
+        )
+
+    def test_manifest_declares_simulated_canonical_write_approval_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteSimulatedApprovalFile"],
+            "data/sanskrit/ingestion/canonical_write_approval.simulated.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -829,6 +848,45 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertTrue(approval["approvalNotes"])
         self.assertTrue(approval["requiredBeforeWrite"])
 
+    def test_simulated_approval_is_test_only_and_does_not_overwrite_default(self):
+        import tempfile
+
+        before_default = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory(prefix="simulated-approval-") as tmp:
+            approval = approval_simulator.build_simulated_approval()
+            path = approval_simulator.write_simulated_approval(
+                approval,
+                Path(tmp) / "canonical_write_approval.simulated.v1.json",
+            )
+            simulated = json.loads(path.read_text(encoding="utf-8"))
+            after_default = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+
+            self.assertTrue(simulated["testOnly"])
+            self.assertEqual(simulated["approvalStatus"], "APPROVED")
+            self.assertEqual(simulated["approvedBy"], "test-fixture")
+            self.assertEqual(simulated["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+            self.assertEqual(after_default, before_default)
+            self.assertEqual(after_default["approvalStatus"], "NOT_APPROVED")
+
+    def test_simulated_approval_validates_as_valid(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="simulated-validation-") as tmp:
+            approval_path = Path(tmp) / "canonical_write_approval.simulated.v1.json"
+            approval_simulator.write_simulated_approval(
+                approval_simulator.build_simulated_approval(),
+                approval_path,
+            )
+            validation = approval_validator.build_approval_validation(approval_path)
+
+            self.assertEqual(validation["approvalStatus"], "APPROVED")
+            self.assertTrue(validation["approvalValid"])
+            self.assertEqual(validation["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+            self.assertEqual(validation["missingAuthorizedRecordIds"], [])
+            self.assertEqual(validation["unexpectedApprovedRecordIds"], [])
+            self.assertFalse(validation["safetyChecks"]["writerExecuted"])
+            self.assertFalse(validation["safetyChecks"]["canonicalRegistryMutation"])
+
     def test_canonical_write_command_manifest_refuses_without_approval(self):
         import os
 
@@ -854,6 +912,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
         self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
 
+    def test_default_command_manifest_remains_refused_after_simulated_validation(self):
+        manifest = command_preparer.build_command_manifest()
+
+        self.assertEqual(manifest["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertFalse(manifest["approvalValidationSummary"]["approvalValid"])
+
     def test_canonical_write_command_manifest_refuses_when_authorization_not_ready(self):
         import tempfile
 
@@ -876,6 +940,41 @@ class LargeScaleIngestionTests(unittest.TestCase):
                 "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
                 manifest["refusalReasons"],
             )
+
+    def test_simulated_validation_can_reach_ready_with_ready_authorization(self):
+        import tempfile
+
+        authorization = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        authorization["authorizationStatus"] = "AUTHORIZED_FOR_MANUAL_WRITE"
+        for requirement in authorization["requiredEnvironment"].values():
+            requirement["currentlySatisfied"] = True
+        evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+        evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+        with tempfile.TemporaryDirectory(prefix="simulated-ready-chain-") as tmp:
+            approval_path = Path(tmp) / "approval.simulated.json"
+            validation_path = Path(tmp) / "validation.json"
+            authorization_path = Path(tmp) / "authorization.json"
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_simulator.write_simulated_approval(
+                approval_simulator.build_simulated_approval(),
+                approval_path,
+            )
+            validation = approval_validator.build_approval_validation(approval_path)
+            approval_validator.write_approval_validation(validation, validation_path)
+            authorization_path.write_text(json.dumps(authorization), encoding="utf-8")
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+            manifest = command_preparer.build_command_manifest(
+                authorization_path=authorization_path,
+                approval_path=approval_path,
+                approval_validation_path=validation_path,
+                evidence_path=evidence_path,
+            )
+
+            self.assertTrue(validation["approvalValid"])
+            self.assertEqual(manifest["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+            self.assertFalse(manifest["safetyChecks"]["writerExecuted"])
+            self.assertFalse(manifest["safetyChecks"]["canonicalRegistryMutation"])
 
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
@@ -1277,6 +1376,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in APPROVAL_VALIDATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_simulated_approval_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in SIMULATE_APPROVAL_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 

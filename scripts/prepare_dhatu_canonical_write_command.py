@@ -220,7 +220,12 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Prepare a dry command manifest for canonical dhatu write.")
     parser.add_argument("--authorization", default=str(DEFAULT_AUTHORIZATION_PATH))
     parser.add_argument("--approval", default=str(DEFAULT_APPROVAL_PATH))
-    parser.add_argument("--approval-validation", default=str(DEFAULT_APPROVAL_VALIDATION_PATH))
+    parser.add_argument(
+        "--approval-validation",
+        "--approval-validation-file",
+        dest="approval_validation",
+        default=str(DEFAULT_APPROVAL_VALIDATION_PATH),
+    )
     parser.add_argument("--readiness-lock", default=str(DEFAULT_READINESS_LOCK_PATH))
     parser.add_argument("--evidence", default=str(DEFAULT_EVIDENCE_REPORT_PATH))
     parser.add_argument("--output", default=str(DEFAULT_COMMAND_MANIFEST_PATH))

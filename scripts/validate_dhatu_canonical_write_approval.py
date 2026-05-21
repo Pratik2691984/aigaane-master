@@ -72,10 +72,6 @@ def build_refusal_reasons(
         reasons.append("Approval token missing approvedBy.")
     if not approval.get("approvedAt"):
         reasons.append("Approval token missing approvedAt.")
-    if authorization.get("authorizationStatus") != "AUTHORIZED_FOR_MANUAL_WRITE":
-        reasons.append("Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.")
-    if evidence.get("releaseGateStatus") != "READY_FOR_CONTROLLED_WRITE":
-        reasons.append("Evidence release gate is not READY_FOR_CONTROLLED_WRITE.")
     if sorted(authorization.get("authorizedRecordIds", [])) != sorted(readiness_lock.get("readyRecordIds", [])):
         reasons.append("Authorization ready ids do not match readiness lock ready ids.")
     return reasons
@@ -102,6 +98,7 @@ def build_safety_checks(
         "approvedIdsPresentWhenApproved": approval.get("approvalStatus") != "APPROVED" or bool(approved_ids),
         "approvedIdsSubsetOfAuthorization": not unexpected_ids,
         "authorizedIdsMatchReadinessLock": authorized_ids == ready_ids,
+        "authorizationReady": authorization.get("authorizationStatus") == "AUTHORIZED_FOR_MANUAL_WRITE",
         "evidenceReleaseGateReady": evidence.get("releaseGateStatus") == "READY_FOR_CONTROLLED_WRITE",
     }
 
@@ -173,7 +170,7 @@ def build_summary(validation: Dict[str, Any]) -> Dict[str, Any]:
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate human approval token for canonical dhatu write.")
-    parser.add_argument("--approval", default=str(DEFAULT_APPROVAL_PATH))
+    parser.add_argument("--approval", "--approval-file", dest="approval", default=str(DEFAULT_APPROVAL_PATH))
     parser.add_argument("--authorization", default=str(DEFAULT_AUTHORIZATION_PATH))
     parser.add_argument("--readiness-lock", default=str(DEFAULT_READINESS_LOCK_PATH))
     parser.add_argument("--evidence", default=str(DEFAULT_EVIDENCE_REPORT_PATH))
