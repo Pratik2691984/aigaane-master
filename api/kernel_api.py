@@ -56,6 +56,10 @@ try:
     from api.dhatu_semantic_query import query_semantics
 except ModuleNotFoundError:
     from dhatu_semantic_query import query_semantics
+try:
+    from api.dhatu_semantic_graph import get_neighbors
+except ModuleNotFoundError:
+    from dhatu_semantic_graph import get_neighbors
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -282,6 +286,38 @@ def build_dhatu_semantic_search_response(
         "results": results,
     }
 
+
+def build_dhatu_semantic_graph_neighbors_response(
+    nodeId: Optional[str] = None,
+    depth: int = 1,
+    relationType: Optional[str] = None,
+) -> Dict[str, Any]:
+    query = {
+        "nodeId": nodeId,
+        "depth": int(depth),
+        "relationType": relationType,
+    }
+    if not nodeId:
+        return {
+            "schemaVersion": "1.0.0",
+            "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/neighbors",
+            "query": query,
+            "nodeId": nodeId,
+            "depth": int(depth),
+            "relationType": relationType,
+            "neighborCount": 0,
+            "neighbors": [],
+            "traversedEdgeIds": [],
+            "error": {
+                "code": "empty_semantic_graph_query",
+                "message": "Provide nodeId to query semantic graph neighbors.",
+            },
+        }
+    payload = get_neighbors(nodeId, depth=depth, relation_type=relationType)
+    payload["generatedBy"] = "api/kernel_api.py:/api/dhatu/semantic/neighbors"
+    payload["query"] = query
+    return payload
+
 # ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
@@ -390,6 +426,18 @@ async def dhatu_semantic_search(
         cluster=cluster,
         gloss=gloss,
         action=action,
+    )
+
+@app.get("/api/dhatu/semantic/neighbors")
+async def dhatu_semantic_neighbors(
+    nodeId: Optional[str] = None,
+    depth: int = 1,
+    relationType: Optional[str] = None,
+):
+    return build_dhatu_semantic_graph_neighbors_response(
+        nodeId=nodeId,
+        depth=depth,
+        relationType=relationType,
     )
 
 @app.post("/api/calculate-friction")
