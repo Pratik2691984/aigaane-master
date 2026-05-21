@@ -32,6 +32,9 @@ SEMANTIC_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantics.py"
 SEMANTIC_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_api.py"
 SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_examples.py"
 SEMANTIC_QUERY_API_PATH = ROOT / "api" / "dhatu_semantic_query.py"
+SEMANTIC_GRAPH_API_PATH = ROOT / "api" / "dhatu_semantic_graph.py"
+SEMANTIC_GRAPH_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_graph.py"
+SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_neighbors.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -64,6 +67,7 @@ SEMANTIC_CLUSTERS_PATH = SEMANTIC_ROOT / "semantic_clusters.v1.json"
 ACTION_VECTORS_PATH = SEMANTIC_ROOT / "action_vectors.v1.json"
 SEMANTIC_API_DOC_PATH = SEMANTIC_ROOT / "SEMANTIC_API.md"
 SEMANTIC_EXAMPLES_ROOT = SEMANTIC_ROOT / "examples"
+SEMANTIC_EDGES_PATH = SEMANTIC_ROOT / "edges" / "semantic_edges.v1.json"
 GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
@@ -242,6 +246,14 @@ semantic_query = importlib.util.module_from_spec(semantic_query_spec)
 sys.modules["dhatu_semantic_query"] = semantic_query
 semantic_query_spec.loader.exec_module(semantic_query)
 
+semantic_graph_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_graph",
+    SEMANTIC_GRAPH_API_PATH,
+)
+semantic_graph = importlib.util.module_from_spec(semantic_graph_spec)
+sys.modules["dhatu_semantic_graph"] = semantic_graph
+semantic_graph_spec.loader.exec_module(semantic_graph)
+
 semantic_example_export_spec = importlib.util.spec_from_file_location(
     "export_dhatu_semantic_examples",
     SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH,
@@ -377,6 +389,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertTrue(SEMANTIC_API_SMOKE_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_QUERY_API_PATH.exists())
+        self.assertTrue(SEMANTIC_GRAPH_API_PATH.exists())
+        self.assertTrue(SEMANTIC_GRAPH_VALIDATION_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -405,6 +420,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_semantic_api_docs_and_examples_exist(self):
         self.assertTrue(SEMANTIC_API_DOC_PATH.exists())
         self.assertTrue(SEMANTIC_EXAMPLES_ROOT.exists())
+        self.assertTrue(SEMANTIC_EDGES_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -622,6 +638,85 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertEqual(first, second)
 
+    def test_semantic_graph_edge_ids_are_unique(self):
+        edges = json.loads(SEMANTIC_EDGES_PATH.read_text(encoding="utf-8"))
+        edge_ids = [edge["edgeId"] for edge in edges["edges"]]
+
+        self.assertEqual(len(edge_ids), len(set(edge_ids)))
+
+    def test_semantic_graph_validator_passes(self):
+        summary = semantic_graph.validate_graph()
+
+        self.assertEqual(summary["graphValidationStatus"], "PASS")
+        self.assertEqual(summary["edgeCount"], 7)
+        self.assertEqual(summary["duplicateEdgeIds"], [])
+
+    def test_semantic_graph_gam_has_motion_neighbor(self):
+        payload = semantic_graph.get_neighbors("01.0005")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("motion", neighbor_ids)
+
+    def test_semantic_graph_ni_has_guidance_neighbor(self):
+        payload = semantic_graph.get_neighbors("01.0008")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("guidance", neighbor_ids)
+
+    def test_semantic_graph_stha_has_stability_neighbor(self):
+        payload = semantic_graph.get_neighbors("01.0013")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("stability", neighbor_ids)
+
+    def test_semantic_graph_motion_depth_two_reaches_stability_or_guidance(self):
+        payload = semantic_graph.get_neighbors("motion", depth=2)
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertTrue({"stability", "guidance"}.issubset(neighbor_ids))
+
+    def test_semantic_graph_relation_filter_guides_works(self):
+        payload = semantic_graph.get_neighbors("guidance", relation_type="guides")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("motion", neighbor_ids)
+        self.assertEqual(payload["traversedEdgeIds"], ["edge.semantic.0006"])
+
+    def test_semantic_graph_traversal_is_cycle_safe(self):
+        payload = semantic_graph.get_neighbors("motion", depth=8)
+        neighbor_ids = [neighbor["nodeId"] for neighbor in payload["neighbors"]]
+
+        self.assertEqual(len(neighbor_ids), len(set(neighbor_ids)))
+        self.assertLessEqual(payload["neighborCount"], 3)
+
+    def test_semantic_graph_dhatu_references_are_canonical(self):
+        summary = semantic_graph.validate_graph()
+
+        self.assertEqual(summary["noncanonicalDhatuReferences"], [])
+        self.assertTrue(summary["checks"]["dhatuReferencesAreCanonical"])
+
+    def test_semantic_graph_edges_make_no_exact_paninian_derivation_claims(self):
+        edges = json.loads(SEMANTIC_EDGES_PATH.read_text(encoding="utf-8"))
+
+        for edge in edges["edges"]:
+            self.assertIn("No exact grammatical or Paninian derivation claim is made.", edge["notes"])
+        self.assertEqual(semantic_graph.validate_graph()["derivationClaimEdges"], [])
+
+    def test_semantic_layer_validator_includes_graph_validation(self):
+        summary = semantic_validator.validate_semantic_layer()
+
+        self.assertEqual(summary["semanticValidationStatus"], "PASS")
+        self.assertTrue(summary["checks"]["semanticGraphValidationPasses"])
+
+    def test_semantic_graph_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        semantic_graph.validate_graph()
+        semantic_graph.get_neighbors("motion", depth=2)
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
 
@@ -827,6 +922,20 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticExamplesRoot"],
             "data/sanskrit/dhatus/semantic/examples",
+        )
+
+    def test_manifest_declares_semantic_graph_artifacts(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticEdgesFile"],
+            "data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphValidatorScript"],
+            "scripts/validate_dhatu_semantic_graph.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticNeighborQueryScript"],
+            "scripts/query_dhatu_semantic_neighbors.py",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

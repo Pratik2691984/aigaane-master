@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from api.dhatu_semantic_query import query_semantics
+from api.dhatu_semantic_graph import validate_graph
 
 
 DEFAULT_CANONICAL_REGISTRY_PATH = ROOT / "data" / "sanskrit" / "dhatus" / "index.json"
@@ -117,6 +118,10 @@ def validate_semantic_layer(
         for results in query_results.values()
         for result in results
     )
+    graph_summary = validate_graph(
+        canonical_registry_path=canonical_registry_path,
+        semantic_root=semantic_root,
+    )
     canonical_registry_unchanged = registry_before == registry_after
     checks = {
         "semanticDirectoryPresent": resolve_path(semantic_root).exists(),
@@ -133,6 +138,7 @@ def validate_semantic_layer(
         "guidanceActionQueryReturnsNi": any(result["dhatuId"] == "01.0008" for result in query_results["guidanceAction"]),
         "motionClusterQueryReturnsGam": any(result["dhatuId"] == "01.0005" for result in query_results["motionCluster"]),
         "standGlossQueryReturnsStha": any(result["dhatuId"] == "01.0013" for result in query_results["standGloss"]),
+        "semanticGraphValidationPasses": graph_summary.get("graphValidationStatus") == "PASS",
     }
     return {
         "schemaVersion": "1.0.0",
@@ -146,6 +152,7 @@ def validate_semantic_layer(
         "duplicateSemanticDhatuIds": duplicate_semantic_ids,
         "invalidSemanticClusterIds": invalid_clusters,
         "queryableDhatuIds": queryable_ids,
+        "semanticGraphSummary": graph_summary,
         "checks": checks,
     }
 

@@ -50,6 +50,8 @@
 
 `data/sanskrit/dhatus/semantic/SEMANTIC_API.md` documents semantic query usage, and `scripts/export_dhatu_semantic_examples.py` regenerates deterministic response fixtures under `data/sanskrit/dhatus/semantic/examples/`.
 
+`data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json` adds a safe placeholder graph for dhatu semantic relationships. `scripts/validate_dhatu_semantic_graph.py` and `scripts/query_dhatu_semantic_neighbors.py` validate and traverse this graph without making exact grammatical or Paninian derivation claims.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

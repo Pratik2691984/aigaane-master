@@ -30,6 +30,9 @@
   "canonicalDhatuSemanticApiSmokeScript": "scripts/smoke_dhatu_semantic_api.py",
   "canonicalDhatuSemanticApiDocsFile": "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
   "canonicalDhatuSemanticExamplesRoot": "data/sanskrit/dhatus/semantic/examples",
+  "canonicalDhatuSemanticEdgesFile": "data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json",
+  "canonicalDhatuSemanticGraphValidatorScript": "scripts/validate_dhatu_semantic_graph.py",
+  "canonicalDhatuSemanticNeighborQueryScript": "scripts/query_dhatu_semantic_neighbors.py",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

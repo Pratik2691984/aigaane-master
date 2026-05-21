@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "1.0.0",
+  "policy": {
+    "exactPaninianDerivationClaims": false,
+    "notes": "Foundation graph edges are local semantic model placeholders only."
+  },
+  "edges": [
+    {
+      "edgeId": "edge.semantic.0001",
+      "sourceType": "dhatu",
+      "sourceId": "01.0005",
+      "targetType": "semantic_cluster",
+      "targetId": "motion",
+      "relationType": "associated_with",
+      "direction": "outbound",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.semantic.0002",
+      "sourceType": "dhatu",
+      "sourceId": "01.0013",
+      "targetType": "semantic_cluster",
+      "targetId": "stability",
+      "relationType": "associated_with",
+      "direction": "outbound",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.semantic.0003",
+      "sourceType": "dhatu",
+      "sourceId": "01.0008",
+      "targetType": "semantic_cluster",
+      "targetId": "guidance",
+      "relationType": "associated_with",
+      "direction": "outbound",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.semantic.0004",
+      "sourceType": "semantic_cluster",
+      "sourceId": "motion",
+      "targetType": "semantic_cluster",
+      "targetId": "guidance",
+      "relationType": "associated_with",
+      "direction": "bidirectional",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.semantic.0005",
+      "sourceType": "semantic_cluster",
+      "sourceId": "motion",
+      "targetType": "semantic_cluster",
+      "targetId": "stability",
+      "relationType": "transitions_to",
+      "direction": "outbound",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.semantic.0006",
+      "sourceType": "semantic_cluster",
+      "sourceId": "guidance",
+      "targetType": "semantic_cluster",
+      "targetId": "motion",
+      "relationType": "guides",
+      "direction": "outbound",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.semantic.0007",
+      "sourceType": "semantic_cluster",
+      "sourceId": "stability",
+      "targetType": "semantic_cluster",
+      "targetId": "motion",
+      "relationType": "grounds",
+      "direction": "outbound",
+      "confidence": "foundation-placeholder",
+      "evidenceType": "local-semantic-model",
+      "notes": "No exact grammatical or Paninian derivation claim is made."
+    }
+  ]
+}

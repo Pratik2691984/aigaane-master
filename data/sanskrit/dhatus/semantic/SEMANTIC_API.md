@@ -83,6 +83,26 @@ Regenerate them with:
 python scripts/export_dhatu_semantic_examples.py
 ```
 
+## Graph And Neighbor Queries
+
+Semantic graph edges live at `edges/semantic_edges.v1.json`. They are local semantic model placeholders and do not make exact grammatical or Paninian derivation claims.
+
+Validate the graph:
+
+```powershell
+python scripts/validate_dhatu_semantic_graph.py
+```
+
+Query neighbors:
+
+```powershell
+python scripts/query_dhatu_semantic_neighbors.py --node-id 01.0005 --json
+python scripts/query_dhatu_semantic_neighbors.py --node-id motion --depth 2 --json
+python scripts/query_dhatu_semantic_neighbors.py --node-id guidance --relation-type guides --json
+```
+
+Neighbor responses include `schemaVersion`, `generatedBy`, `nodeId`, `depth`, `relationType`, `neighborCount`, `neighbors`, and `traversedEdgeIds`.
+
 ## Safety
 
 The semantic layer is sidecar-only. Querying, validating, documenting, and exporting examples must not mutate the canonical registry, promotion audit files, v50 archives, or approval fixtures.
