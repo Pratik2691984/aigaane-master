@@ -1,4 +1,17 @@
 {
+  "approvalValidationSummary": {
+    "approvalStatus": "NOT_APPROVED",
+    "approvalValid": false,
+    "approvedCount": 0,
+    "approvedRecordIdsMatchAuthorizedRecordIds": false,
+    "authorizedCount": 3,
+    "missingAuthorizedRecordIds": [
+      "01.STAGED.0001",
+      "01.STAGED.0002",
+      "01.STAGED.0003"
+    ],
+    "unexpectedApprovedRecordIds": []
+  },
   "authorizationStatus": "AWAITING_HUMAN_APPROVAL",
   "authorizedRecordIds": [
     "01.STAGED.0001",
@@ -44,6 +57,8 @@
     }
   },
   "safetyChecks": {
+    "approvalValidationValid": false,
+    "approvedRecordIdsMatchAuthorizedRecordIds": false,
     "auditCanonicalMutation": false,
     "batchMutation": false,
     "canonicalRegistryMutation": false,

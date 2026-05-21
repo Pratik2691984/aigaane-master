@@ -14,6 +14,9 @@ DEFAULT_EVIDENCE_REPORT_PATH = (
     ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
 )
 DEFAULT_READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
+DEFAULT_APPROVAL_VALIDATION_PATH = (
+    ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
+)
 DEFAULT_AUTHORIZATION_PATH = (
     ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
 )
@@ -92,29 +95,67 @@ def build_safety_checks(audit: Dict[str, Any], evidence: Dict[str, Any], readine
     }
 
 
+def build_approval_validation_summary(approval_validation: Dict[str, Any], authorized_ids: List[str]) -> Dict[str, Any]:
+    approved_ids = sorted(approval_validation.get("approvedRecordIds", []))
+    return {
+        "approvalStatus": approval_validation.get("approvalStatus"),
+        "approvalValid": approval_validation.get("approvalValid") is True,
+        "approvedRecordIdsMatchAuthorizedRecordIds": approved_ids == authorized_ids,
+        "approvedCount": len(approved_ids),
+        "authorizedCount": len(authorized_ids),
+        "unexpectedApprovedRecordIds": sorted(approval_validation.get("unexpectedApprovedRecordIds", [])),
+        "missingAuthorizedRecordIds": sorted(approval_validation.get("missingAuthorizedRecordIds", [])),
+    }
+
+
+def authorization_status(
+    evidence: Dict[str, Any],
+    approval_validation: Dict[str, Any],
+    authorized_ids: List[str],
+) -> str:
+    approved_ids = sorted(approval_validation.get("approvedRecordIds", []))
+    evidence_ready = (
+        evidence.get("releaseGateStatus") == "READY_FOR_CONTROLLED_WRITE"
+        and evidence.get("contractSummary", {}).get("passed") is True
+    )
+    approval_ready = approval_validation.get("approvalValid") is True and approved_ids == authorized_ids
+    if evidence_ready and approval_ready:
+        return "AUTHORIZED_FOR_MANUAL_WRITE"
+    return "AWAITING_HUMAN_APPROVAL"
+
+
 def build_authorization(
     audit_path: Any = DEFAULT_AUDIT_PATH,
     evidence_path: Any = DEFAULT_EVIDENCE_REPORT_PATH,
     readiness_lock_path: Any = DEFAULT_READINESS_LOCK_PATH,
+    approval_validation_path: Any = DEFAULT_APPROVAL_VALIDATION_PATH,
 ) -> Dict[str, Any]:
     audit = load_json(audit_path)
     evidence = load_json(evidence_path)
     readiness_lock = load_json(readiness_lock_path)
+    approval_validation = load_json(approval_validation_path)
     ready_ids = sorted(readiness_lock.get("readyRecordIds", []))
     blocked_ids = sorted(
         set(readiness_lock.get("blockedRecordIds", []))
         | set(readiness_lock.get("deferredRecordIds", []))
         | (set(evidence.get("skippedRecordIds", [])) - set(ready_ids))
     )
+    safety_checks = build_safety_checks(audit, evidence, readiness_lock)
+    approval_validation_summary = build_approval_validation_summary(approval_validation, ready_ids)
+    safety_checks["approvalValidationValid"] = approval_validation_summary["approvalValid"]
+    safety_checks["approvedRecordIdsMatchAuthorizedRecordIds"] = approval_validation_summary[
+        "approvedRecordIdsMatchAuthorizedRecordIds"
+    ]
     return {
         "schemaVersion": "1.0.0",
         "generatedBy": "scripts/authorize_dhatu_canonical_write.py",
-        "authorizationStatus": "AWAITING_HUMAN_APPROVAL",
+        "authorizationStatus": authorization_status(evidence, approval_validation, ready_ids),
         "authorizedRecordIds": ready_ids,
         "blockedRecordIds": blocked_ids,
         "requiredEnvironment": build_required_environment(audit, evidence),
         "evidenceSummary": build_evidence_summary(audit, evidence, readiness_lock),
-        "safetyChecks": build_safety_checks(audit, evidence, readiness_lock),
+        "approvalValidationSummary": approval_validation_summary,
+        "safetyChecks": safety_checks,
         "humanApprovalRequired": True,
     }
 
@@ -142,6 +183,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser.add_argument("--audit", default=str(DEFAULT_AUDIT_PATH))
     parser.add_argument("--evidence", default=str(DEFAULT_EVIDENCE_REPORT_PATH))
     parser.add_argument("--readiness-lock", default=str(DEFAULT_READINESS_LOCK_PATH))
+    parser.add_argument("--approval-validation", default=str(DEFAULT_APPROVAL_VALIDATION_PATH))
     parser.add_argument("--output", default=str(DEFAULT_AUTHORIZATION_PATH))
     return parser.parse_args(argv)
 
@@ -149,7 +191,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
 def main(argv: Optional[List[str]] = None) -> int:
     args = parse_args(argv)
     try:
-        authorization = build_authorization(args.audit, args.evidence, args.readiness_lock)
+        authorization = build_authorization(args.audit, args.evidence, args.readiness_lock, args.approval_validation)
         write_authorization(authorization, args.output)
         print(json.dumps(build_summary(authorization), ensure_ascii=False, sort_keys=True))
         return 0

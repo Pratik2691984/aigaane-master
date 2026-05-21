@@ -997,10 +997,66 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertFalse(authorization["requiredEnvironment"][promoter.WRITE_FLAG]["currentlySatisfied"])
         self.assertFalse(authorization["requiredEnvironment"][promoter.TEST_WRITE_FLAG]["currentlySatisfied"])
         self.assertEqual(authorization["evidenceSummary"]["releaseGateStatus"], "BLOCKED")
+        self.assertIn("approvalValidationSummary", authorization)
+        self.assertFalse(authorization["safetyChecks"]["evidenceReleaseGateReady"])
         self.assertFalse(authorization["safetyChecks"]["canonicalRegistryMutation"])
         self.assertTrue(authorization["safetyChecks"]["environmentFlagsUnchangedByAuthorization"])
         self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
         self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_canonical_write_authorization_transitions_when_approval_and_release_ready(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-ready-") as tmp:
+            readiness_lock = json.loads(READINESS_LOCK_PATH.read_text(encoding="utf-8"))
+            ready_ids = sorted(readiness_lock["readyRecordIds"])
+            evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+            evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+            evidence.setdefault("contractSummary", {})["passed"] = True
+            approval_validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+            approval_validation["approvalStatus"] = "APPROVED"
+            approval_validation["approvalValid"] = True
+            approval_validation["approvedRecordIds"] = ready_ids
+            approval_validation["missingAuthorizedRecordIds"] = []
+            approval_validation["unexpectedApprovedRecordIds"] = []
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_validation_path = Path(tmp) / "approval_validation.json"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            approval_validation_path.write_text(json.dumps(approval_validation), encoding="utf-8")
+
+            authorization = authorizer.build_authorization(
+                evidence_path=evidence_path,
+                approval_validation_path=approval_validation_path,
+            )
+
+            self.assertEqual(authorization["authorizationStatus"], "AUTHORIZED_FOR_MANUAL_WRITE")
+            self.assertTrue(authorization["approvalValidationSummary"]["approvalValid"])
+            self.assertTrue(authorization["approvalValidationSummary"]["approvedRecordIdsMatchAuthorizedRecordIds"])
+            self.assertTrue(authorization["safetyChecks"]["evidenceReleaseGateReady"])
+
+    def test_canonical_write_authorization_waits_when_approved_ids_do_not_match(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-mismatch-") as tmp:
+            evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+            evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+            evidence.setdefault("contractSummary", {})["passed"] = True
+            approval_validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+            approval_validation["approvalStatus"] = "APPROVED"
+            approval_validation["approvalValid"] = True
+            approval_validation["approvedRecordIds"] = ["01.STAGED.0001"]
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_validation_path = Path(tmp) / "approval_validation.json"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            approval_validation_path.write_text(json.dumps(approval_validation), encoding="utf-8")
+
+            authorization = authorizer.build_authorization(
+                evidence_path=evidence_path,
+                approval_validation_path=approval_validation_path,
+            )
+
+            self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+            self.assertFalse(authorization["approvalValidationSummary"]["approvedRecordIdsMatchAuthorizedRecordIds"])
 
     def test_canonical_write_authorization_writer_uses_requested_output_path(self):
         import tempfile

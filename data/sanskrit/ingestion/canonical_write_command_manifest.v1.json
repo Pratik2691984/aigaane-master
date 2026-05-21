@@ -4,7 +4,7 @@
     "approvalValid": false,
     "approvedCount": 0,
     "missingAuthorizedCount": 3,
-    "refusalCount": 6,
+    "refusalCount": 4,
     "unexpectedApprovedCount": 0
   },
   "approvedRecordIds": [],
