@@ -835,6 +835,11 @@
     font-size: 0.78rem;
 }
 
+.semantic-graph-node:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
 .semantic-graph-node.selected {
     border-color: var(--gold);
     color: #f0d77a;
@@ -868,8 +873,10 @@
 }
 
 .semantic-graph-summary,
+.semantic-graph-legend,
 .semantic-graph-edges,
-.semantic-graph-safety {
+.semantic-graph-safety,
+.semantic-graph-highlight-note {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -877,7 +884,9 @@
 }
 
 .semantic-graph-edge,
-.semantic-graph-safety-note {
+.semantic-graph-legend-item,
+.semantic-graph-safety-note,
+.semantic-graph-highlight-note {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -887,12 +896,29 @@
     background: rgba(255, 255, 255, 0.03);
 }
 
+.semantic-graph-legend-item {
+    flex-direction: row;
+    align-items: center;
+}
+
+.semantic-graph-legend-marker {
+    width: 0.8rem;
+    height: 0.2rem;
+    border-radius: 999px;
+    background: rgba(159, 176, 199, 0.55);
+}
+
+.semantic-graph-legend-item.traversal-highlight .semantic-graph-legend-marker {
+    background: rgba(212, 175, 55, 0.85);
+}
+
 .semantic-graph-edge strong {
     color: #f0d77a;
 }
 
 .semantic-graph-edge span,
-.semantic-graph-safety-note {
+.semantic-graph-safety-note,
+.semantic-graph-highlight-note {
     color: #9fb0c7;
     overflow-wrap: anywhere;
 }
@@ -1305,6 +1331,31 @@
 
     .field-grid {
         grid-template-columns: 1fr;
+    }
+
+    .semantic-graph-canvas {
+        min-height: 420px;
+        overflow-x: auto;
+    }
+
+    .semantic-graph-node {
+        max-width: 105px;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 560px) {
+    .semantic-dhatu-controls {
+        gap: 0.45rem;
+    }
+
+    .semantic-graph-canvas {
+        min-height: 520px;
+    }
+
+    .semantic-graph-connector {
+        font-size: 0.62rem;
+        white-space: normal;
     }
 }
 

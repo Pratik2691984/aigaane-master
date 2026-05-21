@@ -191,6 +191,8 @@ const SEMANTIC_GRAPH_FALLBACK = {
   ],
 };
 
+const SEMANTIC_GRAPH_RELATION_ORDER = ["associated_with", "guides", "transitions_to", "grounds"];
+
 function byId(id) {
   return mountNode?.querySelector(`#${id}`);
 }
@@ -396,6 +398,23 @@ function highlightedSemanticEdgeIds(record, queryState) {
     .flatMap((path) => path.edgeIds);
 }
 
+function sortedSemanticGraphNodes(nodes) {
+  return [...(Array.isArray(nodes) ? nodes : [])].sort((left, right) => left.nodeId.localeCompare(right.nodeId));
+}
+
+function sortedSemanticGraphEdges(edges) {
+  return [...(Array.isArray(edges) ? edges : [])].sort((left, right) => {
+    const relationDelta = SEMANTIC_GRAPH_RELATION_ORDER.indexOf(left.relationType) - SEMANTIC_GRAPH_RELATION_ORDER.indexOf(right.relationType);
+    return relationDelta || left.edgeId.localeCompare(right.edgeId);
+  });
+}
+
+function handleSemanticGraphNodeKeydown(event, nodeId) {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  focusSemanticGraphNode(nodeId);
+}
+
 function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
   const button = document.createElement("button");
   button.type = "button";
@@ -405,9 +424,12 @@ function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
   button.dataset.nodeId = node.nodeId;
   button.textContent = node.label;
   button.title = `${node.nodeType}: ${node.nodeId}`;
+  button.setAttribute("aria-label", `${node.label}, ${node.nodeType}`);
+  button.setAttribute("aria-pressed", node.nodeId === selectedNodeId ? "true" : "false");
   button.classList.toggle("selected", node.nodeId === selectedNodeId);
   button.classList.toggle("traversal-highlight", highlightedNodeIds.has(node.nodeId));
   button.addEventListener("click", () => focusSemanticGraphNode(node.nodeId));
+  button.addEventListener("keydown", (event) => handleSemanticGraphNodeKeydown(event, node.nodeId));
   return button;
 }
 
@@ -425,6 +447,30 @@ function renderSemanticGraphEdge(edge, highlightedEdgeIds) {
   return row;
 }
 
+function renderSemanticGraphLegend(edges, highlightedEdgeIds) {
+  const legend = byId("semantic-graph-legend");
+  clearChildren(legend);
+  if (!legend) return;
+  const relations = SEMANTIC_GRAPH_RELATION_ORDER.filter((relation) => edges.some((edge) => edge.relationType === relation));
+  if (relations.length === 0) {
+    appendEmpty(legend, "No relation legend available");
+    return;
+  }
+  relations.forEach((relation) => {
+    const item = document.createElement("div");
+    item.className = "semantic-graph-legend-item";
+    item.setAttribute("role", "listitem");
+    item.classList.toggle("traversal-highlight", edges.some((edge) => edge.relationType === relation && highlightedEdgeIds.has(edge.edgeId)));
+    const marker = document.createElement("span");
+    marker.className = "semantic-graph-legend-marker";
+    marker.setAttribute("aria-hidden", "true");
+    const label = document.createElement("span");
+    label.textContent = relation;
+    item.append(marker, label);
+    legend.appendChild(item);
+  });
+}
+
 function selectedSemanticNodeSummary(node) {
   if (!node) return "No semantic node selected";
   return `${node.label} (${node.nodeType}; ${node.nodeId})`;
@@ -432,23 +478,30 @@ function selectedSemanticNodeSummary(node) {
 
 function renderSemanticGraphView(queryState = readSemanticQueryState(), record = selectedSemanticRecord(queryState)) {
   const graph = SEMANTIC_GRAPH_FALLBACK;
+  const nodes = sortedSemanticGraphNodes(graph.nodes);
+  const edges = sortedSemanticGraphEdges(graph.edges);
   const highlightedEdgeIds = new Set(highlightedSemanticEdgeIds(record, queryState));
   const highlightedNodeIds = new Set();
-  graph.edges.forEach((edge) => {
+  edges.forEach((edge) => {
     if (highlightedEdgeIds.has(edge.edgeId)) {
       highlightedNodeIds.add(edge.sourceId);
       highlightedNodeIds.add(edge.targetId);
     }
   });
   const selectedNodeId = selectedSemanticGraphNodeId || record?.dhatuId || "01.0005";
-  const selectedNode = graph.nodes.find((node) => node.nodeId === selectedNodeId) || graph.nodes[0];
+  const selectedNode = nodes.find((node) => node.nodeId === selectedNodeId) || nodes[0];
 
   const canvas = byId("semantic-graph-canvas");
   clearChildren(canvas);
   if (canvas) {
-    graph.edges.forEach((edge) => {
-      const source = graph.nodes.find((node) => node.nodeId === edge.sourceId);
-      const target = graph.nodes.find((node) => node.nodeId === edge.targetId);
+    if (nodes.length === 0) {
+      appendEmpty(canvas, "Semantic graph unavailable");
+      renderSemanticGraphLegend([], highlightedEdgeIds);
+      return;
+    }
+    edges.forEach((edge) => {
+      const source = nodes.find((node) => node.nodeId === edge.sourceId);
+      const target = nodes.find((node) => node.nodeId === edge.targetId);
       if (!source || !target) return;
       const connector = document.createElement("div");
       connector.className = "semantic-graph-connector";
@@ -459,7 +512,7 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
       connector.textContent = edge.relationType;
       canvas.appendChild(connector);
     });
-    graph.nodes.forEach((node) => {
+    nodes.forEach((node) => {
       canvas.appendChild(renderSemanticGraphNode(node, selectedNode.nodeId, highlightedNodeIds));
     });
   }
@@ -471,8 +524,10 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
   const edgeList = byId("semantic-graph-edges");
   clearChildren(edgeList);
   if (edgeList) {
-    graph.edges.forEach((edge) => edgeList.appendChild(renderSemanticGraphEdge(edge, highlightedEdgeIds)));
+    if (edges.length === 0) appendEmpty(edgeList, "No semantic relation edges available");
+    edges.forEach((edge) => edgeList.appendChild(renderSemanticGraphEdge(edge, highlightedEdgeIds)));
   }
+  renderSemanticGraphLegend(edges, highlightedEdgeIds);
 
   const safety = byId("semantic-graph-safety");
   clearChildren(safety);

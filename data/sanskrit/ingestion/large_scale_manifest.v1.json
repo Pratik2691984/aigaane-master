@@ -45,6 +45,7 @@
   "canonicalDhatuSemanticUiIntegrationSurface": "ui/tabs/sanskrit",
   "canonicalDhatuSemanticUiControlMode": "client-side-read-only",
   "canonicalDhatuSemanticGraphViewMode": "client-side-read-only-no-dependencies",
+  "canonicalDhatuSemanticGraphViewAccessibility": "keyboard-node-activation-relation-legend",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

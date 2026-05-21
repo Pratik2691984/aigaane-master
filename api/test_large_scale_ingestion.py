@@ -941,6 +941,15 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("semantic-graph-edges", view)
         self.assertIn("semantic-graph-safety", view)
 
+    def test_sanskrit_view_has_semantic_graph_aria_labels(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('aria-labelledby="semantic-dhatu-title"', view)
+        self.assertIn('aria-labelledby="semantic-graph-title"', view)
+        self.assertIn('aria-label="Semantic graph nodes and traversal highlights"', view)
+        self.assertIn('aria-label="Semantic graph relation legend"', view)
+        self.assertIn('aria-live="polite"', view)
+
     def test_sanskrit_controller_references_semantic_panel_rendering(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
 
@@ -1004,6 +1013,35 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("selectedSemanticNodeSummary", controller)
         self.assertIn("semantic-graph-summary", controller)
 
+    def test_sanskrit_controller_assigns_focusable_semantic_graph_nodes(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('button.type = "button"', controller)
+        self.assertIn('button.setAttribute("aria-pressed"', controller)
+        self.assertIn('button.setAttribute("aria-label"', controller)
+
+    def test_sanskrit_controller_contains_keyboard_activation_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("handleSemanticGraphNodeKeydown", controller)
+        self.assertIn('event.key !== "Enter"', controller)
+        self.assertIn('event.key !== " "', controller)
+        self.assertIn('addEventListener("keydown"', controller)
+
+    def test_sanskrit_controller_contains_empty_graph_fallback_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Semantic graph unavailable", controller)
+        self.assertIn("No semantic relation edges available", controller)
+        self.assertIn("No relation legend available", controller)
+
+    def test_sanskrit_controller_contains_relation_legend_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("renderSemanticGraphLegend", controller)
+        self.assertIn("SEMANTIC_GRAPH_RELATION_ORDER", controller)
+        self.assertIn("semantic-graph-legend", controller)
+
     def test_sanskrit_controller_has_no_canonical_write_hooks(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
 
@@ -1036,6 +1074,15 @@ class LargeScaleIngestionTests(unittest.TestCase):
             ".semantic-graph-node.traversal-highlight",
         ]:
             self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_responsive_semantic_graph_rules(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("@media (max-width: 900px)", style)
+        self.assertIn("@media (max-width: 560px)", style)
+        self.assertIn(".semantic-graph-layout", style)
+        self.assertIn(".semantic-graph-node:focus-visible", style)
+        self.assertIn(".semantic-graph-legend-item", style)
 
     def test_semantic_graph_view_requires_no_dependency_file_changes(self):
         changed_dependency_files = [
@@ -1398,6 +1445,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticGraphViewMode"],
             "client-side-read-only-no-dependencies",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphViewAccessibility"],
+            "keyboard-node-activation-relation-legend",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

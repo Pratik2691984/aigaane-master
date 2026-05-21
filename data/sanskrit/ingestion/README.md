@@ -64,6 +64,8 @@ The panel now includes local query controls for search text, semantic cluster, a
 
 The Sanskrit tab also includes a lightweight Semantic Graph View. It renders deterministic local graph fallback data with click-to-focus semantic nodes, relation labels, selected-node summaries, traversal highlights, and safety notes without adding dependencies or server requirements.
 
+Semantic Graph View accessibility includes keyboard node activation with Enter or Space, selected node state, a relation legend, empty/unavailable fallback states, and the same read-only semantic UI policy. The graph makes no exact Pāṇinian derivation claim.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

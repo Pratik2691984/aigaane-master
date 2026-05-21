@@ -205,10 +205,10 @@
         </div>
     </section>
 
-    <section class="semantic-dhatu-inspector" aria-label="Semantic Dhatu Intelligence">
+    <section class="semantic-dhatu-inspector" aria-labelledby="semantic-dhatu-title" aria-describedby="semantic-dhatu-description">
         <header class="semantic-dhatu-header">
-            <h3>Semantic Dhātu Intelligence</h3>
-            <p>Read-only dhātu semantic search, neighbor, and traversal panels.</p>
+            <h3 id="semantic-dhatu-title">Semantic Dhātu Intelligence</h3>
+            <p id="semantic-dhatu-description">Read-only dhātu semantic search, neighbor, and traversal panels.</p>
         </header>
 
         <div class="semantic-dhatu-controls" aria-label="Semantic dhatu query controls">
@@ -280,19 +280,23 @@
         </div>
     </section>
 
-    <section class="semantic-graph-view" aria-label="Semantic Graph View">
+    <section class="semantic-graph-view" aria-labelledby="semantic-graph-title" aria-describedby="semantic-graph-description">
         <header class="semantic-graph-header">
-            <h3>Semantic Graph View</h3>
-            <p>Lightweight read-only semantic graph visualization for dhātu nodes, relation edges, and traversal paths.</p>
+            <h3 id="semantic-graph-title">Semantic Graph View</h3>
+            <p id="semantic-graph-description">Lightweight read-only semantic graph visualization for dhātu nodes, relation edges, and traversal paths.</p>
         </header>
 
         <div class="semantic-graph-layout">
-            <div id="semantic-graph-canvas" class="semantic-graph-canvas">No semantic graph loaded</div>
+            <div id="semantic-graph-canvas" class="semantic-graph-canvas" role="group" aria-label="Semantic graph nodes and traversal highlights">No semantic graph loaded</div>
             <aside class="semantic-graph-side-panel">
                 <h4>Selected Node</h4>
-                <div id="semantic-graph-summary" class="semantic-graph-summary">No semantic node selected</div>
+                <div id="semantic-graph-summary" class="semantic-graph-summary" aria-live="polite">No semantic node selected</div>
+                <h4>Relation Legend</h4>
+                <div id="semantic-graph-legend" class="semantic-graph-legend" role="list" aria-label="Semantic graph relation legend">No relation legend loaded</div>
                 <h4>Relation Edges</h4>
                 <div id="semantic-graph-edges" class="semantic-graph-edges">No semantic edges loaded</div>
+                <h4>Traversal Highlight</h4>
+                <div id="semantic-graph-highlight-note" class="semantic-graph-highlight-note">Highlighted nodes and edges follow the active traversal filters.</div>
                 <h4>Safety Note</h4>
                 <div id="semantic-graph-safety" class="semantic-graph-safety">No semantic safety note loaded</div>
             </aside>

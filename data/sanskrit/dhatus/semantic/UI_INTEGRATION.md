@@ -14,7 +14,15 @@ The Sanskrit tab can load panel fixtures from `data/sanskrit/dhatus/semantic/exa
 
 The current Sanskrit tab integration adds read-only client-side query controls for search text, cluster, action, gloss, traversal depth, and relation type. These controls filter fixture-compatible semantic cards in the browser and fall back to static panel data if fixture loading is unavailable.
 
-The Semantic Graph View is also client-side and read-only. It renders lightweight HTML/CSS graph nodes, relation labels, selected-node highlighting, and traversal-path highlighting from fixture-compatible fallback graph data.
+The Semantic Graph View is also client-side and read-only. It renders lightweight HTML/CSS graph nodes, relation labels, selected-node highlighting, traversal-path highlighting, and a screen-reader-friendly relation legend from fixture-compatible fallback graph data.
+
+Graph visualization accessibility:
+
+- The Semantic Dhātu Intelligence and Semantic Graph View sections expose labelled regions.
+- Graph nodes are keyboard-focusable buttons.
+- Enter and Space activate the focused semantic node.
+- The selected node state is exposed with `aria-pressed`.
+- The selected-node summary updates in an `aria-live` region.
 
 Recommended frontend sections:
 
