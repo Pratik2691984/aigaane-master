@@ -1,0 +1,34 @@
+{
+  "blockingReasons": [
+    "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
+    "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
+  ],
+  "checkedFiles": {
+    "approval": "data/sanskrit/ingestion/canonical_write_approval.v1.json",
+    "approvalPackage": "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
+    "approvalValidation": "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
+    "authorization": "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
+    "commandManifest": "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
+    "dryRunDiff": "data/sanskrit/ingestion/canonical_write_dry_run_diff.v1.json",
+    "manifest": "data/sanskrit/ingestion/large_scale_manifest.v1.json",
+    "readinessLock": "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
+    "releaseChecklist": "data/sanskrit/ingestion/canonical_write_release_checklist.v1.json"
+  },
+  "consistencyChecks": {
+    "approvalPackageIncludesManualWarning": true,
+    "approvalValidationValid": true,
+    "approvedIdsMatchCommandManifest": true,
+    "authorizedIdsMatchReadinessLock": true,
+    "checklistSafeToWriteProduction": true,
+    "commandReadyForManualExecution": true,
+    "dryRunHasNoDuplicateIds": true,
+    "dryRunHasNoMissingStagedRecords": true,
+    "dryRunIsDryRunOnly": true
+  },
+  "generatedBy": "scripts/verify_dhatu_canonical_write_release.py",
+  "nextRequiredAction": "Proceed only by running the exact approved manual command with required environment guards.",
+  "safeToProceed": true,
+  "schemaVersion": "1.0.0",
+  "verificationStatus": "READY"
+}

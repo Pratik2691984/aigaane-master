@@ -25,6 +25,7 @@ RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_wr
 PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonical_write_state.py"
 POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_canonical_write_audit.py"
 CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion_closeout.py"
+ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -45,6 +46,7 @@ CLOSEOUT_INDEX_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_prom
 FIXTURE_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "fixtures"
 BASELINE_BLOCKED_FIXTURE_ROOT = FIXTURE_ROOT / "baseline_blocked"
 EXECUTED_WRITE_FIXTURE_ROOT = FIXTURE_ROOT / "executed_write"
+RELEASE_V50_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "releases" / "v50"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -194,6 +196,14 @@ closeout_indexer = importlib.util.module_from_spec(closeout_index_spec)
 sys.modules["index_dhatu_canonical_promotion_closeout"] = closeout_indexer
 closeout_index_spec.loader.exec_module(closeout_indexer)
 
+archive_release_spec = importlib.util.spec_from_file_location(
+    "archive_dhatu_release_state",
+    ARCHIVE_RELEASE_SCRIPT_PATH,
+)
+release_archiver = importlib.util.module_from_spec(archive_release_spec)
+sys.modules["archive_dhatu_release_state"] = release_archiver
+archive_release_spec.loader.exec_module(release_archiver)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -302,6 +312,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_closeout_index_script_exists(self):
         self.assertTrue(CLOSEOUT_INDEX_SCRIPT_PATH.exists())
 
+    def test_archive_release_script_exists(self):
+        self.assertTrue(ARCHIVE_RELEASE_SCRIPT_PATH.exists())
+
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
@@ -314,6 +327,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_canonical_write_fixture_folders_exist(self):
         self.assertTrue(BASELINE_BLOCKED_FIXTURE_ROOT.exists())
         self.assertTrue(EXECUTED_WRITE_FIXTURE_ROOT.exists())
+
+    def test_release_v50_archive_directory_exists(self):
+        self.assertTrue(RELEASE_V50_ROOT.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -546,6 +562,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
             "data/sanskrit/ingestion/fixtures/executed_write",
         )
 
+    def test_manifest_declares_v50_release_archive_root(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionV50ReleaseArchiveRoot"],
+            "data/sanskrit/ingestion/releases/v50",
+        )
+
     def test_canonical_write_runbook_contains_required_operational_guidance(self):
         runbook = RUNBOOK_PATH.read_text(encoding="utf-8")
 
@@ -602,6 +624,61 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(verification["verificationStatus"], "READY")
         self.assertEqual(post_audit["verificationStatus"], "VERIFIED_TEST_WRITE")
         self.assertEqual(post_audit["promotedCount"], 3)
+
+    def test_release_archive_generation_writes_manifest_and_snapshots(self):
+        import tempfile
+
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory(prefix="release-archive-") as tmp:
+            manifest = release_archiver.archive_release_state(tmp)
+
+            self.assertEqual(manifest["schemaVersion"], "1.0.0")
+            self.assertEqual(manifest["releaseTag"], release_archiver.RELEASE_TAG)
+            self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
+            self.assertEqual(manifest["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+            self.assertTrue(manifest["productionWriteExecuted"])
+            self.assertEqual(manifest["postWriteVerificationStatus"], "VERIFIED_TEST_WRITE")
+            self.assertTrue((Path(tmp) / "release_archive_manifest.v50.json").exists())
+            for archive_name in release_archiver.ARCHIVE_SOURCES:
+                self.assertTrue((Path(tmp) / archive_name).exists())
+                self.assertIn(archive_name, manifest["artifactHashes"])
+                self.assertEqual(len(manifest["artifactHashes"][archive_name]), 64)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_archive_refuses_overwrite_without_force(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-refuse-") as tmp:
+            release_archiver.archive_release_state(tmp)
+
+            with self.assertRaises(FileExistsError):
+                release_archiver.archive_release_state(tmp)
+
+    def test_release_archive_manifest_integrity_and_merge_readiness_metadata(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-integrity-") as tmp:
+            manifest = release_archiver.archive_release_state(tmp)
+            written = json.loads((Path(tmp) / "release_archive_manifest.v50.json").read_text(encoding="utf-8"))
+
+            self.assertEqual(written["releaseCommit"], manifest["releaseCommit"])
+            self.assertTrue(written["mergeReadinessChecks"]["v50TagExists"])
+            self.assertTrue(written["mergeReadinessChecks"]["canonicalRegistryCountIs13"])
+            self.assertTrue(written["mergeReadinessChecks"]["promotedCountIs3"])
+            self.assertTrue(written["mergeReadinessChecks"]["noDuplicateCanonicalIds"])
+            self.assertEqual(
+                written["mergeReadinessChecks"]["testSuitePassingExpectation"]["expectedPassingTests"],
+                712,
+            )
+
+    def test_release_archive_force_overwrites_existing_archive(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-force-") as tmp:
+            release_archiver.archive_release_state(tmp)
+            manifest = release_archiver.archive_release_state(tmp, force=True)
+
+            self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
 
     def test_closeout_index_writer_uses_requested_output_path(self):
         import tempfile

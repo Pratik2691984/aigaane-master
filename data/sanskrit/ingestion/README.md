@@ -38,6 +38,8 @@
 
 `fixtures/baseline_blocked/` stores immutable blocked-state copies of the canonical write gate artifacts for regression tests. `fixtures/executed_write/` stores the approved/executed artifact state captured after the production promotion commit, so tests can distinguish historical safety defaults from the current live repository state.
 
+`scripts/archive_dhatu_release_state.py` copies the completed v50 canonical promotion state into `releases/v50/` without mutating the canonical registry. It writes immutable v50 snapshots, computes artifact SHA-256 hashes, refuses overwrite unless `--force` is supplied, and records merge-readiness metadata in `release_archive_manifest.v50.json`.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.
