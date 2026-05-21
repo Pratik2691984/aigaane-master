@@ -8,7 +8,7 @@
 
 `scripts/lock_dhatu_promotion_readiness.py` snapshots reviewed readiness into `promotion_readiness_lock.v1.json`. It lists ready, deferred, and blocked staged root ids while keeping `canonicalWriteEnabled` false; promotion remains a later explicit workflow.
 
-`scripts/promote_ready_dhatu_to_canonical.py` is the final controlled writer gate. By default it refuses canonical writes, emits `canonical_promotion_audit.v1.json`, and requires `AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1` before any ready staged id can be considered for canonical promotion.
+`scripts/promote_ready_dhatu_to_canonical.py` is the final controlled writer gate. By default it refuses canonical writes, emits `canonical_promotion_audit.v1.json`, and requires `AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1` before any ready staged id can be considered for canonical promotion. The enabled path still refuses mutation unless the second guard `AIGAANE_ALLOW_TEST_CANONICAL_WRITE=1` is also present; this is intended for temporary copied registry fixtures only until production canonical mutation is separately approved. The audit records guard status, before/after registry counts, and contract checks for duplicate ids, unsafe overwrites, staged-batch presence, review approval, and readiness-lock membership.
 
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 

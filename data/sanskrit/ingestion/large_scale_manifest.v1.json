@@ -18,7 +18,16 @@
     "requiresEditorialResolution": true,
     "requiresCanonicalPreference": true,
     "requiresPromotionBatch": true,
-    "allowDirectCanonicalWrite": false
+    "allowDirectCanonicalWrite": false,
+    "canonicalWriteFlag": "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE",
+    "testCanonicalWriteGuard": "AIGAANE_ALLOW_TEST_CANONICAL_WRITE",
+    "canonicalWriteContractChecks": [
+      "noDuplicateDhatuIds",
+      "noUnsafeCanonicalOverwrite",
+      "promotedRecordsExistInStagedBatch",
+      "promotedRecordsApprovedByReviewDecision",
+      "promotedRecordsInReadinessLock"
+    ]
   },
   "ganaBatches": [
     {

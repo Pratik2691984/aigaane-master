@@ -555,6 +555,131 @@ class LargeScaleIngestionTests(unittest.TestCase):
             if original is not None:
                 os.environ[promoter.WRITE_FLAG] = original
 
+    def test_enabled_flag_alone_refuses_canonical_write(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            with tempfile.TemporaryDirectory(prefix="unsafe-promotion-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                before = registry_path.read_text(encoding="utf-8")
+
+                exit_code = promoter.main(
+                    [
+                        "--manifest",
+                        str(MANIFEST_PATH),
+                        "--audit",
+                        str(audit_path),
+                        "--canonical-registry",
+                        str(registry_path),
+                    ]
+                )
+                audit = json.loads(audit_path.read_text(encoding="utf-8"))
+
+                self.assertEqual(exit_code, 1)
+                self.assertTrue(audit["canonicalWriteAttempted"])
+                self.assertTrue(audit["canonicalWriteEnabled"])
+                self.assertFalse(audit["writeGuardSatisfied"])
+                self.assertTrue(audit["unsafeWriteRefused"])
+                self.assertEqual(audit["promotedCount"], 0)
+                self.assertEqual(before, registry_path.read_text(encoding="utf-8"))
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_guarded_test_write_promotes_only_ready_records_to_temp_registry(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ[promoter.TEST_WRITE_FLAG] = "1"
+            with tempfile.TemporaryDirectory(prefix="guarded-promotion-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                before = json.loads(registry_path.read_text(encoding="utf-8"))
+                lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=audit_path,
+                    canonical_registry_path=registry_path,
+                )
+                after = json.loads(registry_path.read_text(encoding="utf-8"))
+
+                self.assertTrue(audit["canonicalWriteAttempted"])
+                self.assertTrue(audit["canonicalWriteEnabled"])
+                self.assertTrue(audit["writeGuardSatisfied"])
+                self.assertFalse(audit["unsafeWriteRefused"])
+                self.assertEqual(audit["promotedCount"], len(lock["readyRecordIds"]))
+                self.assertEqual(sorted(audit["promotedRecordIds"]), sorted(lock["readyRecordIds"]))
+                self.assertEqual(
+                    audit["skippedRecordIds"],
+                    sorted(set(lock["deferredRecordIds"]) | set(lock["blockedRecordIds"])),
+                )
+                self.assertEqual(
+                    audit["canonicalRegistryAfterCount"],
+                    audit["canonicalRegistryBeforeCount"] + len(lock["readyRecordIds"]),
+                )
+                self.assertEqual(
+                    len(after["records"]),
+                    len(before["records"]) + len(lock["readyRecordIds"]),
+                )
+                self.assertTrue(audit["contractChecks"]["passed"])
+                for source_id in lock["readyRecordIds"]:
+                    self.assertIn(source_id, audit["promotedRecordIds"])
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_default_promotion_does_not_modify_original_canonical_registry(self):
+        import os
+        import tempfile
+
+        original_write = os.environ.pop(promoter.WRITE_FLAG, None)
+        original_guard = os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+        before = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        try:
+            with tempfile.TemporaryDirectory(prefix="default-promotion-audit-") as tmp:
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=Path(tmp) / "audit.json",
+                )
+
+                self.assertFalse(audit["canonicalWriteAttempted"])
+                self.assertFalse(audit["canonicalWriteEnabled"])
+                self.assertFalse(audit["writeGuardSatisfied"])
+                self.assertFalse(audit["unsafeWriteRefused"])
+                self.assertEqual(before, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        finally:
+            if original_write is not None:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is not None:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
