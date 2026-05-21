@@ -1,0 +1,45 @@
+{
+  "archiveDirectory": "data/sanskrit/ingestion/releases/v50",
+  "archivedAt": "2026-05-21T11:53:54Z",
+  "archivedByScript": "scripts/archive_dhatu_release_state.py",
+  "artifactHashes": {
+    "canonical_promotion_audit.v50.json": "d011dc9f1a8f6bf6f387409232497981a3d62134b37be7f4a5c5b4c6c113001a",
+    "canonical_promotion_closeout_index.v50.json": "d95c1e0a3cadb0cf33627cce14c5516a2fa1cba1d7d36e9d4b780a2ca66cec44",
+    "canonical_registry.v50.json": "be1db973c000bc90a1a227bdfd64b92235340f7fe9bb4d3eeb9075576f092734",
+    "canonical_write_post_audit_verification.v50.json": "bebae610d3cc01f4f78ed1f05c4a2bc6559df1f1a666e364b785e7dc20d6bf02",
+    "canonical_write_preflight_snapshot.v50.json": "7e27c5dfac65eac65f31e1dbb9dfb09fd6d4326c57a61d0838dbbf8a7772bb03",
+    "canonical_write_release_verification.v50.json": "41e50b118ba399aedf5be0ba31dc9245c7269c3c2604e1716f68085ef478d639"
+  },
+  "canonicalRegistryRecordCount": 13,
+  "mergeReadinessChecks": {
+    "canonicalRegistryCountIs13": true,
+    "currentBranch": "release/dhatu-canonical-write-approval",
+    "noDuplicateCanonicalIds": true,
+    "promotedCountIs3": true,
+    "releaseBranchClean": false,
+    "testSuitePassingExpectation": {
+      "command": "python -m unittest discover -s api -p \"test_*.py\"",
+      "expectedPassingTests": 712,
+      "status": "expected-passing"
+    },
+    "v50TagExists": true
+  },
+  "postWriteVerificationStatus": "VERIFIED_TEST_WRITE",
+  "productionWriteExecuted": true,
+  "promotedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "releaseCommit": "254289c50dd0655ff4087e377b7f7e6a2128187e",
+  "releaseTag": "sanskrit-v50-canonical-write-state-fixtures-stable",
+  "schemaVersion": "1.0.0",
+  "sourceArtifacts": {
+    "canonical_promotion_audit.v50.json": "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+    "canonical_promotion_closeout_index.v50.json": "data/sanskrit/ingestion/canonical_promotion_closeout_index.v1.json",
+    "canonical_registry.v50.json": "data/sanskrit/dhatus/index.json",
+    "canonical_write_post_audit_verification.v50.json": "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
+    "canonical_write_preflight_snapshot.v50.json": "data/sanskrit/ingestion/canonical_write_preflight_snapshot.v1.json",
+    "canonical_write_release_verification.v50.json": "data/sanskrit/ingestion/canonical_write_release_verification.v1.json"
+  }
+}

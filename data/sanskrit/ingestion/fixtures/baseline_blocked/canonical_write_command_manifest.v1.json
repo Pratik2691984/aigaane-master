@@ -1,25 +1,24 @@
 {
   "approvalValidationSummary": {
-    "approvalStatus": "APPROVED",
-    "approvalValid": true,
-    "approvedCount": 3,
-    "missingAuthorizedCount": 0,
-    "refusalCount": 0,
+    "approvalStatus": "NOT_APPROVED",
+    "approvalValid": false,
+    "approvedCount": 0,
+    "missingAuthorizedCount": 3,
+    "refusalCount": 4,
     "unexpectedApprovedCount": 0
   },
-  "approvedRecordIds": [
-    "01.STAGED.0001",
-    "01.STAGED.0002",
-    "01.STAGED.0003"
-  ],
+  "approvedRecordIds": [],
   "authorizationSummary": {
-    "authorizationReady": true,
-    "authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE",
+    "authorizationReady": false,
+    "authorizationStatus": "AWAITING_HUMAN_APPROVAL",
     "authorizedCount": 3,
     "blockedCount": 9,
     "humanApprovalRequired": true
   },
   "blockedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003",
     "01.STAGED.0004",
     "01.STAGED.0005",
     "01.STAGED.0006",
@@ -43,12 +42,19 @@
     },
     "powershellPreview": "$env:AIGAANE_ALLOW_TEST_CANONICAL_WRITE='1'; $env:AIGAANE_ENABLE_CANONICAL_DHATU_WRITE='1'; python scripts/promote_ready_dhatu_to_canonical.py"
   },
-  "commandStatus": "READY_FOR_MANUAL_EXECUTION",
+  "commandStatus": "REFUSED_APPROVAL_INVALID",
   "exactCmdCommand": "set AIGAANE_ALLOW_TEST_CANONICAL_WRITE=1 && set AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1 && python scripts\\promote_ready_dhatu_to_canonical.py",
   "exactPowerShellCommand": "$env:AIGAANE_ALLOW_TEST_CANONICAL_WRITE='1'; $env:AIGAANE_ENABLE_CANONICAL_DHATU_WRITE='1'; python scripts/promote_ready_dhatu_to_canonical.py",
   "generatedBy": "scripts/prepare_dhatu_canonical_write_command.py",
   "refusalReasons": [
+    "Approval validation failed.",
+    "Approval status is not APPROVED.",
+    "Approval does not include every authorized ready record id.",
+    "Approval token missing approvedBy.",
+    "Approval token missing approvedAt.",
+    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
     "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
+    "Approved record ids do not match authorized ready record ids.",
     "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
     "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
   ],
@@ -65,12 +71,12 @@
     }
   },
   "safetyChecks": {
-    "approvalMetadataPresent": true,
-    "approvalTokenApproved": true,
-    "approvalValidationValid": true,
-    "approvedIdsMatchAuthorization": true,
+    "approvalMetadataPresent": false,
+    "approvalTokenApproved": false,
+    "approvalValidationValid": false,
+    "approvedIdsMatchAuthorization": false,
     "authorizationHumanApprovalRequired": true,
-    "authorizationReady": true,
+    "authorizationReady": false,
     "authorizedIdsMatchReadinessLock": true,
     "batchMutation": false,
     "canonicalRegistryMutation": false,

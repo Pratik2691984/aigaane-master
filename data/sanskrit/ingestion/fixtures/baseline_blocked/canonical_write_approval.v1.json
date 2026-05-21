@@ -1,0 +1,15 @@
+{
+  "approvalStatus": "NOT_APPROVED",
+  "approvedAt": null,
+  "approvedBy": null,
+  "approvedRecordIds": [],
+  "approvalNotes": "Default approval token. Do not run canonical writes until a human reviewer records explicit approval.",
+  "requiredBeforeWrite": [
+    "Human reviewer must set approvalStatus to APPROVED.",
+    "approvedBy and approvedAt must identify the approval event.",
+    "approvedRecordIds must match the intended ready canonical promotion ids.",
+    "canonical_write_authorization.v1.json must remain AWAITING_HUMAN_APPROVAL until reviewed.",
+    "Both canonical write environment guards must be set manually only at execution time."
+  ],
+  "schemaVersion": "1.0.0"
+}

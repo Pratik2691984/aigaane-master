@@ -12,7 +12,7 @@
 
 `scripts/report_dhatu_promotion_evidence.py` compiles the release evidence from the manifest, preview, canonical promotion plan, review decisions, readiness lock, and canonical promotion audit. It writes `dhatu_promotion_evidence_report.v1.json` with counts, guard policy, contract summary, ready/skipped ids, and a release gate status. The current default status remains `BLOCKED` until both canonical write guards are satisfied.
 
-`scripts/authorize_dhatu_canonical_write.py` prepares the final production-write authorization packet from the canonical promotion audit, evidence report, and readiness lock. It writes `canonical_write_authorization.v1.json` with required environment flags, authorized ready ids, blocked non-ready ids, evidence summary, and safety checks. This node does not set environment flags or mutate the production canonical registry; the default authorization status remains `AWAITING_HUMAN_APPROVAL`.
+`scripts/authorize_dhatu_canonical_write.py` prepares the final production-write authorization packet from the canonical promotion audit, evidence report, readiness lock, and approval validation. It writes `canonical_write_authorization.v1.json` with required environment flags, authorized ready ids, blocked non-ready ids, evidence summary, approval validation summary, and safety checks. The status advances to `AUTHORIZED_FOR_MANUAL_WRITE` only when approval validation is valid, approved ids exactly match authorized ready ids, and evidence/release gates are ready; otherwise it remains `AWAITING_HUMAN_APPROVAL`. This node does not set environment flags or mutate the production canonical registry.
 
 `canonical_write_approval.v1.json` is the human approval token and defaults to `NOT_APPROVED`. `scripts/prepare_dhatu_canonical_write_command.py` reads that token plus approval validation, authorization, readiness lock, and evidence report, then writes `canonical_write_command_manifest.v1.json`. The command manifest previews exact PowerShell and cmd controlled writer commands but refuses by default with `REFUSED_APPROVAL_INVALID`; it does not run the writer, set environment flags, or mutate canonical files.
 
@@ -35,6 +35,12 @@
 `canonical_write_runbook.v1.md` is the final maintainer runbook for the manual production-write process. It documents the blocked default state, gate order, required review files, human approval edit process, post-approval commands, rollback reference, post-write audit verification, and exact v29-through-v43 tag sequence without changing approval or canonical registry files.
 
 `scripts/index_dhatu_canonical_promotion_closeout.py` writes `canonical_promotion_closeout_index.v1.json`, a non-mutating index of the canonical promotion closeout package. It records required artifact paths, existence checks, gate statuses, blocking reasons, and the recommended next action while keeping the default state blocked/no production write.
+
+`fixtures/baseline_blocked/` stores immutable blocked-state copies of the canonical write gate artifacts for regression tests. `fixtures/executed_write/` stores the approved/executed artifact state captured after the production promotion commit, so tests can distinguish historical safety defaults from the current live repository state.
+
+`scripts/archive_dhatu_release_state.py` copies the completed v50 canonical promotion state into `releases/v50/` without mutating the canonical registry. It writes immutable v50 snapshots, computes artifact SHA-256 hashes, refuses overwrite unless `--force` is supplied, and records merge-readiness metadata in `release_archive_manifest.v50.json`.
+
+`scripts/report_dhatu_merge_readiness.py` writes `releases/v50/merge_readiness_report.v50.json`, a PR-facing merge-readiness summary for merging `release/dhatu-canonical-write-approval` into `feature/dhatu-goldset`. It verifies the v50/v51 tag references, fixture integrity, 13-record canonical registry, three promoted records, post-write verification, and duplicate-id safety.
 
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 

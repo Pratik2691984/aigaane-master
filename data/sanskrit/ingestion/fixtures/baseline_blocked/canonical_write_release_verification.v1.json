@@ -1,8 +1,20 @@
 {
   "blockingReasons": [
+    "Release checklist is not safe for production write.",
+    "Command manifest is not READY_FOR_MANUAL_EXECUTION.",
+    "Approval validation is not valid.",
+    "Approval status is not APPROVED.",
+    "Approval does not include every authorized ready record id.",
+    "Approval token missing approvedBy.",
+    "Approval token missing approvedAt.",
+    "Approval validation failed.",
+    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
     "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
+    "Approved record ids do not match authorized ready record ids.",
     "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
-    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE.",
+    "Authorization is not ready for manual write.",
+    "Command manifest is not ready for manual execution."
   ],
   "checkedFiles": {
     "approval": "data/sanskrit/ingestion/canonical_write_approval.v1.json",
@@ -17,18 +29,18 @@
   },
   "consistencyChecks": {
     "approvalPackageIncludesManualWarning": true,
-    "approvalValidationValid": true,
+    "approvalValidationValid": false,
     "approvedIdsMatchCommandManifest": true,
     "authorizedIdsMatchReadinessLock": true,
-    "checklistSafeToWriteProduction": true,
-    "commandReadyForManualExecution": true,
+    "checklistSafeToWriteProduction": false,
+    "commandReadyForManualExecution": false,
     "dryRunHasNoDuplicateIds": true,
     "dryRunHasNoMissingStagedRecords": true,
     "dryRunIsDryRunOnly": true
   },
   "generatedBy": "scripts/verify_dhatu_canonical_write_release.py",
-  "nextRequiredAction": "Proceed only by running the exact approved manual command with required environment guards.",
-  "safeToProceed": true,
+  "nextRequiredAction": "Keep canonical writes disabled; resolve blocking reasons and regenerate release artifacts.",
+  "safeToProceed": false,
   "schemaVersion": "1.0.0",
-  "verificationStatus": "READY"
+  "verificationStatus": "BLOCKED"
 }

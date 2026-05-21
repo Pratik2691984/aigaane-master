@@ -1,16 +1,27 @@
 {
   "blockingReasons": [
+    "Approval validation is not valid.",
+    "Authorization is not ready for manual write.",
+    "Command manifest is not ready for manual execution.",
+    "Approval status is not APPROVED.",
+    "Approval does not include every authorized ready record id.",
+    "Approval token missing approvedBy.",
+    "Approval token missing approvedAt.",
+    "Approval validation failed.",
+    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
     "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
+    "Approved record ids do not match authorized ready record ids.",
     "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
-    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE.",
+    "Command manifest is not READY_FOR_MANUAL_EXECUTION."
   ],
   "gateSummary": {
-    "approvalStatus": "APPROVED",
-    "approvalValid": true,
-    "authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE",
+    "approvalStatus": "NOT_APPROVED",
+    "approvalValid": false,
+    "authorizationStatus": "AWAITING_HUMAN_APPROVAL",
     "canonicalWriteEnabled": false,
-    "commandStatus": "READY_FOR_MANUAL_EXECUTION",
-    "dryRunContractPassed": true,
+    "commandStatus": "REFUSED_APPROVAL_INVALID",
+    "dryRunContractPassed": false,
     "dryRunOnly": true,
     "evidenceReleaseGateStatus": "BLOCKED",
     "humanApprovalRequired": true,
@@ -19,32 +30,24 @@
   },
   "generatedBy": "scripts/build_dhatu_canonical_write_release_checklist.py",
   "recordSummary": {
-    "afterCountIfApplied": 13,
-    "approvedRecordIds": [
-      "01.STAGED.0001",
-      "01.STAGED.0002",
-      "01.STAGED.0003"
-    ],
+    "afterCountIfApplied": 10,
+    "approvedRecordIds": [],
     "authorizedRecordIds": [
       "01.STAGED.0001",
       "01.STAGED.0002",
       "01.STAGED.0003"
     ],
     "beforeCount": 10,
-    "commandApprovedRecordIds": [
-      "01.STAGED.0001",
-      "01.STAGED.0002",
-      "01.STAGED.0003"
-    ],
-    "dryRunRecordsBlocked": 9,
-    "dryRunRecordsToAdd": 3,
+    "commandApprovedRecordIds": [],
+    "dryRunRecordsBlocked": 12,
+    "dryRunRecordsToAdd": 0,
     "readyRecordIds": [
       "01.STAGED.0001",
       "01.STAGED.0002",
       "01.STAGED.0003"
     ]
   },
-  "releaseStatus": "READY_FOR_MANUAL_PRODUCTION_WRITE",
+  "releaseStatus": "BLOCKED",
   "requiredCommands": {
     "approvalValidation": "python scripts/validate_dhatu_canonical_write_approval.py",
     "commandManifest": "python scripts/prepare_dhatu_canonical_write_command.py",
@@ -70,7 +73,7 @@
     "Set required environment guards manually only at execution time.",
     "Run the exact approved command only after safeToWriteProduction is true."
   ],
-  "safeToWriteProduction": true,
+  "safeToWriteProduction": false,
   "schemaVersion": "1.0.0",
   "sourceFiles": {
     "approval": "data/sanskrit/ingestion/canonical_write_approval.v1.json",

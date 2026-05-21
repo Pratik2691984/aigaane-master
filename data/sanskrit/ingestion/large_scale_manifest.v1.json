@@ -21,6 +21,10 @@
   "canonicalWritePostAuditVerificationFile": "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
   "canonicalWriteRunbookFile": "data/sanskrit/ingestion/canonical_write_runbook.v1.md",
   "canonicalPromotionCloseoutIndexFile": "data/sanskrit/ingestion/canonical_promotion_closeout_index.v1.json",
+  "canonicalWriteBaselineBlockedFixtureRoot": "data/sanskrit/ingestion/fixtures/baseline_blocked",
+  "canonicalWriteExecutedFixtureRoot": "data/sanskrit/ingestion/fixtures/executed_write",
+  "canonicalPromotionV50ReleaseArchiveRoot": "data/sanskrit/ingestion/releases/v50",
+  "canonicalPromotionV50MergeReadinessReportFile": "data/sanskrit/ingestion/releases/v50/merge_readiness_report.v50.json",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

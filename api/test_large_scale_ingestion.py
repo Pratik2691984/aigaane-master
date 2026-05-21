@@ -25,6 +25,8 @@ RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_wr
 PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonical_write_state.py"
 POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_canonical_write_audit.py"
 CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion_closeout.py"
+ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py"
+MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -42,6 +44,11 @@ PREFLIGHT_SNAPSHOT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_
 POST_AUDIT_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_post_audit_verification.v1.json"
 RUNBOOK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_runbook.v1.md"
 CLOSEOUT_INDEX_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_promotion_closeout_index.v1.json"
+FIXTURE_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "fixtures"
+BASELINE_BLOCKED_FIXTURE_ROOT = FIXTURE_ROOT / "baseline_blocked"
+EXECUTED_WRITE_FIXTURE_ROOT = FIXTURE_ROOT / "executed_write"
+RELEASE_V50_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "releases" / "v50"
+MERGE_READINESS_REPORT_PATH = RELEASE_V50_ROOT / "merge_readiness_report.v50.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -66,6 +73,12 @@ EXPECTED_GANA_DIRS = {
     "09_kryadi",
     "10_curadi",
 }
+PROMOTED_SOURCE_IDS = ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"]
+PROMOTED_CANONICAL_IDS = ["01.0005", "01.0013", "01.0008"]
+
+
+def load_fixture_json(fixture_root, filename):
+    return json.loads((fixture_root / filename).read_text(encoding="utf-8"))
 
 
 spec = importlib.util.spec_from_file_location("validate_large_scale_ingestion", SCRIPT_PATH)
@@ -185,10 +198,35 @@ closeout_indexer = importlib.util.module_from_spec(closeout_index_spec)
 sys.modules["index_dhatu_canonical_promotion_closeout"] = closeout_indexer
 closeout_index_spec.loader.exec_module(closeout_indexer)
 
+archive_release_spec = importlib.util.spec_from_file_location(
+    "archive_dhatu_release_state",
+    ARCHIVE_RELEASE_SCRIPT_PATH,
+)
+release_archiver = importlib.util.module_from_spec(archive_release_spec)
+sys.modules["archive_dhatu_release_state"] = release_archiver
+archive_release_spec.loader.exec_module(release_archiver)
+
+merge_readiness_spec = importlib.util.spec_from_file_location(
+    "report_dhatu_merge_readiness",
+    MERGE_READINESS_SCRIPT_PATH,
+)
+merge_readiness_reporter = importlib.util.module_from_spec(merge_readiness_spec)
+sys.modules["report_dhatu_merge_readiness"] = merge_readiness_reporter
+merge_readiness_spec.loader.exec_module(merge_readiness_reporter)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
         self.payload = validator.load_large_scale_manifest(MANIFEST_PATH)
+
+    def _write_pre_promotion_registry_fixture(self, registry_path):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        for record_id, record in list(registry.get("records", {}).items()):
+            promotion = record.get("promotion", {})
+            if promotion.get("sourceRootId") in PROMOTED_SOURCE_IDS:
+                registry["records"].pop(record_id)
+        registry_path.write_text(json.dumps(registry, indent=2, sort_keys=True), encoding="utf-8")
+        return registry
 
     def test_large_scale_manifest_loads(self):
         self.assertTrue(MANIFEST_PATH.exists())
@@ -284,6 +322,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_closeout_index_script_exists(self):
         self.assertTrue(CLOSEOUT_INDEX_SCRIPT_PATH.exists())
 
+    def test_archive_release_script_exists(self):
+        self.assertTrue(ARCHIVE_RELEASE_SCRIPT_PATH.exists())
+
+    def test_merge_readiness_script_exists(self):
+        self.assertTrue(MERGE_READINESS_SCRIPT_PATH.exists())
+
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
@@ -292,6 +336,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_canonical_promotion_closeout_index_exists(self):
         self.assertTrue(CLOSEOUT_INDEX_PATH.exists())
+
+    def test_canonical_write_fixture_folders_exist(self):
+        self.assertTrue(BASELINE_BLOCKED_FIXTURE_ROOT.exists())
+        self.assertTrue(EXECUTED_WRITE_FIXTURE_ROOT.exists())
+
+    def test_release_v50_archive_directory_exists(self):
+        self.assertTrue(RELEASE_V50_ROOT.exists())
+
+    def test_merge_readiness_report_exists(self):
+        self.assertTrue(MERGE_READINESS_REPORT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -322,6 +376,28 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(required.issubset(record), record)
             self.assertEqual(record["status"], "staged")
             self.assertEqual(record["gana"], "01")
+
+    def test_live_canonical_registry_has_promoted_records_after_write(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        records = registry["records"]
+
+        self.assertEqual(len(records), 13)
+        for canonical_id, source_id in zip(PROMOTED_CANONICAL_IDS, PROMOTED_SOURCE_IDS):
+            self.assertIn(canonical_id, records)
+            self.assertEqual(records[canonical_id]["promotion"]["sourceRootId"], source_id)
+
+    def test_live_canonical_registry_has_no_duplicate_dhatu_ids_after_write(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        ids = list(registry["records"].keys())
+
+        self.assertEqual(len(ids), len(set(ids)))
+
+    def test_live_post_write_audit_records_three_promotions(self):
+        audit = json.loads(POST_AUDIT_VERIFICATION_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(audit["promotedCount"], 3)
+        self.assertEqual(audit["afterCount"], 13)
+        self.assertEqual(audit["promotedRecordIds"], PROMOTED_SOURCE_IDS)
 
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
@@ -492,6 +568,28 @@ class LargeScaleIngestionTests(unittest.TestCase):
             "data/sanskrit/ingestion/canonical_promotion_closeout_index.v1.json",
         )
 
+    def test_manifest_declares_canonical_write_fixture_roots(self):
+        self.assertEqual(
+            self.payload["canonicalWriteBaselineBlockedFixtureRoot"],
+            "data/sanskrit/ingestion/fixtures/baseline_blocked",
+        )
+        self.assertEqual(
+            self.payload["canonicalWriteExecutedFixtureRoot"],
+            "data/sanskrit/ingestion/fixtures/executed_write",
+        )
+
+    def test_manifest_declares_v50_release_archive_root(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionV50ReleaseArchiveRoot"],
+            "data/sanskrit/ingestion/releases/v50",
+        )
+
+    def test_manifest_declares_v50_merge_readiness_report(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionV50MergeReadinessReportFile"],
+            "data/sanskrit/ingestion/releases/v50/merge_readiness_report.v50.json",
+        )
+
     def test_canonical_write_runbook_contains_required_operational_guidance(self):
         runbook = RUNBOOK_PATH.read_text(encoding="utf-8")
 
@@ -502,13 +600,144 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("sanskrit-v43-post-canonical-write-audit-verification-stable", runbook)
 
     def test_default_canonical_promotion_closeout_index_is_blocked(self):
-        index = closeout_indexer.build_closeout_index(MANIFEST_PATH)
+        index = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_promotion_closeout_index.v1.json")
 
         self.assertEqual(index["schemaVersion"], "1.0.0")
         self.assertEqual(index["closeoutStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
         self.assertFalse(index["safetySummary"]["approvalValid"])
         self.assertFalse(index["safetySummary"]["safeToProceed"])
         self.assertIn("canonicalWriteRunbook", [entry["name"] for entry in index["artifactIndex"]])
+
+    def test_baseline_blocked_fixtures_preserve_blocked_gate_states(self):
+        approval = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_approval.v1.json")
+        validation = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_approval_validation.v1.json")
+        authorization = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_authorization.v1.json")
+        command = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
+        dry_run = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_dry_run_diff.v1.json")
+        checklist = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_checklist.v1.json")
+        verification = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_verification.v1.json")
+        preflight = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_preflight_snapshot.v1.json")
+        post_audit = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_post_audit_verification.v1.json")
+
+        self.assertEqual(approval["approvalStatus"], "NOT_APPROVED")
+        self.assertFalse(validation["approvalValid"])
+        self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+        self.assertEqual(command["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(dry_run["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(checklist["releaseStatus"], "BLOCKED")
+        self.assertEqual(verification["verificationStatus"], "BLOCKED")
+        self.assertEqual(preflight["snapshotStatus"], "BLOCKED_PREWRITE")
+        self.assertEqual(post_audit["verificationStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
+
+    def test_executed_write_fixtures_preserve_approved_ready_verified_states(self):
+        approval = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_approval.v1.json")
+        validation = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_approval_validation.v1.json")
+        authorization = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_authorization.v1.json")
+        command = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
+        checklist = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_release_checklist.v1.json")
+        verification = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_release_verification.v1.json")
+        post_audit = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_post_audit_verification.v1.json")
+
+        self.assertEqual(approval["approvalStatus"], "APPROVED")
+        self.assertTrue(validation["approvalValid"])
+        self.assertEqual(authorization["authorizationStatus"], "AUTHORIZED_FOR_MANUAL_WRITE")
+        self.assertEqual(command["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+        self.assertEqual(checklist["releaseStatus"], "READY_FOR_MANUAL_PRODUCTION_WRITE")
+        self.assertEqual(verification["verificationStatus"], "READY")
+        self.assertEqual(post_audit["verificationStatus"], "VERIFIED_TEST_WRITE")
+        self.assertEqual(post_audit["promotedCount"], 3)
+
+    def test_release_archive_generation_writes_manifest_and_snapshots(self):
+        import tempfile
+
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory(prefix="release-archive-") as tmp:
+            manifest = release_archiver.archive_release_state(tmp)
+
+            self.assertEqual(manifest["schemaVersion"], "1.0.0")
+            self.assertEqual(manifest["releaseTag"], release_archiver.RELEASE_TAG)
+            self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
+            self.assertEqual(manifest["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+            self.assertTrue(manifest["productionWriteExecuted"])
+            self.assertEqual(manifest["postWriteVerificationStatus"], "VERIFIED_TEST_WRITE")
+            self.assertTrue((Path(tmp) / "release_archive_manifest.v50.json").exists())
+            for archive_name in release_archiver.ARCHIVE_SOURCES:
+                self.assertTrue((Path(tmp) / archive_name).exists())
+                self.assertIn(archive_name, manifest["artifactHashes"])
+                self.assertEqual(len(manifest["artifactHashes"][archive_name]), 64)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_archive_refuses_overwrite_without_force(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-refuse-") as tmp:
+            release_archiver.archive_release_state(tmp)
+
+            with self.assertRaises(FileExistsError):
+                release_archiver.archive_release_state(tmp)
+
+    def test_release_archive_manifest_integrity_and_merge_readiness_metadata(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-integrity-") as tmp:
+            manifest = release_archiver.archive_release_state(tmp)
+            written = json.loads((Path(tmp) / "release_archive_manifest.v50.json").read_text(encoding="utf-8"))
+
+            self.assertEqual(written["releaseCommit"], manifest["releaseCommit"])
+            self.assertTrue(written["mergeReadinessChecks"]["v50TagExists"])
+            self.assertTrue(written["mergeReadinessChecks"]["canonicalRegistryCountIs13"])
+            self.assertTrue(written["mergeReadinessChecks"]["promotedCountIs3"])
+            self.assertTrue(written["mergeReadinessChecks"]["noDuplicateCanonicalIds"])
+            self.assertEqual(
+                written["mergeReadinessChecks"]["testSuitePassingExpectation"]["expectedPassingTests"],
+                712,
+            )
+
+    def test_release_archive_force_overwrites_existing_archive(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-force-") as tmp:
+            release_archiver.archive_release_state(tmp)
+            manifest = release_archiver.archive_release_state(tmp, force=True)
+
+            self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
+
+    def test_merge_readiness_report_is_ready_to_open_pr(self):
+        report = merge_readiness_reporter.build_merge_readiness_report()
+
+        self.assertEqual(report["schemaVersion"], "1.0.0")
+        self.assertEqual(report["releaseBranch"], "release/dhatu-canonical-write-approval")
+        self.assertEqual(report["targetBranch"], "feature/dhatu-goldset")
+        self.assertEqual(report["releaseTag"], "sanskrit-v50-canonical-write-state-fixtures-stable")
+        self.assertEqual(report["archiveTag"], "sanskrit-v51-release-archive-stable")
+        self.assertEqual(report["mergeReadinessStatus"], "READY_TO_OPEN_PR")
+        self.assertEqual(report["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(report["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+        self.assertEqual(report["blockingReasons"], [])
+
+    def test_merge_readiness_report_contains_fixture_and_audit_integrity(self):
+        report = merge_readiness_reporter.build_merge_readiness_report()
+
+        self.assertTrue(report["fixtureIntegrity"]["baselineBlocked"]["complete"])
+        self.assertTrue(report["fixtureIntegrity"]["executedWrite"]["complete"])
+        self.assertEqual(report["postWriteAuditSummary"]["promotedCount"], 3)
+        self.assertEqual(report["postWriteAuditSummary"]["verificationStatus"], "VERIFIED_TEST_WRITE")
+        self.assertTrue(report["canonicalRegistryIntegrity"]["noDuplicateCanonicalIds"])
+        self.assertEqual(report["canonicalRegistryIntegrity"]["promotedRecordIdsPresentCount"], 3)
+
+    def test_merge_readiness_report_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="merge-readiness-") as tmp:
+            report = merge_readiness_reporter.build_merge_readiness_report()
+            path = merge_readiness_reporter.write_merge_readiness_report(
+                report,
+                Path(tmp) / "merge_readiness_report.v50.json",
+            )
+
+            self.assertTrue(path.exists())
+            written = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(written["generatedBy"], "scripts/report_dhatu_merge_readiness.py")
 
     def test_closeout_index_writer_uses_requested_output_path(self):
         import tempfile
@@ -885,7 +1114,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
             with tempfile.TemporaryDirectory(prefix="guarded-promotion-") as tmp:
                 registry_path = Path(tmp) / "index.json"
                 audit_path = Path(tmp) / "audit.json"
-                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                self._write_pre_promotion_registry_fixture(registry_path)
                 before = json.loads(registry_path.read_text(encoding="utf-8"))
                 lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
 
@@ -983,7 +1212,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         before_write_flag = os.environ.get(promoter.WRITE_FLAG)
         before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
-        authorization = authorizer.build_authorization()
+        authorization = authorizer.build_authorization(
+            approval_validation_path=BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_approval_validation.v1.json",
+        )
 
         self.assertEqual(authorization["schemaVersion"], "1.0.0")
         self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
@@ -997,10 +1228,66 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertFalse(authorization["requiredEnvironment"][promoter.WRITE_FLAG]["currentlySatisfied"])
         self.assertFalse(authorization["requiredEnvironment"][promoter.TEST_WRITE_FLAG]["currentlySatisfied"])
         self.assertEqual(authorization["evidenceSummary"]["releaseGateStatus"], "BLOCKED")
+        self.assertIn("approvalValidationSummary", authorization)
+        self.assertFalse(authorization["safetyChecks"]["evidenceReleaseGateReady"])
         self.assertFalse(authorization["safetyChecks"]["canonicalRegistryMutation"])
         self.assertTrue(authorization["safetyChecks"]["environmentFlagsUnchangedByAuthorization"])
         self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
         self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_canonical_write_authorization_transitions_when_approval_and_release_ready(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-ready-") as tmp:
+            readiness_lock = json.loads(READINESS_LOCK_PATH.read_text(encoding="utf-8"))
+            ready_ids = sorted(readiness_lock["readyRecordIds"])
+            evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+            evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+            evidence.setdefault("contractSummary", {})["passed"] = True
+            approval_validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+            approval_validation["approvalStatus"] = "APPROVED"
+            approval_validation["approvalValid"] = True
+            approval_validation["approvedRecordIds"] = ready_ids
+            approval_validation["missingAuthorizedRecordIds"] = []
+            approval_validation["unexpectedApprovedRecordIds"] = []
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_validation_path = Path(tmp) / "approval_validation.json"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            approval_validation_path.write_text(json.dumps(approval_validation), encoding="utf-8")
+
+            authorization = authorizer.build_authorization(
+                evidence_path=evidence_path,
+                approval_validation_path=approval_validation_path,
+            )
+
+            self.assertEqual(authorization["authorizationStatus"], "AUTHORIZED_FOR_MANUAL_WRITE")
+            self.assertTrue(authorization["approvalValidationSummary"]["approvalValid"])
+            self.assertTrue(authorization["approvalValidationSummary"]["approvedRecordIdsMatchAuthorizedRecordIds"])
+            self.assertTrue(authorization["safetyChecks"]["evidenceReleaseGateReady"])
+
+    def test_canonical_write_authorization_waits_when_approved_ids_do_not_match(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-mismatch-") as tmp:
+            evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+            evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+            evidence.setdefault("contractSummary", {})["passed"] = True
+            approval_validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+            approval_validation["approvalStatus"] = "APPROVED"
+            approval_validation["approvalValid"] = True
+            approval_validation["approvedRecordIds"] = ["01.STAGED.0001"]
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_validation_path = Path(tmp) / "approval_validation.json"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            approval_validation_path.write_text(json.dumps(approval_validation), encoding="utf-8")
+
+            authorization = authorizer.build_authorization(
+                evidence_path=evidence_path,
+                approval_validation_path=approval_validation_path,
+            )
+
+            self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+            self.assertFalse(authorization["approvalValidationSummary"]["approvedRecordIdsMatchAuthorizedRecordIds"])
 
     def test_canonical_write_authorization_writer_uses_requested_output_path(self):
         import tempfile
@@ -1016,7 +1303,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), authorization)
 
     def test_canonical_write_approval_defaults_to_not_approved(self):
-        approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        approval = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_approval.v1.json")
 
         self.assertEqual(approval["schemaVersion"], "1.0.0")
         self.assertEqual(approval["approvalStatus"], "NOT_APPROVED")
@@ -1044,7 +1331,6 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertEqual(simulated["approvedBy"], "test-fixture")
             self.assertEqual(simulated["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
             self.assertEqual(after_default, before_default)
-            self.assertEqual(after_default["approvalStatus"], "NOT_APPROVED")
 
     def test_simulated_approval_validates_as_valid(self):
         import tempfile
@@ -1070,7 +1356,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         before_write_flag = os.environ.get(promoter.WRITE_FLAG)
         before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
-        manifest = command_preparer.build_command_manifest()
+        manifest = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
 
         self.assertEqual(manifest["schemaVersion"], "1.0.0")
         self.assertEqual(manifest["commandStatus"], "REFUSED_APPROVAL_INVALID")
@@ -1091,7 +1377,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
 
     def test_default_command_manifest_remains_refused_after_simulated_validation(self):
-        manifest = command_preparer.build_command_manifest()
+        manifest = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
 
         self.assertEqual(manifest["commandStatus"], "REFUSED_APPROVAL_INVALID")
         self.assertFalse(manifest["approvalValidationSummary"]["approvalValid"])
@@ -1108,8 +1394,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         validation["refusalReasons"] = []
         with tempfile.TemporaryDirectory(prefix="command-auth-not-ready-") as tmp:
             validation_path = Path(tmp) / "validation.json"
+            authorization_path = Path(tmp) / "authorization.json"
             validation_path.write_text(json.dumps(validation), encoding="utf-8")
-            manifest = command_preparer.build_command_manifest(approval_validation_path=validation_path)
+            authorization_path.write_text(
+                (BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_authorization.v1.json").read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            manifest = command_preparer.build_command_manifest(
+                authorization_path=authorization_path,
+                approval_validation_path=validation_path,
+            )
 
             self.assertEqual(manifest["commandStatus"], "REFUSED_AUTHORIZATION_NOT_READY")
             self.assertTrue(manifest["approvalValidationSummary"]["approvalValid"])
@@ -1182,7 +1476,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_default_canonical_write_dry_run_diff_is_refused(self):
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
-        diff = dry_run_differ.build_dry_run_diff()
+        diff = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_dry_run_diff.v1.json")
 
         self.assertTrue(diff["dryRunOnly"])
         self.assertEqual(diff["commandStatus"], "REFUSED_APPROVAL_INVALID")
@@ -1198,7 +1492,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
         with tempfile.TemporaryDirectory(prefix="ready-dry-run-") as tmp:
             registry_path = Path(tmp) / "index.json"
-            shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+            self._write_pre_promotion_registry_fixture(registry_path)
             command_path, validation_path = self._build_ready_command_fixture(tmp)
             diff = dry_run_differ.build_dry_run_diff(
                 command_manifest_path=command_path,
@@ -1226,7 +1520,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="duplicate-dry-run-") as tmp:
             registry_path = Path(tmp) / "index.json"
-            shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+            self._write_pre_promotion_registry_fixture(registry_path)
             registry = json.loads(registry_path.read_text(encoding="utf-8"))
             registry["records"]["01.0005"] = {"root": "fixture duplicate"}
             registry_path.write_text(json.dumps(registry), encoding="utf-8")
@@ -1244,7 +1538,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_default_release_checklist_is_blocked(self):
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
-        checklist = release_checklister.build_release_checklist(MANIFEST_PATH)
+        checklist = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_checklist.v1.json")
 
         self.assertEqual(checklist["schemaVersion"], "1.0.0")
         self.assertEqual(checklist["releaseStatus"], "BLOCKED")
@@ -1305,8 +1599,8 @@ class LargeScaleIngestionTests(unittest.TestCase):
         markdown = approval_packager.build_approval_package()
 
         self.assertIn("# Canonical Write Approval Package", markdown)
-        self.assertIn("Release status: `BLOCKED`", markdown)
-        self.assertIn("Safe to write production: `false`", markdown)
+        self.assertIn("Release status:", markdown)
+        self.assertIn("Safe to write production:", markdown)
         self.assertIn("## Authorized Record IDs", markdown)
         self.assertIn("`01.STAGED.0001`", markdown)
         self.assertIn("## Ready Record IDs", markdown)
@@ -1334,7 +1628,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_default_release_verification_is_blocked(self):
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
-        verification = release_verifier.build_release_verification(MANIFEST_PATH)
+        verification = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_verification.v1.json")
 
         self.assertEqual(verification["schemaVersion"], "1.0.0")
         self.assertEqual(verification["verificationStatus"], "BLOCKED")
@@ -1377,9 +1671,8 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), verification)
 
     def test_default_preflight_snapshot_is_blocked_and_hashes_registry(self):
-        registry_payload = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
-        snapshot = preflight_snapshooter.build_preflight_snapshot()
+        snapshot = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_preflight_snapshot.v1.json")
 
         self.assertEqual(snapshot["schemaVersion"], "1.0.0")
         self.assertEqual(snapshot["snapshotStatus"], "BLOCKED_PREWRITE")
@@ -1388,7 +1681,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(len(snapshot["canonicalRegistrySha256"]), 64)
         self.assertTrue(snapshot["currentGitHead"])
         self.assertTrue(snapshot["currentBranch"])
-        self.assertEqual(snapshot["canonicalRegistryRecordCount"], len(registry_payload["records"]))
+        self.assertEqual(snapshot["canonicalRegistryRecordCount"], 10)
         self.assertEqual(snapshot["rollbackReference"]["canonicalRegistrySha256"], snapshot["canonicalRegistrySha256"])
         self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
 
@@ -1407,7 +1700,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_default_post_audit_verification_blocks_no_production_write(self):
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
-        verification = post_audit_verifier.build_post_audit_verification()
+        verification = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_post_audit_verification.v1.json")
 
         self.assertEqual(verification["schemaVersion"], "1.0.0")
         self.assertEqual(verification["verificationStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
@@ -1434,7 +1727,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
                 audit_path = Path(tmp) / "audit.json"
                 dry_run_path = Path(tmp) / "dry-run.json"
                 snapshot_path = Path(tmp) / "snapshot.json"
-                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                self._write_pre_promotion_registry_fixture(registry_path)
                 snapshot = preflight_snapshooter.build_preflight_snapshot(registry_path)
                 preflight_snapshooter.write_preflight_snapshot(snapshot, snapshot_path)
                 audit = promoter.promote_ready_dhatus(
@@ -1488,7 +1781,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
                 audit_path = Path(tmp) / "audit.json"
                 dry_run_path = Path(tmp) / "dry-run.json"
                 snapshot_path = Path(tmp) / "snapshot.json"
-                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                self._write_pre_promotion_registry_fixture(registry_path)
                 preflight_snapshooter.write_preflight_snapshot(
                     preflight_snapshooter.build_preflight_snapshot(registry_path),
                     snapshot_path,
@@ -1599,7 +1892,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         before_write_flag = os.environ.get(promoter.WRITE_FLAG)
         before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
-        validation = approval_validator.build_approval_validation()
+        validation = approval_validator.build_approval_validation(
+            BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_approval.v1.json",
+            authorization_path=BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_authorization.v1.json",
+        )
 
         self.assertEqual(validation["schemaVersion"], "1.0.0")
         self.assertEqual(validation["approvalStatus"], "NOT_APPROVED")

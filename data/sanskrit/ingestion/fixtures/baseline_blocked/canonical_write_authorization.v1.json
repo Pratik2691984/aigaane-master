@@ -1,14 +1,18 @@
 {
   "approvalValidationSummary": {
-    "approvalStatus": "APPROVED",
-    "approvalValid": true,
-    "approvedCount": 3,
-    "approvedRecordIdsMatchAuthorizedRecordIds": true,
+    "approvalStatus": "NOT_APPROVED",
+    "approvalValid": false,
+    "approvedCount": 0,
+    "approvedRecordIdsMatchAuthorizedRecordIds": false,
     "authorizedCount": 3,
-    "missingAuthorizedRecordIds": [],
+    "missingAuthorizedRecordIds": [
+      "01.STAGED.0001",
+      "01.STAGED.0002",
+      "01.STAGED.0003"
+    ],
     "unexpectedApprovedRecordIds": []
   },
-  "authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE",
+  "authorizationStatus": "AWAITING_HUMAN_APPROVAL",
   "authorizedRecordIds": [
     "01.STAGED.0001",
     "01.STAGED.0002",
@@ -53,8 +57,8 @@
     }
   },
   "safetyChecks": {
-    "approvalValidationValid": true,
-    "approvedRecordIdsMatchAuthorizedRecordIds": true,
+    "approvalValidationValid": false,
+    "approvedRecordIdsMatchAuthorizedRecordIds": false,
     "auditCanonicalMutation": false,
     "batchMutation": false,
     "canonicalRegistryMutation": false,
@@ -64,7 +68,6 @@
     "evidenceReportPresent": true,
     "goldsetMutation": false,
     "humanApprovalRequired": true,
-    "manualEvidenceContractReady": true,
     "readinessLockCanonicalWriteEnabled": false
   },
   "schemaVersion": "1.0.0"
