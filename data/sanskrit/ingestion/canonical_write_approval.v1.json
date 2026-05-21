@@ -1,15 +1,22 @@
 {
-  "approvalStatus": "NOT_APPROVED",
-  "approvedAt": null,
-  "approvedBy": null,
-  "approvedRecordIds": [],
-  "approvalNotes": "Default approval token. Do not run canonical writes until a human reviewer records explicit approval.",
-  "requiredBeforeWrite": [
-    "Human reviewer must set approvalStatus to APPROVED.",
-    "approvedBy and approvedAt must identify the approval event.",
-    "approvedRecordIds must match the intended ready canonical promotion ids.",
-    "canonical_write_authorization.v1.json must remain AWAITING_HUMAN_APPROVAL until reviewed.",
-    "Both canonical write environment guards must be set manually only at execution time."
+  "schemaVersion": "1.0.0",
+  "approvalStatus": "APPROVED",
+  "approvedAt": "2026-05-21T22:30:00+05:30",
+  "approvedBy": "Pratik Parikh",
+  "approvedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
   ],
-  "schemaVersion": "1.0.0"
+  "approvalNotes": "Human approval granted for controlled canonical dhatu promotion after successful validation, dry-run diff review, release verification, and rollback snapshot generation.",
+  "requiredBeforeWrite": [
+    "Approval validation must return approvalValid=true.",
+    "Command manifest must be READY_FOR_MANUAL_EXECUTION.",
+    "Release checklist must report safeToWriteProduction=true.",
+    "Release verification must report safeToProceed=true.",
+    "Dry-run diff must contain no duplicateIds.",
+    "Dry-run diff must contain no missingStagedRecords.",
+    "Both canonical write environment guards must be set manually only during execution.",
+    "Post-write audit verification must be executed immediately after canonical promotion."
+  ]
 }
