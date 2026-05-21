@@ -1,0 +1,65 @@
+{
+  "archiveTag": "sanskrit-v51-release-archive-stable",
+  "blockingReasons": [],
+  "canonicalRegistryIntegrity": {
+    "duplicateCanonicalIds": [],
+    "expectedRecordCount": 13,
+    "noDuplicateCanonicalIds": true,
+    "promotedRecordIdsPresent": [
+      "01.STAGED.0001",
+      "01.STAGED.0002",
+      "01.STAGED.0003"
+    ],
+    "promotedRecordIdsPresentCount": 3,
+    "recordCount": 13,
+    "recordCountMatchesExpected": true
+  },
+  "canonicalRegistryRecordCount": 13,
+  "fixtureIntegrity": {
+    "baselineBlocked": {
+      "complete": true,
+      "exists": true,
+      "missingFiles": [],
+      "path": "data/sanskrit/ingestion/fixtures/baseline_blocked",
+      "requiredFileCount": 10
+    },
+    "executedWrite": {
+      "complete": true,
+      "exists": true,
+      "missingFiles": [],
+      "path": "data/sanskrit/ingestion/fixtures/executed_write",
+      "requiredFileCount": 11
+    }
+  },
+  "generatedBy": "scripts/report_dhatu_merge_readiness.py",
+  "mergeReadinessStatus": "READY_TO_OPEN_PR",
+  "postWriteAuditSummary": {
+    "afterCount": 13,
+    "expectedAfterCount": 13,
+    "liveAuditPromotedCount": 0,
+    "productionRegistryMutationDetected": true,
+    "promotedCount": 3,
+    "verificationStatus": "VERIFIED_TEST_WRITE"
+  },
+  "promotedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "recommendedPRSummary": [
+    "Promotes three approved Bhvadi dhatu records into the canonical registry.",
+    "Adds blocked-baseline and executed-write fixtures for reproducible safety tests.",
+    "Archives the v50 canonical promotion release state with hashes and merge-readiness evidence.",
+    "Targets feature/dhatu-goldset after 712-test release evidence and current merge-readiness checks."
+  ],
+  "recommendedPRTitle": "Release dhatu canonical write approval and v50 archive",
+  "releaseBranch": "release/dhatu-canonical-write-approval",
+  "releaseTag": "sanskrit-v50-canonical-write-state-fixtures-stable",
+  "schemaVersion": "1.0.0",
+  "targetBranch": "feature/dhatu-goldset",
+  "testsExpected": {
+    "command": "python -m unittest discover -s api -p \"test_*.py\"",
+    "expectedPassingTests": 712,
+    "status": "expected-passing"
+  }
+}

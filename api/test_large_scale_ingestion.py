@@ -26,6 +26,7 @@ PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonica
 POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_canonical_write_audit.py"
 CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion_closeout.py"
 ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py"
+MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -47,6 +48,7 @@ FIXTURE_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "fixtures"
 BASELINE_BLOCKED_FIXTURE_ROOT = FIXTURE_ROOT / "baseline_blocked"
 EXECUTED_WRITE_FIXTURE_ROOT = FIXTURE_ROOT / "executed_write"
 RELEASE_V50_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "releases" / "v50"
+MERGE_READINESS_REPORT_PATH = RELEASE_V50_ROOT / "merge_readiness_report.v50.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -204,6 +206,14 @@ release_archiver = importlib.util.module_from_spec(archive_release_spec)
 sys.modules["archive_dhatu_release_state"] = release_archiver
 archive_release_spec.loader.exec_module(release_archiver)
 
+merge_readiness_spec = importlib.util.spec_from_file_location(
+    "report_dhatu_merge_readiness",
+    MERGE_READINESS_SCRIPT_PATH,
+)
+merge_readiness_reporter = importlib.util.module_from_spec(merge_readiness_spec)
+sys.modules["report_dhatu_merge_readiness"] = merge_readiness_reporter
+merge_readiness_spec.loader.exec_module(merge_readiness_reporter)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -315,6 +325,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_archive_release_script_exists(self):
         self.assertTrue(ARCHIVE_RELEASE_SCRIPT_PATH.exists())
 
+    def test_merge_readiness_script_exists(self):
+        self.assertTrue(MERGE_READINESS_SCRIPT_PATH.exists())
+
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
@@ -330,6 +343,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_release_v50_archive_directory_exists(self):
         self.assertTrue(RELEASE_V50_ROOT.exists())
+
+    def test_merge_readiness_report_exists(self):
+        self.assertTrue(MERGE_READINESS_REPORT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -568,6 +584,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
             "data/sanskrit/ingestion/releases/v50",
         )
 
+    def test_manifest_declares_v50_merge_readiness_report(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionV50MergeReadinessReportFile"],
+            "data/sanskrit/ingestion/releases/v50/merge_readiness_report.v50.json",
+        )
+
     def test_canonical_write_runbook_contains_required_operational_guidance(self):
         runbook = RUNBOOK_PATH.read_text(encoding="utf-8")
 
@@ -679,6 +701,43 @@ class LargeScaleIngestionTests(unittest.TestCase):
             manifest = release_archiver.archive_release_state(tmp, force=True)
 
             self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
+
+    def test_merge_readiness_report_is_ready_to_open_pr(self):
+        report = merge_readiness_reporter.build_merge_readiness_report()
+
+        self.assertEqual(report["schemaVersion"], "1.0.0")
+        self.assertEqual(report["releaseBranch"], "release/dhatu-canonical-write-approval")
+        self.assertEqual(report["targetBranch"], "feature/dhatu-goldset")
+        self.assertEqual(report["releaseTag"], "sanskrit-v50-canonical-write-state-fixtures-stable")
+        self.assertEqual(report["archiveTag"], "sanskrit-v51-release-archive-stable")
+        self.assertEqual(report["mergeReadinessStatus"], "READY_TO_OPEN_PR")
+        self.assertEqual(report["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(report["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+        self.assertEqual(report["blockingReasons"], [])
+
+    def test_merge_readiness_report_contains_fixture_and_audit_integrity(self):
+        report = merge_readiness_reporter.build_merge_readiness_report()
+
+        self.assertTrue(report["fixtureIntegrity"]["baselineBlocked"]["complete"])
+        self.assertTrue(report["fixtureIntegrity"]["executedWrite"]["complete"])
+        self.assertEqual(report["postWriteAuditSummary"]["promotedCount"], 3)
+        self.assertEqual(report["postWriteAuditSummary"]["verificationStatus"], "VERIFIED_TEST_WRITE")
+        self.assertTrue(report["canonicalRegistryIntegrity"]["noDuplicateCanonicalIds"])
+        self.assertEqual(report["canonicalRegistryIntegrity"]["promotedRecordIdsPresentCount"], 3)
+
+    def test_merge_readiness_report_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="merge-readiness-") as tmp:
+            report = merge_readiness_reporter.build_merge_readiness_report()
+            path = merge_readiness_reporter.write_merge_readiness_report(
+                report,
+                Path(tmp) / "merge_readiness_report.v50.json",
+            )
+
+            self.assertTrue(path.exists())
+            written = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(written["generatedBy"], "scripts/report_dhatu_merge_readiness.py")
 
     def test_closeout_index_writer_uses_requested_output_path(self):
         import tempfile

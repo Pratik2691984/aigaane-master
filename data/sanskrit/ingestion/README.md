@@ -40,6 +40,8 @@
 
 `scripts/archive_dhatu_release_state.py` copies the completed v50 canonical promotion state into `releases/v50/` without mutating the canonical registry. It writes immutable v50 snapshots, computes artifact SHA-256 hashes, refuses overwrite unless `--force` is supplied, and records merge-readiness metadata in `release_archive_manifest.v50.json`.
 
+`scripts/report_dhatu_merge_readiness.py` writes `releases/v50/merge_readiness_report.v50.json`, a PR-facing merge-readiness summary for merging `release/dhatu-canonical-write-approval` into `feature/dhatu-goldset`. It verifies the v50/v51 tag references, fixture integrity, 13-record canonical registry, three promoted records, post-write verification, and duplicate-id safety.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.
