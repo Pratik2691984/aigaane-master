@@ -14,6 +14,51 @@
       },
       "root": "एध्"
     },
+    "01.0005": {
+      "canonicalForm": "गम्",
+      "gana": {
+        "id": "01"
+      },
+      "gloss": "to go",
+      "promotion": {
+        "reviewDecision": "approve",
+        "source": "local-staged-bhvadi-batch-001",
+        "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+        "sourceRootId": "01.STAGED.0001"
+      },
+      "root": "गम्",
+      "rootIast": "gam"
+    },
+    "01.0008": {
+      "canonicalForm": "नी",
+      "gana": {
+        "id": "01"
+      },
+      "gloss": "to lead",
+      "promotion": {
+        "reviewDecision": "approve",
+        "source": "local-staged-bhvadi-batch-001",
+        "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+        "sourceRootId": "01.STAGED.0003"
+      },
+      "root": "नी",
+      "rootIast": "nī"
+    },
+    "01.0013": {
+      "canonicalForm": "स्था",
+      "gana": {
+        "id": "01"
+      },
+      "gloss": "to stand",
+      "promotion": {
+        "reviewDecision": "approve",
+        "source": "local-staged-bhvadi-batch-001",
+        "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+        "sourceRootId": "01.STAGED.0002"
+      },
+      "root": "स्था",
+      "rootIast": "sthā"
+    },
     "02.0001": {
       "canonicalForm": "?????",
       "gana": {
