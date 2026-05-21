@@ -4,10 +4,16 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
 from validate_large_scale_ingestion import ROOT
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from api.dhatu_semantic_query import query_semantics
 
 
 DEFAULT_CANONICAL_REGISTRY_PATH = ROOT / "data" / "sanskrit" / "dhatus" / "index.json"
@@ -84,6 +90,33 @@ def validate_semantic_layer(
     duplicate_semantic_ids = duplicate_values([str(dhatu_id) for dhatu_id in semantic_ids])
     manifest_count_matches = int(manifest.get("semanticRecordCount", -1)) == len(action_records)
     manifest_coverage_matches = sorted(covered_ids) == sorted(semantic_id_set)
+    query_results = {
+        "guidanceAction": query_semantics(
+            action="guidance",
+            canonical_registry_path=canonical_registry_path,
+            semantic_root=semantic_root,
+        ),
+        "motionCluster": query_semantics(
+            cluster="motion",
+            canonical_registry_path=canonical_registry_path,
+            semantic_root=semantic_root,
+        ),
+        "standGloss": query_semantics(
+            gloss="stand",
+            canonical_registry_path=canonical_registry_path,
+            semantic_root=semantic_root,
+        ),
+    }
+    queryable_ids = sorted({
+        result["dhatuId"]
+        for results in query_results.values()
+        for result in results
+    })
+    all_query_results_canonical = all(
+        result["dhatuId"] in canonical_ids
+        for results in query_results.values()
+        for result in results
+    )
     canonical_registry_unchanged = registry_before == registry_after
     checks = {
         "semanticDirectoryPresent": resolve_path(semantic_root).exists(),
@@ -95,6 +128,11 @@ def validate_semantic_layer(
         "manifestCoverageMatchesSemanticEntries": manifest_coverage_matches,
         "canonicalRegistryUnchanged": canonical_registry_unchanged,
         "canonicalRegistryRecordCountIs13": len(canonical_ids) == 13,
+        "queryableSemanticRecordsMatchManifestCoverage": sorted(semantic_id_set) == sorted(covered_ids),
+        "semanticQueryResultsPointToCanonicalRegistry": all_query_results_canonical,
+        "guidanceActionQueryReturnsNi": any(result["dhatuId"] == "01.0008" for result in query_results["guidanceAction"]),
+        "motionClusterQueryReturnsGam": any(result["dhatuId"] == "01.0005" for result in query_results["motionCluster"]),
+        "standGlossQueryReturnsStha": any(result["dhatuId"] == "01.0013" for result in query_results["standGloss"]),
     }
     return {
         "schemaVersion": "1.0.0",
@@ -107,6 +145,7 @@ def validate_semantic_layer(
         "noncanonicalSemanticDhatuIds": noncanonical_semantic_ids,
         "duplicateSemanticDhatuIds": duplicate_semantic_ids,
         "invalidSemanticClusterIds": invalid_clusters,
+        "queryableDhatuIds": queryable_ids,
         "checks": checks,
     }
 

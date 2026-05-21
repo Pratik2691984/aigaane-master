@@ -44,6 +44,8 @@
 
 `data/sanskrit/dhatus/semantic/` contains a read-only semantic sidecar foundation for canonical dhatu records. `scripts/validate_dhatu_semantic_layer.py` verifies that semantic ids exist in the canonical registry, action vectors reference known semantic clusters, the three promoted roots are covered, manifest counts match, and `data/sanskrit/dhatus/index.json` is not mutated.
 
+`scripts/query_dhatu_semantics.py` and `api/dhatu_semantic_query.py` provide read-only semantic lookup over the canonical dhatu sidecar layer. They support dhatu id, Devanagari root, IAST, semantic cluster, gloss, and action-vector queries while filtering every result back through the canonical registry.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

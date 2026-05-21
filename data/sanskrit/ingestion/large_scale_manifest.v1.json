@@ -26,6 +26,7 @@
   "canonicalPromotionV50ReleaseArchiveRoot": "data/sanskrit/ingestion/releases/v50",
   "canonicalPromotionV50MergeReadinessReportFile": "data/sanskrit/ingestion/releases/v50/merge_readiness_report.v50.json",
   "canonicalDhatuSemanticManifestFile": "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json",
+  "canonicalDhatuSemanticQueryScript": "scripts/query_dhatu_semantics.py",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

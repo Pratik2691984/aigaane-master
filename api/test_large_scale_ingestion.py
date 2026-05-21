@@ -28,6 +28,8 @@ CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion
 ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py"
 MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.py"
 SEMANTIC_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_layer.py"
+SEMANTIC_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantics.py"
+SEMANTIC_QUERY_API_PATH = ROOT / "api" / "dhatu_semantic_query.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -228,6 +230,14 @@ semantic_validator = importlib.util.module_from_spec(semantic_validation_spec)
 sys.modules["validate_dhatu_semantic_layer"] = semantic_validator
 semantic_validation_spec.loader.exec_module(semantic_validator)
 
+semantic_query_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_query",
+    SEMANTIC_QUERY_API_PATH,
+)
+semantic_query = importlib.util.module_from_spec(semantic_query_spec)
+sys.modules["dhatu_semantic_query"] = semantic_query
+semantic_query_spec.loader.exec_module(semantic_query)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -345,6 +355,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_semantic_validation_script_exists(self):
         self.assertTrue(SEMANTIC_VALIDATION_SCRIPT_PATH.exists())
 
+    def test_semantic_query_script_and_api_exist(self):
+        self.assertTrue(SEMANTIC_QUERY_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_QUERY_API_PATH.exists())
+
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
@@ -457,6 +471,62 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(summary["coveredDhatuIds"], sorted(PROMOTED_CANONICAL_IDS))
         self.assertTrue(summary["checks"]["canonicalRegistryUnchanged"])
         self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_query_by_dhatu_id_returns_gam(self):
+        results = semantic_query.query_semantics(dhatu_id="01.0005")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+        self.assertEqual(results[0]["iast"], "gam")
+
+    def test_semantic_query_by_iast_gam_returns_promoted_id(self):
+        results = semantic_query.query_semantics(iast="gam")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+
+    def test_semantic_query_by_devanagari_root_returns_promoted_id(self):
+        results = semantic_query.query_semantics(root="गम्")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+
+    def test_semantic_query_by_cluster_motion_returns_gam(self):
+        results = semantic_query.query_semantics(cluster="motion")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+        self.assertEqual(results[0]["iast"], "gam")
+
+    def test_semantic_query_by_action_guidance_returns_ni(self):
+        results = semantic_query.query_semantics(action="guidance")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0008")
+        self.assertEqual(results[0]["iast"], "nī")
+
+    def test_semantic_query_by_gloss_stand_returns_stha(self):
+        results = semantic_query.query_semantics(gloss="stand")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0013")
+        self.assertEqual(results[0]["iast"], "sthā")
+
+    def test_semantic_query_results_are_canonical_and_unique(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        results = semantic_query.query_semantics(action="motion")
+        result_ids = [result["dhatuId"] for result in results]
+
+        self.assertTrue(set(result_ids).issubset(set(registry["records"].keys())))
+        self.assertEqual(len(result_ids), len(set(result_ids)))
+
+    def test_semantic_query_cli_json_returns_valid_json(self):
+        import subprocess
+
+        output = subprocess.check_output(
+            [sys.executable, str(SEMANTIC_QUERY_SCRIPT_PATH), "--dhatu-id", "01.0005", "--json"],
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+        )
+        payload = json.loads(output)
+
+        self.assertEqual(payload["resultCount"], 1)
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
 
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
