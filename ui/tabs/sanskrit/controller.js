@@ -32,6 +32,7 @@ let semanticRelationFilter = null;
 let semanticResetButton = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
+let selectedSemanticGraphNodeId = "01.0005";
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -169,6 +170,26 @@ const SEMANTIC_DHATU_RECORDS = [
     },
   },
 ];
+
+const SEMANTIC_GRAPH_FALLBACK = {
+  nodes: [
+    { nodeId: "01.0005", label: "gam / \u0917\u092e\u094d", nodeType: "dhatu", cluster: "motion", x: 10, y: 44 },
+    { nodeId: "motion", label: "motion", nodeType: "semantic_cluster", cluster: "motion", x: 34, y: 44 },
+    { nodeId: "guidance", label: "guidance", nodeType: "semantic_cluster", cluster: "guidance", x: 58, y: 24 },
+    { nodeId: "stability", label: "stability", nodeType: "semantic_cluster", cluster: "stability", x: 58, y: 64 },
+    { nodeId: "01.0008", label: "n\u012b / \u0928\u0940", nodeType: "dhatu", cluster: "guidance", x: 82, y: 24 },
+    { nodeId: "01.0013", label: "sth\u0101 / \u0938\u094d\u0925\u093e", nodeType: "dhatu", cluster: "stability", x: 82, y: 64 },
+  ],
+  edges: [
+    { edgeId: "edge.semantic.0001", sourceId: "01.0005", targetId: "motion", relationType: "associated_with" },
+    { edgeId: "edge.semantic.0004", sourceId: "motion", targetId: "guidance", relationType: "associated_with" },
+    { edgeId: "edge.semantic.0005", sourceId: "motion", targetId: "stability", relationType: "transitions_to" },
+    { edgeId: "edge.semantic.0006", sourceId: "guidance", targetId: "motion", relationType: "guides" },
+    { edgeId: "edge.semantic.0007", sourceId: "stability", targetId: "motion", relationType: "grounds" },
+    { edgeId: "edge.semantic.0003", sourceId: "01.0008", targetId: "guidance", relationType: "associated_with" },
+    { edgeId: "edge.semantic.0002", sourceId: "01.0013", targetId: "stability", relationType: "associated_with" },
+  ],
+};
 
 function byId(id) {
   return mountNode?.querySelector(`#${id}`);
@@ -367,6 +388,112 @@ function traversalCardsForRecord(record, queryState) {
     }));
 }
 
+function highlightedSemanticEdgeIds(record, queryState) {
+  if (!record) return [];
+  const depth = queryState.traversalDepth === 1 ? 1 : 2;
+  return (record.traversalPaths[depth] || [])
+    .filter((path) => relationMatches(path.relationTypes, queryState.relationType))
+    .flatMap((path) => path.edgeIds);
+}
+
+function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "semantic-graph-node";
+  button.style.left = `${node.x}%`;
+  button.style.top = `${node.y}%`;
+  button.dataset.nodeId = node.nodeId;
+  button.textContent = node.label;
+  button.title = `${node.nodeType}: ${node.nodeId}`;
+  button.classList.toggle("selected", node.nodeId === selectedNodeId);
+  button.classList.toggle("traversal-highlight", highlightedNodeIds.has(node.nodeId));
+  button.addEventListener("click", () => focusSemanticGraphNode(node.nodeId));
+  return button;
+}
+
+function renderSemanticGraphEdge(edge, highlightedEdgeIds) {
+  const row = document.createElement("div");
+  row.className = "semantic-graph-edge";
+  row.classList.toggle("traversal-highlight", highlightedEdgeIds.has(edge.edgeId));
+
+  const relation = document.createElement("strong");
+  relation.textContent = edge.relationType;
+  const path = document.createElement("span");
+  path.textContent = `${edge.sourceId} -> ${edge.targetId}`;
+
+  row.append(relation, path);
+  return row;
+}
+
+function selectedSemanticNodeSummary(node) {
+  if (!node) return "No semantic node selected";
+  return `${node.label} (${node.nodeType}; ${node.nodeId})`;
+}
+
+function renderSemanticGraphView(queryState = readSemanticQueryState(), record = selectedSemanticRecord(queryState)) {
+  const graph = SEMANTIC_GRAPH_FALLBACK;
+  const highlightedEdgeIds = new Set(highlightedSemanticEdgeIds(record, queryState));
+  const highlightedNodeIds = new Set();
+  graph.edges.forEach((edge) => {
+    if (highlightedEdgeIds.has(edge.edgeId)) {
+      highlightedNodeIds.add(edge.sourceId);
+      highlightedNodeIds.add(edge.targetId);
+    }
+  });
+  const selectedNodeId = selectedSemanticGraphNodeId || record?.dhatuId || "01.0005";
+  const selectedNode = graph.nodes.find((node) => node.nodeId === selectedNodeId) || graph.nodes[0];
+
+  const canvas = byId("semantic-graph-canvas");
+  clearChildren(canvas);
+  if (canvas) {
+    graph.edges.forEach((edge) => {
+      const source = graph.nodes.find((node) => node.nodeId === edge.sourceId);
+      const target = graph.nodes.find((node) => node.nodeId === edge.targetId);
+      if (!source || !target) return;
+      const connector = document.createElement("div");
+      connector.className = "semantic-graph-connector";
+      connector.classList.toggle("traversal-highlight", highlightedEdgeIds.has(edge.edgeId));
+      connector.style.left = `${Math.min(source.x, target.x) + 5}%`;
+      connector.style.top = `${(source.y + target.y) / 2}%`;
+      connector.style.width = `${Math.max(10, Math.abs(target.x - source.x) - 10)}%`;
+      connector.textContent = edge.relationType;
+      canvas.appendChild(connector);
+    });
+    graph.nodes.forEach((node) => {
+      canvas.appendChild(renderSemanticGraphNode(node, selectedNode.nodeId, highlightedNodeIds));
+    });
+  }
+
+  const summary = byId("semantic-graph-summary");
+  clearChildren(summary);
+  if (summary) appendInspectionRow(summary, "Node", selectedSemanticNodeSummary(selectedNode));
+
+  const edgeList = byId("semantic-graph-edges");
+  clearChildren(edgeList);
+  if (edgeList) {
+    graph.edges.forEach((edge) => edgeList.appendChild(renderSemanticGraphEdge(edge, highlightedEdgeIds)));
+  }
+
+  const safety = byId("semantic-graph-safety");
+  clearChildren(safety);
+  if (safety) {
+    const note = document.createElement("div");
+    note.className = "semantic-graph-safety-note";
+    note.textContent = SEMANTIC_DHATU_FALLBACK_PANEL.safetyNote;
+    safety.appendChild(note);
+  }
+}
+
+function focusSemanticGraphNode(nodeId) {
+  selectedSemanticGraphNodeId = nodeId;
+  const record = SEMANTIC_DHATU_RECORDS.find((item) => item.dhatuId === nodeId || item.cluster === nodeId);
+  if (record) {
+    if (semanticSearchInput) semanticSearchInput.value = record.iast;
+    if (semanticClusterFilter) semanticClusterFilter.value = record.cluster;
+  }
+  renderSemanticQueryState();
+}
+
 function buildSemanticPanelFromQueryState(queryState = readSemanticQueryState()) {
   const record = selectedSemanticRecord(queryState);
   if (!record) {
@@ -396,7 +523,11 @@ function buildSemanticPanelFromQueryState(queryState = readSemanticQueryState())
 }
 
 function renderSemanticQueryState() {
-  renderSemanticDhatuPanel(buildSemanticPanelFromQueryState());
+  const queryState = readSemanticQueryState();
+  const record = selectedSemanticRecord(queryState);
+  selectedSemanticGraphNodeId = record?.dhatuId || selectedSemanticGraphNodeId;
+  renderSemanticDhatuPanel(buildSemanticPanelFromQueryState(queryState));
+  renderSemanticGraphView(queryState, record);
 }
 
 function resetSemanticQueryControls() {
@@ -2143,6 +2274,7 @@ function renderInitialState() {
   renderSemanticTrace(null, "semantic-trace-linked-output");
   renderSemanticTraceStatus("Semantic trace idle");
   renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
+  renderSemanticGraphView();
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
   renderGraphStatus("Graph inspector idle");

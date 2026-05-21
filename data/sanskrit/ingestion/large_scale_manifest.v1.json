@@ -44,6 +44,7 @@
   "canonicalDhatuSemanticUiExampleExportScript": "scripts/export_dhatu_semantic_ui_examples.py",
   "canonicalDhatuSemanticUiIntegrationSurface": "ui/tabs/sanskrit",
   "canonicalDhatuSemanticUiControlMode": "client-side-read-only",
+  "canonicalDhatuSemanticGraphViewMode": "client-side-read-only-no-dependencies",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

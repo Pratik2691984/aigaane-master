@@ -777,6 +777,131 @@
     border-color: rgba(255, 215, 128, 0.34);
 }
 
+.semantic-graph-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid rgba(104, 190, 255, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    border-color: rgba(104, 190, 255, 0.3);
+    background: rgba(8, 16, 24, 0.62);
+}
+
+.semantic-graph-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.semantic-graph-header h3,
+.semantic-graph-side-panel h4 {
+    color: #b9c7d9;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.semantic-graph-header p {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.semantic-graph-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.7fr);
+    gap: 1rem;
+}
+
+.semantic-graph-canvas {
+    position: relative;
+    min-height: 320px;
+    border: 1px solid rgba(104, 190, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.025);
+    overflow: hidden;
+}
+
+.semantic-graph-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    max-width: 130px;
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 999px;
+    padding: 0.35rem 0.55rem;
+    background: rgba(10, 12, 18, 0.92);
+    color: #eef3f8;
+    cursor: pointer;
+    font-size: 0.78rem;
+}
+
+.semantic-graph-node.selected {
+    border-color: var(--gold);
+    color: #f0d77a;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.16);
+}
+
+.semantic-graph-node.traversal-highlight {
+    background: rgba(212, 175, 55, 0.16);
+}
+
+.semantic-graph-connector {
+    position: absolute;
+    height: 1px;
+    border-top: 1px solid rgba(159, 176, 199, 0.28);
+    color: #9fb0c7;
+    font-size: 0.68rem;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.semantic-graph-connector.traversal-highlight {
+    border-color: rgba(212, 175, 55, 0.8);
+    color: #f0d77a;
+}
+
+.semantic-graph-side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.semantic-graph-summary,
+.semantic-graph-edges,
+.semantic-graph-safety {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #eef3f8;
+}
+
+.semantic-graph-edge,
+.semantic-graph-safety-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.55rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.semantic-graph-edge strong {
+    color: #f0d77a;
+}
+
+.semantic-graph-edge span,
+.semantic-graph-safety-note {
+    color: #9fb0c7;
+    overflow-wrap: anywhere;
+}
+
+.semantic-graph-edge.traversal-highlight {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.08);
+}
+
 .graph-inspector {
     display: flex;
     flex-direction: column;
@@ -1171,6 +1296,7 @@
     .semantic-trace-grid,
     .semantic-dhatu-controls,
     .semantic-dhatu-grid,
+    .semantic-graph-layout,
     .graph-grid,
     .replay-grid,
     .sanskrit-results {

@@ -932,6 +932,15 @@ class LargeScaleIngestionTests(unittest.TestCase):
         for option in ["motion", "guidance", "stability", "guides", "associated_with", "transitions_to", "grounds"]:
             self.assertIn(option, view)
 
+    def test_sanskrit_view_contains_semantic_graph_view_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Semantic Graph View", view)
+        self.assertIn("semantic-graph-canvas", view)
+        self.assertIn("semantic-graph-summary", view)
+        self.assertIn("semantic-graph-edges", view)
+        self.assertIn("semantic-graph-safety", view)
+
     def test_sanskrit_controller_references_semantic_panel_rendering(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
 
@@ -974,6 +983,27 @@ class LargeScaleIngestionTests(unittest.TestCase):
         for relation in ["guides", "associated_with", "transitions_to", "grounds"]:
             self.assertIn(relation, controller)
 
+    def test_sanskrit_controller_contains_semantic_graph_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_GRAPH_FALLBACK", controller)
+        self.assertIn("renderSemanticGraphView", controller)
+        self.assertIn("renderSemanticGraphNode", controller)
+        self.assertIn("renderSemanticGraphEdge", controller)
+
+    def test_sanskrit_controller_contains_click_to_focus_semantic_node_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("focusSemanticGraphNode", controller)
+        self.assertIn("selectedSemanticGraphNodeId", controller)
+        self.assertIn('addEventListener("click"', controller)
+
+    def test_sanskrit_controller_contains_selected_node_summary_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("selectedSemanticNodeSummary", controller)
+        self.assertIn("semantic-graph-summary", controller)
+
     def test_sanskrit_controller_has_no_canonical_write_hooks(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
 
@@ -993,6 +1023,28 @@ class LargeScaleIngestionTests(unittest.TestCase):
             ".semantic-dhatu-controls",
         ]:
             self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_semantic_graph_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-graph-view",
+            ".semantic-graph-canvas",
+            ".semantic-graph-node",
+            ".semantic-graph-edge",
+            ".semantic-graph-node.selected",
+            ".semantic-graph-node.traversal-highlight",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_semantic_graph_view_requires_no_dependency_file_changes(self):
+        changed_dependency_files = [
+            path
+            for path in ["package.json", "package-lock.json", "npm-shrinkwrap.json", "yarn.lock", "pnpm-lock.yaml"]
+            if (ROOT / path).exists()
+        ]
+
+        self.assertEqual(changed_dependency_files, [])
 
     def test_semantic_ui_combined_fixture_still_exists(self):
         self.assertTrue((SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_combined_panel.v1.json").exists())
@@ -1342,6 +1394,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticUiControlMode"],
             "client-side-read-only",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphViewMode"],
+            "client-side-read-only-no-dependencies",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

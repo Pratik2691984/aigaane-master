@@ -14,6 +14,8 @@ The Sanskrit tab can load panel fixtures from `data/sanskrit/dhatus/semantic/exa
 
 The current Sanskrit tab integration adds read-only client-side query controls for search text, cluster, action, gloss, traversal depth, and relation type. These controls filter fixture-compatible semantic cards in the browser and fall back to static panel data if fixture loading is unavailable.
 
+The Semantic Graph View is also client-side and read-only. It renders lightweight HTML/CSS graph nodes, relation labels, selected-node highlighting, and traversal-path highlighting from fixture-compatible fallback graph data.
+
 Recommended frontend sections:
 
 - Search Results
@@ -22,6 +24,8 @@ Recommended frontend sections:
 - Safety Notes
 
 Supported control values include the motion, guidance, and stability clusters; traversal depths 1 and 2; and relation filters `guides`, `associated_with`, `transitions_to`, and `grounds`.
+
+The graph view initially displays `gam / 01.0005`, `motion`, `guidance`, `stability`, `nī / 01.0008`, and `sthā / 01.0013` with relation edges among those nodes.
 
 ## Example File Paths
 
