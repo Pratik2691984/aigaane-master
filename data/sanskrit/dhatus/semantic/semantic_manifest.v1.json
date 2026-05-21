@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedFor": "canonical-dhatu-semantic-layer-foundation",
+  "sourceCanonicalRegistry": "data/sanskrit/dhatus/index.json",
+  "canonicalRegistryRecordCount": 13,
+  "semanticRecordCount": 3,
+  "coveredDhatuIds": [
+    "01.0005",
+    "01.0013",
+    "01.0008"
+  ],
+  "uncoveredDhatuIds": [
+    "01.0001",
+    "01.0002",
+    "02.0001",
+    "03.0001",
+    "04.0001",
+    "06.0001",
+    "07.0001",
+    "08.0001",
+    "09.0001",
+    "10.0001"
+  ],
+  "safetyPolicy": {
+    "canonicalRegistryMutation": false,
+    "canonicalRecordMutation": false,
+    "paniniReferencePolicy": "structured-placeholders-only-until-reviewed",
+    "falseGrammarClaimsAllowed": false
+  },
+  "generatedArtifacts": [
+    "data/sanskrit/dhatus/semantic/semantic_schema.v2.json",
+    "data/sanskrit/dhatus/semantic/semantic_clusters.v1.json",
+    "data/sanskrit/dhatus/semantic/panini_references.v1.json",
+    "data/sanskrit/dhatus/semantic/action_vectors.v1.json",
+    "data/sanskrit/dhatus/semantic/derivation_graph.v1.json",
+    "data/sanskrit/dhatus/semantic/gloss_taxonomy.v1.json",
+    "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json"
+  ]
+}

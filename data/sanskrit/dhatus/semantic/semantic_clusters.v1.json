@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "clusters": [
+    {
+      "id": "motion",
+      "label": "Motion",
+      "description": "Movement, travel, traversal, or change of location."
+    },
+    {
+      "id": "stability",
+      "label": "Stability",
+      "description": "Standing, remaining, persistence, or stable posture."
+    },
+    {
+      "id": "guidance",
+      "label": "Guidance",
+      "description": "Leading, directing, bringing, or guided transport."
+    },
+    {
+      "id": "cognition",
+      "label": "Cognition",
+      "description": "Knowing, thinking, understanding, or mental processing."
+    },
+    {
+      "id": "speech",
+      "label": "Speech",
+      "description": "Speaking, naming, expression, or verbal communication."
+    },
+    {
+      "id": "transformation",
+      "label": "Transformation",
+      "description": "Changing state, becoming, shaping, or alteration."
+    },
+    {
+      "id": "perception",
+      "label": "Perception",
+      "description": "Seeing, hearing, sensing, or receiving impressions."
+    },
+    {
+      "id": "possession",
+      "label": "Possession",
+      "description": "Holding, having, obtaining, or ownership relations."
+    },
+    {
+      "id": "creation",
+      "label": "Creation",
+      "description": "Making, producing, generating, or bringing into existence."
+    },
+    {
+      "id": "dissolution",
+      "label": "Dissolution",
+      "description": "Ending, breaking, dispersal, loss, or disappearance."
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "records": [
+    {
+      "schemaVersion": "2.0.0",
+      "dhatuId": "01.0005",
+      "root": "\u0917\u092e\u094d",
+      "iast": "gam",
+      "gloss": "to go",
+      "semanticClusterIds": ["motion"],
+      "actionVector": {
+        "primary": "motion",
+        "facets": ["motion", "traversal", "transition"]
+      },
+      "paniniReferences": [],
+      "derivationLinks": [],
+      "glossTaxonomyIds": ["movement.to_go"],
+      "engineMetadata": {
+        "status": "foundation",
+        "sourceCanonicalRegistry": "data/sanskrit/dhatus/index.json",
+        "canonicalMutation": false
+      }
+    },
+    {
+      "schemaVersion": "2.0.0",
+      "dhatuId": "01.0013",
+      "root": "\u0938\u094d\u0925\u093e",
+      "iast": "stha",
+      "gloss": "to stand",
+      "semanticClusterIds": ["stability"],
+      "actionVector": {
+        "primary": "stability",
+        "facets": ["stability", "standing", "persistence"]
+      },
+      "paniniReferences": [],
+      "derivationLinks": [],
+      "glossTaxonomyIds": ["posture.to_stand"],
+      "engineMetadata": {
+        "status": "foundation",
+        "sourceCanonicalRegistry": "data/sanskrit/dhatus/index.json",
+        "canonicalMutation": false
+      }
+    },
+    {
+      "schemaVersion": "2.0.0",
+      "dhatuId": "01.0008",
+      "root": "\u0928\u0940",
+      "iast": "ni",
+      "gloss": "to lead",
+      "semanticClusterIds": ["guidance"],
+      "actionVector": {
+        "primary": "guidance",
+        "facets": ["guidance", "leading", "transport"]
+      },
+      "paniniReferences": [],
+      "derivationLinks": [],
+      "glossTaxonomyIds": ["agency.to_lead"],
+      "engineMetadata": {
+        "status": "foundation",
+        "sourceCanonicalRegistry": "data/sanskrit/dhatus/index.json",
+        "canonicalMutation": false
+      }
+    }
+  ]
+}

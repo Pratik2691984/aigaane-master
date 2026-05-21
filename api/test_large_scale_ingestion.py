@@ -27,6 +27,7 @@ POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_cano
 CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion_closeout.py"
 ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py"
 MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.py"
+SEMANTIC_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_layer.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -52,6 +53,11 @@ MERGE_READINESS_REPORT_PATH = RELEASE_V50_ROOT / "merge_readiness_report.v50.jso
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
+SEMANTIC_ROOT = DHATU_ROOT / "semantic"
+SEMANTIC_SCHEMA_PATH = SEMANTIC_ROOT / "semantic_schema.v2.json"
+SEMANTIC_MANIFEST_PATH = SEMANTIC_ROOT / "semantic_manifest.v1.json"
+SEMANTIC_CLUSTERS_PATH = SEMANTIC_ROOT / "semantic_clusters.v1.json"
+ACTION_VECTORS_PATH = SEMANTIC_ROOT / "action_vectors.v1.json"
 GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
@@ -214,6 +220,14 @@ merge_readiness_reporter = importlib.util.module_from_spec(merge_readiness_spec)
 sys.modules["report_dhatu_merge_readiness"] = merge_readiness_reporter
 merge_readiness_spec.loader.exec_module(merge_readiness_reporter)
 
+semantic_validation_spec = importlib.util.spec_from_file_location(
+    "validate_dhatu_semantic_layer",
+    SEMANTIC_VALIDATION_SCRIPT_PATH,
+)
+semantic_validator = importlib.util.module_from_spec(semantic_validation_spec)
+sys.modules["validate_dhatu_semantic_layer"] = semantic_validator
+semantic_validation_spec.loader.exec_module(semantic_validator)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -328,6 +342,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_merge_readiness_script_exists(self):
         self.assertTrue(MERGE_READINESS_SCRIPT_PATH.exists())
 
+    def test_semantic_validation_script_exists(self):
+        self.assertTrue(SEMANTIC_VALIDATION_SCRIPT_PATH.exists())
+
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
@@ -346,6 +363,11 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_merge_readiness_report_exists(self):
         self.assertTrue(MERGE_READINESS_REPORT_PATH.exists())
+
+    def test_semantic_directory_and_core_files_exist(self):
+        self.assertTrue(SEMANTIC_ROOT.exists())
+        self.assertTrue(SEMANTIC_SCHEMA_PATH.exists())
+        self.assertTrue(SEMANTIC_MANIFEST_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -398,6 +420,43 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(audit["promotedCount"], 3)
         self.assertEqual(audit["afterCount"], 13)
         self.assertEqual(audit["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+
+    def test_semantic_records_include_promoted_canonical_roots(self):
+        action_vectors = json.loads(ACTION_VECTORS_PATH.read_text(encoding="utf-8"))
+        semantic_ids = [record["dhatuId"] for record in action_vectors["records"]]
+
+        self.assertEqual(sorted(semantic_ids), sorted(PROMOTED_CANONICAL_IDS))
+
+    def test_semantic_ids_are_subset_of_canonical_ids(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        action_vectors = json.loads(ACTION_VECTORS_PATH.read_text(encoding="utf-8"))
+        canonical_ids = set(registry["records"].keys())
+        semantic_ids = {record["dhatuId"] for record in action_vectors["records"]}
+
+        self.assertTrue(semantic_ids.issubset(canonical_ids))
+
+    def test_action_vectors_reference_valid_semantic_clusters(self):
+        clusters = json.loads(SEMANTIC_CLUSTERS_PATH.read_text(encoding="utf-8"))
+        action_vectors = json.loads(ACTION_VECTORS_PATH.read_text(encoding="utf-8"))
+        cluster_ids = {cluster["id"] for cluster in clusters["clusters"]}
+        referenced = {
+            cluster_id
+            for record in action_vectors["records"]
+            for cluster_id in record["semanticClusterIds"]
+        }
+
+        self.assertTrue(referenced.issubset(cluster_ids))
+
+    def test_semantic_validator_passes_and_keeps_registry_unchanged(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        summary = semantic_validator.validate_semantic_layer()
+
+        self.assertEqual(summary["semanticValidationStatus"], "PASS")
+        self.assertEqual(summary["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(summary["semanticRecordCount"], 3)
+        self.assertEqual(summary["coveredDhatuIds"], sorted(PROMOTED_CANONICAL_IDS))
+        self.assertTrue(summary["checks"]["canonicalRegistryUnchanged"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
 
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
@@ -588,6 +647,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalPromotionV50MergeReadinessReportFile"],
             "data/sanskrit/ingestion/releases/v50/merge_readiness_report.v50.json",
+        )
+
+    def test_manifest_declares_semantic_manifest_file(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticManifestFile"],
+            "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

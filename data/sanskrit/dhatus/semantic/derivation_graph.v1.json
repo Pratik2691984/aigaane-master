@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policy": {
+    "falseGrammarClaimsAllowed": false,
+    "notes": "Graph-ready foundation. Edges remain empty until reviewed derivational relations are available."
+  },
+  "nodes": [
+    {
+      "id": "dhatu:01.0005",
+      "dhatuId": "01.0005",
+      "root": "\u0917\u092e\u094d",
+      "iast": "gam",
+      "nodeType": "canonical-dhatu"
+    },
+    {
+      "id": "dhatu:01.0013",
+      "dhatuId": "01.0013",
+      "root": "\u0938\u094d\u0925\u093e",
+      "iast": "stha",
+      "nodeType": "canonical-dhatu"
+    },
+    {
+      "id": "dhatu:01.0008",
+      "dhatuId": "01.0008",
+      "root": "\u0928\u0940",
+      "iast": "ni",
+      "nodeType": "canonical-dhatu"
+    }
+  ],
+  "edges": []
+}

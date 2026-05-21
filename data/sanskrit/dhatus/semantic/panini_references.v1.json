@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policy": {
+    "exactSutraClaimsInvented": false,
+    "notes": "Structured placeholders only. Exact sutra IDs should be filled only from reviewed local sources."
+  },
+  "references": [
+    {
+      "dhatuId": "01.0005",
+      "sutraId": null,
+      "source": "placeholder-local-review-required",
+      "relationType": "semantic-reference-placeholder",
+      "confidence": "unreviewed",
+      "notes": "No exact sutra claim is made in this foundation layer."
+    },
+    {
+      "dhatuId": "01.0013",
+      "sutraId": null,
+      "source": "placeholder-local-review-required",
+      "relationType": "semantic-reference-placeholder",
+      "confidence": "unreviewed",
+      "notes": "No exact sutra claim is made in this foundation layer."
+    },
+    {
+      "dhatuId": "01.0008",
+      "sutraId": null,
+      "source": "placeholder-local-review-required",
+      "relationType": "semantic-reference-placeholder",
+      "confidence": "unreviewed",
+      "notes": "No exact sutra claim is made in this foundation layer."
+    }
+  ]
+}
