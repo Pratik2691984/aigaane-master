@@ -21,6 +21,7 @@ SIMULATE_APPROVAL_SCRIPT_PATH = ROOT / "scripts" / "simulate_dhatu_canonical_wri
 DRY_RUN_DIFF_SCRIPT_PATH = ROOT / "scripts" / "diff_dhatu_canonical_write_dry_run.py"
 RELEASE_CHECKLIST_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_release_checklist.py"
 APPROVAL_PACKAGE_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_approval_package.py"
+RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_write_release.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -33,6 +34,7 @@ SIMULATED_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_
 DRY_RUN_DIFF_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_dry_run_diff.v1.json"
 RELEASE_CHECKLIST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_checklist.v1.json"
 APPROVAL_PACKAGE_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_package.v1.md"
+RELEASE_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_verification.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -144,6 +146,14 @@ approval_packager = importlib.util.module_from_spec(approval_package_spec)
 sys.modules["build_dhatu_canonical_write_approval_package"] = approval_packager
 approval_package_spec.loader.exec_module(approval_packager)
 
+release_verification_spec = importlib.util.spec_from_file_location(
+    "verify_dhatu_canonical_write_release",
+    RELEASE_VERIFICATION_SCRIPT_PATH,
+)
+release_verifier = importlib.util.module_from_spec(release_verification_spec)
+sys.modules["verify_dhatu_canonical_write_release"] = release_verifier
+release_verification_spec.loader.exec_module(release_verifier)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -230,6 +240,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_approval_package_script_exists(self):
         self.assertTrue(APPROVAL_PACKAGE_SCRIPT_PATH.exists())
+
+    def test_release_verification_script_exists(self):
+        self.assertTrue(RELEASE_VERIFICATION_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -401,6 +414,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteApprovalPackageFile"],
             "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
+        )
+
+    def test_manifest_declares_canonical_write_release_verification_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteReleaseVerificationFile"],
+            "data/sanskrit/ingestion/canonical_write_release_verification.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -1211,6 +1230,50 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(path.exists())
             self.assertEqual(path.read_text(encoding="utf-8"), markdown)
 
+    def test_default_release_verification_is_blocked(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        verification = release_verifier.build_release_verification(MANIFEST_PATH)
+
+        self.assertEqual(verification["schemaVersion"], "1.0.0")
+        self.assertEqual(verification["verificationStatus"], "BLOCKED")
+        self.assertFalse(verification["safeToProceed"])
+        self.assertFalse(verification["consistencyChecks"]["checklistSafeToWriteProduction"])
+        self.assertFalse(verification["consistencyChecks"]["commandReadyForManualExecution"])
+        self.assertFalse(verification["consistencyChecks"]["approvalValidationValid"])
+        self.assertTrue(verification["consistencyChecks"]["dryRunHasNoDuplicateIds"])
+        self.assertTrue(verification["consistencyChecks"]["dryRunHasNoMissingStagedRecords"])
+        self.assertTrue(verification["consistencyChecks"]["approvalPackageIncludesManualWarning"])
+        self.assertIn("Release checklist is not safe for production write.", verification["blockingReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_verification_requires_approval_package_warning(self):
+        checks = release_verifier.build_consistency_checks(
+            {"authorizedRecordIds": ["A"]},
+            {"approvalValid": True, "approvedRecordIds": ["A"]},
+            {"commandStatus": "READY_FOR_MANUAL_EXECUTION", "approvedRecordIds": ["A"]},
+            {"dryRunOnly": True, "duplicateIds": [], "missingStagedRecords": []},
+            {"safeToWriteProduction": True},
+            "missing warning",
+            {"readyRecordIds": ["A"]},
+        )
+
+        self.assertFalse(checks["approvalPackageIncludesManualWarning"])
+        reasons = release_verifier.build_blocking_reasons(checks, [])
+        self.assertIn("Approval package is missing the manual warning text.", reasons)
+
+    def test_release_verification_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-verification-") as tmp:
+            verification = release_verifier.build_release_verification(MANIFEST_PATH)
+            path = release_verifier.write_release_verification(
+                verification,
+                Path(tmp) / "canonical_write_release_verification.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), verification)
+
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
 
@@ -1651,6 +1714,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in APPROVAL_PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_release_verification_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in RELEASE_VERIFICATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
