@@ -12,9 +12,7 @@
     "Approval status is not APPROVED.",
     "Approval does not include every authorized ready record id.",
     "Approval token missing approvedBy.",
-    "Approval token missing approvedAt.",
-    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
-    "Evidence release gate is not READY_FOR_CONTROLLED_WRITE."
+    "Approval token missing approvedAt."
   ],
   "rejectedRecordIds": [
     "01.STAGED.0004",
@@ -32,6 +30,7 @@
     "approvalStatusApproved": false,
     "approvedIdsPresentWhenApproved": true,
     "approvedIdsSubsetOfAuthorization": true,
+    "authorizationReady": false,
     "authorizedIdsMatchReadinessLock": true,
     "batchMutation": false,
     "canonicalRegistryMutation": false,
