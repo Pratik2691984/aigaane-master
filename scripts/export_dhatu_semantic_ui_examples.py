@@ -19,7 +19,7 @@ from api.kernel_api import (
 
 EXAMPLES_DIR = ROOT / "data" / "sanskrit" / "dhatus" / "semantic" / "examples" / "ui"
 GENERATED_BY = "scripts/export_dhatu_semantic_ui_examples.py"
-SAFETY_NOTE = "Semantic graph links are foundation-placeholder UI context only; no exact Paninian derivation claim is made."
+SAFETY_NOTE = "Semantic graph links are foundation-placeholder UI context only; no exact Pāṇinian derivation claim is made."
 
 
 def card(card_id: str, card_type: str, label: str, value: Any, metadata: Dict[str, Any]) -> Dict[str, Any]:
@@ -213,10 +213,11 @@ def build_combined_panel(
             "combined.search.01",
             "searchResult",
             "Search Results",
-            search_result["iast"],
+            f"{search_result['iast']} / {search_result['root']}",
             {
                 "section": "Search Results",
                 "dhatuId": search_result["dhatuId"],
+                "root": search_result["root"],
                 "gloss": search_result["gloss"],
                 "matchReasons": search_result.get("matchReasons", []),
             },
@@ -237,7 +238,7 @@ def build_combined_panel(
             "combined.traversal.01",
             "traversalPath",
             "Traversal Paths",
-            traversal_payload["paths"][0]["terminalNodeId"],
+            " -> ".join(node["nodeId"] for node in traversal_payload["paths"][0]["nodes"]),
             {
                 "section": "Traversal Paths",
                 "pathCount": traversal_payload["pathCount"],
