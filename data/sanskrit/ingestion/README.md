@@ -46,6 +46,8 @@
 
 `scripts/query_dhatu_semantics.py` and `api/dhatu_semantic_query.py` provide read-only semantic lookup over the canonical dhatu sidecar layer. They support dhatu id, Devanagari root, IAST, semantic cluster, gloss, and action-vector queries while filtering every result back through the canonical registry.
 
+`api/kernel_api.py` exposes the same semantic query engine through `/api/dhatu/semantic/search`, with `scripts/smoke_dhatu_semantic_api.py` covering direct helper calls without starting a server.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

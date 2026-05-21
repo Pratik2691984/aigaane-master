@@ -52,6 +52,10 @@ try:
     from api.engines.sutra_linker import SutraTraceLinker
 except ModuleNotFoundError:
     from engines.sutra_linker import SutraTraceLinker
+try:
+    from api.dhatu_semantic_query import query_semantics
+except ModuleNotFoundError:
+    from dhatu_semantic_query import query_semantics
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -234,6 +238,50 @@ def list_to_vector(vector: List[float]) -> Vector49D:
         guna=vector[21:28], energy=vector[28:35], biological=vector[35:42], stellar=vector[42:49]
     )
 
+def build_dhatu_semantic_search_response(
+    dhatuId: Optional[str] = None,
+    root: Optional[str] = None,
+    iast: Optional[str] = None,
+    cluster: Optional[str] = None,
+    gloss: Optional[str] = None,
+    action: Optional[str] = None,
+) -> Dict[str, Any]:
+    query = {
+        "dhatuId": dhatuId,
+        "root": root,
+        "iast": iast,
+        "cluster": cluster,
+        "gloss": gloss,
+        "action": action,
+    }
+    if not any(value for value in query.values()):
+        return {
+            "schemaVersion": "1.0.0",
+            "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/search",
+            "query": query,
+            "resultCount": 0,
+            "results": [],
+            "error": {
+                "code": "empty_semantic_query",
+                "message": "Provide at least one semantic query parameter.",
+            },
+        }
+    results = query_semantics(
+        dhatu_id=dhatuId,
+        root=root,
+        iast=iast,
+        cluster=cluster,
+        gloss=gloss,
+        action=action,
+    )
+    return {
+        "schemaVersion": "1.0.0",
+        "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/search",
+        "query": query,
+        "resultCount": len(results),
+        "results": results,
+    }
+
 # ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
@@ -325,6 +373,24 @@ async def server_info():
         "total_history_states": len(history_states),
         "current_golden_build": current_golden_build.get("metadata", {}).get("build_name") if current_golden_build else None
     }
+
+@app.get("/api/dhatu/semantic/search")
+async def dhatu_semantic_search(
+    dhatuId: Optional[str] = None,
+    root: Optional[str] = None,
+    iast: Optional[str] = None,
+    cluster: Optional[str] = None,
+    gloss: Optional[str] = None,
+    action: Optional[str] = None,
+):
+    return build_dhatu_semantic_search_response(
+        dhatuId=dhatuId,
+        root=root,
+        iast=iast,
+        cluster=cluster,
+        gloss=gloss,
+        action=action,
+    )
 
 @app.post("/api/calculate-friction")
 async def calculate_atma_friction(payload: AtmaFrictionRequest):

@@ -29,6 +29,7 @@ ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py
 MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.py"
 SEMANTIC_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_layer.py"
 SEMANTIC_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantics.py"
+SEMANTIC_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_api.py"
 SEMANTIC_QUERY_API_PATH = ROOT / "api" / "dhatu_semantic_query.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
@@ -238,6 +239,11 @@ semantic_query = importlib.util.module_from_spec(semantic_query_spec)
 sys.modules["dhatu_semantic_query"] = semantic_query
 semantic_query_spec.loader.exec_module(semantic_query)
 
+kernel_api_spec = importlib.util.spec_from_file_location("kernel_api", ROOT / "api" / "kernel_api.py")
+kernel_api = importlib.util.module_from_spec(kernel_api_spec)
+sys.modules["kernel_api"] = kernel_api
+kernel_api_spec.loader.exec_module(kernel_api)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -357,6 +363,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_semantic_query_script_and_api_exist(self):
         self.assertTrue(SEMANTIC_QUERY_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_API_SMOKE_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_QUERY_API_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
@@ -527,6 +534,46 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         self.assertEqual(payload["resultCount"], 1)
         self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
+
+    def test_kernel_semantic_api_helper_searches_by_dhatu_id(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(dhatuId="01.0005")
+
+        self.assertEqual(payload["schemaVersion"], "1.0.0")
+        self.assertEqual(payload["query"]["dhatuId"], "01.0005")
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
+
+    def test_kernel_semantic_api_cluster_motion_returns_gam(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(cluster="motion")
+
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
+        self.assertEqual(payload["results"][0]["iast"], "gam")
+
+    def test_kernel_semantic_api_action_guidance_returns_ni(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(action="guidance")
+
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0008")
+        self.assertEqual(payload["results"][0]["iast"], "nī")
+
+    def test_kernel_semantic_api_gloss_stand_returns_stha(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(gloss="stand")
+
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0013")
+        self.assertEqual(payload["results"][0]["iast"], "sthā")
+
+    def test_kernel_semantic_api_empty_query_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_search_response()
+
+        self.assertEqual(payload["resultCount"], 0)
+        self.assertEqual(payload["results"], [])
+        self.assertEqual(payload["error"]["code"], "empty_semantic_query")
+
+    def test_kernel_semantic_api_results_are_canonical_and_json_serializable(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        payload = kernel_api.build_dhatu_semantic_search_response(cluster="motion")
+        result_ids = [result["dhatuId"] for result in payload["results"]]
+
+        self.assertTrue(set(result_ids).issubset(set(registry["records"].keys())))
+        json.dumps(payload)
 
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
