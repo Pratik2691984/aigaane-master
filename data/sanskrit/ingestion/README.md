@@ -56,6 +56,8 @@
 
 `scripts/query_dhatu_semantic_traversal.py`, `scripts/smoke_dhatu_semantic_traversal_api.py`, and `scripts/export_dhatu_semantic_traversal_examples.py` cover cycle-safe multi-hop traversal through `/api/dhatu/semantic/traverse`. Traversal fixtures live beside the graph examples and keep path output deterministic without mutating semantic source files or the canonical registry.
 
+`scripts/export_dhatu_semantic_ui_examples.py` writes read-only UI panel fixtures under `data/sanskrit/dhatus/semantic/examples/ui/`, with integration guidance in `data/sanskrit/dhatus/semantic/UI_INTEGRATION.md`. These fixtures prepare future Sanskrit tab rendering for search results, semantic neighbors, traversal paths, and safety notes without modifying UI files.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

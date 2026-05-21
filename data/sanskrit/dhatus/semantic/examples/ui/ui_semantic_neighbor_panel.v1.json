@@ -1,0 +1,57 @@
+{
+  "cards": [
+    {
+      "cardId": "neighbor.01",
+      "cardType": "semanticNeighbor",
+      "label": "motion",
+      "metadata": {
+        "depth": 1,
+        "relationTypes": [
+          "associated_with"
+        ],
+        "section": "Semantic Neighbors",
+        "viaEdgeIds": [
+          "edge.semantic.0001"
+        ]
+      },
+      "value": "semantic_cluster"
+    },
+    {
+      "cardId": "neighbor.summary.01",
+      "cardType": "graphSummary",
+      "label": "Neighbor count",
+      "metadata": {
+        "nodeId": "01.0005",
+        "section": "Semantic Neighbors",
+        "traversedEdgeIds": [
+          "edge.semantic.0001"
+        ]
+      },
+      "value": 1
+    }
+  ],
+  "description": "UI-ready neighbor cards for canonical dhatu 01.0005.",
+  "generatedBy": "scripts/export_dhatu_semantic_ui_examples.py",
+  "links": [
+    {
+      "href": "/api/dhatu/semantic/neighbors?nodeId=01.0005",
+      "label": "Semantic neighbors API",
+      "linkType": "api"
+    },
+    {
+      "href": "data/sanskrit/dhatus/semantic/examples/graph/neighbor_01_0005.response.v1.json",
+      "label": "Neighbor example fixture",
+      "linkType": "fixture"
+    }
+  ],
+  "panelType": "semanticNeighbor",
+  "primaryDhatu": {
+    "dhatuId": "01.0005",
+    "gloss": "to go",
+    "iast": "gam",
+    "root": "\u0917\u092e\u094d"
+  },
+  "safetyNote": "Semantic graph links are foundation-placeholder UI context only; no exact Paninian derivation claim is made.",
+  "schemaVersion": "1.0.0",
+  "title": "Semantic Neighbor Panel"
+}

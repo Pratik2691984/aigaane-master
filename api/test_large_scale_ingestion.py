@@ -40,6 +40,7 @@ SEMANTIC_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_sem
 SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_traversal.py"
 SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_traversal_api.py"
 SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_traversal_examples.py"
+SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_ui_examples.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -71,8 +72,10 @@ SEMANTIC_MANIFEST_PATH = SEMANTIC_ROOT / "semantic_manifest.v1.json"
 SEMANTIC_CLUSTERS_PATH = SEMANTIC_ROOT / "semantic_clusters.v1.json"
 ACTION_VECTORS_PATH = SEMANTIC_ROOT / "action_vectors.v1.json"
 SEMANTIC_API_DOC_PATH = SEMANTIC_ROOT / "SEMANTIC_API.md"
+SEMANTIC_UI_DOC_PATH = SEMANTIC_ROOT / "UI_INTEGRATION.md"
 SEMANTIC_EXAMPLES_ROOT = SEMANTIC_ROOT / "examples"
 SEMANTIC_GRAPH_EXAMPLES_ROOT = SEMANTIC_EXAMPLES_ROOT / "graph"
+SEMANTIC_UI_EXAMPLES_ROOT = SEMANTIC_EXAMPLES_ROOT / "ui"
 SEMANTIC_EDGES_PATH = SEMANTIC_ROOT / "edges" / "semantic_edges.v1.json"
 GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
@@ -284,6 +287,14 @@ semantic_traversal_example_exporter = importlib.util.module_from_spec(semantic_t
 sys.modules["export_dhatu_semantic_traversal_examples"] = semantic_traversal_example_exporter
 semantic_traversal_example_export_spec.loader.exec_module(semantic_traversal_example_exporter)
 
+semantic_ui_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_ui_examples",
+    SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_ui_example_exporter = importlib.util.module_from_spec(semantic_ui_example_export_spec)
+sys.modules["export_dhatu_semantic_ui_examples"] = semantic_ui_example_exporter
+semantic_ui_example_export_spec.loader.exec_module(semantic_ui_example_exporter)
+
 kernel_api_spec = importlib.util.spec_from_file_location("kernel_api", ROOT / "api" / "kernel_api.py")
 kernel_api = importlib.util.module_from_spec(kernel_api_spec)
 sys.modules["kernel_api"] = kernel_api
@@ -419,6 +430,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertTrue(SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -446,8 +458,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_semantic_api_docs_and_examples_exist(self):
         self.assertTrue(SEMANTIC_API_DOC_PATH.exists())
+        self.assertTrue(SEMANTIC_UI_DOC_PATH.exists())
         self.assertTrue(SEMANTIC_EXAMPLES_ROOT.exists())
         self.assertTrue(SEMANTIC_GRAPH_EXAMPLES_ROOT.exists())
+        self.assertTrue(SEMANTIC_UI_EXAMPLES_ROOT.exists())
         self.assertTrue(SEMANTIC_EDGES_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
@@ -671,6 +685,17 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("semantic_graph_node_not_found", docs)
         self.assertIn("foundation-placeholder semantic links", docs)
 
+    def test_semantic_ui_docs_mention_all_api_endpoints(self):
+        docs = SEMANTIC_UI_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/search", docs)
+        self.assertIn("/api/dhatu/semantic/neighbors", docs)
+        self.assertIn("/api/dhatu/semantic/traverse", docs)
+        for section in ["Search Results", "Semantic Neighbors", "Traversal Paths", "Safety Notes"]:
+            self.assertIn(section, docs)
+        self.assertIn("No Runtime Mutation Policy", docs)
+        self.assertIn("data/sanskrit/dhatus/semantic/examples/ui/", docs)
+
     def test_semantic_api_example_fixtures_have_expected_results(self):
         cluster = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_cluster_motion.response.v1.json").read_text(encoding="utf-8"))
         action = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_action_guidance.response.v1.json").read_text(encoding="utf-8"))
@@ -831,6 +856,48 @@ class LargeScaleIngestionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="semantic-traversal-examples-") as tmp:
             first = semantic_traversal_example_exporter.write_examples(Path(tmp))
             second = semantic_traversal_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
+
+    def test_semantic_ui_example_fixtures_exist(self):
+        expected = {
+            "ui_semantic_search_panel.v1.json",
+            "ui_semantic_neighbor_panel.v1.json",
+            "ui_semantic_traversal_panel.v1.json",
+            "ui_semantic_combined_panel.v1.json",
+        }
+
+        self.assertTrue(SEMANTIC_UI_EXAMPLES_ROOT.exists())
+        self.assertTrue(expected.issubset({path.name for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json")}))
+
+    def test_semantic_ui_combined_panel_includes_expected_sections(self):
+        combined = json.loads((SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_combined_panel.v1.json").read_text(encoding="utf-8"))
+        sections = {card["metadata"]["section"] for card in combined["cards"]}
+
+        self.assertIn("Search Results", sections)
+        self.assertIn("Semantic Neighbors", sections)
+        self.assertIn("Traversal Paths", sections)
+
+    def test_semantic_ui_cards_are_normalized_for_frontend(self):
+        required = {"cardId", "cardType", "label", "value", "metadata"}
+
+        for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json"):
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            for card in payload["cards"]:
+                self.assertTrue(required.issubset(card.keys()))
+                self.assertIsInstance(card["metadata"], dict)
+
+    def test_semantic_ui_safety_notes_avoid_exact_paninian_claims(self):
+        for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json"):
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertIn("no exact Paninian derivation claim", payload["safetyNote"])
+
+    def test_semantic_ui_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-ui-examples-") as tmp:
+            first = semantic_ui_example_exporter.write_examples(Path(tmp))
+            second = semantic_ui_example_exporter.write_examples(Path(tmp))
 
             self.assertEqual(first, second)
 
@@ -1159,6 +1226,18 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticTraversalExampleExportScript"],
             "scripts/export_dhatu_semantic_traversal_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiDocsFile"],
+            "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiExamplesRoot"],
+            "data/sanskrit/dhatus/semantic/examples/ui",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiExampleExportScript"],
+            "scripts/export_dhatu_semantic_ui_examples.py",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

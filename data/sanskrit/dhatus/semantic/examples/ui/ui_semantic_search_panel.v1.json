@@ -1,0 +1,55 @@
+{
+  "cards": [
+    {
+      "cardId": "search.result.01",
+      "cardType": "searchResult",
+      "label": "Search result",
+      "metadata": {
+        "dhatuId": "01.0005",
+        "gloss": "to go",
+        "matchReasons": [
+          "cluster"
+        ],
+        "rankScore": 75,
+        "root": "\u0917\u092e\u094d",
+        "section": "Search Results"
+      },
+      "value": "gam"
+    },
+    {
+      "cardId": "search.query.01",
+      "cardType": "querySummary",
+      "label": "Semantic query",
+      "metadata": {
+        "endpoint": "/api/dhatu/semantic/search",
+        "resultCount": 1,
+        "section": "Search Results"
+      },
+      "value": "cluster=motion"
+    }
+  ],
+  "description": "UI-ready summary of a motion-cluster semantic search for gam.",
+  "generatedBy": "scripts/export_dhatu_semantic_ui_examples.py",
+  "links": [
+    {
+      "href": "/api/dhatu/semantic/search?cluster=motion",
+      "label": "Semantic search API",
+      "linkType": "api"
+    },
+    {
+      "href": "data/sanskrit/dhatus/semantic/examples/search_by_cluster_motion.response.v1.json",
+      "label": "Search example fixture",
+      "linkType": "fixture"
+    }
+  ],
+  "panelType": "semanticSearch",
+  "primaryDhatu": {
+    "dhatuId": "01.0005",
+    "gloss": "to go",
+    "iast": "gam",
+    "root": "\u0917\u092e\u094d"
+  },
+  "safetyNote": "Semantic graph links are foundation-placeholder UI context only; no exact Paninian derivation claim is made.",
+  "schemaVersion": "1.0.0",
+  "title": "Semantic Search Panel"
+}

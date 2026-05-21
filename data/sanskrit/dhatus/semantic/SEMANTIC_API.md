@@ -238,6 +238,23 @@ python scripts/export_dhatu_semantic_traversal_examples.py
 
 Traversal edges are foundation-placeholder semantic links and do not claim exact Paninian derivation.
 
+## UI-Ready Panel Fixtures
+
+UI-focused semantic panel fixtures live under `examples/ui/`:
+
+- `examples/ui/ui_semantic_search_panel.v1.json`
+- `examples/ui/ui_semantic_neighbor_panel.v1.json`
+- `examples/ui/ui_semantic_traversal_panel.v1.json`
+- `examples/ui/ui_semantic_combined_panel.v1.json`
+
+Regenerate them with:
+
+```powershell
+python scripts/export_dhatu_semantic_ui_examples.py
+```
+
+See `UI_INTEGRATION.md` for future Sanskrit tab consumption guidance. These fixtures are read-only examples and do not change semantic sources or canonical dhatu records.
+
 ## Safety
 
 The semantic layer is sidecar-only. Querying, validating, documenting, and exporting examples must not mutate the canonical registry, promotion audit files, v50 archives, or approval fixtures.

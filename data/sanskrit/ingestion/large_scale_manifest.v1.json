@@ -39,6 +39,9 @@
   "canonicalDhatuSemanticTraversalQueryScript": "scripts/query_dhatu_semantic_traversal.py",
   "canonicalDhatuSemanticTraversalApiSmokeScript": "scripts/smoke_dhatu_semantic_traversal_api.py",
   "canonicalDhatuSemanticTraversalExampleExportScript": "scripts/export_dhatu_semantic_traversal_examples.py",
+  "canonicalDhatuSemanticUiDocsFile": "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+  "canonicalDhatuSemanticUiExamplesRoot": "data/sanskrit/dhatus/semantic/examples/ui",
+  "canonicalDhatuSemanticUiExampleExportScript": "scripts/export_dhatu_semantic_ui_examples.py",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

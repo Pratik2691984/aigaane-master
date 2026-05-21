@@ -1,0 +1,78 @@
+{
+  "cards": [
+    {
+      "cardId": "path.semantic.0001",
+      "cardType": "traversalPath",
+      "label": "guidance",
+      "metadata": {
+        "depth": 1,
+        "edges": [
+          "edge.semantic.0004"
+        ],
+        "relationTypes": [
+          "associated_with"
+        ],
+        "section": "Traversal Paths"
+      },
+      "value": "motion -> guidance"
+    },
+    {
+      "cardId": "path.semantic.0002",
+      "cardType": "traversalPath",
+      "label": "stability",
+      "metadata": {
+        "depth": 1,
+        "edges": [
+          "edge.semantic.0005"
+        ],
+        "relationTypes": [
+          "transitions_to"
+        ],
+        "section": "Traversal Paths"
+      },
+      "value": "motion -> stability"
+    },
+    {
+      "cardId": "traversal.summary.01",
+      "cardType": "traversalSummary",
+      "label": "Traversal path count",
+      "metadata": {
+        "maxDepth": 2,
+        "nodeId": "motion",
+        "section": "Traversal Paths",
+        "traversedEdgeIds": [
+          "edge.semantic.0004",
+          "edge.semantic.0005",
+          "edge.semantic.0006",
+          "edge.semantic.0007"
+        ],
+        "visitedNodeCount": 3
+      },
+      "value": 2
+    }
+  ],
+  "description": "UI-ready traversal path cards for motion at depth 2.",
+  "generatedBy": "scripts/export_dhatu_semantic_ui_examples.py",
+  "links": [
+    {
+      "href": "/api/dhatu/semantic/traverse?nodeId=motion&maxDepth=2",
+      "label": "Semantic traversal API",
+      "linkType": "api"
+    },
+    {
+      "href": "data/sanskrit/dhatus/semantic/examples/graph/traversal_motion_depth2.response.v1.json",
+      "label": "Traversal example fixture",
+      "linkType": "fixture"
+    }
+  ],
+  "panelType": "semanticTraversal",
+  "primaryDhatu": {
+    "dhatuId": "01.0005",
+    "gloss": "to go",
+    "iast": "gam",
+    "root": "\u0917\u092e\u094d"
+  },
+  "safetyNote": "Semantic graph links are foundation-placeholder UI context only; no exact Paninian derivation claim is made.",
+  "schemaVersion": "1.0.0",
+  "title": "Semantic Traversal Panel"
+}
