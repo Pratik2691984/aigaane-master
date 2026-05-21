@@ -54,6 +54,8 @@
 
 `scripts/export_dhatu_semantic_graph_examples.py` regenerates deterministic neighbor API response fixtures under `data/sanskrit/dhatus/semantic/examples/graph/` for `/api/dhatu/semantic/neighbors`. These examples cover `nodeId=01.0005`, `nodeId=motion&depth=2`, `nodeId=guidance&relationType=guides`, and the empty query safety response.
 
+`scripts/query_dhatu_semantic_traversal.py`, `scripts/smoke_dhatu_semantic_traversal_api.py`, and `scripts/export_dhatu_semantic_traversal_examples.py` cover cycle-safe multi-hop traversal through `/api/dhatu/semantic/traverse`. Traversal fixtures live beside the graph examples and keep path output deterministic without mutating semantic source files or the canonical registry.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

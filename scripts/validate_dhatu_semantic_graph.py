@@ -20,6 +20,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         "edgeCount": summary["edgeCount"],
         "duplicateEdgeIds": summary["duplicateEdgeIds"],
         "invalidReferenceCount": len(summary["invalidReferences"]),
+        "traversalValidationStatus": summary["traversalValidationSummary"]["traversalValidationStatus"],
     }, sort_keys=True))
     return 0 if summary["graphValidationStatus"] == "PASS" else 1
 

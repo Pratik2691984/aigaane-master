@@ -36,6 +36,9 @@
   "canonicalDhatuSemanticGraphApiSmokeScript": "scripts/smoke_dhatu_semantic_graph_api.py",
   "canonicalDhatuSemanticGraphExampleExportScript": "scripts/export_dhatu_semantic_graph_examples.py",
   "canonicalDhatuSemanticGraphExamplesRoot": "data/sanskrit/dhatus/semantic/examples/graph",
+  "canonicalDhatuSemanticTraversalQueryScript": "scripts/query_dhatu_semantic_traversal.py",
+  "canonicalDhatuSemanticTraversalApiSmokeScript": "scripts/smoke_dhatu_semantic_traversal_api.py",
+  "canonicalDhatuSemanticTraversalExampleExportScript": "scripts/export_dhatu_semantic_traversal_examples.py",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

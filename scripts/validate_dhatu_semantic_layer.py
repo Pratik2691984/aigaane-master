@@ -153,6 +153,7 @@ def validate_semantic_layer(
         "invalidSemanticClusterIds": invalid_clusters,
         "queryableDhatuIds": queryable_ids,
         "semanticGraphSummary": graph_summary,
+        "semanticGraphTraversalSummary": graph_summary.get("traversalValidationSummary"),
         "checks": checks,
     }
 

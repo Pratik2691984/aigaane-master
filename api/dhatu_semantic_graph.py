@@ -120,6 +120,7 @@ def validate_graph(
         for edge in edges
         if NO_DERIVATION_CLAIM_TEXT.casefold() not in str(edge.get("notes", "")).casefold()
     ]
+    traversal_summary = validate_traversal_behaviors(edge_path, canonical_registry_path, semantic_root)
     checks = {
         "edgeIdsUnique": duplicate_edge_ids == [],
         "sourceAndTargetTypesAllowed": invalid_node_types == [],
@@ -128,6 +129,7 @@ def validate_graph(
         "relationTypesAllowed": invalid_relations == [],
         "confidenceValuesAreFoundationPlaceholder": invalid_confidence_edges == [],
         "noExactGrammaticalDerivationClaims": derivation_claim_edges == [],
+        "semanticTraversalValidationPasses": traversal_summary["traversalValidationStatus"] == "PASS",
     }
     return {
         "schemaVersion": "1.0.0",
@@ -141,6 +143,7 @@ def validate_graph(
         "invalidRelationTypes": invalid_relations,
         "invalidConfidenceEdges": invalid_confidence_edges,
         "derivationClaimEdges": derivation_claim_edges,
+        "traversalValidationSummary": traversal_summary,
         "checks": checks,
     }
 
@@ -155,6 +158,189 @@ def next_node_for_edge(edge: Dict[str, Any], node_id: str) -> Tuple[str, str]:
     if edge.get("sourceId") == node_id:
         return str(edge.get("targetType")), str(edge.get("targetId"))
     return str(edge.get("sourceType")), str(edge.get("sourceId"))
+
+
+def node_type_for_id(graph: Dict[str, Any], node_id: str) -> Optional[str]:
+    ids_by_type = known_ids(graph)
+    for node_type in ("dhatu", "semantic_cluster", "gloss_taxonomy", "action_facet"):
+        if node_id in ids_by_type[node_type]:
+            return node_type
+    return None
+
+
+def traversable_edges_for_node(
+    edges: List[Dict[str, Any]],
+    node_id: str,
+    relation_type: Optional[str] = None,
+) -> List[Dict[str, Any]]:
+    return sorted(
+        [
+            edge
+            for edge in edges
+            if (not relation_type or edge.get("relationType") == relation_type)
+            and edge_allows_traversal(edge, node_id)
+        ],
+        key=lambda edge: str(edge.get("edgeId", "")),
+    )
+
+
+def traverse_graph(
+    node_id: Optional[str],
+    max_depth: int = 2,
+    relation_type: Optional[str] = None,
+    edge_path: Any = DEFAULT_EDGE_PATH,
+    canonical_registry_path: Any = DEFAULT_CANONICAL_REGISTRY_PATH,
+    semantic_root: Any = DEFAULT_SEMANTIC_ROOT,
+) -> Dict[str, Any]:
+    normalized_depth = max(0, int(max_depth))
+    if not node_id:
+        return {
+            "schemaVersion": "1.0.0",
+            "generatedBy": "api/dhatu_semantic_graph.py",
+            "nodeId": node_id,
+            "maxDepth": normalized_depth,
+            "relationType": relation_type,
+            "traversalStatus": "EMPTY_QUERY",
+            "visitedNodeCount": 0,
+            "pathCount": 0,
+            "paths": [],
+            "traversedEdgeIds": [],
+            "errorCode": "empty_semantic_traversal_query",
+        }
+
+    graph = load_graph(edge_path, canonical_registry_path, semantic_root)
+    start_type = node_type_for_id(graph, node_id)
+    if start_type is None:
+        return {
+            "schemaVersion": "1.0.0",
+            "generatedBy": "api/dhatu_semantic_graph.py",
+            "nodeId": node_id,
+            "maxDepth": normalized_depth,
+            "relationType": relation_type,
+            "traversalStatus": "NODE_NOT_FOUND",
+            "visitedNodeCount": 0,
+            "pathCount": 0,
+            "paths": [],
+            "traversedEdgeIds": [],
+            "errorCode": "semantic_graph_node_not_found",
+        }
+
+    edges = graph["edges"].get("edges", [])
+    traversed_edges: Set[str] = set()
+    visited_nodes: Set[str] = {node_id}
+    raw_paths: List[Dict[str, Any]] = []
+    queue = deque([
+        {
+            "currentNodeId": node_id,
+            "depth": 0,
+            "nodes": [{"nodeType": start_type, "nodeId": node_id}],
+            "edges": [],
+            "relationTypes": [],
+            "nodeIdsInPath": {node_id},
+        }
+    ])
+
+    while queue:
+        state = queue.popleft()
+        if state["depth"] >= normalized_depth:
+            continue
+        for edge in traversable_edges_for_node(edges, state["currentNodeId"], relation_type):
+            neighbor_type, neighbor_id = next_node_for_edge(edge, state["currentNodeId"])
+            traversed_edges.add(edge["edgeId"])
+            if neighbor_id in state["nodeIdsInPath"]:
+                continue
+
+            next_nodes = state["nodes"] + [{"nodeType": neighbor_type, "nodeId": neighbor_id}]
+            next_edges = state["edges"] + [edge["edgeId"]]
+            next_relation_types = state["relationTypes"] + [edge["relationType"]]
+            next_depth = state["depth"] + 1
+            raw_paths.append({
+                "depth": next_depth,
+                "nodes": next_nodes,
+                "edges": next_edges,
+                "terminalNodeId": neighbor_id,
+                "relationTypes": next_relation_types,
+            })
+            visited_nodes.add(neighbor_id)
+            queue.append({
+                "currentNodeId": neighbor_id,
+                "depth": next_depth,
+                "nodes": next_nodes,
+                "edges": next_edges,
+                "relationTypes": next_relation_types,
+                "nodeIdsInPath": set(state["nodeIdsInPath"]) | {neighbor_id},
+            })
+
+    ordered_paths = sorted(raw_paths, key=lambda path: (path["depth"], path["terminalNodeId"], path["edges"]))
+    paths = [
+        {
+            "pathId": f"path.semantic.{index:04d}",
+            **path,
+        }
+        for index, path in enumerate(ordered_paths, start=1)
+    ]
+    return {
+        "schemaVersion": "1.0.0",
+        "generatedBy": "api/dhatu_semantic_graph.py",
+        "nodeId": node_id,
+        "maxDepth": normalized_depth,
+        "relationType": relation_type,
+        "traversalStatus": "OK",
+        "visitedNodeCount": len(visited_nodes),
+        "pathCount": len(paths),
+        "paths": paths,
+        "traversedEdgeIds": sorted(traversed_edges),
+        "errorCode": None,
+    }
+
+
+def validate_traversal_behaviors(
+    edge_path: Any = DEFAULT_EDGE_PATH,
+    canonical_registry_path: Any = DEFAULT_CANONICAL_REGISTRY_PATH,
+    semantic_root: Any = DEFAULT_SEMANTIC_ROOT,
+) -> Dict[str, Any]:
+    registry = load_json(canonical_registry_path)
+    canonical_ids = set(registry.get("records", {}).keys())
+    motion = traverse_graph("motion", max_depth=2, edge_path=edge_path, canonical_registry_path=canonical_registry_path, semantic_root=semantic_root)
+    gam = traverse_graph("01.0005", max_depth=2, edge_path=edge_path, canonical_registry_path=canonical_registry_path, semantic_root=semantic_root)
+    guides = traverse_graph("guidance", max_depth=2, relation_type="guides", edge_path=edge_path, canonical_registry_path=canonical_registry_path, semantic_root=semantic_root)
+    unknown = traverse_graph("unknown-semantic-node", max_depth=2, edge_path=edge_path, canonical_registry_path=canonical_registry_path, semantic_root=semantic_root)
+    empty = traverse_graph(None, max_depth=2, edge_path=edge_path, canonical_registry_path=canonical_registry_path, semantic_root=semantic_root)
+    traversals = [motion, gam, guides]
+    duplicate_path_nodes = [
+        path["pathId"]
+        for traversal in traversals
+        for path in traversal["paths"]
+        if len([node["nodeId"] for node in path["nodes"]]) != len({node["nodeId"] for node in path["nodes"]})
+    ]
+    noncanonical_path_dhatu_ids = sorted({
+        node["nodeId"]
+        for traversal in traversals
+        for path in traversal["paths"]
+        for node in path["nodes"]
+        if node["nodeType"] == "dhatu" and node["nodeId"] not in canonical_ids
+    })
+    gam_terminal_ids = {path["terminalNodeId"] for path in gam["paths"]}
+    guides_terminal_ids = {path["terminalNodeId"] for path in guides["paths"]}
+    checks = {
+        "motionDepthTwoCycleSafe": duplicate_path_nodes == [] and motion["traversalStatus"] == "OK",
+        "gamDepthTwoReachesMotion": "motion" in gam_terminal_ids,
+        "guidanceGuidesTraversalWorks": guides["traversalStatus"] == "OK" and "motion" in guides_terminal_ids,
+        "unknownNodeSafe": unknown["traversalStatus"] == "NODE_NOT_FOUND" and unknown["errorCode"] == "semantic_graph_node_not_found",
+        "emptyNodeSafe": empty["traversalStatus"] == "EMPTY_QUERY" and empty["errorCode"] == "empty_semantic_traversal_query",
+        "pathDhatuIdsCanonical": noncanonical_path_dhatu_ids == [],
+    }
+    return {
+        "traversalValidationStatus": "PASS" if all(checks.values()) else "FAIL",
+        "checks": checks,
+        "motionPathCount": motion["pathCount"],
+        "gamTerminalNodeIds": sorted(gam_terminal_ids),
+        "guidesTerminalNodeIds": sorted(guides_terminal_ids),
+        "duplicatePathNodes": duplicate_path_nodes,
+        "noncanonicalPathDhatuIds": noncanonical_path_dhatu_ids,
+        "unknownNodeStatus": unknown["traversalStatus"],
+        "emptyNodeStatus": empty["traversalStatus"],
+    }
 
 
 def get_neighbors(

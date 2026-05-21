@@ -1,0 +1,66 @@
+{
+  "errorCode": null,
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/traverse",
+  "maxDepth": 2,
+  "nodeId": "motion",
+  "pathCount": 2,
+  "paths": [
+    {
+      "depth": 1,
+      "edges": [
+        "edge.semantic.0004"
+      ],
+      "nodes": [
+        {
+          "nodeId": "motion",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "guidance",
+          "nodeType": "semantic_cluster"
+        }
+      ],
+      "pathId": "path.semantic.0001",
+      "relationTypes": [
+        "associated_with"
+      ],
+      "terminalNodeId": "guidance"
+    },
+    {
+      "depth": 1,
+      "edges": [
+        "edge.semantic.0005"
+      ],
+      "nodes": [
+        {
+          "nodeId": "motion",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "stability",
+          "nodeType": "semantic_cluster"
+        }
+      ],
+      "pathId": "path.semantic.0002",
+      "relationTypes": [
+        "transitions_to"
+      ],
+      "terminalNodeId": "stability"
+    }
+  ],
+  "query": {
+    "maxDepth": 2,
+    "nodeId": "motion",
+    "relationType": null
+  },
+  "relationType": null,
+  "schemaVersion": "1.0.0",
+  "traversalStatus": "OK",
+  "traversedEdgeIds": [
+    "edge.semantic.0004",
+    "edge.semantic.0005",
+    "edge.semantic.0006",
+    "edge.semantic.0007"
+  ],
+  "visitedNodeCount": 3
+}

@@ -57,9 +57,9 @@ try:
 except ModuleNotFoundError:
     from dhatu_semantic_query import query_semantics
 try:
-    from api.dhatu_semantic_graph import get_neighbors
+    from api.dhatu_semantic_graph import get_neighbors, traverse_graph
 except ModuleNotFoundError:
-    from dhatu_semantic_graph import get_neighbors
+    from dhatu_semantic_graph import get_neighbors, traverse_graph
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -318,6 +318,22 @@ def build_dhatu_semantic_graph_neighbors_response(
     payload["query"] = query
     return payload
 
+
+def build_dhatu_semantic_traversal_response(
+    nodeId: Optional[str] = None,
+    maxDepth: int = 2,
+    relationType: Optional[str] = None,
+) -> Dict[str, Any]:
+    query = {
+        "nodeId": nodeId,
+        "maxDepth": int(maxDepth),
+        "relationType": relationType,
+    }
+    payload = traverse_graph(nodeId, max_depth=maxDepth, relation_type=relationType)
+    payload["generatedBy"] = "api/kernel_api.py:/api/dhatu/semantic/traverse"
+    payload["query"] = query
+    return payload
+
 # ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
@@ -437,6 +453,18 @@ async def dhatu_semantic_neighbors(
     return build_dhatu_semantic_graph_neighbors_response(
         nodeId=nodeId,
         depth=depth,
+        relationType=relationType,
+    )
+
+@app.get("/api/dhatu/semantic/traverse")
+async def dhatu_semantic_traverse(
+    nodeId: Optional[str] = None,
+    maxDepth: int = 2,
+    relationType: Optional[str] = None,
+):
+    return build_dhatu_semantic_traversal_response(
+        nodeId=nodeId,
+        maxDepth=maxDepth,
         relationType=relationType,
     )
 

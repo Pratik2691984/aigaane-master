@@ -37,6 +37,9 @@ SEMANTIC_GRAPH_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_seman
 SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_neighbors.py"
 SEMANTIC_GRAPH_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_graph_api.py"
 SEMANTIC_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_graph_examples.py"
+SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_traversal.py"
+SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_traversal_api.py"
+SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_traversal_examples.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -273,6 +276,14 @@ semantic_graph_example_exporter = importlib.util.module_from_spec(semantic_graph
 sys.modules["export_dhatu_semantic_graph_examples"] = semantic_graph_example_exporter
 semantic_graph_example_export_spec.loader.exec_module(semantic_graph_example_exporter)
 
+semantic_traversal_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_traversal_examples",
+    SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_traversal_example_exporter = importlib.util.module_from_spec(semantic_traversal_example_export_spec)
+sys.modules["export_dhatu_semantic_traversal_examples"] = semantic_traversal_example_exporter
+semantic_traversal_example_export_spec.loader.exec_module(semantic_traversal_example_exporter)
+
 kernel_api_spec = importlib.util.spec_from_file_location("kernel_api", ROOT / "api" / "kernel_api.py")
 kernel_api = importlib.util.module_from_spec(kernel_api_spec)
 sys.modules["kernel_api"] = kernel_api
@@ -405,6 +416,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertTrue(SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_GRAPH_API_SMOKE_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -644,6 +658,19 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("foundation-placeholder", docs)
         self.assertIn("Paninian derivation claims", docs)
 
+    def test_semantic_api_docs_mention_traversal_endpoint_and_query_params(self):
+        docs = SEMANTIC_API_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/traverse", docs)
+        for param in ["nodeId", "maxDepth", "relationType"]:
+            self.assertIn(param, docs)
+        self.assertIn("nodeId=motion&maxDepth=2", docs)
+        self.assertIn("nodeId=01.0005&maxDepth=2", docs)
+        self.assertIn("nodeId=guidance&relationType=guides", docs)
+        self.assertIn("empty_semantic_traversal_query", docs)
+        self.assertIn("semantic_graph_node_not_found", docs)
+        self.assertIn("foundation-placeholder semantic links", docs)
+
     def test_semantic_api_example_fixtures_have_expected_results(self):
         cluster = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_cluster_motion.response.v1.json").read_text(encoding="utf-8"))
         action = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_action_guidance.response.v1.json").read_text(encoding="utf-8"))
@@ -704,6 +731,109 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(payload["neighbors"], [])
         self.assertEqual(payload["error"]["code"], "empty_semantic_graph_query")
 
+    def test_semantic_graph_traversal_helper_exists(self):
+        self.assertTrue(callable(getattr(semantic_graph, "traverse_graph", None)))
+
+    def test_kernel_semantic_traversal_api_helper_exists(self):
+        self.assertTrue(callable(getattr(kernel_api, "build_dhatu_semantic_traversal_response", None)))
+
+    def test_semantic_graph_traversal_motion_depth_two_returns_paths(self):
+        payload = semantic_graph.traverse_graph("motion", max_depth=2)
+
+        self.assertEqual(payload["traversalStatus"], "OK")
+        self.assertGreaterEqual(payload["pathCount"], 1)
+        self.assertEqual(payload["paths"][0]["pathId"], "path.semantic.0001")
+
+    def test_semantic_graph_traversal_gam_depth_two_reaches_motion(self):
+        payload = semantic_graph.traverse_graph("01.0005", max_depth=2)
+        terminal_ids = {path["terminalNodeId"] for path in payload["paths"]}
+
+        self.assertIn("motion", terminal_ids)
+
+    def test_semantic_graph_traversal_relation_filter_guides_works(self):
+        payload = semantic_graph.traverse_graph("guidance", max_depth=2, relation_type="guides")
+
+        self.assertEqual(payload["traversalStatus"], "OK")
+        self.assertEqual(payload["traversedEdgeIds"], ["edge.semantic.0006"])
+        self.assertEqual({path["relationTypes"][0] for path in payload["paths"]}, {"guides"})
+
+    def test_kernel_semantic_traversal_api_empty_query_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_traversal_response()
+
+        self.assertEqual(payload["traversalStatus"], "EMPTY_QUERY")
+        self.assertEqual(payload["errorCode"], "empty_semantic_traversal_query")
+        self.assertEqual(payload["paths"], [])
+
+    def test_kernel_semantic_traversal_api_unknown_node_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_traversal_response(nodeId="unknown-semantic-node")
+
+        self.assertEqual(payload["traversalStatus"], "NODE_NOT_FOUND")
+        self.assertEqual(payload["errorCode"], "semantic_graph_node_not_found")
+        self.assertEqual(payload["paths"], [])
+
+    def test_semantic_graph_traversal_output_is_json_serializable(self):
+        payload = semantic_graph.traverse_graph("01.0005", max_depth=2)
+
+        json.dumps(payload, sort_keys=True)
+
+    def test_semantic_graph_traversal_paths_are_cycle_safe(self):
+        payload = semantic_graph.traverse_graph("motion", max_depth=8)
+
+        for path in payload["paths"]:
+            node_ids = [node["nodeId"] for node in path["nodes"]]
+            self.assertEqual(len(node_ids), len(set(node_ids)))
+
+    def test_semantic_graph_traversal_edge_ids_are_deterministic(self):
+        first = semantic_graph.traverse_graph("01.0005", max_depth=2)
+        second = semantic_graph.traverse_graph("01.0005", max_depth=2)
+
+        self.assertEqual(first["traversedEdgeIds"], sorted(first["traversedEdgeIds"]))
+        self.assertEqual(first["traversedEdgeIds"], second["traversedEdgeIds"])
+        self.assertEqual(first["paths"], second["paths"])
+
+    def test_semantic_graph_traversal_path_dhatu_ids_are_canonical(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        canonical_ids = set(registry["records"].keys())
+        payload = semantic_graph.traverse_graph("01.0005", max_depth=2)
+
+        for path in payload["paths"]:
+            for node in path["nodes"]:
+                if node["nodeType"] == "dhatu":
+                    self.assertIn(node["nodeId"], canonical_ids)
+
+    def test_semantic_graph_traversal_example_fixtures_exist(self):
+        expected = {
+            "traversal_motion_depth2.response.v1.json",
+            "traversal_01_0005_depth2.response.v1.json",
+            "traversal_guidance_guides.response.v1.json",
+            "traversal_empty_query.response.v1.json",
+            "traversal_unknown_node.response.v1.json",
+        }
+
+        self.assertTrue(expected.issubset({path.name for path in SEMANTIC_GRAPH_EXAMPLES_ROOT.glob("*.json")}))
+
+    def test_semantic_graph_traversal_example_fixtures_have_expected_results(self):
+        motion = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_motion_depth2.response.v1.json").read_text(encoding="utf-8"))
+        gam = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_01_0005_depth2.response.v1.json").read_text(encoding="utf-8"))
+        guides = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_guidance_guides.response.v1.json").read_text(encoding="utf-8"))
+        empty = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_empty_query.response.v1.json").read_text(encoding="utf-8"))
+        unknown = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_unknown_node.response.v1.json").read_text(encoding="utf-8"))
+
+        self.assertGreaterEqual(motion["pathCount"], 1)
+        self.assertIn("motion", {path["terminalNodeId"] for path in gam["paths"]})
+        self.assertEqual(guides["traversedEdgeIds"], ["edge.semantic.0006"])
+        self.assertEqual(empty["errorCode"], "empty_semantic_traversal_query")
+        self.assertEqual(unknown["errorCode"], "semantic_graph_node_not_found")
+
+    def test_semantic_traversal_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-traversal-examples-") as tmp:
+            first = semantic_traversal_example_exporter.write_examples(Path(tmp))
+            second = semantic_traversal_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
+
     def test_semantic_graph_edge_ids_are_unique(self):
         edges = json.loads(SEMANTIC_EDGES_PATH.read_text(encoding="utf-8"))
         edge_ids = [edge["edgeId"] for edge in edges["edges"]]
@@ -716,6 +846,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(summary["graphValidationStatus"], "PASS")
         self.assertEqual(summary["edgeCount"], 7)
         self.assertEqual(summary["duplicateEdgeIds"], [])
+        self.assertEqual(summary["traversalValidationSummary"]["traversalValidationStatus"], "PASS")
 
     def test_semantic_graph_gam_has_motion_neighbor(self):
         payload = semantic_graph.get_neighbors("01.0005")
@@ -773,11 +904,13 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         self.assertEqual(summary["semanticValidationStatus"], "PASS")
         self.assertTrue(summary["checks"]["semanticGraphValidationPasses"])
+        self.assertEqual(summary["semanticGraphTraversalSummary"]["traversalValidationStatus"], "PASS")
 
     def test_semantic_graph_keeps_canonical_registry_at_thirteen_records(self):
         before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
         semantic_graph.validate_graph()
         semantic_graph.get_neighbors("motion", depth=2)
+        semantic_graph.traverse_graph("motion", max_depth=2)
         registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
 
         self.assertEqual(len(registry["records"]), 13)
@@ -1014,6 +1147,18 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticGraphExamplesRoot"],
             "data/sanskrit/dhatus/semantic/examples/graph",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticTraversalQueryScript"],
+            "scripts/query_dhatu_semantic_traversal.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticTraversalApiSmokeScript"],
+            "scripts/smoke_dhatu_semantic_traversal_api.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticTraversalExampleExportScript"],
+            "scripts/export_dhatu_semantic_traversal_examples.py",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

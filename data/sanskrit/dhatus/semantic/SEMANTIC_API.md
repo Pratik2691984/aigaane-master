@@ -167,6 +167,77 @@ python scripts/export_dhatu_semantic_graph_examples.py
 
 Graph edges are foundation-placeholder semantic links only. They do not make exact Paninian derivation claims.
 
+## Graph Traversal Endpoint
+
+`GET /api/dhatu/semantic/traverse`
+
+Supported query parameters:
+
+- `nodeId`
+- `maxDepth`
+- `relationType`
+
+Examples:
+
+```powershell
+/api/dhatu/semantic/traverse?nodeId=motion&maxDepth=2
+/api/dhatu/semantic/traverse?nodeId=01.0005&maxDepth=2
+/api/dhatu/semantic/traverse?nodeId=guidance&relationType=guides
+```
+
+Response shape:
+
+```json
+{
+  "schemaVersion": "1.0.0",
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/traverse",
+  "query": {
+    "nodeId": "01.0005",
+    "maxDepth": 2,
+    "relationType": null
+  },
+  "nodeId": "01.0005",
+  "maxDepth": 2,
+  "relationType": null,
+  "traversalStatus": "OK",
+  "visitedNodeCount": 4,
+  "pathCount": 3,
+  "paths": [
+    {
+      "pathId": "path.semantic.0001",
+      "depth": 1,
+      "nodes": [
+        {"nodeType": "dhatu", "nodeId": "01.0005"},
+        {"nodeType": "semantic_cluster", "nodeId": "motion"}
+      ],
+      "edges": ["edge.semantic.0001"],
+      "terminalNodeId": "motion",
+      "relationTypes": ["associated_with"]
+    }
+  ],
+  "traversedEdgeIds": ["edge.semantic.0001", "edge.semantic.0004", "edge.semantic.0005"],
+  "errorCode": null
+}
+```
+
+Empty traversal requests return `traversalStatus` as `EMPTY_QUERY` and `errorCode` as `empty_semantic_traversal_query`. Unknown nodes return `traversalStatus` as `NODE_NOT_FOUND` and `errorCode` as `semantic_graph_node_not_found`.
+
+Traversal examples:
+
+- `examples/graph/traversal_motion_depth2.response.v1.json`
+- `examples/graph/traversal_01_0005_depth2.response.v1.json`
+- `examples/graph/traversal_guidance_guides.response.v1.json`
+- `examples/graph/traversal_empty_query.response.v1.json`
+- `examples/graph/traversal_unknown_node.response.v1.json`
+
+Regenerate them with:
+
+```powershell
+python scripts/export_dhatu_semantic_traversal_examples.py
+```
+
+Traversal edges are foundation-placeholder semantic links and do not claim exact Paninian derivation.
+
 ## Safety
 
 The semantic layer is sidecar-only. Querying, validating, documenting, and exporting examples must not mutate the canonical registry, promotion audit files, v50 archives, or approval fixtures.
