@@ -32,6 +32,8 @@
 
 `scripts/verify_dhatu_post_canonical_write_audit.py` writes `canonical_write_post_audit_verification.v1.json`, a post-write audit integrity check that compares the preflight snapshot, promotion audit, dry-run diff, and canonical registry hash/count. It is exercised only against test or temporary registries until a production write is explicitly approved.
 
+`canonical_write_runbook.v1.md` is the final maintainer runbook for the manual production-write process. It documents the blocked default state, gate order, required review files, human approval edit process, post-approval commands, rollback reference, post-write audit verification, and exact v29-through-v43 tag sequence without changing approval or canonical registry files.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

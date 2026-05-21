@@ -39,6 +39,7 @@ APPROVAL_PACKAGE_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_wr
 RELEASE_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_verification.v1.json"
 PREFLIGHT_SNAPSHOT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_preflight_snapshot.v1.json"
 POST_AUDIT_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_post_audit_verification.v1.json"
+RUNBOOK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_runbook.v1.md"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -273,6 +274,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
+    def test_canonical_write_runbook_exists(self):
+        self.assertTrue(RUNBOOK_PATH.exists())
+
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
         bhvadi = validator.find_gana_batch(self.payload, "01")
@@ -459,6 +463,21 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.payload["canonicalWritePostAuditVerificationFile"],
             "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
         )
+
+    def test_manifest_declares_canonical_write_runbook_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteRunbookFile"],
+            "data/sanskrit/ingestion/canonical_write_runbook.v1.md",
+        )
+
+    def test_canonical_write_runbook_contains_required_operational_guidance(self):
+        runbook = RUNBOOK_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Do not set `AIGAANE_ENABLE_CANONICAL_DHATU_WRITE`", runbook)
+        self.assertIn("approval validation", runbook)
+        self.assertIn("post-write audit verification", runbook)
+        self.assertIn("rollback reference", runbook)
+        self.assertIn("sanskrit-v43-post-canonical-write-audit-verification-stable", runbook)
 
     def test_promotion_preview_reports_staged_totals(self):
         preview = previewer.build_promotion_preview(MANIFEST_PATH)
