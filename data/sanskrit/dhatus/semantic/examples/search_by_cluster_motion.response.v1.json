@@ -1,0 +1,60 @@
+{
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/search",
+  "query": {
+    "action": null,
+    "cluster": "motion",
+    "dhatuId": null,
+    "gloss": null,
+    "iast": null,
+    "root": null
+  },
+  "resultCount": 1,
+  "results": [
+    {
+      "actionVector": {
+        "facets": [
+          "motion",
+          "traversal",
+          "transition"
+        ],
+        "primary": "motion"
+      },
+      "derivationLinks": [],
+      "dhatuId": "01.0005",
+      "gloss": "to go",
+      "glossTaxonomy": [
+        {
+          "category": "movement",
+          "dhatuId": "01.0005",
+          "engineUse": "semantic search, action classification, derivation graph seeding",
+          "englishGloss": "to go",
+          "id": "movement.to_go"
+        }
+      ],
+      "iast": "gam",
+      "matchReasons": [
+        "cluster"
+      ],
+      "paniniReferences": [
+        {
+          "confidence": "unreviewed",
+          "dhatuId": "01.0005",
+          "notes": "No exact sutra claim is made in this foundation layer.",
+          "relationType": "semantic-reference-placeholder",
+          "source": "placeholder-local-review-required",
+          "sutraId": null
+        }
+      ],
+      "rankScore": 75,
+      "root": "\u0917\u092e\u094d",
+      "semanticClusters": [
+        {
+          "description": "Movement, travel, traversal, or change of location.",
+          "id": "motion",
+          "label": "Motion"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

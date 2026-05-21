@@ -30,6 +30,7 @@ MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.p
 SEMANTIC_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_layer.py"
 SEMANTIC_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantics.py"
 SEMANTIC_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_api.py"
+SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_examples.py"
 SEMANTIC_QUERY_API_PATH = ROOT / "api" / "dhatu_semantic_query.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
@@ -61,6 +62,8 @@ SEMANTIC_SCHEMA_PATH = SEMANTIC_ROOT / "semantic_schema.v2.json"
 SEMANTIC_MANIFEST_PATH = SEMANTIC_ROOT / "semantic_manifest.v1.json"
 SEMANTIC_CLUSTERS_PATH = SEMANTIC_ROOT / "semantic_clusters.v1.json"
 ACTION_VECTORS_PATH = SEMANTIC_ROOT / "action_vectors.v1.json"
+SEMANTIC_API_DOC_PATH = SEMANTIC_ROOT / "SEMANTIC_API.md"
+SEMANTIC_EXAMPLES_ROOT = SEMANTIC_ROOT / "examples"
 GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
@@ -239,6 +242,14 @@ semantic_query = importlib.util.module_from_spec(semantic_query_spec)
 sys.modules["dhatu_semantic_query"] = semantic_query
 semantic_query_spec.loader.exec_module(semantic_query)
 
+semantic_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_examples",
+    SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_example_exporter = importlib.util.module_from_spec(semantic_example_export_spec)
+sys.modules["export_dhatu_semantic_examples"] = semantic_example_exporter
+semantic_example_export_spec.loader.exec_module(semantic_example_exporter)
+
 kernel_api_spec = importlib.util.spec_from_file_location("kernel_api", ROOT / "api" / "kernel_api.py")
 kernel_api = importlib.util.module_from_spec(kernel_api_spec)
 sys.modules["kernel_api"] = kernel_api
@@ -364,6 +375,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_semantic_query_script_and_api_exist(self):
         self.assertTrue(SEMANTIC_QUERY_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_API_SMOKE_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
         self.assertTrue(SEMANTIC_QUERY_API_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
@@ -389,6 +401,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertTrue(SEMANTIC_ROOT.exists())
         self.assertTrue(SEMANTIC_SCHEMA_PATH.exists())
         self.assertTrue(SEMANTIC_MANIFEST_PATH.exists())
+
+    def test_semantic_api_docs_and_examples_exist(self):
+        self.assertTrue(SEMANTIC_API_DOC_PATH.exists())
+        self.assertTrue(SEMANTIC_EXAMPLES_ROOT.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -574,6 +590,37 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
         self.assertTrue(set(result_ids).issubset(set(registry["records"].keys())))
         json.dumps(payload)
+
+    def test_semantic_api_docs_mention_endpoint_and_query_params(self):
+        docs = SEMANTIC_API_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/search", docs)
+        for param in ["dhatuId", "root", "iast", "cluster", "gloss", "action"]:
+            self.assertIn(param, docs)
+        self.assertIn("scripts/query_dhatu_semantics.py", docs)
+        self.assertIn("api.dhatu_semantic_query", docs)
+        self.assertIn("sidecar-only", docs)
+
+    def test_semantic_api_example_fixtures_have_expected_results(self):
+        cluster = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_cluster_motion.response.v1.json").read_text(encoding="utf-8"))
+        action = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_action_guidance.response.v1.json").read_text(encoding="utf-8"))
+        gloss = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_gloss_stand.response.v1.json").read_text(encoding="utf-8"))
+        empty = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_empty_query.response.v1.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(cluster["results"][0]["dhatuId"], "01.0005")
+        self.assertEqual(action["results"][0]["dhatuId"], "01.0008")
+        self.assertEqual(gloss["results"][0]["dhatuId"], "01.0013")
+        self.assertEqual(empty["resultCount"], 0)
+        self.assertEqual(empty["error"]["code"], "empty_semantic_query")
+
+    def test_semantic_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-examples-") as tmp:
+            first = semantic_example_exporter.write_examples(Path(tmp))
+            second = semantic_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
 
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
@@ -770,6 +817,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticManifestFile"],
             "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json",
+        )
+
+    def test_manifest_declares_semantic_api_docs_and_examples(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticApiDocsFile"],
+            "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticExamplesRoot"],
+            "data/sanskrit/dhatus/semantic/examples",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

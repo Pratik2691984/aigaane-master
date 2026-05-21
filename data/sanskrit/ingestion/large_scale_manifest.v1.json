@@ -28,6 +28,8 @@
   "canonicalDhatuSemanticManifestFile": "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json",
   "canonicalDhatuSemanticQueryScript": "scripts/query_dhatu_semantics.py",
   "canonicalDhatuSemanticApiSmokeScript": "scripts/smoke_dhatu_semantic_api.py",
+  "canonicalDhatuSemanticApiDocsFile": "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
+  "canonicalDhatuSemanticExamplesRoot": "data/sanskrit/dhatus/semantic/examples",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

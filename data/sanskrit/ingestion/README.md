@@ -48,6 +48,8 @@
 
 `api/kernel_api.py` exposes the same semantic query engine through `/api/dhatu/semantic/search`, with `scripts/smoke_dhatu_semantic_api.py` covering direct helper calls without starting a server.
 
+`data/sanskrit/dhatus/semantic/SEMANTIC_API.md` documents semantic query usage, and `scripts/export_dhatu_semantic_examples.py` regenerates deterministic response fixtures under `data/sanskrit/dhatus/semantic/examples/`.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.
