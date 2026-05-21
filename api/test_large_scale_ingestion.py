@@ -18,6 +18,7 @@ AUTHORIZATION_SCRIPT_PATH = ROOT / "scripts" / "authorize_dhatu_canonical_write.
 COMMAND_SCRIPT_PATH = ROOT / "scripts" / "prepare_dhatu_canonical_write_command.py"
 APPROVAL_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_canonical_write_approval.py"
 SIMULATE_APPROVAL_SCRIPT_PATH = ROOT / "scripts" / "simulate_dhatu_canonical_write_approval.py"
+DRY_RUN_DIFF_SCRIPT_PATH = ROOT / "scripts" / "diff_dhatu_canonical_write_dry_run.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -27,6 +28,7 @@ APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_appr
 COMMAND_MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_command_manifest.v1.json"
 APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
 SIMULATED_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.simulated.v1.json"
+DRY_RUN_DIFF_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_dry_run_diff.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -114,6 +116,14 @@ approval_simulator = importlib.util.module_from_spec(simulate_approval_spec)
 sys.modules["simulate_dhatu_canonical_write_approval"] = approval_simulator
 simulate_approval_spec.loader.exec_module(approval_simulator)
 
+dry_run_diff_spec = importlib.util.spec_from_file_location(
+    "diff_dhatu_canonical_write_dry_run",
+    DRY_RUN_DIFF_SCRIPT_PATH,
+)
+dry_run_differ = importlib.util.module_from_spec(dry_run_diff_spec)
+sys.modules["diff_dhatu_canonical_write_dry_run"] = dry_run_differ
+dry_run_diff_spec.loader.exec_module(dry_run_differ)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -191,6 +201,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_simulated_approval_script_exists(self):
         self.assertTrue(SIMULATE_APPROVAL_SCRIPT_PATH.exists())
+
+    def test_dry_run_diff_script_exists(self):
+        self.assertTrue(DRY_RUN_DIFF_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -344,6 +357,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteSimulatedApprovalFile"],
             "data/sanskrit/ingestion/canonical_write_approval.simulated.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_dry_run_diff_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteDryRunDiffFile"],
+            "data/sanskrit/ingestion/canonical_write_dry_run_diff.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -976,6 +995,94 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertFalse(manifest["safetyChecks"]["writerExecuted"])
             self.assertFalse(manifest["safetyChecks"]["canonicalRegistryMutation"])
 
+    def _build_ready_command_fixture(self, tmp):
+        authorization = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        authorization["authorizationStatus"] = "AUTHORIZED_FOR_MANUAL_WRITE"
+        for requirement in authorization["requiredEnvironment"].values():
+            requirement["currentlySatisfied"] = True
+        evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+        evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+        approval_path = Path(tmp) / "approval.simulated.json"
+        validation_path = Path(tmp) / "validation.json"
+        authorization_path = Path(tmp) / "authorization.json"
+        evidence_path = Path(tmp) / "evidence.json"
+        command_path = Path(tmp) / "command.json"
+        approval_simulator.write_simulated_approval(approval_simulator.build_simulated_approval(), approval_path)
+        validation = approval_validator.build_approval_validation(approval_path)
+        approval_validator.write_approval_validation(validation, validation_path)
+        authorization_path.write_text(json.dumps(authorization), encoding="utf-8")
+        evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+        command = command_preparer.build_command_manifest(
+            authorization_path=authorization_path,
+            approval_path=approval_path,
+            approval_validation_path=validation_path,
+            evidence_path=evidence_path,
+        )
+        command_preparer.write_command_manifest(command, command_path)
+        return command_path, validation_path
+
+    def test_default_canonical_write_dry_run_diff_is_refused(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        diff = dry_run_differ.build_dry_run_diff()
+
+        self.assertTrue(diff["dryRunOnly"])
+        self.assertEqual(diff["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(diff["recordsToAdd"], [])
+        self.assertEqual(diff["beforeCount"], diff["afterCountIfApplied"])
+        self.assertIn("Command manifest is not READY_FOR_MANUAL_EXECUTION.", diff["refusalReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_simulated_ready_dry_run_diff_lists_records_to_add_against_temp_registry(self):
+        import shutil
+        import tempfile
+
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory(prefix="ready-dry-run-") as tmp:
+            registry_path = Path(tmp) / "index.json"
+            shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+            command_path, validation_path = self._build_ready_command_fixture(tmp)
+            diff = dry_run_differ.build_dry_run_diff(
+                command_manifest_path=command_path,
+                approval_validation_path=validation_path,
+                canonical_registry_path=registry_path,
+            )
+
+            self.assertTrue(diff["dryRunOnly"])
+            self.assertEqual(diff["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+            self.assertEqual(len(diff["recordsToAdd"]), 3)
+            self.assertEqual(diff["afterCountIfApplied"], diff["beforeCount"] + 3)
+            self.assertEqual([record["sourceRootId"] for record in diff["recordsToAdd"]], [
+                "01.STAGED.0001",
+                "01.STAGED.0002",
+                "01.STAGED.0003",
+            ])
+            self.assertEqual(diff["duplicateIds"], [])
+            self.assertEqual(diff["missingStagedRecords"], [])
+            self.assertTrue(diff["contractChecks"]["passed"])
+            self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_duplicate_ids_block_canonical_write_dry_run_diff(self):
+        import shutil
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="duplicate-dry-run-") as tmp:
+            registry_path = Path(tmp) / "index.json"
+            shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+            registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            registry["records"]["01.0005"] = {"root": "fixture duplicate"}
+            registry_path.write_text(json.dumps(registry), encoding="utf-8")
+            command_path, validation_path = self._build_ready_command_fixture(tmp)
+            diff = dry_run_differ.build_dry_run_diff(
+                command_manifest_path=command_path,
+                approval_validation_path=validation_path,
+                canonical_registry_path=registry_path,
+            )
+
+            self.assertEqual(diff["recordsToAdd"], [])
+            self.assertIn("01.0005", diff["duplicateIds"])
+            self.assertFalse(diff["contractChecks"]["passed"])
+            self.assertIn("Duplicate canonical ids would be created.", diff["refusalReasons"])
+
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
 
@@ -1386,6 +1493,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in SIMULATE_APPROVAL_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_dry_run_diff_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in DRY_RUN_DIFF_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
