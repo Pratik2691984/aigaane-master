@@ -58,6 +58,8 @@
 
 `scripts/export_dhatu_semantic_ui_examples.py` writes read-only UI panel fixtures under `data/sanskrit/dhatus/semantic/examples/ui/`, with integration guidance in `data/sanskrit/dhatus/semantic/UI_INTEGRATION.md`. These fixtures prepare future Sanskrit tab rendering for search results, semantic neighbors, traversal paths, and safety notes without modifying UI files.
 
+The Sanskrit tab includes a read-only Semantic Dhātu Intelligence panel that consumes the UI combined fixture shape and falls back to static panel data if that fixture is unavailable. It does not call canonical write workflows or introduce a backend dependency.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

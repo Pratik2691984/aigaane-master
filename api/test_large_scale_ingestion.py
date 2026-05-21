@@ -7,6 +7,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SANSKRIT_VIEW_PATH = ROOT / "ui" / "tabs" / "sanskrit" / "view.html"
+SANSKRIT_CONTROLLER_PATH = ROOT / "ui" / "tabs" / "sanskrit" / "controller.js"
+SANSKRIT_STYLE_PATH = ROOT / "ui" / "tabs" / "sanskrit" / "style.css"
 SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
 PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
 PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
@@ -873,10 +876,13 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_semantic_ui_combined_panel_includes_expected_sections(self):
         combined = json.loads((SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_combined_panel.v1.json").read_text(encoding="utf-8"))
         sections = {card["metadata"]["section"] for card in combined["cards"]}
+        values = {card["value"] for card in combined["cards"]}
 
         self.assertIn("Search Results", sections)
         self.assertIn("Semantic Neighbors", sections)
         self.assertIn("Traversal Paths", sections)
+        self.assertIn("gam / गम्", values)
+        self.assertIn("motion -> guidance", values)
 
     def test_semantic_ui_cards_are_normalized_for_frontend(self):
         required = {"cardId", "cardType", "label", "value", "metadata"}
@@ -890,7 +896,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_semantic_ui_safety_notes_avoid_exact_paninian_claims(self):
         for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json"):
             payload = json.loads(path.read_text(encoding="utf-8"))
-            self.assertIn("no exact Paninian derivation claim", payload["safetyNote"])
+            self.assertIn("no exact Pāṇinian derivation claim", payload["safetyNote"])
 
     def test_semantic_ui_example_export_is_deterministic(self):
         import tempfile
@@ -900,6 +906,48 @@ class LargeScaleIngestionTests(unittest.TestCase):
             second = semantic_ui_example_exporter.write_examples(Path(tmp))
 
             self.assertEqual(first, second)
+
+    def test_sanskrit_view_contains_semantic_dhatu_intelligence_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Semantic Dhātu Intelligence", view)
+        self.assertIn("semantic-dhatu-search-output", view)
+        self.assertIn("semantic-dhatu-neighbor-output", view)
+        self.assertIn("semantic-dhatu-traversal-output", view)
+        self.assertIn("semantic-dhatu-safety-output", view)
+
+    def test_sanskrit_controller_references_semantic_panel_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DHATU_PANEL_FIXTURE", controller)
+        self.assertIn("renderSemanticDhatuPanel", controller)
+        self.assertIn("loadSemanticDhatuPanel", controller)
+        self.assertIn("ui_semantic_combined_panel.v1.json", controller)
+        self.assertIn("gam / गम्", controller)
+        self.assertIn("motion", controller)
+        self.assertIn("no exact Pāṇinian derivation claim", controller)
+
+    def test_sanskrit_controller_has_no_canonical_write_hooks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", controller)
+        self.assertNotIn("AIGAANE_ALLOW_TEST_CANONICAL_WRITE", controller)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", controller)
+
+    def test_sanskrit_style_contains_semantic_panel_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-dhatu-inspector",
+            ".semantic-dhatu-grid",
+            ".semantic-dhatu-panel",
+            ".semantic-dhatu-card",
+            ".semantic-dhatu-safety-note",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_semantic_ui_combined_fixture_still_exists(self):
+        self.assertTrue((SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_combined_panel.v1.json").exists())
 
     def test_semantic_graph_edge_ids_are_unique(self):
         edges = json.loads(SEMANTIC_EDGES_PATH.read_text(encoding="utf-8"))
@@ -1238,6 +1286,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticUiExampleExportScript"],
             "scripts/export_dhatu_semantic_ui_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiIntegrationSurface"],
+            "ui/tabs/sanskrit",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

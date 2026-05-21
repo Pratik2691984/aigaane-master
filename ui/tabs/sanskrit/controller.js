@@ -29,6 +29,64 @@ const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
 };
 
+const SEMANTIC_DHATU_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json";
+const SEMANTIC_DHATU_FALLBACK_PANEL = {
+  schemaVersion: "1.0.0",
+  generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
+  panelType: "semanticCombined",
+  title: "Semantic Combined Panel",
+  description: "Static read-only fallback for Semantic Dhātu Intelligence.",
+  primaryDhatu: {
+    dhatuId: "01.0005",
+    root: "गम्",
+    iast: "gam",
+    gloss: "to go",
+  },
+  cards: [
+    {
+      cardId: "fallback.search.01",
+      cardType: "searchResult",
+      label: "Search Results",
+      value: "gam / गम्",
+      metadata: {
+        section: "Search Results",
+        dhatuId: "01.0005",
+        gloss: "to go",
+        matchReasons: ["cluster"],
+      },
+    },
+    {
+      cardId: "fallback.neighbor.01",
+      cardType: "semanticNeighbor",
+      label: "Semantic Neighbors",
+      value: "motion",
+      metadata: {
+        section: "Semantic Neighbors",
+        relationTypes: ["associated_with"],
+        traversedEdgeIds: ["edge.semantic.0001"],
+      },
+    },
+    {
+      cardId: "fallback.traversal.01",
+      cardType: "traversalPath",
+      label: "Traversal Paths",
+      value: "motion -> guidance",
+      metadata: {
+        section: "Traversal Paths",
+        depth: 2,
+        relationTypes: ["associated_with"],
+        traversedEdgeIds: ["edge.semantic.0004"],
+      },
+    },
+  ],
+  links: [
+    { label: "Semantic search API", href: "/api/dhatu/semantic/search?cluster=motion", linkType: "api" },
+    { label: "Semantic neighbors API", href: "/api/dhatu/semantic/neighbors?nodeId=01.0005", linkType: "api" },
+    { label: "Semantic traversal API", href: "/api/dhatu/semantic/traverse?nodeId=motion&maxDepth=2", linkType: "api" },
+  ],
+  safetyNote: "Semantic graph links are foundation-placeholder UI context only; no exact Pāṇinian derivation claim is made.",
+};
+
 function byId(id) {
   return mountNode?.querySelector(`#${id}`);
 }
@@ -90,6 +148,94 @@ function appendInspectionRow(node, label, value, detail) {
     row.appendChild(small);
   }
   node.appendChild(row);
+}
+
+function metadataSummary(metadata) {
+  if (!metadata || typeof metadata !== "object") return "";
+  const parts = [];
+  if (metadata.dhatuId) parts.push(`dhatu ${metadata.dhatuId}`);
+  if (metadata.gloss) parts.push(metadata.gloss);
+  if (metadata.relationTypes) parts.push(`relations ${metadata.relationTypes.join(", ")}`);
+  if (metadata.traversedEdgeIds) parts.push(`edges ${metadata.traversedEdgeIds.join(", ")}`);
+  if (metadata.pathCount !== undefined) parts.push(`${metadata.pathCount} paths`);
+  if (metadata.visitedNodeCount !== undefined) parts.push(`${metadata.visitedNodeCount} visited`);
+  return parts.join("; ");
+}
+
+function renderSemanticPanelCard(card) {
+  const row = document.createElement("article");
+  row.className = `semantic-dhatu-card ${text(card?.cardType, "semantic-card")}`;
+
+  const label = document.createElement("strong");
+  label.textContent = text(card?.label, "Semantic card");
+
+  const value = document.createElement("span");
+  value.textContent = text(card?.value);
+
+  const meta = document.createElement("small");
+  meta.textContent = metadataSummary(card?.metadata) || text(card?.cardId);
+
+  row.append(label, value, meta);
+  return row;
+}
+
+function renderSemanticPanelLinks(container, links) {
+  const values = Array.isArray(links) ? links : [];
+  if (values.length === 0) return;
+
+  const list = document.createElement("div");
+  list.className = "semantic-dhatu-links";
+  values.forEach((item) => {
+    const anchor = document.createElement("a");
+    anchor.href = text(item?.href, "#");
+    anchor.textContent = text(item?.label, "Semantic link");
+    anchor.dataset.linkType = text(item?.linkType, "reference");
+    list.appendChild(anchor);
+  });
+  container.appendChild(list);
+}
+
+function renderSemanticDhatuPanel(panel) {
+  const payload = panel && typeof panel === "object" ? panel : SEMANTIC_DHATU_FALLBACK_PANEL;
+  const cards = Array.isArray(payload.cards) ? payload.cards : [];
+  const sections = {
+    "Search Results": byId("semantic-dhatu-search-output"),
+    "Semantic Neighbors": byId("semantic-dhatu-neighbor-output"),
+    "Traversal Paths": byId("semantic-dhatu-traversal-output"),
+  };
+
+  Object.values(sections).forEach((container) => clearChildren(container));
+  cards.forEach((card) => {
+    const sectionName = text(card?.metadata?.section, "Search Results");
+    const container = sections[sectionName] || sections["Search Results"];
+    container?.appendChild(renderSemanticPanelCard(card));
+  });
+  Object.entries(sections).forEach(([sectionName, container]) => {
+    if (!container) return;
+    if (!container.childElementCount) appendEmpty(container, `No ${sectionName.toLowerCase()} cards`);
+    if (sectionName === "Search Results") renderSemanticPanelLinks(container, payload.links);
+  });
+
+  const safety = byId("semantic-dhatu-safety-output");
+  clearChildren(safety);
+  if (safety) {
+    const note = document.createElement("div");
+    note.className = "semantic-dhatu-safety-note";
+    note.textContent = text(payload.safetyNote, SEMANTIC_DHATU_FALLBACK_PANEL.safetyNote);
+    safety.appendChild(note);
+  }
+}
+
+async function loadSemanticDhatuPanel() {
+  try {
+    const response = await fetch(SEMANTIC_DHATU_PANEL_FIXTURE);
+    if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
+    const panel = await response.json();
+    renderSemanticDhatuPanel(panel);
+  } catch (error) {
+    console.warn("[Sanskrit] Semantic Dhatu Intelligence fallback:", error);
+    renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
+  }
 }
 
 function appendDebugErrorRow(node, label, value) {
@@ -1781,6 +1927,7 @@ function renderInitialState() {
   renderSemanticTrace(null, "semantic-trace-demo-output");
   renderSemanticTrace(null, "semantic-trace-linked-output");
   renderSemanticTraceStatus("Semantic trace idle");
+  renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
   renderGraphStatus("Graph inspector idle");
@@ -1844,6 +1991,7 @@ export function init(node) {
 
   renderInitialState();
   updateMorphologyFields();
+  loadSemanticDhatuPanel();
 
   if (inputNode && !inputNode.value.trim()) inputNode.value = DEFAULT_PAYLOAD.input_text;
   analyzeCurrentInput();

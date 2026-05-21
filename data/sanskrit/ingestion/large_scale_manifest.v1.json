@@ -42,6 +42,7 @@
   "canonicalDhatuSemanticUiDocsFile": "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
   "canonicalDhatuSemanticUiExamplesRoot": "data/sanskrit/dhatus/semantic/examples/ui",
   "canonicalDhatuSemanticUiExampleExportScript": "scripts/export_dhatu_semantic_ui_examples.py",
+  "canonicalDhatuSemanticUiIntegrationSurface": "ui/tabs/sanskrit",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

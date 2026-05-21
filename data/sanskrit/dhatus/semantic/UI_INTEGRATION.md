@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document prepares UI-ready semantic fixtures for future Sanskrit tab integration without changing the UI in this node. The fixtures are deterministic snapshots of the semantic search, neighbor, and traversal helpers.
+This document describes the read-only Semantic Dhātu Intelligence panel in the Sanskrit tab. The panel is backed by deterministic semantic search, neighbor, and traversal fixture shapes.
 
 ## No Runtime Mutation Policy
 
@@ -10,7 +10,7 @@ The Sanskrit tab should consume these panel fixtures as read-only examples. Expo
 
 ## Panel Fixture Consumption
 
-Future UI code can load panel fixtures from `data/sanskrit/dhatus/semantic/examples/ui/` and render each `cards[]` entry as a normalized frontend card. Each card has `cardId`, `cardType`, `label`, `value`, and `metadata`, so the UI does not need to infer display fields from raw semantic API payloads.
+The Sanskrit tab can load panel fixtures from `data/sanskrit/dhatus/semantic/examples/ui/` and render each `cards[]` entry as a normalized frontend card. Each card has `cardId`, `cardType`, `label`, `value`, and `metadata`, so the UI does not need to infer display fields from raw semantic API payloads.
 
 Recommended frontend sections:
 
@@ -40,4 +40,4 @@ python scripts/export_dhatu_semantic_ui_examples.py
 
 ## Safety Notes
 
-Semantic graph links are foundation-placeholder UI context only. They do not make exact Paninian derivation claims.
+Semantic graph links are foundation-placeholder UI context only. They do not make exact Pāṇinian derivation claims.

@@ -642,6 +642,103 @@
     color: #ffe0a3;
 }
 
+.semantic-dhatu-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-color: rgba(212, 175, 55, 0.3);
+    background: rgba(16, 14, 8, 0.58);
+}
+
+.semantic-dhatu-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.semantic-dhatu-header h3,
+.semantic-dhatu-panel h4 {
+    color: #b9c7d9;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.semantic-dhatu-header p {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.semantic-dhatu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.semantic-dhatu-panel {
+    min-width: 0;
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.semantic-dhatu-panel h4 {
+    margin-bottom: 0.75rem;
+}
+
+.semantic-dhatu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    color: #eef3f8;
+    line-height: 1.5;
+}
+
+.semantic-dhatu-card,
+.semantic-dhatu-safety-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.65rem;
+}
+
+.semantic-dhatu-card strong {
+    color: #f0d77a;
+}
+
+.semantic-dhatu-card span {
+    overflow-wrap: anywhere;
+}
+
+.semantic-dhatu-card small,
+.semantic-dhatu-safety-note {
+    color: #9fb0c7;
+    overflow-wrap: anywhere;
+}
+
+.semantic-dhatu-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.semantic-dhatu-links a {
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    border-radius: 999px;
+    padding: 0.2rem 0.5rem;
+    color: #f0d77a;
+    text-decoration: none;
+    font-size: 0.78rem;
+}
+
+.semantic-dhatu-safety-panel {
+    border-color: rgba(255, 215, 128, 0.34);
+}
+
 .graph-inspector {
     display: flex;
     flex-direction: column;
@@ -1034,6 +1131,7 @@
     .lexicon-grid,
     .sutra-grid,
     .semantic-trace-grid,
+    .semantic-dhatu-grid,
     .graph-grid,
     .replay-grid,
     .sanskrit-results {
