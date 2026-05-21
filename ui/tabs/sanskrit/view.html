@@ -211,6 +211,52 @@
             <p>Read-only dhātu semantic search, neighbor, and traversal panels.</p>
         </header>
 
+        <div class="semantic-dhatu-controls" aria-label="Semantic dhatu query controls">
+            <label for="semantic-dhatu-search-input">Search</label>
+            <input id="semantic-dhatu-search-input" type="text" spellcheck="false" placeholder="gam, nī, sthā, गम्">
+
+            <label for="semantic-dhatu-cluster-filter">Cluster</label>
+            <select id="semantic-dhatu-cluster-filter">
+                <option value="">Any cluster</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+            </select>
+
+            <label for="semantic-dhatu-action-filter">Action</label>
+            <select id="semantic-dhatu-action-filter">
+                <option value="">Any action</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+            </select>
+
+            <label for="semantic-dhatu-gloss-filter">Gloss</label>
+            <select id="semantic-dhatu-gloss-filter">
+                <option value="">Any gloss</option>
+                <option value="go">go</option>
+                <option value="lead">lead</option>
+                <option value="stand">stand</option>
+            </select>
+
+            <label for="semantic-dhatu-depth-select">Traversal depth</label>
+            <select id="semantic-dhatu-depth-select">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+            </select>
+
+            <label for="semantic-dhatu-relation-filter">Relation</label>
+            <select id="semantic-dhatu-relation-filter">
+                <option value="">Any relation</option>
+                <option value="guides">guides</option>
+                <option value="associated_with">associated_with</option>
+                <option value="transitions_to">transitions_to</option>
+                <option value="grounds">grounds</option>
+            </select>
+
+            <button id="semantic-dhatu-reset" type="button">Reset</button>
+        </div>
+
         <div class="semantic-dhatu-grid">
             <section class="semantic-dhatu-panel">
                 <h4>Search Results</h4>

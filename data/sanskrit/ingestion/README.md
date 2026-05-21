@@ -60,6 +60,8 @@
 
 The Sanskrit tab includes a read-only Semantic Dhātu Intelligence panel that consumes the UI combined fixture shape and falls back to static panel data if that fixture is unavailable. It does not call canonical write workflows or introduce a backend dependency.
 
+The panel now includes local query controls for search text, semantic cluster, action, gloss, traversal depth, relation type, and reset. These controls filter UI cards client-side and remain read-only.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

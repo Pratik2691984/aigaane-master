@@ -916,6 +916,22 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("semantic-dhatu-traversal-output", view)
         self.assertIn("semantic-dhatu-safety-output", view)
 
+    def test_sanskrit_view_contains_semantic_query_controls(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        for control_id in [
+            "semantic-dhatu-search-input",
+            "semantic-dhatu-cluster-filter",
+            "semantic-dhatu-action-filter",
+            "semantic-dhatu-gloss-filter",
+            "semantic-dhatu-depth-select",
+            "semantic-dhatu-relation-filter",
+            "semantic-dhatu-reset",
+        ]:
+            self.assertIn(control_id, view)
+        for option in ["motion", "guidance", "stability", "guides", "associated_with", "transitions_to", "grounds"]:
+            self.assertIn(option, view)
+
     def test_sanskrit_controller_references_semantic_panel_rendering(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
 
@@ -923,9 +939,40 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("renderSemanticDhatuPanel", controller)
         self.assertIn("loadSemanticDhatuPanel", controller)
         self.assertIn("ui_semantic_combined_panel.v1.json", controller)
-        self.assertIn("gam / गम्", controller)
+        self.assertIn("gam /", controller)
         self.assertIn("motion", controller)
         self.assertIn("no exact Pāṇinian derivation claim", controller)
+
+    def test_sanskrit_controller_contains_semantic_query_state_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_QUERY_DEFAULTS", controller)
+        self.assertIn("SEMANTIC_DHATU_RECORDS", controller)
+        self.assertIn("readSemanticQueryState", controller)
+        self.assertIn("semanticRecordMatches", controller)
+        self.assertIn("renderSemanticQueryState", controller)
+
+    def test_sanskrit_controller_contains_semantic_reset_behavior(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("resetSemanticQueryControls", controller)
+        self.assertIn("semanticResetButton", controller)
+        self.assertIn('addEventListener("click", resetSemanticQueryControls)', controller)
+
+    def test_sanskrit_controller_contains_traversal_depth_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("semanticDepthSelect", controller)
+        self.assertIn("traversalDepth", controller)
+        self.assertIn("traversalPaths", controller)
+
+    def test_sanskrit_controller_contains_relation_filter_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("semanticRelationFilter", controller)
+        self.assertIn("relationMatches", controller)
+        for relation in ["guides", "associated_with", "transitions_to", "grounds"]:
+            self.assertIn(relation, controller)
 
     def test_sanskrit_controller_has_no_canonical_write_hooks(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
@@ -943,6 +990,7 @@ class LargeScaleIngestionTests(unittest.TestCase):
             ".semantic-dhatu-panel",
             ".semantic-dhatu-card",
             ".semantic-dhatu-safety-note",
+            ".semantic-dhatu-controls",
         ]:
             self.assertIn(class_name, style)
 
@@ -1290,6 +1338,10 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticUiIntegrationSurface"],
             "ui/tabs/sanskrit",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiControlMode"],
+            "client-side-read-only",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

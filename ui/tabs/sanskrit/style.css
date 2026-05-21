@@ -669,6 +669,44 @@
     font-size: 0.85rem;
 }
 
+.semantic-dhatu-controls {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) auto;
+    gap: 0.55rem;
+    align-items: end;
+}
+
+.semantic-dhatu-controls label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    color: #b9c7d9;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.semantic-dhatu-controls input,
+.semantic-dhatu-controls select {
+    min-width: 0;
+    width: 100%;
+    background: rgba(10, 12, 18, 0.88);
+    color: #eef3f8;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    border-radius: 8px;
+    padding: 0.55rem 0.6rem;
+}
+
+.semantic-dhatu-controls button {
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    border-radius: 8px;
+    padding: 0.58rem 0.85rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
 .semantic-dhatu-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1131,6 +1169,7 @@
     .lexicon-grid,
     .sutra-grid,
     .semantic-trace-grid,
+    .semantic-dhatu-controls,
     .semantic-dhatu-grid,
     .graph-grid,
     .replay-grid,

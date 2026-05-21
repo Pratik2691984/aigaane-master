@@ -12,12 +12,16 @@ The Sanskrit tab should consume these panel fixtures as read-only examples. Expo
 
 The Sanskrit tab can load panel fixtures from `data/sanskrit/dhatus/semantic/examples/ui/` and render each `cards[]` entry as a normalized frontend card. Each card has `cardId`, `cardType`, `label`, `value`, and `metadata`, so the UI does not need to infer display fields from raw semantic API payloads.
 
+The current Sanskrit tab integration adds read-only client-side query controls for search text, cluster, action, gloss, traversal depth, and relation type. These controls filter fixture-compatible semantic cards in the browser and fall back to static panel data if fixture loading is unavailable.
+
 Recommended frontend sections:
 
 - Search Results
 - Semantic Neighbors
 - Traversal Paths
 - Safety Notes
+
+Supported control values include the motion, guidance, and stability clusters; traversal depths 1 and 2; and relation filters `guides`, `associated_with`, `transitions_to`, and `grounds`.
 
 ## Example File Paths
 

@@ -23,7 +23,15 @@ let graphDemoButton = null;
 let graphExportButton = null;
 let replayDemoButton = null;
 let replayExportButton = null;
+let semanticSearchInput = null;
+let semanticClusterFilter = null;
+let semanticActionFilter = null;
+let semanticGlossFilter = null;
+let semanticDepthSelect = null;
+let semanticRelationFilter = null;
+let semanticResetButton = null;
 let currentDebugSession = null;
+let semanticPanelData = null;
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -86,6 +94,81 @@ const SEMANTIC_DHATU_FALLBACK_PANEL = {
   ],
   safetyNote: "Semantic graph links are foundation-placeholder UI context only; no exact Pāṇinian derivation claim is made.",
 };
+
+const SEMANTIC_QUERY_DEFAULTS = {
+  searchText: "",
+  cluster: "motion",
+  action: "",
+  gloss: "",
+  traversalDepth: 2,
+  relationType: "",
+};
+
+const SEMANTIC_DHATU_RECORDS = [
+  {
+    dhatuId: "01.0005",
+    root: "\u0917\u092e\u094d",
+    iast: "gam",
+    gloss: "to go",
+    cluster: "motion",
+    action: "motion",
+    neighbors: [
+      { nodeId: "motion", relationType: "associated_with", edgeId: "edge.semantic.0001" },
+    ],
+    traversalPaths: {
+      1: [
+        { terminalNodeId: "motion", value: "gam -> motion", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0001"] },
+      ],
+      2: [
+        { terminalNodeId: "motion", value: "gam -> motion", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0001"] },
+        { terminalNodeId: "guidance", value: "motion -> guidance", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0004"] },
+        { terminalNodeId: "stability", value: "motion -> stability", relationTypes: ["transitions_to"], edgeIds: ["edge.semantic.0005"] },
+      ],
+    },
+  },
+  {
+    dhatuId: "01.0008",
+    root: "\u0928\u0940",
+    iast: "n\u012b",
+    gloss: "to lead",
+    cluster: "guidance",
+    action: "guidance",
+    neighbors: [
+      { nodeId: "guidance", relationType: "associated_with", edgeId: "edge.semantic.0003" },
+      { nodeId: "motion", relationType: "guides", edgeId: "edge.semantic.0006" },
+    ],
+    traversalPaths: {
+      1: [
+        { terminalNodeId: "guidance", value: "n\u012b -> guidance", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0003"] },
+      ],
+      2: [
+        { terminalNodeId: "guidance", value: "n\u012b -> guidance", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0003"] },
+        { terminalNodeId: "motion", value: "guidance -> motion", relationTypes: ["guides"], edgeIds: ["edge.semantic.0006"] },
+      ],
+    },
+  },
+  {
+    dhatuId: "01.0013",
+    root: "\u0938\u094d\u0925\u093e",
+    iast: "sth\u0101",
+    gloss: "to stand",
+    cluster: "stability",
+    action: "stability",
+    neighbors: [
+      { nodeId: "stability", relationType: "associated_with", edgeId: "edge.semantic.0002" },
+      { nodeId: "motion", relationType: "grounds", edgeId: "edge.semantic.0007" },
+    ],
+    traversalPaths: {
+      1: [
+        { terminalNodeId: "stability", value: "sth\u0101 -> stability", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0002"] },
+      ],
+      2: [
+        { terminalNodeId: "stability", value: "sth\u0101 -> stability", relationTypes: ["associated_with"], edgeIds: ["edge.semantic.0002"] },
+        { terminalNodeId: "motion", value: "stability -> motion", relationTypes: ["grounds"], edgeIds: ["edge.semantic.0007"] },
+      ],
+    },
+  },
+];
 
 function byId(id) {
   return mountNode?.querySelector(`#${id}`);
@@ -195,6 +278,137 @@ function renderSemanticPanelLinks(container, links) {
   container.appendChild(list);
 }
 
+function readSemanticQueryState() {
+  return {
+    searchText: semanticSearchInput?.value.trim().toLowerCase() || "",
+    cluster: semanticClusterFilter?.value || "",
+    action: semanticActionFilter?.value || "",
+    gloss: semanticGlossFilter?.value || "",
+    traversalDepth: Number(semanticDepthSelect?.value || SEMANTIC_QUERY_DEFAULTS.traversalDepth),
+    relationType: semanticRelationFilter?.value || "",
+  };
+}
+
+function semanticRecordMatches(record, queryState) {
+  const searchable = [
+    record.dhatuId,
+    record.root,
+    record.iast,
+    record.gloss,
+    record.cluster,
+    record.action,
+  ].join(" ").toLowerCase();
+  if (queryState.searchText && !searchable.includes(queryState.searchText)) return false;
+  if (queryState.cluster && record.cluster !== queryState.cluster) return false;
+  if (queryState.action && record.action !== queryState.action) return false;
+  if (queryState.gloss && !record.gloss.toLowerCase().includes(queryState.gloss)) return false;
+  return true;
+}
+
+function relationMatches(values, relationType) {
+  if (!relationType) return true;
+  return values.includes(relationType);
+}
+
+function selectedSemanticRecord(queryState) {
+  return SEMANTIC_DHATU_RECORDS.find((record) => semanticRecordMatches(record, queryState)) || null;
+}
+
+function cardFromSemanticRecord(record) {
+  return {
+    cardId: `interactive.search.${record.dhatuId}`,
+    cardType: "searchResult",
+    label: "Search Results",
+    value: `${record.iast} / ${record.root}`,
+    metadata: {
+      section: "Search Results",
+      dhatuId: record.dhatuId,
+      gloss: record.gloss,
+      cluster: record.cluster,
+      action: record.action,
+    },
+  };
+}
+
+function neighborCardsForRecord(record, queryState) {
+  return record.neighbors
+    .filter((neighbor) => relationMatches([neighbor.relationType], queryState.relationType))
+    .map((neighbor, index) => ({
+      cardId: `interactive.neighbor.${record.dhatuId}.${index + 1}`,
+      cardType: "semanticNeighbor",
+      label: "Semantic Neighbors",
+      value: neighbor.nodeId,
+      metadata: {
+        section: "Semantic Neighbors",
+        sourceNodeId: record.dhatuId,
+        relationTypes: [neighbor.relationType],
+        traversedEdgeIds: [neighbor.edgeId],
+      },
+    }));
+}
+
+function traversalCardsForRecord(record, queryState) {
+  const depth = queryState.traversalDepth === 1 ? 1 : 2;
+  return (record.traversalPaths[depth] || [])
+    .filter((path) => relationMatches(path.relationTypes, queryState.relationType))
+    .map((path, index) => ({
+      cardId: `interactive.traversal.${record.dhatuId}.${depth}.${index + 1}`,
+      cardType: "traversalPath",
+      label: "Traversal Paths",
+      value: path.value,
+      metadata: {
+        section: "Traversal Paths",
+        sourceNodeId: record.dhatuId,
+        terminalNodeId: path.terminalNodeId,
+        depth,
+        relationTypes: path.relationTypes,
+        traversedEdgeIds: path.edgeIds,
+      },
+    }));
+}
+
+function buildSemanticPanelFromQueryState(queryState = readSemanticQueryState()) {
+  const record = selectedSemanticRecord(queryState);
+  if (!record) {
+    return {
+      ...(semanticPanelData || SEMANTIC_DHATU_FALLBACK_PANEL),
+      panelType: "semanticInteractive",
+      title: "Semantic Query Panel",
+      cards: [],
+    };
+  }
+  return {
+    ...(semanticPanelData || SEMANTIC_DHATU_FALLBACK_PANEL),
+    panelType: "semanticInteractive",
+    title: "Semantic Query Panel",
+    primaryDhatu: {
+      dhatuId: record.dhatuId,
+      root: record.root,
+      iast: record.iast,
+      gloss: record.gloss,
+    },
+    cards: [
+      cardFromSemanticRecord(record),
+      ...neighborCardsForRecord(record, queryState),
+      ...traversalCardsForRecord(record, queryState),
+    ],
+  };
+}
+
+function renderSemanticQueryState() {
+  renderSemanticDhatuPanel(buildSemanticPanelFromQueryState());
+}
+
+function resetSemanticQueryControls() {
+  if (semanticSearchInput) semanticSearchInput.value = SEMANTIC_QUERY_DEFAULTS.searchText;
+  if (semanticClusterFilter) semanticClusterFilter.value = SEMANTIC_QUERY_DEFAULTS.cluster;
+  if (semanticActionFilter) semanticActionFilter.value = SEMANTIC_QUERY_DEFAULTS.action;
+  if (semanticGlossFilter) semanticGlossFilter.value = SEMANTIC_QUERY_DEFAULTS.gloss;
+  if (semanticDepthSelect) semanticDepthSelect.value = String(SEMANTIC_QUERY_DEFAULTS.traversalDepth);
+  if (semanticRelationFilter) semanticRelationFilter.value = SEMANTIC_QUERY_DEFAULTS.relationType;
+  renderSemanticQueryState();
+}
+
 function renderSemanticDhatuPanel(panel) {
   const payload = panel && typeof panel === "object" ? panel : SEMANTIC_DHATU_FALLBACK_PANEL;
   const cards = Array.isArray(payload.cards) ? payload.cards : [];
@@ -230,11 +444,12 @@ async function loadSemanticDhatuPanel() {
   try {
     const response = await fetch(SEMANTIC_DHATU_PANEL_FIXTURE);
     if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
-    const panel = await response.json();
-    renderSemanticDhatuPanel(panel);
+    semanticPanelData = await response.json();
+    renderSemanticQueryState();
   } catch (error) {
     console.warn("[Sanskrit] Semantic Dhatu Intelligence fallback:", error);
-    renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
+    semanticPanelData = SEMANTIC_DHATU_FALLBACK_PANEL;
+    renderSemanticQueryState();
   }
 }
 
@@ -1959,6 +2174,13 @@ export function init(node) {
   graphExportButton = byId("graph-export-session");
   replayDemoButton = byId("replay-load-demo");
   replayExportButton = byId("replay-export-session");
+  semanticSearchInput = byId("semantic-dhatu-search-input");
+  semanticClusterFilter = byId("semantic-dhatu-cluster-filter");
+  semanticActionFilter = byId("semantic-dhatu-action-filter");
+  semanticGlossFilter = byId("semantic-dhatu-gloss-filter");
+  semanticDepthSelect = byId("semantic-dhatu-depth-select");
+  semanticRelationFilter = byId("semantic-dhatu-relation-filter");
+  semanticResetButton = byId("semantic-dhatu-reset");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -1982,6 +2204,13 @@ export function init(node) {
   graphExportButton?.addEventListener("click", handleExportSessionGraph);
   replayDemoButton?.addEventListener("click", handleLoadReplayDemo);
   replayExportButton?.addEventListener("click", handleExportSessionReplay);
+  semanticSearchInput?.addEventListener("input", renderSemanticQueryState);
+  semanticClusterFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticActionFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticGlossFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticDepthSelect?.addEventListener("change", renderSemanticQueryState);
+  semanticRelationFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticResetButton?.addEventListener("click", resetSemanticQueryControls);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -2023,6 +2252,13 @@ export function destroy() {
   graphExportButton?.removeEventListener("click", handleExportSessionGraph);
   replayDemoButton?.removeEventListener("click", handleLoadReplayDemo);
   replayExportButton?.removeEventListener("click", handleExportSessionReplay);
+  semanticSearchInput?.removeEventListener("input", renderSemanticQueryState);
+  semanticClusterFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticActionFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticGlossFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticDepthSelect?.removeEventListener("change", renderSemanticQueryState);
+  semanticRelationFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticResetButton?.removeEventListener("click", resetSemanticQueryControls);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -2046,6 +2282,14 @@ export function destroy() {
   graphExportButton = null;
   replayDemoButton = null;
   replayExportButton = null;
+  semanticSearchInput = null;
+  semanticClusterFilter = null;
+  semanticActionFilter = null;
+  semanticGlossFilter = null;
+  semanticDepthSelect = null;
+  semanticRelationFilter = null;
+  semanticResetButton = null;
   currentDebugSession = null;
+  semanticPanelData = null;
   inputNode = null;
 }
