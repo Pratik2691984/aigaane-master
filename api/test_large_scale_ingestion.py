@@ -15,11 +15,14 @@ LOCK_SCRIPT_PATH = ROOT / "scripts" / "lock_dhatu_promotion_readiness.py"
 PROMOTE_SCRIPT_PATH = ROOT / "scripts" / "promote_ready_dhatu_to_canonical.py"
 EVIDENCE_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_promotion_evidence.py"
 AUTHORIZATION_SCRIPT_PATH = ROOT / "scripts" / "authorize_dhatu_canonical_write.py"
+COMMAND_SCRIPT_PATH = ROOT / "scripts" / "prepare_dhatu_canonical_write_command.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
 EVIDENCE_REPORT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
 AUTHORIZATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
+APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.v1.json"
+COMMAND_MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_command_manifest.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -85,6 +88,11 @@ authorization_spec = importlib.util.spec_from_file_location("authorize_dhatu_can
 authorizer = importlib.util.module_from_spec(authorization_spec)
 sys.modules["authorize_dhatu_canonical_write"] = authorizer
 authorization_spec.loader.exec_module(authorizer)
+
+command_spec = importlib.util.spec_from_file_location("prepare_dhatu_canonical_write_command", COMMAND_SCRIPT_PATH)
+command_preparer = importlib.util.module_from_spec(command_spec)
+sys.modules["prepare_dhatu_canonical_write_command"] = command_preparer
+command_spec.loader.exec_module(command_preparer)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -154,6 +162,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_authorization_script_exists(self):
         self.assertTrue(AUTHORIZATION_SCRIPT_PATH.exists())
+
+    def test_command_manifest_script_exists(self):
+        self.assertTrue(COMMAND_SCRIPT_PATH.exists())
+
+    def test_canonical_write_approval_file_exists(self):
+        self.assertTrue(APPROVAL_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -282,6 +296,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteAuthorizationFile"],
             "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_approval_and_command_files(self):
+        self.assertEqual(
+            self.payload["canonicalWriteApprovalFile"],
+            "data/sanskrit/ingestion/canonical_write_approval.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalWriteCommandManifestFile"],
+            "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -775,6 +799,50 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), authorization)
 
+    def test_canonical_write_approval_defaults_to_not_approved(self):
+        approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(approval["schemaVersion"], "1.0.0")
+        self.assertEqual(approval["approvalStatus"], "NOT_APPROVED")
+        self.assertIsNone(approval["approvedBy"])
+        self.assertIsNone(approval["approvedAt"])
+        self.assertEqual(approval["approvedRecordIds"], [])
+        self.assertTrue(approval["approvalNotes"])
+        self.assertTrue(approval["requiredBeforeWrite"])
+
+    def test_canonical_write_command_manifest_refuses_without_approval(self):
+        import os
+
+        before_write_flag = os.environ.get(promoter.WRITE_FLAG)
+        before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        manifest = command_preparer.build_command_manifest()
+
+        self.assertEqual(manifest["schemaVersion"], "1.0.0")
+        self.assertEqual(manifest["commandStatus"], "REFUSED_NOT_APPROVED")
+        self.assertEqual(manifest["approvedRecordIds"], [])
+        self.assertEqual(len(manifest["blockedRecordIds"]), 12)
+        self.assertFalse(manifest["safetyChecks"]["writerExecuted"])
+        self.assertFalse(manifest["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertFalse(manifest["safetyChecks"]["approvalTokenApproved"])
+        self.assertIn("python", manifest["commandPreview"]["argv"])
+        self.assertIn("scripts/promote_ready_dhatu_to_canonical.py", manifest["commandPreview"]["argv"])
+        self.assertIn("Human approval token is not approved.", manifest["refusalReasons"])
+        self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
+        self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_canonical_write_command_manifest_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-command-") as tmp:
+            manifest = command_preparer.build_command_manifest()
+            path = command_preparer.write_command_manifest(
+                manifest,
+                Path(tmp) / "canonical_write_command_manifest.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), manifest)
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -1033,6 +1101,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in AUTHORIZATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_command_manifest_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in COMMAND_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
