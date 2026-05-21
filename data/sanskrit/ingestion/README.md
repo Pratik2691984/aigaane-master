@@ -36,6 +36,8 @@
 
 `scripts/index_dhatu_canonical_promotion_closeout.py` writes `canonical_promotion_closeout_index.v1.json`, a non-mutating index of the canonical promotion closeout package. It records required artifact paths, existence checks, gate statuses, blocking reasons, and the recommended next action while keeping the default state blocked/no production write.
 
+`fixtures/baseline_blocked/` stores immutable blocked-state copies of the canonical write gate artifacts for regression tests. `fixtures/executed_write/` stores the approved/executed artifact state captured after the production promotion commit, so tests can distinguish historical safety defaults from the current live repository state.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

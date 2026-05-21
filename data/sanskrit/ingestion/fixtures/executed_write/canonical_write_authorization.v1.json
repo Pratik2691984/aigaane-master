@@ -1,0 +1,71 @@
+{
+  "approvalValidationSummary": {
+    "approvalStatus": "APPROVED",
+    "approvalValid": true,
+    "approvedCount": 3,
+    "approvedRecordIdsMatchAuthorizedRecordIds": true,
+    "authorizedCount": 3,
+    "missingAuthorizedRecordIds": [],
+    "unexpectedApprovedRecordIds": []
+  },
+  "authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE",
+  "authorizedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "blockedRecordIds": [
+    "01.STAGED.0004",
+    "01.STAGED.0005",
+    "01.STAGED.0006",
+    "01.STAGED.0007",
+    "01.STAGED.0008",
+    "01.STAGED.0009",
+    "01.STAGED.0010",
+    "01.STAGED.0011",
+    "01.STAGED.0012"
+  ],
+  "evidenceSummary": {
+    "auditPromotedCount": 0,
+    "auditSkippedCount": 12,
+    "blockedCount": 0,
+    "canonicalRegistryAfterCount": 10,
+    "canonicalRegistryBeforeCount": 10,
+    "canonicalWriteEnabled": false,
+    "contractPassed": true,
+    "deferredCount": 9,
+    "readyCount": 3,
+    "releaseGateStatus": "BLOCKED",
+    "writeGuardSatisfied": false
+  },
+  "generatedBy": "scripts/authorize_dhatu_canonical_write.py",
+  "humanApprovalRequired": true,
+  "requiredEnvironment": {
+    "AIGAANE_ALLOW_TEST_CANONICAL_WRITE": {
+      "currentlySatisfied": false,
+      "purpose": "Confirm guarded canonical write execution path.",
+      "requiredValue": "1"
+    },
+    "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE": {
+      "currentlySatisfied": false,
+      "purpose": "Enable controlled canonical dhatu writes.",
+      "requiredValue": "1"
+    }
+  },
+  "safetyChecks": {
+    "approvalValidationValid": true,
+    "approvedRecordIdsMatchAuthorizedRecordIds": true,
+    "auditCanonicalMutation": false,
+    "batchMutation": false,
+    "canonicalRegistryMutation": false,
+    "contractChecksPassed": true,
+    "environmentFlagsUnchangedByAuthorization": true,
+    "evidenceReleaseGateReady": false,
+    "evidenceReportPresent": true,
+    "goldsetMutation": false,
+    "humanApprovalRequired": true,
+    "manualEvidenceContractReady": true,
+    "readinessLockCanonicalWriteEnabled": false
+  },
+  "schemaVersion": "1.0.0"
+}

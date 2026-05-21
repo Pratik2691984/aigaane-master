@@ -1,0 +1,60 @@
+{
+  "canonicalRegistryAfterCount": 13,
+  "canonicalRegistryBeforeCount": 13,
+  "canonicalWriteAttempted": false,
+  "canonicalWriteEnabled": false,
+  "contractChecks": {
+    "noDuplicateDhatuIds": true,
+    "noUnsafeCanonicalOverwrite": true,
+    "passed": true,
+    "promotedRecordsApprovedByReviewDecision": true,
+    "promotedRecordsExistInStagedBatch": true,
+    "promotedRecordsInReadinessLock": true,
+    "violations": {
+      "duplicateDhatuIds": [],
+      "missingFromReviewedPlan": [],
+      "missingFromStagedBatch": [],
+      "notApprovedByReviewDecision": [],
+      "notInReadinessLock": [],
+      "unsafeCanonicalOverwrites": []
+    }
+  },
+  "generatedBy": "scripts/promote_ready_dhatu_to_canonical.py",
+  "promotedCount": 0,
+  "promotedRecordIds": [],
+  "refusalReason": "Set AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1 to enable controlled canonical dhatu writes.",
+  "safetyChecks": {
+    "batchMutation": false,
+    "canonicalPromotionPlanRegenerated": true,
+    "canonicalRegistryMutation": false,
+    "deterministicOrdering": true,
+    "goldsetMutation": false,
+    "promotionPreviewRegenerated": true,
+    "readinessLockMutation": false,
+    "reviewDecisionsApplied": true,
+    "reviewFileMutation": false,
+    "safeToRegenerate": true,
+    "stagedValidationPassed": true,
+    "testWriteGuardName": "AIGAANE_ALLOW_TEST_CANONICAL_WRITE",
+    "testWriteGuardRequired": true,
+    "writeFlagName": "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE",
+    "writeFlagRequired": true
+  },
+  "schemaVersion": "1.0.0",
+  "skippedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003",
+    "01.STAGED.0004",
+    "01.STAGED.0005",
+    "01.STAGED.0006",
+    "01.STAGED.0007",
+    "01.STAGED.0008",
+    "01.STAGED.0009",
+    "01.STAGED.0010",
+    "01.STAGED.0011",
+    "01.STAGED.0012"
+  ],
+  "unsafeWriteRefused": false,
+  "writeGuardSatisfied": false
+}

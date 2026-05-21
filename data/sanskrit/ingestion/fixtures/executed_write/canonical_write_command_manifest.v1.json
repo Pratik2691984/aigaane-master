@@ -1,0 +1,82 @@
+{
+  "approvalValidationSummary": {
+    "approvalStatus": "APPROVED",
+    "approvalValid": true,
+    "approvedCount": 3,
+    "missingAuthorizedCount": 0,
+    "refusalCount": 0,
+    "unexpectedApprovedCount": 0
+  },
+  "approvedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "authorizationSummary": {
+    "authorizationReady": true,
+    "authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE",
+    "authorizedCount": 3,
+    "blockedCount": 9,
+    "humanApprovalRequired": true
+  },
+  "blockedRecordIds": [
+    "01.STAGED.0004",
+    "01.STAGED.0005",
+    "01.STAGED.0006",
+    "01.STAGED.0007",
+    "01.STAGED.0008",
+    "01.STAGED.0009",
+    "01.STAGED.0010",
+    "01.STAGED.0011",
+    "01.STAGED.0012"
+  ],
+  "commandPreview": {
+    "argv": [
+      "python",
+      "scripts/promote_ready_dhatu_to_canonical.py"
+    ],
+    "cmdPreview": "set AIGAANE_ALLOW_TEST_CANONICAL_WRITE=1 && set AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1 && python scripts\\promote_ready_dhatu_to_canonical.py",
+    "description": "Preview only. This manifest does not execute the canonical writer.",
+    "environment": {
+      "AIGAANE_ALLOW_TEST_CANONICAL_WRITE": "1",
+      "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE": "1"
+    },
+    "powershellPreview": "$env:AIGAANE_ALLOW_TEST_CANONICAL_WRITE='1'; $env:AIGAANE_ENABLE_CANONICAL_DHATU_WRITE='1'; python scripts/promote_ready_dhatu_to_canonical.py"
+  },
+  "commandStatus": "READY_FOR_MANUAL_EXECUTION",
+  "exactCmdCommand": "set AIGAANE_ALLOW_TEST_CANONICAL_WRITE=1 && set AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1 && python scripts\\promote_ready_dhatu_to_canonical.py",
+  "exactPowerShellCommand": "$env:AIGAANE_ALLOW_TEST_CANONICAL_WRITE='1'; $env:AIGAANE_ENABLE_CANONICAL_DHATU_WRITE='1'; python scripts/promote_ready_dhatu_to_canonical.py",
+  "generatedBy": "scripts/prepare_dhatu_canonical_write_command.py",
+  "refusalReasons": [
+    "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
+    "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE."
+  ],
+  "requiredEnvironment": {
+    "AIGAANE_ALLOW_TEST_CANONICAL_WRITE": {
+      "currentlySatisfied": false,
+      "purpose": "Confirm guarded canonical write execution path.",
+      "requiredValue": "1"
+    },
+    "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE": {
+      "currentlySatisfied": false,
+      "purpose": "Enable controlled canonical dhatu writes.",
+      "requiredValue": "1"
+    }
+  },
+  "safetyChecks": {
+    "approvalMetadataPresent": true,
+    "approvalTokenApproved": true,
+    "approvalValidationValid": true,
+    "approvedIdsMatchAuthorization": true,
+    "authorizationHumanApprovalRequired": true,
+    "authorizationReady": true,
+    "authorizedIdsMatchReadinessLock": true,
+    "batchMutation": false,
+    "canonicalRegistryMutation": false,
+    "evidenceReleaseGateReady": false,
+    "goldsetMutation": false,
+    "writerExecuted": false
+  },
+  "schemaVersion": "1.0.0"
+}
