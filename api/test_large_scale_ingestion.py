@@ -22,6 +22,7 @@ DRY_RUN_DIFF_SCRIPT_PATH = ROOT / "scripts" / "diff_dhatu_canonical_write_dry_ru
 RELEASE_CHECKLIST_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_release_checklist.py"
 APPROVAL_PACKAGE_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_approval_package.py"
 RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_write_release.py"
+PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonical_write_state.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -35,6 +36,7 @@ DRY_RUN_DIFF_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_
 RELEASE_CHECKLIST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_checklist.v1.json"
 APPROVAL_PACKAGE_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_package.v1.md"
 RELEASE_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_verification.v1.json"
+PREFLIGHT_SNAPSHOT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_preflight_snapshot.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -154,6 +156,14 @@ release_verifier = importlib.util.module_from_spec(release_verification_spec)
 sys.modules["verify_dhatu_canonical_write_release"] = release_verifier
 release_verification_spec.loader.exec_module(release_verifier)
 
+preflight_snapshot_spec = importlib.util.spec_from_file_location(
+    "snapshot_dhatu_pre_canonical_write_state",
+    PREFLIGHT_SNAPSHOT_SCRIPT_PATH,
+)
+preflight_snapshooter = importlib.util.module_from_spec(preflight_snapshot_spec)
+sys.modules["snapshot_dhatu_pre_canonical_write_state"] = preflight_snapshooter
+preflight_snapshot_spec.loader.exec_module(preflight_snapshooter)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -243,6 +253,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_release_verification_script_exists(self):
         self.assertTrue(RELEASE_VERIFICATION_SCRIPT_PATH.exists())
+
+    def test_preflight_snapshot_script_exists(self):
+        self.assertTrue(PREFLIGHT_SNAPSHOT_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -420,6 +433,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteReleaseVerificationFile"],
             "data/sanskrit/ingestion/canonical_write_release_verification.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_preflight_snapshot_file(self):
+        self.assertEqual(
+            self.payload["canonicalWritePreflightSnapshotFile"],
+            "data/sanskrit/ingestion/canonical_write_preflight_snapshot.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -1274,6 +1293,35 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), verification)
 
+    def test_default_preflight_snapshot_is_blocked_and_hashes_registry(self):
+        registry_payload = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        snapshot = preflight_snapshooter.build_preflight_snapshot()
+
+        self.assertEqual(snapshot["schemaVersion"], "1.0.0")
+        self.assertEqual(snapshot["snapshotStatus"], "BLOCKED_PREWRITE")
+        self.assertFalse(snapshot["safeToProceed"])
+        self.assertTrue(snapshot["canonicalRegistrySha256"])
+        self.assertEqual(len(snapshot["canonicalRegistrySha256"]), 64)
+        self.assertTrue(snapshot["currentGitHead"])
+        self.assertTrue(snapshot["currentBranch"])
+        self.assertEqual(snapshot["canonicalRegistryRecordCount"], len(registry_payload["records"]))
+        self.assertEqual(snapshot["rollbackReference"]["canonicalRegistrySha256"], snapshot["canonicalRegistrySha256"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_preflight_snapshot_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="preflight-snapshot-") as tmp:
+            snapshot = preflight_snapshooter.build_preflight_snapshot()
+            path = preflight_snapshooter.write_preflight_snapshot(
+                snapshot,
+                Path(tmp) / "canonical_write_preflight_snapshot.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), snapshot)
+
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
 
@@ -1724,6 +1772,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in RELEASE_VERIFICATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_preflight_snapshot_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PREFLIGHT_SNAPSHOT_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 

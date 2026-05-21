@@ -28,6 +28,8 @@
 
 `scripts/verify_dhatu_canonical_write_release.py` writes `canonical_write_release_verification.v1.json`, the final consistency check over authorization, approval, approval validation, command manifest, dry-run diff, release checklist, approval package, readiness lock, and manifest. The default verification remains `BLOCKED` and `safeToProceed: false`.
 
+`scripts/snapshot_dhatu_pre_canonical_write_state.py` writes `canonical_write_preflight_snapshot.v1.json`, a non-mutating snapshot of git head, branch, canonical registry count and hash, approval status, command status, verification status, ready ids, dry-run additions, and rollback reference before any production write can be considered. The default snapshot remains `BLOCKED_PREWRITE`.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.
