@@ -837,17 +837,81 @@ class LargeScaleIngestionTests(unittest.TestCase):
         manifest = command_preparer.build_command_manifest()
 
         self.assertEqual(manifest["schemaVersion"], "1.0.0")
-        self.assertEqual(manifest["commandStatus"], "REFUSED_NOT_APPROVED")
+        self.assertEqual(manifest["commandStatus"], "REFUSED_APPROVAL_INVALID")
         self.assertEqual(manifest["approvedRecordIds"], [])
         self.assertEqual(len(manifest["blockedRecordIds"]), 12)
         self.assertFalse(manifest["safetyChecks"]["writerExecuted"])
         self.assertFalse(manifest["safetyChecks"]["canonicalRegistryMutation"])
         self.assertFalse(manifest["safetyChecks"]["approvalTokenApproved"])
+        self.assertFalse(manifest["safetyChecks"]["approvalValidationValid"])
+        self.assertFalse(manifest["authorizationSummary"]["authorizationReady"])
+        self.assertFalse(manifest["approvalValidationSummary"]["approvalValid"])
+        self.assertIn("exactPowerShellCommand", manifest)
+        self.assertIn("exactCmdCommand", manifest)
         self.assertIn("python", manifest["commandPreview"]["argv"])
         self.assertIn("scripts/promote_ready_dhatu_to_canonical.py", manifest["commandPreview"]["argv"])
-        self.assertIn("Human approval token is not approved.", manifest["refusalReasons"])
+        self.assertIn("Approval validation failed.", manifest["refusalReasons"])
         self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
         self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_canonical_write_command_manifest_refuses_when_authorization_not_ready(self):
+        import tempfile
+
+        validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+        validation["approvalStatus"] = "APPROVED"
+        validation["approvalValid"] = True
+        validation["approvedRecordIds"] = ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"]
+        validation["missingAuthorizedRecordIds"] = []
+        validation["unexpectedApprovedRecordIds"] = []
+        validation["refusalReasons"] = []
+        with tempfile.TemporaryDirectory(prefix="command-auth-not-ready-") as tmp:
+            validation_path = Path(tmp) / "validation.json"
+            validation_path.write_text(json.dumps(validation), encoding="utf-8")
+            manifest = command_preparer.build_command_manifest(approval_validation_path=validation_path)
+
+            self.assertEqual(manifest["commandStatus"], "REFUSED_AUTHORIZATION_NOT_READY")
+            self.assertTrue(manifest["approvalValidationSummary"]["approvalValid"])
+            self.assertFalse(manifest["authorizationSummary"]["authorizationReady"])
+            self.assertIn(
+                "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
+                manifest["refusalReasons"],
+            )
+
+    def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
+        import tempfile
+
+        authorization = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        authorization["authorizationStatus"] = "AUTHORIZED_FOR_MANUAL_WRITE"
+        for requirement in authorization["requiredEnvironment"].values():
+            requirement["currentlySatisfied"] = True
+        validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+        validation["approvalStatus"] = "APPROVED"
+        validation["approvalValid"] = True
+        validation["approvedRecordIds"] = ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"]
+        validation["missingAuthorizedRecordIds"] = []
+        validation["unexpectedApprovedRecordIds"] = []
+        validation["refusalReasons"] = []
+        evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+        evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+        with tempfile.TemporaryDirectory(prefix="command-ready-") as tmp:
+            authorization_path = Path(tmp) / "authorization.json"
+            validation_path = Path(tmp) / "validation.json"
+            evidence_path = Path(tmp) / "evidence.json"
+            authorization_path.write_text(json.dumps(authorization), encoding="utf-8")
+            validation_path.write_text(json.dumps(validation), encoding="utf-8")
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            manifest = command_preparer.build_command_manifest(
+                authorization_path=authorization_path,
+                approval_validation_path=validation_path,
+                evidence_path=evidence_path,
+            )
+
+            self.assertEqual(manifest["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+            self.assertEqual(manifest["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+            self.assertEqual(len(manifest["blockedRecordIds"]), 9)
+            self.assertEqual(manifest["refusalReasons"], [])
+            self.assertIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", manifest["exactPowerShellCommand"])
+            self.assertIn("set AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1", manifest["exactCmdCommand"])
 
     def test_canonical_write_command_manifest_writer_uses_requested_output_path(self):
         import tempfile

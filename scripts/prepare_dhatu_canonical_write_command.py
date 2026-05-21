@@ -13,6 +13,9 @@ DEFAULT_AUTHORIZATION_PATH = (
     ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
 )
 DEFAULT_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.v1.json"
+DEFAULT_APPROVAL_VALIDATION_PATH = (
+    ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
+)
 DEFAULT_READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
 DEFAULT_EVIDENCE_REPORT_PATH = (
     ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
@@ -44,45 +47,38 @@ def load_json(path: Any) -> Dict[str, Any]:
     return payload
 
 
-def approval_is_complete(approval: Dict[str, Any], authorized_record_ids: List[str]) -> bool:
-    return (
-        approval.get("approvalStatus") == "APPROVED"
-        and bool(approval.get("approvedBy"))
-        and bool(approval.get("approvedAt"))
-        and sorted(approval.get("approvedRecordIds", [])) == sorted(authorized_record_ids)
-    )
-
-
 def build_refusal_reasons(
     authorization: Dict[str, Any],
     approval: Dict[str, Any],
+    approval_validation: Dict[str, Any],
     evidence: Dict[str, Any],
     approved_record_ids: List[str],
 ) -> List[str]:
     reasons: List[str] = []
-    if approval.get("approvalStatus") != "APPROVED":
-        reasons.append("Human approval token is not approved.")
-    if not approval.get("approvedBy"):
-        reasons.append("Approval token missing approvedBy.")
-    if not approval.get("approvedAt"):
-        reasons.append("Approval token missing approvedAt.")
-    if sorted(approved_record_ids) != sorted(authorization.get("authorizedRecordIds", [])):
-        reasons.append("Approved record ids do not match authorized ready record ids.")
+    if approval_validation.get("approvalValid") is not True:
+        reasons.append("Approval validation failed.")
+        reasons.extend(approval_validation.get("refusalReasons", []))
     if authorization.get("authorizationStatus") != "AUTHORIZED_FOR_MANUAL_WRITE":
         reasons.append("Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.")
     if evidence.get("releaseGateStatus") != "READY_FOR_CONTROLLED_WRITE":
         reasons.append("Evidence release gate is not READY_FOR_CONTROLLED_WRITE.")
+    if sorted(approved_record_ids) != sorted(authorization.get("authorizedRecordIds", [])):
+        reasons.append("Approved record ids do not match authorized ready record ids.")
     for name, requirement in sorted(authorization.get("requiredEnvironment", {}).items()):
         if requirement.get("currentlySatisfied") is not True:
             reasons.append(f"Required environment guard is not currently satisfied: {name}.")
-    return reasons
+    return list(dict.fromkeys(reasons))
 
 
-def build_command_status(refusal_reasons: List[str], approval: Dict[str, Any]) -> str:
-    if approval.get("approvalStatus") != "APPROVED":
-        return "REFUSED_NOT_APPROVED"
-    if refusal_reasons:
-        return "REFUSED_SAFETY_CHECKS"
+def authorization_is_ready(authorization: Dict[str, Any]) -> bool:
+    return authorization.get("authorizationStatus") == "AUTHORIZED_FOR_MANUAL_WRITE"
+
+
+def build_command_status(approval_validation: Dict[str, Any], authorization: Dict[str, Any]) -> str:
+    if approval_validation.get("approvalValid") is not True:
+        return "REFUSED_APPROVAL_INVALID"
+    if not authorization_is_ready(authorization):
+        return "REFUSED_AUTHORIZATION_NOT_READY"
     return "READY_FOR_MANUAL_EXECUTION"
 
 
@@ -92,6 +88,10 @@ def build_required_environment(authorization: Dict[str, Any]) -> Dict[str, Dict[
 
 def build_command_preview(required_environment: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
     env = {name: requirement.get("requiredValue", "1") for name, requirement in sorted(required_environment.items())}
+    exact_powershell = "; ".join([f"$env:{name}='{value}'" for name, value in env.items()])
+    exact_powershell = f"{exact_powershell}; python scripts/promote_ready_dhatu_to_canonical.py"
+    exact_cmd = " && ".join([f"set {name}={value}" for name, value in env.items()])
+    exact_cmd = f"{exact_cmd} && python scripts\\promote_ready_dhatu_to_canonical.py"
     return {
         "description": "Preview only. This manifest does not execute the canonical writer.",
         "environment": env,
@@ -99,14 +99,36 @@ def build_command_preview(required_environment: Dict[str, Dict[str, Any]]) -> Di
             "python",
             "scripts/promote_ready_dhatu_to_canonical.py",
         ],
-        "powershellPreview": "; ".join([f"$env:{name}='{value}'" for name, value in env.items()])
-        + "; python scripts/promote_ready_dhatu_to_canonical.py",
+        "powershellPreview": exact_powershell,
+        "cmdPreview": exact_cmd,
+    }
+
+
+def build_approval_validation_summary(approval_validation: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "approvalStatus": approval_validation.get("approvalStatus"),
+        "approvalValid": approval_validation.get("approvalValid") is True,
+        "approvedCount": len(approval_validation.get("approvedRecordIds", [])),
+        "missingAuthorizedCount": len(approval_validation.get("missingAuthorizedRecordIds", [])),
+        "unexpectedApprovedCount": len(approval_validation.get("unexpectedApprovedRecordIds", [])),
+        "refusalCount": len(approval_validation.get("refusalReasons", [])),
+    }
+
+
+def build_authorization_summary(authorization: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "authorizationStatus": authorization.get("authorizationStatus"),
+        "authorizationReady": authorization_is_ready(authorization),
+        "authorizedCount": len(authorization.get("authorizedRecordIds", [])),
+        "blockedCount": len(authorization.get("blockedRecordIds", [])),
+        "humanApprovalRequired": authorization.get("humanApprovalRequired") is True,
     }
 
 
 def build_safety_checks(
     authorization: Dict[str, Any],
     approval: Dict[str, Any],
+    approval_validation: Dict[str, Any],
     readiness_lock: Dict[str, Any],
     evidence: Dict[str, Any],
     approved_record_ids: List[str],
@@ -119,9 +141,11 @@ def build_safety_checks(
         "goldsetMutation": False,
         "batchMutation": False,
         "approvalTokenApproved": approval.get("approvalStatus") == "APPROVED",
+        "approvalValidationValid": approval_validation.get("approvalValid") is True,
         "approvalMetadataPresent": bool(approval.get("approvedBy")) and bool(approval.get("approvedAt")),
         "approvedIdsMatchAuthorization": sorted(approved_record_ids) == authorized_ids,
         "authorizedIdsMatchReadinessLock": authorized_ids == ready_ids,
+        "authorizationReady": authorization_is_ready(authorization),
         "authorizationHumanApprovalRequired": authorization.get("humanApprovalRequired") is True,
         "evidenceReleaseGateReady": evidence.get("releaseGateStatus") == "READY_FOR_CONTROLLED_WRITE",
     }
@@ -130,21 +154,34 @@ def build_safety_checks(
 def build_command_manifest(
     authorization_path: Any = DEFAULT_AUTHORIZATION_PATH,
     approval_path: Any = DEFAULT_APPROVAL_PATH,
+    approval_validation_path: Any = DEFAULT_APPROVAL_VALIDATION_PATH,
     readiness_lock_path: Any = DEFAULT_READINESS_LOCK_PATH,
     evidence_path: Any = DEFAULT_EVIDENCE_REPORT_PATH,
 ) -> Dict[str, Any]:
     authorization = load_json(authorization_path)
     approval = load_json(approval_path)
+    approval_validation = load_json(approval_validation_path)
     readiness_lock = load_json(readiness_lock_path)
     evidence = load_json(evidence_path)
-    approved_record_ids = sorted(approval.get("approvedRecordIds", []))
-    refusal_reasons = build_refusal_reasons(authorization, approval, evidence, approved_record_ids)
+    approved_record_ids = sorted(approval_validation.get("approvedRecordIds", []))
+    refusal_reasons = build_refusal_reasons(
+        authorization,
+        approval,
+        approval_validation,
+        evidence,
+        approved_record_ids,
+    )
     required_environment = build_required_environment(authorization)
+    command_preview = build_command_preview(required_environment)
     return {
         "schemaVersion": "1.0.0",
         "generatedBy": "scripts/prepare_dhatu_canonical_write_command.py",
-        "commandStatus": build_command_status(refusal_reasons, approval),
-        "commandPreview": build_command_preview(required_environment),
+        "commandStatus": build_command_status(approval_validation, authorization),
+        "commandPreview": command_preview,
+        "approvalValidationSummary": build_approval_validation_summary(approval_validation),
+        "authorizationSummary": build_authorization_summary(authorization),
+        "exactPowerShellCommand": command_preview["powershellPreview"],
+        "exactCmdCommand": command_preview["cmdPreview"],
         "requiredEnvironment": required_environment,
         "approvedRecordIds": approved_record_ids,
         "blockedRecordIds": sorted(set(readiness_lock.get("readyRecordIds", [])) - set(approved_record_ids))
@@ -152,6 +189,7 @@ def build_command_manifest(
         "safetyChecks": build_safety_checks(
             authorization,
             approval,
+            approval_validation,
             readiness_lock,
             evidence,
             approved_record_ids,
@@ -182,6 +220,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Prepare a dry command manifest for canonical dhatu write.")
     parser.add_argument("--authorization", default=str(DEFAULT_AUTHORIZATION_PATH))
     parser.add_argument("--approval", default=str(DEFAULT_APPROVAL_PATH))
+    parser.add_argument("--approval-validation", default=str(DEFAULT_APPROVAL_VALIDATION_PATH))
     parser.add_argument("--readiness-lock", default=str(DEFAULT_READINESS_LOCK_PATH))
     parser.add_argument("--evidence", default=str(DEFAULT_EVIDENCE_REPORT_PATH))
     parser.add_argument("--output", default=str(DEFAULT_COMMAND_MANIFEST_PATH))
@@ -191,7 +230,13 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
 def main(argv: Optional[List[str]] = None) -> int:
     args = parse_args(argv)
     try:
-        manifest = build_command_manifest(args.authorization, args.approval, args.readiness_lock, args.evidence)
+        manifest = build_command_manifest(
+            args.authorization,
+            args.approval,
+            args.approval_validation,
+            args.readiness_lock,
+            args.evidence,
+        )
         write_command_manifest(manifest, args.output)
         print(json.dumps(build_summary(manifest), ensure_ascii=False, sort_keys=True))
         return 0

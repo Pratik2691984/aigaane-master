@@ -23,6 +23,7 @@
     "requiresEditorialResolution": true,
     "requiresCanonicalPreference": true,
     "requiresPromotionBatch": true,
+    "requiresCanonicalWriteApprovalValidation": true,
     "allowDirectCanonicalWrite": false,
     "canonicalWriteFlag": "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE",
     "testCanonicalWriteGuard": "AIGAANE_ALLOW_TEST_CANONICAL_WRITE",
