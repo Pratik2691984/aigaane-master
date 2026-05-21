@@ -34,6 +34,8 @@
 
 `canonical_write_runbook.v1.md` is the final maintainer runbook for the manual production-write process. It documents the blocked default state, gate order, required review files, human approval edit process, post-approval commands, rollback reference, post-write audit verification, and exact v29-through-v43 tag sequence without changing approval or canonical registry files.
 
+`scripts/index_dhatu_canonical_promotion_closeout.py` writes `canonical_promotion_closeout_index.v1.json`, a non-mutating index of the canonical promotion closeout package. It records required artifact paths, existence checks, gate statuses, blocking reasons, and the recommended next action while keeping the default state blocked/no production write.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

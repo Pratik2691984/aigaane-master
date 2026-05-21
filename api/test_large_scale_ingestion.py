@@ -24,6 +24,7 @@ APPROVAL_PACKAGE_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_a
 RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_write_release.py"
 PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonical_write_state.py"
 POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_canonical_write_audit.py"
+CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion_closeout.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -40,6 +41,7 @@ RELEASE_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonica
 PREFLIGHT_SNAPSHOT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_preflight_snapshot.v1.json"
 POST_AUDIT_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_post_audit_verification.v1.json"
 RUNBOOK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_runbook.v1.md"
+CLOSEOUT_INDEX_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_promotion_closeout_index.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -175,6 +177,14 @@ post_audit_verifier = importlib.util.module_from_spec(post_audit_verification_sp
 sys.modules["verify_dhatu_post_canonical_write_audit"] = post_audit_verifier
 post_audit_verification_spec.loader.exec_module(post_audit_verifier)
 
+closeout_index_spec = importlib.util.spec_from_file_location(
+    "index_dhatu_canonical_promotion_closeout",
+    CLOSEOUT_INDEX_SCRIPT_PATH,
+)
+closeout_indexer = importlib.util.module_from_spec(closeout_index_spec)
+sys.modules["index_dhatu_canonical_promotion_closeout"] = closeout_indexer
+closeout_index_spec.loader.exec_module(closeout_indexer)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -271,11 +281,17 @@ class LargeScaleIngestionTests(unittest.TestCase):
     def test_post_audit_verification_script_exists(self):
         self.assertTrue(POST_AUDIT_VERIFICATION_SCRIPT_PATH.exists())
 
+    def test_closeout_index_script_exists(self):
+        self.assertTrue(CLOSEOUT_INDEX_SCRIPT_PATH.exists())
+
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
 
     def test_canonical_write_runbook_exists(self):
         self.assertTrue(RUNBOOK_PATH.exists())
+
+    def test_canonical_promotion_closeout_index_exists(self):
+        self.assertTrue(CLOSEOUT_INDEX_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -470,6 +486,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
             "data/sanskrit/ingestion/canonical_write_runbook.v1.md",
         )
 
+    def test_manifest_declares_canonical_promotion_closeout_index_file(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionCloseoutIndexFile"],
+            "data/sanskrit/ingestion/canonical_promotion_closeout_index.v1.json",
+        )
+
     def test_canonical_write_runbook_contains_required_operational_guidance(self):
         runbook = RUNBOOK_PATH.read_text(encoding="utf-8")
 
@@ -478,6 +500,29 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("post-write audit verification", runbook)
         self.assertIn("rollback reference", runbook)
         self.assertIn("sanskrit-v43-post-canonical-write-audit-verification-stable", runbook)
+
+    def test_default_canonical_promotion_closeout_index_is_blocked(self):
+        index = closeout_indexer.build_closeout_index(MANIFEST_PATH)
+
+        self.assertEqual(index["schemaVersion"], "1.0.0")
+        self.assertEqual(index["closeoutStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
+        self.assertFalse(index["safetySummary"]["approvalValid"])
+        self.assertFalse(index["safetySummary"]["safeToProceed"])
+        self.assertIn("canonicalWriteRunbook", [entry["name"] for entry in index["artifactIndex"]])
+
+    def test_closeout_index_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            index = closeout_indexer.build_closeout_index(MANIFEST_PATH)
+            path = closeout_indexer.write_closeout_index(
+                index,
+                Path(tmp) / "canonical_promotion_closeout_index.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            written = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(written["generatedBy"], "scripts/index_dhatu_canonical_promotion_closeout.py")
 
     def test_promotion_preview_reports_staged_totals(self):
         preview = previewer.build_promotion_preview(MANIFEST_PATH)
