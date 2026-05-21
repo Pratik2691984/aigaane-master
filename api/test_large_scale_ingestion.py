@@ -13,9 +13,11 @@ PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
 REVIEW_SCRIPT_PATH = ROOT / "scripts" / "apply_dhatu_review_decisions.py"
 LOCK_SCRIPT_PATH = ROOT / "scripts" / "lock_dhatu_promotion_readiness.py"
 PROMOTE_SCRIPT_PATH = ROOT / "scripts" / "promote_ready_dhatu_to_canonical.py"
+EVIDENCE_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_promotion_evidence.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
+EVIDENCE_REPORT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -71,6 +73,11 @@ promote_spec = importlib.util.spec_from_file_location("promote_ready_dhatu_to_ca
 promoter = importlib.util.module_from_spec(promote_spec)
 sys.modules["promote_ready_dhatu_to_canonical"] = promoter
 promote_spec.loader.exec_module(promoter)
+
+evidence_spec = importlib.util.spec_from_file_location("report_dhatu_promotion_evidence", EVIDENCE_SCRIPT_PATH)
+evidence_reporter = importlib.util.module_from_spec(evidence_spec)
+sys.modules["report_dhatu_promotion_evidence"] = evidence_reporter
+evidence_spec.loader.exec_module(evidence_reporter)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -134,6 +141,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_promote_script_exists(self):
         self.assertTrue(PROMOTE_SCRIPT_PATH.exists())
+
+    def test_evidence_report_script_exists(self):
+        self.assertTrue(EVIDENCE_SCRIPT_PATH.exists())
 
     def test_first_bhvadi_batch_file_exists(self):
         self.assertTrue(BHVADI_BATCH.exists())
@@ -250,6 +260,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalPromotionAuditFile"],
             "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+        )
+
+    def test_manifest_declares_dhatu_promotion_evidence_report_file(self):
+        self.assertEqual(
+            self.payload["dhatuPromotionEvidenceReportFile"],
+            "data/sanskrit/ingestion/dhatu_promotion_evidence_report.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -680,6 +696,32 @@ class LargeScaleIngestionTests(unittest.TestCase):
             if original_guard is not None:
                 os.environ[promoter.TEST_WRITE_FLAG] = original_guard
 
+    def test_evidence_report_default_release_gate_is_blocked(self):
+        report = evidence_reporter.build_evidence_report(MANIFEST_PATH)
+
+        self.assertEqual(report["schemaVersion"], "1.0.0")
+        self.assertEqual(report["releaseGateStatus"], "BLOCKED")
+        self.assertFalse(report["guardPolicy"]["canonicalWriteEnabled"])
+        self.assertFalse(report["guardPolicy"]["writeGuardSatisfied"])
+        self.assertEqual(
+            report["sourceFiles"]["canonicalPromotionAudit"],
+            "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+        )
+        self.assertEqual(report["counts"]["previewTotalStagedRecords"], 12)
+        self.assertEqual(report["readyRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+        self.assertEqual(len(report["skippedRecordIds"]), 12)
+        self.assertTrue(report["contractSummary"]["passed"])
+
+    def test_evidence_report_ready_only_when_both_write_guards_satisfied(self):
+        audit = {
+            "canonicalWriteEnabled": True,
+            "writeGuardSatisfied": True,
+        }
+
+        self.assertEqual(evidence_reporter.release_gate_status(audit), "READY_FOR_CONTROLLED_WRITE")
+        self.assertEqual(evidence_reporter.release_gate_status({"canonicalWriteEnabled": True}), "BLOCKED")
+        self.assertEqual(evidence_reporter.release_gate_status({"writeGuardSatisfied": True}), "BLOCKED")
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -924,6 +966,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
             self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
 
+    def test_evidence_report_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in EVIDENCE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
     def test_report_writer_uses_temp_report_directory(self):
         import tempfile
 
@@ -993,6 +1045,19 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), audit)
+
+    def test_evidence_report_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="promotion-evidence-") as tmp:
+            report = evidence_reporter.build_evidence_report(MANIFEST_PATH)
+            path = evidence_reporter.write_evidence_report(
+                report,
+                Path(tmp) / "dhatu_promotion_evidence_report.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), report)
 
 
 if __name__ == "__main__":
