@@ -19,6 +19,7 @@ COMMAND_SCRIPT_PATH = ROOT / "scripts" / "prepare_dhatu_canonical_write_command.
 APPROVAL_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_canonical_write_approval.py"
 SIMULATE_APPROVAL_SCRIPT_PATH = ROOT / "scripts" / "simulate_dhatu_canonical_write_approval.py"
 DRY_RUN_DIFF_SCRIPT_PATH = ROOT / "scripts" / "diff_dhatu_canonical_write_dry_run.py"
+RELEASE_CHECKLIST_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_release_checklist.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -29,6 +30,7 @@ COMMAND_MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_wr
 APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
 SIMULATED_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.simulated.v1.json"
 DRY_RUN_DIFF_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_dry_run_diff.v1.json"
+RELEASE_CHECKLIST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_checklist.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -124,6 +126,14 @@ dry_run_differ = importlib.util.module_from_spec(dry_run_diff_spec)
 sys.modules["diff_dhatu_canonical_write_dry_run"] = dry_run_differ
 dry_run_diff_spec.loader.exec_module(dry_run_differ)
 
+release_checklist_spec = importlib.util.spec_from_file_location(
+    "build_dhatu_canonical_write_release_checklist",
+    RELEASE_CHECKLIST_SCRIPT_PATH,
+)
+release_checklister = importlib.util.module_from_spec(release_checklist_spec)
+sys.modules["build_dhatu_canonical_write_release_checklist"] = release_checklister
+release_checklist_spec.loader.exec_module(release_checklister)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -204,6 +214,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_dry_run_diff_script_exists(self):
         self.assertTrue(DRY_RUN_DIFF_SCRIPT_PATH.exists())
+
+    def test_release_checklist_script_exists(self):
+        self.assertTrue(RELEASE_CHECKLIST_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -363,6 +376,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteDryRunDiffFile"],
             "data/sanskrit/ingestion/canonical_write_dry_run_diff.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_release_checklist_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteReleaseChecklistFile"],
+            "data/sanskrit/ingestion/canonical_write_release_checklist.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -1083,6 +1102,63 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertFalse(diff["contractChecks"]["passed"])
             self.assertIn("Duplicate canonical ids would be created.", diff["refusalReasons"])
 
+    def test_default_release_checklist_is_blocked(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        checklist = release_checklister.build_release_checklist(MANIFEST_PATH)
+
+        self.assertEqual(checklist["schemaVersion"], "1.0.0")
+        self.assertEqual(checklist["releaseStatus"], "BLOCKED")
+        self.assertFalse(checklist["safeToWriteProduction"])
+        self.assertFalse(checklist["gateSummary"]["approvalValid"])
+        self.assertEqual(checklist["gateSummary"]["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertTrue(checklist["gateSummary"]["dryRunOnly"])
+        self.assertIn("Approval validation is not valid.", checklist["blockingReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_checklist_safe_only_when_all_write_gates_are_green(self):
+        authorization = {"authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE"}
+        approval_validation = {"approvalValid": True}
+        command_manifest = {"commandStatus": "READY_FOR_MANUAL_EXECUTION"}
+        dry_run_diff = {"dryRunOnly": True, "duplicateIds": [], "missingStagedRecords": []}
+
+        self.assertTrue(
+            release_checklister.safe_to_write(
+                authorization,
+                approval_validation,
+                command_manifest,
+                dry_run_diff,
+            )
+        )
+        self.assertFalse(
+            release_checklister.safe_to_write(
+                authorization,
+                approval_validation,
+                command_manifest,
+                {"dryRunOnly": True, "duplicateIds": ["01.0005"], "missingStagedRecords": []},
+            )
+        )
+        self.assertFalse(
+            release_checklister.safe_to_write(
+                authorization,
+                {"approvalValid": False},
+                command_manifest,
+                dry_run_diff,
+            )
+        )
+
+    def test_release_checklist_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-checklist-") as tmp:
+            checklist = release_checklister.build_release_checklist(MANIFEST_PATH)
+            path = release_checklister.write_release_checklist(
+                checklist,
+                Path(tmp) / "canonical_write_release_checklist.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), checklist)
+
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
 
@@ -1503,6 +1579,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in DRY_RUN_DIFF_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_release_checklist_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in RELEASE_CHECKLIST_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 

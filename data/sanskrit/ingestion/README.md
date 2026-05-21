@@ -22,6 +22,8 @@
 
 `scripts/diff_dhatu_canonical_write_dry_run.py` writes `canonical_write_dry_run_diff.v1.json`, a deterministic dry-run report of records the guarded writer would add. It reads the command manifest, approval validation, readiness lock, promotion preview, promotion plan, and current canonical index, then reports before/after counts, additions, blocked records, duplicate ids, and contract checks without mutating canonical files.
 
+`scripts/build_dhatu_canonical_write_release_checklist.py` writes `canonical_write_release_checklist.v1.json`, the final rollup of every canonical-write gate. It remains `BLOCKED` and `safeToWriteProduction: false` unless approval validation, authorization, command manifest, and dry-run diff are all green.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.
