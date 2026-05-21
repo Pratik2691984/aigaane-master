@@ -18,6 +18,7 @@
   "canonicalWriteApprovalPackageFile": "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
   "canonicalWriteReleaseVerificationFile": "data/sanskrit/ingestion/canonical_write_release_verification.v1.json",
   "canonicalWritePreflightSnapshotFile": "data/sanskrit/ingestion/canonical_write_preflight_snapshot.v1.json",
+  "canonicalWritePostAuditVerificationFile": "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

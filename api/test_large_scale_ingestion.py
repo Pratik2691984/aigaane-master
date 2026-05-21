@@ -23,6 +23,7 @@ RELEASE_CHECKLIST_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_
 APPROVAL_PACKAGE_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_approval_package.py"
 RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_write_release.py"
 PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonical_write_state.py"
+POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_canonical_write_audit.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -37,6 +38,7 @@ RELEASE_CHECKLIST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_w
 APPROVAL_PACKAGE_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_package.v1.md"
 RELEASE_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_verification.v1.json"
 PREFLIGHT_SNAPSHOT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_preflight_snapshot.v1.json"
+POST_AUDIT_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_post_audit_verification.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -164,6 +166,14 @@ preflight_snapshooter = importlib.util.module_from_spec(preflight_snapshot_spec)
 sys.modules["snapshot_dhatu_pre_canonical_write_state"] = preflight_snapshooter
 preflight_snapshot_spec.loader.exec_module(preflight_snapshooter)
 
+post_audit_verification_spec = importlib.util.spec_from_file_location(
+    "verify_dhatu_post_canonical_write_audit",
+    POST_AUDIT_VERIFICATION_SCRIPT_PATH,
+)
+post_audit_verifier = importlib.util.module_from_spec(post_audit_verification_spec)
+sys.modules["verify_dhatu_post_canonical_write_audit"] = post_audit_verifier
+post_audit_verification_spec.loader.exec_module(post_audit_verifier)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -256,6 +266,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_preflight_snapshot_script_exists(self):
         self.assertTrue(PREFLIGHT_SNAPSHOT_SCRIPT_PATH.exists())
+
+    def test_post_audit_verification_script_exists(self):
+        self.assertTrue(POST_AUDIT_VERIFICATION_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -439,6 +452,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWritePreflightSnapshotFile"],
             "data/sanskrit/ingestion/canonical_write_preflight_snapshot.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_post_audit_verification_file(self):
+        self.assertEqual(
+            self.payload["canonicalWritePostAuditVerificationFile"],
+            "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -1322,6 +1341,146 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), snapshot)
 
+    def test_default_post_audit_verification_blocks_no_production_write(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        verification = post_audit_verifier.build_post_audit_verification()
+
+        self.assertEqual(verification["schemaVersion"], "1.0.0")
+        self.assertEqual(verification["verificationStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
+        self.assertFalse(verification["productionRegistryMutationDetected"])
+        self.assertFalse(verification["canonicalWriteAttempted"])
+        self.assertEqual(verification["promotedCount"], 0)
+        self.assertEqual(verification["beforeCount"], verification["afterCount"])
+        self.assertIn("Default state has no production canonical write to verify.", verification["blockingReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_temp_registry_write_post_audit_verifies_count_delta(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        before_production = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ[promoter.TEST_WRITE_FLAG] = "1"
+            with tempfile.TemporaryDirectory(prefix="post-audit-temp-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                dry_run_path = Path(tmp) / "dry-run.json"
+                snapshot_path = Path(tmp) / "snapshot.json"
+                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                snapshot = preflight_snapshooter.build_preflight_snapshot(registry_path)
+                preflight_snapshooter.write_preflight_snapshot(snapshot, snapshot_path)
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=audit_path,
+                    canonical_registry_path=registry_path,
+                )
+                dry_run = {
+                    "recordsToAdd": [{"sourceRootId": source_id} for source_id in audit["promotedRecordIds"]],
+                    "duplicateIds": [],
+                    "missingStagedRecords": [],
+                }
+                dry_run_path.write_text(json.dumps(dry_run), encoding="utf-8")
+
+                verification = post_audit_verifier.build_post_audit_verification(
+                    preflight_snapshot_path=snapshot_path,
+                    audit_file_path=audit_path,
+                    dry_run_diff_path=dry_run_path,
+                    canonical_registry_path=registry_path,
+                )
+
+                self.assertEqual(verification["verificationStatus"], "VERIFIED_TEST_WRITE")
+                self.assertEqual(verification["promotedCount"], 3)
+                self.assertEqual(verification["afterCount"], verification["beforeCount"] + 3)
+                self.assertEqual(verification["expectedAfterCount"], verification["beforeCount"] + 3)
+                self.assertFalse(verification["productionRegistryMutationDetected"])
+                self.assertTrue(verification["consistencyChecks"]["promotedCountMatchesExpectedRecords"])
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+        self.assertEqual(before_production, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_mismatched_promoted_count_blocks_post_audit_verification(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ[promoter.TEST_WRITE_FLAG] = "1"
+            with tempfile.TemporaryDirectory(prefix="post-audit-mismatch-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                dry_run_path = Path(tmp) / "dry-run.json"
+                snapshot_path = Path(tmp) / "snapshot.json"
+                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                preflight_snapshooter.write_preflight_snapshot(
+                    preflight_snapshooter.build_preflight_snapshot(registry_path),
+                    snapshot_path,
+                )
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=audit_path,
+                    canonical_registry_path=registry_path,
+                )
+                audit["promotedCount"] = audit["promotedCount"] + 1
+                audit_path.write_text(json.dumps(audit), encoding="utf-8")
+                dry_run_path.write_text(
+                    json.dumps({
+                        "recordsToAdd": [{"sourceRootId": source_id} for source_id in audit["promotedRecordIds"]],
+                        "duplicateIds": [],
+                        "missingStagedRecords": [],
+                    }),
+                    encoding="utf-8",
+                )
+
+                verification = post_audit_verifier.build_post_audit_verification(
+                    preflight_snapshot_path=snapshot_path,
+                    audit_file_path=audit_path,
+                    dry_run_diff_path=dry_run_path,
+                    canonical_registry_path=registry_path,
+                )
+
+                self.assertEqual(verification["verificationStatus"], "BLOCKED_AUDIT_MISMATCH")
+                self.assertFalse(verification["consistencyChecks"]["promotedCountMatchesExpectedRecords"])
+                self.assertIn(
+                    "Audit promoted count does not match expected records to add.",
+                    verification["blockingReasons"],
+                )
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_post_audit_verification_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="post-audit-writer-") as tmp:
+            verification = post_audit_verifier.build_post_audit_verification()
+            path = post_audit_verifier.write_post_audit_verification(
+                verification,
+                Path(tmp) / "canonical_write_post_audit_verification.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), verification)
+
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
 
@@ -1782,6 +1941,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in PREFLIGHT_SNAPSHOT_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_post_audit_verification_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in POST_AUDIT_VERIFICATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
