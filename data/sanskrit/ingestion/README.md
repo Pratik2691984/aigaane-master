@@ -16,6 +16,8 @@
 
 `canonical_write_approval.v1.json` is the human approval token and defaults to `NOT_APPROVED`. `scripts/prepare_dhatu_canonical_write_command.py` reads that token plus the authorization, readiness lock, and evidence report, then writes `canonical_write_command_manifest.v1.json`. The command manifest previews the controlled writer command but refuses by default with `REFUSED_NOT_APPROVED`; it does not run the writer or mutate canonical files.
 
+`scripts/validate_dhatu_canonical_write_approval.py` validates the human approval token against the authorization, readiness lock, and evidence report before any command can be treated as executable. It writes `canonical_write_approval_validation.v1.json`, requires approved ids to stay within the authorized ready ids, and fails approved tokens that contain no approved records. The default token validates as `NOT_APPROVED` and invalid.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

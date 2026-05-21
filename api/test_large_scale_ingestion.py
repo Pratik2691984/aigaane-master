@@ -16,6 +16,7 @@ PROMOTE_SCRIPT_PATH = ROOT / "scripts" / "promote_ready_dhatu_to_canonical.py"
 EVIDENCE_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_promotion_evidence.py"
 AUTHORIZATION_SCRIPT_PATH = ROOT / "scripts" / "authorize_dhatu_canonical_write.py"
 COMMAND_SCRIPT_PATH = ROOT / "scripts" / "prepare_dhatu_canonical_write_command.py"
+APPROVAL_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_canonical_write_approval.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -23,6 +24,7 @@ EVIDENCE_REPORT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promoti
 AUTHORIZATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
 APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.v1.json"
 COMMAND_MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_command_manifest.v1.json"
+APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -93,6 +95,14 @@ command_spec = importlib.util.spec_from_file_location("prepare_dhatu_canonical_w
 command_preparer = importlib.util.module_from_spec(command_spec)
 sys.modules["prepare_dhatu_canonical_write_command"] = command_preparer
 command_spec.loader.exec_module(command_preparer)
+
+approval_validation_spec = importlib.util.spec_from_file_location(
+    "validate_dhatu_canonical_write_approval",
+    APPROVAL_VALIDATION_SCRIPT_PATH,
+)
+approval_validator = importlib.util.module_from_spec(approval_validation_spec)
+sys.modules["validate_dhatu_canonical_write_approval"] = approval_validator
+approval_validation_spec.loader.exec_module(approval_validator)
 
 
 class LargeScaleIngestionTests(unittest.TestCase):
@@ -165,6 +175,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_command_manifest_script_exists(self):
         self.assertTrue(COMMAND_SCRIPT_PATH.exists())
+
+    def test_approval_validation_script_exists(self):
+        self.assertTrue(APPROVAL_VALIDATION_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -306,6 +319,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteCommandManifestFile"],
             "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_approval_validation_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteApprovalValidationFile"],
+            "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -843,6 +862,79 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), manifest)
 
+    def test_canonical_write_approval_validation_default_is_invalid(self):
+        import os
+
+        before_write_flag = os.environ.get(promoter.WRITE_FLAG)
+        before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        validation = approval_validator.build_approval_validation()
+
+        self.assertEqual(validation["schemaVersion"], "1.0.0")
+        self.assertEqual(validation["approvalStatus"], "NOT_APPROVED")
+        self.assertFalse(validation["approvalValid"])
+        self.assertEqual(validation["approvedRecordIds"], [])
+        self.assertEqual(
+            validation["missingAuthorizedRecordIds"],
+            ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"],
+        )
+        self.assertEqual(validation["unexpectedApprovedRecordIds"], [])
+        self.assertFalse(validation["safetyChecks"]["writerExecuted"])
+        self.assertFalse(validation["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertTrue(validation["safetyChecks"]["approvedIdsSubsetOfAuthorization"])
+        self.assertIn("Approval status is not APPROVED.", validation["refusalReasons"])
+        self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
+        self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_approved_empty_record_ids_fail_approval_validation(self):
+        import tempfile
+
+        approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        approval["approvalStatus"] = "APPROVED"
+        approval["approvedBy"] = "unit-reviewer"
+        approval["approvedAt"] = "2026-05-21T00:00:00Z"
+        approval["approvedRecordIds"] = []
+        with tempfile.TemporaryDirectory(prefix="empty-approval-") as tmp:
+            approval_path = Path(tmp) / "approval.json"
+            approval_path.write_text(json.dumps(approval), encoding="utf-8")
+            validation = approval_validator.build_approval_validation(approval_path)
+
+            self.assertFalse(validation["approvalValid"])
+            self.assertIn(
+                "Approved approval token must include at least one approvedRecordId.",
+                validation["refusalReasons"],
+            )
+
+    def test_unexpected_approved_ids_fail_approval_validation(self):
+        import tempfile
+
+        approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        approval["approvalStatus"] = "APPROVED"
+        approval["approvedBy"] = "unit-reviewer"
+        approval["approvedAt"] = "2026-05-21T00:00:00Z"
+        approval["approvedRecordIds"] = ["01.STAGED.0001", "01.STAGED.9999"]
+        with tempfile.TemporaryDirectory(prefix="unexpected-approval-") as tmp:
+            approval_path = Path(tmp) / "approval.json"
+            approval_path.write_text(json.dumps(approval), encoding="utf-8")
+            validation = approval_validator.build_approval_validation(approval_path)
+
+            self.assertFalse(validation["approvalValid"])
+            self.assertEqual(validation["unexpectedApprovedRecordIds"], ["01.STAGED.9999"])
+            self.assertFalse(validation["safetyChecks"]["approvedIdsSubsetOfAuthorization"])
+            self.assertIn("Approval includes ids outside canonical write authorization.", validation["refusalReasons"])
+
+    def test_canonical_write_approval_validation_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="approval-validation-") as tmp:
+            validation = approval_validator.build_approval_validation()
+            path = approval_validator.write_approval_validation(
+                validation,
+                Path(tmp) / "canonical_write_approval_validation.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), validation)
+
     def test_duplicate_ids_are_detected_in_fixture_data(self):
         records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
 
@@ -1111,6 +1203,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in COMMAND_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_approval_validation_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in APPROVAL_VALIDATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 

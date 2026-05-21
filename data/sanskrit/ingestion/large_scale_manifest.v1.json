@@ -10,6 +10,7 @@
   "dhatuPromotionEvidenceReportFile": "data/sanskrit/ingestion/dhatu_promotion_evidence_report.v1.json",
   "canonicalWriteAuthorizationFile": "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
   "canonicalWriteApprovalFile": "data/sanskrit/ingestion/canonical_write_approval.v1.json",
+  "canonicalWriteApprovalValidationFile": "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
   "canonicalWriteCommandManifestFile": "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {

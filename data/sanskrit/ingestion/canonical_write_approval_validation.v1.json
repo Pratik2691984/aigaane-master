@@ -1,0 +1,45 @@
+{
+  "approvalStatus": "NOT_APPROVED",
+  "approvalValid": false,
+  "approvedRecordIds": [],
+  "generatedBy": "scripts/validate_dhatu_canonical_write_approval.py",
+  "missingAuthorizedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "refusalReasons": [
+    "Approval status is not APPROVED.",
+    "Approval does not include every authorized ready record id.",
+    "Approval token missing approvedBy.",
+    "Approval token missing approvedAt.",
+    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
+    "Evidence release gate is not READY_FOR_CONTROLLED_WRITE."
+  ],
+  "rejectedRecordIds": [
+    "01.STAGED.0004",
+    "01.STAGED.0005",
+    "01.STAGED.0006",
+    "01.STAGED.0007",
+    "01.STAGED.0008",
+    "01.STAGED.0009",
+    "01.STAGED.0010",
+    "01.STAGED.0011",
+    "01.STAGED.0012"
+  ],
+  "safetyChecks": {
+    "approvalMetadataPresent": false,
+    "approvalStatusApproved": false,
+    "approvedIdsPresentWhenApproved": true,
+    "approvedIdsSubsetOfAuthorization": true,
+    "authorizedIdsMatchReadinessLock": true,
+    "batchMutation": false,
+    "canonicalRegistryMutation": false,
+    "environmentFlagsUnchangedByValidation": true,
+    "evidenceReleaseGateReady": false,
+    "goldsetMutation": false,
+    "writerExecuted": false
+  },
+  "schemaVersion": "1.0.0",
+  "unexpectedApprovedRecordIds": []
+}
