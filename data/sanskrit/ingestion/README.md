@@ -24,6 +24,8 @@
 
 `scripts/build_dhatu_canonical_write_release_checklist.py` writes `canonical_write_release_checklist.v1.json`, the final rollup of every canonical-write gate. It remains `BLOCKED` and `safeToWriteProduction: false` unless approval validation, authorization, command manifest, and dry-run diff are all green.
 
+`scripts/build_dhatu_canonical_write_approval_package.py` writes `canonical_write_approval_package.v1.md`, a human-readable maintainer package summarizing release status, authorized and ready ids, dry-run additions and blocked records, exact approval instructions, and the post-approval command sequence. It warns that no command should be run until human approval is edited and committed.
+
 Dhātupāṭha ingestion is staged, local-only, and governed. The importer must use local files under `raw/`; code in this repository must not scrape online sources.
 
 Every batch must run in dry-run mode before write mode. Write mode goes through the existing dhātu importer, rebuilds `data/sanskrit/dhatus/index.json`, and writes a batch report under `data/sanskrit/ingestion/reports/`.

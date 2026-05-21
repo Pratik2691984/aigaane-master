@@ -15,6 +15,7 @@
   "canonicalWriteCommandManifestFile": "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
   "canonicalWriteDryRunDiffFile": "data/sanskrit/ingestion/canonical_write_dry_run_diff.v1.json",
   "canonicalWriteReleaseChecklistFile": "data/sanskrit/ingestion/canonical_write_release_checklist.v1.json",
+  "canonicalWriteApprovalPackageFile": "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
   "description": "Large-scale governed Dhātupāṭha ingestion manifest",
   "policy": {
     "mode": "local-only",

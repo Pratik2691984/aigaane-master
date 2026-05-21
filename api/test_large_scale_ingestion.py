@@ -20,6 +20,7 @@ APPROVAL_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_canonical_w
 SIMULATE_APPROVAL_SCRIPT_PATH = ROOT / "scripts" / "simulate_dhatu_canonical_write_approval.py"
 DRY_RUN_DIFF_SCRIPT_PATH = ROOT / "scripts" / "diff_dhatu_canonical_write_dry_run.py"
 RELEASE_CHECKLIST_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_release_checklist.py"
+APPROVAL_PACKAGE_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_approval_package.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -31,6 +32,7 @@ APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical
 SIMULATED_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.simulated.v1.json"
 DRY_RUN_DIFF_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_dry_run_diff.v1.json"
 RELEASE_CHECKLIST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_checklist.v1.json"
+APPROVAL_PACKAGE_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_package.v1.md"
 RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
 BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
 DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
@@ -134,6 +136,14 @@ release_checklister = importlib.util.module_from_spec(release_checklist_spec)
 sys.modules["build_dhatu_canonical_write_release_checklist"] = release_checklister
 release_checklist_spec.loader.exec_module(release_checklister)
 
+approval_package_spec = importlib.util.spec_from_file_location(
+    "build_dhatu_canonical_write_approval_package",
+    APPROVAL_PACKAGE_SCRIPT_PATH,
+)
+approval_packager = importlib.util.module_from_spec(approval_package_spec)
+sys.modules["build_dhatu_canonical_write_approval_package"] = approval_packager
+approval_package_spec.loader.exec_module(approval_packager)
+
 
 class LargeScaleIngestionTests(unittest.TestCase):
     def setUp(self):
@@ -217,6 +227,9 @@ class LargeScaleIngestionTests(unittest.TestCase):
 
     def test_release_checklist_script_exists(self):
         self.assertTrue(RELEASE_CHECKLIST_SCRIPT_PATH.exists())
+
+    def test_approval_package_script_exists(self):
+        self.assertTrue(APPROVAL_PACKAGE_SCRIPT_PATH.exists())
 
     def test_canonical_write_approval_file_exists(self):
         self.assertTrue(APPROVAL_PATH.exists())
@@ -382,6 +395,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalWriteReleaseChecklistFile"],
             "data/sanskrit/ingestion/canonical_write_release_checklist.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_approval_package_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteApprovalPackageFile"],
+            "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
         )
 
     def test_promotion_preview_reports_staged_totals(self):
@@ -1159,6 +1178,39 @@ class LargeScaleIngestionTests(unittest.TestCase):
             self.assertTrue(path.exists())
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), checklist)
 
+    def test_approval_package_contains_required_human_sections(self):
+        before_approval = APPROVAL_PATH.read_text(encoding="utf-8")
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        markdown = approval_packager.build_approval_package()
+
+        self.assertIn("# Canonical Write Approval Package", markdown)
+        self.assertIn("Release status: `BLOCKED`", markdown)
+        self.assertIn("Safe to write production: `false`", markdown)
+        self.assertIn("## Authorized Record IDs", markdown)
+        self.assertIn("`01.STAGED.0001`", markdown)
+        self.assertIn("## Ready Record IDs", markdown)
+        self.assertIn("## Records That Would Be Added", markdown)
+        self.assertIn("## Records Blocked Or Skipped", markdown)
+        self.assertIn("## Exact Manual Approval Instructions", markdown)
+        self.assertIn("## Exact Command Sequence After Approval", markdown)
+        self.assertIn("No command should be run until human approval is edited, reviewed, and committed.", markdown)
+        self.assertIn("python scripts/validate_dhatu_canonical_write_approval.py", markdown)
+        self.assertEqual(before_approval, APPROVAL_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_approval_package_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="approval-package-") as tmp:
+            markdown = approval_packager.build_approval_package()
+            path = approval_packager.write_approval_package(
+                markdown,
+                Path(tmp) / "canonical_write_approval_package.v1.md",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(path.read_text(encoding="utf-8"), markdown)
+
     def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
         import tempfile
 
@@ -1589,6 +1641,16 @@ class LargeScaleIngestionTests(unittest.TestCase):
         import_lines = [
             line.strip()
             for line in RELEASE_CHECKLIST_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_approval_package_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in APPROVAL_PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
             if line.strip().startswith(("import ", "from "))
         ]
 
