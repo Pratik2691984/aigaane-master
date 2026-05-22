@@ -357,6 +357,63 @@
         </div>
     </section>
 
+    <section class="semantic-derivation-graph-inspector" aria-labelledby="semantic-derivation-graph-title" aria-describedby="semantic-derivation-graph-description">
+        <header class="semantic-derivation-graph-header">
+            <h3 id="semantic-derivation-graph-title">Derivation Graph Intelligence</h3>
+            <p id="semantic-derivation-graph-description">Read-only placeholder graph bridge between semantic clusters, derivation families, and derivation records.</p>
+        </header>
+
+        <div class="semantic-derivation-graph-controls" aria-label="Derivation graph filters">
+            <label for="semantic-derivation-graph-family-filter">Family</label>
+            <select id="semantic-derivation-graph-family-filter">
+                <option value="">Any family</option>
+                <option value="family.semantic.motion-transition">family.semantic.motion-transition</option>
+                <option value="family.semantic.guidance-transfer">family.semantic.guidance-transfer</option>
+                <option value="family.semantic.stability-state">family.semantic.stability-state</option>
+            </select>
+
+            <label for="semantic-derivation-graph-domain-filter">Domain</label>
+            <select id="semantic-derivation-graph-domain-filter">
+                <option value="">Any domain</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+                <option value="transition">transition</option>
+                <option value="transfer">transfer</option>
+                <option value="persistence">persistence</option>
+            </select>
+
+            <label for="semantic-derivation-graph-relation-filter">Relation</label>
+            <select id="semantic-derivation-graph-relation-filter">
+                <option value="">Any relation</option>
+                <option value="semantic_family_bridge">semantic_family_bridge</option>
+                <option value="family_record_placeholder">family_record_placeholder</option>
+                <option value="motion_guidance_placeholder">motion_guidance_placeholder</option>
+                <option value="motion_stability_placeholder">motion_stability_placeholder</option>
+            </select>
+
+            <button id="semantic-derivation-graph-reset" type="button">Reset graph filters</button>
+        </div>
+
+        <div class="semantic-derivation-graph-safety" role="note">
+            Placeholder-only derivation graph bridge. No exact Paninian derivation claim, exact sutra assertion, or grammatical correctness guarantee is made.
+        </div>
+
+        <div class="semantic-derivation-graph-layout">
+            <div id="semantic-derivation-graph-canvas" class="semantic-derivation-graph-canvas" role="group" aria-label="Derivation graph nodes and traversal highlights">No derivation graph loaded</div>
+            <aside class="semantic-derivation-graph-side-panel">
+                <h4>Selected Derivation</h4>
+                <div id="semantic-derivation-graph-summary" class="semantic-derivation-graph-summary" aria-live="polite">No derivation graph node selected</div>
+                <h4>Relation Legend</h4>
+                <div id="semantic-derivation-graph-legend" class="semantic-derivation-graph-legend" role="list" aria-label="Derivation graph relation legend">No derivation relation legend loaded</div>
+                <h4>Traversal Explanation</h4>
+                <div id="semantic-derivation-graph-traversal" class="semantic-derivation-graph-traversal">Highlighted bridge paths follow the active derivation graph filters.</div>
+                <h4>Relation Edges</h4>
+                <div id="semantic-derivation-graph-edges" class="semantic-derivation-graph-edges">No derivation graph edges loaded</div>
+            </aside>
+        </div>
+    </section>
+
     <section class="semantic-graph-view" aria-labelledby="semantic-graph-title" aria-describedby="semantic-graph-description">
         <header class="semantic-graph-header">
             <h3 id="semantic-graph-title">Semantic Graph View</h3>

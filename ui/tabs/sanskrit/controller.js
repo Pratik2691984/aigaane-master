@@ -34,10 +34,16 @@ let semanticDerivationFamilyFilter = null;
 let semanticDerivationDomainFilter = null;
 let semanticDerivationRelationFilter = null;
 let semanticDerivationResetButton = null;
+let semanticDerivationGraphFamilyFilter = null;
+let semanticDerivationGraphDomainFilter = null;
+let semanticDerivationGraphRelationFilter = null;
+let semanticDerivationGraphResetButton = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
 let semanticDerivationData = null;
+let semanticDerivationGraphData = null;
 let selectedSemanticGraphNodeId = "01.0005";
+let selectedDerivationGraphNodeId = "motion";
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -45,7 +51,9 @@ const DEFAULT_PAYLOAD = {
 
 const SEMANTIC_DHATU_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json";
 const SEMANTIC_DERIVATION_DATA_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json";
+const SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/examples/graph/ui_semantic_derivation_graph_panel.v1.json";
 const SEMANTIC_DERIVATION_PLACEHOLDER_WARNING = "Placeholder-only: all derivation claims require future review. No exact Paninian derivation claim is made.";
+const SEMANTIC_DERIVATION_GRAPH_PLACEHOLDER_WARNING = "Placeholder-only derivation graph bridge. No exact Paninian derivation claim, exact sutra assertion, or grammatical correctness guarantee is made.";
 const SEMANTIC_DHATU_FALLBACK_PANEL = {
   schemaVersion: "1.0.0",
   generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
@@ -326,6 +334,61 @@ const SEMANTIC_DERIVATION_DEFAULTS = {
   domain: "",
   relation: "",
 };
+
+const SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL = {
+  schemaVersion: "1.0.0",
+  generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
+  panelType: "semanticDerivationGraphPlaceholder",
+  title: "Semantic Derivation Graph Bridge",
+  safetyNote: SEMANTIC_DERIVATION_GRAPH_PLACEHOLDER_WARNING,
+  nodes: [
+    { graphNodeId: "motion", label: "motion", nodeType: "semantic_cluster", reviewStatus: "placeholder-local-review-required", x: 10, y: 42 },
+    { graphNodeId: "motion_transition_family", label: "motion transition family", nodeType: "derivation_family", derivationFamilyId: "family.semantic.motion-transition", semanticLineage: ["movement", "traversal", "transition"], transformationHints: ["movement-to-result exploration"], reviewStatus: "placeholder-local-review-required", x: 34, y: 42 },
+    { graphNodeId: "derivation.semantic.01.0005", label: "gam", nodeType: "derivation_record", dhatuId: "01.0005", derivationFamilyId: "family.semantic.motion-transition", semanticLineage: ["movement", "traversal", "transition"], transformationHints: ["Local placeholder for future movement-to-result semantic exploration."], reviewStatus: "placeholder-local-review-required", x: 58, y: 42 },
+    { graphNodeId: "guidance", label: "guidance", nodeType: "semantic_cluster", reviewStatus: "placeholder-local-review-required", x: 10, y: 20 },
+    { graphNodeId: "directional_guidance_family", label: "directional guidance family", nodeType: "derivation_family", derivationFamilyId: "family.semantic.guidance-transfer", semanticLineage: ["guidance", "leading", "transfer"], transformationHints: ["guidance-and-transfer exploration"], reviewStatus: "placeholder-local-review-required", x: 34, y: 20 },
+    { graphNodeId: "derivation.semantic.01.0008", label: "ni", nodeType: "derivation_record", dhatuId: "01.0008", derivationFamilyId: "family.semantic.guidance-transfer", semanticLineage: ["guidance", "leading", "transfer"], transformationHints: ["Local placeholder for future guidance-and-transfer semantic exploration."], reviewStatus: "placeholder-local-review-required", x: 82, y: 20 },
+    { graphNodeId: "stability", label: "stability", nodeType: "semantic_cluster", reviewStatus: "placeholder-local-review-required", x: 10, y: 64 },
+    { graphNodeId: "grounding_stability_family", label: "grounding stability family", nodeType: "derivation_family", derivationFamilyId: "family.semantic.stability-state", semanticLineage: ["stability", "standing", "persistence"], transformationHints: ["stability-and-state exploration"], reviewStatus: "placeholder-local-review-required", x: 34, y: 64 },
+    { graphNodeId: "derivation.semantic.01.0013", label: "stha", nodeType: "derivation_record", dhatuId: "01.0013", derivationFamilyId: "family.semantic.stability-state", semanticLineage: ["stability", "standing", "persistence"], transformationHints: ["Local placeholder for future stability-and-state semantic exploration."], reviewStatus: "placeholder-local-review-required", x: 82, y: 64 },
+  ],
+  edges: [
+    { edgeId: "edge.derivation.semantic.0001", sourceId: "motion", targetId: "motion_transition_family", relationType: "semantic_family_bridge", relationLabel: "motion -> motion_transition_family", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0002", sourceId: "guidance", targetId: "directional_guidance_family", relationType: "semantic_family_bridge", relationLabel: "guidance -> directional_guidance_family", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0003", sourceId: "stability", targetId: "grounding_stability_family", relationType: "semantic_family_bridge", relationLabel: "stability -> grounding_stability_family", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0004", sourceId: "motion_transition_family", targetId: "derivation.semantic.01.0005", relationType: "family_record_placeholder", relationLabel: "motion_transition_family -> gam placeholder record", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0005", sourceId: "directional_guidance_family", targetId: "derivation.semantic.01.0008", relationType: "family_record_placeholder", relationLabel: "directional_guidance_family -> ni placeholder record", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0006", sourceId: "grounding_stability_family", targetId: "derivation.semantic.01.0013", relationType: "family_record_placeholder", relationLabel: "grounding_stability_family -> stha placeholder record", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0007", sourceId: "derivation.semantic.01.0005", targetId: "derivation.semantic.01.0008", relationType: "motion_guidance_placeholder", relationLabel: "gam placeholder -> ni placeholder", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+    { edgeId: "edge.derivation.semantic.0008", sourceId: "derivation.semantic.01.0005", targetId: "derivation.semantic.01.0013", relationType: "motion_stability_placeholder", relationLabel: "gam placeholder -> stha placeholder", confidence: "unreviewed", reviewStatus: "placeholder-local-review-required" },
+  ],
+  cards: [
+    {
+      cardId: "semantic.derivation.graph.fallback.01",
+      cardType: "semanticDerivationGraphPath",
+      label: "derivation.semantic.01.0005",
+      value: "motion -> motion_transition_family -> derivation.semantic.01.0005",
+      metadata: {
+        depth: 2,
+        edgeIds: ["edge.derivation.semantic.0001", "edge.derivation.semantic.0004"],
+        relationLabels: ["motion -> motion_transition_family", "motion_transition_family -> gam placeholder record"],
+      },
+    },
+  ],
+};
+
+const SEMANTIC_DERIVATION_GRAPH_DEFAULTS = {
+  family: "",
+  domain: "",
+  relation: "",
+};
+
+const SEMANTIC_DERIVATION_GRAPH_RELATION_ORDER = [
+  "semantic_family_bridge",
+  "family_record_placeholder",
+  "motion_guidance_placeholder",
+  "motion_stability_placeholder",
+];
 
 const SEMANTIC_GRAPH_FALLBACK = {
   nodes: [
@@ -893,6 +956,243 @@ function renderSemanticDerivationPanel(dhatuId = selectedSemanticGraphNodeId) {
   if (safety) safety.textContent = SEMANTIC_DERIVATION_PLACEHOLDER_WARNING;
 }
 
+function readSemanticDerivationGraphFilterState() {
+  return {
+    family: semanticDerivationGraphFamilyFilter?.value || "",
+    domain: semanticDerivationGraphDomainFilter?.value || "",
+    relation: semanticDerivationGraphRelationFilter?.value || "",
+  };
+}
+
+function resetSemanticDerivationGraphFilters() {
+  if (semanticDerivationGraphFamilyFilter) semanticDerivationGraphFamilyFilter.value = SEMANTIC_DERIVATION_GRAPH_DEFAULTS.family;
+  if (semanticDerivationGraphDomainFilter) semanticDerivationGraphDomainFilter.value = SEMANTIC_DERIVATION_GRAPH_DEFAULTS.domain;
+  if (semanticDerivationGraphRelationFilter) semanticDerivationGraphRelationFilter.value = SEMANTIC_DERIVATION_GRAPH_DEFAULTS.relation;
+  renderSemanticDerivationGraphPanel();
+}
+
+function semanticDerivationGraphPayload() {
+  return semanticDerivationGraphData && typeof semanticDerivationGraphData === "object"
+    ? semanticDerivationGraphData
+    : SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL;
+}
+
+function positionedDerivationGraphNodes(nodes) {
+  const values = Array.isArray(nodes) ? nodes : [];
+  const lanes = {
+    semantic_cluster: 12,
+    derivation_family: 42,
+    derivation_record: 74,
+  };
+  const grouped = values.reduce((acc, node) => {
+    const key = node.nodeType || "derivation_record";
+    acc[key] = acc[key] || [];
+    acc[key].push(node);
+    return acc;
+  }, {});
+  Object.values(grouped).forEach((group) => group.sort((left, right) => text(left.graphNodeId).localeCompare(text(right.graphNodeId))));
+  return values.map((node) => {
+    if (Number.isFinite(node.x) && Number.isFinite(node.y)) return node;
+    const group = grouped[node.nodeType || "derivation_record"] || [node];
+    const index = group.findIndex((item) => item.graphNodeId === node.graphNodeId);
+    const y = group.length <= 1 ? 44 : 20 + (index * (60 / Math.max(1, group.length - 1)));
+    return {
+      ...node,
+      x: lanes[node.nodeType] || 74,
+      y,
+    };
+  });
+}
+
+function derivationGraphNodeMatchesFilters(node, filters) {
+  if (!node) return false;
+  if (filters.family && node.derivationFamilyId !== filters.family) return false;
+  if (filters.domain) {
+    const values = [
+      node.graphNodeId,
+      node.label,
+      node.nodeType,
+      ...(Array.isArray(node.semanticLineage) ? node.semanticLineage : []),
+      ...(Array.isArray(node.transformationHints) ? node.transformationHints : []),
+    ].map((item) => text(item).toLowerCase());
+    if (!values.some((item) => item.includes(filters.domain.toLowerCase()))) return false;
+  }
+  return true;
+}
+
+function filteredDerivationGraph(payload = semanticDerivationGraphPayload(), filters = readSemanticDerivationGraphFilterState()) {
+  const nodes = positionedDerivationGraphNodes(payload.nodes || []);
+  const edges = Array.isArray(payload.edges) ? payload.edges : [];
+  const relationFilteredEdges = edges.filter((edge) => !filters.relation || edge.relationType === filters.relation);
+  const nodeMatches = new Set(nodes.filter((node) => derivationGraphNodeMatchesFilters(node, filters)).map((node) => node.graphNodeId));
+  const hasNodeFilters = Boolean(filters.family || filters.domain);
+  const visibleEdges = relationFilteredEdges.filter((edge) => {
+    if (!hasNodeFilters) return true;
+    return nodeMatches.has(edge.sourceId) || nodeMatches.has(edge.targetId);
+  });
+  const connectedIds = new Set(visibleEdges.flatMap((edge) => [edge.sourceId, edge.targetId]));
+  nodeMatches.forEach((nodeId) => connectedIds.add(nodeId));
+  const visibleNodes = nodes.filter((node) => connectedIds.has(node.graphNodeId));
+  return {
+    ...payload,
+    nodes: visibleNodes.sort((left, right) => text(left.graphNodeId).localeCompare(text(right.graphNodeId))),
+    edges: visibleEdges.sort((left, right) => {
+      const relationDelta = SEMANTIC_DERIVATION_GRAPH_RELATION_ORDER.indexOf(left.relationType) - SEMANTIC_DERIVATION_GRAPH_RELATION_ORDER.indexOf(right.relationType);
+      return relationDelta || text(left.edgeId).localeCompare(text(right.edgeId));
+    }),
+  };
+}
+
+function highlightedDerivationGraphEdgeIds(payload) {
+  const cards = Array.isArray(payload.cards) ? payload.cards : [];
+  return new Set(cards.flatMap((card) => card?.metadata?.edgeIds || []));
+}
+
+function handleDerivationGraphNodeKeydown(event, nodeId) {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  focusDerivationGraphNode(nodeId);
+}
+
+function renderDerivationGraphNode(node, selectedNodeId, highlightedNodeIds) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "semantic-derivation-graph-node";
+  button.style.left = `${node.x}%`;
+  button.style.top = `${node.y}%`;
+  button.dataset.nodeId = node.graphNodeId;
+  button.textContent = text(node.label, node.graphNodeId);
+  button.title = `${text(node.nodeType)}: ${text(node.graphNodeId)}`;
+  button.setAttribute("aria-label", `${text(node.label, node.graphNodeId)}, ${text(node.nodeType)}`);
+  button.setAttribute("aria-pressed", node.graphNodeId === selectedNodeId ? "true" : "false");
+  button.classList.toggle("selected", node.graphNodeId === selectedNodeId);
+  button.classList.toggle("traversal-highlight", highlightedNodeIds.has(node.graphNodeId));
+  button.addEventListener("click", () => focusDerivationGraphNode(node.graphNodeId));
+  button.addEventListener("keydown", (event) => handleDerivationGraphNodeKeydown(event, node.graphNodeId));
+  return button;
+}
+
+function renderDerivationGraphEdgeRow(edge, highlightedEdgeIds) {
+  const row = document.createElement("div");
+  row.className = "semantic-derivation-graph-edge";
+  row.classList.toggle("traversal-highlight", highlightedEdgeIds.has(edge.edgeId));
+  const title = document.createElement("strong");
+  title.textContent = text(edge.relationType);
+  const body = document.createElement("span");
+  body.textContent = text(edge.relationLabel, `${edge.sourceId} -> ${edge.targetId}`);
+  const meta = document.createElement("small");
+  meta.textContent = `${text(edge.confidence, "unreviewed")}; ${text(edge.reviewStatus, "placeholder-local-review-required")}`;
+  row.append(title, body, meta);
+  return row;
+}
+
+function renderDerivationGraphLegend(edges, highlightedEdgeIds) {
+  const legend = byId("semantic-derivation-graph-legend");
+  clearChildren(legend);
+  if (!legend) return;
+  const relations = SEMANTIC_DERIVATION_GRAPH_RELATION_ORDER.filter((relation) => edges.some((edge) => edge.relationType === relation));
+  if (relations.length === 0) {
+    appendEmpty(legend, "No derivation relation legend available");
+    return;
+  }
+  relations.forEach((relation) => {
+    const item = document.createElement("div");
+    item.className = "semantic-derivation-graph-legend-item";
+    item.setAttribute("role", "listitem");
+    item.classList.toggle("traversal-highlight", edges.some((edge) => edge.relationType === relation && highlightedEdgeIds.has(edge.edgeId)));
+    const marker = document.createElement("span");
+    marker.className = "semantic-derivation-graph-legend-marker";
+    marker.setAttribute("aria-hidden", "true");
+    const label = document.createElement("span");
+    label.textContent = relation;
+    item.append(marker, label);
+    legend.appendChild(item);
+  });
+}
+
+function focusDerivationGraphNode(nodeId) {
+  selectedDerivationGraphNodeId = nodeId;
+  renderSemanticDerivationGraphPanel();
+}
+
+function renderDerivationGraphSelectedSummary(node) {
+  const summary = byId("semantic-derivation-graph-summary");
+  clearChildren(summary);
+  if (!summary) return;
+  if (!node) {
+    appendEmpty(summary, "No derivation graph node selected");
+    return;
+  }
+  summary.appendChild(renderSemanticDerivationCard("Node", text(node.label, node.graphNodeId), `${text(node.nodeType)}; ${text(node.graphNodeId)}`));
+  if (node.derivationFamilyId) summary.appendChild(renderSemanticDerivationCard("Family", node.derivationFamilyId));
+  if (node.dhatuId) summary.appendChild(renderSemanticDerivationCard("Dhatu id", node.dhatuId));
+  if (node.semanticLineage?.length) summary.appendChild(renderSemanticDerivationCard("Semantic lineage", node.semanticLineage.join(", ")));
+  if (node.transformationHints?.length) summary.appendChild(renderSemanticDerivationCard("Transformation hints", node.transformationHints.join("; ")));
+  summary.appendChild(renderSemanticDerivationCard("Review status", text(node.reviewStatus, "placeholder-local-review-required")));
+}
+
+function renderSemanticDerivationGraphPanel() {
+  const payload = filteredDerivationGraph();
+  const nodes = payload.nodes || [];
+  const edges = payload.edges || [];
+  const highlightedEdgeIds = highlightedDerivationGraphEdgeIds(payload);
+  const highlightedNodeIds = new Set();
+  edges.forEach((edge) => {
+    if (highlightedEdgeIds.has(edge.edgeId)) {
+      highlightedNodeIds.add(edge.sourceId);
+      highlightedNodeIds.add(edge.targetId);
+    }
+  });
+  if (!nodes.some((node) => node.graphNodeId === selectedDerivationGraphNodeId)) {
+    selectedDerivationGraphNodeId = nodes[0]?.graphNodeId || "";
+  }
+  const selectedNode = nodes.find((node) => node.graphNodeId === selectedDerivationGraphNodeId);
+
+  const canvas = byId("semantic-derivation-graph-canvas");
+  clearChildren(canvas);
+  if (canvas) {
+    if (nodes.length === 0) {
+      appendEmpty(canvas, "Derivation graph unavailable for the selected filters");
+    } else {
+      edges.forEach((edge) => {
+        const source = nodes.find((node) => node.graphNodeId === edge.sourceId);
+        const target = nodes.find((node) => node.graphNodeId === edge.targetId);
+        if (!source || !target) return;
+        const connector = document.createElement("div");
+        connector.className = "semantic-derivation-graph-connector";
+        connector.classList.toggle("traversal-highlight", highlightedEdgeIds.has(edge.edgeId));
+        connector.style.left = `${Math.min(source.x, target.x) + 5}%`;
+        connector.style.top = `${(source.y + target.y) / 2}%`;
+        connector.style.width = `${Math.max(10, Math.abs(target.x - source.x) - 10)}%`;
+        connector.textContent = text(edge.relationLabel, edge.relationType);
+        canvas.appendChild(connector);
+      });
+      nodes.forEach((node) => canvas.appendChild(renderDerivationGraphNode(node, selectedDerivationGraphNodeId, highlightedNodeIds)));
+    }
+  }
+
+  renderDerivationGraphSelectedSummary(selectedNode);
+  renderDerivationGraphLegend(edges, highlightedEdgeIds);
+
+  const edgeList = byId("semantic-derivation-graph-edges");
+  clearChildren(edgeList);
+  if (edgeList) {
+    if (edges.length === 0) appendEmpty(edgeList, "No derivation graph edges match the selected filters");
+    edges.forEach((edge) => edgeList.appendChild(renderDerivationGraphEdgeRow(edge, highlightedEdgeIds)));
+  }
+
+  const traversal = byId("semantic-derivation-graph-traversal");
+  clearChildren(traversal);
+  if (traversal) {
+    const cardCount = Array.isArray(payload.cards) ? payload.cards.length : 0;
+    traversal.appendChild(renderSemanticDerivationCard(
+      "Traversal explanation",
+      cardCount ? `${cardCount} fixture-compatible traversal cards available` : "No traversal cards available for this filter set",
+      SEMANTIC_DERIVATION_GRAPH_PLACEHOLDER_WARNING,
+    ));
+  }
+}
+
 function renderSemanticDhatuPanel(panel) {
   const payload = panel && typeof panel === "object" ? panel : SEMANTIC_DHATU_FALLBACK_PANEL;
   const cards = Array.isArray(payload.cards) ? payload.cards : [];
@@ -947,6 +1247,19 @@ async function loadSemanticDerivationData() {
     console.warn("[Sanskrit] Derivation Intelligence fallback:", error);
     semanticDerivationData = SEMANTIC_DERIVATION_FALLBACK_DATA;
     renderSemanticQueryState();
+  }
+}
+
+async function loadSemanticDerivationGraphPanel() {
+  try {
+    const response = await fetch(SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE);
+    if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
+    semanticDerivationGraphData = await response.json();
+    renderSemanticDerivationGraphPanel();
+  } catch (error) {
+    console.warn("[Sanskrit] Derivation Graph Intelligence fallback:", error);
+    semanticDerivationGraphData = SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL;
+    renderSemanticDerivationGraphPanel();
   }
 }
 
@@ -2641,6 +2954,7 @@ function renderInitialState() {
   renderSemanticTraceStatus("Semantic trace idle");
   renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
   renderSemanticDerivationPanel("01.0005");
+  renderSemanticDerivationGraphPanel();
   renderSemanticGraphView();
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
@@ -2684,6 +2998,10 @@ export function init(node) {
   semanticDerivationDomainFilter = byId("semantic-derivation-domain-filter");
   semanticDerivationRelationFilter = byId("semantic-derivation-relation-filter");
   semanticDerivationResetButton = byId("semantic-derivation-reset");
+  semanticDerivationGraphFamilyFilter = byId("semantic-derivation-graph-family-filter");
+  semanticDerivationGraphDomainFilter = byId("semantic-derivation-graph-domain-filter");
+  semanticDerivationGraphRelationFilter = byId("semantic-derivation-graph-relation-filter");
+  semanticDerivationGraphResetButton = byId("semantic-derivation-graph-reset");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -2718,6 +3036,10 @@ export function init(node) {
   semanticDerivationDomainFilter?.addEventListener("change", renderSemanticQueryState);
   semanticDerivationRelationFilter?.addEventListener("change", renderSemanticQueryState);
   semanticDerivationResetButton?.addEventListener("click", resetSemanticDerivationFilters);
+  semanticDerivationGraphFamilyFilter?.addEventListener("change", renderSemanticDerivationGraphPanel);
+  semanticDerivationGraphDomainFilter?.addEventListener("change", renderSemanticDerivationGraphPanel);
+  semanticDerivationGraphRelationFilter?.addEventListener("change", renderSemanticDerivationGraphPanel);
+  semanticDerivationGraphResetButton?.addEventListener("click", resetSemanticDerivationGraphFilters);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -2729,6 +3051,7 @@ export function init(node) {
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticDerivationData();
+  loadSemanticDerivationGraphPanel();
 
   if (inputNode && !inputNode.value.trim()) inputNode.value = DEFAULT_PAYLOAD.input_text;
   analyzeCurrentInput();
@@ -2771,6 +3094,10 @@ export function destroy() {
   semanticDerivationDomainFilter?.removeEventListener("change", renderSemanticQueryState);
   semanticDerivationRelationFilter?.removeEventListener("change", renderSemanticQueryState);
   semanticDerivationResetButton?.removeEventListener("click", resetSemanticDerivationFilters);
+  semanticDerivationGraphFamilyFilter?.removeEventListener("change", renderSemanticDerivationGraphPanel);
+  semanticDerivationGraphDomainFilter?.removeEventListener("change", renderSemanticDerivationGraphPanel);
+  semanticDerivationGraphRelationFilter?.removeEventListener("change", renderSemanticDerivationGraphPanel);
+  semanticDerivationGraphResetButton?.removeEventListener("click", resetSemanticDerivationGraphFilters);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -2805,8 +3132,13 @@ export function destroy() {
   semanticDerivationDomainFilter = null;
   semanticDerivationRelationFilter = null;
   semanticDerivationResetButton = null;
+  semanticDerivationGraphFamilyFilter = null;
+  semanticDerivationGraphDomainFilter = null;
+  semanticDerivationGraphRelationFilter = null;
+  semanticDerivationGraphResetButton = null;
   currentDebugSession = null;
   semanticPanelData = null;
   semanticDerivationData = null;
+  semanticDerivationGraphData = null;
   inputNode = null;
 }

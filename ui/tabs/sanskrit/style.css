@@ -26,6 +26,7 @@
 .sutra-inspector,
 .semantic-trace-inspector,
 .semantic-derivation-inspector,
+.semantic-derivation-graph-inspector,
 .graph-inspector,
 .replay-inspector {
     background: var(--glass-bg);
@@ -905,6 +906,191 @@
     color: #9fb0c7;
 }
 
+.semantic-derivation-graph-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-color: rgba(104, 190, 255, 0.3);
+    background: rgba(8, 16, 24, 0.62);
+}
+
+.semantic-derivation-graph-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.semantic-derivation-graph-header h3,
+.semantic-derivation-graph-side-panel h4 {
+    color: #b9c7d9;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.semantic-derivation-graph-header p {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.semantic-derivation-graph-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    gap: 0.55rem;
+    align-items: end;
+}
+
+.semantic-derivation-graph-controls label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    color: #b9c7d9;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.semantic-derivation-graph-controls select {
+    min-width: 0;
+    width: 100%;
+    background: rgba(10, 12, 18, 0.88);
+    color: #eef3f8;
+    border: 1px solid rgba(104, 190, 255, 0.24);
+    border-radius: 8px;
+    padding: 0.55rem 0.6rem;
+}
+
+.semantic-derivation-graph-controls button {
+    border: 1px solid rgba(104, 190, 255, 0.7);
+    background: transparent;
+    color: #cfeeff;
+    border-radius: 8px;
+    padding: 0.58rem 0.85rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.semantic-derivation-graph-safety {
+    border: 1px solid rgba(255, 215, 128, 0.42);
+    border-radius: 8px;
+    padding: 0.7rem;
+    background: rgba(255, 215, 128, 0.08);
+    color: #ffe0a3;
+}
+
+.semantic-derivation-graph-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.75fr);
+    gap: 1rem;
+}
+
+.semantic-derivation-graph-canvas {
+    position: relative;
+    min-height: 360px;
+    border: 1px solid rgba(104, 190, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.025);
+    overflow: hidden;
+}
+
+.semantic-derivation-graph-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    max-width: 155px;
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 999px;
+    padding: 0.35rem 0.55rem;
+    background: rgba(10, 12, 18, 0.92);
+    color: #eef3f8;
+    cursor: pointer;
+    font-size: 0.76rem;
+}
+
+.semantic-derivation-graph-node:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+.semantic-derivation-graph-node.selected {
+    border-color: var(--gold);
+    color: #f0d77a;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.16);
+}
+
+.semantic-derivation-graph-node.traversal-highlight {
+    background: rgba(104, 190, 255, 0.16);
+}
+
+.semantic-derivation-graph-connector {
+    position: absolute;
+    height: 1px;
+    border-top: 1px solid rgba(159, 176, 199, 0.28);
+    color: #9fb0c7;
+    font-size: 0.64rem;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.semantic-derivation-graph-connector.traversal-highlight {
+    border-color: rgba(212, 175, 55, 0.8);
+    color: #f0d77a;
+}
+
+.semantic-derivation-graph-side-panel,
+.semantic-derivation-graph-summary,
+.semantic-derivation-graph-legend,
+.semantic-derivation-graph-traversal,
+.semantic-derivation-graph-edges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+    color: #eef3f8;
+}
+
+.semantic-derivation-graph-edge,
+.semantic-derivation-graph-legend-item,
+.semantic-derivation-graph-traversal .semantic-derivation-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.55rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.semantic-derivation-graph-legend-item {
+    flex-direction: row;
+    align-items: center;
+}
+
+.semantic-derivation-graph-legend-marker {
+    width: 0.8rem;
+    height: 0.2rem;
+    border-radius: 999px;
+    background: rgba(159, 176, 199, 0.55);
+}
+
+.semantic-derivation-graph-legend-item.traversal-highlight .semantic-derivation-graph-legend-marker {
+    background: rgba(212, 175, 55, 0.85);
+}
+
+.semantic-derivation-graph-edge strong {
+    color: #f0d77a;
+}
+
+.semantic-derivation-graph-edge span,
+.semantic-derivation-graph-edge small {
+    color: #9fb0c7;
+    overflow-wrap: anywhere;
+}
+
+.semantic-derivation-graph-edge.traversal-highlight {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.08);
+}
+
 .semantic-graph-view {
     display: flex;
     flex-direction: column;
@@ -1452,6 +1638,8 @@
     .semantic-dhatu-grid,
     .semantic-derivation-controls,
     .semantic-derivation-grid,
+    .semantic-derivation-graph-controls,
+    .semantic-derivation-graph-layout,
     .semantic-graph-layout,
     .graph-grid,
     .replay-grid,
@@ -1468,8 +1656,18 @@
         overflow-x: auto;
     }
 
+    .semantic-derivation-graph-canvas {
+        min-height: 460px;
+        overflow-x: auto;
+    }
+
     .semantic-graph-node {
         max-width: 105px;
+        white-space: normal;
+    }
+
+    .semantic-derivation-graph-node {
+        max-width: 118px;
         white-space: normal;
     }
 }
@@ -1483,8 +1681,17 @@
         min-height: 520px;
     }
 
+    .semantic-derivation-graph-canvas {
+        min-height: 580px;
+    }
+
     .semantic-graph-connector {
         font-size: 0.62rem;
+        white-space: normal;
+    }
+
+    .semantic-derivation-graph-connector {
+        font-size: 0.58rem;
         white-space: normal;
     }
 }

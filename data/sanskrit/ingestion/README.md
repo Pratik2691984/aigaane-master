@@ -80,6 +80,8 @@ The Sanskrit tab renders these records in a read-only Derivation Intelligence pa
 
 `data/sanskrit/dhatus/semantic/derivations/semantic_derivation_edges.v1.json` adds a read-only semantic derivation graph bridge. `api/dhatu_semantic_derivation_graph.py`, `scripts/validate_dhatu_semantic_derivation_graph.py`, `scripts/query_dhatu_semantic_derivation_graph.py`, and `scripts/export_dhatu_semantic_derivation_graph_examples.py` connect semantic clusters to derivation family placeholders for bounded traversal without exact sutra claims, grammatical authority, runtime writes, or canonical mutation.
 
+The Sanskrit tab renders the bridge in a read-only Derivation Graph Intelligence panel. The panel is placeholder-only: no exact PÄá¹‡inian derivation claim is made, no exact sutra assertion is made, and no grammatical correctness guarantee is provided.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

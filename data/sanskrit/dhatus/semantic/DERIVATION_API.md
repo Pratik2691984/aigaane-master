@@ -74,3 +74,5 @@ Bridge graph fixtures live under `data/sanskrit/dhatus/semantic/derivations/exam
 The Sanskrit tab renders this layer as a read-only **Derivation Intelligence** panel. The panel is placeholder-only, uses local fixture-compatible data, and can filter by derivation family, usage domain, and proto relation. All derivation claims require future review. No exact Paninian derivation claim is made, and no grammatical authority is implied.
 
 The semantic derivation graph bridge is also read-only. It performs bounded traversal only, never generates derivations, never mutates canonical records, and keeps every bridge confidence value at `unreviewed` with review status `placeholder-local-review-required`.
+
+The Sanskrit tab renders the bridge as **Derivation Graph Intelligence**. This UI is placeholder-only and read-only; no exact Paninian derivation claim is made, no exact sutra assertion is made, and no grammatical correctness guarantee is provided.

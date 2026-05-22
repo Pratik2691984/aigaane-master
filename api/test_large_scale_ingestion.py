@@ -995,6 +995,24 @@ class LargeScaleIngestionTests(unittest.TestCase):
         for option in ["family.semantic.motion-transition", "motion-guidance-adjacent", "stability-motion-contrast"]:
             self.assertIn(option, view)
 
+    def test_sanskrit_view_contains_derivation_graph_intelligence_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Derivation Graph Intelligence", view)
+        self.assertIn("semantic-derivation-graph-canvas", view)
+        self.assertIn("semantic-derivation-graph-legend", view)
+        self.assertIn("semantic-derivation-graph-summary", view)
+        self.assertIn("semantic-derivation-graph-traversal", view)
+        self.assertIn("semantic-derivation-graph-safety", view)
+
+    def test_sanskrit_view_contains_derivation_graph_aria_labels(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('aria-labelledby="semantic-derivation-graph-title"', view)
+        self.assertIn('aria-label="Derivation graph nodes and traversal highlights"', view)
+        self.assertIn('aria-label="Derivation graph relation legend"', view)
+        self.assertIn('aria-live="polite"', view)
+
     def test_sanskrit_view_has_semantic_graph_aria_labels(self):
         view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
 
@@ -1078,6 +1096,49 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("SEMANTIC_DERIVATION_PLACEHOLDER_WARNING", controller)
         self.assertIn("Placeholder-only: all derivation claims require future review", controller)
         self.assertIn("No exact Paninian derivation claim is made", controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE", controller)
+        self.assertIn("SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL", controller)
+        self.assertIn("renderSemanticDerivationGraphPanel", controller)
+        self.assertIn("renderDerivationGraphNode", controller)
+        self.assertIn("renderDerivationGraphEdgeRow", controller)
+        self.assertIn("ui_semantic_derivation_graph_panel.v1.json", controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_focus_selection_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("focusDerivationGraphNode", controller)
+        self.assertIn("selectedDerivationGraphNodeId", controller)
+        self.assertIn('button.setAttribute("aria-pressed"', controller)
+        self.assertIn('addEventListener("click"', controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_filter_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("readSemanticDerivationGraphFilterState", controller)
+        self.assertIn("resetSemanticDerivationGraphFilters", controller)
+        self.assertIn("semanticDerivationGraphFamilyFilter", controller)
+        self.assertIn("semanticDerivationGraphDomainFilter", controller)
+        self.assertIn("semanticDerivationGraphRelationFilter", controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_keyboard_activation(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("handleDerivationGraphNodeKeydown", controller)
+        self.assertIn('event.key !== "Enter"', controller)
+        self.assertIn('event.key !== " "', controller)
+        self.assertIn('addEventListener("keydown"', controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_placeholder_warning(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_GRAPH_PLACEHOLDER_WARNING", controller)
+        self.assertIn("Placeholder-only derivation graph bridge", controller)
+        self.assertIn("exact sutra assertion", controller)
+        self.assertIn("grammatical correctness guarantee", controller)
 
     def test_sanskrit_controller_contains_no_exact_sutra_authority_claim(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
@@ -1172,6 +1233,23 @@ class LargeScaleIngestionTests(unittest.TestCase):
             ".semantic-derivation-card",
         ]:
             self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_derivation_graph_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-derivation-graph-inspector",
+            ".semantic-derivation-graph-controls",
+            ".semantic-derivation-graph-canvas",
+            ".semantic-derivation-graph-node",
+            ".semantic-derivation-graph-edge",
+            ".semantic-derivation-graph-legend-item",
+            ".semantic-derivation-graph-safety",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_semantic_derivation_graph_ui_fixture_exists(self):
+        self.assertTrue((SEMANTIC_DERIVATION_GRAPH_EXAMPLES_ROOT / "ui_semantic_derivation_graph_panel.v1.json").exists())
 
     def test_sanskrit_style_contains_responsive_semantic_graph_rules(self):
         style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
@@ -1764,6 +1842,14 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticDerivationGraphExamplesRoot"],
             "data/sanskrit/dhatus/semantic/derivations/examples/graph",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphUiPanel"],
+            "Derivation Graph Intelligence",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphUiMode"],
+            "client-side-read-only-placeholder-only",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

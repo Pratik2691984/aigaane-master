@@ -67,6 +67,8 @@
   "canonicalDhatuSemanticDerivationGraphSmokeScript": "scripts/smoke_dhatu_semantic_derivation_graph_api.py",
   "canonicalDhatuSemanticDerivationGraphExampleExportScript": "scripts/export_dhatu_semantic_derivation_graph_examples.py",
   "canonicalDhatuSemanticDerivationGraphExamplesRoot": "data/sanskrit/dhatus/semantic/derivations/examples/graph",
+  "canonicalDhatuSemanticDerivationGraphUiPanel": "Derivation Graph Intelligence",
+  "canonicalDhatuSemanticDerivationGraphUiMode": "client-side-read-only-placeholder-only",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,
