@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 from api.dhatu_semantic_query import query_semantics
 from api.dhatu_semantic_graph import validate_graph
 from api.dhatu_semantic_derivation import validate_derivations
+from api.dhatu_semantic_derivation_graph import validate_derivation_graph
 
 
 DEFAULT_CANONICAL_REGISTRY_PATH = ROOT / "data" / "sanskrit" / "dhatus" / "index.json"
@@ -126,6 +127,10 @@ def validate_semantic_layer(
     derivation_summary = validate_derivations(
         canonical_registry_path=canonical_registry_path,
     )
+    derivation_graph_summary = validate_derivation_graph(
+        canonical_registry_path=canonical_registry_path,
+        semantic_root=semantic_root,
+    )
     canonical_registry_unchanged = registry_before == registry_after
     checks = {
         "semanticDirectoryPresent": resolve_path(semantic_root).exists(),
@@ -144,6 +149,7 @@ def validate_semantic_layer(
         "standGlossQueryReturnsStha": any(result["dhatuId"] == "01.0013" for result in query_results["standGloss"]),
         "semanticGraphValidationPasses": graph_summary.get("graphValidationStatus") == "PASS",
         "semanticDerivationValidationPasses": derivation_summary.get("derivationValidationStatus") == "PASS",
+        "semanticDerivationGraphValidationPasses": derivation_graph_summary.get("derivationGraphValidationStatus") == "PASS",
     }
     return {
         "schemaVersion": "1.0.0",
@@ -160,6 +166,7 @@ def validate_semantic_layer(
         "semanticGraphSummary": graph_summary,
         "semanticGraphTraversalSummary": graph_summary.get("traversalValidationSummary"),
         "semanticDerivationSummary": derivation_summary,
+        "semanticDerivationGraphSummary": derivation_graph_summary,
         "checks": checks,
     }
 
