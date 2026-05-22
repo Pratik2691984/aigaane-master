@@ -953,68 +953,7 @@ function selectedSemanticNodeSummary(node) {
   return `${node.label} (${node.nodeType}; ${node.nodeId})`;
 }
 
-function renderSemanticGraphView(queryState = readSemanticQueryState(), record = selectedSemanticRecord(queryState)) {
-  const graph = SEMANTIC_GRAPH_FALLBACK;
-  const nodes = sortedSemanticGraphNodes(graph.nodes);
-  const edges = sortedSemanticGraphEdges(graph.edges);
-  const highlightedEdgeIds = new Set(highlightedSemanticEdgeIds(record, queryState));
-  const highlightedNodeIds = new Set();
-  edges.forEach((edge) => {
-    if (highlightedEdgeIds.has(edge.edgeId)) {
-      highlightedNodeIds.add(edge.sourceId);
-      highlightedNodeIds.add(edge.targetId);
-    }
-  });
-  const selectedNodeId = selectedSemanticGraphNodeId || record?.dhatuId || "01.0005";
-  const selectedNode = nodes.find((node) => node.nodeId === selectedNodeId) || nodes[0];
 
-  const canvas = byId("semantic-graph-canvas");
-  clearChildren(canvas);
-  if (canvas) {
-    if (nodes.length === 0) {
-      appendEmpty(canvas, "Semantic graph unavailable");
-      renderSemanticGraphLegend([], highlightedEdgeIds);
-      return;
-    }
-    edges.forEach((edge) => {
-      const source = nodes.find((node) => node.nodeId === edge.sourceId);
-      const target = nodes.find((node) => node.nodeId === edge.targetId);
-      if (!source || !target) return;
-      const connector = document.createElement("div");
-      connector.className = "semantic-graph-connector";
-      connector.classList.toggle("traversal-highlight", highlightedEdgeIds.has(edge.edgeId));
-      connector.style.left = `${Math.min(source.x, target.x) + 5}%`;
-      connector.style.top = `${(source.y + target.y) / 2}%`;
-      connector.style.width = `${Math.max(10, Math.abs(target.x - source.x) - 10)}%`;
-      connector.textContent = edge.relationType;
-      canvas.appendChild(connector);
-    });
-    nodes.forEach((node) => {
-      canvas.appendChild(renderSemanticGraphNode(node, selectedNode.nodeId, highlightedNodeIds));
-    });
-  }
-
-  const summary = byId("semantic-graph-summary");
-  clearChildren(summary);
-  if (summary) appendInspectionRow(summary, "Node", selectedSemanticNodeSummary(selectedNode));
-
-  const edgeList = byId("semantic-graph-edges");
-  clearChildren(edgeList);
-  if (edgeList) {
-    if (edges.length === 0) appendEmpty(edgeList, "No semantic relation edges available");
-    edges.forEach((edge) => edgeList.appendChild(renderSemanticGraphEdge(edge, highlightedEdgeIds)));
-  }
-  renderSemanticGraphLegend(edges, highlightedEdgeIds);
-
-  const safety = byId("semantic-graph-safety");
-  clearChildren(safety);
-  if (safety) {
-    const note = document.createElement("div");
-    note.className = "semantic-graph-safety-note";
-    note.textContent = SEMANTIC_DHATU_FALLBACK_PANEL.safetyNote;
-    safety.appendChild(note);
-  }
-}
 
 function focusSemanticGraphNode(nodeId) {
   selectedSemanticGraphNodeId = nodeId;
