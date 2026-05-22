@@ -1634,6 +1634,101 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", combined)
         self.assertNotIn("promote_ready_dhatu_to_canonical", combined)
 
+    def test_sanskrit_analysis_local_fallback_helper_exists(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("function buildLocalSanskritAnalysisFallback(inputText)", controller)
+        self.assertIn("input_text", controller)
+        self.assertIn("normalized_input", controller)
+        self.assertIn("pipelineStatus", controller)
+        self.assertIn("transliteration", controller)
+        self.assertIn("tokenization", controller)
+        self.assertIn("sandhi", controller)
+        self.assertIn("chandas", controller)
+        self.assertIn("vyakarana", controller)
+        self.assertIn("prakriya_graph", controller)
+        self.assertIn("safety_note", controller)
+
+    def test_sanskrit_analysis_falls_back_when_backend_analyze_fails(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        analyze_start = controller.index("async function analyzeCurrentInput()")
+        analyze_end = controller.index("async function runSandhi()", analyze_start)
+        analyze_body = controller[analyze_start:analyze_end]
+
+        self.assertIn('fetch("/api/v3/analyze"', analyze_body)
+        self.assertIn("throw new Error", analyze_body)
+        self.assertIn("buildLocalSanskritAnalysisFallback(inputText)", analyze_body)
+        self.assertIn("Analysis rendered with local fallback", analyze_body)
+        self.assertNotIn("setStatus(\"Analysis unavailable\"", analyze_body)
+
+    def test_sanskrit_analysis_fallback_identifies_rigveda_opening_sample(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Likely Rigveda 1.1.1 opening mantra transliteration-style input.", controller)
+        self.assertIn("latin/IAST-like fallback", controller)
+        for token in ["agnim", "ile", "purohitam", "yajnasya", "devam", "rtvijam", "hotaram", "ratnadhatamam"]:
+            self.assertIn(token, controller)
+
+    def test_sanskrit_analysis_fallback_has_no_authoritative_chandas_claim(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("not authoritatively determined in fallback mode", controller)
+        self.assertIn("exact_meter_claim: false", controller)
+        self.assertIn("No exact sandhi claim is made without backend analysis.", controller)
+        self.assertIn("no authoritative grammatical claim", controller)
+        self.assertNotIn("authoritatively determined in fallback mode\", exact_meter_claim: true", controller)
+
+    def test_sanskrit_analysis_fallback_controller_has_no_canonical_write_hooks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", controller)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", controller)
+
+    def test_sanskrit_analysis_fallback_ui_and_style_classes_exist(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("fallback-analysis-panel", view)
+        self.assertIn("fallback-analysis-badge", view)
+        self.assertIn("fallback-analysis-stages", view)
+        self.assertIn("fallback-analysis-tokens", view)
+        self.assertIn("fallback-analysis-safety", view)
+        for class_name in [
+            ".fallback-analysis-panel",
+            ".fallback-analysis-badge",
+            ".fallback-analysis-stages",
+            ".fallback-stage-card",
+            ".fallback-token",
+            ".fallback-analysis-safety",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_analysis_fallback_manifest_and_docs_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+
+        self.assertEqual(
+            self.payload["sanskritAnalysisLocalFallbackUiMode"],
+            "client-side-deterministic-no-backend-required",
+        )
+        self.assertEqual(self.payload["sanskritAnalysisLocalFallbackBackendRoute"], "/api/v3/analyze")
+        self.assertIn("Node 25C adds a deterministic client-side Sanskrit analysis fallback", readme)
+
+    def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
+        self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
+        self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")
+        self.assertEqual(semantic_derivation.validate_derivations()["derivationValidationStatus"], "PASS")
+        self.assertEqual(
+            semantic_derivation_graph.validate_derivation_graph()["derivationGraphValidationStatus"],
+            "PASS",
+        )
+
+    def test_sanskrit_analysis_fallback_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        registry = json.loads(before_registry)
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
     def test_controller_and_app_have_no_canonical_write_hooks(self):
         combined = "\n".join([
             SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),

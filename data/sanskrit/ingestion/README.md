@@ -88,6 +88,8 @@ The Sanskrit tab renders the bridge in a read-only Derivation Graph Intelligence
 
 `scripts/export_dhatu_semantic_platform_ui_examples.py` writes `ui_semantic_platform_status_panel.v1.json` for the Sanskrit tab's read-only Semantic Platform Status panel. The fixture summarizes the v53-v72 milestone span, validator state, public semantic endpoints, checkpoint references, UI readiness, and placeholder-safe policy without introducing backend fetch requirements or canonical write hooks.
 
+Node 25C adds a deterministic client-side Sanskrit analysis fallback for the Sanskrit tab when `/api/v3/analyze` is unavailable to static local servers. The fallback renders pipeline status, tokenization, local placeholder sandhi/chandas/vyakarana/prakriya graph panels, and a visible safety note while preserving the backend POST as the first attempt. It does not make authoritative grammar, exact chandas, exact Vedic, canonical registry, or backend mutation claims.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

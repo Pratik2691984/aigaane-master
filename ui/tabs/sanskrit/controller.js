@@ -1680,6 +1680,51 @@ function renderApiError(detail) {
   }
 }
 
+function renderFallbackAnalysisPanel(payload) {
+  const panel = byId("fallback-analysis-panel");
+  const badge = byId("fallback-analysis-badge");
+  const explanation = byId("fallback-analysis-explanation");
+  const stages = byId("fallback-analysis-stages");
+  const tokens = byId("fallback-analysis-tokens");
+  const safety = byId("fallback-analysis-safety");
+  const isFallback = payload?.pipelineStatus?.mode === "local-fallback";
+
+  if (panel) panel.classList.toggle("hidden", !isFallback);
+  if (!isFallback) return;
+
+  if (badge) badge.textContent = "Local fallback";
+  if (explanation) {
+    explanation.textContent = text(
+      payload?.pipelineStatus?.backendUnavailableExplanation,
+      "The backend analysis route was unavailable, so a deterministic local fallback was rendered.",
+    );
+  }
+
+  clearChildren(stages);
+  const stageValues = Array.isArray(payload?.pipelineStatus?.stages) ? payload.pipelineStatus.stages : [];
+  stageValues.forEach((stage) => {
+    const card = document.createElement("div");
+    card.className = "fallback-stage-card";
+    const title = document.createElement("strong");
+    const body = document.createElement("span");
+    title.textContent = text(stage?.label || stage?.stage);
+    body.textContent = text(stage?.status);
+    card.append(title, body);
+    stages?.appendChild(card);
+  });
+
+  clearChildren(tokens);
+  const tokenValues = Array.isArray(payload?.tokenization?.tokens) ? payload.tokenization.tokens : [];
+  tokenValues.forEach((tokenValue) => {
+    const item = document.createElement("span");
+    item.className = "fallback-token";
+    item.textContent = text(tokenValue);
+    tokens?.appendChild(item);
+  });
+
+  if (safety) safety.textContent = text(payload?.safety_note);
+}
+
 function renderDebugError(targetId, error) {
   const container = byId(targetId);
   clearChildren(container);
@@ -1870,6 +1915,7 @@ function renderDebugSessionStorageList(data) {
 }
 
 function renderPayload(payload) {
+  renderFallbackAnalysisPanel(payload);
   setText("overall-stanza-meter", payload?.overall_stanza_meter);
   setText("total-matra-count", payload?.total_matra_count, 0);
   setText("diagnostic-count", Array.isArray(payload?.parser_diagnostics) ? payload.parser_diagnostics.length : 0, 0);
@@ -1903,6 +1949,121 @@ async function postJson(url, body) {
     body: JSON.stringify(body),
   });
   return readJsonResponse(response);
+}
+
+function normalizeSanskritFallbackInput(inputText) {
+  return text(inputText, "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+}
+
+function buildLocalSanskritAnalysisFallback(inputText) {
+  const normalizedInput = normalizeSanskritFallbackInput(inputText);
+  const tokens = normalizedInput ? normalizedInput.split(" ") : [];
+  const sampleRigvedaOpening = "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam";
+  const isLikelyRigvedaOpening = normalizedInput === sampleRigvedaOpening;
+  const safetyNote = "Local fallback only: backend analysis is required for authoritative vyakarana, exact chandas, exact sandhi, or canonical grammatical claims. No canonical registry or backend mutation is performed.";
+
+  return {
+    input_text: inputText,
+    normalized_input: normalizedInput,
+    pipelineStatus: {
+      mode: "local-fallback",
+      backendRoute: "/api/v3/analyze",
+      backendUnavailable: true,
+      backendUnavailableExplanation: "The backend /api/v3/analyze route was unavailable or returned an unreadable payload. This panel uses deterministic client-side fallback data and makes no authoritative grammatical claim.",
+      likelySourceMarker: isLikelyRigvedaOpening
+        ? "Likely Rigveda 1.1.1 opening mantra transliteration-style input."
+        : "Local transliteration-style input fallback; source not identified.",
+      stages: [
+        { stage: "transliteration", label: "Transliteration", status: "latin/IAST-like fallback mode" },
+        { stage: "tokenization", label: "Tokenization", status: `${tokens.length} whitespace tokens` },
+        { stage: "sandhi", label: "Sandhi", status: "not resolved locally; backend required" },
+        { stage: "chandas", label: "Chandas", status: "not authoritatively determined in fallback mode" },
+        { stage: "vyakarana", label: "Vyakarana", status: "backend required for full parse" },
+        { stage: "prakriya_graph", label: "Prakriya graph", status: "local placeholder only" },
+      ],
+    },
+    transliteration: "latin/IAST-like fallback",
+    tokenization: {
+      method: "whitespace",
+      tokens,
+      token_count: tokens.length,
+      likelyRigvedaOpening: isLikelyRigvedaOpening,
+      source_note: isLikelyRigvedaOpening
+        ? "Likely Rigveda 1.1.1 opening mantra transliteration-style input."
+        : "No source identification is asserted in fallback mode.",
+    },
+    sandhi: [
+      {
+        rule: "fallback_no_sandhi_resolution",
+        before: normalizedInput,
+        after: normalizedInput,
+        note: "No exact sandhi claim is made without backend analysis.",
+      },
+    ],
+    chandas: {
+      status: "not_authoritatively_determined",
+      note: "Chandas is not authoritatively determined in fallback mode.",
+      exact_meter_claim: false,
+    },
+    vyakarana: {
+      status: "backend_required",
+      note: "Backend required for full parse; no authoritative grammatical claim is made.",
+    },
+    prakriya_graph: {
+      graph_status: "local_placeholder_only",
+      nodes: [
+        { id: "input", label: "Input text", type: "input" },
+        { id: "tokens", label: "Fallback tokens", type: "tokenization" },
+        { id: "backend-required", label: "Backend parse required", type: "safety" },
+      ],
+      edges: [
+        { from: "input", to: "tokens", label: "whitespace fallback" },
+        { from: "tokens", to: "backend-required", label: "no authoritative parse" },
+      ],
+    },
+    safety_note: safetyNote,
+    overall_stanza_meter: "not authoritatively determined in fallback mode",
+    total_matra_count: 0,
+    parser_diagnostics: [
+      { level: "info", message: "Analysis rendered with local fallback because /api/v3/analyze was unavailable or unreadable." },
+      { level: "warning", message: "Backend required for full Sanskrit grammatical parsing and exact chandas." },
+      ...(isLikelyRigvedaOpening
+        ? [{ level: "info", message: "Likely Rigveda 1.1.1 opening mantra transliteration-style input." }]
+        : []),
+    ],
+    padas: [],
+    phonological_syllables: [],
+    derivation_history: [
+      {
+        stage: "tokenization",
+        input: normalizedInput,
+        output: tokens.join(" | "),
+        rule: "local whitespace fallback",
+      },
+      {
+        stage: "vyakarana",
+        input: tokens.join(" | "),
+        output: "backend required for full parse",
+        rule: "no authoritative grammatical claim",
+      },
+    ],
+    lexical_lookup: tokens.map((tokenValue, index) => ({
+      token: tokenValue,
+      index,
+      status: "fallback-token-only",
+      note: "Lexical identity is not asserted without backend analysis.",
+    })),
+    experimental_payload: {
+      field_map: tokens.map((tokenValue, index) => ({
+        symbol: tokenValue.slice(0, 1) || "-",
+        token: tokenValue,
+        index,
+      })),
+    },
+  };
 }
 
 async function readDebugJsonResponse(response, targetId) {
@@ -2476,12 +2637,24 @@ async function analyzeCurrentInput() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input_text: inputText }),
     });
-    const payload = await readJsonResponse(response);
+    const payload = await response.json().catch(() => null);
+    if (!response.ok || !payload || typeof payload !== "object") {
+      throw new Error(response.ok ? "Unreadable analysis payload" : `HTTP ${response.status}`);
+    }
+    renderApiError(null);
     renderPayload(payload);
     setStatus("Analysis complete");
   } catch (error) {
     console.error("[Sanskrit] Analysis error:", error);
-    setStatus("Analysis unavailable", true);
+    const payload = buildLocalSanskritAnalysisFallback(inputText);
+    renderApiError({
+      detail: {
+        code: "local_fallback",
+        message: "Backend analysis unavailable; rendered deterministic local fallback.",
+      },
+    });
+    renderPayload(payload);
+    setStatus("Analysis rendered with local fallback");
   } finally {
     setBusy(analyzeButton, false);
   }

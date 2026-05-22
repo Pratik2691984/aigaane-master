@@ -119,6 +119,92 @@
     flex-wrap: wrap;
 }
 
+.fallback-analysis-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 215, 128, 0.42);
+    border-radius: 8px;
+    padding: 0.85rem;
+    background: rgba(255, 215, 128, 0.06);
+}
+
+.fallback-analysis-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.fallback-analysis-header p {
+    color: #d7e4f2;
+    font-size: 0.9rem;
+}
+
+.fallback-analysis-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid rgba(255, 215, 128, 0.7);
+    border-radius: 999px;
+    padding: 0.18rem 0.55rem;
+    color: #ffe0a3;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.fallback-analysis-stages {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+
+.fallback-stage-card,
+.fallback-analysis-safety {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 0.65rem;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.fallback-stage-card strong {
+    color: #f0d77a;
+}
+
+.fallback-stage-card span,
+.fallback-analysis-safety {
+    color: #9fb0c7;
+    overflow-wrap: anywhere;
+}
+
+.fallback-analysis-panel h3 {
+    color: #b9c7d9;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+}
+
+.fallback-analysis-tokens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.fallback-token {
+    border: 1px solid rgba(212, 175, 55, 0.38);
+    border-radius: 999px;
+    padding: 0.22rem 0.52rem;
+    color: #eef3f8;
+    background: rgba(10, 12, 18, 0.48);
+    font-size: 0.86rem;
+}
+
 #analyze-sanskrit,
 #run-sandhi,
 #run-morphology,
@@ -1742,6 +1828,7 @@
     .semantic-derivation-graph-layout,
     .semantic-platform-status-layout,
     .semantic-graph-layout,
+    .fallback-analysis-stages,
     .graph-grid,
     .replay-grid,
     .sanskrit-results {

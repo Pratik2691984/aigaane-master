@@ -11,6 +11,18 @@
             <button id="analyze-sanskrit" type="button">Analyze</button>
             <span id="sanskrit-status" role="status" aria-live="polite">Ready</span>
         </div>
+        <section id="fallback-analysis-panel" class="fallback-analysis-panel hidden" aria-live="polite" aria-label="Local fallback analysis">
+            <header class="fallback-analysis-header">
+                <span id="fallback-analysis-badge" class="fallback-analysis-badge">Local fallback</span>
+                <p id="fallback-analysis-explanation">Backend analysis unavailable; deterministic local fallback rendered.</p>
+            </header>
+            <div id="fallback-analysis-stages" class="fallback-analysis-stages" aria-label="Fallback pipeline stages"></div>
+            <div>
+                <h3>Fallback Tokens</h3>
+                <div id="fallback-analysis-tokens" class="fallback-analysis-tokens"></div>
+            </div>
+            <div id="fallback-analysis-safety" class="fallback-analysis-safety" role="note"></div>
+        </section>
     </section>
 
     <section class="execution-grid" aria-label="Sanskrit execution panels">

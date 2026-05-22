@@ -78,6 +78,9 @@
   "canonicalDhatuSemanticPlatformUiExampleExportScript": "scripts/export_dhatu_semantic_platform_ui_examples.py",
   "canonicalDhatuSemanticPlatformStatusUiFixture": "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json",
   "canonicalDhatuSemanticPlatformStatusUiPanel": "Semantic Platform Status",
+  "sanskritAnalysisLocalFallbackUiMode": "client-side-deterministic-no-backend-required",
+  "sanskritAnalysisLocalFallbackBackendRoute": "/api/v3/analyze",
+  "sanskritAnalysisLocalFallbackSafety": "no-authoritative-vyakarana-or-exact-chandas-claim",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,
