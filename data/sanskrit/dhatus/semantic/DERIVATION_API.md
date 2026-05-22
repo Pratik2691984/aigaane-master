@@ -76,3 +76,7 @@ The Sanskrit tab renders this layer as a read-only **Derivation Intelligence** p
 The semantic derivation graph bridge is also read-only. It performs bounded traversal only, never generates derivations, never mutates canonical records, and keeps every bridge confidence value at `unreviewed` with review status `placeholder-local-review-required`.
 
 The Sanskrit tab renders the bridge as **Derivation Graph Intelligence**. This UI is placeholder-only and read-only; no exact Paninian derivation claim is made, no exact sutra assertion is made, and no grammatical correctness guarantee is provided.
+
+## v70 Platform Checkpoint
+
+`scripts/build_dhatu_semantic_platform_checkpoint.py` writes the v70 semantic platform checkpoint under `data/sanskrit/dhatus/semantic/releases/v70/`. The checkpoint freezes the read-only v53-v70 semantic stack, records validator results, and keeps derivation confidence and review status in placeholder-safe form.

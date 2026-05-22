@@ -53,6 +53,7 @@ SEMANTIC_DERIVATION_GRAPH_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_
 SEMANTIC_DERIVATION_GRAPH_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_derivation_graph.py"
 SEMANTIC_DERIVATION_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_derivation_graph_examples.py"
 SEMANTIC_DERIVATION_GRAPH_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_derivation_graph_api.py"
+SEMANTIC_PLATFORM_CHECKPOINT_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_semantic_platform_checkpoint.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -94,6 +95,9 @@ SEMANTIC_DERIVATION_PATH = SEMANTIC_DERIVATION_ROOT / "semantic_derivations.v1.j
 SEMANTIC_DERIVATION_EDGES_PATH = SEMANTIC_DERIVATION_ROOT / "semantic_derivation_edges.v1.json"
 SEMANTIC_DERIVATION_GRAPH_EXAMPLES_ROOT = SEMANTIC_DERIVATION_ROOT / "examples" / "graph"
 SEMANTIC_DERIVATION_DOC_PATH = SEMANTIC_ROOT / "DERIVATION_API.md"
+SEMANTIC_RELEASE_V70_ROOT = SEMANTIC_ROOT / "releases" / "v70"
+SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH = SEMANTIC_RELEASE_V70_ROOT / "semantic_platform_checkpoint.v70.json"
+SEMANTIC_PLATFORM_CHECKPOINT_MD_PATH = SEMANTIC_RELEASE_V70_ROOT / "semantic_platform_checkpoint.v70.md"
 GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
@@ -1483,6 +1487,58 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(len(registry["records"]), 13)
         self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
 
+    def test_semantic_platform_checkpoint_script_exists(self):
+        self.assertTrue(SEMANTIC_PLATFORM_CHECKPOINT_SCRIPT_PATH.exists())
+
+    def test_semantic_platform_checkpoint_files_exist(self):
+        self.assertTrue(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.exists())
+        self.assertTrue(SEMANTIC_PLATFORM_CHECKPOINT_MD_PATH.exists())
+
+    def test_semantic_platform_checkpoint_status_and_counts(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(checkpoint["platformStatus"], "READY")
+        self.assertEqual(checkpoint["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(checkpoint["semanticGraphEdgeCount"], 7)
+        self.assertEqual(checkpoint["derivationRecordCount"], 3)
+        self.assertEqual(checkpoint["derivationGraphEdgeCount"], 8)
+
+    def test_semantic_platform_checkpoint_includes_v53_through_v70_milestones(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+        nodes = {entry["node"] for entry in checkpoint["milestoneTags"]}
+
+        for node in ["v53", "v54", "v55", "v56", "v57", "v58", "v59", "v60", "v61", "v62", "v63", "v64", "v65", "v66", "v67", "v68", "v69", "v70"]:
+            self.assertIn(node, nodes)
+
+    def test_semantic_platform_checkpoint_safety_rejects_exact_sutra_claims(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+        safety = checkpoint["safetyPolicy"]
+
+        self.assertFalse(safety["exactPaninianDerivationClaimsAllowed"])
+        self.assertFalse(safety["exactSutraAssertionsAllowed"])
+        self.assertFalse(safety["grammaticalCorrectnessGuarantee"])
+        self.assertTrue(safety["noExactPaninianDerivationClaimsPresent"])
+        self.assertTrue(safety["allDerivationConfidenceValuesUnreviewed"])
+        self.assertTrue(safety["allDerivationReviewStatusesPlaceholder"])
+
+    def test_semantic_platform_checkpoint_validation_summary_reports_pass(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(checkpoint["validationSummary"]["semanticLayer"], "PASS")
+        self.assertEqual(checkpoint["validationSummary"]["semanticGraph"], "PASS")
+        self.assertEqual(checkpoint["validationSummary"]["semanticDerivation"], "PASS")
+        self.assertEqual(checkpoint["validationSummary"]["semanticDerivationGraph"], "PASS")
+        self.assertEqual(checkpoint["blockingReasons"], [])
+
+    def test_semantic_platform_checkpoint_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(checkpoint["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
     def test_controller_and_app_have_no_canonical_write_hooks(self):
         combined = "\n".join([
             SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
@@ -1850,6 +1906,18 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticDerivationGraphUiMode"],
             "client-side-read-only-placeholder-only",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformCheckpointScript"],
+            "scripts/build_dhatu_semantic_platform_checkpoint.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformCheckpointJsonFile"],
+            "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformCheckpointMarkdownFile"],
+            "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.md",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

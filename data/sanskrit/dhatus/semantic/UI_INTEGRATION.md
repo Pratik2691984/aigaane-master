@@ -76,3 +76,5 @@ All derivation claims require future review. No exact Paninian derivation claim 
 The derivation graph bridge is also placeholder-only. It makes no exact sutra reference, does not generate derivations, and does not mutate canonical or semantic source data.
 
 The Derivation Graph Intelligence UI is placeholder-only and read-only. No exact Paninian derivation claim is made, no exact sutra assertion is made, and no grammatical correctness guarantee is provided.
+
+The v70 semantic platform checkpoint freezes the v53-v70 Sanskrit semantic intelligence stack in `data/sanskrit/dhatus/semantic/releases/v70/`. It summarizes validator status, UI fixture coverage, graph and derivation counts, and the read-only safety contract.
