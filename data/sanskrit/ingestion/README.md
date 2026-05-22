@@ -84,6 +84,8 @@ The Sanskrit tab renders the bridge in a read-only Derivation Graph Intelligence
 
 `scripts/build_dhatu_semantic_platform_checkpoint.py` writes the v70 semantic platform checkpoint under `data/sanskrit/dhatus/semantic/releases/v70/`. It summarizes the v53-v70 semantic platform, imports all semantic validators, records the immutable safety policy, and marks the platform `READY` only when the canonical registry remains at 13 records and every placeholder safety check passes.
 
+`GET /api/dhatu/semantic` and `scripts/smoke_dhatu_semantic_platform_index.py` expose a public read-only semantic platform index. `data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md` documents the v53-v71 endpoint map, checkpoint location, validator commands, UI integration references, and the placeholder-only safety policy.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

@@ -237,6 +237,16 @@ sutra_trace_linker = SutraTraceLinker()
 derivation_graph_exporter = DerivationGraphExporter()
 derivation_replay_exporter = DerivationReplayExporter()
 
+API_ROOT = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.join(API_ROOT, os.pardir))
+SEMANTIC_ROOT = os.path.join(PROJECT_ROOT, "data", "sanskrit", "dhatus", "semantic")
+SEMANTIC_PLATFORM_CHECKPOINT_PATH = os.path.join(
+    SEMANTIC_ROOT,
+    "releases",
+    "v70",
+    "semantic_platform_checkpoint.v70.json",
+)
+
 # ============ WebSocket disabled for Vercel ============
 manager = None
 
@@ -396,6 +406,104 @@ def build_dhatu_semantic_derivation_graph_response(
     payload["generatedBy"] = "api/kernel_api.py:/api/dhatu/semantic/derivation-graph"
     return payload
 
+
+def _load_semantic_platform_checkpoint() -> Dict[str, Any]:
+    with open(SEMANTIC_PLATFORM_CHECKPOINT_PATH, "r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def build_dhatu_semantic_platform_index_response() -> Dict[str, Any]:
+    checkpoint = _load_semantic_platform_checkpoint()
+    validation_summary = checkpoint.get("validationSummary", {})
+    return {
+        "schemaVersion": "1.0.0",
+        "generatedBy": "api/kernel_api.py:/api/dhatu/semantic",
+        "platformStatus": checkpoint.get("platformStatus", "UNKNOWN"),
+        "canonicalRegistryRecordCount": checkpoint.get("canonicalRegistryRecordCount"),
+        "semanticRecordCount": checkpoint.get("semanticRecordCount"),
+        "checkpoint": {
+            "releaseTag": checkpoint.get("releaseTag"),
+            "releaseCommit": checkpoint.get("releaseCommit"),
+            "jsonPath": "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.json",
+            "markdownPath": "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.md",
+        },
+        "endpoints": [
+            {
+                "path": "/api/dhatu/semantic/search",
+                "label": "Semantic Search API",
+                "method": "GET",
+                "readOnly": True,
+                "description": "Search canonical dhatu semantic sidecar records.",
+            },
+            {
+                "path": "/api/dhatu/semantic/neighbors",
+                "label": "Semantic Neighbors API",
+                "method": "GET",
+                "readOnly": True,
+                "description": "Return bounded semantic graph neighbors for a node.",
+            },
+            {
+                "path": "/api/dhatu/semantic/traverse",
+                "label": "Semantic Traversal API",
+                "method": "GET",
+                "readOnly": True,
+                "description": "Return deterministic semantic graph traversal paths.",
+            },
+            {
+                "path": "/api/dhatu/semantic/derivations",
+                "label": "Semantic Derivations API",
+                "method": "GET",
+                "readOnly": True,
+                "description": "Expose placeholder-only derivation metadata.",
+            },
+            {
+                "path": "/api/dhatu/semantic/derivation-graph",
+                "label": "Semantic Derivation Graph API",
+                "method": "GET",
+                "readOnly": True,
+                "description": "Bridge semantic graph traversal to placeholder derivation families.",
+            },
+        ],
+        "docs": [
+            "data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md",
+            "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
+            "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
+            "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+            "data/sanskrit/ingestion/README.md",
+        ],
+        "examples": [
+            "data/sanskrit/dhatus/semantic/examples",
+            "data/sanskrit/dhatus/semantic/examples/graph",
+            "data/sanskrit/dhatus/semantic/examples/ui",
+            "data/sanskrit/dhatus/semantic/derivations/examples",
+            "data/sanskrit/dhatus/semantic/derivations/examples/graph",
+        ],
+        "safetyPolicy": checkpoint.get("safetyPolicy", {}),
+        "validators": [
+            {
+                "name": "semanticLayer",
+                "command": "python scripts/validate_dhatu_semantic_layer.py",
+                "status": validation_summary.get("semanticLayer", "UNKNOWN"),
+            },
+            {
+                "name": "semanticGraph",
+                "command": "python scripts/validate_dhatu_semantic_graph.py",
+                "status": validation_summary.get("semanticGraph", "UNKNOWN"),
+            },
+            {
+                "name": "semanticDerivation",
+                "command": "python scripts/validate_dhatu_semantic_derivations.py",
+                "status": validation_summary.get("semanticDerivation", "UNKNOWN"),
+            },
+            {
+                "name": "semanticDerivationGraph",
+                "command": "python scripts/validate_dhatu_semantic_derivation_graph.py",
+                "status": validation_summary.get("semanticDerivationGraph", "UNKNOWN"),
+            },
+        ],
+        "milestoneTags": checkpoint.get("milestoneTags", []),
+    }
+
 # ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
@@ -487,6 +595,10 @@ async def server_info():
         "total_history_states": len(history_states),
         "current_golden_build": current_golden_build.get("metadata", {}).get("build_name") if current_golden_build else None
     }
+
+@app.get("/api/dhatu/semantic")
+async def dhatu_semantic_platform_index():
+    return build_dhatu_semantic_platform_index_response()
 
 @app.get("/api/dhatu/semantic/search")
 async def dhatu_semantic_search(
