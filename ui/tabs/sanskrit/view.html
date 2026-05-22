@@ -280,6 +280,83 @@
         </div>
     </section>
 
+    <section class="semantic-derivation-inspector" aria-labelledby="semantic-derivation-title" aria-describedby="semantic-derivation-description">
+        <header class="semantic-derivation-header">
+            <h3 id="semantic-derivation-title">Derivation Intelligence</h3>
+            <p id="semantic-derivation-description">Read-only semantic derivation placeholders for selected dhatu context.</p>
+        </header>
+
+        <div class="semantic-derivation-controls" aria-label="Derivation placeholder filters">
+            <label for="semantic-derivation-family-filter">Family</label>
+            <select id="semantic-derivation-family-filter">
+                <option value="">Any family</option>
+                <option value="family.semantic.motion-transition">family.semantic.motion-transition</option>
+                <option value="family.semantic.guidance-transfer">family.semantic.guidance-transfer</option>
+                <option value="family.semantic.stability-state">family.semantic.stability-state</option>
+            </select>
+
+            <label for="semantic-derivation-domain-filter">Usage domain</label>
+            <select id="semantic-derivation-domain-filter">
+                <option value="">Any domain</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+                <option value="journey">journey</option>
+                <option value="agency">agency</option>
+                <option value="posture">posture</option>
+                <option value="state">state</option>
+                <option value="transition">transition</option>
+            </select>
+
+            <label for="semantic-derivation-relation-filter">Relation</label>
+            <select id="semantic-derivation-relation-filter">
+                <option value="">Any relation</option>
+                <option value="motion-guidance-adjacent">motion-guidance-adjacent</option>
+                <option value="motion-stability-contrast">motion-stability-contrast</option>
+                <option value="guidance-motion-adjacent">guidance-motion-adjacent</option>
+                <option value="stability-motion-contrast">stability-motion-contrast</option>
+            </select>
+
+            <button id="semantic-derivation-reset" type="button">Reset derivation filters</button>
+        </div>
+
+        <div id="semantic-derivation-safety" class="semantic-derivation-safety" role="note">
+            Placeholder-only: all derivation claims require future review. No exact Paninian derivation claim is made.
+        </div>
+
+        <div class="semantic-derivation-grid">
+            <section class="semantic-derivation-panel semantic-derivation-summary-panel">
+                <h4>Selected Dhatu</h4>
+                <div id="semantic-derivation-summary-output" class="semantic-derivation-list">No derivation selected</div>
+            </section>
+
+            <section class="semantic-derivation-panel">
+                <h4>Semantic Lineage</h4>
+                <div id="semantic-derivation-lineage-output" class="semantic-derivation-list">No semantic lineage loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel">
+                <h4>Conceptual Affix Hints</h4>
+                <div id="semantic-derivation-hints-output" class="semantic-derivation-list">No conceptual hints loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel">
+                <h4>Proto Derivation Relations</h4>
+                <div id="semantic-derivation-relations-output" class="semantic-derivation-list">No proto relations loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel semantic-derivation-notes-panel">
+                <h4>Transformation Notes</h4>
+                <div id="semantic-derivation-notes-output" class="semantic-derivation-list">No transformation notes loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel semantic-derivation-panini-panel">
+                <h4>Placeholder Panini Relation</h4>
+                <div id="semantic-derivation-panini-output" class="semantic-derivation-list">No placeholder relation loaded</div>
+            </section>
+        </div>
+    </section>
+
     <section class="semantic-graph-view" aria-labelledby="semantic-graph-title" aria-describedby="semantic-graph-description">
         <header class="semantic-graph-header">
             <h3 id="semantic-graph-title">Semantic Graph View</h3>

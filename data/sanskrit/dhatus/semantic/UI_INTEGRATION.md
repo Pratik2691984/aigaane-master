@@ -16,7 +16,7 @@ The current Sanskrit tab integration adds read-only client-side query controls f
 
 The Semantic Graph View is also client-side and read-only. It renders lightweight HTML/CSS graph nodes, relation labels, selected-node highlighting, traversal-path highlighting, and a screen-reader-friendly relation legend from fixture-compatible fallback graph data.
 
-The Semantic Derivation Placeholder layer may be displayed as a read-only UI panel using fixtures from `data/sanskrit/dhatus/semantic/derivations/examples/`. UI copy must keep these records labelled as placeholders requiring local review, and must not present any relation as a grammatical derivation or exact Paninian source.
+The Sanskrit tab includes a read-only **Derivation Intelligence** panel for the Semantic Derivation Placeholder layer. It may load fixture-compatible local data from `data/sanskrit/dhatus/semantic/derivations/` and should continue to work without a backend server. UI copy must keep these records labelled as placeholders requiring future review, and must not present any relation as a grammatical derivation or exact Paninian source.
 
 Graph visualization accessibility:
 
@@ -33,6 +33,8 @@ Recommended frontend sections:
 - Traversal Paths
 - Derivation Placeholders
 - Safety Notes
+
+The Derivation Intelligence panel should display selected dhatu id, root, IAST, derivation family id, semantic lineage, usage domains, conceptual affix hints, proto derivation relations, semantic transformation notes, placeholder Panini relation, review status, and a visible safety note. Family, usage-domain, and relation filters are read-only local filters.
 
 Supported control values include the motion, guidance, and stability clusters; traversal depths 1 and 2; and relation filters `guides`, `associated_with`, `transitions_to`, and `grounds`.
 
@@ -65,3 +67,5 @@ python scripts/export_dhatu_semantic_derivation_examples.py
 Semantic graph links are foundation-placeholder UI context only. They do not make exact Paninian derivation claims.
 
 Semantic derivation metadata is also placeholder-only. It provides no exact sutra assertion, no authoritative Paninian claim, and no grammatical correctness guarantee.
+
+All derivation claims require future review. No exact Paninian derivation claim is made, and the semantic derivation layer remains read-only.

@@ -76,6 +76,8 @@ The goldset protects canonical truth while ingestion expands normal registry cov
 
 `scripts/export_dhatu_semantic_derivation_examples.py` writes deterministic API and UI-ready examples under `data/sanskrit/dhatus/semantic/derivations/examples/` for `/api/dhatu/semantic/derivations`.
 
+The Sanskrit tab renders these records in a read-only Derivation Intelligence panel. The panel is placeholder-only, all derivation claims require future review, no exact PÄá¹‡inian derivation claim is made, and the semantic derivation layer remains read-only.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

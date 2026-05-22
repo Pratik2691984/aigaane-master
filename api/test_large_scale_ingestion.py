@@ -956,6 +956,30 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("semantic-graph-edges", view)
         self.assertIn("semantic-graph-safety", view)
 
+    def test_sanskrit_view_contains_derivation_intelligence_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Derivation Intelligence", view)
+        self.assertIn("semantic-derivation-summary-output", view)
+        self.assertIn("semantic-derivation-lineage-output", view)
+        self.assertIn("semantic-derivation-hints-output", view)
+        self.assertIn("semantic-derivation-relations-output", view)
+        self.assertIn("semantic-derivation-panini-output", view)
+        self.assertIn("semantic-derivation-safety", view)
+
+    def test_sanskrit_view_contains_derivation_filter_controls(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        for control_id in [
+            "semantic-derivation-family-filter",
+            "semantic-derivation-domain-filter",
+            "semantic-derivation-relation-filter",
+            "semantic-derivation-reset",
+        ]:
+            self.assertIn(control_id, view)
+        for option in ["family.semantic.motion-transition", "motion-guidance-adjacent", "stability-motion-contrast"]:
+            self.assertIn(option, view)
+
     def test_sanskrit_view_has_semantic_graph_aria_labels(self):
         view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
 
@@ -1014,6 +1038,37 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("renderSemanticGraphView", controller)
         self.assertIn("renderSemanticGraphNode", controller)
         self.assertIn("renderSemanticGraphEdge", controller)
+
+    def test_sanskrit_controller_contains_derivation_panel_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_DATA_FIXTURE", controller)
+        self.assertIn("SEMANTIC_DERIVATION_FALLBACK_DATA", controller)
+        self.assertIn("renderSemanticDerivationPanel", controller)
+        self.assertIn("renderSemanticDerivationCard", controller)
+        self.assertIn("protoDerivationRelations", controller)
+        self.assertIn("placeholderPaniniRelation", controller)
+
+    def test_sanskrit_controller_updates_derivation_panel_on_semantic_selection(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("focusSemanticGraphNode", controller)
+        self.assertIn("selectedSemanticGraphNodeId = nodeId", controller)
+        self.assertIn("renderSemanticDerivationPanel(record?.dhatuId || selectedSemanticGraphNodeId)", controller)
+        self.assertIn("loadSemanticDerivationData", controller)
+
+    def test_sanskrit_controller_contains_derivation_placeholder_warning(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_PLACEHOLDER_WARNING", controller)
+        self.assertIn("Placeholder-only: all derivation claims require future review", controller)
+        self.assertIn("No exact Paninian derivation claim is made", controller)
+
+    def test_sanskrit_controller_contains_no_exact_sutra_authority_claim(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("exact sutra authority", controller.casefold())
+        self.assertNotIn("grammatical authority is guaranteed", controller.casefold())
 
     def test_sanskrit_controller_contains_click_to_focus_semantic_node_handling(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
@@ -1087,6 +1142,19 @@ class LargeScaleIngestionTests(unittest.TestCase):
             ".semantic-graph-edge",
             ".semantic-graph-node.selected",
             ".semantic-graph-node.traversal-highlight",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_derivation_panel_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-derivation-inspector",
+            ".semantic-derivation-controls",
+            ".semantic-derivation-safety",
+            ".semantic-derivation-grid",
+            ".semantic-derivation-panel",
+            ".semantic-derivation-card",
         ]:
             self.assertIn(class_name, style)
 
@@ -1559,6 +1627,14 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticDerivationEndpoint"],
             "/api/dhatu/semantic/derivations",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationUiPanel"],
+            "Derivation Intelligence",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationUiMode"],
+            "client-side-read-only-placeholder-only",
         )
         self.assertEqual(
             self.payload["canonicalDhatuSemanticDerivationReviewStatus"],

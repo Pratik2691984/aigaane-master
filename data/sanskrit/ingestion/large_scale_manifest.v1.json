@@ -55,6 +55,8 @@
   "canonicalDhatuSemanticDerivationExampleExportScript": "scripts/export_dhatu_semantic_derivation_examples.py",
   "canonicalDhatuSemanticDerivationExamplesRoot": "data/sanskrit/dhatus/semantic/derivations/examples",
   "canonicalDhatuSemanticDerivationEndpoint": "/api/dhatu/semantic/derivations",
+  "canonicalDhatuSemanticDerivationUiPanel": "Derivation Intelligence",
+  "canonicalDhatuSemanticDerivationUiMode": "client-side-read-only-placeholder-only",
   "canonicalDhatuSemanticDerivationReviewStatus": "placeholder-local-review-required",
   "canonicalDhatuSemanticDerivationConfidence": "unreviewed",
   "policy": {

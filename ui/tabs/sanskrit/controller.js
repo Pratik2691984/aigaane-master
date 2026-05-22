@@ -30,8 +30,13 @@ let semanticGlossFilter = null;
 let semanticDepthSelect = null;
 let semanticRelationFilter = null;
 let semanticResetButton = null;
+let semanticDerivationFamilyFilter = null;
+let semanticDerivationDomainFilter = null;
+let semanticDerivationRelationFilter = null;
+let semanticDerivationResetButton = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
+let semanticDerivationData = null;
 let selectedSemanticGraphNodeId = "01.0005";
 
 const DEFAULT_PAYLOAD = {
@@ -39,6 +44,8 @@ const DEFAULT_PAYLOAD = {
 };
 
 const SEMANTIC_DHATU_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json";
+const SEMANTIC_DERIVATION_DATA_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json";
+const SEMANTIC_DERIVATION_PLACEHOLDER_WARNING = "Placeholder-only: all derivation claims require future review. No exact Paninian derivation claim is made.";
 const SEMANTIC_DHATU_FALLBACK_PANEL = {
   schemaVersion: "1.0.0",
   generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
@@ -170,6 +177,155 @@ const SEMANTIC_DHATU_RECORDS = [
     },
   },
 ];
+
+const SEMANTIC_DERIVATION_FALLBACK_DATA = {
+  schemaVersion: "1.0.0",
+  generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
+  policy: {
+    authoritativePaninianClaims: false,
+    exactSutraAssertions: false,
+    grammaticalCorrectnessGuarantee: false,
+    requiredReviewStatus: "placeholder-local-review-required",
+    requiredRelationConfidence: "unreviewed",
+  },
+  records: [
+    {
+      schemaVersion: "1.0.0",
+      derivationId: "derivation.semantic.01.0005",
+      dhatuId: "01.0005",
+      rootIast: "gam",
+      derivationFamilyId: "family.semantic.motion-transition",
+      semanticLineage: ["movement", "traversal", "transition"],
+      usageDomains: ["motion", "journey", "transition"],
+      conceptualAffixHints: [
+        {
+          hintId: "hint.semantic.gam.01",
+          label: "motion-oriented formation space",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Conceptual placeholder only; no affix rule is asserted.",
+        },
+      ],
+      protoDerivationRelations: [
+        {
+          relationId: "relation.semantic.0001",
+          sourceDerivationId: "derivation.semantic.01.0005",
+          targetDerivationId: "derivation.semantic.01.0008",
+          relationType: "motion-guidance-adjacent",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Semantic adjacency only; no derivational correctness claim is made.",
+        },
+        {
+          relationId: "relation.semantic.0002",
+          sourceDerivationId: "derivation.semantic.01.0005",
+          targetDerivationId: "derivation.semantic.01.0013",
+          relationType: "motion-stability-contrast",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Semantic contrast only; no derivational correctness claim is made.",
+        },
+      ],
+      semanticTransformationNotes: [
+        "Local placeholder for future movement-to-result semantic exploration.",
+        "No grammatical correctness guarantee is provided.",
+      ],
+      placeholderPaniniRelation: {
+        status: "not-asserted",
+        reviewStatus: "placeholder-local-review-required",
+        source: "placeholder-local-review-required",
+        note: "No exact Paninian source is asserted.",
+      },
+      reviewStatus: "placeholder-local-review-required",
+    },
+    {
+      schemaVersion: "1.0.0",
+      derivationId: "derivation.semantic.01.0008",
+      dhatuId: "01.0008",
+      rootIast: "ni",
+      derivationFamilyId: "family.semantic.guidance-transfer",
+      semanticLineage: ["guidance", "leading", "transfer"],
+      usageDomains: ["guidance", "motion", "agency"],
+      conceptualAffixHints: [
+        {
+          hintId: "hint.semantic.ni.01",
+          label: "guidance-oriented formation space",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Conceptual placeholder only; no affix rule is asserted.",
+        },
+      ],
+      protoDerivationRelations: [
+        {
+          relationId: "relation.semantic.0003",
+          sourceDerivationId: "derivation.semantic.01.0008",
+          targetDerivationId: "derivation.semantic.01.0005",
+          relationType: "guidance-motion-adjacent",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Semantic adjacency only; no derivational correctness claim is made.",
+        },
+      ],
+      semanticTransformationNotes: [
+        "Local placeholder for future guidance-and-transfer semantic exploration.",
+        "No grammatical correctness guarantee is provided.",
+      ],
+      placeholderPaniniRelation: {
+        status: "not-asserted",
+        reviewStatus: "placeholder-local-review-required",
+        source: "placeholder-local-review-required",
+        note: "No exact Paninian source is asserted.",
+      },
+      reviewStatus: "placeholder-local-review-required",
+    },
+    {
+      schemaVersion: "1.0.0",
+      derivationId: "derivation.semantic.01.0013",
+      dhatuId: "01.0013",
+      rootIast: "stha",
+      derivationFamilyId: "family.semantic.stability-state",
+      semanticLineage: ["stability", "standing", "persistence"],
+      usageDomains: ["stability", "posture", "state"],
+      conceptualAffixHints: [
+        {
+          hintId: "hint.semantic.stha.01",
+          label: "state-oriented formation space",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Conceptual placeholder only; no affix rule is asserted.",
+        },
+      ],
+      protoDerivationRelations: [
+        {
+          relationId: "relation.semantic.0004",
+          sourceDerivationId: "derivation.semantic.01.0013",
+          targetDerivationId: "derivation.semantic.01.0005",
+          relationType: "stability-motion-contrast",
+          confidence: "unreviewed",
+          source: "placeholder-local-model",
+          note: "Semantic contrast only; no derivational correctness claim is made.",
+        },
+      ],
+      semanticTransformationNotes: [
+        "Local placeholder for future stability-and-state semantic exploration.",
+        "No grammatical correctness guarantee is provided.",
+      ],
+      placeholderPaniniRelation: {
+        status: "not-asserted",
+        reviewStatus: "placeholder-local-review-required",
+        source: "placeholder-local-review-required",
+        note: "No exact Paninian source is asserted.",
+      },
+      reviewStatus: "placeholder-local-review-required",
+    },
+  ],
+};
+
+const SEMANTIC_DERIVATION_DEFAULTS = {
+  family: "",
+  domain: "",
+  relation: "",
+};
 
 const SEMANTIC_GRAPH_FALLBACK = {
   nodes: [
@@ -582,6 +738,7 @@ function renderSemanticQueryState() {
   const record = selectedSemanticRecord(queryState);
   selectedSemanticGraphNodeId = record?.dhatuId || selectedSemanticGraphNodeId;
   renderSemanticDhatuPanel(buildSemanticPanelFromQueryState(queryState));
+  renderSemanticDerivationPanel(record?.dhatuId || selectedSemanticGraphNodeId);
   renderSemanticGraphView(queryState, record);
 }
 
@@ -593,6 +750,147 @@ function resetSemanticQueryControls() {
   if (semanticDepthSelect) semanticDepthSelect.value = String(SEMANTIC_QUERY_DEFAULTS.traversalDepth);
   if (semanticRelationFilter) semanticRelationFilter.value = SEMANTIC_QUERY_DEFAULTS.relationType;
   renderSemanticQueryState();
+}
+
+function readSemanticDerivationFilterState() {
+  return {
+    family: semanticDerivationFamilyFilter?.value || "",
+    domain: semanticDerivationDomainFilter?.value || "",
+    relation: semanticDerivationRelationFilter?.value || "",
+  };
+}
+
+function resetSemanticDerivationFilters() {
+  if (semanticDerivationFamilyFilter) semanticDerivationFamilyFilter.value = SEMANTIC_DERIVATION_DEFAULTS.family;
+  if (semanticDerivationDomainFilter) semanticDerivationDomainFilter.value = SEMANTIC_DERIVATION_DEFAULTS.domain;
+  if (semanticDerivationRelationFilter) semanticDerivationRelationFilter.value = SEMANTIC_DERIVATION_DEFAULTS.relation;
+  renderSemanticQueryState();
+}
+
+function dhatuDisplayRecord(dhatuId) {
+  return SEMANTIC_DHATU_RECORDS.find((record) => record.dhatuId === dhatuId) || null;
+}
+
+function semanticDerivationRecords() {
+  const payload = semanticDerivationData && typeof semanticDerivationData === "object"
+    ? semanticDerivationData
+    : SEMANTIC_DERIVATION_FALLBACK_DATA;
+  return Array.isArray(payload.records) ? payload.records : [];
+}
+
+function selectedSemanticDerivationRecord(dhatuId) {
+  return semanticDerivationRecords().find((record) => record.dhatuId === dhatuId) || null;
+}
+
+function semanticDerivationMatchesFilters(record, filters = readSemanticDerivationFilterState()) {
+  if (!record) return false;
+  if (filters.family && record.derivationFamilyId !== filters.family) return false;
+  if (filters.domain && !record.usageDomains?.includes(filters.domain)) return false;
+  if (filters.relation && !record.protoDerivationRelations?.some((relation) => relation.relationType === filters.relation)) return false;
+  return true;
+}
+
+function renderSemanticDerivationCard(label, value, detail) {
+  const row = document.createElement("article");
+  row.className = "semantic-derivation-card";
+  const title = document.createElement("strong");
+  title.textContent = text(label, "Derivation field");
+  const body = document.createElement("span");
+  body.textContent = text(value);
+  row.append(title, body);
+  if (detail) {
+    const small = document.createElement("small");
+    small.textContent = detail;
+    row.appendChild(small);
+  }
+  return row;
+}
+
+function renderSemanticDerivationList(container, items, formatter, emptyMessage) {
+  clearChildren(container);
+  if (!container) return;
+  const values = Array.isArray(items) ? items : [];
+  if (values.length === 0) {
+    appendEmpty(container, emptyMessage);
+    return;
+  }
+  values.forEach((item, index) => {
+    container.appendChild(formatter(item, index));
+  });
+}
+
+function renderSemanticDerivationSummary(record, displayRecord) {
+  const summary = byId("semantic-derivation-summary-output");
+  clearChildren(summary);
+  if (!summary) return;
+  if (!record) {
+    appendEmpty(summary, "No derivation data exists for this dhatu selection");
+    return;
+  }
+  [
+    ["Selected dhatu id", record.dhatuId],
+    ["Root", displayRecord?.root],
+    ["IAST", displayRecord?.iast || record.rootIast],
+    ["Derivation family id", record.derivationFamilyId],
+    ["Usage domains", record.usageDomains?.join(", ")],
+    ["Review status", record.reviewStatus],
+  ].forEach(([label, value]) => summary.appendChild(renderSemanticDerivationCard(label, value)));
+}
+
+function renderSemanticDerivationPanel(dhatuId = selectedSemanticGraphNodeId) {
+  const candidate = selectedSemanticDerivationRecord(dhatuId);
+  const record = semanticDerivationMatchesFilters(candidate) ? candidate : null;
+  const displayRecord = dhatuDisplayRecord(dhatuId);
+
+  renderSemanticDerivationSummary(record, displayRecord);
+  renderSemanticDerivationList(
+    byId("semantic-derivation-lineage-output"),
+    record?.semanticLineage,
+    (item, index) => renderSemanticDerivationCard(`Lineage ${index + 1}`, item),
+    "No semantic lineage available for this selection",
+  );
+  renderSemanticDerivationList(
+    byId("semantic-derivation-hints-output"),
+    record?.conceptualAffixHints,
+    (hint) => renderSemanticDerivationCard(
+      hint.label,
+      hint.hintId,
+      `${text(hint.confidence)}; ${text(hint.source)}; ${text(hint.note)}`,
+    ),
+    "No conceptual affix hints available",
+  );
+  renderSemanticDerivationList(
+    byId("semantic-derivation-relations-output"),
+    record?.protoDerivationRelations,
+    (relation) => renderSemanticDerivationCard(
+      relation.relationType,
+      `${relation.sourceDerivationId} -> ${relation.targetDerivationId}`,
+      `${text(relation.confidence)}; ${text(relation.source)}; ${text(relation.note)}`,
+    ),
+    "No proto derivation relations match the selected filters",
+  );
+  renderSemanticDerivationList(
+    byId("semantic-derivation-notes-output"),
+    record?.semanticTransformationNotes,
+    (note, index) => renderSemanticDerivationCard(`Note ${index + 1}`, note),
+    "No semantic transformation notes available",
+  );
+
+  const paniniContainer = byId("semantic-derivation-panini-output");
+  clearChildren(paniniContainer);
+  if (paniniContainer) {
+    if (!record?.placeholderPaniniRelation) {
+      appendEmpty(paniniContainer, "No placeholder Panini relation available");
+    } else {
+      const relation = record.placeholderPaniniRelation;
+      paniniContainer.appendChild(renderSemanticDerivationCard("Status", relation.status));
+      paniniContainer.appendChild(renderSemanticDerivationCard("Review status", relation.reviewStatus));
+      paniniContainer.appendChild(renderSemanticDerivationCard("Source", relation.source, relation.note));
+    }
+  }
+
+  const safety = byId("semantic-derivation-safety");
+  if (safety) safety.textContent = SEMANTIC_DERIVATION_PLACEHOLDER_WARNING;
 }
 
 function renderSemanticDhatuPanel(panel) {
@@ -635,6 +933,19 @@ async function loadSemanticDhatuPanel() {
   } catch (error) {
     console.warn("[Sanskrit] Semantic Dhatu Intelligence fallback:", error);
     semanticPanelData = SEMANTIC_DHATU_FALLBACK_PANEL;
+    renderSemanticQueryState();
+  }
+}
+
+async function loadSemanticDerivationData() {
+  try {
+    const response = await fetch(SEMANTIC_DERIVATION_DATA_FIXTURE);
+    if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
+    semanticDerivationData = await response.json();
+    renderSemanticQueryState();
+  } catch (error) {
+    console.warn("[Sanskrit] Derivation Intelligence fallback:", error);
+    semanticDerivationData = SEMANTIC_DERIVATION_FALLBACK_DATA;
     renderSemanticQueryState();
   }
 }
@@ -2329,6 +2640,7 @@ function renderInitialState() {
   renderSemanticTrace(null, "semantic-trace-linked-output");
   renderSemanticTraceStatus("Semantic trace idle");
   renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
+  renderSemanticDerivationPanel("01.0005");
   renderSemanticGraphView();
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
@@ -2368,6 +2680,10 @@ export function init(node) {
   semanticDepthSelect = byId("semantic-dhatu-depth-select");
   semanticRelationFilter = byId("semantic-dhatu-relation-filter");
   semanticResetButton = byId("semantic-dhatu-reset");
+  semanticDerivationFamilyFilter = byId("semantic-derivation-family-filter");
+  semanticDerivationDomainFilter = byId("semantic-derivation-domain-filter");
+  semanticDerivationRelationFilter = byId("semantic-derivation-relation-filter");
+  semanticDerivationResetButton = byId("semantic-derivation-reset");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -2398,6 +2714,10 @@ export function init(node) {
   semanticDepthSelect?.addEventListener("change", renderSemanticQueryState);
   semanticRelationFilter?.addEventListener("change", renderSemanticQueryState);
   semanticResetButton?.addEventListener("click", resetSemanticQueryControls);
+  semanticDerivationFamilyFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticDerivationDomainFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticDerivationRelationFilter?.addEventListener("change", renderSemanticQueryState);
+  semanticDerivationResetButton?.addEventListener("click", resetSemanticDerivationFilters);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -2408,6 +2728,7 @@ export function init(node) {
   renderInitialState();
   updateMorphologyFields();
   loadSemanticDhatuPanel();
+  loadSemanticDerivationData();
 
   if (inputNode && !inputNode.value.trim()) inputNode.value = DEFAULT_PAYLOAD.input_text;
   analyzeCurrentInput();
@@ -2446,6 +2767,10 @@ export function destroy() {
   semanticDepthSelect?.removeEventListener("change", renderSemanticQueryState);
   semanticRelationFilter?.removeEventListener("change", renderSemanticQueryState);
   semanticResetButton?.removeEventListener("click", resetSemanticQueryControls);
+  semanticDerivationFamilyFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticDerivationDomainFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticDerivationRelationFilter?.removeEventListener("change", renderSemanticQueryState);
+  semanticDerivationResetButton?.removeEventListener("click", resetSemanticDerivationFilters);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -2476,7 +2801,12 @@ export function destroy() {
   semanticDepthSelect = null;
   semanticRelationFilter = null;
   semanticResetButton = null;
+  semanticDerivationFamilyFilter = null;
+  semanticDerivationDomainFilter = null;
+  semanticDerivationRelationFilter = null;
+  semanticDerivationResetButton = null;
   currentDebugSession = null;
   semanticPanelData = null;
+  semanticDerivationData = null;
   inputNode = null;
 }

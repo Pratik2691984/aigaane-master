@@ -58,3 +58,7 @@ python scripts/export_dhatu_semantic_derivation_examples.py
 ```
 
 The exported fixtures live under `data/sanskrit/dhatus/semantic/derivations/examples/`.
+
+## Sanskrit Tab Panel
+
+The Sanskrit tab renders this layer as a read-only **Derivation Intelligence** panel. The panel is placeholder-only, uses local fixture-compatible data, and can filter by derivation family, usage domain, and proto relation. All derivation claims require future review. No exact Paninian derivation claim is made, and no grammatical authority is implied.
