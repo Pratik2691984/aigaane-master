@@ -43,6 +43,9 @@ let staticFixtureDhatuFilter = null;
 let staticFixtureNodeFilter = null;
 let staticFixtureSectionFilter = null;
 let staticFixtureCopyLinkButton = null;
+let staticFixtureExportJsonButton = null;
+let staticFixtureExportMarkdownButton = null;
+let staticFixtureExportTextButton = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
 let semanticDerivationData = null;
@@ -2067,6 +2070,154 @@ async function handleStaticFixtureCopyLink() {
   renderStaticFixtureCopyStatus("Copy unavailable; link selected below", "fallback");
 }
 
+function buildStaticFixtureExportSnapshot() {
+  return {
+    schemaVersion: "1.0.0",
+    schema: "aigaane.staticSemanticFixtureExportSnapshot.v1",
+    generatedBy: "ui/tabs/sanskrit/controller.js:static-fixture-export",
+    generatedAt: new Date().toISOString(),
+    mode: "static-preview",
+    readOnly: true,
+    backendRequired: false,
+    canonicalMutationAllowed: false,
+    url: currentStaticFixtureBrowserUrl(),
+    hash: buildStaticFixtureBrowserHash(),
+    filters: readStaticFixtureBrowserFilters(),
+    payload: buildStaticSemanticFixtureBrowserPayload(),
+  };
+}
+
+function downloadStaticFixtureExport(filename, mimeType, content) {
+  const blob = new Blob([content], { type: mimeType });
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = objectUrl;
+  anchor.download = filename;
+  anchor.rel = "noopener";
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+  URL.revokeObjectURL(objectUrl);
+}
+
+function renderStaticFixtureExportStatus(message, mode = "success") {
+  const status = byId("static-fixture-export-status");
+  if (!status) return;
+  status.textContent = text(message, "");
+  status.classList.toggle("success", mode === "success");
+  status.classList.toggle("warn", mode === "warn");
+}
+
+function staticFixtureExportTimestamp() {
+  return new Date().toISOString().replace(/[:.]/g, "-");
+}
+
+function handleStaticFixtureExportJson() {
+  try {
+    const snapshot = buildStaticFixtureExportSnapshot();
+    downloadStaticFixtureExport(
+      `sanskrit-static-fixture-snapshot-${staticFixtureExportTimestamp()}.json`,
+      "application/json;charset=utf-8",
+      JSON.stringify(snapshot, null, 2),
+    );
+    renderStaticFixtureExportStatus("JSON snapshot exported", "success");
+  } catch (error) {
+    console.warn("[Sanskrit] Static fixture JSON export failed:", error);
+    renderStaticFixtureExportStatus("JSON export unavailable", "warn");
+  }
+}
+
+function buildStaticFixtureMarkdownReport(snapshot = buildStaticFixtureExportSnapshot()) {
+  return [
+    "# Sanskrit Static Semantic Fixture Snapshot",
+    "",
+    `Generated: ${snapshot.generatedAt}`,
+    `Mode: ${snapshot.mode}`,
+    `Read-only: ${snapshot.readOnly ? "yes" : "no"}`,
+    `Backend required: ${snapshot.backendRequired ? "yes" : "no"}`,
+    `Canonical mutation allowed: ${snapshot.canonicalMutationAllowed ? "yes" : "no"}`,
+    `Inspection URL: ${snapshot.url}`,
+    "",
+    "## Selected State",
+    "",
+    `- Cluster: ${snapshot.filters.cluster || "any"}`,
+    `- Dhatu ID: ${snapshot.filters.dhatuId || "any"}`,
+    `- Node ID: ${snapshot.filters.nodeId || "any"}`,
+    `- Section: ${snapshot.filters.section || "records"}`,
+    "",
+    "## Fixture Summary",
+    "",
+    `- Semantic records: ${snapshot.payload.semanticRecordCount}`,
+    `- Available clusters: ${snapshot.payload.availableClusters.join(", ") || "none"}`,
+    `- Graph nodes in view: ${snapshot.payload.graphNodes.length}`,
+    `- Graph edges in view: ${snapshot.payload.graphEdges.length}`,
+    `- Derivation graph available: ${snapshot.payload.derivationGraphFixtureAvailable ? "yes" : "no"}`,
+    "",
+    "## Safe JSON Preview",
+    "",
+    "```json",
+    JSON.stringify(snapshot.payload, null, 2),
+    "```",
+    "",
+  ].join("\n");
+}
+
+function handleStaticFixtureExportMarkdown() {
+  try {
+    const snapshot = buildStaticFixtureExportSnapshot();
+    downloadStaticFixtureExport(
+      `sanskrit-static-fixture-report-${staticFixtureExportTimestamp()}.md`,
+      "text/markdown;charset=utf-8",
+      buildStaticFixtureMarkdownReport(snapshot),
+    );
+    renderStaticFixtureExportStatus("Markdown report exported", "success");
+  } catch (error) {
+    console.warn("[Sanskrit] Static fixture Markdown export failed:", error);
+    renderStaticFixtureExportStatus("Markdown export unavailable", "warn");
+  }
+}
+
+function buildStaticFixtureTextSummary(snapshot = buildStaticFixtureExportSnapshot()) {
+  return [
+    "Sanskrit Static Semantic Fixture Snapshot",
+    `Generated: ${snapshot.generatedAt}`,
+    `Mode: ${snapshot.mode}`,
+    `Read-only: ${snapshot.readOnly ? "yes" : "no"}`,
+    `Backend required: ${snapshot.backendRequired ? "yes" : "no"}`,
+    `Canonical mutation allowed: ${snapshot.canonicalMutationAllowed ? "yes" : "no"}`,
+    `Inspection URL: ${snapshot.url}`,
+    "",
+    "Selected State",
+    `Cluster: ${snapshot.filters.cluster || "any"}`,
+    `Dhatu ID: ${snapshot.filters.dhatuId || "any"}`,
+    `Node ID: ${snapshot.filters.nodeId || "any"}`,
+    `Section: ${snapshot.filters.section || "records"}`,
+    "",
+    "Fixture Summary",
+    `Semantic records: ${snapshot.payload.semanticRecordCount}`,
+    `Available clusters: ${snapshot.payload.availableClusters.join(", ") || "none"}`,
+    `Graph nodes in view: ${snapshot.payload.graphNodes.length}`,
+    `Graph edges in view: ${snapshot.payload.graphEdges.length}`,
+    `Derivation graph available: ${snapshot.payload.derivationGraphFixtureAvailable ? "yes" : "no"}`,
+    "",
+  ].join("\n");
+}
+
+function handleStaticFixtureExportText() {
+  try {
+    const snapshot = buildStaticFixtureExportSnapshot();
+    downloadStaticFixtureExport(
+      `sanskrit-static-fixture-summary-${staticFixtureExportTimestamp()}.txt`,
+      "text/plain;charset=utf-8",
+      buildStaticFixtureTextSummary(snapshot),
+    );
+    renderStaticFixtureExportStatus("Text summary exported", "success");
+  } catch (error) {
+    console.warn("[Sanskrit] Static fixture text export failed:", error);
+    renderStaticFixtureExportStatus("Text export unavailable", "warn");
+  }
+}
+
 function renderDiagnosticsStatusClass(status) {
   if (status === "READY_STATIC_PREVIEW") return "ready";
   if (status === "DEGRADED_STATIC_PREVIEW") return "degraded";
@@ -3966,6 +4117,9 @@ export function init(node) {
   staticFixtureNodeFilter = byId("static-fixture-node-filter");
   staticFixtureSectionFilter = byId("static-fixture-section-filter");
   staticFixtureCopyLinkButton = byId("static-fixture-copy-link");
+  staticFixtureExportJsonButton = byId("static-fixture-export-json");
+  staticFixtureExportMarkdownButton = byId("static-fixture-export-markdown");
+  staticFixtureExportTextButton = byId("static-fixture-export-text");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -4009,6 +4163,9 @@ export function init(node) {
   staticFixtureNodeFilter?.addEventListener("input", handleStaticFixtureBrowserFilterChange);
   staticFixtureSectionFilter?.addEventListener("change", handleStaticFixtureBrowserFilterChange);
   staticFixtureCopyLinkButton?.addEventListener("click", handleStaticFixtureCopyLink);
+  staticFixtureExportJsonButton?.addEventListener("click", handleStaticFixtureExportJson);
+  staticFixtureExportMarkdownButton?.addEventListener("click", handleStaticFixtureExportMarkdown);
+  staticFixtureExportTextButton?.addEventListener("click", handleStaticFixtureExportText);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -4074,6 +4231,9 @@ export function destroy() {
   staticFixtureNodeFilter?.removeEventListener("input", handleStaticFixtureBrowserFilterChange);
   staticFixtureSectionFilter?.removeEventListener("change", handleStaticFixtureBrowserFilterChange);
   staticFixtureCopyLinkButton?.removeEventListener("click", handleStaticFixtureCopyLink);
+  staticFixtureExportJsonButton?.removeEventListener("click", handleStaticFixtureExportJson);
+  staticFixtureExportMarkdownButton?.removeEventListener("click", handleStaticFixtureExportMarkdown);
+  staticFixtureExportTextButton?.removeEventListener("click", handleStaticFixtureExportText);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;

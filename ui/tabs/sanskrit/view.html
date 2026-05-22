@@ -103,8 +103,16 @@
 
         <div class="static-fixture-browser-link-row">
             <button id="static-fixture-copy-link" type="button">Copy inspection link</button>
+            
             <span id="static-fixture-copy-status" class="static-fixture-copy-status" role="status" aria-live="polite"></span>
             <input id="static-fixture-copy-fallback" class="static-fixture-copy-fallback hidden" type="text" readonly aria-label="Static fixture inspection link">
+        </div>
+
+        <div class="static-fixture-browser-export-row" aria-label="Static semantic fixture export controls">
+            <button id="static-fixture-export-json" type="button">Export JSON Snapshot</button>
+            <button id="static-fixture-export-markdown" type="button">Export Markdown Report</button>
+            <button id="static-fixture-export-text" type="button">Export Text Summary</button>
+            <span id="static-fixture-export-status" class="static-fixture-export-status" role="status" aria-live="polite"></span>
         </div>
 
         <div class="static-fixture-browser-grid">

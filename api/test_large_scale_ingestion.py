@@ -2023,6 +2023,50 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("static-preview-only", semantic_platform)
         self.assertIn("/api/*` still returns 404", semantic_platform)
 
+
+    def test_static_fixture_browser_export_controls_are_present(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("static-fixture-export-json", view)
+        self.assertIn("static-fixture-export-markdown", view)
+        self.assertIn("static-fixture-export-text", view)
+        self.assertIn("static-fixture-export-status", view)
+        self.assertIn("static-fixture-browser-export-row", style)
+
+    def test_static_fixture_browser_export_snapshot_helpers_are_safe_and_read_only(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        export_start = controller.index("function buildStaticFixtureExportSnapshot")
+        export_end = controller.index("function renderDiagnosticsStatusClass", export_start)
+        export_body = controller[export_start:export_end]
+
+        self.assertIn("aigaane.staticSemanticFixtureExportSnapshot.v1", export_body)
+        self.assertIn("readOnly: true", export_body)
+        self.assertIn("backendRequired: false", export_body)
+        self.assertIn("canonicalMutationAllowed: false", export_body)
+        self.assertIn("buildStaticSemanticFixtureBrowserPayload()", export_body)
+        self.assertIn("downloadStaticFixtureExport", export_body)
+        self.assertIn("URL.createObjectURL", export_body)
+        self.assertIn("status.textContent", export_body)
+        self.assertNotIn(".innerHTML", export_body)
+        self.assertNotIn("eval(", export_body)
+
+    def test_static_fixture_browser_export_buttons_are_wired_without_backend_calls(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('staticFixtureExportJsonButton = byId("static-fixture-export-json")', controller)
+        self.assertIn('staticFixtureExportMarkdownButton = byId("static-fixture-export-markdown")', controller)
+        self.assertIn('staticFixtureExportTextButton = byId("static-fixture-export-text")', controller)
+        self.assertIn('staticFixtureExportJsonButton?.addEventListener("click", handleStaticFixtureExportJson)', controller)
+        self.assertIn('staticFixtureExportMarkdownButton?.addEventListener("click", handleStaticFixtureExportMarkdown)', controller)
+        self.assertIn('staticFixtureExportTextButton?.addEventListener("click", handleStaticFixtureExportText)', controller)
+
+        export_start = controller.index("function buildStaticFixtureExportSnapshot")
+        export_end = controller.index("function renderDiagnosticsStatusClass", export_start)
+        export_body = controller[export_start:export_end]
+        self.assertNotIn("fetch(", export_body)
+        self.assertNotIn("XMLHttpRequest", export_body)
+
     def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
         self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
         self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")

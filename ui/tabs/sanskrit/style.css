@@ -2235,3 +2235,40 @@
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+.static-fixture-browser-export-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.static-fixture-browser-export-row button {
+    border: 1px solid rgba(104, 190, 255, 0.55);
+    background: transparent;
+    color: #cfeeff;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.static-fixture-browser-export-row button:hover,
+.static-fixture-browser-export-row button:focus-visible {
+    border-color: rgba(104, 190, 255, 0.85);
+    color: #eef8ff;
+}
+
+.static-fixture-export-status {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.static-fixture-export-status.success {
+    color: #9ee6b4;
+}
+
+.static-fixture-export-status.warn {
+    color: #ffe0a3;
+}
