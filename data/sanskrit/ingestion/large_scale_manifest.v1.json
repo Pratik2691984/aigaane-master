@@ -81,6 +81,10 @@
   "sanskritAnalysisLocalFallbackUiMode": "client-side-deterministic-no-backend-required",
   "sanskritAnalysisLocalFallbackBackendRoute": "/api/v3/analyze",
   "sanskritAnalysisLocalFallbackSafety": "no-authoritative-vyakarana-or-exact-chandas-claim",
+  "sanskritLocalStaticDiagnosticsUiPanel": "Local Static Diagnostics",
+  "sanskritLocalStaticDiagnosticsMode": "client-side-read-only-static-preview",
+  "sanskritLocalStaticDiagnosticsBackendRequired": false,
+  "sanskritLocalStaticDiagnosticsSafety": "read-only-fixture-probes-no-canonical-registry-mutation",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,

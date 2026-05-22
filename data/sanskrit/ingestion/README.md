@@ -90,6 +90,8 @@ The Sanskrit tab renders the bridge in a read-only Derivation Graph Intelligence
 
 Node 25C adds a deterministic client-side Sanskrit analysis fallback for the Sanskrit tab when `/api/v3/analyze` is unavailable to static local servers. The fallback renders pipeline status, tokenization, local placeholder sandhi/chandas/vyakarana/prakriya graph panels, and a visible safety note while preserving the backend POST as the first attempt. It does not make authoritative grammar, exact chandas, exact Vedic, canonical registry, or backend mutation claims.
 
+Node 25D adds local static preview support through a browser-visible Local Static Diagnostics panel. The backend API may be unavailable during static serving, so the panel treats `/api/v3/analyze` as optional, verifies the fallback analysis path, checks that semantic fixtures are read-only and browser-loadable, and reports that the canonical registry is not mutated by diagnostics.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

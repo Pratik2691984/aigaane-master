@@ -1713,6 +1713,86 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(self.payload["sanskritAnalysisLocalFallbackBackendRoute"], "/api/v3/analyze")
         self.assertIn("Node 25C adds a deterministic client-side Sanskrit analysis fallback", readme)
 
+    def test_sanskrit_view_contains_local_static_diagnostics_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Local Static Diagnostics", view)
+        self.assertIn("local-static-diagnostics", view)
+        self.assertIn("local-diagnostics-status-badge", view)
+        self.assertIn("local-diagnostics-fixtures-output", view)
+        self.assertIn("local-diagnostics-safety-output", view)
+
+    def test_sanskrit_controller_contains_local_static_diagnostics_helpers(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("async function buildLocalStaticDiagnosticsReport()", controller)
+        self.assertIn("function renderLocalStaticDiagnostics(report)", controller)
+        self.assertIn("runLocalStaticDiagnostics()", controller)
+
+    def test_sanskrit_diagnostics_allow_backend_unavailable_in_static_mode(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("backendRequired: false", controller)
+        self.assertIn("Backend /api/v3/analyze unavailable; allowed for local static preview", controller)
+        self.assertIn("Unavailable is allowed in local static preview mode.", controller)
+        self.assertIn("READY_STATIC_PREVIEW", controller)
+        self.assertIn("DEGRADED_STATIC_PREVIEW", controller)
+        self.assertIn("BLOCKED", controller)
+
+    def test_sanskrit_diagnostics_mark_fallback_analysis_available(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('fallbackAnalysisAvailable = typeof buildLocalSanskritAnalysisFallback === "function"', controller)
+        self.assertIn("Fallback analysis", controller)
+        self.assertIn("Local fallback renderer is ready.", controller)
+
+    def test_sanskrit_diagnostics_include_fixture_checks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("fixtureChecks", controller)
+        self.assertIn("Semantic UI fixture", controller)
+        self.assertIn("Semantic graph fixture", controller)
+        self.assertIn("Derivation fixture", controller)
+        self.assertIn("Derivation graph fixture", controller)
+        self.assertIn("Platform status fixture", controller)
+
+    def test_sanskrit_diagnostics_controller_has_no_canonical_write_hooks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", controller)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", controller)
+
+    def test_sanskrit_diagnostics_style_classes_exist(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".local-static-diagnostics",
+            ".local-static-diagnostics-header",
+            ".local-diagnostics-status-badge",
+            ".local-static-diagnostics-grid",
+            ".local-diagnostics-card",
+            ".local-diagnostics-row",
+            ".local-diagnostics-warning",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_diagnostics_manifest_and_docs_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+
+        self.assertEqual(
+            self.payload["sanskritLocalStaticDiagnosticsUiPanel"],
+            "Local Static Diagnostics",
+        )
+        self.assertEqual(
+            self.payload["sanskritLocalStaticDiagnosticsMode"],
+            "client-side-read-only-static-preview",
+        )
+        self.assertIn("local static preview support", readme)
+        self.assertIn("backend API may be unavailable", readme)
+        self.assertIn("fallback analysis path", readme)
+        self.assertIn("semantic fixtures are read-only", readme)
+        self.assertIn("canonical registry is not mutated", readme)
+
     def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
         self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
         self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")

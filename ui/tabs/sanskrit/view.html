@@ -25,6 +25,43 @@
         </section>
     </section>
 
+    <section class="local-static-diagnostics" aria-labelledby="local-static-diagnostics-title" aria-describedby="local-static-diagnostics-description">
+        <header class="local-static-diagnostics-header">
+            <div>
+                <h3 id="local-static-diagnostics-title">Local Static Diagnostics</h3>
+                <p id="local-static-diagnostics-description">Browser-visible module health for static preview without backend APIs.</p>
+            </div>
+            <span id="local-diagnostics-status-badge" class="local-diagnostics-status-badge">CHECKING</span>
+        </header>
+
+        <div class="local-static-diagnostics-grid">
+            <section class="local-diagnostics-card">
+                <h4>Backend Status</h4>
+                <div id="local-diagnostics-backend-output" class="local-diagnostics-list">Checking backend status</div>
+            </section>
+
+            <section class="local-diagnostics-card">
+                <h4>Fallback Status</h4>
+                <div id="local-diagnostics-fallback-output" class="local-diagnostics-list">Checking fallback status</div>
+            </section>
+
+            <section class="local-diagnostics-card local-diagnostics-fixtures-card">
+                <h4>Fixture Checklist</h4>
+                <div id="local-diagnostics-fixtures-output" class="local-diagnostics-list">Checking read-only fixtures</div>
+            </section>
+
+            <section class="local-diagnostics-card local-diagnostics-safety-card">
+                <h4>Safety Policy</h4>
+                <div id="local-diagnostics-safety-output" class="local-diagnostics-list">Checking safety policy</div>
+            </section>
+
+            <section class="local-diagnostics-card local-diagnostics-warnings-card">
+                <h4>Warnings</h4>
+                <div id="local-diagnostics-warnings-output" class="local-diagnostics-list">No warnings</div>
+            </section>
+        </div>
+    </section>
+
     <section class="execution-grid" aria-label="Sanskrit execution panels">
         <div class="analysis-panel execution-panel">
             <h3>Sandhi Execution</h3>

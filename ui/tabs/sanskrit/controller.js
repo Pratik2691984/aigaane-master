@@ -51,6 +51,7 @@ const DEFAULT_PAYLOAD = {
 };
 
 const SEMANTIC_DHATU_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json";
+const SEMANTIC_GRAPH_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/graph/neighbor_01_0005.response.v1.json";
 const SEMANTIC_PLATFORM_STATUS_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json";
 const SEMANTIC_DERIVATION_DATA_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json";
 const SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/examples/graph/ui_semantic_derivation_graph_panel.v1.json";
@@ -1725,6 +1726,88 @@ function renderFallbackAnalysisPanel(payload) {
   if (safety) safety.textContent = text(payload?.safety_note);
 }
 
+function renderDiagnosticsStatusClass(status) {
+  if (status === "READY_STATIC_PREVIEW") return "ready";
+  if (status === "DEGRADED_STATIC_PREVIEW") return "degraded";
+  return "blocked";
+}
+
+function appendDiagnosticsRow(container, label, status, note) {
+  if (!container) return;
+  const row = document.createElement("div");
+  row.className = `local-diagnostics-row ${status ? "ok" : "warn"}`;
+  const title = document.createElement("strong");
+  const value = document.createElement("span");
+  title.textContent = text(label);
+  value.textContent = status ? "Available" : "Unavailable";
+  row.append(title, value);
+  if (note) {
+    const detail = document.createElement("small");
+    detail.textContent = text(note);
+    row.appendChild(detail);
+  }
+  container.appendChild(row);
+}
+
+function renderLocalStaticDiagnostics(report) {
+  const badge = byId("local-diagnostics-status-badge");
+  const backend = byId("local-diagnostics-backend-output");
+  const fallback = byId("local-diagnostics-fallback-output");
+  const fixtures = byId("local-diagnostics-fixtures-output");
+  const safety = byId("local-diagnostics-safety-output");
+  const warnings = byId("local-diagnostics-warnings-output");
+
+  if (badge) {
+    badge.textContent = text(report?.diagnosticsStatus, "CHECKING");
+    badge.className = `local-diagnostics-status-badge ${renderDiagnosticsStatusClass(report?.diagnosticsStatus)}`;
+  }
+
+  clearChildren(backend);
+  appendDiagnosticsRow(
+    backend,
+    "Backend /api/v3/analyze",
+    Boolean(report?.backendAnalyzeAvailable),
+    report?.backendAnalyzeAvailable
+      ? "Backend analysis route responded with JSON."
+      : "Unavailable is allowed in local static preview mode.",
+  );
+  appendDiagnosticsRow(backend, "Backend required for green static mode", !report?.backendRequired, "Expected: not required");
+
+  clearChildren(fallback);
+  appendDiagnosticsRow(
+    fallback,
+    "Fallback analysis",
+    Boolean(report?.fallbackAnalysisAvailable),
+    report?.fallbackAnalysisAvailable
+      ? "Local fallback renderer is ready."
+      : "Fallback renderer is missing; static preview is blocked.",
+  );
+  appendDiagnosticsRow(fallback, "Controller module health", true, "Sanskrit controller initialized and rendered diagnostics.");
+
+  clearChildren(fixtures);
+  const fixtureChecks = Array.isArray(report?.fixtureChecks) ? report.fixtureChecks : [];
+  fixtureChecks.forEach((check) => appendDiagnosticsRow(fixtures, check?.label, Boolean(check?.available), check?.path));
+  if (fixtureChecks.length === 0) appendEmpty(fixtures, "No fixture checks returned");
+
+  clearChildren(safety);
+  const safetyChecks = Array.isArray(report?.safetyChecks) ? report.safetyChecks : [];
+  safetyChecks.forEach((check) => appendDiagnosticsRow(safety, check?.label, Boolean(check?.passed), check?.note));
+  if (safetyChecks.length === 0) appendEmpty(safety, "No safety checks returned");
+
+  clearChildren(warnings);
+  const warningValues = Array.isArray(report?.warnings) ? report.warnings : [];
+  if (warningValues.length === 0) {
+    appendEmpty(warnings, "No warnings");
+  } else {
+    warningValues.forEach((warning) => {
+      const row = document.createElement("div");
+      row.className = "local-diagnostics-warning";
+      row.textContent = text(warning);
+      warnings?.appendChild(row);
+    });
+  }
+}
+
 function renderDebugError(targetId, error) {
   const container = byId(targetId);
   clearChildren(container);
@@ -2064,6 +2147,139 @@ function buildLocalSanskritAnalysisFallback(inputText) {
       })),
     },
   };
+}
+
+async function checkLocalStaticFixture(label, path) {
+  try {
+    const response = await fetch(path, { cache: "no-store" });
+    const payload = await response.json().catch(() => null);
+    return {
+      label,
+      path,
+      available: Boolean(response.ok && payload && typeof payload === "object"),
+      status: response.status,
+      note: response.ok ? "Read-only fixture loaded." : `Fixture fetch returned HTTP ${response.status}.`,
+    };
+  } catch (error) {
+    return {
+      label,
+      path,
+      available: false,
+      status: "fetch-error",
+      note: text(error?.message, "Fixture fetch failed."),
+    };
+  }
+}
+
+async function checkBackendAnalyzeAvailability() {
+  try {
+    const response = await fetch("/api/v3/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input_text: DEFAULT_PAYLOAD.input_text }),
+      cache: "no-store",
+    });
+    const payload = await response.json().catch(() => null);
+    return Boolean(response.ok && payload && typeof payload === "object");
+  } catch (error) {
+    console.warn("[Sanskrit] Static diagnostics backend probe:", error);
+    return false;
+  }
+}
+
+async function buildLocalStaticDiagnosticsReport() {
+  const fixtureChecks = await Promise.all([
+    checkLocalStaticFixture("Semantic UI fixture", SEMANTIC_DHATU_PANEL_FIXTURE),
+    checkLocalStaticFixture("Semantic graph fixture", SEMANTIC_GRAPH_PANEL_FIXTURE),
+    checkLocalStaticFixture("Derivation fixture", SEMANTIC_DERIVATION_DATA_FIXTURE),
+    checkLocalStaticFixture("Derivation graph fixture", SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE),
+    checkLocalStaticFixture("Platform status fixture", SEMANTIC_PLATFORM_STATUS_PANEL_FIXTURE),
+  ]);
+  const backendAnalyzeAvailable = await checkBackendAnalyzeAvailability();
+  const fallbackAnalysisAvailable = typeof buildLocalSanskritAnalysisFallback === "function";
+  const fixtureFailures = fixtureChecks.filter((check) => !check.available);
+  const diagnosticsStatus = !fallbackAnalysisAvailable
+    ? "BLOCKED"
+    : fixtureFailures.length > 0
+      ? "DEGRADED_STATIC_PREVIEW"
+      : "READY_STATIC_PREVIEW";
+  const warnings = [];
+
+  if (!backendAnalyzeAvailable) {
+    warnings.push("Backend /api/v3/analyze unavailable; allowed for local static preview because fallback analysis is ready.");
+  }
+  fixtureFailures.forEach((check) => warnings.push(`${check.label} unavailable; built-in UI fallback remains read-only.`));
+
+  return {
+    schemaVersion: "1.0.0",
+    generatedBy: "ui/tabs/sanskrit/controller.js:buildLocalStaticDiagnosticsReport",
+    diagnosticsStatus,
+    staticModeSupported: true,
+    backendRequired: false,
+    backendAnalyzeAvailable,
+    fallbackAnalysisAvailable,
+    fixtureChecks,
+    safetyChecks: [
+      {
+        label: "Canonical registry mutation",
+        passed: true,
+        note: "Diagnostics only fetch static JSON fixtures and do not write canonical records.",
+      },
+      {
+        label: "Canonical writer",
+        passed: true,
+        note: "No canonical writer is called by local static diagnostics.",
+      },
+      {
+        label: "Canonical write environment flags",
+        passed: true,
+        note: "No canonical write environment flags are set by browser diagnostics.",
+      },
+      {
+        label: "Backend optional in static mode",
+        passed: true,
+        note: "Backend unavailable is allowed when fallback analysis is available.",
+      },
+    ],
+    warnings,
+    checkedAt: new Date().toISOString(),
+  };
+}
+
+async function runLocalStaticDiagnostics() {
+  renderLocalStaticDiagnostics({
+    schemaVersion: "1.0.0",
+    generatedBy: "ui/tabs/sanskrit/controller.js:runLocalStaticDiagnostics",
+    diagnosticsStatus: "CHECKING",
+    staticModeSupported: true,
+    backendRequired: false,
+    backendAnalyzeAvailable: false,
+    fallbackAnalysisAvailable: typeof buildLocalSanskritAnalysisFallback === "function",
+    fixtureChecks: [],
+    safetyChecks: [],
+    warnings: ["Running local static diagnostics..."],
+    checkedAt: new Date().toISOString(),
+  });
+
+  try {
+    const report = await buildLocalStaticDiagnosticsReport();
+    renderLocalStaticDiagnostics(report);
+  } catch (error) {
+    console.error("[Sanskrit] Local static diagnostics failed:", error);
+    renderLocalStaticDiagnostics({
+      schemaVersion: "1.0.0",
+      generatedBy: "ui/tabs/sanskrit/controller.js:runLocalStaticDiagnostics",
+      diagnosticsStatus: "BLOCKED",
+      staticModeSupported: true,
+      backendRequired: false,
+      backendAnalyzeAvailable: false,
+      fallbackAnalysisAvailable: false,
+      fixtureChecks: [],
+      safetyChecks: [],
+      warnings: [text(error?.message, "Diagnostics failed.")],
+      checkedAt: new Date().toISOString(),
+    });
+  }
 }
 
 async function readDebugJsonResponse(response, targetId) {
@@ -3303,6 +3519,19 @@ function renderInitialState() {
   renderReplayTimeline(null, "replay-demo-output");
   renderReplayTimeline(null, "replay-session-output");
   renderReplayStatus("Replay inspector idle");
+  renderLocalStaticDiagnostics({
+    schemaVersion: "1.0.0",
+    generatedBy: "ui/tabs/sanskrit/controller.js:initial",
+    diagnosticsStatus: "CHECKING",
+    staticModeSupported: true,
+    backendRequired: false,
+    backendAnalyzeAvailable: false,
+    fallbackAnalysisAvailable: true,
+    fixtureChecks: [],
+    safetyChecks: [],
+    warnings: ["Diagnostics pending."],
+    checkedAt: new Date().toISOString(),
+  });
 }
 
 export function init(node) {
@@ -3394,6 +3623,7 @@ export function init(node) {
   loadSemanticPlatformStatusPanel();
   loadSemanticDerivationData();
   loadSemanticDerivationGraphPanel();
+  runLocalStaticDiagnostics();
 
   if (inputNode && !inputNode.value.trim()) inputNode.value = DEFAULT_PAYLOAD.input_text;
   analyzeCurrentInput();
