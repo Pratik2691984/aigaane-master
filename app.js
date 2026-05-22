@@ -3,9 +3,9 @@
 const API_BASE = '';
 const DEFAULT_STATE_ANGLE = 180;
 
-import { resolveResonance } from '/lib/resolve_resonance.js';
-import { validateState } from '/shared/invariant.js';
-import { runTools } from '/shared/tool_runner.js';
+import { resolveResonance } from './lib/resolve_resonance.js';
+import { validateState } from './shared/invariant.js';
+import { runTools } from './shared/tool_runner.js';
 
 let manifest = null;
 let activeToolId = null;
