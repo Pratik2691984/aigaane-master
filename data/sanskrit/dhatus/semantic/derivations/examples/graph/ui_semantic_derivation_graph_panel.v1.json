@@ -1,0 +1,310 @@
+{
+  "cards": [
+    {
+      "cardId": "semantic.derivation.graph.01",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "derivation.semantic.01.0005",
+      "metadata": {
+        "depth": 1,
+        "edgeIds": [
+          "edge.derivation.semantic.0004"
+        ],
+        "relationLabels": [
+          "motion_transition_family -> gam placeholder record"
+        ]
+      },
+      "value": "motion_transition_family -> derivation.semantic.01.0005"
+    },
+    {
+      "cardId": "semantic.derivation.graph.02",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "derivation.semantic.01.0008",
+      "metadata": {
+        "depth": 1,
+        "edgeIds": [
+          "edge.derivation.semantic.0005"
+        ],
+        "relationLabels": [
+          "directional_guidance_family -> ni placeholder record"
+        ]
+      },
+      "value": "directional_guidance_family -> derivation.semantic.01.0008"
+    },
+    {
+      "cardId": "semantic.derivation.graph.03",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "guidance",
+      "metadata": {
+        "depth": 1,
+        "edgeIds": [
+          "edge.derivation.semantic.0002"
+        ],
+        "relationLabels": [
+          "guidance -> directional_guidance_family"
+        ]
+      },
+      "value": "directional_guidance_family -> guidance"
+    },
+    {
+      "cardId": "semantic.derivation.graph.04",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "motion",
+      "metadata": {
+        "depth": 1,
+        "edgeIds": [
+          "edge.derivation.semantic.0001"
+        ],
+        "relationLabels": [
+          "motion -> motion_transition_family"
+        ]
+      },
+      "value": "motion_transition_family -> motion"
+    },
+    {
+      "cardId": "semantic.derivation.graph.05",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "motion_transition_family",
+      "metadata": {
+        "depth": 1,
+        "edgeIds": [
+          "edge.derivation.semantic.0001"
+        ],
+        "relationLabels": [
+          "motion -> motion_transition_family"
+        ]
+      },
+      "value": "motion -> motion_transition_family"
+    },
+    {
+      "cardId": "semantic.derivation.graph.06",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "derivation.semantic.01.0005",
+      "metadata": {
+        "depth": 2,
+        "edgeIds": [
+          "edge.derivation.semantic.0001",
+          "edge.derivation.semantic.0004"
+        ],
+        "relationLabels": [
+          "motion -> motion_transition_family",
+          "motion_transition_family -> gam placeholder record"
+        ]
+      },
+      "value": "motion -> motion_transition_family -> derivation.semantic.01.0005"
+    },
+    {
+      "cardId": "semantic.derivation.graph.07",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "derivation.semantic.01.0008",
+      "metadata": {
+        "depth": 2,
+        "edgeIds": [
+          "edge.derivation.semantic.0004",
+          "edge.derivation.semantic.0007"
+        ],
+        "relationLabels": [
+          "motion_transition_family -> gam placeholder record",
+          "gam placeholder -> ni placeholder"
+        ]
+      },
+      "value": "motion_transition_family -> derivation.semantic.01.0005 -> derivation.semantic.01.0008"
+    },
+    {
+      "cardId": "semantic.derivation.graph.08",
+      "cardType": "semanticDerivationGraphPath",
+      "label": "derivation.semantic.01.0013",
+      "metadata": {
+        "depth": 2,
+        "edgeIds": [
+          "edge.derivation.semantic.0004",
+          "edge.derivation.semantic.0008"
+        ],
+        "relationLabels": [
+          "motion_transition_family -> gam placeholder record",
+          "gam placeholder -> stha placeholder"
+        ]
+      },
+      "value": "motion_transition_family -> derivation.semantic.01.0005 -> derivation.semantic.01.0013"
+    }
+  ],
+  "edges": [
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0001",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "motion -> motion_transition_family",
+      "relationType": "semantic_family_bridge",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "motion",
+      "sourceType": "semantic_cluster",
+      "targetId": "motion_transition_family",
+      "targetType": "derivation_family"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0002",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "guidance -> directional_guidance_family",
+      "relationType": "semantic_family_bridge",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "guidance",
+      "sourceType": "semantic_cluster",
+      "targetId": "directional_guidance_family",
+      "targetType": "derivation_family"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0004",
+      "notes": "Placeholder family-record bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "motion_transition_family -> gam placeholder record",
+      "relationType": "family_record_placeholder",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "motion_transition_family",
+      "sourceType": "derivation_family",
+      "targetId": "derivation.semantic.01.0005",
+      "targetType": "derivation_record"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0005",
+      "notes": "Placeholder family-record bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "directional_guidance_family -> ni placeholder record",
+      "relationType": "family_record_placeholder",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "directional_guidance_family",
+      "sourceType": "derivation_family",
+      "targetId": "derivation.semantic.01.0008",
+      "targetType": "derivation_record"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0007",
+      "notes": "Placeholder proto-derivation relation only; no exact Paninian derivation claim is made.",
+      "relationLabel": "gam placeholder -> ni placeholder",
+      "relationType": "motion_guidance_placeholder",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "derivation.semantic.01.0005",
+      "sourceType": "derivation_record",
+      "targetId": "derivation.semantic.01.0008",
+      "targetType": "derivation_record"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0008",
+      "notes": "Placeholder proto-derivation relation only; no exact Paninian derivation claim is made.",
+      "relationLabel": "gam placeholder -> stha placeholder",
+      "relationType": "motion_stability_placeholder",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "derivation.semantic.01.0005",
+      "sourceType": "derivation_record",
+      "targetId": "derivation.semantic.01.0013",
+      "targetType": "derivation_record"
+    }
+  ],
+  "generatedBy": "scripts/export_dhatu_semantic_derivation_graph_examples.py",
+  "nodes": [
+    {
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "graphNodeId": "directional_guidance_family",
+      "label": "directional guidance family",
+      "nodeType": "derivation_family",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "guidance",
+        "leading",
+        "transfer"
+      ],
+      "transformationHints": [
+        "guidance-and-transfer exploration"
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.motion-transition",
+      "graphNodeId": "motion_transition_family",
+      "label": "motion transition family",
+      "nodeType": "derivation_family",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "movement",
+        "traversal",
+        "transition"
+      ],
+      "transformationHints": [
+        "movement-to-result exploration"
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.motion-transition",
+      "dhatuId": "01.0005",
+      "graphNodeId": "derivation.semantic.01.0005",
+      "label": "gam",
+      "nodeType": "derivation_record",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "movement",
+        "traversal",
+        "transition"
+      ],
+      "transformationHints": [
+        "Local placeholder for future movement-to-result semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "dhatuId": "01.0008",
+      "graphNodeId": "derivation.semantic.01.0008",
+      "label": "ni",
+      "nodeType": "derivation_record",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "guidance",
+        "leading",
+        "transfer"
+      ],
+      "transformationHints": [
+        "Local placeholder for future guidance-and-transfer semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.stability-state",
+      "dhatuId": "01.0013",
+      "graphNodeId": "derivation.semantic.01.0013",
+      "label": "stha",
+      "nodeType": "derivation_record",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "stability",
+        "standing",
+        "persistence"
+      ],
+      "transformationHints": [
+        "Local placeholder for future stability-and-state semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ]
+    },
+    {
+      "graphNodeId": "guidance",
+      "label": "guidance",
+      "nodeType": "semantic_cluster",
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "graphNodeId": "motion",
+      "label": "motion",
+      "nodeType": "semantic_cluster",
+      "reviewStatus": "placeholder-local-review-required"
+    }
+  ],
+  "panelType": "semanticDerivationGraphPlaceholder",
+  "safetyNote": "Placeholder-only derivation graph bridge; no exact Paninian derivation claim is made.",
+  "schemaVersion": "1.0.0",
+  "title": "Semantic Derivation Graph Bridge"
+}

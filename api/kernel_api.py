@@ -64,6 +64,10 @@ try:
     from api.dhatu_semantic_derivation import query_derivations
 except ModuleNotFoundError:
     from dhatu_semantic_derivation import query_derivations
+try:
+    from api.dhatu_semantic_derivation_graph import traverse_derivation_graph
+except ModuleNotFoundError:
+    from dhatu_semantic_derivation_graph import traverse_derivation_graph
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -372,6 +376,26 @@ def build_dhatu_semantic_derivations_response(
         },
     }
 
+
+def build_dhatu_semantic_derivation_graph_response(
+    dhatuId: Optional[str] = None,
+    family: Optional[str] = None,
+    domain: Optional[str] = None,
+    relation: Optional[str] = None,
+    maxDepth: int = 2,
+    relationType: Optional[str] = None,
+) -> Dict[str, Any]:
+    payload = traverse_derivation_graph(
+        dhatu_id=dhatuId,
+        family=family,
+        domain=domain,
+        relation=relation,
+        max_depth=maxDepth,
+        relation_type=relationType,
+    )
+    payload["generatedBy"] = "api/kernel_api.py:/api/dhatu/semantic/derivation-graph"
+    return payload
+
 # ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
@@ -518,6 +542,24 @@ async def dhatu_semantic_derivations(
         family=family,
         domain=domain,
         relation=relation,
+    )
+
+@app.get("/api/dhatu/semantic/derivation-graph")
+async def dhatu_semantic_derivation_graph(
+    dhatuId: Optional[str] = None,
+    family: Optional[str] = None,
+    domain: Optional[str] = None,
+    relation: Optional[str] = None,
+    maxDepth: int = 2,
+    relationType: Optional[str] = None,
+):
+    return build_dhatu_semantic_derivation_graph_response(
+        dhatuId=dhatuId,
+        family=family,
+        domain=domain,
+        relation=relation,
+        maxDepth=maxDepth,
+        relationType=relationType,
     )
 
 @app.post("/api/calculate-friction")

@@ -36,6 +36,8 @@ Recommended frontend sections:
 
 The Derivation Intelligence panel should display selected dhatu id, root, IAST, derivation family id, semantic lineage, usage domains, conceptual affix hints, proto derivation relations, semantic transformation notes, placeholder Panini relation, review status, and a visible safety note. Family, usage-domain, and relation filters are read-only local filters.
 
+The semantic derivation graph bridge may be exposed through UI-ready fixtures in `data/sanskrit/dhatus/semantic/derivations/examples/graph/`. These fixtures connect semantic cluster nodes to derivation family nodes and derivation placeholder records for bounded, read-only traversal.
+
 Supported control values include the motion, guidance, and stability clusters; traversal depths 1 and 2; and relation filters `guides`, `associated_with`, `transitions_to`, and `grounds`.
 
 The graph view initially displays `gam / 01.0005`, `motion`, `guidance`, `stability`, `ni / 01.0008`, and `stha / 01.0013` with relation edges among those nodes.
@@ -61,6 +63,7 @@ python scripts/export_dhatu_semantic_derivation_examples.py
 - `/api/dhatu/semantic/neighbors`
 - `/api/dhatu/semantic/traverse`
 - `/api/dhatu/semantic/derivations`
+- `/api/dhatu/semantic/derivation-graph`
 
 ## Safety Notes
 
@@ -69,3 +72,5 @@ Semantic graph links are foundation-placeholder UI context only. They do not mak
 Semantic derivation metadata is also placeholder-only. It provides no exact sutra assertion, no authoritative Paninian claim, and no grammatical correctness guarantee.
 
 All derivation claims require future review. No exact Paninian derivation claim is made, and the semantic derivation layer remains read-only.
+
+The derivation graph bridge is also placeholder-only. It makes no exact sutra reference, does not generate derivations, and does not mutate canonical or semantic source data.

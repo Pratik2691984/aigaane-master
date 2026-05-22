@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedFor": "semantic-derivation-graph-placeholder-bridge",
+  "policy": {
+    "authoritativePaninianClaims": false,
+    "exactSutraAssertions": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "automatedDerivationGeneration": false,
+    "canonicalRegistryMutation": false,
+    "requiredReviewStatus": "placeholder-local-review-required",
+    "requiredConfidence": "unreviewed",
+    "notes": "Bridge edges are local semantic placeholders only. They do not assert grammatical derivation authority."
+  },
+  "familyNodes": [
+    {
+      "graphNodeId": "motion_transition_family",
+      "derivationFamilyId": "family.semantic.motion-transition",
+      "label": "motion transition family",
+      "semanticLineage": ["movement", "traversal", "transition"],
+      "transformationHints": ["movement-to-result exploration"],
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "graphNodeId": "directional_guidance_family",
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "label": "directional guidance family",
+      "semanticLineage": ["guidance", "leading", "transfer"],
+      "transformationHints": ["guidance-and-transfer exploration"],
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "graphNodeId": "grounding_stability_family",
+      "derivationFamilyId": "family.semantic.stability-state",
+      "label": "grounding stability family",
+      "semanticLineage": ["stability", "standing", "persistence"],
+      "transformationHints": ["stability-and-state exploration"],
+      "reviewStatus": "placeholder-local-review-required"
+    }
+  ],
+  "edges": [
+    {
+      "edgeId": "edge.derivation.semantic.0001",
+      "sourceType": "semantic_cluster",
+      "sourceId": "motion",
+      "targetType": "derivation_family",
+      "targetId": "motion_transition_family",
+      "relationType": "semantic_family_bridge",
+      "relationLabel": "motion -> motion_transition_family",
+      "direction": "bidirectional",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0002",
+      "sourceType": "semantic_cluster",
+      "sourceId": "guidance",
+      "targetType": "derivation_family",
+      "targetId": "directional_guidance_family",
+      "relationType": "semantic_family_bridge",
+      "relationLabel": "guidance -> directional_guidance_family",
+      "direction": "bidirectional",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0003",
+      "sourceType": "semantic_cluster",
+      "sourceId": "stability",
+      "targetType": "derivation_family",
+      "targetId": "grounding_stability_family",
+      "relationType": "semantic_family_bridge",
+      "relationLabel": "stability -> grounding_stability_family",
+      "direction": "bidirectional",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0004",
+      "sourceType": "derivation_family",
+      "sourceId": "motion_transition_family",
+      "targetType": "derivation_record",
+      "targetId": "derivation.semantic.01.0005",
+      "relationType": "family_record_placeholder",
+      "relationLabel": "motion_transition_family -> gam placeholder record",
+      "direction": "bidirectional",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder family-record bridge only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0005",
+      "sourceType": "derivation_family",
+      "sourceId": "directional_guidance_family",
+      "targetType": "derivation_record",
+      "targetId": "derivation.semantic.01.0008",
+      "relationType": "family_record_placeholder",
+      "relationLabel": "directional_guidance_family -> ni placeholder record",
+      "direction": "bidirectional",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder family-record bridge only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0006",
+      "sourceType": "derivation_family",
+      "sourceId": "grounding_stability_family",
+      "targetType": "derivation_record",
+      "targetId": "derivation.semantic.01.0013",
+      "relationType": "family_record_placeholder",
+      "relationLabel": "grounding_stability_family -> stha placeholder record",
+      "direction": "bidirectional",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder family-record bridge only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0007",
+      "sourceType": "derivation_record",
+      "sourceId": "derivation.semantic.01.0005",
+      "targetType": "derivation_record",
+      "targetId": "derivation.semantic.01.0008",
+      "relationType": "motion_guidance_placeholder",
+      "relationLabel": "gam placeholder -> ni placeholder",
+      "direction": "outbound",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder proto-derivation relation only; no exact Paninian derivation claim is made."
+    },
+    {
+      "edgeId": "edge.derivation.semantic.0008",
+      "sourceType": "derivation_record",
+      "sourceId": "derivation.semantic.01.0005",
+      "targetType": "derivation_record",
+      "targetId": "derivation.semantic.01.0013",
+      "relationType": "motion_stability_placeholder",
+      "relationLabel": "gam placeholder -> stha placeholder",
+      "direction": "outbound",
+      "confidence": "unreviewed",
+      "source": "placeholder-local-model",
+      "reviewStatus": "placeholder-local-review-required",
+      "notes": "Placeholder proto-derivation relation only; no exact Paninian derivation claim is made."
+    }
+  ]
+}

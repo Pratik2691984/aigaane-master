@@ -18,12 +18,16 @@ The semantic derivation layer is a read-only placeholder scaffold for future der
 
 `GET /api/dhatu/semantic/derivations`
 
+`GET /api/dhatu/semantic/derivation-graph`
+
 Supported query parameters:
 
 - `dhatuId`
 - `family`
 - `domain`
 - `relation`
+- `maxDepth`
+- `relationType`
 
 Example helper calls:
 
@@ -43,22 +47,30 @@ python scripts/query_dhatu_semantic_derivations.py --dhatu-id 01.0005 --json
 python scripts/query_dhatu_semantic_derivations.py --family motion-transition --json
 python scripts/query_dhatu_semantic_derivations.py --domain motion --json
 python scripts/query_dhatu_semantic_derivations.py --relation motion-guidance-adjacent --json
+python scripts/query_dhatu_semantic_derivation_graph.py --domain motion --max-depth 2 --json
+python scripts/query_dhatu_semantic_derivation_graph.py --relation-type semantic_family_bridge --json
 ```
 
 Validation:
 
 ```powershell
 python scripts/validate_dhatu_semantic_derivations.py
+python scripts/validate_dhatu_semantic_derivation_graph.py
 ```
 
 UI-ready example fixtures:
 
 ```powershell
 python scripts/export_dhatu_semantic_derivation_examples.py
+python scripts/export_dhatu_semantic_derivation_graph_examples.py
 ```
 
 The exported fixtures live under `data/sanskrit/dhatus/semantic/derivations/examples/`.
 
+Bridge graph fixtures live under `data/sanskrit/dhatus/semantic/derivations/examples/graph/`. The bridge graph connects semantic clusters, derivation family nodes, and derivation records with placeholder-only edges such as `motion -> motion_transition_family`, `guidance -> directional_guidance_family`, and `stability -> grounding_stability_family`.
+
 ## Sanskrit Tab Panel
 
 The Sanskrit tab renders this layer as a read-only **Derivation Intelligence** panel. The panel is placeholder-only, uses local fixture-compatible data, and can filter by derivation family, usage domain, and proto relation. All derivation claims require future review. No exact Paninian derivation claim is made, and no grammatical authority is implied.
+
+The semantic derivation graph bridge is also read-only. It performs bounded traversal only, never generates derivations, never mutates canonical records, and keeps every bridge confidence value at `unreviewed` with review status `placeholder-local-review-required`.
