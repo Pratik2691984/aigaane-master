@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedFor": "semantic-derivation-placeholder-layer",
+  "sourceCanonicalRegistry": "data/sanskrit/dhatus/index.json",
+  "policy": {
+    "authoritativePaninianClaims": false,
+    "exactSutraAssertions": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "requiredReviewStatus": "placeholder-local-review-required",
+    "requiredRelationConfidence": "unreviewed",
+    "notes": "This file is a local semantic scaffold only. It is not a grammatical derivation authority."
+  },
+  "records": [
+    {
+      "schemaVersion": "1.0.0",
+      "derivationId": "derivation.semantic.01.0005",
+      "dhatuId": "01.0005",
+      "rootIast": "gam",
+      "derivationFamilyId": "family.semantic.motion-transition",
+      "semanticLineage": ["movement", "traversal", "transition"],
+      "usageDomains": ["motion", "journey", "transition"],
+      "conceptualAffixHints": [
+        {
+          "hintId": "hint.semantic.gam.01",
+          "label": "motion-oriented formation space",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Conceptual placeholder only; no affix rule or sutra is asserted."
+        }
+      ],
+      "protoDerivationRelations": [
+        {
+          "relationId": "relation.semantic.0001",
+          "sourceDerivationId": "derivation.semantic.01.0005",
+          "targetDerivationId": "derivation.semantic.01.0008",
+          "relationType": "motion-guidance-adjacent",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Semantic adjacency only; no derivational correctness claim is made."
+        },
+        {
+          "relationId": "relation.semantic.0002",
+          "sourceDerivationId": "derivation.semantic.01.0005",
+          "targetDerivationId": "derivation.semantic.01.0013",
+          "relationType": "motion-stability-contrast",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Semantic contrast only; no derivational correctness claim is made."
+        }
+      ],
+      "semanticTransformationNotes": [
+        "Local placeholder for future movement-to-result semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ],
+      "placeholderPaniniRelation": {
+        "status": "not-asserted",
+        "reviewStatus": "placeholder-local-review-required",
+        "source": "placeholder-local-review-required",
+        "note": "No exact Paninian source is asserted."
+      },
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "derivationId": "derivation.semantic.01.0008",
+      "dhatuId": "01.0008",
+      "rootIast": "ni",
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "semanticLineage": ["guidance", "leading", "transfer"],
+      "usageDomains": ["guidance", "motion", "agency"],
+      "conceptualAffixHints": [
+        {
+          "hintId": "hint.semantic.ni.01",
+          "label": "guidance-oriented formation space",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Conceptual placeholder only; no affix rule or sutra is asserted."
+        }
+      ],
+      "protoDerivationRelations": [
+        {
+          "relationId": "relation.semantic.0003",
+          "sourceDerivationId": "derivation.semantic.01.0008",
+          "targetDerivationId": "derivation.semantic.01.0005",
+          "relationType": "guidance-motion-adjacent",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Semantic adjacency only; no derivational correctness claim is made."
+        }
+      ],
+      "semanticTransformationNotes": [
+        "Local placeholder for future guidance-and-transfer semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ],
+      "placeholderPaniniRelation": {
+        "status": "not-asserted",
+        "reviewStatus": "placeholder-local-review-required",
+        "source": "placeholder-local-review-required",
+        "note": "No exact Paninian source is asserted."
+      },
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "derivationId": "derivation.semantic.01.0013",
+      "dhatuId": "01.0013",
+      "rootIast": "stha",
+      "derivationFamilyId": "family.semantic.stability-state",
+      "semanticLineage": ["stability", "standing", "persistence"],
+      "usageDomains": ["stability", "posture", "state"],
+      "conceptualAffixHints": [
+        {
+          "hintId": "hint.semantic.stha.01",
+          "label": "state-oriented formation space",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Conceptual placeholder only; no affix rule or sutra is asserted."
+        }
+      ],
+      "protoDerivationRelations": [
+        {
+          "relationId": "relation.semantic.0004",
+          "sourceDerivationId": "derivation.semantic.01.0013",
+          "targetDerivationId": "derivation.semantic.01.0005",
+          "relationType": "stability-motion-contrast",
+          "confidence": "unreviewed",
+          "source": "placeholder-local-model",
+          "note": "Semantic contrast only; no derivational correctness claim is made."
+        }
+      ],
+      "semanticTransformationNotes": [
+        "Local placeholder for future stability-and-state semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ],
+      "placeholderPaniniRelation": {
+        "status": "not-asserted",
+        "reviewStatus": "placeholder-local-review-required",
+        "source": "placeholder-local-review-required",
+        "note": "No exact Paninian source is asserted."
+      },
+      "reviewStatus": "placeholder-local-review-required"
+    }
+  ]
+}

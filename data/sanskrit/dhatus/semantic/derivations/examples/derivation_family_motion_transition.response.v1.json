@@ -1,0 +1,77 @@
+{
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/derivations",
+  "query": {
+    "dhatuId": null,
+    "domain": null,
+    "family": "motion-transition",
+    "relation": null
+  },
+  "resultCount": 1,
+  "results": [
+    {
+      "conceptualAffixHints": [
+        {
+          "confidence": "unreviewed",
+          "hintId": "hint.semantic.gam.01",
+          "label": "motion-oriented formation space",
+          "note": "Conceptual placeholder only; no affix rule or sutra is asserted.",
+          "source": "placeholder-local-model"
+        }
+      ],
+      "derivationFamilyId": "family.semantic.motion-transition",
+      "derivationId": "derivation.semantic.01.0005",
+      "dhatuId": "01.0005",
+      "placeholderPaniniRelation": {
+        "note": "No exact Paninian source is asserted.",
+        "reviewStatus": "placeholder-local-review-required",
+        "source": "placeholder-local-review-required",
+        "status": "not-asserted"
+      },
+      "protoDerivationRelations": [
+        {
+          "confidence": "unreviewed",
+          "note": "Semantic adjacency only; no derivational correctness claim is made.",
+          "relationId": "relation.semantic.0001",
+          "relationType": "motion-guidance-adjacent",
+          "source": "placeholder-local-model",
+          "sourceDerivationId": "derivation.semantic.01.0005",
+          "targetDerivationId": "derivation.semantic.01.0008"
+        },
+        {
+          "confidence": "unreviewed",
+          "note": "Semantic contrast only; no derivational correctness claim is made.",
+          "relationId": "relation.semantic.0002",
+          "relationType": "motion-stability-contrast",
+          "source": "placeholder-local-model",
+          "sourceDerivationId": "derivation.semantic.01.0005",
+          "targetDerivationId": "derivation.semantic.01.0013"
+        }
+      ],
+      "reviewStatus": "placeholder-local-review-required",
+      "rootIast": "gam",
+      "schemaVersion": "1.0.0",
+      "semanticLineage": [
+        "movement",
+        "traversal",
+        "transition"
+      ],
+      "semanticTransformationNotes": [
+        "Local placeholder for future movement-to-result semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ],
+      "usageDomains": [
+        "motion",
+        "journey",
+        "transition"
+      ]
+    }
+  ],
+  "safetyPolicy": {
+    "authoritativePaninianClaims": false,
+    "exactSutraAssertions": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "requiredConfidence": "unreviewed",
+    "requiredReviewStatus": "placeholder-local-review-required"
+  },
+  "schemaVersion": "1.0.0"
+}

@@ -2,11 +2,11 @@
 
 ## Purpose
 
-This document describes the read-only Semantic Dhātu Intelligence panel in the Sanskrit tab. The panel is backed by deterministic semantic search, neighbor, and traversal fixture shapes.
+This document describes the read-only Semantic Dhatu Intelligence panel in the Sanskrit tab. The panel is backed by deterministic semantic search, neighbor, traversal, and derivation-placeholder fixture shapes.
 
 ## No Runtime Mutation Policy
 
-The Sanskrit tab should consume these panel fixtures as read-only examples. Exporting or displaying them must not mutate `data/sanskrit/dhatus/index.json`, semantic source files, graph edges, promotion artifacts, or canonical write approvals.
+The Sanskrit tab should consume these panel fixtures as read-only examples. Exporting or displaying them must not mutate `data/sanskrit/dhatus/index.json`, semantic source files, graph edges, derivation placeholder metadata, promotion artifacts, or canonical write approvals.
 
 ## Panel Fixture Consumption
 
@@ -16,9 +16,11 @@ The current Sanskrit tab integration adds read-only client-side query controls f
 
 The Semantic Graph View is also client-side and read-only. It renders lightweight HTML/CSS graph nodes, relation labels, selected-node highlighting, traversal-path highlighting, and a screen-reader-friendly relation legend from fixture-compatible fallback graph data.
 
+The Semantic Derivation Placeholder layer may be displayed as a read-only UI panel using fixtures from `data/sanskrit/dhatus/semantic/derivations/examples/`. UI copy must keep these records labelled as placeholders requiring local review, and must not present any relation as a grammatical derivation or exact Paninian source.
+
 Graph visualization accessibility:
 
-- The Semantic Dhātu Intelligence and Semantic Graph View sections expose labelled regions.
+- The Semantic Dhatu Intelligence and Semantic Graph View sections expose labelled regions.
 - Graph nodes are keyboard-focusable buttons.
 - Enter and Space activate the focused semantic node.
 - The selected node state is exposed with `aria-pressed`.
@@ -29,11 +31,12 @@ Recommended frontend sections:
 - Search Results
 - Semantic Neighbors
 - Traversal Paths
+- Derivation Placeholders
 - Safety Notes
 
 Supported control values include the motion, guidance, and stability clusters; traversal depths 1 and 2; and relation filters `guides`, `associated_with`, `transitions_to`, and `grounds`.
 
-The graph view initially displays `gam / 01.0005`, `motion`, `guidance`, `stability`, `nī / 01.0008`, and `sthā / 01.0013` with relation edges among those nodes.
+The graph view initially displays `gam / 01.0005`, `motion`, `guidance`, `stability`, `ni / 01.0008`, and `stha / 01.0013` with relation edges among those nodes.
 
 ## Example File Paths
 
@@ -41,11 +44,13 @@ The graph view initially displays `gam / 01.0005`, `motion`, `guidance`, `stabil
 - `data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_neighbor_panel.v1.json`
 - `data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_traversal_panel.v1.json`
 - `data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json`
+- `data/sanskrit/dhatus/semantic/derivations/examples/ui_semantic_derivation_panel.v1.json`
 
 Regenerate fixtures with:
 
 ```powershell
 python scripts/export_dhatu_semantic_ui_examples.py
+python scripts/export_dhatu_semantic_derivation_examples.py
 ```
 
 ## Future API Endpoints
@@ -53,7 +58,10 @@ python scripts/export_dhatu_semantic_ui_examples.py
 - `/api/dhatu/semantic/search`
 - `/api/dhatu/semantic/neighbors`
 - `/api/dhatu/semantic/traverse`
+- `/api/dhatu/semantic/derivations`
 
 ## Safety Notes
 
-Semantic graph links are foundation-placeholder UI context only. They do not make exact Pāṇinian derivation claims.
+Semantic graph links are foundation-placeholder UI context only. They do not make exact Paninian derivation claims.
+
+Semantic derivation metadata is also placeholder-only. It provides no exact sutra assertion, no authoritative Paninian claim, and no grammatical correctness guarantee.

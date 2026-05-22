@@ -36,6 +36,7 @@ SEMANTIC_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_api.py
 SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_examples.py"
 SEMANTIC_QUERY_API_PATH = ROOT / "api" / "dhatu_semantic_query.py"
 SEMANTIC_GRAPH_API_PATH = ROOT / "api" / "dhatu_semantic_graph.py"
+SEMANTIC_DERIVATION_API_PATH = ROOT / "api" / "dhatu_semantic_derivation.py"
 SEMANTIC_GRAPH_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_graph.py"
 SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_neighbors.py"
 SEMANTIC_GRAPH_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_graph_api.py"
@@ -44,6 +45,9 @@ SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_
 SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_traversal_api.py"
 SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_traversal_examples.py"
 SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_ui_examples.py"
+SEMANTIC_DERIVATION_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_derivations.py"
+SEMANTIC_DERIVATION_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_derivations.py"
+SEMANTIC_DERIVATION_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_derivation_examples.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -80,6 +84,9 @@ SEMANTIC_EXAMPLES_ROOT = SEMANTIC_ROOT / "examples"
 SEMANTIC_GRAPH_EXAMPLES_ROOT = SEMANTIC_EXAMPLES_ROOT / "graph"
 SEMANTIC_UI_EXAMPLES_ROOT = SEMANTIC_EXAMPLES_ROOT / "ui"
 SEMANTIC_EDGES_PATH = SEMANTIC_ROOT / "edges" / "semantic_edges.v1.json"
+SEMANTIC_DERIVATION_ROOT = SEMANTIC_ROOT / "derivations"
+SEMANTIC_DERIVATION_PATH = SEMANTIC_DERIVATION_ROOT / "semantic_derivations.v1.json"
+SEMANTIC_DERIVATION_DOC_PATH = SEMANTIC_ROOT / "DERIVATION_API.md"
 GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
 FORBIDDEN_RUNTIME_IMPORTS = {
     "engines.morphology",
@@ -265,6 +272,14 @@ semantic_graph_spec = importlib.util.spec_from_file_location(
 semantic_graph = importlib.util.module_from_spec(semantic_graph_spec)
 sys.modules["dhatu_semantic_graph"] = semantic_graph
 semantic_graph_spec.loader.exec_module(semantic_graph)
+
+semantic_derivation_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_derivation",
+    SEMANTIC_DERIVATION_API_PATH,
+)
+semantic_derivation = importlib.util.module_from_spec(semantic_derivation_spec)
+sys.modules["dhatu_semantic_derivation"] = semantic_derivation
+semantic_derivation_spec.loader.exec_module(semantic_derivation)
 
 semantic_example_export_spec = importlib.util.spec_from_file_location(
     "export_dhatu_semantic_examples",
@@ -1178,6 +1193,71 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(len(registry["records"]), 13)
         self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
 
+    def test_semantic_derivation_validator_passes(self):
+        summary = semantic_derivation.validate_derivations()
+
+        self.assertEqual(summary["derivationValidationStatus"], "PASS")
+        self.assertEqual(summary["derivationRecordCount"], 3)
+        self.assertEqual(summary["duplicateDerivationIds"], [])
+        self.assertEqual(summary["unresolvedRelationReferences"], [])
+
+    def test_semantic_derivation_api_returns_deterministic_results(self):
+        first = kernel_api.build_dhatu_semantic_derivations_response(domain="motion")
+        second = kernel_api.build_dhatu_semantic_derivations_response(domain="motion")
+
+        self.assertEqual(first, second)
+        self.assertEqual(first["generatedBy"], "api/kernel_api.py:/api/dhatu/semantic/derivations")
+        self.assertEqual([result["dhatuId"] for result in first["results"]], ["01.0008", "01.0005"])
+
+    def test_semantic_derivation_query_supports_filters(self):
+        by_family = semantic_derivation.query_derivations(family="stability-state")
+        by_domain = semantic_derivation.query_derivations(domain="motion")
+        by_relation = semantic_derivation.query_derivations(relation="motion-guidance-adjacent")
+        by_dhatu = semantic_derivation.query_derivations(dhatu_id="01.0005")
+
+        self.assertEqual([result["dhatuId"] for result in by_family], ["01.0013"])
+        self.assertEqual([result["dhatuId"] for result in by_domain], ["01.0008", "01.0005"])
+        self.assertEqual([result["dhatuId"] for result in by_relation], ["01.0005"])
+        self.assertEqual([result["dhatuId"] for result in by_dhatu], ["01.0005"])
+
+    def test_semantic_derivation_metadata_remains_placeholder_safe(self):
+        payload = json.loads(SEMANTIC_DERIVATION_PATH.read_text(encoding="utf-8"))
+
+        self.assertFalse(payload["policy"]["authoritativePaninianClaims"])
+        self.assertFalse(payload["policy"]["exactSutraAssertions"])
+        self.assertFalse(payload["policy"]["grammaticalCorrectnessGuarantee"])
+        for record in payload["records"]:
+            self.assertEqual(record["reviewStatus"], "placeholder-local-review-required")
+            self.assertEqual(record["placeholderPaniniRelation"]["reviewStatus"], "placeholder-local-review-required")
+            for relation in record["protoDerivationRelations"]:
+                self.assertEqual(relation["confidence"], "unreviewed")
+
+    def test_semantic_derivation_metadata_asserts_no_exact_sutra_ids(self):
+        payload = SEMANTIC_DERIVATION_PATH.read_text(encoding="utf-8")
+
+        for forbidden_key in ["sutraId", "sutraIds", "exactSutraId", "paniniSutraId"]:
+            self.assertNotIn(forbidden_key, payload)
+        self.assertFalse(semantic_derivation.validate_derivations()["exactSutraAssertionsPresent"])
+
+    def test_semantic_derivation_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        semantic_derivation.validate_derivations()
+        semantic_derivation.query_derivations(domain="motion")
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_controller_and_app_have_no_canonical_write_hooks(self):
+        combined = "\n".join([
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+            (ROOT / "app.js").read_text(encoding="utf-8"),
+        ])
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", combined)
+        self.assertNotIn("AIGAANE_ALLOW_TEST_CANONICAL_WRITE", combined)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", combined)
+
     def test_first_bhvadi_batch_root_ids_are_unique(self):
         records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
 
@@ -1449,6 +1529,44 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticGraphViewAccessibility"],
             "keyboard-node-activation-relation-legend",
+        )
+
+    def test_manifest_declares_semantic_derivation_artifacts(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationsRoot"],
+            "data/sanskrit/dhatus/semantic/derivations",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationsFile"],
+            "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationApiDocsFile"],
+            "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationValidatorScript"],
+            "scripts/validate_dhatu_semantic_derivations.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationQueryScript"],
+            "scripts/query_dhatu_semantic_derivations.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationExampleExportScript"],
+            "scripts/export_dhatu_semantic_derivation_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationEndpoint"],
+            "/api/dhatu/semantic/derivations",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationReviewStatus"],
+            "placeholder-local-review-required",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationConfidence"],
+            "unreviewed",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):

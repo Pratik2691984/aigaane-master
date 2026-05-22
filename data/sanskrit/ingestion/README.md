@@ -72,6 +72,10 @@ Every batch must run in dry-run mode before write mode. Write mode goes through 
 
 The goldset protects canonical truth while ingestion expands normal registry coverage. Goldset expected records live separately under `data/sanskrit/goldset/` and must continue to pass exact regression checks after every batch.
 
+`data/sanskrit/dhatus/semantic/derivations/` contains read-only semantic derivation placeholder metadata for `01.0005`, `01.0008`, and `01.0013`. `api/dhatu_semantic_derivation.py`, `scripts/validate_dhatu_semantic_derivations.py`, and `scripts/query_dhatu_semantic_derivations.py` expose and validate this layer without mutating the canonical registry. Every record remains `placeholder-local-review-required`, every confidence value remains `unreviewed`, and the layer makes no exact sutra assertion, authoritative Paninian claim, or grammatical correctness guarantee.
+
+`scripts/export_dhatu_semantic_derivation_examples.py` writes deterministic API and UI-ready examples under `data/sanskrit/dhatus/semantic/derivations/examples/` for `/api/dhatu/semantic/derivations`.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records
