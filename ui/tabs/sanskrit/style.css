@@ -2237,11 +2237,46 @@
 }
 
 
-.static-fixture-browser-export-row {
+.static-fixture-browser-import-row {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.static-fixture-import-status {
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.static-fixture-comparison-summary {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 0.75rem;
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.static-fixture-comparison-summary h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.static-fixture-comparison-summary .static-fixture-browser-list {
+    margin-top: 0.5rem;
+}
+
+.static-fixture-import-status[data-state="error"] {
+    color: #ff6b6b;
+}
+
+.static-fixture-import-status[data-state="success"] {
+    color: #7bd88f;
+}
+
+.static-fixture-import-status[data-state="warning"] {
+    color: #ffd166;
 }
 
 .static-fixture-browser-export-row button {

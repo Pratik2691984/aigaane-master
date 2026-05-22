@@ -46,6 +46,14 @@ let staticFixtureCopyLinkButton = null;
 let staticFixtureExportJsonButton = null;
 let staticFixtureExportMarkdownButton = null;
 let staticFixtureExportTextButton = null;
+let staticFixtureImportSnapshotButton = null;
+let staticFixtureImportFileInput = null;
+let staticFixtureResetImportButton = null;
+let staticFixtureImportStatus = null;
+let staticFixtureComparisonSummary = null;
+let staticFixtureImportedMetadata = null;
+let staticFixtureComparisonResults = null;
+let importedStaticFixtureSnapshot = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
 let semanticDerivationData = null;
@@ -2018,13 +2026,195 @@ function renderStaticSemanticFixtureBrowser(active = staticSemanticFixtureBrowse
   const preview = byId("static-fixture-browser-json-preview");
   if (preview) preview.textContent = JSON.stringify(payload, null, 2);
   updateStaticFixtureBrowserSection(payload.filters.section);
+  if (importedStaticFixtureSnapshot) {
+    renderImportedStaticFixtureComparison(importedStaticFixtureSnapshot);
+  }
 }
-
 function handleStaticFixtureBrowserFilterChange() {
   updateStaticFixtureBrowserHash();
   renderStaticSemanticFixtureBrowser();
 }
+function renderStaticFixtureImportStatus(message, state = "neutral") {
+  if (!staticFixtureImportStatus) return;
 
+  staticFixtureImportStatus.textContent = text(message, "");
+  staticFixtureImportStatus.dataset.state = state;
+}
+
+function clearImportedStaticFixtureSnapshot() {
+  importedStaticFixtureSnapshot = null;
+
+  if (staticFixtureComparisonSummary) {
+    staticFixtureComparisonSummary.classList.add("hidden");
+  }
+
+  if (staticFixtureImportedMetadata) {
+    staticFixtureImportedMetadata.textContent = "No imported snapshot";
+  }
+
+  if (staticFixtureComparisonResults) {
+    staticFixtureComparisonResults.textContent = "No comparison available";
+  }
+
+  if (staticFixtureResetImportButton) {
+    staticFixtureResetImportButton.disabled = true;
+  }
+
+  renderStaticFixtureImportStatus("", "neutral");
+}
+
+function stableStringify(value) {
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(",")}]`;
+  }
+
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value)
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`)
+      .join(",")}}`;
+  }
+
+  return JSON.stringify(value);
+}
+function validateImportedStaticFixtureSnapshot(snapshot) {
+  if (!snapshot || typeof snapshot !== "object") {
+    return {
+      valid: false,
+      error: "Imported snapshot must be an object.",
+    };
+  }
+
+  const supportedSchemas = new Set([
+    "aigaane.staticSemanticFixtureSnapshot.v1",
+    "aigaane.staticSemanticFixtureExportSnapshot.v1",
+  ]);
+
+  if (!supportedSchemas.has(snapshot.schema)) {
+    return {
+      valid: false,
+      error: "Unsupported snapshot schema.",
+    };
+  }
+
+  if (snapshot.mode !== "static-preview") {
+    return {
+      valid: false,
+      error: "Snapshot mode must be static-preview.",
+    };
+  }
+
+  return {
+    valid: true,
+    error: null,
+  };
+}
+function renderImportedStaticFixtureComparison(snapshot) {
+  if (
+    !snapshot ||
+    !staticFixtureComparisonSummary ||
+    !staticFixtureImportedMetadata ||
+    !staticFixtureComparisonResults
+  ) {
+    return;
+  }
+
+  const currentPayload = buildStaticSemanticFixtureBrowserPayload();
+  const currentSelected = currentPayload.filters || {};
+  const importedSelected = snapshot.selected || snapshot.filters || {};
+
+  const selectedDifferences = [];
+
+  ["cluster", "dhatuId", "nodeId", "section"].forEach((field) => {
+    if ((currentSelected[field] || "") !== (importedSelected[field] || "")) {
+      selectedDifferences.push(field);
+    }
+  });
+
+  const importedPreview = snapshot.preview || snapshot.payload || {};
+  const currentPreview = currentPayload || {};
+
+  const previewMatches =
+    stableStringify(importedPreview) === stableStringify(currentPreview);
+
+  staticFixtureImportedMetadata.textContent = [
+    `generatedAt: ${text(snapshot.generatedAt, "unknown")}`,
+    `cluster: ${text(importedSelected.cluster, "(none)")}`,
+    `dhatuId: ${text(importedSelected.dhatuId, "(none)")}`,
+    `nodeId: ${text(importedSelected.nodeId, "(none)")}`,
+    `section: ${text(importedSelected.section, "(none)")}`,
+  ].join("\n");
+
+  staticFixtureComparisonResults.textContent = [
+    selectedDifferences.length === 0
+      ? "Selected state matches current browser state."
+      : `Changed selected fields: ${selectedDifferences.join(", ")}`,
+    previewMatches
+      ? "Preview JSON matches current payload."
+      : "Preview JSON differs from current payload.",
+  ].join("\n");
+
+  staticFixtureComparisonSummary.classList.remove("hidden");
+
+  if (staticFixtureResetImportButton) {
+    staticFixtureResetImportButton.disabled = false;
+  }
+}
+function handleStaticFixtureImportFileChange(event) {
+  const file = event?.target?.files?.[0];
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.name.toLowerCase().endsWith(".json")) {
+    renderStaticFixtureImportStatus("Only .json snapshot files are supported.", "error");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(String(reader.result || "{}"));
+      const validation = validateImportedStaticFixtureSnapshot(parsed);
+
+      if (!validation.valid) {
+        clearImportedStaticFixtureSnapshot();
+        renderStaticFixtureImportStatus(validation.error, "error");
+        return;
+      }
+
+      importedStaticFixtureSnapshot = parsed;
+      renderImportedStaticFixtureComparison(importedStaticFixtureSnapshot);
+      renderStaticFixtureImportStatus("Snapshot imported and compared.", "success");
+    } catch (error) {
+      clearImportedStaticFixtureSnapshot();
+      renderStaticFixtureImportStatus("Invalid JSON snapshot file.", "error");
+    }
+  };
+
+  reader.onerror = () => {
+    clearImportedStaticFixtureSnapshot();
+    renderStaticFixtureImportStatus("Unable to read snapshot file.", "error");
+  };
+
+  reader.readAsText(file);
+}
+
+function handleStaticFixtureImportClick() {
+  if (staticFixtureImportFileInput) {
+    staticFixtureImportFileInput.click();
+  }
+}
+
+function handleStaticFixtureResetImport() {
+  clearImportedStaticFixtureSnapshot();
+
+  if (staticFixtureImportFileInput) {
+    staticFixtureImportFileInput.value = "";
+  }
+}
 function updateStaticFixtureBrowserSection(section) {
   const cards = all("[data-static-fixture-section]");
   cards.forEach((card) => {
@@ -2069,8 +2259,31 @@ async function handleStaticFixtureCopyLink() {
   }
   renderStaticFixtureCopyStatus("Copy unavailable; link selected below", "fallback");
 }
+function bindStaticFixtureImportControls() {
+  if (staticFixtureImportSnapshotButton) {
+    staticFixtureImportSnapshotButton.addEventListener(
+      "click",
+      handleStaticFixtureImportClick,
+    );
+  }
 
+  if (staticFixtureImportFileInput) {
+    staticFixtureImportFileInput.addEventListener(
+      "change",
+      handleStaticFixtureImportFileChange,
+    );
+  }
+
+  if (staticFixtureResetImportButton) {
+    staticFixtureResetImportButton.addEventListener(
+      "click",
+      handleStaticFixtureResetImport,
+    );
+  }
+}
 function buildStaticFixtureExportSnapshot() {
+  const selected = readStaticFixtureBrowserFilters();
+  const preview = buildStaticSemanticFixtureBrowserPayload();
   return {
     schemaVersion: "1.0.0",
     schema: "aigaane.staticSemanticFixtureExportSnapshot.v1",
@@ -2082,11 +2295,12 @@ function buildStaticFixtureExportSnapshot() {
     canonicalMutationAllowed: false,
     url: currentStaticFixtureBrowserUrl(),
     hash: buildStaticFixtureBrowserHash(),
-    filters: readStaticFixtureBrowserFilters(),
-    payload: buildStaticSemanticFixtureBrowserPayload(),
+    selected,
+    preview,
+    filters: selected,
+    payload: preview,
   };
 }
-
 function downloadStaticFixtureExport(filename, mimeType, content) {
   const blob = new Blob([content], { type: mimeType });
   const objectUrl = URL.createObjectURL(blob);
@@ -4120,6 +4334,13 @@ export function init(node) {
   staticFixtureExportJsonButton = byId("static-fixture-export-json");
   staticFixtureExportMarkdownButton = byId("static-fixture-export-markdown");
   staticFixtureExportTextButton = byId("static-fixture-export-text");
+  staticFixtureImportSnapshotButton = byId("static-fixture-import-snapshot");
+  staticFixtureImportFileInput = byId("static-fixture-import-file");
+  staticFixtureResetImportButton = byId("static-fixture-reset-import");
+  staticFixtureImportStatus = byId("static-fixture-import-status");
+  staticFixtureComparisonSummary = byId("static-fixture-comparison-summary");
+  staticFixtureImportedMetadata = byId("static-fixture-imported-metadata");
+  staticFixtureComparisonResults = byId("static-fixture-comparison-results");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -4166,6 +4387,7 @@ export function init(node) {
   staticFixtureExportJsonButton?.addEventListener("click", handleStaticFixtureExportJson);
   staticFixtureExportMarkdownButton?.addEventListener("click", handleStaticFixtureExportMarkdown);
   staticFixtureExportTextButton?.addEventListener("click", handleStaticFixtureExportText);
+  bindStaticFixtureImportControls();
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -4234,6 +4456,9 @@ export function destroy() {
   staticFixtureExportJsonButton?.removeEventListener("click", handleStaticFixtureExportJson);
   staticFixtureExportMarkdownButton?.removeEventListener("click", handleStaticFixtureExportMarkdown);
   staticFixtureExportTextButton?.removeEventListener("click", handleStaticFixtureExportText);
+  staticFixtureImportSnapshotButton?.removeEventListener("click", handleStaticFixtureImportClick);
+  staticFixtureImportFileInput?.removeEventListener("change", handleStaticFixtureImportFileChange);
+  staticFixtureResetImportButton?.removeEventListener("click", handleStaticFixtureResetImport);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -4277,6 +4502,17 @@ export function destroy() {
   staticFixtureNodeFilter = null;
   staticFixtureSectionFilter = null;
   staticFixtureCopyLinkButton = null;
+  staticFixtureExportJsonButton = null;
+  staticFixtureExportMarkdownButton = null;
+  staticFixtureExportTextButton = null;
+  staticFixtureImportSnapshotButton = null;
+  staticFixtureImportFileInput = null;
+  staticFixtureResetImportButton = null;
+  staticFixtureImportStatus = null;
+  staticFixtureComparisonSummary = null;
+  staticFixtureImportedMetadata = null;
+  staticFixtureComparisonResults = null;
+  importedStaticFixtureSnapshot = null;
   currentDebugSession = null;
   semanticPanelData = null;
   semanticDerivationData = null;

@@ -102,18 +102,99 @@
         </div>
 
         <div class="static-fixture-browser-link-row">
-            <button id="static-fixture-copy-link" type="button">Copy inspection link</button>
-            
-            <span id="static-fixture-copy-status" class="static-fixture-copy-status" role="status" aria-live="polite"></span>
-            <input id="static-fixture-copy-fallback" class="static-fixture-copy-fallback hidden" type="text" readonly aria-label="Static fixture inspection link">
-        </div>
+    <button id="static-fixture-copy-link" type="button">
+        Copy inspection link
+    </button>
 
-        <div class="static-fixture-browser-export-row" aria-label="Static semantic fixture export controls">
-            <button id="static-fixture-export-json" type="button">Export JSON Snapshot</button>
-            <button id="static-fixture-export-markdown" type="button">Export Markdown Report</button>
-            <button id="static-fixture-export-text" type="button">Export Text Summary</button>
-            <span id="static-fixture-export-status" class="static-fixture-export-status" role="status" aria-live="polite"></span>
-        </div>
+    <span
+        id="static-fixture-copy-status"
+        class="static-fixture-copy-status"
+        role="status"
+        aria-live="polite"
+    ></span>
+
+    <input
+        id="static-fixture-copy-fallback"
+        class="static-fixture-copy-fallback hidden"
+        type="text"
+        readonly
+        aria-label="Static fixture inspection link"
+    >
+</div>
+
+<div
+    class="static-fixture-browser-export-row"
+    aria-label="Static semantic fixture export controls"
+>
+    <button id="static-fixture-export-json" type="button">
+        Export JSON Snapshot
+    </button>
+
+    <button id="static-fixture-export-markdown" type="button">
+        Export Markdown Report
+    </button>
+
+    <button id="static-fixture-export-text" type="button">
+        Export Text Summary
+    </button>
+
+    <span
+        id="static-fixture-export-status"
+        class="static-fixture-export-status"
+        role="status"
+        aria-live="polite"
+    ></span>
+</div>
+
+<div class="static-fixture-browser-import-row">
+    <button id="static-fixture-import-snapshot" type="button">
+        Import Snapshot
+    </button>
+
+    <input
+        id="static-fixture-import-file"
+        class="hidden"
+        type="file"
+        accept="application/json,.json"
+    >
+
+    <button
+        id="static-fixture-reset-import"
+        type="button"
+        disabled
+    >
+        Reset Imported Snapshot
+    </button>
+
+    <span
+        id="static-fixture-import-status"
+        class="static-fixture-import-status"
+        role="status"
+        aria-live="polite"
+    ></span>
+</div>
+
+<section
+    id="static-fixture-comparison-summary"
+    class="static-fixture-comparison-summary hidden"
+    aria-label="Imported static fixture snapshot comparison"
+>
+    <h4>Imported Snapshot Comparison</h4>
+
+    <div
+        id="static-fixture-imported-metadata"
+        class="static-fixture-browser-list"
+    >
+        No imported snapshot
+    </div>
+
+    <div
+        id="static-fixture-comparison-results"
+        class="static-fixture-browser-list"
+    >
+        No comparison available
+    </div>
+</section>
 
         <div class="static-fixture-browser-grid">
             <section class="static-fixture-browser-card" data-static-fixture-section="availability">
