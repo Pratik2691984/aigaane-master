@@ -96,6 +96,8 @@ Node 25E clarifies static-only serving behavior for `python -m http.server 3000`
 
 Node 25F adds the read-only Static Semantic Fixture Browser for static inspection. Direct `/api/*` URLs still return 404 under `python -m http.server 3000`; this is expected. Developers should use the browser panel to inspect loaded semantic fixture/fallback data, clusters, dhatu ids, graph nodes, neighbors, and derivation graph availability without backend APIs or canonical mutation.
 
+Node 25G adds static fixture deep links such as `#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors`. These links restore fixture-browser filters in static preview only, do not make `/api/*` routes available under `python -m http.server 3000`, do not call backend APIs, and do not mutate canonical data.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

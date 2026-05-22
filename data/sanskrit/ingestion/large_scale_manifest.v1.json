@@ -91,6 +91,8 @@
   "sanskritStaticSemanticFixtureBrowserPanel": "Static Semantic Fixture Browser",
   "sanskritStaticSemanticFixtureBrowserMode": "read-only-static-preview-fixture-inspection",
   "sanskritStaticSemanticFixtureBrowserJsonPolicy": "textContent-only-no-eval-no-mutation",
+  "sanskritStaticSemanticFixtureBrowserHashFormat": "#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors",
+  "sanskritStaticSemanticFixtureBrowserDeepLinks": "static-preview-only-no-backend-api-calls",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,

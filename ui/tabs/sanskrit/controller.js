@@ -41,12 +41,15 @@ let semanticDerivationGraphResetButton = null;
 let staticFixtureClusterFilter = null;
 let staticFixtureDhatuFilter = null;
 let staticFixtureNodeFilter = null;
+let staticFixtureSectionFilter = null;
+let staticFixtureCopyLinkButton = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
 let semanticDerivationData = null;
 let semanticDerivationGraphData = null;
 let semanticPlatformStatusData = null;
 let staticSemanticFixtureBrowserActive = false;
+let staticFixtureHashRestored = false;
 let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
 
@@ -1775,7 +1778,86 @@ function readStaticFixtureBrowserFilters() {
     cluster: staticFixtureClusterFilter?.value || "",
     dhatuId: staticFixtureDhatuFilter?.value.trim().toLowerCase() || "",
     nodeId: staticFixtureNodeFilter?.value.trim().toLowerCase() || "",
+    section: staticFixtureSectionFilter?.value || "records",
   };
+}
+
+function validStaticFixtureClusters() {
+  return new Set(SEMANTIC_DHATU_RECORDS.map((record) => record.cluster));
+}
+
+function validStaticFixtureDhatuIds() {
+  return new Set(SEMANTIC_DHATU_RECORDS.map((record) => record.dhatuId.toLowerCase()));
+}
+
+function validStaticFixtureNodeIds() {
+  return new Set(SEMANTIC_GRAPH_FALLBACK.nodes.map((node) => node.nodeId.toLowerCase()));
+}
+
+function validStaticFixtureSections() {
+  return new Set(["records", "clusters", "graph", "neighbors", "json"]);
+}
+
+function safeDecodeStaticFixtureHashValue(value) {
+  try {
+    return decodeURIComponent(text(value, "").replace(/\+/g, " ")).trim();
+  } catch (error) {
+    console.warn("[Sanskrit] Ignoring malformed static fixture hash value:", error);
+    return "";
+  }
+}
+
+function parseStaticFixtureBrowserHash(hashValue = window.location.hash) {
+  try {
+    const rawHash = text(hashValue, "");
+    if (!rawHash.startsWith("#sanskrit-static-fixtures")) return {};
+    const queryStart = rawHash.indexOf("?");
+    if (queryStart < 0) return {};
+    const params = new URLSearchParams(rawHash.slice(queryStart + 1));
+    const cluster = safeDecodeStaticFixtureHashValue(params.get("cluster"));
+    const dhatuId = safeDecodeStaticFixtureHashValue(params.get("dhatuId")).toLowerCase();
+    const nodeId = safeDecodeStaticFixtureHashValue(params.get("nodeId")).toLowerCase();
+    const section = safeDecodeStaticFixtureHashValue(params.get("section")).toLowerCase();
+    return {
+      cluster: validStaticFixtureClusters().has(cluster) ? cluster : "",
+      dhatuId: validStaticFixtureDhatuIds().has(dhatuId) ? dhatuId : "",
+      nodeId: validStaticFixtureNodeIds().has(nodeId) ? nodeId : "",
+      section: validStaticFixtureSections().has(section) ? section : "",
+    };
+  } catch (error) {
+    console.warn("[Sanskrit] Ignoring malformed static fixture hash:", error);
+    return {};
+  }
+}
+
+function applyStaticFixtureBrowserHashState(state) {
+  if (!state || typeof state !== "object") return;
+  if (staticFixtureClusterFilter && state.cluster) staticFixtureClusterFilter.value = state.cluster;
+  if (staticFixtureDhatuFilter && state.dhatuId) staticFixtureDhatuFilter.value = state.dhatuId;
+  if (staticFixtureNodeFilter && state.nodeId) staticFixtureNodeFilter.value = state.nodeId;
+  if (staticFixtureSectionFilter && state.section) staticFixtureSectionFilter.value = state.section;
+}
+
+function restoreStaticFixtureBrowserHashState() {
+  if (staticFixtureHashRestored) return;
+  staticFixtureHashRestored = true;
+  applyStaticFixtureBrowserHashState(parseStaticFixtureBrowserHash());
+}
+
+function buildStaticFixtureBrowserHash(filters = readStaticFixtureBrowserFilters()) {
+  const params = new URLSearchParams();
+  if (filters.cluster) params.set("cluster", filters.cluster);
+  if (filters.dhatuId) params.set("dhatuId", filters.dhatuId);
+  if (filters.nodeId) params.set("nodeId", filters.nodeId);
+  if (filters.section) params.set("section", filters.section);
+  const query = params.toString();
+  return query ? `#sanskrit-static-fixtures?${query}` : "#sanskrit-static-fixtures";
+}
+
+function updateStaticFixtureBrowserHash(filters = readStaticFixtureBrowserFilters()) {
+  const hash = buildStaticFixtureBrowserHash(filters);
+  if (window.location.hash === hash) return;
+  window.history.replaceState(null, "", hash);
 }
 
 function filteredStaticSemanticRecords(filters = readStaticFixtureBrowserFilters()) {
@@ -1859,6 +1941,7 @@ function buildStaticSemanticFixtureBrowserPayload(filters = readStaticFixtureBro
     generatedBy: "ui/tabs/sanskrit/controller.js:staticSemanticFixtureBrowser",
     readOnly: true,
     safeJsonPreview: "textContent-only; no eval; no mutation",
+    hashFormat: "#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors",
     filters,
     fixtureAvailability: {
       semanticUi: Boolean(semanticPanelData || SEMANTIC_DHATU_FALLBACK_PANEL),
@@ -1893,6 +1976,7 @@ function renderStaticSemanticFixtureBrowser(active = staticSemanticFixtureBrowse
   if (panel) panel.classList.toggle("hidden", !staticSemanticFixtureBrowserActive);
   if (!staticSemanticFixtureBrowserActive) return;
 
+  restoreStaticFixtureBrowserHashState();
   const payload = buildStaticSemanticFixtureBrowserPayload();
   setStaticFixtureStatus(
     "static-fixture-browser-availability",
@@ -1930,10 +2014,57 @@ function renderStaticSemanticFixtureBrowser(active = staticSemanticFixtureBrowse
 
   const preview = byId("static-fixture-browser-json-preview");
   if (preview) preview.textContent = JSON.stringify(payload, null, 2);
+  updateStaticFixtureBrowserSection(payload.filters.section);
 }
 
 function handleStaticFixtureBrowserFilterChange() {
+  updateStaticFixtureBrowserHash();
   renderStaticSemanticFixtureBrowser();
+}
+
+function updateStaticFixtureBrowserSection(section) {
+  const cards = all("[data-static-fixture-section]");
+  cards.forEach((card) => {
+    const cardSection = card.getAttribute("data-static-fixture-section");
+    card.classList.toggle("static-fixture-browser-card-selected", cardSection === section);
+  });
+}
+
+function currentStaticFixtureBrowserUrl() {
+  const hash = buildStaticFixtureBrowserHash();
+  return `${window.location.origin}${window.location.pathname}${hash}`;
+}
+
+function renderStaticFixtureCopyStatus(message, mode = "neutral") {
+  const status = byId("static-fixture-copy-status");
+  if (!status) return;
+  status.textContent = text(message, "");
+  status.classList.toggle("success", mode === "success");
+  status.classList.toggle("fallback", mode === "fallback");
+}
+
+async function handleStaticFixtureCopyLink() {
+  const url = currentStaticFixtureBrowserUrl();
+  const fallback = byId("static-fixture-copy-fallback");
+  if (fallback) {
+    fallback.value = url;
+    fallback.classList.add("hidden");
+  }
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(url);
+      renderStaticFixtureCopyStatus("Inspection link copied", "success");
+      return;
+    } catch (error) {
+      console.warn("[Sanskrit] Clipboard unavailable for static fixture link:", error);
+    }
+  }
+  if (fallback) {
+    fallback.classList.remove("hidden");
+    fallback.focus();
+    fallback.select();
+  }
+  renderStaticFixtureCopyStatus("Copy unavailable; link selected below", "fallback");
 }
 
 function renderDiagnosticsStatusClass(status) {
@@ -3833,6 +3964,8 @@ export function init(node) {
   staticFixtureClusterFilter = byId("static-fixture-cluster-filter");
   staticFixtureDhatuFilter = byId("static-fixture-dhatu-filter");
   staticFixtureNodeFilter = byId("static-fixture-node-filter");
+  staticFixtureSectionFilter = byId("static-fixture-section-filter");
+  staticFixtureCopyLinkButton = byId("static-fixture-copy-link");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -3874,6 +4007,8 @@ export function init(node) {
   staticFixtureClusterFilter?.addEventListener("change", handleStaticFixtureBrowserFilterChange);
   staticFixtureDhatuFilter?.addEventListener("input", handleStaticFixtureBrowserFilterChange);
   staticFixtureNodeFilter?.addEventListener("input", handleStaticFixtureBrowserFilterChange);
+  staticFixtureSectionFilter?.addEventListener("change", handleStaticFixtureBrowserFilterChange);
+  staticFixtureCopyLinkButton?.addEventListener("click", handleStaticFixtureCopyLink);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -3937,6 +4072,8 @@ export function destroy() {
   staticFixtureClusterFilter?.removeEventListener("change", handleStaticFixtureBrowserFilterChange);
   staticFixtureDhatuFilter?.removeEventListener("input", handleStaticFixtureBrowserFilterChange);
   staticFixtureNodeFilter?.removeEventListener("input", handleStaticFixtureBrowserFilterChange);
+  staticFixtureSectionFilter?.removeEventListener("change", handleStaticFixtureBrowserFilterChange);
+  staticFixtureCopyLinkButton?.removeEventListener("click", handleStaticFixtureCopyLink);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -3978,11 +4115,14 @@ export function destroy() {
   staticFixtureClusterFilter = null;
   staticFixtureDhatuFilter = null;
   staticFixtureNodeFilter = null;
+  staticFixtureSectionFilter = null;
+  staticFixtureCopyLinkButton = null;
   currentDebugSession = null;
   semanticPanelData = null;
   semanticDerivationData = null;
   semanticDerivationGraphData = null;
   semanticPlatformStatusData = null;
   staticSemanticFixtureBrowserActive = false;
+  staticFixtureHashRestored = false;
   inputNode = null;
 }

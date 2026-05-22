@@ -1932,6 +1932,97 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("Static Semantic Fixture Browser", semantic_platform)
         self.assertIn("Direct `/api/*` URLs still return 404", readme)
 
+    def test_static_fixture_browser_deep_link_hash_helpers_exist(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("parseStaticFixtureBrowserHash", controller)
+        self.assertIn("applyStaticFixtureBrowserHashState", controller)
+        self.assertIn("restoreStaticFixtureBrowserHashState", controller)
+        self.assertIn("buildStaticFixtureBrowserHash", controller)
+        self.assertIn("updateStaticFixtureBrowserHash", controller)
+        self.assertIn("#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors", controller)
+
+    def test_static_fixture_browser_restores_valid_cluster_dhatu_and_node_from_hash(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('params.get("cluster")', controller)
+        self.assertIn('params.get("dhatuId")', controller)
+        self.assertIn('params.get("nodeId")', controller)
+        self.assertIn("validStaticFixtureClusters().has(cluster)", controller)
+        self.assertIn("validStaticFixtureDhatuIds().has(dhatuId)", controller)
+        self.assertIn("validStaticFixtureNodeIds().has(nodeId)", controller)
+
+    def test_static_fixture_browser_restores_preview_section_from_hash(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('params.get("section")', controller)
+        self.assertIn("validStaticFixtureSections().has(section)", controller)
+        self.assertIn("static-fixture-section-filter", view)
+        self.assertIn('value="neighbors"', view)
+        self.assertIn("updateStaticFixtureBrowserSection", controller)
+
+    def test_static_fixture_browser_invalid_hash_degrades_gracefully(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("safeDecodeStaticFixtureHashValue", controller)
+        self.assertIn("Ignoring malformed static fixture hash", controller)
+        self.assertIn("return {}", controller)
+        self.assertIn("catch (error)", controller)
+
+    def test_static_fixture_browser_unknown_values_are_ignored_gracefully(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('validStaticFixtureClusters().has(cluster) ? cluster : ""', controller)
+        self.assertIn('validStaticFixtureDhatuIds().has(dhatuId) ? dhatuId : ""', controller)
+        self.assertIn('validStaticFixtureNodeIds().has(nodeId) ? nodeId : ""', controller)
+        self.assertIn('validStaticFixtureSections().has(section) ? section : ""', controller)
+
+    def test_static_fixture_browser_filter_changes_update_hash_without_backend_calls(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        handler_start = controller.index("function handleStaticFixtureBrowserFilterChange")
+        handler_end = controller.index("function updateStaticFixtureBrowserSection", handler_start)
+        handler_body = controller[handler_start:handler_end]
+
+        self.assertIn("updateStaticFixtureBrowserHash()", handler_body)
+        self.assertIn("renderStaticSemanticFixtureBrowser()", handler_body)
+        self.assertNotIn("fetch(", handler_body)
+        self.assertIn("window.history.replaceState", controller)
+
+    def test_static_fixture_browser_copy_link_control_is_static_mode_only(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Copy inspection link", combined)
+        self.assertIn("handleStaticFixtureCopyLink", combined)
+        self.assertIn("navigator.clipboard", combined)
+        self.assertIn("static-fixture-copy-fallback", combined)
+        self.assertIn("renderStaticSemanticFixtureBrowser(Boolean(reason))", combined)
+
+    def test_static_fixture_browser_normal_backend_ready_mode_remains_hidden(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("renderStaticPreviewFallbackNotice(null)", controller)
+        self.assertIn("panel.classList.toggle(\"hidden\", !staticSemanticFixtureBrowserActive)", controller)
+        self.assertIn("if (!staticSemanticFixtureBrowserActive) return", controller)
+
+    def test_static_fixture_browser_deep_link_docs_and_manifest_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+        semantic_platform = SEMANTIC_PLATFORM_DOC_PATH.read_text(encoding="utf-8")
+
+        expected_hash = "#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors"
+        self.assertEqual(self.payload["sanskritStaticSemanticFixtureBrowserHashFormat"], expected_hash)
+        self.assertEqual(
+            self.payload["sanskritStaticSemanticFixtureBrowserDeepLinks"],
+            "static-preview-only-no-backend-api-calls",
+        )
+        self.assertIn(expected_hash, readme)
+        self.assertIn(expected_hash, semantic_platform)
+        self.assertIn("static-preview-only", semantic_platform)
+        self.assertIn("/api/*` still returns 404", semantic_platform)
+
     def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
         self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
         self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")

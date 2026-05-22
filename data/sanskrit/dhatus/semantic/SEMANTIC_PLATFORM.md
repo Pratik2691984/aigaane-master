@@ -16,6 +16,8 @@ It summarizes endpoint paths, documentation paths, example fixture roots, the v7
 
 For static inspection, use the Sanskrit tab's read-only **Static Semantic Fixture Browser** instead of direct `/api/*` URLs. The browser panel displays loaded fixture availability, semantic record counts, clusters, graph nodes, neighbors, derivation graph availability, and a safe JSON preview rendered as escaped text with no eval and no mutation.
 
+Static fixture inspection links use URL hashes such as `#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors`. They are static-preview-only state restoration links; `/api/*` still returns 404 under `python -m http.server 3000` unless a backend runtime is active.
+
 ## Endpoint Index
 
 | Endpoint | Purpose |

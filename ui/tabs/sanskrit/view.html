@@ -90,36 +90,51 @@
 
             <label for="static-fixture-node-filter">Node id</label>
             <input id="static-fixture-node-filter" type="text" spellcheck="false" placeholder="motion">
+
+            <label for="static-fixture-section-filter">Preview section</label>
+            <select id="static-fixture-section-filter">
+                <option value="records">records</option>
+                <option value="clusters">clusters</option>
+                <option value="graph">graph</option>
+                <option value="neighbors">neighbors</option>
+                <option value="json">json</option>
+            </select>
+        </div>
+
+        <div class="static-fixture-browser-link-row">
+            <button id="static-fixture-copy-link" type="button">Copy inspection link</button>
+            <span id="static-fixture-copy-status" class="static-fixture-copy-status" role="status" aria-live="polite"></span>
+            <input id="static-fixture-copy-fallback" class="static-fixture-copy-fallback hidden" type="text" readonly aria-label="Static fixture inspection link">
         </div>
 
         <div class="static-fixture-browser-grid">
-            <section class="static-fixture-browser-card">
+            <section class="static-fixture-browser-card" data-static-fixture-section="availability">
                 <h4>Fixture Availability</h4>
                 <div id="static-fixture-browser-availability" class="static-fixture-browser-list">Unavailable in static preview</div>
                 <div id="static-fixture-browser-derivation-graph-status" class="static-fixture-browser-list">Unavailable in static preview</div>
             </section>
 
-            <section class="static-fixture-browser-card">
+            <section class="static-fixture-browser-card" data-static-fixture-section="clusters">
                 <h4>Available Clusters</h4>
                 <div id="static-fixture-browser-clusters" class="static-fixture-browser-list">Unavailable in static preview</div>
             </section>
 
-            <section class="static-fixture-browser-card">
+            <section class="static-fixture-browser-card" data-static-fixture-section="records">
                 <h4>Semantic Records</h4>
                 <div id="static-fixture-browser-records" class="static-fixture-browser-list">Unavailable in static preview</div>
             </section>
 
-            <section class="static-fixture-browser-card">
+            <section class="static-fixture-browser-card" data-static-fixture-section="graph">
                 <h4>Graph Nodes</h4>
                 <div id="static-fixture-browser-graph" class="static-fixture-browser-list">Unavailable in static preview</div>
             </section>
 
-            <section class="static-fixture-browser-card">
+            <section class="static-fixture-browser-card" data-static-fixture-section="neighbors">
                 <h4>Graph Neighbors</h4>
                 <div id="static-fixture-browser-neighbors" class="static-fixture-browser-list">Unavailable in static preview</div>
             </section>
 
-            <section class="static-fixture-browser-card static-fixture-browser-json-card">
+            <section class="static-fixture-browser-card static-fixture-browser-json-card" data-static-fixture-section="json">
                 <h4>Safe JSON Preview</h4>
                 <pre id="static-fixture-browser-json-preview" class="static-fixture-browser-json" aria-label="Read-only JSON fixture preview">Unavailable in static preview</pre>
             </section>

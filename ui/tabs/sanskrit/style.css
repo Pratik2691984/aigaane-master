@@ -395,7 +395,7 @@
 
 .static-fixture-browser-controls {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.55rem;
 }
 
@@ -426,12 +426,57 @@
     gap: 0.8rem;
 }
 
+.static-fixture-browser-link-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.static-fixture-browser-link-row button {
+    border: 1px solid rgba(212, 175, 55, 0.7);
+    background: transparent;
+    color: #f0d77a;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.static-fixture-copy-status {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.static-fixture-copy-status.success {
+    color: #9ee6b4;
+}
+
+.static-fixture-copy-status.fallback {
+    color: #ffe0a3;
+}
+
+.static-fixture-copy-fallback {
+    flex: 1 1 280px;
+    min-width: 0;
+    background: rgba(10, 12, 18, 0.88);
+    color: #eef3f8;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    border-radius: 8px;
+    padding: 0.55rem 0.6rem;
+}
+
 .static-fixture-browser-card {
     min-width: 0;
     border: 1px solid rgba(212, 175, 55, 0.22);
     border-radius: 8px;
     padding: 0.75rem;
     background: rgba(255, 255, 255, 0.025);
+}
+
+.static-fixture-browser-card-selected {
+    border-color: rgba(212, 175, 55, 0.62);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
 }
 
 .static-fixture-browser-card h4 {
