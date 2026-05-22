@@ -25,6 +25,7 @@
     "canonicalRegistryMutation": false,
     "canonicalRecordMutation": false,
     "paniniReferencePolicy": "structured-placeholders-only-until-reviewed",
+    "semanticDerivationPolicy": "placeholder-local-review-required-only",
     "falseGrammarClaimsAllowed": false
   },
   "generatedArtifacts": [
@@ -33,6 +34,8 @@
     "data/sanskrit/dhatus/semantic/panini_references.v1.json",
     "data/sanskrit/dhatus/semantic/action_vectors.v1.json",
     "data/sanskrit/dhatus/semantic/derivation_graph.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json",
+    "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
     "data/sanskrit/dhatus/semantic/gloss_taxonomy.v1.json",
     "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json"
   ]

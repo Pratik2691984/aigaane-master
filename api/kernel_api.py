@@ -60,6 +60,10 @@ try:
     from api.dhatu_semantic_graph import get_neighbors, traverse_graph
 except ModuleNotFoundError:
     from dhatu_semantic_graph import get_neighbors, traverse_graph
+try:
+    from api.dhatu_semantic_derivation import query_derivations
+except ModuleNotFoundError:
+    from dhatu_semantic_derivation import query_derivations
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -334,6 +338,40 @@ def build_dhatu_semantic_traversal_response(
     payload["query"] = query
     return payload
 
+
+def build_dhatu_semantic_derivations_response(
+    dhatuId: Optional[str] = None,
+    family: Optional[str] = None,
+    domain: Optional[str] = None,
+    relation: Optional[str] = None,
+) -> Dict[str, Any]:
+    query = {
+        "dhatuId": dhatuId,
+        "family": family,
+        "domain": domain,
+        "relation": relation,
+    }
+    results = query_derivations(
+        dhatu_id=dhatuId,
+        family=family,
+        domain=domain,
+        relation=relation,
+    )
+    return {
+        "schemaVersion": "1.0.0",
+        "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/derivations",
+        "query": query,
+        "resultCount": len(results),
+        "results": results,
+        "safetyPolicy": {
+            "authoritativePaninianClaims": False,
+            "exactSutraAssertions": False,
+            "grammaticalCorrectnessGuarantee": False,
+            "requiredReviewStatus": "placeholder-local-review-required",
+            "requiredConfidence": "unreviewed",
+        },
+    }
+
 # ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
@@ -466,6 +504,20 @@ async def dhatu_semantic_traverse(
         nodeId=nodeId,
         maxDepth=maxDepth,
         relationType=relationType,
+    )
+
+@app.get("/api/dhatu/semantic/derivations")
+async def dhatu_semantic_derivations(
+    dhatuId: Optional[str] = None,
+    family: Optional[str] = None,
+    domain: Optional[str] = None,
+    relation: Optional[str] = None,
+):
+    return build_dhatu_semantic_derivations_response(
+        dhatuId=dhatuId,
+        family=family,
+        domain=domain,
+        relation=relation,
     )
 
 @app.post("/api/calculate-friction")
