@@ -1653,33 +1653,16 @@
     overflow: hidden;
 }
 
-.semantic-graph-node {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    max-width: 130px;
-    border: 1px solid rgba(159, 176, 199, 0.35);
-    border-radius: 999px;
-    padding: 0.35rem 0.55rem;
-    background: rgba(10, 12, 18, 0.92);
-    color: #eef3f8;
-    cursor: pointer;
-    font-size: 0.78rem;
+.semantic-graph-canvas {
+    display: block;
+    width: 100%;
+    min-height: 320px;
+    border: 1px solid rgba(104, 190, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.025);
 }
 
-.semantic-graph-node:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 3px;
-}
 
-.semantic-graph-node.selected {
-    border-color: var(--gold);
-    color: #f0d77a;
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.16);
-}
-
-.semantic-graph-node.traversal-highlight {
-    background: rgba(212, 175, 55, 0.16);
-}
 
 .semantic-graph-connector {
     position: absolute;
@@ -2190,7 +2173,33 @@
         min-height: 420px;
         overflow-x: auto;
     }
+.semantic-graph-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    max-width: 130px;
+    border: 1px solid rgba(159, 176, 199, 0.35);
+    border-radius: 999px;
+    padding: 0.35rem 0.55rem;
+    background: rgba(10, 12, 18, 0.92);
+    color: #eef3f8;
+    cursor: pointer;
+    font-size: 0.78rem;
+}
 
+.semantic-graph-node:focus-visible {
+    outline: 2px solid rgba(212, 175, 55, 0.9);
+    outline-offset: 2px;
+}
+
+.semantic-graph-node.selected {
+    border-color: rgba(212, 175, 55, 0.85);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.18);
+}
+
+.semantic-graph-node.traversal-highlight {
+    border-color: rgba(104, 190, 255, 0.72);
+    box-shadow: 0 0 0 2px rgba(104, 190, 255, 0.16);
+}
     .semantic-derivation-graph-canvas {
         min-height: 460px;
         overflow-x: auto;

@@ -704,10 +704,192 @@ function sortedSemanticGraphEdges(edges) {
   });
 }
 
-function handleSemanticGraphNodeKeydown(event, nodeId) {
-  if (event.key !== "Enter" && event.key !== " ") return;
-  event.preventDefault();
-  focusSemanticGraphNode(nodeId);
+function ensureSemanticGraphCanvasSize(canvas) {
+  const width = canvas.clientWidth || 600;
+  const height = canvas.clientHeight || 320;
+  const dpr = window.devicePixelRatio || 1;
+  const nextWidth = Math.floor(width * dpr);
+  const nextHeight = Math.floor(height * dpr);
+
+  if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
+    canvas.width = nextWidth;
+    canvas.height = nextHeight;
+  }
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return { width, height, ctx: null };
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { width, height, ctx };
+}
+
+function normalizeSemanticGraphPoint(node, width, height) {
+  const rawX = Number(node?.x);
+  const rawY = Number(node?.y);
+  const xPercent = Number.isFinite(rawX) ? rawX : 50;
+  const yPercent = Number.isFinite(rawY) ? rawY : 50;
+
+  return {
+    x: (xPercent / 100) * width,
+    y: (yPercent / 100) * height,
+  };
+}
+
+function buildSemanticGraphNodeIndex(nodes = []) {
+  const index = new Map();
+  nodes.forEach((node) => {
+    const nodeId = text(node?.nodeId || node?.id, "");
+    if (nodeId) index.set(nodeId, node);
+  });
+  return index;
+}
+
+function shortSemanticGraphLabel(node) {
+  const rawLabel = text(node?.label || node?.nodeId || node?.id, "");
+  return rawLabel.length > 18 ? `${rawLabel.slice(0, 17)}…` : rawLabel;
+}
+
+function drawSemanticGraphCanvas(canvas, payload = {}) {
+  const { width, height, ctx } = ensureSemanticGraphCanvasSize(canvas);
+  if (!ctx) return;
+
+  ctx.clearRect(0, 0, width, height);
+
+  const nodes = Array.isArray(payload.nodes) ? payload.nodes : [];
+  const edges = Array.isArray(payload.edges) ? payload.edges : [];
+  const highlightedEdgeIds = payload.highlightedEdgeIds instanceof Set ? payload.highlightedEdgeIds : new Set();
+  const highlightedNodeIds = payload.highlightedNodeIds instanceof Set ? payload.highlightedNodeIds : new Set();
+  const selectedNodeId = text(payload.selectedNodeId, "");
+
+  if (nodes.length === 0) {
+    ctx.fillStyle = "#9fb0c7";
+    ctx.font = "14px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Semantic graph unavailable", width / 2, height / 2);
+    return;
+  }
+
+  const nodeIndex = buildSemanticGraphNodeIndex(nodes);
+
+  edges.forEach((edge) => {
+    const sourceId = text(edge?.sourceId || edge?.source, "");
+    const targetId = text(edge?.targetId || edge?.target, "");
+    const source = nodeIndex.get(sourceId);
+    const target = nodeIndex.get(targetId);
+    if (!source || !target) return;
+
+    const edgeId = text(edge?.edgeId || edge?.id, "");
+    const edgeType = text(edge?.edgeType || edge?.type || edge?.relationType, "");
+    const isHighlighted = highlightedEdgeIds.has(edgeId);
+    const isStrong = edgeType.includes("derivation") || edgeType.includes("root");
+
+    const sourcePoint = normalizeSemanticGraphPoint(source, width, height);
+    const targetPoint = normalizeSemanticGraphPoint(target, width, height);
+
+    ctx.beginPath();
+    ctx.moveTo(sourcePoint.x, sourcePoint.y);
+    ctx.lineTo(targetPoint.x, targetPoint.y);
+    ctx.strokeStyle = isHighlighted
+      ? "rgba(212, 175, 55, 0.85)"
+      : isStrong
+        ? "rgba(104, 190, 255, 0.45)"
+        : "rgba(159, 176, 199, 0.25)";
+    ctx.lineWidth = isHighlighted ? 2.25 : isStrong ? 1.5 : 1;
+    ctx.stroke();
+  });
+
+  nodes.forEach((node) => {
+    const nodeId = text(node?.nodeId || node?.id, "");
+    const nodeType = text(node?.nodeType || node?.type, "");
+    const isSelected = nodeId === selectedNodeId;
+    const isHighlighted = highlightedNodeIds.has(nodeId);
+    const isRoot = nodeType === "dhatu" || nodeType === "root" || nodeType.includes("dhatu");
+    const point = normalizeSemanticGraphPoint(node, width, height);
+    const radius = isRoot ? 8 : 5;
+
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = isSelected
+      ? "#f0d77a"
+      : isHighlighted
+        ? "rgba(104, 190, 255, 0.35)"
+        : "#100e08";
+    ctx.fill();
+
+    ctx.strokeStyle = isSelected
+      ? "#d4af37"
+      : isHighlighted
+        ? "#68beff"
+        : "rgba(159, 176, 199, 0.4)";
+    ctx.lineWidth = isSelected ? 2 : 1.5;
+    ctx.stroke();
+  });
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+
+  nodes.forEach((node) => {
+    const nodeId = text(node?.nodeId || node?.id, "");
+    const isSelected = nodeId === selectedNodeId;
+    const point = normalizeSemanticGraphPoint(node, width, height);
+    const label = shortSemanticGraphLabel(node);
+
+    ctx.fillStyle = isSelected ? "#f0d77a" : "#eef3f8";
+    ctx.font = isSelected ? "bold 12px sans-serif" : "11px sans-serif";
+    ctx.fillText(label, point.x, point.y + 10);
+  });
+}
+
+function renderSemanticGraphView(queryState = readSemanticQueryState(), record = selectedSemanticRecord(queryState)) {
+  const graph = SEMANTIC_GRAPH_FALLBACK;
+  const nodes = sortedSemanticGraphNodes(graph.nodes);
+  const edges = sortedSemanticGraphEdges(graph.edges);
+  const highlightedEdgeIds = new Set(highlightedSemanticEdgeIds(record, queryState));
+  const highlightedNodeIds = new Set();
+
+  edges.forEach((edge) => {
+    if (highlightedEdgeIds.has(edge.edgeId)) {
+      highlightedNodeIds.add(edge.sourceId);
+      highlightedNodeIds.add(edge.targetId);
+    }
+  });
+
+  const selectedNodeId = selectedSemanticGraphNodeId || record?.dhatuId || "01.0005";
+  const selectedNode = nodes.find((node) => node.nodeId === selectedNodeId) || nodes[0];
+
+  const canvas = byId("semantic-graph-canvas");
+  if (canvas && canvas.tagName?.toLowerCase() === "canvas") {
+    drawSemanticGraphCanvas(canvas, {
+      nodes,
+      edges,
+      highlightedEdgeIds,
+      highlightedNodeIds,
+      selectedNodeId,
+    });
+  }
+
+  const summary = byId("semantic-graph-summary");
+  clearChildren(summary);
+  if (summary) appendInspectionRow(summary, "Node", selectedSemanticNodeSummary(selectedNode));
+
+  const edgeList = byId("semantic-graph-edges");
+  clearChildren(edgeList);
+  if (edgeList) {
+    if (edges.length === 0) appendEmpty(edgeList, "No semantic relation edges available");
+    edges.forEach((edge) => edgeList.appendChild(renderSemanticGraphEdge(edge, highlightedEdgeIds)));
+  }
+
+  renderSemanticGraphLegend(edges, highlightedEdgeIds);
+
+  const safety = byId("semantic-graph-safety");
+  clearChildren(safety);
+  if (safety) {
+    const note = document.createElement("div");
+    note.className = "semantic-graph-safety-note";
+    note.textContent = SEMANTIC_DHATU_FALLBACK_PANEL.safetyNote;
+    safety.appendChild(note);
+  }
 }
 
 function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
