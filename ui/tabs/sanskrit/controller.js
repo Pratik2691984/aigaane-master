@@ -42,6 +42,7 @@ let currentDebugSession = null;
 let semanticPanelData = null;
 let semanticDerivationData = null;
 let semanticDerivationGraphData = null;
+let semanticPlatformStatusData = null;
 let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
 
@@ -50,10 +51,12 @@ const DEFAULT_PAYLOAD = {
 };
 
 const SEMANTIC_DHATU_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json";
+const SEMANTIC_PLATFORM_STATUS_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json";
 const SEMANTIC_DERIVATION_DATA_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json";
 const SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE = "data/sanskrit/dhatus/semantic/derivations/examples/graph/ui_semantic_derivation_graph_panel.v1.json";
 const SEMANTIC_DERIVATION_PLACEHOLDER_WARNING = "Placeholder-only: all derivation claims require future review. No exact Paninian derivation claim is made.";
 const SEMANTIC_DERIVATION_GRAPH_PLACEHOLDER_WARNING = "Placeholder-only derivation graph bridge. No exact Paninian derivation claim, exact sutra assertion, or grammatical correctness guarantee is made.";
+const SEMANTIC_PLATFORM_STATUS_SAFETY_WARNING = "Placeholder-safe: no exact sutra guarantees, no authoritative grammatical claims, and no canonical write hooks.";
 const SEMANTIC_DHATU_FALLBACK_PANEL = {
   schemaVersion: "1.0.0",
   generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
@@ -109,6 +112,60 @@ const SEMANTIC_DHATU_FALLBACK_PANEL = {
     { label: "Semantic traversal API", href: "/api/dhatu/semantic/traverse?nodeId=motion&maxDepth=2", linkType: "api" },
   ],
   safetyNote: "Semantic graph links are foundation-placeholder UI context only; no exact Pāṇinian derivation claim is made.",
+};
+
+const SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL = {
+  schemaVersion: "1.0.0",
+  generatedBy: "ui/tabs/sanskrit/controller.js:fallback",
+  panelType: "semanticPlatformStatus",
+  platformStatus: "READY",
+  milestoneSpan: "v53-v72",
+  canonicalRegistryRecordCount: 13,
+  semanticRecordCount: 3,
+  uiReadiness: {
+    status: "READY",
+    mode: "client-side-read-only",
+    backendFetchRequired: false,
+    mutationHooksPresent: false,
+  },
+  checkpoint: {
+    releaseTag: "sanskrit-v72-semantic-api-index-stable",
+    jsonPath: "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.json",
+    markdownPath: "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.md",
+  },
+  endpoints: [
+    { path: "/api/dhatu/semantic/search", label: "Semantic Search API", method: "GET", readOnly: true },
+    { path: "/api/dhatu/semantic/neighbors", label: "Semantic Neighbors API", method: "GET", readOnly: true },
+    { path: "/api/dhatu/semantic/traverse", label: "Semantic Traversal API", method: "GET", readOnly: true },
+    { path: "/api/dhatu/semantic/derivations", label: "Semantic Derivations API", method: "GET", readOnly: true },
+    { path: "/api/dhatu/semantic/derivation-graph", label: "Semantic Derivation Graph API", method: "GET", readOnly: true },
+  ],
+  validators: [
+    { name: "semanticLayer", status: "PASS", command: "python scripts/validate_dhatu_semantic_layer.py" },
+    { name: "semanticGraph", status: "PASS", command: "python scripts/validate_dhatu_semantic_graph.py" },
+    { name: "semanticDerivation", status: "PASS", command: "python scripts/validate_dhatu_semantic_derivations.py" },
+    { name: "semanticDerivationGraph", status: "PASS", command: "python scripts/validate_dhatu_semantic_derivation_graph.py" },
+  ],
+  docs: [
+    "data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md",
+    "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
+    "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
+    "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+  ],
+  examples: [
+    "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json",
+    "data/sanskrit/dhatus/semantic/examples/ui/",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/",
+  ],
+  safetyPolicy: {
+    readOnlySemanticArchitecture: true,
+    exactSutraAssertionsAllowed: false,
+    exactPaninianDerivationClaimsAllowed: false,
+    grammaticalCorrectnessGuarantee: false,
+    canonicalRegistryMutation: false,
+    canonicalWriteEnvironmentFlagsRequired: false,
+  },
+  safetyNote: SEMANTIC_PLATFORM_STATUS_SAFETY_WARNING,
 };
 
 const SEMANTIC_QUERY_DEFAULTS = {
@@ -1193,6 +1250,102 @@ function renderSemanticDerivationGraphPanel() {
   }
 }
 
+function renderSemanticPlatformStatusCard(label, value, detail, badgeType = "") {
+  const card = document.createElement("div");
+  card.className = "semantic-platform-status-card";
+  card.tabIndex = 0;
+  const title = document.createElement("strong");
+  title.textContent = label;
+  const body = document.createElement("span");
+  body.textContent = text(value);
+  card.append(title, body);
+  if (detail) {
+    const small = document.createElement("small");
+    small.textContent = detail;
+    card.appendChild(small);
+  }
+  if (badgeType) card.classList.add(`semantic-platform-status-${badgeType.toLowerCase()}`);
+  return card;
+}
+
+function renderSemanticPlatformStatusList(container, items, formatter, emptyMessage) {
+  clearChildren(container);
+  if (!container) return;
+  const values = Array.isArray(items) ? items : [];
+  if (!values.length) {
+    appendEmpty(container, emptyMessage);
+    return;
+  }
+  values.forEach((item, index) => container.appendChild(formatter(item, index)));
+}
+
+function renderSemanticPlatformStatusPanel(panel = semanticPlatformStatusData) {
+  const payload = panel && typeof panel === "object" ? panel : SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL;
+  const overview = byId("semantic-platform-overview-output");
+  clearChildren(overview);
+  if (overview) {
+    overview.appendChild(renderSemanticPlatformStatusCard("Platform status", text(payload.platformStatus, "UNKNOWN"), text(payload.milestoneSpan, "v53-v72"), payload.platformStatus));
+    overview.appendChild(renderSemanticPlatformStatusCard("Canonical registry", payload.canonicalRegistryRecordCount, "records remain read-only"));
+    overview.appendChild(renderSemanticPlatformStatusCard("Semantic records", payload.semanticRecordCount, "covered semantic sidecar records"));
+    overview.appendChild(renderSemanticPlatformStatusCard("UI readiness", text(payload.uiReadiness?.status, "READY"), text(payload.uiReadiness?.mode, "client-side-read-only"), payload.uiReadiness?.status));
+  }
+
+  renderSemanticPlatformStatusList(
+    byId("semantic-platform-validators-output"),
+    payload.validators,
+    (validator) => renderSemanticPlatformStatusCard(
+      text(validator.name, "validator"),
+      text(validator.status, "UNKNOWN"),
+      text(validator.command, "validator command unavailable"),
+      validator.status,
+    ),
+    "No validators listed",
+  );
+
+  renderSemanticPlatformStatusList(
+    byId("semantic-platform-endpoints-output"),
+    payload.endpoints,
+    (endpoint) => renderSemanticPlatformStatusCard(
+      text(endpoint.label, endpoint.path),
+      text(endpoint.path),
+      `${text(endpoint.method, "GET")} - read-only ${endpoint.readOnly === false ? "no" : "yes"}`,
+    ),
+    "No endpoints listed",
+  );
+
+  const docsAndExamples = [...(Array.isArray(payload.docs) ? payload.docs : []), ...(Array.isArray(payload.examples) ? payload.examples : [])];
+  renderSemanticPlatformStatusList(
+    byId("semantic-platform-docs-output"),
+    docsAndExamples,
+    (entry, index) => renderSemanticPlatformStatusCard(index < (payload.docs?.length || 0) ? "Doc" : "Example", entry),
+    "No docs or examples listed",
+  );
+
+  const checkpoint = byId("semantic-platform-checkpoint-output");
+  clearChildren(checkpoint);
+  if (checkpoint) {
+    checkpoint.appendChild(renderSemanticPlatformStatusCard("Release tag", text(payload.checkpoint?.releaseTag, "checkpoint tag unavailable")));
+    checkpoint.appendChild(renderSemanticPlatformStatusCard("JSON", text(payload.checkpoint?.jsonPath, "checkpoint JSON unavailable")));
+    checkpoint.appendChild(renderSemanticPlatformStatusCard("Markdown", text(payload.checkpoint?.markdownPath, "checkpoint Markdown unavailable")));
+  }
+
+  const safety = payload.safetyPolicy || {};
+  const safetyRows = [
+    ["Read-only", safety.readOnlySemanticArchitecture],
+    ["Exact sutra assertions", safety.exactSutraAssertionsAllowed],
+    ["Exact Paninian derivation claims", safety.exactPaninianDerivationClaimsAllowed],
+    ["Grammatical guarantee", safety.grammaticalCorrectnessGuarantee],
+    ["Canonical mutation", safety.canonicalRegistryMutation],
+    ["Write flags required", safety.canonicalWriteEnvironmentFlagsRequired],
+  ];
+  renderSemanticPlatformStatusList(
+    byId("semantic-platform-safety-output"),
+    safetyRows,
+    ([label, value]) => renderSemanticPlatformStatusCard(label, value === true ? "yes" : "no", payload.safetyNote),
+    "No safety policy listed",
+  );
+}
+
 function renderSemanticDhatuPanel(panel) {
   const payload = panel && typeof panel === "object" ? panel : SEMANTIC_DHATU_FALLBACK_PANEL;
   const cards = Array.isArray(payload.cards) ? payload.cards : [];
@@ -1234,6 +1387,20 @@ async function loadSemanticDhatuPanel() {
     console.warn("[Sanskrit] Semantic Dhatu Intelligence fallback:", error);
     semanticPanelData = SEMANTIC_DHATU_FALLBACK_PANEL;
     renderSemanticQueryState();
+  }
+}
+
+async function loadSemanticPlatformStatusPanel() {
+  renderSemanticPlatformStatusPanel(SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL);
+  try {
+    const response = await fetch(SEMANTIC_PLATFORM_STATUS_PANEL_FIXTURE);
+    if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
+    semanticPlatformStatusData = await response.json();
+    renderSemanticPlatformStatusPanel(semanticPlatformStatusData);
+  } catch (error) {
+    console.warn("[Sanskrit] Semantic Platform Status fallback:", error);
+    semanticPlatformStatusData = SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL;
+    renderSemanticPlatformStatusPanel(semanticPlatformStatusData);
   }
 }
 
@@ -2953,6 +3120,7 @@ function renderInitialState() {
   renderSemanticTrace(null, "semantic-trace-linked-output");
   renderSemanticTraceStatus("Semantic trace idle");
   renderSemanticDhatuPanel(SEMANTIC_DHATU_FALLBACK_PANEL);
+  renderSemanticPlatformStatusPanel(SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL);
   renderSemanticDerivationPanel("01.0005");
   renderSemanticDerivationGraphPanel();
   renderSemanticGraphView();
@@ -3050,6 +3218,7 @@ export function init(node) {
   renderInitialState();
   updateMorphologyFields();
   loadSemanticDhatuPanel();
+  loadSemanticPlatformStatusPanel();
   loadSemanticDerivationData();
   loadSemanticDerivationGraphPanel();
 
@@ -3140,5 +3309,6 @@ export function destroy() {
   semanticPanelData = null;
   semanticDerivationData = null;
   semanticDerivationGraphData = null;
+  semanticPlatformStatusData = null;
   inputNode = null;
 }

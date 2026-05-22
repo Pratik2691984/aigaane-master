@@ -78,3 +78,5 @@ The derivation graph bridge is also placeholder-only. It makes no exact sutra re
 The Derivation Graph Intelligence UI is placeholder-only and read-only. No exact Paninian derivation claim is made, no exact sutra assertion is made, and no grammatical correctness guarantee is provided.
 
 The v70 semantic platform checkpoint freezes the v53-v70 Sanskrit semantic intelligence stack in `data/sanskrit/dhatus/semantic/releases/v70/`. It summarizes validator status, UI fixture coverage, graph and derivation counts, and the read-only safety contract.
+
+The Sanskrit tab also includes a read-only **Semantic Platform Status** panel backed by `data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json`. It renders platform status, the v53-v72 milestone span, canonical registry count, semantic record count, validator summaries, public API endpoints, documentation references, checkpoint paths, UI readiness, and the placeholder-safe policy. The panel uses deterministic local fallback data and does not require a live backend fetch.

@@ -75,6 +75,9 @@
   "canonicalDhatuSemanticPlatformIndexEndpoint": "/api/dhatu/semantic",
   "canonicalDhatuSemanticPlatformIndexSmokeScript": "scripts/smoke_dhatu_semantic_platform_index.py",
   "canonicalDhatuSemanticPlatformDocsFile": "data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md",
+  "canonicalDhatuSemanticPlatformUiExampleExportScript": "scripts/export_dhatu_semantic_platform_ui_examples.py",
+  "canonicalDhatuSemanticPlatformStatusUiFixture": "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json",
+  "canonicalDhatuSemanticPlatformStatusUiPanel": "Semantic Platform Status",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,

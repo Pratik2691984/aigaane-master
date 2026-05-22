@@ -26,7 +26,7 @@ The semantic platform is read-only. It does not require canonical write environm
 
 Derivation and derivation graph records remain placeholder-only. No exact Paninian derivation claim is made, no exact sutra assertion is made, and no grammatical correctness guarantee is provided. Derivation confidence values remain `unreviewed`, and review statuses remain `placeholder-local-review-required`.
 
-## v53-v71 Milestone Summary
+## v53-v72 Milestone Summary
 
 | Node | Summary |
 | --- | --- |
@@ -49,6 +49,7 @@ Derivation and derivation graph records remain placeholder-only. No exact Panini
 | v69 | Semantic derivation graph bridge |
 | v70 | Derivation Graph Intelligence UI and platform checkpoint |
 | v71 | Public read-only semantic API index |
+| v72 | Semantic Platform Status UI panel |
 
 ## Checkpoint Location
 
@@ -70,7 +71,12 @@ python scripts/smoke_dhatu_semantic_platform_index.py
 
 - `data/sanskrit/dhatus/semantic/UI_INTEGRATION.md`
 - `data/sanskrit/dhatus/semantic/examples/ui/`
+- `data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json`
 - `data/sanskrit/dhatus/semantic/derivations/examples/graph/ui_semantic_derivation_graph_panel.v1.json`
 - `ui/tabs/sanskrit/view.html`
 - `ui/tabs/sanskrit/controller.js`
 - `ui/tabs/sanskrit/style.css`
+
+## Semantic Platform Status Panel
+
+The Sanskrit tab renders a read-only **Semantic Platform Status** panel from deterministic local fixture-compatible data. It displays `READY` platform state, the v53-v72 milestone span, canonical and semantic record counts, validator summaries, available semantic API endpoints, documentation and example references, the v70 checkpoint location, UI readiness, and the placeholder-safe policy. It has no backend fetch requirement, no mutation hooks, and no canonical write logic.

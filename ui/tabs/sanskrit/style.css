@@ -1091,6 +1091,106 @@
     background: rgba(212, 175, 55, 0.08);
 }
 
+.semantic-platform-status {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid rgba(104, 190, 255, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(8, 16, 24, 0.62);
+}
+
+.semantic-platform-status-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.semantic-platform-status-header h3,
+.semantic-platform-status-panel h4 {
+    color: #b9c7d9;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.semantic-platform-status-header p {
+    color: #9fb0c7;
+    font-size: 0.85rem;
+}
+
+.semantic-platform-status-safety {
+    border: 1px solid rgba(255, 215, 128, 0.42);
+    border-radius: 8px;
+    padding: 0.7rem;
+    background: rgba(255, 215, 128, 0.08);
+    color: #ffe0a3;
+}
+
+.semantic-platform-status-layout {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.semantic-platform-status-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.semantic-platform-status-panel:focus-visible,
+.semantic-platform-status-card:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+.semantic-platform-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.semantic-platform-status-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 0.6rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: #eef3f8;
+}
+
+.semantic-platform-status-card strong {
+    color: #f0d77a;
+}
+
+.semantic-platform-status-card span,
+.semantic-platform-status-card small {
+    overflow-wrap: anywhere;
+}
+
+.semantic-platform-status-card small {
+    color: #9fb0c7;
+}
+
+.semantic-platform-status-ready,
+.semantic-platform-status-pass {
+    border-color: rgba(120, 220, 170, 0.45);
+}
+
+.semantic-platform-safety-panel {
+    border-color: rgba(255, 215, 128, 0.2);
+}
+
 .semantic-graph-view {
     display: flex;
     flex-direction: column;
@@ -1640,6 +1740,7 @@
     .semantic-derivation-grid,
     .semantic-derivation-graph-controls,
     .semantic-derivation-graph-layout,
+    .semantic-platform-status-layout,
     .semantic-graph-layout,
     .graph-grid,
     .replay-grid,

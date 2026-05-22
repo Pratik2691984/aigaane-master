@@ -55,6 +55,7 @@ SEMANTIC_DERIVATION_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "expor
 SEMANTIC_DERIVATION_GRAPH_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_derivation_graph_api.py"
 SEMANTIC_PLATFORM_CHECKPOINT_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_semantic_platform_checkpoint.py"
 SEMANTIC_PLATFORM_INDEX_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_platform_index.py"
+SEMANTIC_PLATFORM_UI_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_platform_ui_examples.py"
 MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
 REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
 READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
@@ -97,6 +98,7 @@ SEMANTIC_DERIVATION_EDGES_PATH = SEMANTIC_DERIVATION_ROOT / "semantic_derivation
 SEMANTIC_DERIVATION_GRAPH_EXAMPLES_ROOT = SEMANTIC_DERIVATION_ROOT / "examples" / "graph"
 SEMANTIC_DERIVATION_DOC_PATH = SEMANTIC_ROOT / "DERIVATION_API.md"
 SEMANTIC_PLATFORM_DOC_PATH = SEMANTIC_ROOT / "SEMANTIC_PLATFORM.md"
+SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH = SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_platform_status_panel.v1.json"
 SEMANTIC_RELEASE_V70_ROOT = SEMANTIC_ROOT / "releases" / "v70"
 SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH = SEMANTIC_RELEASE_V70_ROOT / "semantic_platform_checkpoint.v70.json"
 SEMANTIC_PLATFORM_CHECKPOINT_MD_PATH = SEMANTIC_RELEASE_V70_ROOT / "semantic_platform_checkpoint.v70.md"
@@ -1587,6 +1589,51 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(len(registry["records"]), 13)
         self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
 
+    def test_semantic_platform_status_fixture_export_exists_and_json_valid(self):
+        self.assertTrue(SEMANTIC_PLATFORM_UI_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.exists())
+
+        payload = json.loads(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.read_text(encoding="utf-8"))
+        json.dumps(payload, sort_keys=True)
+
+        self.assertEqual(payload["panelType"], "semanticPlatformStatus")
+        self.assertEqual(payload["platformStatus"], "READY")
+
+    def test_semantic_platform_status_fixture_milestones_endpoints_and_validators(self):
+        payload = json.loads(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.read_text(encoding="utf-8"))
+        nodes = {entry["node"] for entry in payload["milestoneTags"]}
+
+        self.assertEqual(payload["milestoneSpan"], "v53-v72")
+        self.assertIn("v53", nodes)
+        self.assertIn("v72", nodes)
+        self.assertGreaterEqual(len(payload["endpoints"]), 5)
+        self.assertGreaterEqual(len(payload["validators"]), 4)
+        self.assertEqual({entry["status"] for entry in payload["validators"]}, {"PASS"})
+
+    def test_semantic_platform_status_fixture_safety_visible_and_registry_count(self):
+        payload = json.loads(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.read_text(encoding="utf-8"))
+        safety = payload["safetyPolicy"]
+
+        self.assertEqual(payload["canonicalRegistryRecordCount"], 13)
+        self.assertIn("Placeholder-safe", payload["safetyNote"])
+        self.assertFalse(safety["exactSutraAssertionsAllowed"])
+        self.assertFalse(safety["exactPaninianDerivationClaimsAllowed"])
+        self.assertFalse(safety["grammaticalCorrectnessGuarantee"])
+        self.assertEqual(payload["uiReadiness"]["status"], "READY")
+
+    def test_semantic_platform_status_ui_has_no_canonical_write_hooks(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_STYLE_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Semantic Platform Status", combined)
+        self.assertIn("semantic-platform-status", combined)
+        self.assertIn("Placeholder-safe", combined)
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", combined)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", combined)
+
     def test_controller_and_app_have_no_canonical_write_hooks(self):
         combined = "\n".join([
             SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
@@ -1978,6 +2025,18 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertEqual(
             self.payload["canonicalDhatuSemanticPlatformDocsFile"],
             "data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformUiExampleExportScript"],
+            "scripts/export_dhatu_semantic_platform_ui_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformStatusUiFixture"],
+            "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformStatusUiPanel"],
+            "Semantic Platform Status",
         )
 
     def test_canonical_write_runbook_contains_required_operational_guidance(self):
