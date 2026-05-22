@@ -1793,6 +1793,76 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("semantic fixtures are read-only", readme)
         self.assertIn("canonical registry is not mutated", readme)
 
+    def test_sanskrit_static_preview_expected_api_miss_helpers_exist(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("function isExpectedStaticPreviewApiMiss(errorOrResponse)", controller)
+        self.assertIn("function renderStaticPreviewFallbackNotice(reason)", controller)
+        self.assertIn("static-preview-fallback-notice", SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"))
+
+    def test_sanskrit_analyze_treats_404_or_501_as_expected_fallback(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        analyze_start = controller.index("async function analyzeCurrentInput()")
+        analyze_end = controller.index("async function runSandhi()", analyze_start)
+        analyze_body = controller[analyze_start:analyze_end]
+
+        self.assertIn("isExpectedStaticPreviewApiMiss(response)", analyze_body)
+        self.assertIn("response.status", analyze_body)
+        self.assertIn("Backend unavailable; local fallback active", analyze_body)
+        self.assertIn("static_preview_backend_unavailable", analyze_body)
+        self.assertIn("renderStaticPreviewFallbackNotice", analyze_body)
+        self.assertNotIn("Analysis unavailable", analyze_body)
+
+    def test_sanskrit_expected_static_preview_misses_use_info_or_warn_not_error(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        helper_start = controller.index("function isExpectedStaticPreviewApiMiss")
+        analyze_end = controller.index("async function runSandhi()", helper_start)
+        static_preview_body = controller[helper_start:analyze_end]
+
+        self.assertIn("console.info", static_preview_body)
+        self.assertIn("console.warn", static_preview_body)
+        self.assertNotIn("console.error", static_preview_body)
+
+    def test_sanskrit_local_static_diagnostics_accept_backend_unavailable(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Unavailable in static preview", controller)
+        self.assertIn("backendAnalyzeUnavailableExpected", controller)
+        self.assertIn("READY_STATIC_PREVIEW", controller)
+        self.assertIn("Backend /api/v3/analyze unavailable; allowed for local static preview", controller)
+
+    def test_sanskrit_static_preview_fallback_status_text_exists(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_STYLE_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Backend API unavailable", combined)
+        self.assertIn("Local fallback rendered", combined)
+        self.assertIn("Static preview remains usable", combined)
+        self.assertIn("API endpoints require backend runtime", combined)
+        self.assertIn("Canonical registry not mutated", combined)
+        self.assertIn(".static-preview-fallback-notice", combined)
+
+    def test_sanskrit_static_preview_docs_mention_http_server_static_only_behavior(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+        semantic_platform = SEMANTIC_PLATFORM_DOC_PATH.read_text(encoding="utf-8")
+
+        for docs in [readme, semantic_platform]:
+            self.assertIn("python -m http.server 3000", docs)
+            self.assertIn("static-only", docs)
+            self.assertIn("/api/*", docs)
+            self.assertIn("404", docs)
+            self.assertIn("semantic", docs)
+            self.assertIn("analysis fallback", docs)
+            self.assertIn("no canonical mutation occurs", docs)
+        self.assertEqual(self.payload["sanskritStaticPreviewServerCommand"], "python -m http.server 3000")
+        self.assertEqual(
+            self.payload["sanskritStaticPreviewApiMissPolicy"],
+            "api-routes-may-return-404-or-501-without-backend-runtime",
+        )
+
     def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
         self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
         self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")

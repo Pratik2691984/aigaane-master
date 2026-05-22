@@ -206,6 +206,31 @@
     font-size: 0.86rem;
 }
 
+.static-preview-fallback-notice {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    border: 1px solid rgba(104, 190, 255, 0.35);
+    border-radius: 8px;
+    padding: 0.75rem;
+    background: rgba(104, 190, 255, 0.07);
+}
+
+.static-preview-fallback-notice strong {
+    color: #cfeeff;
+}
+
+.static-preview-fallback-notice p,
+.static-preview-fallback-details {
+    color: #d7e4f2;
+    line-height: 1.5;
+}
+
+.static-preview-fallback-details {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
 .local-static-diagnostics {
     display: flex;
     flex-direction: column;

@@ -1726,6 +1726,37 @@ function renderFallbackAnalysisPanel(payload) {
   if (safety) safety.textContent = text(payload?.safety_note);
 }
 
+function isExpectedStaticPreviewApiMiss(errorOrResponse) {
+  const status = Number(errorOrResponse?.status || errorOrResponse?.response?.status || 0);
+  const message = text(errorOrResponse?.message, "");
+  return status === 404 || status === 501 || /\bHTTP (404|501)\b/.test(message);
+}
+
+function renderStaticPreviewFallbackNotice(reason) {
+  const panel = byId("static-preview-fallback-notice");
+  const reasonNode = byId("static-preview-fallback-reason");
+  const detailsNode = byId("static-preview-fallback-details");
+  if (!panel) return;
+
+  const hasReason = Boolean(reason);
+  panel.classList.toggle("hidden", !hasReason);
+  if (!hasReason) return;
+
+  if (reasonNode) reasonNode.textContent = text(reason);
+  clearChildren(detailsNode);
+  [
+    "Backend API unavailable",
+    "Local fallback rendered",
+    "Static preview remains usable",
+    "API endpoints require backend runtime",
+    "Canonical registry not mutated",
+  ].forEach((item) => {
+    const row = document.createElement("li");
+    row.textContent = item;
+    detailsNode?.appendChild(row);
+  });
+}
+
 function renderDiagnosticsStatusClass(status) {
   if (status === "READY_STATIC_PREVIEW") return "ready";
   if (status === "DEGRADED_STATIC_PREVIEW") return "degraded";
@@ -1769,7 +1800,7 @@ function renderLocalStaticDiagnostics(report) {
     Boolean(report?.backendAnalyzeAvailable),
     report?.backendAnalyzeAvailable
       ? "Backend analysis route responded with JSON."
-      : "Unavailable is allowed in local static preview mode.",
+      : "Unavailable in static preview. Unavailable is allowed in local static preview mode.",
   );
   appendDiagnosticsRow(backend, "Backend required for green static mode", !report?.backendRequired, "Expected: not required");
 
@@ -2179,11 +2210,23 @@ async function checkBackendAnalyzeAvailability() {
       body: JSON.stringify({ input_text: DEFAULT_PAYLOAD.input_text }),
       cache: "no-store",
     });
+    if (isExpectedStaticPreviewApiMiss(response)) {
+      console.info("[Sanskrit] Static diagnostics expected backend miss:", response.status);
+      return { available: false, expectedStaticPreviewMiss: true, status: response.status };
+    }
     const payload = await response.json().catch(() => null);
-    return Boolean(response.ok && payload && typeof payload === "object");
+    return {
+      available: Boolean(response.ok && payload && typeof payload === "object"),
+      expectedStaticPreviewMiss: false,
+      status: response.status,
+    };
   } catch (error) {
+    if (isExpectedStaticPreviewApiMiss(error)) {
+      console.info("[Sanskrit] Static diagnostics expected backend miss:", error);
+      return { available: false, expectedStaticPreviewMiss: true, status: error?.status || "expected-miss" };
+    }
     console.warn("[Sanskrit] Static diagnostics backend probe:", error);
-    return false;
+    return { available: false, expectedStaticPreviewMiss: false, status: "fetch-error" };
   }
 }
 
@@ -2195,7 +2238,8 @@ async function buildLocalStaticDiagnosticsReport() {
     checkLocalStaticFixture("Derivation graph fixture", SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE),
     checkLocalStaticFixture("Platform status fixture", SEMANTIC_PLATFORM_STATUS_PANEL_FIXTURE),
   ]);
-  const backendAnalyzeAvailable = await checkBackendAnalyzeAvailability();
+  const backendAnalyze = await checkBackendAnalyzeAvailability();
+  const backendAnalyzeAvailable = Boolean(backendAnalyze.available);
   const fallbackAnalysisAvailable = typeof buildLocalSanskritAnalysisFallback === "function";
   const fixtureFailures = fixtureChecks.filter((check) => !check.available);
   const diagnosticsStatus = !fallbackAnalysisAvailable
@@ -2217,6 +2261,8 @@ async function buildLocalStaticDiagnosticsReport() {
     staticModeSupported: true,
     backendRequired: false,
     backendAnalyzeAvailable,
+    backendAnalyzeUnavailableExpected: Boolean(backendAnalyze.expectedStaticPreviewMiss || !backendAnalyzeAvailable),
+    backendAnalyzeStatus: backendAnalyze.status,
     fallbackAnalysisAvailable,
     fixtureChecks,
     safetyChecks: [
@@ -2265,7 +2311,7 @@ async function runLocalStaticDiagnostics() {
     const report = await buildLocalStaticDiagnosticsReport();
     renderLocalStaticDiagnostics(report);
   } catch (error) {
-    console.error("[Sanskrit] Local static diagnostics failed:", error);
+    console.warn("[Sanskrit] Local static diagnostics failed:", error);
     renderLocalStaticDiagnostics({
       schemaVersion: "1.0.0",
       generatedBy: "ui/tabs/sanskrit/controller.js:runLocalStaticDiagnostics",
@@ -2853,24 +2899,51 @@ async function analyzeCurrentInput() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input_text: inputText }),
     });
+    if (isExpectedStaticPreviewApiMiss(response)) {
+      console.info("[Sanskrit] Expected static preview API miss; local fallback active.", response.status);
+      const fallbackPayload = buildLocalSanskritAnalysisFallback(inputText);
+      renderStaticPreviewFallbackNotice(`Backend /api/v3/analyze returned HTTP ${response.status}; local fallback is active.`);
+      renderApiError({
+        detail: {
+          code: "static_preview_backend_unavailable",
+          message: "Backend unavailable in static preview; local fallback active.",
+        },
+      });
+      renderPayload(fallbackPayload);
+      setStatus("Backend unavailable; local fallback active");
+      return;
+    }
     const payload = await response.json().catch(() => null);
     if (!response.ok || !payload || typeof payload !== "object") {
       throw new Error(response.ok ? "Unreadable analysis payload" : `HTTP ${response.status}`);
     }
+    renderStaticPreviewFallbackNotice(null);
     renderApiError(null);
     renderPayload(payload);
     setStatus("Analysis complete");
   } catch (error) {
-    console.error("[Sanskrit] Analysis error:", error);
+    const expectedMiss = isExpectedStaticPreviewApiMiss(error);
+    if (expectedMiss) {
+      console.info("[Sanskrit] Expected static preview API miss; local fallback active.", error);
+    } else {
+      console.warn("[Sanskrit] Analysis fallback after backend issue:", error);
+    }
     const payload = buildLocalSanskritAnalysisFallback(inputText);
+    renderStaticPreviewFallbackNotice(
+      expectedMiss
+        ? "Backend API unavailable in static preview; local fallback rendered."
+        : "Backend analysis unavailable or unreadable; local fallback rendered.",
+    );
     renderApiError({
       detail: {
-        code: "local_fallback",
-        message: "Backend analysis unavailable; rendered deterministic local fallback.",
+        code: expectedMiss ? "static_preview_backend_unavailable" : "local_fallback",
+        message: expectedMiss
+          ? "Backend unavailable in static preview; local fallback active."
+          : "Backend analysis unavailable; rendered deterministic local fallback.",
       },
     });
     renderPayload(payload);
-    setStatus("Analysis rendered with local fallback");
+    setStatus(expectedMiss ? "Backend unavailable; local fallback active" : "Analysis rendered with local fallback");
   } finally {
     setBusy(analyzeButton, false);
   }

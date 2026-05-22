@@ -92,6 +92,8 @@ Node 25C adds a deterministic client-side Sanskrit analysis fallback for the San
 
 Node 25D adds local static preview support through a browser-visible Local Static Diagnostics panel. The backend API may be unavailable during static serving, so the panel treats `/api/v3/analyze` as optional, verifies the fallback analysis path, checks that semantic fixtures are read-only and browser-loadable, and reports that the canonical registry is not mutated by diagnostics.
 
+Node 25E clarifies static-only serving behavior for `python -m http.server 3000`: it serves browser files only, so `/api/*` routes return 404 unless a backend runtime is active. In this mode the Sanskrit tab treats 404/501 API misses as expected static-preview fallback events, semantic panels use fixture/fallback data, analysis fallback is expected and safe, and no canonical mutation occurs.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

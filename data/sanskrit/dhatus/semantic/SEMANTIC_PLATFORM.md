@@ -10,6 +10,10 @@ The public index endpoint is:
 
 It summarizes endpoint paths, documentation paths, example fixture roots, the v70 checkpoint, validator status, milestone tags, and the platform safety policy.
 
+## Static Preview Behavior
+
+`python -m http.server 3000` is static-only: it serves the browser UI and fixture files, but `/api/*` routes return 404 unless a backend runtime is active. In static preview the Sanskrit tab keeps using read-only semantic fixture/fallback data, expected 404/501 API misses are handled as controlled fallback events, analysis fallback is expected and safe, and no canonical mutation occurs.
+
 ## Endpoint Index
 
 | Endpoint | Purpose |

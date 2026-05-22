@@ -85,6 +85,9 @@
   "sanskritLocalStaticDiagnosticsMode": "client-side-read-only-static-preview",
   "sanskritLocalStaticDiagnosticsBackendRequired": false,
   "sanskritLocalStaticDiagnosticsSafety": "read-only-fixture-probes-no-canonical-registry-mutation",
+  "sanskritStaticPreviewServerCommand": "python -m http.server 3000",
+  "sanskritStaticPreviewApiMissPolicy": "api-routes-may-return-404-or-501-without-backend-runtime",
+  "sanskritStaticPreviewFallbackNotice": "expected-api-miss-renders-local-fallback-no-canonical-mutation",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,
