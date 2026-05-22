@@ -14,6 +14,8 @@ It summarizes endpoint paths, documentation paths, example fixture roots, the v7
 
 `python -m http.server 3000` is static-only: it serves the browser UI and fixture files, but `/api/*` routes return 404 unless a backend runtime is active. In static preview the Sanskrit tab keeps using read-only semantic fixture/fallback data, expected 404/501 API misses are handled as controlled fallback events, analysis fallback is expected and safe, and no canonical mutation occurs.
 
+For static inspection, use the Sanskrit tab's read-only **Static Semantic Fixture Browser** instead of direct `/api/*` URLs. The browser panel displays loaded fixture availability, semantic record counts, clusters, graph nodes, neighbors, derivation graph availability, and a safe JSON preview rendered as escaped text with no eval and no mutation.
+
 ## Endpoint Index
 
 | Endpoint | Purpose |

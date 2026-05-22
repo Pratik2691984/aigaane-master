@@ -94,6 +94,8 @@ Node 25D adds local static preview support through a browser-visible Local Stati
 
 Node 25E clarifies static-only serving behavior for `python -m http.server 3000`: it serves browser files only, so `/api/*` routes return 404 unless a backend runtime is active. In this mode the Sanskrit tab treats 404/501 API misses as expected static-preview fallback events, semantic panels use fixture/fallback data, analysis fallback is expected and safe, and no canonical mutation occurs.
 
+Node 25F adds the read-only Static Semantic Fixture Browser for static inspection. Direct `/api/*` URLs still return 404 under `python -m http.server 3000`; this is expected. Developers should use the browser panel to inspect loaded semantic fixture/fallback data, clusters, dhatu ids, graph nodes, neighbors, and derivation graph availability without backend APIs or canonical mutation.
+
 Recommended staged path:
 
 - `21A.1`: 25-50 records

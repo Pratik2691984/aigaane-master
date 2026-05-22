@@ -88,6 +88,9 @@
   "sanskritStaticPreviewServerCommand": "python -m http.server 3000",
   "sanskritStaticPreviewApiMissPolicy": "api-routes-may-return-404-or-501-without-backend-runtime",
   "sanskritStaticPreviewFallbackNotice": "expected-api-miss-renders-local-fallback-no-canonical-mutation",
+  "sanskritStaticSemanticFixtureBrowserPanel": "Static Semantic Fixture Browser",
+  "sanskritStaticSemanticFixtureBrowserMode": "read-only-static-preview-fixture-inspection",
+  "sanskritStaticSemanticFixtureBrowserJsonPolicy": "textContent-only-no-eval-no-mutation",
   "policy": {
     "mode": "local-only",
     "networkScraping": false,

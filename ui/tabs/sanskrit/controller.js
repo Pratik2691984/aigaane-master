@@ -38,11 +38,15 @@ let semanticDerivationGraphFamilyFilter = null;
 let semanticDerivationGraphDomainFilter = null;
 let semanticDerivationGraphRelationFilter = null;
 let semanticDerivationGraphResetButton = null;
+let staticFixtureClusterFilter = null;
+let staticFixtureDhatuFilter = null;
+let staticFixtureNodeFilter = null;
 let currentDebugSession = null;
 let semanticPanelData = null;
 let semanticDerivationData = null;
 let semanticDerivationGraphData = null;
 let semanticPlatformStatusData = null;
+let staticSemanticFixtureBrowserActive = false;
 let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
 
@@ -1384,10 +1388,12 @@ async function loadSemanticDhatuPanel() {
     if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
     semanticPanelData = await response.json();
     renderSemanticQueryState();
+    renderStaticSemanticFixtureBrowser();
   } catch (error) {
     console.warn("[Sanskrit] Semantic Dhatu Intelligence fallback:", error);
     semanticPanelData = SEMANTIC_DHATU_FALLBACK_PANEL;
     renderSemanticQueryState();
+    renderStaticSemanticFixtureBrowser();
   }
 }
 
@@ -1398,10 +1404,12 @@ async function loadSemanticPlatformStatusPanel() {
     if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
     semanticPlatformStatusData = await response.json();
     renderSemanticPlatformStatusPanel(semanticPlatformStatusData);
+    renderStaticSemanticFixtureBrowser();
   } catch (error) {
     console.warn("[Sanskrit] Semantic Platform Status fallback:", error);
     semanticPlatformStatusData = SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL;
     renderSemanticPlatformStatusPanel(semanticPlatformStatusData);
+    renderStaticSemanticFixtureBrowser();
   }
 }
 
@@ -1411,10 +1419,12 @@ async function loadSemanticDerivationData() {
     if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
     semanticDerivationData = await response.json();
     renderSemanticQueryState();
+    renderStaticSemanticFixtureBrowser();
   } catch (error) {
     console.warn("[Sanskrit] Derivation Intelligence fallback:", error);
     semanticDerivationData = SEMANTIC_DERIVATION_FALLBACK_DATA;
     renderSemanticQueryState();
+    renderStaticSemanticFixtureBrowser();
   }
 }
 
@@ -1424,10 +1434,12 @@ async function loadSemanticDerivationGraphPanel() {
     if (!response.ok) throw new Error(`fixture unavailable: ${response.status}`);
     semanticDerivationGraphData = await response.json();
     renderSemanticDerivationGraphPanel();
+    renderStaticSemanticFixtureBrowser();
   } catch (error) {
     console.warn("[Sanskrit] Derivation Graph Intelligence fallback:", error);
     semanticDerivationGraphData = SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL;
     renderSemanticDerivationGraphPanel();
+    renderStaticSemanticFixtureBrowser();
   }
 }
 
@@ -1736,6 +1748,7 @@ function renderStaticPreviewFallbackNotice(reason) {
   const panel = byId("static-preview-fallback-notice");
   const reasonNode = byId("static-preview-fallback-reason");
   const detailsNode = byId("static-preview-fallback-details");
+  renderStaticSemanticFixtureBrowser(Boolean(reason));
   if (!panel) return;
 
   const hasReason = Boolean(reason);
@@ -1755,6 +1768,172 @@ function renderStaticPreviewFallbackNotice(reason) {
     row.textContent = item;
     detailsNode?.appendChild(row);
   });
+}
+
+function readStaticFixtureBrowserFilters() {
+  return {
+    cluster: staticFixtureClusterFilter?.value || "",
+    dhatuId: staticFixtureDhatuFilter?.value.trim().toLowerCase() || "",
+    nodeId: staticFixtureNodeFilter?.value.trim().toLowerCase() || "",
+  };
+}
+
+function filteredStaticSemanticRecords(filters = readStaticFixtureBrowserFilters()) {
+  return SEMANTIC_DHATU_RECORDS.filter((record) => {
+    if (filters.cluster && record.cluster !== filters.cluster) return false;
+    if (filters.dhatuId && !record.dhatuId.toLowerCase().includes(filters.dhatuId)) return false;
+    return true;
+  });
+}
+
+function filteredStaticGraphNodes(filters = readStaticFixtureBrowserFilters()) {
+  return SEMANTIC_GRAPH_FALLBACK.nodes.filter((node) => {
+    if (filters.cluster && node.cluster !== filters.cluster) return false;
+    if (filters.nodeId && !node.nodeId.toLowerCase().includes(filters.nodeId)) return false;
+    return true;
+  });
+}
+
+function filteredStaticGraphEdges(nodes) {
+  const nodeIds = new Set(nodes.map((node) => node.nodeId));
+  return SEMANTIC_GRAPH_FALLBACK.edges.filter((edge) => nodeIds.has(edge.sourceId) || nodeIds.has(edge.targetId));
+}
+
+function staticFixtureStatusLabel(available) {
+  return available ? "Available from read-only fixture/fallback data" : "Unavailable in static preview";
+}
+
+function setStaticFixtureStatus(id, label, available, detail) {
+  const node = byId(id);
+  clearChildren(node);
+  if (!node) return;
+  const row = document.createElement("div");
+  row.className = `static-fixture-browser-status-row ${available ? "available" : "unavailable"}`;
+  const title = document.createElement("strong");
+  const body = document.createElement("span");
+  title.textContent = label;
+  body.textContent = staticFixtureStatusLabel(available);
+  row.append(title, body);
+  if (detail) {
+    const small = document.createElement("small");
+    small.textContent = detail;
+    row.appendChild(small);
+  }
+  node.appendChild(row);
+}
+
+function renderStaticFixtureList(containerId, items, formatter, emptyMessage = "Unavailable in static preview") {
+  const container = byId(containerId);
+  clearChildren(container);
+  if (!container) return;
+  const values = Array.isArray(items) ? items : [];
+  if (values.length === 0) {
+    appendEmpty(container, emptyMessage);
+    return;
+  }
+  values.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "static-fixture-browser-row";
+    row.textContent = formatter(item);
+    container.appendChild(row);
+  });
+}
+
+function buildStaticSemanticFixtureBrowserPayload(filters = readStaticFixtureBrowserFilters()) {
+  const records = filteredStaticSemanticRecords(filters);
+  const graphNodes = filteredStaticGraphNodes(filters);
+  const graphEdges = filteredStaticGraphEdges(graphNodes);
+  const clusters = [...new Set(SEMANTIC_DHATU_RECORDS.map((record) => record.cluster))].sort();
+  const derivationRecords = Array.isArray(semanticDerivationData?.records)
+    ? semanticDerivationData.records
+    : SEMANTIC_DERIVATION_FALLBACK_DATA.records;
+  const derivationGraphNodes = Array.isArray(semanticDerivationGraphData?.nodes)
+    ? semanticDerivationGraphData.nodes
+    : SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL.nodes;
+  const derivationGraphEdges = Array.isArray(semanticDerivationGraphData?.edges)
+    ? semanticDerivationGraphData.edges
+    : SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL.edges;
+
+  return {
+    schemaVersion: "1.0.0",
+    generatedBy: "ui/tabs/sanskrit/controller.js:staticSemanticFixtureBrowser",
+    readOnly: true,
+    safeJsonPreview: "textContent-only; no eval; no mutation",
+    filters,
+    fixtureAvailability: {
+      semanticUi: Boolean(semanticPanelData || SEMANTIC_DHATU_FALLBACK_PANEL),
+      semanticGraph: Boolean(SEMANTIC_GRAPH_FALLBACK.nodes?.length),
+      derivation: Boolean(derivationRecords.length),
+      derivationGraph: Boolean(derivationGraphNodes.length),
+      platformStatus: Boolean(semanticPlatformStatusData || SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL),
+    },
+    semanticRecordCount: records.length,
+    availableClusters: clusters,
+    semanticRecords: records,
+    graphNodes,
+    graphEdges,
+    derivationRecordCount: derivationRecords.length,
+    derivationGraphFixtureAvailable: Boolean(derivationGraphNodes.length),
+    derivationGraphNodeCount: derivationGraphNodes.length,
+    derivationGraphEdgeCount: derivationGraphEdges.length,
+    sourceFixtures: [
+      SEMANTIC_DHATU_PANEL_FIXTURE,
+      SEMANTIC_GRAPH_PANEL_FIXTURE,
+      SEMANTIC_DERIVATION_DATA_FIXTURE,
+      SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE,
+      SEMANTIC_PLATFORM_STATUS_PANEL_FIXTURE,
+    ],
+    safetyNote: "Static Semantic Fixture Browser is read-only: escaped text rendering, no eval, no backend requirement, and no canonical registry mutation.",
+  };
+}
+
+function renderStaticSemanticFixtureBrowser(active = staticSemanticFixtureBrowserActive) {
+  staticSemanticFixtureBrowserActive = Boolean(active);
+  const panel = byId("static-semantic-fixture-browser");
+  if (panel) panel.classList.toggle("hidden", !staticSemanticFixtureBrowserActive);
+  if (!staticSemanticFixtureBrowserActive) return;
+
+  const payload = buildStaticSemanticFixtureBrowserPayload();
+  setStaticFixtureStatus(
+    "static-fixture-browser-availability",
+    "Semantic fixtures",
+    payload.fixtureAvailability.semanticUi,
+    `${payload.semanticRecordCount} semantic records loaded`,
+  );
+  setStaticFixtureStatus(
+    "static-fixture-browser-derivation-graph-status",
+    "Derivation graph fixture",
+    payload.derivationGraphFixtureAvailable,
+    `${payload.derivationGraphNodeCount} nodes; ${payload.derivationGraphEdgeCount} edges`,
+  );
+
+  renderStaticFixtureList(
+    "static-fixture-browser-clusters",
+    payload.availableClusters,
+    (cluster) => cluster,
+  );
+  renderStaticFixtureList(
+    "static-fixture-browser-records",
+    payload.semanticRecords,
+    (record) => `${record.dhatuId} ${record.iast} (${record.cluster}) - ${record.gloss}`,
+  );
+  renderStaticFixtureList(
+    "static-fixture-browser-graph",
+    payload.graphNodes,
+    (node) => `${node.nodeId} ${node.label} (${node.nodeType})`,
+  );
+  renderStaticFixtureList(
+    "static-fixture-browser-neighbors",
+    payload.graphEdges,
+    (edge) => `${edge.sourceId} -> ${edge.targetId} (${edge.relationType})`,
+  );
+
+  const preview = byId("static-fixture-browser-json-preview");
+  if (preview) preview.textContent = JSON.stringify(payload, null, 2);
+}
+
+function handleStaticFixtureBrowserFilterChange() {
+  renderStaticSemanticFixtureBrowser();
 }
 
 function renderDiagnosticsStatusClass(status) {
@@ -1792,6 +1971,12 @@ function renderLocalStaticDiagnostics(report) {
     badge.textContent = text(report?.diagnosticsStatus, "CHECKING");
     badge.className = `local-diagnostics-status-badge ${renderDiagnosticsStatusClass(report?.diagnosticsStatus)}`;
   }
+  renderStaticSemanticFixtureBrowser(Boolean(
+    report
+      && report.diagnosticsStatus !== "CHECKING"
+      && !report.backendAnalyzeAvailable
+      && report.fallbackAnalysisAvailable,
+  ));
 
   clearChildren(backend);
   appendDiagnosticsRow(
@@ -3645,6 +3830,9 @@ export function init(node) {
   semanticDerivationGraphDomainFilter = byId("semantic-derivation-graph-domain-filter");
   semanticDerivationGraphRelationFilter = byId("semantic-derivation-graph-relation-filter");
   semanticDerivationGraphResetButton = byId("semantic-derivation-graph-reset");
+  staticFixtureClusterFilter = byId("static-fixture-cluster-filter");
+  staticFixtureDhatuFilter = byId("static-fixture-dhatu-filter");
+  staticFixtureNodeFilter = byId("static-fixture-node-filter");
   inputNode = byId("sanskrit-input");
 
   analyzeButton?.addEventListener("click", analyzeCurrentInput);
@@ -3683,6 +3871,9 @@ export function init(node) {
   semanticDerivationGraphDomainFilter?.addEventListener("change", renderSemanticDerivationGraphPanel);
   semanticDerivationGraphRelationFilter?.addEventListener("change", renderSemanticDerivationGraphPanel);
   semanticDerivationGraphResetButton?.addEventListener("click", resetSemanticDerivationGraphFilters);
+  staticFixtureClusterFilter?.addEventListener("change", handleStaticFixtureBrowserFilterChange);
+  staticFixtureDhatuFilter?.addEventListener("input", handleStaticFixtureBrowserFilterChange);
+  staticFixtureNodeFilter?.addEventListener("input", handleStaticFixtureBrowserFilterChange);
   all('input[name="morphology-mode"]').forEach((input) => input.addEventListener("change", updateMorphologyFields));
   inputNode?.addEventListener("keydown", (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -3743,6 +3934,9 @@ export function destroy() {
   semanticDerivationGraphDomainFilter?.removeEventListener("change", renderSemanticDerivationGraphPanel);
   semanticDerivationGraphRelationFilter?.removeEventListener("change", renderSemanticDerivationGraphPanel);
   semanticDerivationGraphResetButton?.removeEventListener("click", resetSemanticDerivationGraphFilters);
+  staticFixtureClusterFilter?.removeEventListener("change", handleStaticFixtureBrowserFilterChange);
+  staticFixtureDhatuFilter?.removeEventListener("input", handleStaticFixtureBrowserFilterChange);
+  staticFixtureNodeFilter?.removeEventListener("input", handleStaticFixtureBrowserFilterChange);
   all('input[name="morphology-mode"]').forEach((input) => input.removeEventListener("change", updateMorphologyFields));
   mountNode = null;
   analyzeButton = null;
@@ -3781,10 +3975,14 @@ export function destroy() {
   semanticDerivationGraphDomainFilter = null;
   semanticDerivationGraphRelationFilter = null;
   semanticDerivationGraphResetButton = null;
+  staticFixtureClusterFilter = null;
+  staticFixtureDhatuFilter = null;
+  staticFixtureNodeFilter = null;
   currentDebugSession = null;
   semanticPanelData = null;
   semanticDerivationData = null;
   semanticDerivationGraphData = null;
   semanticPlatformStatusData = null;
+  staticSemanticFixtureBrowserActive = false;
   inputNode = null;
 }

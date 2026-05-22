@@ -1863,6 +1863,75 @@ class LargeScaleIngestionTests(unittest.TestCase):
             "api-routes-may-return-404-or-501-without-backend-runtime",
         )
 
+    def test_static_semantic_fixture_browser_hidden_during_backend_ready_mode(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('id="static-semantic-fixture-browser" class="static-semantic-fixture-browser hidden"', view)
+        self.assertIn("renderStaticPreviewFallbackNotice(null)", controller)
+        self.assertIn("renderStaticSemanticFixtureBrowser(Boolean(reason))", controller)
+
+    def test_static_semantic_fixture_browser_renders_during_static_fallback_mode(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Static Semantic Fixture Browser", combined)
+        self.assertIn("staticSemanticFixtureBrowserActive", combined)
+        self.assertIn("buildStaticSemanticFixtureBrowserPayload", combined)
+        self.assertIn("semanticRecordCount", combined)
+        self.assertIn("availableClusters", combined)
+        self.assertIn("derivationGraphFixtureAvailable", combined)
+
+    def test_static_semantic_fixture_browser_gracefully_reports_missing_sections(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Unavailable in static preview", combined)
+        self.assertIn("staticFixtureStatusLabel", combined)
+        self.assertIn("renderStaticFixtureList", combined)
+
+    def test_static_semantic_fixture_browser_json_preview_is_read_only_and_safe(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        browser_start = controller.index("function buildStaticSemanticFixtureBrowserPayload")
+        browser_end = controller.index("function handleStaticFixtureBrowserFilterChange", browser_start)
+        browser_body = controller[browser_start:browser_end]
+
+        self.assertIn("readOnly: true", browser_body)
+        self.assertIn("textContent-only; no eval; no mutation", browser_body)
+        self.assertIn("preview.textContent = JSON.stringify", browser_body)
+        self.assertNotIn(".innerHTML", browser_body)
+        self.assertNotIn("eval(", browser_body)
+
+    def test_static_semantic_fixture_browser_filters_are_present(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("static-fixture-cluster-filter", view)
+        self.assertIn("static-fixture-dhatu-filter", view)
+        self.assertIn("static-fixture-node-filter", view)
+        self.assertIn("filteredStaticSemanticRecords", controller)
+        self.assertIn("filteredStaticGraphNodes", controller)
+
+    def test_static_semantic_fixture_browser_docs_and_manifest_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+        semantic_platform = SEMANTIC_PLATFORM_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertEqual(
+            self.payload["sanskritStaticSemanticFixtureBrowserPanel"],
+            "Static Semantic Fixture Browser",
+        )
+        self.assertEqual(
+            self.payload["sanskritStaticSemanticFixtureBrowserJsonPolicy"],
+            "textContent-only-no-eval-no-mutation",
+        )
+        self.assertIn("Developers should use the browser panel", readme)
+        self.assertIn("Static Semantic Fixture Browser", semantic_platform)
+        self.assertIn("Direct `/api/*` URLs still return 404", readme)
+
     def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
         self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
         self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")

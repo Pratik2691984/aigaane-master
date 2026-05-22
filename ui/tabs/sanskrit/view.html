@@ -67,6 +67,65 @@
         </div>
     </section>
 
+    <section id="static-semantic-fixture-browser" class="static-semantic-fixture-browser hidden" aria-labelledby="static-fixture-browser-title" aria-describedby="static-fixture-browser-description">
+        <header class="static-semantic-fixture-browser-header">
+            <div>
+                <h3 id="static-fixture-browser-title">Static Semantic Fixture Browser</h3>
+                <p id="static-fixture-browser-description">Read-only inspection of local semantic fixtures during static preview fallback mode.</p>
+            </div>
+            <span class="static-fixture-browser-badge">Read-only</span>
+        </header>
+
+        <div class="static-fixture-browser-controls" aria-label="Static semantic fixture filters">
+            <label for="static-fixture-cluster-filter">Cluster</label>
+            <select id="static-fixture-cluster-filter">
+                <option value="">Any cluster</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+            </select>
+
+            <label for="static-fixture-dhatu-filter">Dhatu id</label>
+            <input id="static-fixture-dhatu-filter" type="text" spellcheck="false" placeholder="01.0005">
+
+            <label for="static-fixture-node-filter">Node id</label>
+            <input id="static-fixture-node-filter" type="text" spellcheck="false" placeholder="motion">
+        </div>
+
+        <div class="static-fixture-browser-grid">
+            <section class="static-fixture-browser-card">
+                <h4>Fixture Availability</h4>
+                <div id="static-fixture-browser-availability" class="static-fixture-browser-list">Unavailable in static preview</div>
+                <div id="static-fixture-browser-derivation-graph-status" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card">
+                <h4>Available Clusters</h4>
+                <div id="static-fixture-browser-clusters" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card">
+                <h4>Semantic Records</h4>
+                <div id="static-fixture-browser-records" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card">
+                <h4>Graph Nodes</h4>
+                <div id="static-fixture-browser-graph" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card">
+                <h4>Graph Neighbors</h4>
+                <div id="static-fixture-browser-neighbors" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card static-fixture-browser-json-card">
+                <h4>Safe JSON Preview</h4>
+                <pre id="static-fixture-browser-json-preview" class="static-fixture-browser-json" aria-label="Read-only JSON fixture preview">Unavailable in static preview</pre>
+            </section>
+        </div>
+    </section>
+
     <section class="execution-grid" aria-label="Sanskrit execution panels">
         <div class="analysis-panel execution-panel">
             <h3>Sandhi Execution</h3>
