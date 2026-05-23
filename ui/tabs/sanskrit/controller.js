@@ -25,6 +25,7 @@ let semanticGraphZoomInButton = null;
 let semanticGraphZoomOutButton = null;
 let semanticGraphResetCameraButton = null;
 let semanticGraphFitViewButton = null;
+let semanticGraphCameraStatus = null;
 let replayDemoButton = null;
 let replayExportButton = null;
 let semanticSearchInput = null;
@@ -1282,6 +1283,15 @@ function initializeSemanticGraphZoomControls() {
   });
 }
 
+function renderSemanticGraphCameraStatus() {
+  if (!semanticGraphCameraStatus) return;
+
+  semanticGraphCameraStatus.textContent =
+    `zoom ${semanticGraphCamera.zoom.toFixed(2)} × `
+    + `x ${semanticGraphCamera.x.toFixed(1)} `
+    + `y ${semanticGraphCamera.y.toFixed(1)}`;
+}
+
 function requestSemanticGraphRedraw() {
   if (semanticGraphRenderPending) return;
 
@@ -1324,6 +1334,7 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
   attachSemanticGraphCanvasInteraction(canvas);
 }
 
+renderSemanticGraphCameraStatus();
   const summary = byId("semantic-graph-summary");
   clearChildren(summary);
 
@@ -4964,6 +4975,8 @@ export function init(node) {
   semanticGraphZoomInButton = byId("semantic-graph-zoom-in");
   semanticGraphZoomOutButton = byId("semantic-graph-zoom-out");
   semanticGraphResetCameraButton = byId("semantic-graph-reset-camera");
+  semanticGraphFitViewButton = byId("semantic-graph-fit-view");
+  semanticGraphCameraStatus = byId("semantic-graph-camera-status");
 
   replayDemoButton = byId("replay-load-demo");
   replayExportButton = byId("replay-export-session");
