@@ -27,6 +27,9 @@ let semanticGraphResetCameraButton = null;
 let semanticGraphFitViewButton = null;
 let semanticGraphCameraStatus = null;
 let semanticGraphMinimapCanvas = null;
+let semanticGraphPresetHomeButton = null;
+let semanticGraphPresetDetailButton = null;
+let semanticGraphPresetOverviewButton = null;
 let replayDemoButton = null;
 let replayExportButton = null;
 let semanticSearchInput = null;
@@ -1268,6 +1271,29 @@ function fitSemanticGraphToView() {
   requestSemanticGraphRedraw();
 }
 
+function applySemanticGraphCameraPreset(preset) {
+  switch (preset) {
+    case "home":
+      semanticGraphCamera.x = 0;
+      semanticGraphCamera.y = 0;
+      semanticGraphCamera.zoom = 1;
+      break;
+
+    case "detail":
+      semanticGraphCamera.zoom = clampSemanticGraphZoom(2.2);
+      break;
+
+    case "overview":
+      fitSemanticGraphToView();
+      return;
+
+    default:
+      return;
+  }
+
+  requestSemanticGraphRedraw();
+}
+
 function initializeSemanticGraphZoomControls() {
   semanticGraphZoomInButton?.addEventListener("click", () => {
     zoomSemanticGraph(SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR);
@@ -1283,6 +1309,18 @@ function initializeSemanticGraphZoomControls() {
 
   semanticGraphFitViewButton?.addEventListener("click", () => {
     fitSemanticGraphToView();
+  });
+
+  semanticGraphPresetHomeButton?.addEventListener("click", () => {
+    applySemanticGraphCameraPreset("home");
+  });
+
+  semanticGraphPresetDetailButton?.addEventListener("click", () => {
+    applySemanticGraphCameraPreset("detail");
+  });
+
+  semanticGraphPresetOverviewButton?.addEventListener("click", () => {
+    applySemanticGraphCameraPreset("overview");
   });
 
   semanticGraphMinimapCanvas?.addEventListener("click", handleSemanticGraphMinimapClick);
@@ -5200,6 +5238,10 @@ export function init(node) {
   semanticGraphFitViewButton = byId("semantic-graph-fit-view");
   semanticGraphCameraStatus = byId("semantic-graph-camera-status");
   semanticGraphMinimapCanvas = byId("semantic-graph-minimap");
+
+  semanticGraphPresetHomeButton = byId("semantic-graph-preset-home");
+  semanticGraphPresetDetailButton = byId("semantic-graph-preset-detail");
+  semanticGraphPresetOverviewButton = byId("semantic-graph-preset-overview");
 
   replayDemoButton = byId("replay-load-demo");
   replayExportButton = byId("replay-export-session");
