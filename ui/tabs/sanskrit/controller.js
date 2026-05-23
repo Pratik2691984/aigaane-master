@@ -1841,10 +1841,40 @@ function renderSemanticGraphEdgeHoverInspector(edges = []) {
   ].join(" | ");
 }
 
+function semanticGraphClusterCounts(nodes = []) {
+  return nodes.reduce((counts, node) => {
+    const cluster = text(node?.cluster || node?.nodeType || "unknown", "unknown");
+    counts[cluster] = (counts[cluster] || 0) + 1;
+    return counts;
+  }, {});
+}
+
 function renderSemanticGraphLegend(edges, highlightedEdgeIds) {
   const legend = byId("semantic-graph-legend");
   clearChildren(legend);
   if (!legend) return;
+  const graph = getSemanticGraphSnapshot();
+const clusterCounts = semanticGraphClusterCounts(graph.nodes);
+const separator = document.createElement("div");
+separator.className = "semantic-graph-legend-separator";
+separator.textContent = "Relations";
+legend.appendChild(separator);
+
+Object.entries(clusterCounts).forEach(([cluster, count]) => {
+  const item = document.createElement("div");
+  item.className = "semantic-graph-legend-item";
+  item.setAttribute("role", "listitem");
+
+  const marker = document.createElement("span");
+  marker.className = "semantic-graph-legend-marker";
+  marker.setAttribute("aria-hidden", "true");
+
+  const label = document.createElement("span");
+  label.textContent = `${cluster}: ${count}`;
+
+  item.append(marker, label);
+  legend.appendChild(item);
+});
   const relations = SEMANTIC_GRAPH_RELATION_ORDER.filter((relation) => edges.some((edge) => edge.relationType === relation));
   if (relations.length === 0) {
     appendEmpty(legend, "No relation legend available");
