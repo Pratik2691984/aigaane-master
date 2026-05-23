@@ -65,6 +65,10 @@ let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
 let semanticGraphStore = null;
 let semanticGraphExpansionHistory = [];
+let semanticGraphHoverNodeId = null;
+let semanticGraphMousePosition = { x: 0, y: 0 };
+let semanticGraphRenderPending = false;
+let semanticGraphInteractionAttached = false;
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -941,6 +945,7 @@ function shortSemanticGraphLabel(node) {
 
 function drawSemanticGraphCanvas(canvas, payload = {}) {
   const { width, height, ctx } = ensureSemanticGraphCanvasSize(canvas);
+
   if (!ctx) return;
 
   ctx.clearRect(0, 0, width, height);
@@ -994,9 +999,10 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
     const nodeType = text(node?.nodeType || node?.type, "");
     const isSelected = nodeId === selectedNodeId;
     const isHighlighted = highlightedNodeIds.has(nodeId);
+    const isHovered = nodeId === semanticGraphHoverNodeId;
     const isRoot = nodeType === "dhatu" || nodeType === "root" || nodeType.includes("dhatu");
     const point = normalizeSemanticGraphPoint(node, width, height);
-    const radius = isRoot ? 8 : 5;
+    const radius = isHovered ? (isRoot ? 11 : 8) : (isRoot ? 8 : 5);
 
     ctx.beginPath();
     ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
@@ -1007,12 +1013,14 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
         : "#100e08";
     ctx.fill();
 
-    ctx.strokeStyle = isSelected
-      ? "#d4af37"
-      : isHighlighted
-        ? "#68beff"
-        : "rgba(159, 176, 199, 0.4)";
-    ctx.lineWidth = isSelected ? 2 : 1.5;
+    ctx.strokeStyle = isHovered
+      ? "#f0d77a"
+      : isSelected
+        ? "#d4af37"
+        : isHighlighted
+          ? "#68beff"
+          : "rgba(159, 176, 199, 0.4)";
+    ctx.lineWidth = isHovered ? 2.5 : isSelected ? 2 : 1.5;
     ctx.stroke();
   });
 
@@ -1022,12 +1030,55 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
   nodes.forEach((node) => {
     const nodeId = text(node?.nodeId || node?.id, "");
     const isSelected = nodeId === selectedNodeId;
+    const isHovered = nodeId === semanticGraphHoverNodeId;
     const point = normalizeSemanticGraphPoint(node, width, height);
     const label = shortSemanticGraphLabel(node);
 
-    ctx.fillStyle = isSelected ? "#f0d77a" : "#eef3f8";
-    ctx.font = isSelected ? "bold 12px sans-serif" : "11px sans-serif";
+    ctx.fillStyle = isHovered || isSelected ? "#f0d77a" : "#eef3f8";
+    ctx.font = isHovered || isSelected ? "bold 12px sans-serif" : "11px sans-serif";
     ctx.fillText(label, point.x, point.y + 10);
+  });
+}
+
+function getSemanticGraphCanvasCoordinates(canvas, event) {
+  const rect = canvas.getBoundingClientRect();
+
+  return {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top,
+  };
+}
+
+function findSemanticGraphNodeAtPoint(x, y, nodes = [], width = 600, height = 320, hitRadius = 15) {
+  const hitRadiusSquared = hitRadius * hitRadius;
+
+  for (let index = nodes.length - 1; index >= 0; index -= 1) {
+    const node = nodes[index];
+    const nodeId = text(node?.nodeId || node?.id, "");
+    if (!nodeId) continue;
+
+    const point = normalizeSemanticGraphPoint(node, width, height);
+    const dx = x - point.x;
+    const dy = y - point.y;
+    const distanceSquared = (dx * dx) + (dy * dy);
+
+    if (distanceSquared <= hitRadiusSquared) {
+      return nodeId;
+    }
+  }
+
+  return null;
+}
+
+function requestSemanticGraphRedraw() {
+  if (semanticGraphRenderPending) return;
+
+  semanticGraphRenderPending = true;
+  requestAnimationFrame(() => {
+    const queryState = readSemanticQueryState();
+    const record = selectedSemanticRecord(queryState);
+    renderSemanticGraphView(queryState, record);
+    semanticGraphRenderPending = false;
   });
 }
 
@@ -1051,14 +1102,15 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
 
   const canvas = byId("semantic-graph-canvas");
   if (canvas && canvas.tagName?.toLowerCase() === "canvas") {
-    drawSemanticGraphCanvas(canvas, {
-      nodes,
-      edges,
-      highlightedEdgeIds,
-      highlightedNodeIds,
-      selectedNodeId,
-    });
-  }
+  drawSemanticGraphCanvas(canvas, {
+    nodes,
+    edges,
+    highlightedEdgeIds,
+    highlightedNodeIds,
+    selectedNodeId,
+  });
+  attachSemanticGraphCanvasInteraction(canvas);
+}
 
   const summary = byId("semantic-graph-summary");
   clearChildren(summary);
@@ -1098,6 +1150,47 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
     note.textContent = SEMANTIC_DHATU_FALLBACK_PANEL.safetyNote;
     safety.appendChild(note);
   }
+}
+
+function attachSemanticGraphCanvasInteraction(canvas) {
+  if (!canvas || semanticGraphInteractionAttached) return;
+
+  semanticGraphInteractionAttached = true;
+
+  canvas.addEventListener("mousemove", (event) => {
+    semanticGraphMousePosition = getSemanticGraphCanvasCoordinates(canvas, event);
+
+    const graph = getSemanticGraphSnapshot();
+    const width = canvas.clientWidth || 600;
+    const height = canvas.clientHeight || 320;
+
+    const hoveredNodeId = findSemanticGraphNodeAtPoint(
+      semanticGraphMousePosition.x,
+      semanticGraphMousePosition.y,
+      graph.nodes,
+      width,
+      height,
+    );
+
+    if (semanticGraphHoverNodeId !== hoveredNodeId) {
+      semanticGraphHoverNodeId = hoveredNodeId;
+      canvas.style.cursor = hoveredNodeId ? "pointer" : "default";
+      requestSemanticGraphRedraw();
+    }
+  });
+
+  canvas.addEventListener("mouseleave", () => {
+    if (semanticGraphHoverNodeId !== null) {
+      semanticGraphHoverNodeId = null;
+      canvas.style.cursor = "default";
+      requestSemanticGraphRedraw();
+    }
+  });
+
+  canvas.addEventListener("click", () => {
+    if (!semanticGraphHoverNodeId) return;
+    focusSemanticGraphNode(semanticGraphHoverNodeId);
+  });
 }
 
 function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
