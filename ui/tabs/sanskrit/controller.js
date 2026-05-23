@@ -24,6 +24,7 @@ let graphExportButton = null;
 let semanticGraphZoomInButton = null;
 let semanticGraphZoomOutButton = null;
 let semanticGraphResetCameraButton = null;
+let semanticGraphFitViewButton = null;
 let replayDemoButton = null;
 let replayExportButton = null;
 let semanticSearchInput = null;
@@ -80,6 +81,7 @@ const SEMANTIC_GRAPH_MAX_ZOOM = 3.5;
 const SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED = 0.0015;
 const SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR = 1.2;
 const SEMANTIC_GRAPH_PAN_CLICK_TOLERANCE = 4;
+const SEMANTIC_GRAPH_FIT_PADDING = 48;
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
 };
@@ -1213,6 +1215,55 @@ function resetSemanticGraphCamera() {
   requestSemanticGraphRedraw();
 }
 
+function fitSemanticGraphToView() {
+  const canvas = byId("semantic-graph-canvas");
+  if (!canvas) return;
+
+  const graph = getSemanticGraphSnapshot();
+  const nodes = Array.isArray(graph.nodes) ? graph.nodes : [];
+
+  if (nodes.length === 0) {
+    resetSemanticGraphCamera();
+    return;
+  }
+
+  const { width, height } = ensureSemanticGraphCanvasSize(canvas);
+
+  const points = nodes.map((node) =>
+    semanticGraphNodeWorldPoint(node, width, height),
+  );
+
+  const minX = Math.min(...points.map((point) => point.x));
+  const maxX = Math.max(...points.map((point) => point.x));
+  const minY = Math.min(...points.map((point) => point.y));
+  const maxY = Math.max(...points.map((point) => point.y));
+
+  const contentWidth = Math.max(1, maxX - minX);
+  const contentHeight = Math.max(1, maxY - minY);
+
+  const availableWidth = Math.max(
+    1,
+    width - (SEMANTIC_GRAPH_FIT_PADDING * 2),
+  );
+
+  const availableHeight = Math.max(
+    1,
+    height - (SEMANTIC_GRAPH_FIT_PADDING * 2),
+  );
+
+  const zoomX = availableWidth / contentWidth;
+  const zoomY = availableHeight / contentHeight;
+
+  semanticGraphCamera.zoom = clampSemanticGraphZoom(
+    Math.min(zoomX, zoomY),
+  );
+
+  semanticGraphCamera.x = minX + (contentWidth / 2);
+  semanticGraphCamera.y = minY + (contentHeight / 2);
+
+  requestSemanticGraphRedraw();
+}
+
 function initializeSemanticGraphZoomControls() {
   semanticGraphZoomInButton?.addEventListener("click", () => {
     zoomSemanticGraph(SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR);
@@ -1224,6 +1275,10 @@ function initializeSemanticGraphZoomControls() {
 
   semanticGraphResetCameraButton?.addEventListener("click", () => {
     resetSemanticGraphCamera();
+  });
+
+  semanticGraphFitViewButton?.addEventListener("click", () => {
+    fitSemanticGraphToView();
   });
 }
 
