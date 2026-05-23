@@ -64,6 +64,7 @@ let staticFixtureHashRestored = false;
 let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
 let semanticGraphStore = null;
+let semanticGraphExpansionHistory = [];
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -812,9 +813,35 @@ function expandSemanticGraphNeighbors(nodeId) {
   const store = getSemanticGraphStore();
   const payload = localSemanticNeighborPayloadForNode(nodeId);
   mergeSemanticGraphPayload(store, payload);
+  recordSemanticGraphExpansion(nodeId, payload);
   return getSemanticGraphSnapshot();
 }
 
+function recordSemanticGraphExpansion(nodeId, payload = {}, reason = "local-neighbor-expansion") {
+  const nodes = Array.isArray(payload.nodes) ? payload.nodes : [];
+  const edges = Array.isArray(payload.edges) ? payload.edges : [];
+
+  semanticGraphExpansionHistory.push({
+    step: semanticGraphExpansionHistory.length + 1,
+    nodeId: text(nodeId, ""),
+    reason,
+    nodeCount: nodes.length,
+    edgeCount: edges.length,
+    nodeIds: nodes.map((node) => text(node?.nodeId || node?.id, "")).filter(Boolean),
+    edgeIds: edges.map((edge) => text(edge?.edgeId || edge?.id, "")).filter(Boolean),
+    generatedAt: new Date().toISOString(),
+  });
+
+  return semanticGraphExpansionHistory;
+}
+
+function getSemanticGraphExpansionHistory() {
+  return semanticGraphExpansionHistory.map((entry) => ({ ...entry }));
+}
+
+function resetSemanticGraphExpansionHistory() {
+  semanticGraphExpansionHistory = [];
+}
 function ensureSemanticGraphCanvasSize(canvas) {
   const width = canvas.clientWidth || 600;
   const height = canvas.clientHeight || 320;
