@@ -771,6 +771,49 @@ function getSemanticGraphSnapshot() {
     edges: sortedSemanticGraphEdges(Array.from(store.edgeMap.values())),
   };
 }
+function localSemanticNeighborPayloadForNode(nodeId) {
+  const record = SEMANTIC_DHATU_RECORDS.find((item) => item.dhatuId === nodeId || item.cluster === nodeId);
+  if (!record) return { nodes: [], edges: [] };
+
+  const nodes = [];
+  const edges = [];
+
+  nodes.push({
+    nodeId: record.dhatuId,
+    label: `${record.iast} / ${record.root}`,
+    nodeType: "dhatu",
+    cluster: record.cluster,
+    x: 10,
+    y: 44,
+  });
+
+  record.neighbors.forEach((neighbor, index) => {
+    nodes.push({
+      nodeId: neighbor.nodeId,
+      label: neighbor.nodeId,
+      nodeType: "semantic_cluster",
+      cluster: neighbor.nodeId,
+      x: 34 + index * 18,
+      y: 34 + index * 12,
+    });
+
+    edges.push({
+      edgeId: neighbor.edgeId,
+      sourceId: record.dhatuId,
+      targetId: neighbor.nodeId,
+      relationType: neighbor.relationType,
+    });
+  });
+
+  return { nodes, edges };
+}
+
+function expandSemanticGraphNeighbors(nodeId) {
+  const store = getSemanticGraphStore();
+  const payload = localSemanticNeighborPayloadForNode(nodeId);
+  mergeSemanticGraphPayload(store, payload);
+  return getSemanticGraphSnapshot();
+}
 
 function ensureSemanticGraphCanvasSize(canvas) {
   const width = canvas.clientWidth || 600;
@@ -1031,6 +1074,7 @@ function focusSemanticGraphNode(nodeId) {
     if (semanticSearchInput) semanticSearchInput.value = record.iast;
     if (semanticClusterFilter) semanticClusterFilter.value = record.cluster;
   }
+  expandSemanticGraphNeighbors(nodeId);
   renderSemanticQueryState();
 }
 
