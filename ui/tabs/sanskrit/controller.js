@@ -21,6 +21,9 @@ let semanticTraceDemoButton = null;
 let semanticTraceCustomButton = null;
 let graphDemoButton = null;
 let graphExportButton = null;
+let semanticGraphZoomInButton = null;
+let semanticGraphZoomOutButton = null;
+let semanticGraphResetCameraButton = null;
 let replayDemoButton = null;
 let replayExportButton = null;
 let semanticSearchInput = null;
@@ -74,6 +77,7 @@ let semanticGraphCamera = { x: 0, y: 0, zoom: 1 };
 const SEMANTIC_GRAPH_MIN_ZOOM = 0.35;
 const SEMANTIC_GRAPH_MAX_ZOOM = 3.5;
 const SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED = 0.0015;
+const SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR = 1.2;
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
 };
@@ -1131,6 +1135,42 @@ function findSemanticGraphNodeAtPoint(x, y, nodes = [], width = 600, height = 32
   }
 
   return null;
+}
+
+function zoomSemanticGraph(scaleFactor) {
+  const factor = Number(scaleFactor);
+
+  if (!Number.isFinite(factor) || factor <= 0) {
+    return;
+  }
+
+  semanticGraphCamera.zoom = clampSemanticGraphZoom(
+    semanticGraphCamera.zoom * factor,
+  );
+
+  requestSemanticGraphRedraw();
+}
+
+function resetSemanticGraphCamera() {
+  semanticGraphCamera.x = 0;
+  semanticGraphCamera.y = 0;
+  semanticGraphCamera.zoom = 1;
+
+  requestSemanticGraphRedraw();
+}
+
+function initializeSemanticGraphZoomControls() {
+  semanticGraphZoomInButton?.addEventListener("click", () => {
+    zoomSemanticGraph(SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR);
+  });
+
+  semanticGraphZoomOutButton?.addEventListener("click", () => {
+    zoomSemanticGraph(1 / SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR);
+  });
+
+  semanticGraphResetCameraButton?.addEventListener("click", () => {
+    resetSemanticGraphCamera();
+  });
 }
 
 function requestSemanticGraphRedraw() {
@@ -4759,6 +4799,7 @@ function renderInitialState() {
   renderSemanticDerivationPanel("01.0005");
   renderSemanticDerivationGraphPanel();
   renderSemanticGraphView();
+  initializeSemanticGraphZoomControls();
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
   renderGraphStatus("Graph inspector idle");
@@ -4801,6 +4842,11 @@ export function init(node) {
   semanticTraceCustomButton = byId("semantic-trace-link-custom");
   graphDemoButton = byId("graph-load-demo");
   graphExportButton = byId("graph-export-session");
+
+  semanticGraphZoomInButton = byId("semantic-graph-zoom-in");
+  semanticGraphZoomOutButton = byId("semantic-graph-zoom-out");
+  semanticGraphResetCameraButton = byId("semantic-graph-reset-camera");
+
   replayDemoButton = byId("replay-load-demo");
   replayExportButton = byId("replay-export-session");
   semanticSearchInput = byId("semantic-dhatu-search-input");
