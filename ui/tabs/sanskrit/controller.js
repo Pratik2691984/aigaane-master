@@ -63,6 +63,7 @@ let staticSemanticFixtureBrowserActive = false;
 let staticFixtureHashRestored = false;
 let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
+let semanticGraphStore = null;
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -703,6 +704,73 @@ function sortedSemanticGraphEdges(edges) {
     return relationDelta || left.edgeId.localeCompare(right.edgeId);
   });
 }
+function createSemanticGraphStore(seedPayload = SEMANTIC_GRAPH_FALLBACK) {
+  const store = {
+    nodeMap: new Map(),
+    edgeMap: new Map(),
+  };
+
+  mergeSemanticGraphPayload(store, seedPayload);
+  return store;
+}
+
+function semanticGraphNodeKey(node) {
+  return text(node?.nodeId || node?.id, "");
+}
+
+function semanticGraphEdgeKey(edge) {
+  return text(edge?.edgeId || edge?.id || `${edge?.sourceId || edge?.source}->${edge?.targetId || edge?.target}`, "");
+}
+
+function mergeSemanticGraphPayload(store, payload = {}) {
+  if (!store) return createSemanticGraphStore(payload);
+
+  const nodes = Array.isArray(payload.nodes) ? payload.nodes : [];
+  const edges = Array.isArray(payload.edges) ? payload.edges : [];
+
+  nodes.forEach((node) => {
+    const nodeId = semanticGraphNodeKey(node);
+    if (!nodeId) return;
+    store.nodeMap.set(nodeId, {
+      ...store.nodeMap.get(nodeId),
+      ...node,
+      nodeId,
+    });
+  });
+
+  edges.forEach((edge) => {
+    const edgeId = semanticGraphEdgeKey(edge);
+    if (!edgeId) return;
+    const sourceId = text(edge?.sourceId || edge?.source, "");
+    const targetId = text(edge?.targetId || edge?.target, "");
+    if (!sourceId || !targetId) return;
+
+    store.edgeMap.set(edgeId, {
+      ...store.edgeMap.get(edgeId),
+      ...edge,
+      edgeId,
+      sourceId,
+      targetId,
+    });
+  });
+
+  return store;
+}
+
+function getSemanticGraphStore() {
+  if (!semanticGraphStore) {
+    semanticGraphStore = createSemanticGraphStore(SEMANTIC_GRAPH_FALLBACK);
+  }
+  return semanticGraphStore;
+}
+
+function getSemanticGraphSnapshot() {
+  const store = getSemanticGraphStore();
+  return {
+    nodes: sortedSemanticGraphNodes(Array.from(store.nodeMap.values())),
+    edges: sortedSemanticGraphEdges(Array.from(store.edgeMap.values())),
+  };
+}
 
 function ensureSemanticGraphCanvasSize(canvas) {
   const width = canvas.clientWidth || 600;
@@ -842,9 +910,10 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
 }
 
 function renderSemanticGraphView(queryState = readSemanticQueryState(), record = selectedSemanticRecord(queryState)) {
-  const graph = SEMANTIC_GRAPH_FALLBACK;
-  const nodes = sortedSemanticGraphNodes(graph.nodes);
-  const edges = sortedSemanticGraphEdges(graph.edges);
+  const graph = getSemanticGraphSnapshot();
+  const nodes = graph.nodes;
+  const edges = graph.edges;
+
   const highlightedEdgeIds = new Set(highlightedSemanticEdgeIds(record, queryState));
   const highlightedNodeIds = new Set();
 
@@ -858,7 +927,7 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
   const selectedNodeId = selectedSemanticGraphNodeId || record?.dhatuId || "01.0005";
   const selectedNode = nodes.find((node) => node.nodeId === selectedNodeId) || nodes[0];
 
-  const canvas = byId("semantic-graph-canvas");
+   const canvas = byId("semantic-graph-canvas");
   if (canvas && canvas.tagName?.toLowerCase() === "canvas") {
     drawSemanticGraphCanvas(canvas, {
       nodes,
