@@ -2675,7 +2675,12 @@ function renderFallbackAnalysisPanel(payload) {
 function isExpectedStaticPreviewApiMiss(errorOrResponse) {
   const status = Number(errorOrResponse?.status || errorOrResponse?.response?.status || 0);
   const message = text(errorOrResponse?.message, "");
-  return status === 404 || status === 501 || /\bHTTP (404|501)\b/.test(message);
+  return (
+    status === 404
+    || status === 405
+    || status === 501
+    || /\bHTTP (404|405|501)\b/.test(message)
+  );
 }
 
 function renderStaticPreviewFallbackNotice(reason) {
