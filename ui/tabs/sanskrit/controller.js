@@ -842,6 +842,58 @@ function getSemanticGraphExpansionHistory() {
 function resetSemanticGraphExpansionHistory() {
   semanticGraphExpansionHistory = [];
 }
+
+function rebuildSemanticGraphStoreThroughStep(stepNumber) {
+  const targetStep = Number(stepNumber);
+  semanticGraphStore = createSemanticGraphStore(SEMANTIC_GRAPH_FALLBACK);
+
+  if (!Number.isFinite(targetStep) || targetStep <= 0) {
+    return getSemanticGraphSnapshot();
+  }
+
+  semanticGraphExpansionHistory
+    .filter((entry) => entry.step <= targetStep)
+    .forEach((entry) => {
+      mergeSemanticGraphPayload(
+        semanticGraphStore,
+        localSemanticNeighborPayloadForNode(entry.nodeId),
+      );
+    });
+
+  return getSemanticGraphSnapshot();
+}
+
+function replaySemanticGraphExpansionStep(stepNumber) {
+  const snapshot = rebuildSemanticGraphStoreThroughStep(stepNumber);
+  const queryState = readSemanticQueryState();
+  const record = selectedSemanticRecord(queryState);
+  renderSemanticGraphView(queryState, record);
+  return snapshot;
+}
+
+function renderSemanticGraphReplayInspector() {
+  const replay = byId("semantic-graph-replay");
+  if (!replay) return;
+
+  clearChildren(replay);
+
+  const history = getSemanticGraphExpansionHistory();
+  if (history.length === 0) {
+    appendEmpty(replay, "No graph expansion history recorded");
+    return;
+  }
+
+  history.forEach((entry) => {
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "semantic-graph-replay-step";
+    row.textContent = `Step ${entry.step}: ${entry.nodeId} (${entry.nodeCount} nodes, ${entry.edgeCount} edges)`;
+    row.title = `${entry.reason}; ${entry.generatedAt}`;
+    row.addEventListener("click", () => replaySemanticGraphExpansionStep(entry.step));
+    replay.appendChild(row);
+  });
+}
+
 function ensureSemanticGraphCanvasSize(canvas) {
   const width = canvas.clientWidth || 600;
   const height = canvas.clientHeight || 320;
@@ -997,7 +1049,7 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
   const selectedNodeId = selectedSemanticGraphNodeId || record?.dhatuId || "01.0005";
   const selectedNode = nodes.find((node) => node.nodeId === selectedNodeId) || nodes[0];
 
-   const canvas = byId("semantic-graph-canvas");
+  const canvas = byId("semantic-graph-canvas");
   if (canvas && canvas.tagName?.toLowerCase() === "canvas") {
     drawSemanticGraphCanvas(canvas, {
       nodes,
@@ -1010,19 +1062,36 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
 
   const summary = byId("semantic-graph-summary");
   clearChildren(summary);
-  if (summary) appendInspectionRow(summary, "Node", selectedSemanticNodeSummary(selectedNode));
+
+  if (summary) {
+    appendInspectionRow(
+      summary,
+      "Node",
+      selectedSemanticNodeSummary(selectedNode),
+    );
+  }
 
   const edgeList = byId("semantic-graph-edges");
   clearChildren(edgeList);
+
   if (edgeList) {
-    if (edges.length === 0) appendEmpty(edgeList, "No semantic relation edges available");
-    edges.forEach((edge) => edgeList.appendChild(renderSemanticGraphEdge(edge, highlightedEdgeIds)));
+    if (edges.length === 0) {
+      appendEmpty(edgeList, "No semantic relation edges available");
+    }
+
+    edges.forEach((edge) => {
+      edgeList.appendChild(
+        renderSemanticGraphEdge(edge, highlightedEdgeIds),
+      );
+    });
   }
 
   renderSemanticGraphLegend(edges, highlightedEdgeIds);
+  renderSemanticGraphReplayInspector();
 
   const safety = byId("semantic-graph-safety");
   clearChildren(safety);
+
   if (safety) {
     const note = document.createElement("div");
     note.className = "semantic-graph-safety-note";

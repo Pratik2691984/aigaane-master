@@ -1741,7 +1741,29 @@
     border-color: rgba(212, 175, 55, 0.5);
     background: rgba(212, 175, 55, 0.08);
 }
+.semantic-graph-replay {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
 
+.semantic-graph-replay-step {
+    width: 100%;
+    border: 1px solid rgba(104, 190, 255, 0.26);
+    border-radius: 8px;
+    padding: 0.55rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: #d7e4f2;
+    text-align: left;
+    cursor: pointer;
+}
+
+.semantic-graph-replay-step:hover,
+.semantic-graph-replay-step:focus-visible {
+    border-color: rgba(212, 175, 55, 0.7);
+    color: #f0d77a;
+    outline: none;
+}
 .graph-inspector {
     display: flex;
     flex-direction: column;
