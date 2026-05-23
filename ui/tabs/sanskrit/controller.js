@@ -2687,26 +2687,34 @@ function renderStaticPreviewFallbackNotice(reason) {
   const panel = byId("static-preview-fallback-notice");
   const reasonNode = byId("static-preview-fallback-reason");
   const detailsNode = byId("static-preview-fallback-details");
+
   renderStaticSemanticFixtureBrowser(Boolean(reason));
+
   if (!panel) return;
 
   const hasReason = Boolean(reason);
+
   panel.classList.toggle("hidden", !hasReason);
+
   if (!hasReason) return;
 
-  if (reasonNode) reasonNode.textContent = text(reason);
+  if (reasonNode) {
+    reasonNode.textContent = text(reason);
+  }
+
   clearChildren(detailsNode);
-  [
-    "Backend API unavailable",
-    "Local fallback rendered",
-    "Static preview remains usable",
-    "API endpoints require backend runtime",
-    "Canonical registry not mutated",
-  ].forEach((item) => {
-    const row = document.createElement("li");
-    row.textContent = item;
-    detailsNode?.appendChild(row);
-  });
+
+ [
+  "Backend API unavailable",
+  "Local fallback rendered",
+  "Static preview remains usable",
+  "API endpoints require backend runtime",
+  "Canonical registry not mutated",
+].forEach((item) => {
+  const row = document.createElement("li");
+  row.textContent = item;
+  detailsNode?.appendChild(row);
+});
 }
 
 function readStaticFixtureBrowserFilters() {
@@ -4490,7 +4498,9 @@ function renderReplayTimeline(replay, targetId = "replay-session-output") {
 
 async function analyzeCurrentInput() {
   if (!inputNode) return;
+
   const inputText = inputNode.value.trim();
+
   if (!inputText) {
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
@@ -4505,56 +4515,74 @@ async function analyzeCurrentInput() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input_text: inputText }),
     });
+
     if (isExpectedStaticPreviewApiMiss(response)) {
       console.info("[Sanskrit] Expected static preview API miss; local fallback active.", response.status);
+
       const fallbackPayload = buildLocalSanskritAnalysisFallback(inputText);
-      renderStaticPreviewFallbackNotice(`Backend /api/v3/analyze returned HTTP ${response.status}; local fallback is active.`);
+
+      renderStaticPreviewFallbackNotice(
+        "Static Preview Mode active. Backend API routes are unavailable from Live Server; deterministic local fallback rendered.",
+      );
+
       renderApiError({
         detail: {
           code: "static_preview_backend_unavailable",
           message: "Backend unavailable in static preview; local fallback active.",
         },
       });
+
       renderPayload(fallbackPayload);
       setStatus("Backend unavailable; local fallback active");
       return;
     }
+
     const payload = await response.json().catch(() => null);
+
     if (!response.ok || !payload || typeof payload !== "object") {
       throw new Error(response.ok ? "Unreadable analysis payload" : `HTTP ${response.status}`);
     }
+
     renderStaticPreviewFallbackNotice(null);
     renderApiError(null);
     renderPayload(payload);
     setStatus("Analysis complete");
   } catch (error) {
     const expectedMiss = isExpectedStaticPreviewApiMiss(error);
+
     if (expectedMiss) {
       console.info("[Sanskrit] Expected static preview API miss; local fallback active.", error);
     } else {
       console.warn("[Sanskrit] Analysis fallback after backend issue:", error);
     }
+
     const payload = buildLocalSanskritAnalysisFallback(inputText);
+
     renderStaticPreviewFallbackNotice(
-      expectedMiss
-        ? "Backend API unavailable in static preview; local fallback rendered."
-        : "Backend analysis unavailable or unreadable; local fallback rendered.",
-    );
-    renderApiError({
-      detail: {
-        code: expectedMiss ? "static_preview_backend_unavailable" : "local_fallback",
-        message: expectedMiss
-          ? "Backend unavailable in static preview; local fallback active."
-          : "Backend analysis unavailable; rendered deterministic local fallback.",
-      },
-    });
-    renderPayload(payload);
-    setStatus(expectedMiss ? "Backend unavailable; local fallback active" : "Analysis rendered with local fallback");
+  expectedMiss
+    ? "Static Preview Mode active. Backend API routes are unavailable from Live Server; Local fallback rendered."
+    : "Backend runtime unavailable or unreadable; Local fallback rendered.",
+);
+
+renderApiError({
+  detail: {
+    code: expectedMiss ? "static_preview_backend_unavailable" : "local_fallback",
+    message: expectedMiss
+      ? "Backend unavailable in static preview; Local fallback rendered."
+      : "Backend analysis unavailable; Local fallback rendered.",
+  },
+});
+
+renderPayload(payload);
+setStatus(
+  expectedMiss
+    ? "Backend unavailable; local fallback active"
+    : "Analysis rendered with local fallback",
+);
   } finally {
     setBusy(analyzeButton, false);
   }
 }
-
 async function runSandhi() {
   setStatus("Running sandhi...");
   setBusy(sandhiButton, true);
