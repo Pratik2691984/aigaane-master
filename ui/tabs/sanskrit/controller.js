@@ -76,6 +76,7 @@ let selectedDerivationGraphNodeId = "motion";
 let semanticGraphStore = null;
 let semanticGraphExpansionHistory = [];
 let semanticGraphHoverNodeId = null;
+let semanticGraphHoverEdgeId = null;
 let semanticGraphMousePosition = { x: 0, y: 0 };
 let semanticGraphPanState = null;
 let semanticGraphMinimapState = null;
@@ -88,6 +89,7 @@ const SEMANTIC_GRAPH_MAX_ZOOM = 3.5;
 const SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED = 0.0015;
 const SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR = 1.2;
 const SEMANTIC_GRAPH_PAN_CLICK_TOLERANCE = 4;
+const SEMANTIC_GRAPH_EDGE_HOVER_TOLERANCE = 8;
 const SEMANTIC_GRAPH_FIT_PADDING = 48;
 const SEMANTIC_GRAPH_KEYBOARD_PAN_STEP = 24;
 const DEFAULT_PAYLOAD = {
@@ -1007,7 +1009,8 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
 
     const edgeId = text(edge?.edgeId || edge?.id, "");
     const edgeType = text(edge?.edgeType || edge?.type || edge?.relationType, "");
-    const isHighlighted = highlightedEdgeIds.has(edgeId);
+    const isHovered = edgeId === semanticGraphHoverEdgeId;
+    const isHighlighted = highlightedEdgeIds.has(edgeId) || isHovered;
     const isStrong = edgeType.includes("derivation") || edgeType.includes("root");
 
     const sourceWorldPoint = semanticGraphNodeWorldPoint(source, width, height);
@@ -1023,7 +1026,7 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
       : isStrong
         ? "rgba(104, 190, 255, 0.45)"
         : "rgba(159, 176, 199, 0.25)";
-    ctx.lineWidth = isHighlighted ? 2.25 : isStrong ? 1.5 : 1;
+    ctx.lineWidth = isHovered ? 3 : isHighlighted ? 2.25 : isStrong ? 1.5 : 1;
     ctx.stroke();
   });
 
@@ -1179,6 +1182,38 @@ function semanticGraphNodeWorldPoint(node, width, height) {
   return normalizeSemanticGraphPoint(node, width, height);
 }
 
+function semanticGraphPointToSegmentDistance(point, start, end) {
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+
+  if (dx === 0 && dy === 0) {
+    const px = point.x - start.x;
+    const py = point.y - start.y;
+    return Math.sqrt((px * px) + (py * py));
+  }
+
+  const projection = (
+    (
+      ((point.x - start.x) * dx)
+      + ((point.y - start.y) * dy)
+    )
+    / ((dx * dx) + (dy * dy))
+  );
+
+  const clampedProjection = Math.max(0, Math.min(1, projection));
+
+  const closestX = start.x + (clampedProjection * dx);
+  const closestY = start.y + (clampedProjection * dy);
+
+  const distanceX = point.x - closestX;
+  const distanceY = point.y - closestY;
+
+  return Math.sqrt(
+    (distanceX * distanceX)
+    + (distanceY * distanceY)
+  );
+}
+
 function findSemanticGraphNodeAtPoint(x, y, nodes = [], width = 600, height = 320, hitRadius = 15) {
   const hitRadiusSquared = hitRadius * hitRadius;
 
@@ -1195,6 +1230,53 @@ function findSemanticGraphNodeAtPoint(x, y, nodes = [], width = 600, height = 32
 
     if (distanceSquared <= hitRadiusSquared) {
       return nodeId;
+    }
+  }
+
+  return null;
+}
+
+function findSemanticGraphEdgeAtPoint(x, y, nodes = [], edges = [], width = 600, height = 320) {
+  const nodeIndex = buildSemanticGraphNodeIndex(nodes);
+  const point = { x, y };
+
+  for (let index = edges.length - 1; index >= 0; index -= 1) {
+    const edge = edges[index];
+    const source = nodeIndex.get(text(edge?.sourceId || edge?.source, ""));
+    const target = nodeIndex.get(text(edge?.targetId || edge?.target, ""));
+
+    if (!source || !target) continue;
+
+    const sourcePoint = semanticGraphWorldToScreen(
+      semanticGraphNodeWorldPoint(source, width, height),
+      width,
+      height,
+    );
+
+    const targetPoint = semanticGraphWorldToScreen(
+      semanticGraphNodeWorldPoint(target, width, height),
+      width,
+      height,
+    );
+
+    const padding = SEMANTIC_GRAPH_EDGE_HOVER_TOLERANCE;
+    const minX = Math.min(sourcePoint.x, targetPoint.x) - padding;
+    const maxX = Math.max(sourcePoint.x, targetPoint.x) + padding;
+    const minY = Math.min(sourcePoint.y, targetPoint.y) - padding;
+    const maxY = Math.max(sourcePoint.y, targetPoint.y) + padding;
+
+    if (x < minX || x > maxX || y < minY || y > maxY) {
+      continue;
+    }
+
+    const distance = semanticGraphPointToSegmentDistance(
+      point,
+      sourcePoint,
+      targetPoint,
+    );
+
+    if (distance <= SEMANTIC_GRAPH_EDGE_HOVER_TOLERANCE) {
+      return text(edge?.edgeId || edge?.id, "");
     }
   }
 
@@ -1622,6 +1704,7 @@ renderSemanticGraphMinimap(nodes);
   }
 
   renderSemanticGraphLegend(edges, highlightedEdgeIds);
+  renderSemanticGraphEdgeHoverInspector(edges);
   renderSemanticGraphReplayInspector();
 
   const safety = byId("semantic-graph-safety");
@@ -1653,27 +1736,43 @@ function attachSemanticGraphCanvasInteraction(canvas) {
     const height = canvas.clientHeight || 320;
 
     const hoveredNodeId = findSemanticGraphNodeAtPoint(
+  semanticGraphMousePosition.x,
+  semanticGraphMousePosition.y,
+  graph.nodes,
+  width,
+  height,
+);
+
+const hoveredEdgeId = hoveredNodeId
+  ? null
+  : findSemanticGraphEdgeAtPoint(
       semanticGraphMousePosition.x,
       semanticGraphMousePosition.y,
       graph.nodes,
+      graph.edges,
       width,
       height,
     );
 
-    if (semanticGraphHoverNodeId !== hoveredNodeId) {
-      semanticGraphHoverNodeId = hoveredNodeId;
-      canvas.style.cursor = hoveredNodeId ? "pointer" : "grab";
-      requestSemanticGraphRedraw();
-    }
+if (
+  semanticGraphHoverNodeId !== hoveredNodeId
+  || semanticGraphHoverEdgeId !== hoveredEdgeId
+) {
+  semanticGraphHoverNodeId = hoveredNodeId;
+  semanticGraphHoverEdgeId = hoveredEdgeId;
+  canvas.style.cursor = hoveredNodeId ? "pointer" : hoveredEdgeId ? "crosshair" : "grab";
+  requestSemanticGraphRedraw();
+}
   });
 
   canvas.addEventListener("mouseleave", () => {
-    if (semanticGraphHoverNodeId !== null) {
-      semanticGraphHoverNodeId = null;
-      canvas.style.cursor = "grab";
-      requestSemanticGraphRedraw();
-    }
-  });
+  if (semanticGraphHoverNodeId !== null || semanticGraphHoverEdgeId !== null) {
+    semanticGraphHoverNodeId = null;
+    semanticGraphHoverEdgeId = null;
+    canvas.style.cursor = "grab";
+    requestSemanticGraphRedraw();
+  }
+});
 
   canvas.addEventListener("click", () => {
     if (semanticGraphPanState?.moved) return;
@@ -1721,6 +1820,25 @@ function renderSemanticGraphEdge(edge, highlightedEdgeIds) {
 
   row.append(relation, path);
   return row;
+}
+
+function renderSemanticGraphEdgeHoverInspector(edges = []) {
+  const container = byId("semantic-graph-highlight-note");
+
+  if (!container) return;
+
+  const hoveredEdge = edges.find((edge) => edge.edgeId === semanticGraphHoverEdgeId);
+
+  if (!hoveredEdge) {
+    container.textContent = "Highlighted nodes and edges follow the active traversal filters.";
+    return;
+  }
+
+  container.textContent = [
+    `Hovered edge: ${hoveredEdge.edgeId}`,
+    `Relation: ${hoveredEdge.relationType}`,
+    `Path: ${hoveredEdge.sourceId} → ${hoveredEdge.targetId}`,
+  ].join(" | ");
 }
 
 function renderSemanticGraphLegend(edges, highlightedEdgeIds) {
