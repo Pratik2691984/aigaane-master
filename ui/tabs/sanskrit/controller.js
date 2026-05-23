@@ -980,8 +980,10 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
     const isHighlighted = highlightedEdgeIds.has(edgeId);
     const isStrong = edgeType.includes("derivation") || edgeType.includes("root");
 
-    const sourcePoint = normalizeSemanticGraphPoint(source, width, height);
-    const targetPoint = normalizeSemanticGraphPoint(target, width, height);
+    const sourceWorldPoint = semanticGraphNodeWorldPoint(source, width, height);
+    const targetWorldPoint = semanticGraphNodeWorldPoint(target, width, height);
+    const sourcePoint = semanticGraphWorldToScreen(sourceWorldPoint, width, height);
+    const targetPoint = semanticGraphWorldToScreen(targetWorldPoint, width, height);
 
     ctx.beginPath();
     ctx.moveTo(sourcePoint.x, sourcePoint.y);
@@ -1002,7 +1004,8 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
     const isHighlighted = highlightedNodeIds.has(nodeId);
     const isHovered = nodeId === semanticGraphHoverNodeId;
     const isRoot = nodeType === "dhatu" || nodeType === "root" || nodeType.includes("dhatu");
-    const point = normalizeSemanticGraphPoint(node, width, height);
+    const worldPoint = semanticGraphNodeWorldPoint(node, width, height);
+    const point = semanticGraphWorldToScreen(worldPoint, width, height);
     const radius = isHovered ? (isRoot ? 11 : 8) : (isRoot ? 8 : 5);
 
     ctx.beginPath();
@@ -1032,7 +1035,8 @@ function drawSemanticGraphCanvas(canvas, payload = {}) {
     const nodeId = text(node?.nodeId || node?.id, "");
     const isSelected = nodeId === selectedNodeId;
     const isHovered = nodeId === semanticGraphHoverNodeId;
-    const point = normalizeSemanticGraphPoint(node, width, height);
+    const worldPoint = semanticGraphNodeWorldPoint(node, width, height);
+    const point = semanticGraphWorldToScreen(worldPoint, width, height);
     const label = shortSemanticGraphLabel(node);
 
     ctx.fillStyle = isHovered || isSelected ? "#f0d77a" : "#eef3f8";
@@ -1076,7 +1080,8 @@ function findSemanticGraphNodeAtPoint(x, y, nodes = [], width = 600, height = 32
     const nodeId = text(node?.nodeId || node?.id, "");
     if (!nodeId) continue;
 
-    const point = normalizeSemanticGraphPoint(node, width, height);
+    const worldPoint = semanticGraphNodeWorldPoint(node, width, height);
+    const point = semanticGraphWorldToScreen(worldPoint, width, height);
     const dx = x - point.x;
     const dy = y - point.y;
     const distanceSquared = (dx * dx) + (dy * dy);
