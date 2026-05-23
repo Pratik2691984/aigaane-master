@@ -70,6 +70,7 @@ let semanticDerivationGraphData = null;
 let semanticPlatformStatusData = null;
 let staticSemanticFixtureBrowserActive = false;
 let staticFixtureHashRestored = false;
+let backendRuntimeAvailable = false;
 let selectedSemanticGraphNodeId = "01.0005";
 let selectedDerivationGraphNodeId = "motion";
 let semanticGraphStore = null;
@@ -2683,6 +2684,34 @@ function isExpectedStaticPreviewApiMiss(errorOrResponse) {
   );
 }
 
+async function detectBackendRuntime() {
+  try {
+    const response = await fetch("/api/health", {
+      method: "GET",
+    });
+
+    backendRuntimeAvailable = Boolean(response?.ok);
+  } catch (error) {
+    backendRuntimeAvailable = false;
+  }
+
+  return backendRuntimeAvailable;
+}
+
+function renderBackendRuntimeStatus() {
+  const node = byId("semantic-runtime-status");
+
+  if (!node) return;
+
+  if (backendRuntimeAvailable) {
+    node.textContent = "Backend Runtime Connected";
+    node.dataset.runtimeMode = "backend";
+  } else {
+    node.textContent = "Static Preview Mode";
+    node.dataset.runtimeMode = "static";
+  }
+}
+
 function renderStaticPreviewFallbackNotice(reason) {
   const panel = byId("static-preview-fallback-notice");
   const reasonNode = byId("static-preview-fallback-reason");
@@ -5219,6 +5248,7 @@ function renderInitialState() {
   renderSemanticPlatformStatusPanel(SEMANTIC_PLATFORM_STATUS_FALLBACK_PANEL);
   renderSemanticDerivationPanel("01.0005");
   renderSemanticDerivationGraphPanel();
+  detectBackendRuntime().then(renderBackendRuntimeStatus);
   renderSemanticGraphView();
   initializeSemanticGraphZoomControls();
   document.addEventListener("keydown", handleSemanticGraphKeyboard);
