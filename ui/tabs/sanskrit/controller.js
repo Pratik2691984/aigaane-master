@@ -70,6 +70,7 @@ let semanticGraphStore = null;
 let semanticGraphExpansionHistory = [];
 let semanticGraphHoverNodeId = null;
 let semanticGraphMousePosition = { x: 0, y: 0 };
+let semanticGraphPanState = null;
 let semanticGraphRenderPending = false;
 let semanticGraphInteractionAttached = false;
 let semanticGraphCamera = { x: 0, y: 0, zoom: 1 };
@@ -78,6 +79,7 @@ const SEMANTIC_GRAPH_MIN_ZOOM = 0.35;
 const SEMANTIC_GRAPH_MAX_ZOOM = 3.5;
 const SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED = 0.0015;
 const SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR = 1.2;
+const SEMANTIC_GRAPH_PAN_CLICK_TOLERANCE = 4;
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
 };
@@ -1097,6 +1099,58 @@ function handleSemanticGraphWheel(event) {
   requestSemanticGraphRedraw();
 } 
 
+function beginSemanticGraphPan(event) {
+  const canvas = event.currentTarget;
+  if (!canvas) return;
+
+  semanticGraphPanState = {
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startY: event.clientY,
+    lastX: event.clientX,
+    lastY: event.clientY,
+    moved: false,
+  };
+
+  canvas.setPointerCapture?.(event.pointerId);
+}
+
+function moveSemanticGraphPan(event) {
+  if (!semanticGraphPanState || semanticGraphPanState.pointerId !== event.pointerId) {
+    return;
+  }
+
+  const dx = event.clientX - semanticGraphPanState.lastX;
+  const dy = event.clientY - semanticGraphPanState.lastY;
+  const totalDx = event.clientX - semanticGraphPanState.startX;
+  const totalDy = event.clientY - semanticGraphPanState.startY;
+
+  if (
+    Math.abs(totalDx) > SEMANTIC_GRAPH_PAN_CLICK_TOLERANCE ||
+    Math.abs(totalDy) > SEMANTIC_GRAPH_PAN_CLICK_TOLERANCE
+  ) {
+    semanticGraphPanState.moved = true;
+  }
+
+  semanticGraphCamera.x -= dx / semanticGraphCamera.zoom;
+  semanticGraphCamera.y -= dy / semanticGraphCamera.zoom;
+
+  semanticGraphPanState.lastX = event.clientX;
+  semanticGraphPanState.lastY = event.clientY;
+
+  requestSemanticGraphRedraw();
+}
+
+function endSemanticGraphPan(event) {
+  if (!semanticGraphPanState || semanticGraphPanState.pointerId !== event.pointerId) {
+    return;
+  }
+
+  const canvas = event.currentTarget;
+  canvas?.releasePointerCapture?.(event.pointerId);
+  semanticGraphPanState = null;
+}
+
 function semanticGraphWorldToScreen(point, width, height, camera = semanticGraphCamera) {
   return {
     x: ((point.x - camera.x) * camera.zoom) + (width / 2),
@@ -1260,6 +1314,11 @@ function attachSemanticGraphCanvasInteraction(canvas) {
 
   semanticGraphInteractionAttached = true;
 
+  canvas.addEventListener("pointerdown", beginSemanticGraphPan);
+  canvas.addEventListener("pointermove", moveSemanticGraphPan);
+  canvas.addEventListener("pointerup", endSemanticGraphPan);
+  canvas.addEventListener("pointercancel", endSemanticGraphPan);
+
   canvas.addEventListener("mousemove", (event) => {
     semanticGraphMousePosition = getSemanticGraphCanvasCoordinates(canvas, event);
 
@@ -1277,7 +1336,7 @@ function attachSemanticGraphCanvasInteraction(canvas) {
 
     if (semanticGraphHoverNodeId !== hoveredNodeId) {
       semanticGraphHoverNodeId = hoveredNodeId;
-      canvas.style.cursor = hoveredNodeId ? "pointer" : "default";
+      canvas.style.cursor = hoveredNodeId ? "pointer" : "grab";
       requestSemanticGraphRedraw();
     }
   });
@@ -1285,21 +1344,25 @@ function attachSemanticGraphCanvasInteraction(canvas) {
   canvas.addEventListener("mouseleave", () => {
     if (semanticGraphHoverNodeId !== null) {
       semanticGraphHoverNodeId = null;
-      canvas.style.cursor = "default";
+      canvas.style.cursor = "grab";
       requestSemanticGraphRedraw();
     }
   });
 
   canvas.addEventListener("click", () => {
-  if (!semanticGraphHoverNodeId) return;
-  focusSemanticGraphNode(semanticGraphHoverNodeId);
-});
+    if (semanticGraphPanState?.moved) return;
+    if (!semanticGraphHoverNodeId) return;
 
-canvas.addEventListener(
-  "wheel",
-  handleSemanticGraphWheel,
-  { passive: false },
-);
+    focusSemanticGraphNode(semanticGraphHoverNodeId);
+  });
+
+  canvas.addEventListener(
+    "wheel",
+    handleSemanticGraphWheel,
+    { passive: false },
+  );
+
+  canvas.style.cursor = "grab";
 }
 
 function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
