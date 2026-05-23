@@ -69,6 +69,7 @@ let semanticGraphHoverNodeId = null;
 let semanticGraphMousePosition = { x: 0, y: 0 };
 let semanticGraphRenderPending = false;
 let semanticGraphInteractionAttached = false;
+let semanticGraphCamera = { x: 0, y: 0, zoom: 1 };
 
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
@@ -1047,6 +1048,24 @@ function getSemanticGraphCanvasCoordinates(canvas, event) {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top,
   };
+}
+
+function semanticGraphWorldToScreen(point, width, height, camera = semanticGraphCamera) {
+  return {
+    x: ((point.x - camera.x) * camera.zoom) + (width / 2),
+    y: ((point.y - camera.y) * camera.zoom) + (height / 2),
+  };
+}
+
+function semanticGraphScreenToWorld(point, width, height, camera = semanticGraphCamera) {
+  return {
+    x: ((point.x - (width / 2)) / camera.zoom) + camera.x,
+    y: ((point.y - (height / 2)) / camera.zoom) + camera.y,
+  };
+}
+
+function semanticGraphNodeWorldPoint(node, width, height) {
+  return normalizeSemanticGraphPoint(node, width, height);
 }
 
 function findSemanticGraphNodeAtPoint(x, y, nodes = [], width = 600, height = 320, hitRadius = 15) {
