@@ -83,6 +83,7 @@ const SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED = 0.0015;
 const SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR = 1.2;
 const SEMANTIC_GRAPH_PAN_CLICK_TOLERANCE = 4;
 const SEMANTIC_GRAPH_FIT_PADDING = 48;
+const SEMANTIC_GRAPH_KEYBOARD_PAN_STEP = 24;
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
 };
@@ -1281,6 +1282,83 @@ function initializeSemanticGraphZoomControls() {
   semanticGraphFitViewButton?.addEventListener("click", () => {
     fitSemanticGraphToView();
   });
+}
+
+function handleSemanticGraphKeyboard(event) {
+  const activeElement = document.activeElement;
+  const isTyping =
+    activeElement &&
+    (
+      activeElement.tagName === "INPUT"
+      || activeElement.tagName === "TEXTAREA"
+      || activeElement.isContentEditable
+    );
+
+  if (isTyping) return;
+
+  switch (event.key) {
+    case "+":
+    case "=":
+      event.preventDefault();
+      zoomSemanticGraph(SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR);
+      break;
+
+    case "-":
+    case "_":
+      event.preventDefault();
+      zoomSemanticGraph(1 / SEMANTIC_GRAPH_BUTTON_ZOOM_FACTOR);
+      break;
+
+    case "0":
+      event.preventDefault();
+      resetSemanticGraphCamera();
+      break;
+
+    case "f":
+    case "F":
+      event.preventDefault();
+      fitSemanticGraphToView();
+      break;
+
+    case "ArrowLeft":
+      event.preventDefault();
+      semanticGraphCamera.x -= (
+        SEMANTIC_GRAPH_KEYBOARD_PAN_STEP
+        / semanticGraphCamera.zoom
+      );
+      requestSemanticGraphRedraw();
+      break;
+
+    case "ArrowRight":
+      event.preventDefault();
+      semanticGraphCamera.x += (
+        SEMANTIC_GRAPH_KEYBOARD_PAN_STEP
+        / semanticGraphCamera.zoom
+      );
+      requestSemanticGraphRedraw();
+      break;
+
+    case "ArrowUp":
+      event.preventDefault();
+      semanticGraphCamera.y -= (
+        SEMANTIC_GRAPH_KEYBOARD_PAN_STEP
+        / semanticGraphCamera.zoom
+      );
+      requestSemanticGraphRedraw();
+      break;
+
+    case "ArrowDown":
+      event.preventDefault();
+      semanticGraphCamera.y += (
+        SEMANTIC_GRAPH_KEYBOARD_PAN_STEP
+        / semanticGraphCamera.zoom
+      );
+      requestSemanticGraphRedraw();
+      break;
+
+    default:
+      break;
+  }
 }
 
 function renderSemanticGraphCameraStatus() {
