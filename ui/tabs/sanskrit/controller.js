@@ -26,6 +26,7 @@ let semanticGraphZoomOutButton = null;
 let semanticGraphResetCameraButton = null;
 let semanticGraphFitViewButton = null;
 let semanticGraphCameraStatus = null;
+let semanticGraphMinimapCanvas = null;
 let replayDemoButton = null;
 let replayExportButton = null;
 let semanticSearchInput = null;
@@ -1370,6 +1371,81 @@ function renderSemanticGraphCameraStatus() {
     + `y ${semanticGraphCamera.y.toFixed(1)}`;
 }
 
+function renderSemanticGraphMinimap(nodes = []) {
+  const canvas = semanticGraphMinimapCanvas;
+
+  if (!canvas || canvas.tagName?.toLowerCase() !== "canvas") {
+    return;
+  }
+
+  const context = canvas.getContext("2d");
+  if (!context) return;
+
+  const width = canvas.width || 180;
+  const height = canvas.height || 120;
+
+  context.clearRect(0, 0, width, height);
+
+  if (!Array.isArray(nodes) || nodes.length === 0) {
+    return;
+  }
+
+  const points = nodes.map((node) =>
+    semanticGraphNodeWorldPoint(node, width, height),
+  );
+
+  const minX = Math.min(...points.map((point) => point.x));
+  const maxX = Math.max(...points.map((point) => point.x));
+  const minY = Math.min(...points.map((point) => point.y));
+  const maxY = Math.max(...points.map((point) => point.y));
+
+  const graphWidth = Math.max(1, maxX - minX);
+  const graphHeight = Math.max(1, maxY - minY);
+
+  const scale = Math.min(
+    (width - 16) / graphWidth,
+    (height - 16) / graphHeight,
+  );
+
+  context.fillStyle = "#081018";
+  context.fillRect(0, 0, width, height);
+
+  points.forEach((point) => {
+    const x = ((point.x - minX) * scale) + 8;
+    const y = ((point.y - minY) * scale) + 8;
+
+    context.beginPath();
+    context.arc(x, y, 2, 0, Math.PI * 2);
+    context.fillStyle = "#7dd3fc";
+    context.fill();
+  });
+
+  const viewportWidth = width / semanticGraphCamera.zoom;
+  const viewportHeight = height / semanticGraphCamera.zoom;
+
+  const viewportX = (
+    ((semanticGraphCamera.x - minX) * scale)
+    + 8
+    - (viewportWidth / 2)
+  );
+
+  const viewportY = (
+    ((semanticGraphCamera.y - minY) * scale)
+    + 8
+    - (viewportHeight / 2)
+  );
+
+  context.strokeStyle = "#f59e0b";
+  context.lineWidth = 1.5;
+
+  context.strokeRect(
+    viewportX,
+    viewportY,
+    viewportWidth,
+    viewportHeight,
+  );
+}
+
 function requestSemanticGraphRedraw() {
   if (semanticGraphRenderPending) return;
 
@@ -1413,6 +1489,8 @@ function renderSemanticGraphView(queryState = readSemanticQueryState(), record =
 }
 
 renderSemanticGraphCameraStatus();
+renderSemanticGraphMinimap(nodes);
+
   const summary = byId("semantic-graph-summary");
   clearChildren(summary);
 
@@ -5007,6 +5085,7 @@ function renderInitialState() {
   renderSemanticDerivationGraphPanel();
   renderSemanticGraphView();
   initializeSemanticGraphZoomControls();
+  document.addEventListener("keydown", handleSemanticGraphKeyboard);
   renderDerivationGraph(null, "graph-demo-output");
   renderDerivationGraph(null, "graph-session-output");
   renderGraphStatus("Graph inspector idle");
@@ -5055,6 +5134,7 @@ export function init(node) {
   semanticGraphResetCameraButton = byId("semantic-graph-reset-camera");
   semanticGraphFitViewButton = byId("semantic-graph-fit-view");
   semanticGraphCameraStatus = byId("semantic-graph-camera-status");
+  semanticGraphMinimapCanvas = byId("semantic-graph-minimap");
 
   replayDemoButton = byId("replay-load-demo");
   replayExportButton = byId("replay-export-session");
