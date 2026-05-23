@@ -71,6 +71,9 @@ let semanticGraphRenderPending = false;
 let semanticGraphInteractionAttached = false;
 let semanticGraphCamera = { x: 0, y: 0, zoom: 1 };
 
+const SEMANTIC_GRAPH_MIN_ZOOM = 0.35;
+const SEMANTIC_GRAPH_MAX_ZOOM = 3.5;
+const SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED = 0.0015;
 const DEFAULT_PAYLOAD = {
   input_text: "agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam",
 };
@@ -703,6 +706,17 @@ function highlightedSemanticEdgeIds(record, queryState) {
 function sortedSemanticGraphNodes(nodes) {
   return [...(Array.isArray(nodes) ? nodes : [])].sort((left, right) => left.nodeId.localeCompare(right.nodeId));
 }
+function clampSemanticGraphZoom(value) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue)) {
+    return 1;
+  }
+
+  return Math.min(
+    SEMANTIC_GRAPH_MAX_ZOOM,
+    Math.max(SEMANTIC_GRAPH_MIN_ZOOM, numericValue),
+  );
+}
 
 function sortedSemanticGraphEdges(edges) {
   return [...(Array.isArray(edges) ? edges : [])].sort((left, right) => {
@@ -1054,6 +1068,31 @@ function getSemanticGraphCanvasCoordinates(canvas, event) {
   };
 }
 
+function handleSemanticGraphWheel(event) {
+  event.preventDefault();
+
+  const canvas = event.currentTarget;
+  if (!canvas) return;
+
+  const { width, height } = ensureSemanticGraphCanvasSize(canvas);
+  const pointer = getSemanticGraphCanvasCoordinates(canvas, event);
+  const previousZoom = clampSemanticGraphZoom(semanticGraphCamera.zoom);
+  const zoomFactor = Math.exp(-event.deltaY * SEMANTIC_GRAPH_WHEEL_ZOOM_SPEED);
+  const nextZoom = clampSemanticGraphZoom(previousZoom * zoomFactor);
+
+  if (nextZoom === previousZoom) return;
+
+  const worldPoint = semanticGraphScreenToWorld(pointer, width, height, {
+    ...semanticGraphCamera,
+    zoom: previousZoom,
+  });
+
+  semanticGraphCamera.zoom = nextZoom;
+  semanticGraphCamera.x = worldPoint.x - ((pointer.x - (width / 2)) / nextZoom);
+  semanticGraphCamera.y = worldPoint.y - ((pointer.y - (height / 2)) / nextZoom);
+  requestSemanticGraphRedraw();
+} 
+
 function semanticGraphWorldToScreen(point, width, height, camera = semanticGraphCamera) {
   return {
     x: ((point.x - camera.x) * camera.zoom) + (width / 2),
@@ -1212,9 +1251,15 @@ function attachSemanticGraphCanvasInteraction(canvas) {
   });
 
   canvas.addEventListener("click", () => {
-    if (!semanticGraphHoverNodeId) return;
-    focusSemanticGraphNode(semanticGraphHoverNodeId);
-  });
+  if (!semanticGraphHoverNodeId) return;
+  focusSemanticGraphNode(semanticGraphHoverNodeId);
+});
+
+canvas.addEventListener(
+  "wheel",
+  handleSemanticGraphWheel,
+  { passive: false },
+);
 }
 
 function renderSemanticGraphNode(node, selectedNodeId, highlightedNodeIds) {
