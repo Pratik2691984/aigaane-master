@@ -74,6 +74,7 @@ let semanticGraphExpansionHistory = [];
 let semanticGraphHoverNodeId = null;
 let semanticGraphMousePosition = { x: 0, y: 0 };
 let semanticGraphPanState = null;
+let semanticGraphMinimapState = null;
 let semanticGraphRenderPending = false;
 let semanticGraphInteractionAttached = false;
 let semanticGraphCamera = { x: 0, y: 0, zoom: 1 };
@@ -1283,6 +1284,8 @@ function initializeSemanticGraphZoomControls() {
   semanticGraphFitViewButton?.addEventListener("click", () => {
     fitSemanticGraphToView();
   });
+
+  semanticGraphMinimapCanvas?.addEventListener("click", handleSemanticGraphMinimapClick);
 }
 
 function handleSemanticGraphKeyboard(event) {
@@ -1371,6 +1374,46 @@ function renderSemanticGraphCameraStatus() {
     + `y ${semanticGraphCamera.y.toFixed(1)}`;
 }
 
+function semanticGraphMinimapProjection(nodes = []) {
+  const canvas = semanticGraphMinimapCanvas;
+
+  if (!canvas || canvas.tagName?.toLowerCase() !== "canvas") {
+    return null;
+  }
+
+  const width = canvas.width || 180;
+  const height = canvas.height || 120;
+
+  if (!Array.isArray(nodes) || nodes.length === 0) {
+    return null;
+  }
+
+  const points = nodes.map((node) =>
+    semanticGraphNodeWorldPoint(node, width, height),
+  );
+
+  const minX = Math.min(...points.map((point) => point.x));
+  const maxX = Math.max(...points.map((point) => point.x));
+  const minY = Math.min(...points.map((point) => point.y));
+  const maxY = Math.max(...points.map((point) => point.y));
+
+  const graphWidth = Math.max(1, maxX - minX);
+  const graphHeight = Math.max(1, maxY - minY);
+
+  return {
+    width,
+    height,
+    minX,
+    minY,
+    graphWidth,
+    graphHeight,
+    scale: Math.min(
+      (width - 16) / graphWidth,
+      (height - 16) / graphHeight,
+    ),
+  };
+}
+
 function renderSemanticGraphMinimap(nodes = []) {
   const canvas = semanticGraphMinimapCanvas;
 
@@ -1390,21 +1433,20 @@ function renderSemanticGraphMinimap(nodes = []) {
     return;
   }
 
+  const projection = semanticGraphMinimapProjection(nodes);
+
+  if (!projection) {
+  return;
+  }
+
+  const {
+  minX,
+  minY,
+  scale,
+  } = projection;
+
   const points = nodes.map((node) =>
-    semanticGraphNodeWorldPoint(node, width, height),
-  );
-
-  const minX = Math.min(...points.map((point) => point.x));
-  const maxX = Math.max(...points.map((point) => point.x));
-  const minY = Math.min(...points.map((point) => point.y));
-  const maxY = Math.max(...points.map((point) => point.y));
-
-  const graphWidth = Math.max(1, maxX - minX);
-  const graphHeight = Math.max(1, maxY - minY);
-
-  const scale = Math.min(
-    (width - 16) / graphWidth,
-    (height - 16) / graphHeight,
+  semanticGraphNodeWorldPoint(node, width, height),
   );
 
   context.fillStyle = "#081018";
@@ -1444,6 +1486,29 @@ function renderSemanticGraphMinimap(nodes = []) {
     viewportWidth,
     viewportHeight,
   );
+}
+
+function handleSemanticGraphMinimapClick(event) {
+  const canvas = event.currentTarget;
+  if (!canvas || canvas.tagName?.toLowerCase() !== "canvas") {
+    return;
+  }
+
+  const graph = getSemanticGraphSnapshot();
+  const projection = semanticGraphMinimapProjection(graph.nodes);
+
+  if (!projection) {
+    return;
+  }
+
+  const rect = canvas.getBoundingClientRect();
+  const clickX = event.clientX - rect.left;
+  const clickY = event.clientY - rect.top;
+
+  semanticGraphCamera.x = projection.minX + ((clickX - 8) / projection.scale);
+  semanticGraphCamera.y = projection.minY + ((clickY - 8) / projection.scale);
+
+  requestSemanticGraphRedraw();
 }
 
 function requestSemanticGraphRedraw() {
