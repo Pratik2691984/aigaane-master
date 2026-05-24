@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "activeTabs": [
+    {
+      "id": "sanskrit",
+      "label": "Sanskrit",
+      "view": "ui/tabs/sanskrit/view.html",
+      "controller": "ui/tabs/sanskrit/controller.js",
+      "style": "ui/tabs/sanskrit/style.css",
+      "runtime": "active",
+      "domain": "sanskrit"
+    }
+  ],
+  "inactiveRoots": [
+    "future-labs/ui-tabs",
+    "archives/scriptures"
+  ]
+}
