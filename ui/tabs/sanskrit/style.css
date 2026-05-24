@@ -2338,3 +2338,45 @@
 .static-fixture-export-status.warn {
     color: #ffe0a3;
 }
+.vedanga-pipeline-panel {
+  margin-top: 1.5rem;
+}
+
+.vedanga-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.vedanga-card {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.72);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.vedanga-card strong {
+  color: #f59e0b;
+  font-size: 1rem;
+}
+
+.vedanga-card span {
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.vedanga-card small {
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.vedanga-card.active-vedanga {
+  border-color: rgba(245, 158, 11, 0.7);
+  background: rgba(120, 53, 15, 0.24);
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.18);
+}
