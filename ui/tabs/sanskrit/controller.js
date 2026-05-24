@@ -1,3 +1,4 @@
+import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
@@ -575,6 +576,30 @@ function runShikshaAnalysis(inputText = "") {
       error: error instanceof Error ? error.message : String(error),
     };
   }
+}
+
+function renderPratyaharaPanel() {
+  const container = byId("pratyahara-analysis-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const examples = [
+    { label: "अच्", start: "अ", marker: "च्" },
+    { label: "हल्", start: "ह", marker: "ल्" },
+    { label: "इक्", start: "इ", marker: "क्" },
+  ];
+
+  examples.forEach((example) => {
+    const result = expandPratyahara(example.start, example.marker);
+
+    appendInspectionRow(
+      container,
+      example.label,
+      result.valid ? result.sounds.join(" ") : "Invalid",
+      result.safetyNote,
+    );
+  });
 }
 
 function renderShikshaBreakdown(container, title, values = {}) {

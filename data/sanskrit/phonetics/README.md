@@ -39,3 +39,23 @@ The Śikṣā layer is:
 - non-canonical
 - non-authoritative
 - isolated from canonical dhātu writes
+
+## Māheśvara-Sūtra / Pratyāhāra Layer
+
+Status: READ_ONLY_DETERMINISTIC
+
+Components:
+- `maheshvara-sutras.js` — static 14-sūtra structural registry
+- `shiva-sutra-map.js` — sound-to-sūtra lookup helpers
+- `pratyahara-engine.js` — deterministic pratyāhāra expansion helper
+
+Current UI examples:
+- `अच्`
+- `हल्`
+- `इक्`
+
+Safety:
+- structural expansion only
+- no full grammar derivation claim
+- no authoritative Pāṇinian correctness guarantee
+- no canonical mutation

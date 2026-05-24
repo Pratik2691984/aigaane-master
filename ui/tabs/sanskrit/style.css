@@ -2411,3 +2411,28 @@
   margin-top: 0.2rem;
   opacity: 0.72;
 }
+
+/* Pratyāhāra structural demo */
+
+#pratyahara-analysis-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#pratyahara-analysis-panel .inspection-row {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(104, 190, 255, 0.035);
+  border: 1px solid rgba(104, 190, 255, 0.1);
+}
+
+#pratyahara-analysis-panel .inspection-row strong {
+  color: #7dd3fc;
+}
+
+#pratyahara-analysis-panel .inspection-row small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}
