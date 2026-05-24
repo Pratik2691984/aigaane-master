@@ -205,8 +205,24 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 
 async function init() {
   console.log('[App] Initializing Aigaane V3 PRO...');
+
+  const runtimeRegistry = await bootstrapAigaaneRuntime();
+
+  console.log('[Runtime] Registry loaded:', runtimeRegistry);
+
   await loadManifest();
-  await switchTab(queuedToolId || 'astronomy');
+
+  const activeTabs = Array.isArray(runtimeRegistry?.activeTabs)
+    ? runtimeRegistry.activeTabs
+    : [];
+
+  const defaultTab =
+    queuedToolId
+    || activeTabs[0]?.id
+    || 'sanskrit';
+
+  await switchTab(defaultTab);
+
   sync();
 }
 
