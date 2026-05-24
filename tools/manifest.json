@@ -2,121 +2,20 @@
   "version": "1.0",
   "tools": [
     {
-      "id": "astronomy",
-      "path": "/tools/astronomy.tool.js",
-      "type": "ui",
-      "subscriptions": ["pada_id", "nakshatra_id"],
-      "timeout_ms": 10,
-      "enabled": true
-    },
-    {
       "id": "sanskrit",
       "path": "/tools/sanskrit.tool.js",
       "type": "ui",
       "subscriptions": [],
       "timeout_ms": 10,
-      "enabled": true
-    },
-    {
-      "id": "music",
-      "path": "/tools/music.tool.js",
-      "type": "ui",
-      "subscriptions": ["pada_id", "shruti_ratio"],
-      "timeout_ms": 20,
-      "enabled": true
-    },
-    {
-      "id": "music_audio",
-      "path": "/tools/music.background.js",
-      "type": "background",
-      "subscriptions": ["shruti_ratio"],
-      "timeout_ms": 20,
-      "always_run": true,
-      "enabled": true
-    },
-    {
-      "id": "raga_engine",
-      "path": "/tools/raga_engine.tool.js",
-      "type": "background",
-      "subscriptions": ["shruti_id", "shruti_ratio"],
-      "timeout_ms": 10,
-      "always_run": true,
-      "enabled": true
-    },
-    {
-      "id": "resonance",
-      "path": "/tools/resonance.tool.js",
-      "type": "ui",
-      "subscriptions": ["rasa_id", "pada_id"],
-      "timeout_ms": 10,
-      "enabled": true
-    },
-    {
-      "id": "anumana",
-      "path": "/tools/anumana.tool.js",
-      "type": "ui",
-      "subscriptions": ["pada_id", "nakshatra_id"],
-      "timeout_ms": 10,
-      "enabled": true
-    },
-    {
-      "id": "kernel-49d",
-      "path": "/tools/kernel_49d.tool.js",
-      "type": "ui",
-      "subscriptions": ["pada_id", "nakshatra_id", "shruti_ratio", "rasa_id", "angle"],
-      "timeout_ms": 10,
-      "enabled": true
-    },
-    {
-      "id": "atma",
-      "name": "Atma Clock",
-      "path": "/tools/atma.tool.js",
-      "type": "ui",
-      "subscriptions": ["angle"],
-      "timeout_ms": 20,
-      "enabled": true
-    },
-    {
-      "id": "atma_background",
-      "name": "Atma Conflict Logger",
-      "path": "/tools/atma.background.js",
-      "type": "background",
-      "timeout_ms": 20,
-      "always_run": true,
-      "enabled": true
-    },
-    {
-      "id": "anumana-engine",
-      "name": "Anumāna Engine",
-      "path": "/ui/tabs/anumana-engine/tool.js",
-      "enabled": true
-    },
-    {
-      "id": "collapse-lab",
-      "label": "Collapse Lab",
-      "component": "CollapseLab",
-      "path": "/ui/tabs/CollapseLab/CollapseLab.jsx",
-      "style": "/ui/tabs/CollapseLab/styles.css",
-      "type": "ui",
-      "enabled": true
-    },
-    {
-      "id": "lokas-studio",
-      "label": "Lokas Studio",
-      "path": "/ui/tabs/lokas-studio/view.html",
-      "controller": "/ui/tabs/lokas-studio/controller.js",
-      "style": "/ui/tabs/lokas-studio/style.css",
-      "type": "ui",
-      "enabled": true
-    },
-    {
-      "id": "hindu-scriptures",
-      "label": "📜 Hindu Scriptures",
-      "path": "/ui/tabs/hindu-scriptures/view.html",
-      "controller": "/ui/tabs/hindu-scriptures/controller.js",
-      "style": "/ui/tabs/hindu-scriptures/style.css",
-      "type": "ui",
-      "enabled": true
+      "enabled": true,
+      "capabilities": {
+        "shiksha_phonetics": {
+          "status": "read_only",
+          "deterministic": true,
+          "audio_validation": false,
+          "vedic_accent_validation": false
+        }
+      }
     }
   ]
 }

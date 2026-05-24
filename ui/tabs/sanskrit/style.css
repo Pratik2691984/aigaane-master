@@ -2380,3 +2380,34 @@
   background: rgba(120, 53, 15, 0.24);
   box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.18);
 }
+/* Śikṣā phonetic analysis */
+
+#shiksha-analysis-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#shiksha-analysis-panel .inspection-row {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#shiksha-analysis-panel .inspection-row strong {
+  color: #d8c27a;
+}
+
+#shiksha-analysis-panel .inspection-note {
+  margin-top: 0.6rem;
+  opacity: 0.78;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+#shiksha-analysis-panel .inspection-row small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}

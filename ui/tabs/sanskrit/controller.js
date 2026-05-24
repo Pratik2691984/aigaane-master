@@ -1,3 +1,4 @@
+import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -552,6 +553,81 @@ function fieldValue(id) {
 
 function setBusy(button, isBusy) {
   if (button) button.disabled = isBusy;
+}
+
+function runShikshaAnalysis(inputText = "") {
+  try {
+    return analyzeShikshaText(inputText);
+  } catch (error) {
+    return {
+      inputText,
+      phonemes: [],
+      summary: {
+        total: 0,
+        vowel: 0,
+        consonant: 0,
+        modifier: 0,
+        unknown: 0,
+        byArticulation: {},
+        byGroup: {},
+      },
+      safetyNote: "Śikṣā analysis unavailable due to local classification error.",
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+function renderShikshaBreakdown(container, title, values = {}) {
+  const entries = Object.entries(values).sort(([left], [right]) =>
+    left.localeCompare(right),
+  );
+
+  appendInspectionRow(container, title, entries.length ? "" : "None");
+
+  entries.forEach(([label, count]) => {
+    appendInspectionRow(container, `• ${label}`, count);
+  });
+}
+
+function renderShikshaPhonemeRows(container, phonemes = []) {
+  appendInspectionRow(container, "Phoneme Details", phonemes.length ? "" : "None");
+
+  phonemes.slice(0, 24).forEach((phoneme, index) => {
+    appendInspectionRow(
+      container,
+      `${index + 1}. ${phoneme.character}`,
+      phoneme.type,
+      `${phoneme.group}; ${phoneme.articulation}`,
+    );
+  });
+
+  if (phonemes.length > 24) {
+    appendInspectionRow(
+      container,
+      "Phoneme Details Truncated",
+      `${phonemes.length - 24} more characters`,
+      "UI preview is capped to keep the panel readable.",
+    );
+  }
+}
+
+function renderShikshaPanel(analysis) {
+  const container = byId("shiksha-analysis-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const summary = analysis?.summary || {};
+  appendInspectionRow(container, "Characters", summary.total || 0);
+  appendInspectionRow(container, "Vowels", summary.vowel || 0);
+  appendInspectionRow(container, "Consonants", summary.consonant || 0);
+  appendInspectionRow(container, "Modifiers", summary.modifier || 0);
+  appendInspectionRow(container, "Unknown", summary.unknown || 0);
+
+  const safety = document.createElement("small");
+  safety.className = "inspection-note";
+  safety.textContent = analysis?.safetyNote || "Śikṣā analysis is deterministic read-only classification.";
+  container.appendChild(safety);
 }
 
 function appendEmpty(node, message = "No entries") {
