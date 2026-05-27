@@ -102,3 +102,23 @@ Safety:
 - no chanting validation
 - structural inspection only
 - no canonical mutation
+
+## Paninian Symbolic Compression Layer
+
+Status: READ_ONLY_DETERMINISTIC
+
+Components:
+- symbolic-compression-map.js
+- symbolic-compression-engine.js
+
+Capabilities:
+- deterministic symbolic class expansion
+- pratyāhāra-backed class inspection
+- read-only UI preview
+- safe structural grouping
+
+Safety:
+- no authoritative Paninian derivation claim
+- no grammatical correctness guarantee
+- no canonical mutation
+- structural inspection only

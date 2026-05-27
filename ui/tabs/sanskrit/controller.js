@@ -1,6 +1,7 @@
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
 import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
+import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
@@ -707,6 +708,31 @@ function renderTransliterationPanel(inputText = "") {
   appendInspectionRow(container, "IPA", analysis.ipa.output || "-");
   appendInspectionRow(container, "IAST Unknown", analysis.summary.iastUnknownCount || 0);
   appendInspectionRow(container, "IPA Unknown", analysis.summary.ipaUnknownCount || 0);
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderSymbolicCompressionPanel() {
+  const container = byId("symbolic-compression-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectSymbolicCompression();
+  const summary = analysis.summary || {};
+
+  appendInspectionRow(container, "Classes", summary.classCount || 0);
+  appendInspectionRow(container, "Valid", summary.validCount || 0);
+  appendInspectionRow(container, "Invalid", summary.invalidCount || 0);
+
+  analysis.classes.forEach((item) => {
+    appendInspectionRow(
+      container,
+      item.classId,
+      item.sounds.join(" "),
+      item.label,
+    );
+  });
+
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
 }
 
@@ -5703,6 +5729,7 @@ export function init(node) {
   renderInitialState();
   renderSandhiTransitionPanel(inputNode?.value || "");
   renderTransliterationPanel(inputNode?.value || "");
+  renderSymbolicCompressionPanel();
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();

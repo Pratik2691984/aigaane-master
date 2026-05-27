@@ -2482,3 +2482,26 @@
   margin-top: 0.2rem;
   opacity: 0.72;
 }
+
+#symbolic-compression-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#symbolic-compression-panel .inspection-row {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(192, 132, 252, 0.035);
+  border: 1px solid rgba(192, 132, 252, 0.12);
+}
+
+#symbolic-compression-panel .inspection-row strong {
+  color: #c084fc;
+}
+
+#symbolic-compression-panel .inspection-row small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}
