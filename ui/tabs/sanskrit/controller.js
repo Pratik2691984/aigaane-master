@@ -1,4 +1,5 @@
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
+import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
@@ -656,6 +657,41 @@ function renderShikshaPanel(analysis) {
   safety.className = "inspection-note";
   safety.textContent = analysis?.safetyNote || "Śikṣā analysis is deterministic read-only classification.";
   container.appendChild(safety);
+}
+
+function renderSandhiTransitionPanel(inputText = "") {
+  const container = byId("sandhi-transition-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectSandhiText(inputText);
+  const summary = analysis.summary || {};
+
+  appendInspectionRow(container, "Tokens", summary.tokenCount || 0);
+  appendInspectionRow(container, "Transitions", summary.transitionCount || 0);
+  appendInspectionRow(container, "Matched", summary.matchedCount || 0);
+  appendInspectionRow(container, "Unmatched", summary.unmatchedCount || 0);
+
+  analysis.transitions.slice(0, 12).forEach((transition, index) => {
+    appendInspectionRow(
+      container,
+      `${index + 1}. ${transition.leftBoundary}+${transition.rightBoundary}`,
+      transition.result,
+      transition.label || transition.safetyNote,
+    );
+  });
+
+  if (analysis.transitions.length > 12) {
+    appendInspectionRow(
+      container,
+      "Transition Preview Truncated",
+      `${analysis.transitions.length - 12} more transitions`,
+      "UI preview is capped to keep the panel readable.",
+    );
+  }
+
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -4783,10 +4819,12 @@ async function analyzeCurrentInput() {
   const inputText = inputNode.value.trim();
 
   if (!inputText) {
+    renderSandhiTransitionPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
 
+  renderSandhiTransitionPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5645,6 +5683,7 @@ export function init(node) {
   });
 
   renderInitialState();
+  renderSandhiTransitionPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();

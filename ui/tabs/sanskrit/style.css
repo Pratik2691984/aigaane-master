@@ -2436,3 +2436,26 @@
   margin-top: 0.2rem;
   opacity: 0.72;
 }
+
+#sandhi-transition-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#sandhi-transition-panel .inspection-row {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(255, 215, 128, 0.035);
+  border: 1px solid rgba(255, 215, 128, 0.1);
+}
+
+#sandhi-transition-panel .inspection-row strong {
+  color: #ffe0a3;
+}
+
+#sandhi-transition-panel .inspection-row small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}

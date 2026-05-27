@@ -59,3 +59,24 @@ Safety:
 - no full grammar derivation claim
 - no authoritative Pāṇinian correctness guarantee
 - no canonical mutation
+
+## Sandhi Transition Inspector
+
+Status: READ_ONLY_DETERMINISTIC
+
+Components:
+- sandhi-rules.js
+- sandhi-transition-map.js
+- sandhi-engine.js
+
+Capabilities:
+- deterministic adjacent-token boundary inspection
+- limited transition matching
+- matched/unmatched boundary summary
+- read-only UI panel
+
+Safety:
+- no authoritative grammar correctness claim
+- no full Paninian derivation claim
+- no canonical mutation
+- structural inspection only
