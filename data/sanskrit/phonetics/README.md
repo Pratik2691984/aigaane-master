@@ -165,3 +165,25 @@ Safety:
 - no canonical mutation
 - no automated grammar generation
 - structural overlay inspection only
+
+## Dhātu Semantic Graph Layer
+
+Status: READ_ONLY_DETERMINISTIC_PLACEHOLDER
+
+Components:
+- dhatu-semantic-map.js
+- dhatu-semantic-engine.js
+- dhatu-semantic-renderer.js
+
+Capabilities:
+- deterministic dhātu semantic node preview
+- semantic cluster inspection
+- semantic edge inspection
+- derivation overlay summary integration
+- read-only UI panel
+
+Safety:
+- no authoritative semantic correctness claim
+- no grammatical derivation correctness claim
+- no canonical mutation
+- placeholder-safe semantic metadata only

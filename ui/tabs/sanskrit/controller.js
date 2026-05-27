@@ -6,6 +6,8 @@ import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
+import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
+import { renderDhatuSemanticList } from "./semantic/dhatu-semantic-renderer.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -810,6 +812,26 @@ function renderDerivationGraphPanel(inputText = "") {
     "Read-only",
     analysis.safetyNote,
   );
+}
+
+function renderDhatuSemanticPanel(inputText = "") {
+  const container = byId("dhatu-semantic-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectDhatuSemanticGraph(inputText);
+  const summary = analysis.summary || {};
+
+  appendInspectionRow(container, "Semantic Nodes", summary.nodeCount || 0);
+  appendInspectionRow(container, "Semantic Edges", summary.edgeCount || 0);
+  appendInspectionRow(container, "Semantic Clusters", summary.clusterCount || 0);
+  appendInspectionRow(container, "Derivation Nodes", summary.derivationNodeCount || 0);
+  appendInspectionRow(container, "Derivation Edges", summary.derivationEdgeCount || 0);
+
+  renderDhatuSemanticList(container, analysis);
+
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -4941,6 +4963,7 @@ async function analyzeCurrentInput() {
     renderTransliterationPanel(inputText);
     renderPhoneticTopologyPanel(inputText);
     renderDerivationGraphPanel(inputText);
+    renderDhatuSemanticPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
@@ -4949,6 +4972,7 @@ async function analyzeCurrentInput() {
   renderTransliterationPanel(inputText);
   renderPhoneticTopologyPanel(inputText);
   renderDerivationGraphPanel(inputText);
+  renderDhatuSemanticPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5812,6 +5836,7 @@ export function init(node) {
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
+  renderDhatuSemanticPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();
