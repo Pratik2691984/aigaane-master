@@ -16,6 +16,8 @@ import { inspectSutraReferenceOverlay } from "./sutra/sutra-reference-engine.js"
 import { renderSutraReferenceList } from "./sutra/sutra-reference-renderer.js";
 import { inspectRuleTrace } from "./trace/rule-trace-engine.js";
 import { renderRuleTraceList } from "./trace/rule-trace-renderer.js";
+import { buildVakyaDependencyOverlay } from "./vakya/vakya-dependency-engine.js";
+import { renderVakyaDependencyOverlay } from "./vakya/vakya-dependency-renderer.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -920,6 +922,32 @@ function renderKarakaOverlayPanel(inputText = "") {
   });
 
   renderKarakaOverlay(container, overlay);
+}
+
+function renderVakyaDependencyPanel(inputText = "") {
+  const container = byId("vakya-dependency-panel");
+  if (!container) return;
+
+  const morphologyTransitions = inspectMorphologyTransitions(inputText);
+  const karakaOverlay = buildKarakaOverlay({
+    morphologyTransitions,
+    semanticOverlays: inspectDhatuSemanticGraph(inputText),
+    derivationGraph: inspectDerivationGraph(inputText),
+    ruleTraceChain: inspectRuleTrace(inputText),
+  });
+  const overlay = buildVakyaDependencyOverlay({
+    tokens: String(inputText || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token, index) => ({ token, index })),
+    morphologyTransitions,
+    karakaOverlay,
+    semanticOverlays: inspectDhatuSemanticGraph(inputText),
+    derivationGraph: inspectDerivationGraph(inputText),
+    ruleTraceChain: inspectRuleTrace(inputText),
+  });
+
+  renderVakyaDependencyOverlay(container, overlay);
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -5055,6 +5083,7 @@ async function analyzeCurrentInput() {
     renderRuleTracePanel(inputText);
     renderMorphologyTransitionPanel(inputText);
     renderKarakaOverlayPanel(inputText);
+    renderVakyaDependencyPanel(inputText);
     renderDhatuSemanticPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
@@ -5068,6 +5097,7 @@ async function analyzeCurrentInput() {
   renderRuleTracePanel(inputText);
   renderMorphologyTransitionPanel(inputText);
   renderKarakaOverlayPanel(inputText);
+  renderVakyaDependencyPanel(inputText);
   renderDhatuSemanticPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
@@ -5936,6 +5966,7 @@ export function init(node) {
   renderRuleTracePanel(inputNode?.value || "");
   renderMorphologyTransitionPanel(inputNode?.value || "");
   renderKarakaOverlayPanel(inputNode?.value || "");
+  renderVakyaDependencyPanel(inputNode?.value || "");
   renderDhatuSemanticPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
