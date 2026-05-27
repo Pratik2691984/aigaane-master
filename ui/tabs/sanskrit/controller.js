@@ -1,5 +1,7 @@
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
+import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
+import { renderKarakaOverlay } from "./karaka/karaka-overlay-renderer.js";
 import { inspectMorphologyTransitions } from "./morphology/morphology-transition-engine.js";
 import { renderMorphologyTransitionList } from "./morphology/morphology-transition-renderer.js";
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
@@ -903,6 +905,21 @@ function renderMorphologyTransitionPanel(inputText = "") {
   renderMorphologyTransitionList(container, analysis);
 
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderKarakaOverlayPanel(inputText = "") {
+  const container = byId("karaka-overlay-panel");
+  if (!container) return;
+
+  const morphologyTransitions = inspectMorphologyTransitions(inputText);
+  const overlay = buildKarakaOverlay({
+    morphologyTransitions,
+    semanticOverlays: inspectDhatuSemanticGraph(inputText),
+    derivationGraph: inspectDerivationGraph(inputText),
+    ruleTraceChain: inspectRuleTrace(inputText),
+  });
+
+  renderKarakaOverlay(container, overlay);
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -5034,10 +5051,11 @@ async function analyzeCurrentInput() {
     renderTransliterationPanel(inputText);
     renderPhoneticTopologyPanel(inputText);
     renderDerivationGraphPanel(inputText);
-    renderDhatuSemanticPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
     renderMorphologyTransitionPanel(inputText);
+    renderKarakaOverlayPanel(inputText);
+    renderDhatuSemanticPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
@@ -5046,10 +5064,11 @@ async function analyzeCurrentInput() {
   renderTransliterationPanel(inputText);
   renderPhoneticTopologyPanel(inputText);
   renderDerivationGraphPanel(inputText);
-  renderDhatuSemanticPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
   renderMorphologyTransitionPanel(inputText);
+  renderKarakaOverlayPanel(inputText);
+  renderDhatuSemanticPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5913,10 +5932,11 @@ export function init(node) {
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
-  renderDhatuSemanticPanel(inputNode?.value || "");
   renderSutraReferencePanel(inputNode?.value || "");
   renderRuleTracePanel(inputNode?.value || "");
   renderMorphologyTransitionPanel(inputNode?.value || "");
+  renderKarakaOverlayPanel(inputNode?.value || "");
+  renderDhatuSemanticPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();
