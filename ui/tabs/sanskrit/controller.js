@@ -1,5 +1,7 @@
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
+import { inspectMorphologyTransitions } from "./morphology/morphology-transition-engine.js";
+import { renderMorphologyTransitionList } from "./morphology/morphology-transition-renderer.js";
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
 import { inspectInputTopology } from "./phonetics/phonetic-topology-engine.js";
 import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
@@ -876,6 +878,29 @@ function renderRuleTracePanel(inputText = "") {
   appendInspectionRow(container, "Symbolic Classes", summary.symbolicClassCount || 0);
 
   renderRuleTraceList(container, analysis);
+
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderMorphologyTransitionPanel(inputText = "") {
+  const container = byId("morphology-transition-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectMorphologyTransitions(inputText);
+  const summary = analysis.summary || {};
+
+  appendInspectionRow(container, "Morphology Nodes", summary.nodeCount || 0);
+  appendInspectionRow(container, "Morphology Edges", summary.edgeCount || 0);
+  appendInspectionRow(container, "Roots", summary.rootCount || 0);
+  appendInspectionRow(container, "Stems", summary.stemCount || 0);
+  appendInspectionRow(container, "Suffixes", summary.suffixCount || 0);
+  appendInspectionRow(container, "Surface Forms", summary.surfaceFormCount || 0);
+  appendInspectionRow(container, "Trace Nodes", summary.traceNodeCount || 0);
+  appendInspectionRow(container, "Semantic Nodes", summary.semanticNodeCount || 0);
+
+  renderMorphologyTransitionList(container, analysis);
 
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
 }
@@ -5012,6 +5037,7 @@ async function analyzeCurrentInput() {
     renderDhatuSemanticPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
+    renderMorphologyTransitionPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
@@ -5023,6 +5049,7 @@ async function analyzeCurrentInput() {
   renderDhatuSemanticPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
+  renderMorphologyTransitionPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5889,6 +5916,7 @@ export function init(node) {
   renderDhatuSemanticPanel(inputNode?.value || "");
   renderSutraReferencePanel(inputNode?.value || "");
   renderRuleTracePanel(inputNode?.value || "");
+  renderMorphologyTransitionPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();

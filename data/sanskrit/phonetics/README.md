@@ -235,3 +235,26 @@ Safety:
 - no derivation correctness claim
 - no canonical mutation
 - placeholder-safe trace metadata only
+
+## Morphology Transition Layer
+
+Status: READ_ONLY_DETERMINISTIC_PLACEHOLDER
+
+Components:
+- morphology-transition-map.js
+- morphology-transition-engine.js
+- morphology-transition-renderer.js
+
+Capabilities:
+- deterministic root/stem/suffix/surface-form preview
+- morphology transition edge inspection
+- rule trace summary integration
+- dhātu semantic summary integration
+- read-only UI panel
+
+Safety:
+- no authoritative morphology generation claim
+- no grammatical correctness claim
+- no derivation correctness claim
+- no canonical mutation
+- placeholder-safe morphology metadata only

@@ -2620,3 +2620,26 @@
   margin-top: 0.2rem;
   opacity: 0.72;
 }
+
+#morphology-transition-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#morphology-transition-panel .inspection-row {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(168, 85, 247, 0.035);
+  border: 1px solid rgba(168, 85, 247, 0.12);
+}
+
+#morphology-transition-panel .inspection-row strong {
+  color: #a855f7;
+}
+
+#morphology-transition-panel .inspection-row small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}
