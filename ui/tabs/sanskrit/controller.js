@@ -648,6 +648,9 @@ function renderShikshaPanel(analysis) {
   appendInspectionRow(container, "Consonants", summary.consonant || 0);
   appendInspectionRow(container, "Modifiers", summary.modifier || 0);
   appendInspectionRow(container, "Unknown", summary.unknown || 0);
+  renderShikshaBreakdown(container, "Articulation", summary.byArticulation || {});
+  renderShikshaBreakdown(container, "Group", summary.byGroup || {});
+  renderShikshaPhonemeRows(container, analysis?.phonemes || []);
 
   const safety = document.createElement("small");
   safety.className = "inspection-note";

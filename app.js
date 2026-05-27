@@ -204,24 +204,17 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 });
 
 async function init() {
-  console.log('[App] Initializing Aigaane V3 PRO...');
+  console.log("[App] Initializing Sanskrit-only runtime...");
 
-  const runtimeRegistry = await bootstrapAigaaneRuntime();
+await loadManifest();
 
-  console.log('[Runtime] Registry loaded:', runtimeRegistry);
+const defaultTab =
+  queuedToolId
+  || document.querySelector(".nav-btn.active")?.dataset?.tab
+  || manifest?.tools?.find((tool) => tool.enabled !== false)?.id
+  || "sanskrit";
 
-  await loadManifest();
-
-  const activeTabs = Array.isArray(runtimeRegistry?.activeTabs)
-    ? runtimeRegistry.activeTabs
-    : [];
-
-  const defaultTab =
-    queuedToolId
-    || activeTabs[0]?.id
-    || 'sanskrit';
-
-  await switchTab(defaultTab);
+await switchTab(defaultTab);
 
   sync();
 }
