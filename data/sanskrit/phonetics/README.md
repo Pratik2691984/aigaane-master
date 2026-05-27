@@ -210,3 +210,28 @@ Safety:
 - no Paninian derivation correctness claim
 - no canonical mutation
 - placeholder-safe reference metadata only
+
+## Paninian Rule Trace Layer
+
+Status: READ_ONLY_DETERMINISTIC_PLACEHOLDER
+
+Components:
+- rule-trace-map.js
+- rule-trace-engine.js
+- rule-trace-renderer.js
+
+Capabilities:
+- deterministic trace graph preview
+- sūtra reference overlay integration
+- derivation graph overlay integration
+- dhātu semantic overlay integration
+- sandhi inspection summary integration
+- symbolic compression summary integration
+- read-only UI panel
+
+Safety:
+- no authoritative Paninian interpretation claim
+- no grammatical correctness claim
+- no derivation correctness claim
+- no canonical mutation
+- placeholder-safe trace metadata only
