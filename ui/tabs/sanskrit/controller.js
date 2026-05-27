@@ -12,6 +12,8 @@ import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-eng
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
 import { renderDhatuSemanticList } from "./semantic/dhatu-semantic-renderer.js";
+import { buildSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-engine.js";
+import { renderSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-renderer.js";
 import { inspectSutraReferenceOverlay } from "./sutra/sutra-reference-engine.js";
 import { renderSutraReferenceList } from "./sutra/sutra-reference-renderer.js";
 import { inspectRuleTrace } from "./trace/rule-trace-engine.js";
@@ -948,6 +950,47 @@ function renderVakyaDependencyPanel(inputText = "") {
   });
 
   renderVakyaDependencyOverlay(container, overlay);
+}
+
+function renderSandarbhaContextPanel(inputText = "") {
+  const container = byId("sandarbha-context-panel");
+  if (!container) return;
+
+  const morphologyTransitions = inspectMorphologyTransitions(inputText);
+  const semanticOverlay = inspectDhatuSemanticGraph(inputText);
+  const derivationOverlay = inspectDerivationGraph(inputText);
+  const ruleTrace = inspectRuleTrace(inputText);
+  const karakaOverlay = buildKarakaOverlay({
+    morphologyTransitions,
+    semanticOverlays: semanticOverlay,
+    derivationGraph: derivationOverlay,
+    ruleTraceChain: ruleTrace,
+  });
+  const vakyaDependencyOverlay = buildVakyaDependencyOverlay({
+    tokens: String(inputText || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token, index) => ({ token, index })),
+    morphologyTransitions,
+    karakaOverlay,
+    semanticOverlays: semanticOverlay,
+    derivationGraph: derivationOverlay,
+    ruleTraceChain: ruleTrace,
+  });
+  const overlay = buildSandarbhaContextOverlay({
+    tokens: String(inputText || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token, index) => ({ token, index })),
+    morphologyTransitions,
+    karakaOverlay,
+    vakyaDependencyOverlay,
+    semanticOverlays: semanticOverlay.graph,
+    derivationGraph: derivationOverlay.graph,
+    ruleTraceChain: ruleTrace,
+  });
+
+  renderSandarbhaContextOverlay(container, overlay);
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -5084,6 +5127,7 @@ async function analyzeCurrentInput() {
     renderMorphologyTransitionPanel(inputText);
     renderKarakaOverlayPanel(inputText);
     renderVakyaDependencyPanel(inputText);
+    renderSandarbhaContextPanel(inputText);
     renderDhatuSemanticPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
@@ -5098,6 +5142,7 @@ async function analyzeCurrentInput() {
   renderMorphologyTransitionPanel(inputText);
   renderKarakaOverlayPanel(inputText);
   renderVakyaDependencyPanel(inputText);
+  renderSandarbhaContextPanel(inputText);
   renderDhatuSemanticPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
@@ -5967,6 +6012,7 @@ export function init(node) {
   renderMorphologyTransitionPanel(inputNode?.value || "");
   renderKarakaOverlayPanel(inputNode?.value || "");
   renderVakyaDependencyPanel(inputNode?.value || "");
+  renderSandarbhaContextPanel(inputNode?.value || "");
   renderDhatuSemanticPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();

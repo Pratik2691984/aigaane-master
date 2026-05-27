@@ -2758,3 +2758,71 @@
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+.sandarbha-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.85rem;
+  border-radius: 0.55rem;
+  background: rgba(14, 165, 233, 0.035);
+  border: 1px solid rgba(14, 165, 233, 0.12);
+}
+
+.sandarbha-panel h3 {
+  margin: 0 0 0.2rem;
+  color: #0ea5e9;
+}
+
+.sandarbha-neighborhood,
+.sandarbha-candidate,
+.sandarbha-edge,
+.sandarbha-unresolved {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(14, 165, 233, 0.035);
+  border: 1px solid rgba(14, 165, 233, 0.12);
+}
+
+.sandarbha-candidate {
+  background: rgba(168, 85, 247, 0.035);
+  border-color: rgba(168, 85, 247, 0.12);
+}
+
+.sandarbha-edge {
+  background: rgba(34, 197, 94, 0.035);
+  border-color: rgba(34, 197, 94, 0.12);
+}
+
+.sandarbha-unresolved {
+  background: rgba(148, 163, 184, 0.035);
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+.sandarbha-neighborhood small,
+.sandarbha-candidate small,
+.sandarbha-edge small,
+.sandarbha-unresolved small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}
+
+.sandarbha-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.45rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.16);
+}
+
+.sandarbha-diagnostics {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  color: #bae6fd;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
