@@ -1,3 +1,5 @@
+import { buildChandasProsodyOverlay } from "./chandas/chandas-prosody-engine.js";
+import { renderChandasProsodyOverlay } from "./chandas/chandas-prosody-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -991,6 +993,45 @@ function renderSandarbhaContextPanel(inputText = "") {
   });
 
   renderSandarbhaContextOverlay(container, overlay);
+}
+
+function renderChandasProsodyPanel(inputText = "") {
+  const container = byId("chandas-prosody-panel");
+  if (!container) return;
+
+  const morphologyTransitions = inspectMorphologyTransitions(inputText);
+  const derivationGraph = inspectDerivationGraph(inputText);
+  const sandarbhaContextOverlay = buildSandarbhaContextOverlay({
+    tokens: String(inputText || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token, index) => ({ token, index })),
+    morphologyTransitions,
+    karakaOverlay: buildKarakaOverlay({ morphologyTransitions }),
+    vakyaDependencyOverlay: buildVakyaDependencyOverlay({
+      morphologyTransitions,
+      karakaOverlay: buildKarakaOverlay({ morphologyTransitions }),
+    }),
+    semanticOverlays: inspectDhatuSemanticGraph(inputText).graph,
+    derivationGraph: derivationGraph.graph,
+    ruleTraceChain: inspectRuleTrace(inputText),
+  });
+  const overlay = buildChandasProsodyOverlay({
+    text: inputText,
+    tokens: String(inputText || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token, index) => ({ token, index })),
+    phoneticAnalysis: runShikshaAnalysis(inputText),
+    sandhiTransitions: inspectSandhiText(inputText),
+    symbolicCompression: inspectSymbolicCompression(),
+    phoneticTopology: inspectInputTopology(inputText),
+    morphologyTransitions,
+    sandarbhaContextOverlay,
+    derivationGraph,
+  });
+
+  renderChandasProsodyOverlay(container, overlay);
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -5128,6 +5169,7 @@ async function analyzeCurrentInput() {
     renderKarakaOverlayPanel(inputText);
     renderVakyaDependencyPanel(inputText);
     renderSandarbhaContextPanel(inputText);
+    renderChandasProsodyPanel(inputText);
     renderDhatuSemanticPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
@@ -5143,6 +5185,7 @@ async function analyzeCurrentInput() {
   renderKarakaOverlayPanel(inputText);
   renderVakyaDependencyPanel(inputText);
   renderSandarbhaContextPanel(inputText);
+  renderChandasProsodyPanel(inputText);
   renderDhatuSemanticPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
@@ -6013,6 +6056,7 @@ export function init(node) {
   renderKarakaOverlayPanel(inputNode?.value || "");
   renderVakyaDependencyPanel(inputNode?.value || "");
   renderSandarbhaContextPanel(inputNode?.value || "");
+  renderChandasProsodyPanel(inputNode?.value || "");
   renderDhatuSemanticPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
