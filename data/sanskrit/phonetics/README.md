@@ -122,3 +122,24 @@ Safety:
 - no grammatical correctness guarantee
 - no canonical mutation
 - structural inspection only
+
+## Phonetic Topology Visualization Layer
+
+Status: READ_ONLY_DETERMINISTIC
+
+Components:
+- phonetic-topology-map.js
+- phonetic-topology-engine.js
+
+Capabilities:
+- articulation topology nodes
+- deterministic adjacency edges
+- active articulation highlighting by input
+- read-only UI preview
+
+Safety:
+- no pronunciation correctness claim
+- no chanting validation
+- no audio validation
+- structural visualization only
+- no canonical mutation

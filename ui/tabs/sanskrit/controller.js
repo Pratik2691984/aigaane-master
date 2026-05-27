@@ -1,4 +1,5 @@
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
+import { inspectInputTopology } from "./phonetics/phonetic-topology-engine.js";
 import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
@@ -730,6 +731,31 @@ function renderSymbolicCompressionPanel() {
       item.classId,
       item.sounds.join(" "),
       item.label,
+    );
+  });
+
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderPhoneticTopologyPanel(inputText = "") {
+  const container = byId("phonetic-topology-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectInputTopology(inputText);
+  const activeSet = new Set(analysis.activeNodeIds || []);
+
+  appendInspectionRow(container, "Topology Nodes", analysis.summary.nodeCount || 0);
+  appendInspectionRow(container, "Topology Edges", analysis.summary.edgeCount || 0);
+  appendInspectionRow(container, "Active Nodes", analysis.summary.activeNodeCount || 0);
+
+  analysis.nodes.forEach((node) => {
+    appendInspectionRow(
+      container,
+      activeSet.has(node.id) ? `● ${node.label}` : `○ ${node.label}`,
+      node.sounds.join(" "),
+      `${node.type}; ${node.id}`,
     );
   });
 
@@ -4863,12 +4889,14 @@ async function analyzeCurrentInput() {
   if (!inputText) {
     renderSandhiTransitionPanel(inputText);
     renderTransliterationPanel(inputText);
+    renderPhoneticTopologyPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
 
   renderSandhiTransitionPanel(inputText);
   renderTransliterationPanel(inputText);
+  renderPhoneticTopologyPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5730,6 +5758,7 @@ export function init(node) {
   renderSandhiTransitionPanel(inputNode?.value || "");
   renderTransliterationPanel(inputNode?.value || "");
   renderSymbolicCompressionPanel();
+  renderPhoneticTopologyPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();
