@@ -2574,3 +2574,26 @@
   margin-top: 0.2rem;
   opacity: 0.72;
 }
+
+#sutra-reference-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+#sutra-reference-panel .inspection-row {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(251, 146, 60, 0.035);
+  border: 1px solid rgba(251, 146, 60, 0.12);
+}
+
+#sutra-reference-panel .inspection-row strong {
+  color: #fb923c;
+}
+
+#sutra-reference-panel .inspection-row small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}

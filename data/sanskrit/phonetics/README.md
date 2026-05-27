@@ -187,3 +187,26 @@ Safety:
 - no grammatical derivation correctness claim
 - no canonical mutation
 - placeholder-safe semantic metadata only
+
+## Sūtra Reference Overlay Layer
+
+Status: READ_ONLY_DETERMINISTIC_PLACEHOLDER
+
+Components:
+- sutra-reference-map.js
+- sutra-reference-engine.js
+- sutra-reference-renderer.js
+
+Capabilities:
+- deterministic sūtra reference node preview
+- pratyāhāra-to-symbolic reference linking
+- symbolic compression summary integration
+- semantic graph summary integration
+- read-only UI panel
+
+Safety:
+- no authoritative sūtra interpretation claim
+- no grammatical correctness claim
+- no Paninian derivation correctness claim
+- no canonical mutation
+- placeholder-safe reference metadata only

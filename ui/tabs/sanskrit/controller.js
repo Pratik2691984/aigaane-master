@@ -8,6 +8,8 @@ import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-eng
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
 import { renderDhatuSemanticList } from "./semantic/dhatu-semantic-renderer.js";
+import { inspectSutraReferenceOverlay } from "./sutra/sutra-reference-engine.js";
+import { renderSutraReferenceList } from "./sutra/sutra-reference-renderer.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -830,6 +832,26 @@ function renderDhatuSemanticPanel(inputText = "") {
   appendInspectionRow(container, "Derivation Edges", summary.derivationEdgeCount || 0);
 
   renderDhatuSemanticList(container, analysis);
+
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderSutraReferencePanel(inputText = "") {
+  const container = byId("sutra-reference-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectSutraReferenceOverlay(inputText);
+  const summary = analysis.summary || {};
+
+  appendInspectionRow(container, "Reference Nodes", summary.referenceNodeCount || 0);
+  appendInspectionRow(container, "Reference Edges", summary.referenceEdgeCount || 0);
+  appendInspectionRow(container, "Symbolic Classes", summary.symbolicClassCount || 0);
+  appendInspectionRow(container, "Semantic Nodes", summary.semanticNodeCount || 0);
+  appendInspectionRow(container, "Semantic Edges", summary.semanticEdgeCount || 0);
+
+  renderSutraReferenceList(container, analysis);
 
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
 }
@@ -4964,6 +4986,7 @@ async function analyzeCurrentInput() {
     renderPhoneticTopologyPanel(inputText);
     renderDerivationGraphPanel(inputText);
     renderDhatuSemanticPanel(inputText);
+    renderSutraReferencePanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
@@ -4973,6 +4996,7 @@ async function analyzeCurrentInput() {
   renderPhoneticTopologyPanel(inputText);
   renderDerivationGraphPanel(inputText);
   renderDhatuSemanticPanel(inputText);
+  renderSutraReferencePanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5837,6 +5861,7 @@ export function init(node) {
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
   renderDhatuSemanticPanel(inputNode?.value || "");
+  renderSutraReferencePanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();
