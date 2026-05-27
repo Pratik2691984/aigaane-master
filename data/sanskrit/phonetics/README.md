@@ -80,3 +80,25 @@ Safety:
 - no full Paninian derivation claim
 - no canonical mutation
 - structural inspection only
+
+## Transliteration + IPA Inspection Layer
+
+Status: READ_ONLY_DETERMINISTIC
+
+Components:
+- transliteration-map.js
+- ipa-map.js
+- transliteration-engine.js
+
+Capabilities:
+- Devanāgarī to IAST inspection
+- Devanāgarī to approximate IPA inspection
+- unknown character isolation
+- deterministic UI preview
+
+Safety:
+- no pronunciation correctness claim
+- no audio validation
+- no chanting validation
+- structural inspection only
+- no canonical mutation

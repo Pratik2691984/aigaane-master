@@ -1,6 +1,7 @@
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
 import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
+import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -691,6 +692,21 @@ function renderSandhiTransitionPanel(inputText = "") {
     );
   }
 
+  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderTransliterationPanel(inputText = "") {
+  const container = byId("transliteration-analysis-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectTransliteration(inputText);
+  appendInspectionRow(container, "Characters", analysis.summary.characterCount || 0);
+  appendInspectionRow(container, "IAST", analysis.iast.output || "-");
+  appendInspectionRow(container, "IPA", analysis.ipa.output || "-");
+  appendInspectionRow(container, "IAST Unknown", analysis.summary.iastUnknownCount || 0);
+  appendInspectionRow(container, "IPA Unknown", analysis.summary.ipaUnknownCount || 0);
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
 }
 
@@ -4820,11 +4836,13 @@ async function analyzeCurrentInput() {
 
   if (!inputText) {
     renderSandhiTransitionPanel(inputText);
+    renderTransliterationPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
 
   renderSandhiTransitionPanel(inputText);
+  renderTransliterationPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5684,6 +5702,7 @@ export function init(node) {
 
   renderInitialState();
   renderSandhiTransitionPanel(inputNode?.value || "");
+  renderTransliterationPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();
