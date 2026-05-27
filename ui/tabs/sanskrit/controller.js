@@ -1,3 +1,5 @@
+import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
+import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
 import { inspectInputTopology } from "./phonetics/phonetic-topology-engine.js";
 import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
@@ -760,6 +762,54 @@ function renderPhoneticTopologyPanel(inputText = "") {
   });
 
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderDerivationGraphPanel(inputText = "") {
+  const container = byId("derivation-graph-panel");
+  if (!container) return;
+
+  clearChildren(container);
+
+  const analysis = inspectDerivationGraph(inputText);
+
+  appendInspectionRow(
+    container,
+    "Graph Nodes",
+    analysis.summary.nodeCount || 0,
+  );
+
+  appendInspectionRow(
+    container,
+    "Graph Edges",
+    analysis.summary.edgeCount || 0,
+  );
+
+  appendInspectionRow(
+    container,
+    "Symbolic Classes",
+    analysis.summary.symbolicClassCount || 0,
+  );
+
+  appendInspectionRow(
+    container,
+    "Topology Nodes",
+    analysis.summary.topologyNodeCount || 0,
+  );
+
+  appendInspectionRow(
+    container,
+    "Sandhi Transitions",
+    analysis.summary.sandhiTransitionCount || 0,
+  );
+
+  renderDerivationOverlayList(container, analysis);
+
+  appendInspectionRow(
+    container,
+    "Safety",
+    "Read-only",
+    analysis.safetyNote,
+  );
 }
 
 function appendEmpty(node, message = "No entries") {
@@ -4890,6 +4940,7 @@ async function analyzeCurrentInput() {
     renderSandhiTransitionPanel(inputText);
     renderTransliterationPanel(inputText);
     renderPhoneticTopologyPanel(inputText);
+    renderDerivationGraphPanel(inputText);
     setStatus("Enter Sanskrit text to analyze.", true);
     return;
   }
@@ -4897,6 +4948,7 @@ async function analyzeCurrentInput() {
   renderSandhiTransitionPanel(inputText);
   renderTransliterationPanel(inputText);
   renderPhoneticTopologyPanel(inputText);
+  renderDerivationGraphPanel(inputText);
   setStatus("Analyzing...");
   setBusy(analyzeButton, true);
 
@@ -5759,6 +5811,7 @@ export function init(node) {
   renderTransliterationPanel(inputNode?.value || "");
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
+  renderDerivationGraphPanel(inputNode?.value || "");
   updateMorphologyFields();
   loadSemanticDhatuPanel();
   loadSemanticPlatformStatusPanel();

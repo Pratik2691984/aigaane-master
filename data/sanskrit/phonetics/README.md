@@ -143,3 +143,25 @@ Safety:
 - no audio validation
 - structural visualization only
 - no canonical mutation
+
+## Derivation Graph Overlay Layer
+
+Status: READ_ONLY_DETERMINISTIC
+
+Components:
+- derivation-graph-map.js
+- derivation-graph-engine.js
+- derivation-overlay-renderer.js
+
+Capabilities:
+- symbolic overlay inspection
+- topology overlay inspection
+- sandhi overlay inspection
+- deterministic graph preview
+- read-only graph visualization
+
+Safety:
+- no authoritative derivation correctness claim
+- no canonical mutation
+- no automated grammar generation
+- structural overlay inspection only
