@@ -16,6 +16,8 @@ import { executeSandhi } from "./sandhi/sandhi-execution-engine.js";
 import { renderSandhiExecution } from "./sandhi/sandhi-trace-renderer.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
 import { renderDhatuSemanticList } from "./semantic/dhatu-semantic-renderer.js";
+import { generateSubanta } from "./subanta/subanta-generator-engine.js";
+import { renderSubanta } from "./subanta/subanta-renderer.js";
 import { buildSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-engine.js";
 import { renderSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-renderer.js";
 import { inspectSutraReferenceOverlay } from "./sutra/sutra-reference-engine.js";
@@ -896,6 +898,24 @@ function renderMorphologyTransitionPanel(inputText = "") {
   renderMorphologyTransitionList(container, analysis);
 
   appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+}
+
+function renderSubantaGeneratorPanel(inputText = "") {
+  const container = byId("subanta-generator-panel");
+  if (!container) return;
+
+  const stem = String(inputText || "")
+    .split(/\s+/)
+    .filter(Boolean)[0] || "";
+  const generation = generateSubanta({
+    stem,
+    vibhakti: "prathama",
+    vacana: "eka",
+    enableTrace: true,
+    enableReversePreview: true,
+  });
+
+  renderSubanta(container, generation);
 }
 
 function renderKarakaOverlayPanel(inputText = "") {
@@ -5147,6 +5167,7 @@ async function analyzeCurrentInput() {
     renderTransliterationPanel(inputText);
     renderPhoneticTopologyPanel(inputText);
     renderSandhiExecutionPanel(inputText);
+    renderSubantaGeneratorPanel(inputText);
     renderDerivationGraphPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
@@ -5163,6 +5184,7 @@ async function analyzeCurrentInput() {
   renderTransliterationPanel(inputText);
   renderPhoneticTopologyPanel(inputText);
   renderSandhiExecutionPanel(inputText);
+  renderSubantaGeneratorPanel(inputText);
   renderDerivationGraphPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
@@ -6032,6 +6054,7 @@ export function init(node) {
   renderInitialState();
   renderTransliterationPanel(inputNode?.value || "");
   renderSandhiExecutionPanel(inputNode?.value || "");
+  renderSubantaGeneratorPanel(inputNode?.value || "");
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
