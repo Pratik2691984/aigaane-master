@@ -613,10 +613,173 @@ def build_derivation_history(text: str, transliterated: str, sandhi_steps: List[
     return history[:MAX_DERIVATION_STEPS]
 
 
-def build_prakriya_graph(history: List[Dict[str, str]]) -> Dict[str, List[Dict[str, str]]]:
-    nodes = [{"id": f"n{index}", "label": step["stage"]} for index, step in enumerate(history)]
-    edges = [{"from": f"n{index}", "to": f"n{index + 1}", "rule": history[index + 1]["rule"]} for index in range(len(history) - 1)]
-    return {"nodes": nodes, "edges": edges}
+PRAKRIYA_OVERLAY_TYPES = ("karaka", "vakya", "chandas", "sandarbha", "semantic", "rule-trace")
+
+
+def _attach_overlay_to_node(
+    nodes: List[Dict[str, Any]],
+    node_id: str,
+    overlay_type: str,
+    overlay_data: Dict[str, Any],
+) -> None:
+    for node in nodes:
+        if node.get("id") == node_id:
+            overlays = dict(node.get("overlays") or {})
+            overlays[overlay_type] = dict(overlay_data)
+            node["overlays"] = overlays
+            return
+
+
+def _attach_overlay_to_edge(
+    edges: List[Dict[str, Any]],
+    edge_id: str,
+    overlay_type: str,
+    overlay_data: Dict[str, Any],
+) -> None:
+    for edge in edges:
+        if edge.get("id") == edge_id:
+            overlays = dict(edge.get("overlays") or {})
+            overlays[overlay_type] = dict(overlay_data)
+            edge["overlays"] = overlays
+            return
+
+
+def _overlay_count(nodes: List[Dict[str, Any]], edges: List[Dict[str, Any]], overlays: List[Dict[str, Any]]) -> int:
+    node_count = sum(len(node.get("overlays") or {}) for node in nodes)
+    edge_count = sum(len(edge.get("overlays") or {}) for edge in edges)
+    return node_count + edge_count + len(overlays)
+
+
+def _graph_overlay_summary(
+    overlay_type: str,
+    status: str = "ready",
+    diagnostics: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    return {
+        "id": f"backend.overlay.{overlay_type}",
+        "overlayType": overlay_type,
+        "sourceLayer": overlay_type,
+        "status": status,
+        "diagnostics": diagnostics or {},
+        "confidence": "deterministic",
+    }
+
+
+def build_prakriya_graph(
+    history: List[Dict[str, str]],
+    lexical_entries: Optional[List[Dict[str, Any]]] = None,
+    padas: Optional[List[Dict[str, Any]]] = None,
+    phonological_syllables: Optional[List[Dict[str, Any]]] = None,
+) -> Dict[str, Any]:
+    safe_history = [dict(step) for step in (history or []) if isinstance(step, dict)]
+    safe_lexical = [dict(entry) for entry in (lexical_entries or []) if isinstance(entry, dict)]
+    safe_padas = [dict(pada) for pada in (padas or []) if isinstance(pada, dict)]
+    safe_syllables = [dict(syllable) for syllable in (phonological_syllables or []) if isinstance(syllable, dict)]
+
+    nodes: List[Dict[str, Any]] = [
+        {
+            "id": f"n{index}",
+            "label": step.get("stage", "unknown"),
+            "type": step.get("stage", "unknown"),
+            "stage": step.get("stage", "unknown"),
+            "order": index,
+            "ruleId": step.get("rule"),
+            "input": step.get("input"),
+            "output": step.get("output"),
+            "overlays": {},
+        }
+        for index, step in enumerate(safe_history)
+    ]
+    edges: List[Dict[str, Any]] = [
+        {
+            "id": f"e{index}",
+            "from": f"n{index}",
+            "to": f"n{index + 1}",
+            "source": f"n{index}",
+            "target": f"n{index + 1}",
+            "type": "transforms",
+            "rule": safe_history[index + 1].get("rule"),
+            "label": safe_history[index + 1].get("rule"),
+            "order": index,
+            "overlays": {},
+        }
+        for index in range(max(len(safe_history) - 1, 0))
+    ]
+
+    overlays = [
+        _graph_overlay_summary("karaka", diagnostics={"tokenCount": len(safe_lexical)}),
+        _graph_overlay_summary("vakya", diagnostics={"edgeCount": 1 if len(safe_lexical) > 1 else 0}),
+        _graph_overlay_summary("chandas", diagnostics={"padaCount": len(safe_padas), "syllableCount": len(safe_syllables)}),
+        _graph_overlay_summary("sandarbha", diagnostics={"contextCandidateCount": max(len(safe_lexical) - 1, 0)}),
+        _graph_overlay_summary("semantic", diagnostics={"lexicalNodeCount": len(safe_lexical)}),
+        _graph_overlay_summary("rule-trace", diagnostics={"ruleTraceCount": len(safe_history)}),
+    ]
+
+    final_node_id = nodes[-1]["id"] if nodes else None
+    sandhi_node = next((node for node in nodes if node.get("stage") == "sandhi"), None)
+    lexical_node = next((node for node in nodes if node.get("stage") in {"transliteration", "final-form cleanup"}), None)
+
+    if lexical_node:
+        _attach_overlay_to_node(
+            nodes,
+            lexical_node["id"],
+            "semantic",
+            {"sourceCollection": "lexical_lookup", "items": safe_lexical[:MAX_CANDIDATES]},
+        )
+        _attach_overlay_to_node(
+            nodes,
+            lexical_node["id"],
+            "karaka",
+            {"sourceCollection": "lexical_lookup", "items": safe_lexical[:MAX_CANDIDATES]},
+        )
+    if final_node_id:
+        _attach_overlay_to_node(
+            nodes,
+            final_node_id,
+            "chandas",
+            {"sourceCollection": "phonological_syllables", "syllableCount": len(safe_syllables), "padaCount": len(safe_padas)},
+        )
+        _attach_overlay_to_node(
+            nodes,
+            final_node_id,
+            "sandarbha",
+            {"sourceCollection": "lexical_lookup", "contextCandidateCount": max(len(safe_lexical) - 1, 0)},
+        )
+    if sandhi_node:
+        _attach_overlay_to_node(
+            nodes,
+            sandhi_node["id"],
+            "rule-trace",
+            {"sourceCollection": "derivation_history", "ruleId": sandhi_node.get("ruleId")},
+        )
+
+    if edges:
+        _attach_overlay_to_edge(edges, edges[0]["id"], "vakya", {"relation": "backendTokenFlow", "confidence": "deterministic"})
+        if len(edges) > 1:
+            _attach_overlay_to_edge(edges, edges[-1]["id"], "rule-trace", {"relation": "backendRuleTrace", "confidence": "deterministic"})
+
+    return {
+        "schemaVersion": "prakriya-unified-graph.backend.v1",
+        "status": "ready",
+        "graphType": "deterministic-prakriya-unified-runtime",
+        "nodes": nodes,
+        "edges": edges,
+        "overlays": overlays,
+        "metadata": {
+            "overlaysAttached": list(PRAKRIYA_OVERLAY_TYPES),
+            "overlayBridge": {
+                "status": "ready",
+                "schemaVersion": "prakriya-overlay-bridge.backend.v1",
+            },
+        },
+        "diagnostics": {
+            "nodeCount": len(nodes),
+            "edgeCount": len(edges),
+            "overlayCount": _overlay_count(nodes, edges, overlays),
+            "unresolvedCount": 0,
+            "warnings": [],
+        },
+    }
 
 
 def lexical_lookup(text: str) -> List[Dict[str, Any]]:
@@ -659,7 +822,7 @@ def empty_payload(input_text: str, diagnostics: List[Dict[str, str]]) -> Dict[st
         "padas": [],
         "phonological_syllables": [],
         "derivation_history": [],
-        "prakriya_graph": {"nodes": [], "edges": []},
+        "prakriya_graph": build_prakriya_graph([]),
         "lexical_lookup": [],
         "parser_diagnostics": diagnostics,
         "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
@@ -685,6 +848,8 @@ def analyze_sanskrit(input_text: str) -> Dict[str, Any]:
         derivation_history = build_derivation_history(normalized, transliterated, sandhi_steps)
         pada_segments = build_pada_segments(normalized, started_at)
         padas = build_padas(normalized, transliterated, phonological_syllables, started_at)
+        lexical_entries = lexical_lookup(transliterated)
+        phonological_syllable_dicts = [node.__dict__ for node in phonological_syllables]
 
         if not phonological_syllables:
             diagnostics.append({"level": "warning", "message": "No phonological syllables were detected."})
@@ -700,10 +865,15 @@ def analyze_sanskrit(input_text: str) -> Dict[str, Any]:
             "total_matra_count": sum(node.matra_count for node in phonological_syllables),
             "pada_segments": pada_segments,
             "padas": padas,
-            "phonological_syllables": [node.__dict__ for node in phonological_syllables],
+            "phonological_syllables": phonological_syllable_dicts,
             "derivation_history": derivation_history,
-            "prakriya_graph": build_prakriya_graph(derivation_history),
-            "lexical_lookup": lexical_lookup(transliterated),
+            "prakriya_graph": build_prakriya_graph(
+                derivation_history,
+                lexical_entries=lexical_entries,
+                padas=padas,
+                phonological_syllables=phonological_syllable_dicts,
+            ),
+            "lexical_lookup": lexical_entries,
             "parser_diagnostics": diagnostics,
             "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
             "experimental_payload": experimental_projection(phonological_syllables),
