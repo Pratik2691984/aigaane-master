@@ -332,6 +332,41 @@ function buildStructuralGraphEdges(syllables, ganas, padaCandidates, metreCandid
   return edges;
 }
 
+function buildRecitationFlowCandidates(padaRhythmCandidates) {
+  const flows = [];
+
+  for (let index = 0; index + 1 < padaRhythmCandidates.length; index += 1) {
+    const current = padaRhythmCandidates[index];
+    const next = padaRhythmCandidates[index + 1];
+
+    flows.push({
+      id: `chandas.flow.${index}.${stablePart(current.padaId)}.${stablePart(next.padaId)}`,
+      fromPadaId: current.padaId,
+      toPadaId: next.padaId,
+      fromRhythmId: current.id,
+      toRhythmId: next.id,
+      transitionIndex: index,
+      confidence: "deterministic-candidate",
+      source: "chandas-recitation-flow",
+      notes: "Candidate sequencing only; no recitation quality or performative interpretation is claimed.",
+    });
+  }
+
+  return flows;
+}
+
+function buildBreathWindowCandidates(padaCandidates) {
+  return padaCandidates.slice(0, -1).map((pada, index) => ({
+    id: `chandas.breath.${index}.${pada.endIndex}`,
+    afterPadaId: pada.id,
+    afterSyllableIndex: pada.endIndex,
+    beforePadaIndex: index + 1,
+    confidence: "deterministic-candidate",
+    source: "chandas-breath-window",
+    notes: "Candidate pause window only; no chanting instruction is inferred.",
+  }));
+}
+
 function buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates = [], caesuraCandidates = []) {
   const edges = [];
   ganas.forEach((gana) => {
@@ -414,6 +449,8 @@ const structuralGraphEdges = buildStructuralGraphEdges(
   padaRhythmCandidates,
   caesuraCandidates,
 );
+  const recitationFlowCandidates = buildRecitationFlowCandidates(padaRhythmCandidates);
+  const breathWindowCandidates = buildBreathWindowCandidates(padaCandidates);
   const trailing = syllables.length % 3;
   const unresolvedCount = trailing === 0 ? 0 : trailing;
 
@@ -435,6 +472,8 @@ const structuralGraphEdges = buildStructuralGraphEdges(
     caesuraCandidates,
     structuralGraphNodes,
     structuralGraphEdges,
+    recitationFlowCandidates,
+    breathWindowCandidates,
     edges: buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates, caesuraCandidates),
     diagnostics: {
       syllableCount: syllables.length,
@@ -449,6 +488,8 @@ const structuralGraphEdges = buildStructuralGraphEdges(
       matchedMetres: metreCandidates.map((metre) => metre.label),
       structuralGraphNodeCount: structuralGraphNodes.length,
       structuralGraphEdgeCount: structuralGraphEdges.length,
+      recitationFlowCandidateCount: recitationFlowCandidates.length,
+      breathWindowCandidateCount: breathWindowCandidates.length,
       unresolvedCount,
       warnings,
     },
@@ -470,6 +511,8 @@ export function attachChandasOverlay(graph, overlayData = {}, bridge = {}) {
   "caesuraCandidates",
   "structuralGraphNodes",
   "structuralGraphEdges",
+  "recitationFlowCandidates",
+  "breathWindowCandidates",
 ],
     ["edges"],
   );

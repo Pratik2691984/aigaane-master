@@ -3509,6 +3509,8 @@
 .chandas-metre-warning,
 .chandas-rhythm-candidate,
 .chandas-caesura-candidate,
+.chandas-recitation-flow,
+.chandas-breath-window,
 .chandas-unresolved
  {
   padding: 0.4rem 0.55rem;
@@ -3557,6 +3559,16 @@
   border-color: rgba(129, 140, 248, 0.14);
 }
 
+.chandas-recitation-flow {
+  background: rgba(251, 146, 60, 0.035);
+  border-color: rgba(251, 146, 60, 0.14);
+}
+
+.chandas-breath-window {
+  background: rgba(103, 232, 249, 0.035);
+  border-color: rgba(103, 232, 249, 0.14);
+}
+
 .chandas-unresolved {
   background: rgba(148, 163, 184, 0.035);
   border-color: rgba(148, 163, 184, 0.12);
@@ -3571,6 +3583,8 @@
 .chandas-rhythm-candidate small,
 .chandas-caesura-candidate small,
 .chandas-structural-graph small,
+.chandas-recitation-flow small,
+.chandas-breath-window small,
 .chandas-unresolved small {
   display: block;
   margin-top: 0.2rem;

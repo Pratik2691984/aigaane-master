@@ -103,6 +103,22 @@ export const CHANDAS_PROSODY_MAP = [
     confidence: "deterministic",
     color: "#a78bfa",
   },
+    {
+    id: "recitationFlowCandidate",
+    label: "recitation flow candidate",
+    trigger: "pada-sequence-transition",
+    description: "Deterministic transition candidate between explicit pāda rhythm segments.",
+    confidence: "deterministic-candidate",
+    color: "#fb923c",
+  },
+  {
+    id: "breathWindowCandidate",
+    label: "breath window candidate",
+    trigger: "pada-boundary-pause-window",
+    description: "Candidate breath window derived from explicit pāda boundary inspection.",
+    confidence: "deterministic-candidate",
+    color: "#67e8f9",
+  },
   {
     id: "metreCandidate",
     label: "metre candidate",

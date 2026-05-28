@@ -45,6 +45,8 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
     `caesura: ${diagnostics.caesuraCandidateCount || 0}`,
     `struct nodes: ${diagnostics.structuralGraphNodeCount || 0}`,
     `struct edges: ${diagnostics.structuralGraphEdgeCount || 0}`,
+    `flow: ${diagnostics.recitationFlowCandidateCount || 0}`,
+    `breath: ${diagnostics.breathWindowCandidateCount || 0}`,
   ].join(" · ");
   container.appendChild(diagnosticsNode);
 
@@ -97,6 +99,28 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
       "Deterministic projection from explicit chandas overlay components.",
     );
   }
+
+    const flows = Array.isArray(overlay?.recitationFlowCandidates) ? overlay.recitationFlowCandidates : [];
+  flows.forEach((flow) => {
+    appendBox(
+      container,
+      "chandas-recitation-flow",
+      "recitation flow",
+      `${flow.fromPadaId} → ${flow.toPadaId}`,
+      "Candidate sequencing only; no recitation quality is inferred.",
+    );
+  });
+
+  const breathWindows = Array.isArray(overlay?.breathWindowCandidates) ? overlay.breathWindowCandidates : [];
+  breathWindows.forEach((window) => {
+    appendBox(
+      container,
+      "chandas-breath-window",
+      "breath window",
+      `after syllable ${window.afterSyllableIndex}`,
+      "Candidate pause window only; no chanting instruction is inferred.",
+    );
+  });
 
   const metres = Array.isArray(overlay?.metreCandidates) ? overlay.metreCandidates : [];
 
