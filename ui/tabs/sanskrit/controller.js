@@ -6,6 +6,8 @@ import { createChandasOverlaySnapshot } from "./chandas/chandas-overlay-snapshot
 import { renderChandasOverlaySnapshot } from "./chandas/chandas-overlay-snapshot-renderer.js";
 import { diffChandasOverlaySnapshots } from "./chandas/chandas-overlay-diff-engine.js";
 import { renderChandasOverlayDiff } from "./chandas/chandas-overlay-diff-renderer.js";
+import { buildChandasOverlayHistory } from "./chandas/chandas-overlay-history-engine.js";
+import { renderChandasOverlayHistory } from "./chandas/chandas-overlay-history-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -1193,6 +1195,16 @@ function renderChandasProsodyPanel(inputText = "") {
   diffHost.className = "chandas-overlay-diff-host";
   diffHost.innerHTML = renderChandasOverlayDiff(diff);
   container.appendChild(diffHost);
+
+    const history = buildChandasOverlayHistory(
+    [baselineSnapshot, snapshot],
+    [diff]
+  );
+
+  const historyHost = document.createElement("div");
+  historyHost.className = "chandas-overlay-history-host";
+  historyHost.innerHTML = renderChandasOverlayHistory(history);
+  container.appendChild(historyHost);
 }
 
 
