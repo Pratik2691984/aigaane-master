@@ -155,6 +155,30 @@ class TestChandasMetreRegistry(unittest.TestCase):
         self.assertEqual(unknown["path"], "unknown")
         self.assertIn("Unknown chandas overlay navigation path.", unknown["warnings"])
 
+    def test_chandas_overlay_registry(self):
+        from api.engines.vyakarana import build_chandas_overlay_registry
+
+        registry = build_chandas_overlay_registry()
+
+        self.assertEqual(registry["schemaVersion"], "chandas-overlay-registry.v1")
+        self.assertEqual(registry["status"], "ready")
+        self.assertEqual(registry["overlayType"], "chandas")
+        self.assertGreaterEqual(registry["capabilityCount"], 8)
+
+        capability_ids = {capability["id"] for capability in registry["capabilities"]}
+
+        self.assertIn("metreRegistry", capability_ids)
+        self.assertIn("rhythmLayer", capability_ids)
+        self.assertIn("structuralGraph", capability_ids)
+        self.assertIn("recitationFlow", capability_ids)
+        self.assertIn("recitationTiming", capability_ids)
+        self.assertIn("apiProjection", capability_ids)
+        self.assertIn("queryLayer", capability_ids)
+        self.assertIn("navigationLayer", capability_ids)
+
+        self.assertIn("chandas-overlay-registry.v1", registry["schemaVersion"])
+        self.assertIn("chandas-prosody-overlay.v1", registry["availableSchemas"])
+
 
 if __name__ == "__main__":
     unittest.main()

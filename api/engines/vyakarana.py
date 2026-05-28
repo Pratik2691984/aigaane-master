@@ -912,6 +912,78 @@ def navigate_chandas_overlay_projection(
         "warnings": [] if normalized_path in path_map else ["Unknown chandas overlay navigation path."],
     }
 
+def build_chandas_overlay_registry() -> Dict[str, Any]:
+    capabilities = [
+        {
+            "id": "metreRegistry",
+            "label": "Metre Registry",
+            "schemaVersion": "chandas-prosody-overlay.v1",
+            "dependency": "chandasMetreRegistryAttached",
+            "status": "ready",
+        },
+        {
+            "id": "rhythmLayer",
+            "label": "Rhythm Layer",
+            "schemaVersion": "chandas-prosody-overlay.v1",
+            "dependency": "chandasRhythmLayerAttached",
+            "status": "ready",
+        },
+        {
+            "id": "structuralGraph",
+            "label": "Structural Graph",
+            "schemaVersion": "chandas-prosody-overlay.v1",
+            "dependency": "chandasStructuralGraphAttached",
+            "status": "ready",
+        },
+        {
+            "id": "recitationFlow",
+            "label": "Recitation Flow",
+            "schemaVersion": "chandas-prosody-overlay.v1",
+            "dependency": "chandasRecitationFlowAttached",
+            "status": "ready",
+        },
+        {
+            "id": "recitationTiming",
+            "label": "Recitation Timing",
+            "schemaVersion": "chandas-prosody-overlay.v1",
+            "dependency": "chandasRecitationTimingAttached",
+            "status": "ready",
+        },
+        {
+            "id": "apiProjection",
+            "label": "Overlay API Projection",
+            "schemaVersion": "chandas-overlay-api-projection.v1",
+            "dependency": "build_chandas_overlay_api_projection",
+            "status": "ready",
+        },
+        {
+            "id": "queryLayer",
+            "label": "Overlay Query Layer",
+            "schemaVersion": "chandas-overlay-query.v1",
+            "dependency": "query_chandas_overlay_projection",
+            "status": "ready",
+        },
+        {
+            "id": "navigationLayer",
+            "label": "Overlay Navigation Layer",
+            "schemaVersion": "chandas-overlay-navigation.v1",
+            "dependency": "navigate_chandas_overlay_projection",
+            "status": "ready",
+        },
+    ]
+
+    return {
+        "schemaVersion": "chandas-overlay-registry.v1",
+        "status": "ready",
+        "overlayType": "chandas",
+        "capabilities": capabilities,
+        "capabilityCount": len(capabilities),
+        "availableSchemas": sorted(
+            {capability["schemaVersion"] for capability in capabilities}
+        ),
+        "warnings": [],
+    }
+
 def build_rulefire_projection() -> Dict[str, Any]:
     return {
         "schemaVersion": "rulefire.v1",
