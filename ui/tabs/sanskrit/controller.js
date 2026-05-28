@@ -12,6 +12,8 @@ import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
+import { executePrakriya } from "./prakriya/prakriya-composition-engine.js";
+import { renderPrakriya } from "./prakriya/prakriya-renderer.js";
 import { executeSandhi } from "./sandhi/sandhi-execution-engine.js";
 import { renderSandhiExecution } from "./sandhi/sandhi-trace-renderer.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
@@ -940,6 +942,33 @@ function renderTinantaGeneratorPanels(inputText = "") {
 
   if (formContainer) renderTinanta(formContainer, generateTinanta(baseInput));
   if (paradigmContainer) renderTinantaParadigm(paradigmContainer, generateTinantaParadigm(baseInput));
+}
+
+function renderPrakriyaCompositionPanel(inputText = "") {
+  const container = byId("prakriya-composition-panel");
+  if (!container) return;
+
+  const firstToken = String(inputText || "")
+    .split(/\s+/)
+    .filter(Boolean)[0] || "";
+  const nounInput = firstToken === "फल"
+    ? { stem: "फल", stemClass: "a-stem", linga: "neuter", vibhakti: "prathama", vacana: "eka" }
+    : firstToken === "सीता"
+      ? { stem: "सीता", stemClass: "ā-stem", linga: "feminine", vibhakti: "prathama", vacana: "eka" }
+      : { stem: "राम", stemClass: "a-stem", linga: "masculine", vibhakti: "prathama", vacana: "eka" };
+  const verbInput = firstToken === "भू" || firstToken === "bhū"
+    ? { dhatu: "bhū", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" }
+    : firstToken === "नी" || firstToken === "nī"
+      ? { dhatu: "nī", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" }
+      : { dhatu: "gam", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" };
+
+  renderPrakriya(container, executePrakriya({
+    nounInputs: [nounInput],
+    verbInput,
+    enableSandhi: true,
+    enableTrace: true,
+    enableReversePreview: true,
+  }));
 }
 
 function renderKarakaOverlayPanel(inputText = "") {
@@ -5193,6 +5222,7 @@ async function analyzeCurrentInput() {
     renderSandhiExecutionPanel(inputText);
     renderSubantaGeneratorPanel(inputText);
     renderTinantaGeneratorPanels(inputText);
+    renderPrakriyaCompositionPanel(inputText);
     renderDerivationGraphPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
@@ -5211,6 +5241,7 @@ async function analyzeCurrentInput() {
   renderSandhiExecutionPanel(inputText);
   renderSubantaGeneratorPanel(inputText);
   renderTinantaGeneratorPanels(inputText);
+  renderPrakriyaCompositionPanel(inputText);
   renderDerivationGraphPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
@@ -6082,6 +6113,7 @@ export function init(node) {
   renderSandhiExecutionPanel(inputNode?.value || "");
   renderSubantaGeneratorPanel(inputNode?.value || "");
   renderTinantaGeneratorPanels(inputNode?.value || "");
+  renderPrakriyaCompositionPanel(inputNode?.value || "");
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
