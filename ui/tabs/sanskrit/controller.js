@@ -6,6 +6,8 @@ import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
 import { renderKarakaOverlay } from "./karaka/karaka-overlay-renderer.js";
 import { inspectMorphologyTransitions } from "./morphology/morphology-transition-engine.js";
 import { renderMorphologyTransitionList } from "./morphology/morphology-transition-renderer.js";
+import { buildNiruktaOverlay, attachNiruktaToGraph } from "./nirukta/nirukta-etymology-engine.js";
+import { renderNiruktaOverlay } from "./nirukta/nirukta-etymology-renderer.js";
 import { expandPratyahara } from "./phonetics/pratyahara-engine.js";
 import { inspectInputTopology } from "./phonetics/phonetic-topology-engine.js";
 import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
@@ -986,7 +988,8 @@ function renderPrakriyaTraceGraphPanel(inputText = "") {
   const container = byId("prakriya-trace-graph-panel");
   const rulefireContainer = byId("rulefire-panel");
   const sutraDependencyContainer = byId("sutra-dependency-panel");
-  if (!container && !rulefireContainer && !sutraDependencyContainer) return;
+  const niruktaContainer = byId("nirukta-etymology-panel");
+  if (!container && !rulefireContainer && !sutraDependencyContainer && !niruktaContainer) return;
 
   const execution = executePrakriya(buildPrakriyaCompositionInput(inputText));
   const traceGraph = buildPrakriyaTraceGraph(execution);
@@ -1004,7 +1007,19 @@ function renderPrakriyaTraceGraphPanel(inputText = "") {
     sutraReferenceOverlay,
   });
   const linkedRulefire = attachSutraDependenciesToRulefire(rulefire, sutraDependencyGraph);
-  const rulefireGraph = attachSutraDependenciesToGraph(attachRulefireToGraph(traceGraph, linkedRulefire), sutraDependencyGraph);
+  const semanticOverlay = inspectDhatuSemanticGraph(inputText);
+  const niruktaOverlay = buildNiruktaOverlay({
+    generatedPadas: execution.generatedPadas,
+    prakriyaExecution: execution,
+    rulefire: linkedRulefire,
+    sutraDependency: sutraDependencyGraph,
+    semanticOverlay,
+    traceGraph,
+  });
+  const rulefireGraph = attachNiruktaToGraph(
+    attachSutraDependenciesToGraph(attachRulefireToGraph(traceGraph, linkedRulefire), sutraDependencyGraph),
+    niruktaOverlay,
+  );
   const morphologyTransitions = inspectMorphologyTransitions(inputText);
   const unifiedGraph = attachAllOverlays(rulefireGraph, execution, {
     inputText,
@@ -1017,6 +1032,7 @@ function renderPrakriyaTraceGraphPanel(inputText = "") {
   renderPrakriyaTraceGraph(container, unifiedGraph);
   renderRulefire(rulefireContainer, linkedRulefire);
   renderSutraDependency(sutraDependencyContainer, sutraDependencyGraph);
+  renderNiruktaOverlay(niruktaContainer, niruktaOverlay);
 }
 
 function renderKarakaOverlayPanel(inputText = "") {

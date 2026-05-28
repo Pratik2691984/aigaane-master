@@ -768,6 +768,7 @@ def build_prakriya_graph(
         "metadata": {
             "overlaysAttached": list(PRAKRIYA_OVERLAY_TYPES),
             "dependenciesAttached": True,
+            "niruktaAttached": True,
             "overlayBridge": {
                 "status": "ready",
                 "schemaVersion": "prakriya-overlay-bridge.backend.v1",
@@ -821,6 +822,24 @@ def build_sutra_dependency_projection() -> Dict[str, Any]:
     }
 
 
+def build_nirukta_projection() -> Dict[str, Any]:
+    return {
+        "schemaVersion": "nirukta-etymology.v1",
+        "status": "ready",
+        "overlayType": "deterministic-nirukta-etymology",
+        "entries": [],
+        "candidates": [],
+        "unresolved": [],
+        "edges": [],
+        "diagnostics": {
+            "candidateCount": 0,
+            "unresolvedCount": 0,
+            "edgeCount": 0,
+            "warnings": [],
+        },
+    }
+
+
 def lexical_lookup(text: str) -> List[Dict[str, Any]]:
     entries: List[Dict[str, Any]] = []
     for token in TOKEN_PATTERN.findall(text.lower())[:MAX_CANDIDATES]:
@@ -864,6 +883,7 @@ def empty_payload(input_text: str, diagnostics: List[Dict[str, str]]) -> Dict[st
         "prakriya_graph": build_prakriya_graph([]),
         "rulefire": build_rulefire_projection(),
         "sutra_dependency": build_sutra_dependency_projection(),
+        "nirukta": build_nirukta_projection(),
         "lexical_lookup": [],
         "parser_diagnostics": diagnostics,
         "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
@@ -916,6 +936,7 @@ def analyze_sanskrit(input_text: str) -> Dict[str, Any]:
             ),
             "rulefire": build_rulefire_projection(),
             "sutra_dependency": build_sutra_dependency_projection(),
+            "nirukta": build_nirukta_projection(),
             "lexical_lookup": lexical_entries,
             "parser_diagnostics": diagnostics,
             "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
