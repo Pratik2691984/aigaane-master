@@ -4,6 +4,8 @@ import { inspectChandasOverlayRegistry } from "./chandas/chandas-overlay-inspect
 import { renderChandasOverlayInspection } from "./chandas/chandas-overlay-inspection-renderer.js";
 import { createChandasOverlaySnapshot } from "./chandas/chandas-overlay-snapshot-engine.js";
 import { renderChandasOverlaySnapshot } from "./chandas/chandas-overlay-snapshot-renderer.js";
+import { diffChandasOverlaySnapshots } from "./chandas/chandas-overlay-diff-engine.js";
+import { renderChandasOverlayDiff } from "./chandas/chandas-overlay-diff-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -1180,6 +1182,17 @@ function renderChandasProsodyPanel(inputText = "") {
   snapshotHost.className = "chandas-overlay-snapshot-host";
   snapshotHost.innerHTML = renderChandasOverlaySnapshot(snapshot);
   container.appendChild(snapshotHost);
+
+    const baselineSnapshot = createChandasOverlaySnapshot(inspection, {
+    sequence: 0,
+  });
+
+  const diff = diffChandasOverlaySnapshots(baselineSnapshot, snapshot);
+
+  const diffHost = document.createElement("div");
+  diffHost.className = "chandas-overlay-diff-host";
+  diffHost.innerHTML = renderChandasOverlayDiff(diff);
+  container.appendChild(diffHost);
 }
 
 
