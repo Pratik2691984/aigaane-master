@@ -72,6 +72,56 @@ class TestChandasMetreRegistry(unittest.TestCase):
 
         self.assertIn("graphDiagnostics", projection)
 
+    def test_chandas_overlay_query_projection(self):
+        from api.engines.vyakarana import (
+            build_chandas_overlay_api_projection,
+            build_prakriya_graph,
+            query_chandas_overlay_projection,
+        )
+
+        graph = build_prakriya_graph(
+            [{"stage": "input", "input": "x", "output": "x", "rule": "identity"}],
+            phonological_syllables=[{"text": "अ"}],
+            padas=[],
+        )
+
+        projection = build_chandas_overlay_api_projection(graph)
+
+        summary = query_chandas_overlay_projection(projection)
+
+        self.assertEqual(
+            summary["schemaVersion"],
+            "chandas-overlay-query.v1",
+        )
+        self.assertEqual(summary["status"], "ready")
+        self.assertEqual(summary["componentType"], "summary")
+        self.assertIn("availableComponents", summary["result"])
+
+        diagnostics = query_chandas_overlay_projection(
+            projection,
+            "diagnostics",
+        )
+
+        self.assertEqual(
+            diagnostics["componentType"],
+            "diagnostics",
+        )
+        self.assertIn(
+            "metreCandidateCount",
+            diagnostics["result"],
+        )
+
+        capabilities = query_chandas_overlay_projection(
+            projection,
+            "capabilities",
+        )
+
+        self.assertEqual(
+            capabilities["componentType"],
+            "capabilities",
+        )
+        self.assertTrue(capabilities["result"]["metreRegistry"])
+
 
 if __name__ == "__main__":
     unittest.main()

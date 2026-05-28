@@ -845,6 +845,39 @@ def build_chandas_overlay_api_projection(
         "warnings": [],
     }
 
+def query_chandas_overlay_projection(
+    projection: Optional[Dict[str, Any]] = None,
+    component_type: Optional[str] = None,
+) -> Dict[str, Any]:
+    safe_projection = dict(projection or {})
+    overlay = dict(safe_projection.get("overlay") or {})
+    diagnostics = dict(overlay.get("diagnostics") or {})
+
+    normalized_component_type = str(component_type or "").strip()
+
+    component_map = {
+        "diagnostics": diagnostics,
+        "capabilities": dict(safe_projection.get("capabilities") or {}),
+        "graphDiagnostics": dict(safe_projection.get("graphDiagnostics") or {}),
+        "overlay": overlay,
+    }
+
+    if normalized_component_type:
+        result = component_map.get(normalized_component_type, {})
+    else:
+        result = {
+            "availableComponents": sorted(component_map.keys()),
+            "diagnostics": diagnostics,
+        }
+
+    return {
+        "schemaVersion": "chandas-overlay-query.v1",
+        "status": "ready",
+        "componentType": normalized_component_type or "summary",
+        "result": result,
+        "warnings": [],
+    }
+
 def build_rulefire_projection() -> Dict[str, Any]:
     return {
         "schemaVersion": "rulefire.v1",
