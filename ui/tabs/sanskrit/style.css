@@ -2460,6 +2460,81 @@
   opacity: 0.72;
 }
 
+.sandhi-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.85rem;
+  border-radius: 0.55rem;
+  background: rgba(251, 191, 36, 0.035);
+  border: 1px solid rgba(251, 191, 36, 0.12);
+}
+
+.sandhi-panel h3 {
+  margin: 0 0 0.2rem;
+  color: #fbbf24;
+}
+
+.sandhi-transition,
+.sandhi-rule,
+.sandhi-trace,
+.sandhi-reverse,
+.sandhi-unmatched {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(251, 191, 36, 0.035);
+  border: 1px solid rgba(251, 191, 36, 0.12);
+}
+
+.sandhi-rule {
+  background: rgba(56, 189, 248, 0.035);
+  border-color: rgba(56, 189, 248, 0.12);
+}
+
+.sandhi-trace {
+  background: rgba(168, 85, 247, 0.035);
+  border-color: rgba(168, 85, 247, 0.12);
+}
+
+.sandhi-reverse {
+  background: rgba(34, 197, 94, 0.035);
+  border-color: rgba(34, 197, 94, 0.12);
+}
+
+.sandhi-unmatched {
+  background: rgba(148, 163, 184, 0.035);
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+.sandhi-transition small,
+.sandhi-rule small,
+.sandhi-trace small,
+.sandhi-reverse small,
+.sandhi-unmatched small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}
+
+.sandhi-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.45rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.16);
+}
+
+.sandhi-diagnostics {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  color: #fde68a;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 #transliteration-analysis-panel {
   display: flex;
   flex-direction: column;

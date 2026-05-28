@@ -12,6 +12,8 @@ import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
+import { executeSandhi } from "./sandhi/sandhi-execution-engine.js";
+import { renderSandhiExecution } from "./sandhi/sandhi-trace-renderer.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
 import { renderDhatuSemanticList } from "./semantic/dhatu-semantic-renderer.js";
 import { buildSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-engine.js";
@@ -680,39 +682,22 @@ function renderShikshaPanel(analysis) {
   container.appendChild(safety);
 }
 
-function renderSandhiTransitionPanel(inputText = "") {
-  const container = byId("sandhi-transition-panel");
+function renderSandhiExecutionPanel(inputText = "") {
+  const container = byId("sandhi-execution-panel") || byId("sandhi-transition-panel");
   if (!container) return;
 
-  clearChildren(container);
-
-  const analysis = inspectSandhiText(inputText);
-  const summary = analysis.summary || {};
-
-  appendInspectionRow(container, "Tokens", summary.tokenCount || 0);
-  appendInspectionRow(container, "Transitions", summary.transitionCount || 0);
-  appendInspectionRow(container, "Matched", summary.matchedCount || 0);
-  appendInspectionRow(container, "Unmatched", summary.unmatchedCount || 0);
-
-  analysis.transitions.slice(0, 12).forEach((transition, index) => {
-    appendInspectionRow(
-      container,
-      `${index + 1}. ${transition.leftBoundary}+${transition.rightBoundary}`,
-      transition.result,
-      transition.label || transition.safetyNote,
-    );
+  const tokens = String(inputText || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((token, index) => ({ token, index }));
+  const execution = executeSandhi({
+    text: inputText,
+    tokens,
+    mode: "static-preview",
+    enableTrace: true,
+    enableReversePreview: true,
   });
-
-  if (analysis.transitions.length > 12) {
-    appendInspectionRow(
-      container,
-      "Transition Preview Truncated",
-      `${analysis.transitions.length - 12} more transitions`,
-      "UI preview is capped to keep the panel readable.",
-    );
-  }
-
-  appendInspectionRow(container, "Safety", "Read-only", analysis.safetyNote);
+  renderSandhiExecution(container, execution);
 }
 
 function renderTransliterationPanel(inputText = "") {
@@ -5159,9 +5144,9 @@ async function analyzeCurrentInput() {
   const inputText = inputNode.value.trim();
 
   if (!inputText) {
-    renderSandhiTransitionPanel(inputText);
     renderTransliterationPanel(inputText);
     renderPhoneticTopologyPanel(inputText);
+    renderSandhiExecutionPanel(inputText);
     renderDerivationGraphPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
@@ -5175,9 +5160,9 @@ async function analyzeCurrentInput() {
     return;
   }
 
-  renderSandhiTransitionPanel(inputText);
   renderTransliterationPanel(inputText);
   renderPhoneticTopologyPanel(inputText);
+  renderSandhiExecutionPanel(inputText);
   renderDerivationGraphPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
@@ -6045,8 +6030,8 @@ export function init(node) {
   });
 
   renderInitialState();
-  renderSandhiTransitionPanel(inputNode?.value || "");
   renderTransliterationPanel(inputNode?.value || "");
+  renderSandhiExecutionPanel(inputNode?.value || "");
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
