@@ -804,6 +804,46 @@ def build_prakriya_graph(
         },
     }
 
+def build_chandas_overlay_api_projection(
+    prakriya_graph: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    graph = dict(prakriya_graph or {})
+    metadata = dict(graph.get("metadata") or {})
+    diagnostics = dict(graph.get("diagnostics") or {})
+
+    chandas_overlay = next(
+        (
+            dict(overlay)
+            for overlay in graph.get("overlays", [])
+            if isinstance(overlay, dict) and overlay.get("overlayType") == "chandas"
+        ),
+        None,
+    )
+
+    return {
+        "schemaVersion": "chandas-overlay-api-projection.v1",
+        "status": "ready",
+        "overlayType": "chandas",
+        "source": "prakriya_graph",
+        "capabilities": {
+            "metreRegistry": bool(metadata.get("chandasMetreRegistryAttached")),
+            "rhythmLayer": bool(metadata.get("chandasRhythmLayerAttached")),
+            "structuralGraph": bool(metadata.get("chandasStructuralGraphAttached")),
+            "recitationFlow": bool(metadata.get("chandasRecitationFlowAttached")),
+            "recitationTiming": bool(metadata.get("chandasRecitationTimingAttached")),
+        },
+        "overlay": chandas_overlay or {
+            "overlayType": "chandas",
+            "status": "unavailable",
+            "diagnostics": {},
+        },
+        "graphDiagnostics": {
+            "nodeCount": diagnostics.get("nodeCount", 0),
+            "edgeCount": diagnostics.get("edgeCount", 0),
+            "overlayCount": diagnostics.get("overlayCount", 0),
+        },
+        "warnings": [],
+    }
 
 def build_rulefire_projection() -> Dict[str, Any]:
     return {
