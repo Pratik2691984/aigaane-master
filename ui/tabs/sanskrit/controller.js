@@ -12,6 +12,8 @@ import { buildChandasOverlayReplay } from "./chandas/chandas-overlay-replay-engi
 import { renderChandasOverlayReplay } from "./chandas/chandas-overlay-replay-renderer.js";
 import { auditChandasOverlayReplay } from "./chandas/chandas-overlay-audit-engine.js";
 import { renderChandasOverlayAudit } from "./chandas/chandas-overlay-audit-renderer.js";
+import { verifyChandasOverlayAudit } from "./chandas/chandas-overlay-verification-engine.js";
+import { renderChandasOverlayVerification } from "./chandas/chandas-overlay-verification-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -1225,6 +1227,12 @@ function renderChandasProsodyPanel(inputText = "") {
   auditHost.className = "chandas-overlay-audit-host";
   auditHost.innerHTML = renderChandasOverlayAudit(audit);
   container.appendChild(auditHost);
+    const verification = verifyChandasOverlayAudit(audit);
+
+  const verificationHost = document.createElement("div");
+  verificationHost.className = "chandas-overlay-verification-host";
+  verificationHost.innerHTML = renderChandasOverlayVerification(verification);
+  container.appendChild(verificationHost);
 }
 
 
