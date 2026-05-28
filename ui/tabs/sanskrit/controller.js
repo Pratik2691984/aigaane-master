@@ -18,6 +18,8 @@ import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
 import { renderDhatuSemanticList } from "./semantic/dhatu-semantic-renderer.js";
 import { generateSubanta } from "./subanta/subanta-generator-engine.js";
 import { renderSubanta } from "./subanta/subanta-renderer.js";
+import { generateTinanta, generateTinantaParadigm } from "./tinanta/tinanta-generator-engine.js";
+import { renderTinanta, renderTinantaParadigm } from "./tinanta/tinanta-renderer.js";
 import { buildSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-engine.js";
 import { renderSandarbhaContextOverlay } from "./sandarbha/sandarbha-context-renderer.js";
 import { inspectSutraReferenceOverlay } from "./sutra/sutra-reference-engine.js";
@@ -916,6 +918,28 @@ function renderSubantaGeneratorPanel(inputText = "") {
   });
 
   renderSubanta(container, generation);
+}
+
+function renderTinantaGeneratorPanels(inputText = "") {
+  const formContainer = byId("tinanta-generator-panel");
+  const paradigmContainer = byId("tinanta-paradigm-panel");
+  if (!formContainer && !paradigmContainer) return;
+
+  const dhatu = String(inputText || "")
+    .split(/\s+/)
+    .filter(Boolean)[0] || "";
+  const baseInput = {
+    dhatu,
+    lakara: "laṭ",
+    pada: "parasmaipada",
+    purusha: "prathama",
+    vacana: "eka",
+    enableTrace: true,
+    enableReversePreview: true,
+  };
+
+  if (formContainer) renderTinanta(formContainer, generateTinanta(baseInput));
+  if (paradigmContainer) renderTinantaParadigm(paradigmContainer, generateTinantaParadigm(baseInput));
 }
 
 function renderKarakaOverlayPanel(inputText = "") {
@@ -5168,6 +5192,7 @@ async function analyzeCurrentInput() {
     renderPhoneticTopologyPanel(inputText);
     renderSandhiExecutionPanel(inputText);
     renderSubantaGeneratorPanel(inputText);
+    renderTinantaGeneratorPanels(inputText);
     renderDerivationGraphPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
@@ -5185,6 +5210,7 @@ async function analyzeCurrentInput() {
   renderPhoneticTopologyPanel(inputText);
   renderSandhiExecutionPanel(inputText);
   renderSubantaGeneratorPanel(inputText);
+  renderTinantaGeneratorPanels(inputText);
   renderDerivationGraphPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
@@ -6055,6 +6081,7 @@ export function init(node) {
   renderTransliterationPanel(inputNode?.value || "");
   renderSandhiExecutionPanel(inputNode?.value || "");
   renderSubantaGeneratorPanel(inputNode?.value || "");
+  renderTinantaGeneratorPanels(inputNode?.value || "");
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");

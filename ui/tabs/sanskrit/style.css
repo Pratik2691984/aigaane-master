@@ -2794,6 +2794,101 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.tinanta-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.85rem;
+  border-radius: 0.55rem;
+  background: rgba(45, 212, 191, 0.035);
+  border: 1px solid rgba(45, 212, 191, 0.12);
+}
+
+.tinanta-panel h3 {
+  margin: 0 0 0.2rem;
+  color: #2dd4bf;
+}
+
+.tinanta-form,
+.tinanta-root,
+.tinanta-stem,
+.tinanta-affix,
+.tinanta-trace,
+.tinanta-reverse,
+.tinanta-unsupported {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  background: rgba(45, 212, 191, 0.035);
+  border: 1px solid rgba(45, 212, 191, 0.12);
+}
+
+.tinanta-root {
+  background: rgba(56, 189, 248, 0.035);
+  border-color: rgba(56, 189, 248, 0.12);
+}
+
+.tinanta-stem {
+  background: rgba(251, 191, 36, 0.035);
+  border-color: rgba(251, 191, 36, 0.12);
+}
+
+.tinanta-affix {
+  background: rgba(244, 114, 182, 0.035);
+  border-color: rgba(244, 114, 182, 0.12);
+}
+
+.tinanta-trace {
+  background: rgba(168, 85, 247, 0.035);
+  border-color: rgba(168, 85, 247, 0.12);
+}
+
+.tinanta-reverse {
+  background: rgba(34, 197, 94, 0.035);
+  border-color: rgba(34, 197, 94, 0.12);
+}
+
+.tinanta-unsupported {
+  background: rgba(148, 163, 184, 0.035);
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+.tinanta-form small,
+.tinanta-root small,
+.tinanta-stem small,
+.tinanta-affix small,
+.tinanta-trace small,
+.tinanta-reverse small,
+.tinanta-unsupported small {
+  display: block;
+  margin-top: 0.2rem;
+  opacity: 0.72;
+}
+
+.tinanta-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.45rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  color: #2dd4bf;
+  background: rgba(45, 212, 191, 0.08);
+  border: 1px solid rgba(45, 212, 191, 0.16);
+}
+
+.tinanta-diagnostics {
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  color: #99f6e4;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tinanta-paradigm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.45rem;
+}
+
 .karaka-panel {
   display: flex;
   flex-direction: column;
