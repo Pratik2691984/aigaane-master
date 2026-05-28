@@ -717,6 +717,8 @@ def build_prakriya_graph(
         "metreCandidateCount": 0,
         "padaRhythmCandidateCount": 0,
         "caesuraCandidateCount": 0,
+        "structuralGraphNodeCount": 0,
+        "structuralGraphEdgeCount": 0,
     },
 ),
         _graph_overlay_summary("sandarbha", diagnostics={"contextCandidateCount": max(len(safe_lexical) - 1, 0)}),
@@ -780,6 +782,7 @@ def build_prakriya_graph(
             "niruktaAttached": True,
             "chandasMetreRegistryAttached": True,
             "chandasRhythmLayerAttached": True,
+            "chandasStructuralGraphAttached": True,
             "overlayBridge": {
                 "status": "ready",
                 "schemaVersion": "prakriya-overlay-bridge.backend.v1",

@@ -212,6 +212,126 @@ function buildCaesuraCandidates(padaCandidates) {
   });
 }
 
+function buildStructuralGraphNodes(syllables, ganas, padaCandidates, metreCandidates, padaRhythmCandidates, caesuraCandidates) {
+  return [
+    ...syllables.map((syllable) => ({
+      id: `chandas.struct.node.${stablePart(syllable.id)}`,
+      sourceId: syllable.id,
+      nodeType: "syllable",
+      label: syllable.text,
+      confidence: "deterministic",
+      source: "chandas-structural-graph",
+    })),
+    ...ganas.map((gana) => ({
+      id: `chandas.struct.node.${stablePart(gana.id)}`,
+      sourceId: gana.id,
+      nodeType: "gana",
+      label: gana.gana,
+      confidence: "deterministic",
+      source: "chandas-structural-graph",
+    })),
+    ...padaCandidates.map((pada) => ({
+      id: `chandas.struct.node.${stablePart(pada.id)}`,
+      sourceId: pada.id,
+      nodeType: "pada",
+      label: `pāda ${pada.startIndex}-${pada.endIndex}`,
+      confidence: "deterministic",
+      source: "chandas-structural-graph",
+    })),
+    ...metreCandidates.map((metre) => ({
+      id: `chandas.struct.node.${stablePart(metre.id)}`,
+      sourceId: metre.id,
+      nodeType: "metre",
+      label: metre.label,
+      confidence: "deterministic-candidate",
+      source: "chandas-structural-graph",
+    })),
+    ...padaRhythmCandidates.map((rhythm) => ({
+      id: `chandas.struct.node.${stablePart(rhythm.id)}`,
+      sourceId: rhythm.id,
+      nodeType: "pada-rhythm",
+      label: rhythm.rhythm,
+      confidence: "deterministic-candidate",
+      source: "chandas-structural-graph",
+    })),
+    ...caesuraCandidates.map((caesura) => ({
+      id: `chandas.struct.node.${stablePart(caesura.id)}`,
+      sourceId: caesura.id,
+      nodeType: "caesura",
+      label: `after ${caesura.afterSyllableIndex}`,
+      confidence: "deterministic-candidate",
+      source: "chandas-structural-graph",
+    })),
+  ];
+}
+
+function buildStructuralGraphEdges(syllables, ganas, padaCandidates, metreCandidates, padaRhythmCandidates, caesuraCandidates) {
+  const edges = [];
+
+  ganas.forEach((gana) => {
+    gana.syllableIds.forEach((syllableId) => {
+      edges.push({
+        id: `chandas.struct.edge.${stablePart(syllableId)}.${stablePart(gana.id)}`,
+        source: syllableId,
+        target: gana.id,
+        relation: "syllable-to-gana",
+        confidence: "deterministic",
+        sourceLayer: "chandas-structural-graph",
+      });
+    });
+  });
+
+  padaCandidates.forEach((pada) => {
+    pada.syllableIds.forEach((syllableId) => {
+      edges.push({
+        id: `chandas.struct.edge.${stablePart(syllableId)}.${stablePart(pada.id)}`,
+        source: syllableId,
+        target: pada.id,
+        relation: "syllable-to-pada",
+        confidence: "deterministic",
+        sourceLayer: "chandas-structural-graph",
+      });
+    });
+  });
+
+  padaRhythmCandidates.forEach((rhythm) => {
+    edges.push({
+      id: `chandas.struct.edge.${stablePart(rhythm.padaId)}.${stablePart(rhythm.id)}`,
+      source: rhythm.padaId,
+      target: rhythm.id,
+      relation: "pada-to-rhythm",
+      confidence: "deterministic-candidate",
+      sourceLayer: "chandas-structural-graph",
+    });
+  });
+
+  caesuraCandidates.forEach((caesura) => {
+    edges.push({
+      id: `chandas.struct.edge.${stablePart(caesura.padaId)}.${stablePart(caesura.id)}`,
+      source: caesura.padaId,
+      target: caesura.id,
+      relation: "pada-to-caesura",
+      confidence: "deterministic-candidate",
+      sourceLayer: "chandas-structural-graph",
+    });
+  });
+
+  metreCandidates.forEach((metre) => {
+    padaCandidates.forEach((pada) => {
+      edges.push({
+        id: `chandas.struct.edge.${stablePart(pada.id)}.${stablePart(metre.id)}`,
+        source: pada.id,
+        target: metre.id,
+        relation: "pada-to-metre-candidate",
+        confidence: "deterministic-candidate",
+        sourceLayer: "chandas-structural-graph",
+      });
+    });
+  });
+
+  return edges;
+}
+
 function buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates = [], caesuraCandidates = []) {
   const edges = [];
   ganas.forEach((gana) => {
@@ -278,6 +398,22 @@ export function buildChandasProsodyOverlay(input = {}) {
   const metreCandidates = buildMetreCandidates(syllables);
   const padaRhythmCandidates = buildPadaRhythmCandidates(syllables, padaCandidates);
   const caesuraCandidates = buildCaesuraCandidates(padaCandidates);
+  const structuralGraphNodes = buildStructuralGraphNodes(
+  syllables,
+  ganas,
+  padaCandidates,
+  metreCandidates,
+  padaRhythmCandidates,
+  caesuraCandidates,
+);
+const structuralGraphEdges = buildStructuralGraphEdges(
+  syllables,
+  ganas,
+  padaCandidates,
+  metreCandidates,
+  padaRhythmCandidates,
+  caesuraCandidates,
+);
   const trailing = syllables.length % 3;
   const unresolvedCount = trailing === 0 ? 0 : trailing;
 
@@ -297,6 +433,8 @@ export function buildChandasProsodyOverlay(input = {}) {
     metreCandidates,
     padaRhythmCandidates,
     caesuraCandidates,
+    structuralGraphNodes,
+    structuralGraphEdges,
     edges: buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates, caesuraCandidates),
     diagnostics: {
       syllableCount: syllables.length,
@@ -309,6 +447,8 @@ export function buildChandasProsodyOverlay(input = {}) {
       padaRhythmCandidateCount: padaRhythmCandidates.length,
       caesuraCandidateCount: caesuraCandidates.length,
       matchedMetres: metreCandidates.map((metre) => metre.label),
+      structuralGraphNodeCount: structuralGraphNodes.length,
+      structuralGraphEdgeCount: structuralGraphEdges.length,
       unresolvedCount,
       warnings,
     },
@@ -321,7 +461,16 @@ export function attachChandasOverlay(graph, overlayData = {}, bridge = {}) {
     graph,
     "chandas",
     overlayData,
-    ["syllables", "ganas", "padaCandidates", "metreCandidates", "padaRhythmCandidates", "caesuraCandidates"],
+    [
+  "syllables",
+  "ganas",
+  "padaCandidates",
+  "metreCandidates",
+  "padaRhythmCandidates",
+  "caesuraCandidates",
+  "structuralGraphNodes",
+  "structuralGraphEdges",
+],
     ["edges"],
   );
 }

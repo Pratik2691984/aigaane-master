@@ -87,6 +87,22 @@ export const CHANDAS_PROSODY_MAP = [
     confidence: "deterministic-candidate",
     color: "#2dd4bf",
   },
+    {
+    id: "chandasStructuralNode",
+    label: "chandas structural node",
+    trigger: "overlay-structural-projection",
+    description: "Deterministic graph node projected from explicit chandas overlay components.",
+    confidence: "deterministic",
+    color: "#818cf8",
+  },
+  {
+    id: "chandasStructuralEdge",
+    label: "chandas structural edge",
+    trigger: "overlay-structural-dependency",
+    description: "Deterministic structural dependency edge between explicit chandas overlay components.",
+    confidence: "deterministic",
+    color: "#a78bfa",
+  },
   {
     id: "metreCandidate",
     label: "metre candidate",

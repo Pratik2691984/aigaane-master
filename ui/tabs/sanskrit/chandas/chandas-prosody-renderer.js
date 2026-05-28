@@ -43,6 +43,8 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
     `unresolved: ${diagnostics.unresolvedCount || 0}`,
     `rhythm: ${diagnostics.padaRhythmCandidateCount || 0}`,
     `caesura: ${diagnostics.caesuraCandidateCount || 0}`,
+    `struct nodes: ${diagnostics.structuralGraphNodeCount || 0}`,
+    `struct edges: ${diagnostics.structuralGraphEdgeCount || 0}`,
   ].join(" · ");
   container.appendChild(diagnosticsNode);
 
@@ -82,6 +84,19 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
       "Candidate midpoint pause only; no poetic intent is inferred.",
     );
   });
+
+  const structuralNodes = Array.isArray(overlay?.structuralGraphNodes) ? overlay.structuralGraphNodes : [];
+  const structuralEdges = Array.isArray(overlay?.structuralGraphEdges) ? overlay.structuralGraphEdges : [];
+
+  if (structuralNodes.length > 0 || structuralEdges.length > 0) {
+    appendBox(
+      container,
+      "chandas-structural-graph",
+      "structural graph",
+      `${structuralNodes.length} nodes · ${structuralEdges.length} edges`,
+      "Deterministic projection from explicit chandas overlay components.",
+    );
+  }
 
   const metres = Array.isArray(overlay?.metreCandidates) ? overlay.metreCandidates : [];
 

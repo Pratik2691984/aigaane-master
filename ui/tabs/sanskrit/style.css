@@ -3552,6 +3552,11 @@
   border-color: rgba(148, 163, 184, 0.14);
 }
 
+.chandas-structural-graph {
+  background: rgba(129, 140, 248, 0.035);
+  border-color: rgba(129, 140, 248, 0.14);
+}
+
 .chandas-unresolved {
   background: rgba(148, 163, 184, 0.035);
   border-color: rgba(148, 163, 184, 0.12);
@@ -3565,6 +3570,7 @@
 .chandas-metre-warning small,
 .chandas-rhythm-candidate small,
 .chandas-caesura-candidate small,
+.chandas-structural-graph small,
 .chandas-unresolved small {
   display: block;
   margin-top: 0.2rem;
