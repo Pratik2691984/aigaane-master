@@ -709,7 +709,14 @@ def build_prakriya_graph(
     overlays = [
         _graph_overlay_summary("karaka", diagnostics={"tokenCount": len(safe_lexical)}),
         _graph_overlay_summary("vakya", diagnostics={"edgeCount": 1 if len(safe_lexical) > 1 else 0}),
-        _graph_overlay_summary("chandas", diagnostics={"padaCount": len(safe_padas), "syllableCount": len(safe_syllables)}),
+        _graph_overlay_summary(
+    "chandas",
+    diagnostics={
+        "padaCount": len(safe_padas),
+        "syllableCount": len(safe_syllables),
+        "metreCandidateCount": 0,
+    },
+),
         _graph_overlay_summary("sandarbha", diagnostics={"contextCandidateCount": max(len(safe_lexical) - 1, 0)}),
         _graph_overlay_summary("semantic", diagnostics={"lexicalNodeCount": len(safe_lexical)}),
         _graph_overlay_summary("rule-trace", diagnostics={"ruleTraceCount": len(safe_history)}),
@@ -769,6 +776,7 @@ def build_prakriya_graph(
             "overlaysAttached": list(PRAKRIYA_OVERLAY_TYPES),
             "dependenciesAttached": True,
             "niruktaAttached": True,
+            "chandasMetreRegistryAttached": True,
             "overlayBridge": {
                 "status": "ready",
                 "schemaVersion": "prakriya-overlay-bridge.backend.v1",

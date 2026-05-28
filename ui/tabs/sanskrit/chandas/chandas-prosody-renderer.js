@@ -60,9 +60,36 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
   });
 
   const metres = Array.isArray(overlay?.metreCandidates) ? overlay.metreCandidates : [];
-  metres.forEach((metre) => {
-    appendBox(container, "chandas-metre", metre.metre, metre.pattern, "Explicit deterministic pattern match.");
-  });
+
+if (metres.length > 0) {
+  appendBox(
+    container,
+    "chandas-metre-warning",
+    "candidate only",
+    `${diagnostics.syllableCount || 0} syllables`,
+    "Metre candidates are deterministic syllable-count matches only; no authoritative scansion is claimed.",
+  );
+}
+
+metres.forEach((metre) => {
+  appendBox(
+    container,
+    "chandas-metre-candidate",
+    metre.label,
+    `${metre.totalSyllables} syllables`,
+    `${metre.padaCount} pāda${metre.padaCount === 1 ? "" : "s"} · ${metre.syllablesPerPada || "variable"} syllables/pāda`,
+  );
+});
+
+if (metres.length === 0 && syllables.length > 0) {
+  appendBox(
+    container,
+    "chandas-metre-warning",
+    "metre",
+    "No exact candidate",
+    "No registered metre matched the explicit syllable count.",
+  );
+}
 
   if ((diagnostics.unresolvedCount || 0) > 0) {
     appendBox(container, "chandas-unresolved", "unresolved", `${diagnostics.unresolvedCount} trailing syllables`, "No canonical metre is guessed.");

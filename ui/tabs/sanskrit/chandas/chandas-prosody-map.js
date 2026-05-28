@@ -100,6 +100,121 @@ export const CHANDAS_GANA_MAP = {
   "laghu-laghu-guru": "sa",
 };
 
+export const CHANDAS_METRE_REGISTRY = [
+  {
+    id: "gayatri",
+    label: "Gāyatrī",
+    padaCount: 3,
+    syllablesPerPada: 8,
+    totalSyllables: 24,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+  {
+    id: "anustubh",
+    label: "Anuṣṭubh",
+    padaCount: 4,
+    syllablesPerPada: 8,
+    totalSyllables: 32,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+  {
+    id: "tristubh",
+    label: "Triṣṭubh",
+    padaCount: 4,
+    syllablesPerPada: 11,
+    totalSyllables: 44,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+  {
+    id: "jagati",
+    label: "Jagatī",
+    padaCount: 4,
+    syllablesPerPada: 12,
+    totalSyllables: 48,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+  {
+    id: "usnih",
+    label: "Uṣṇih",
+    padaCount: 3,
+    syllablesPerPada: null,
+    totalSyllables: 28,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+  {
+    id: "pankti",
+    label: "Paṅkti",
+    padaCount: 5,
+    syllablesPerPada: 8,
+    totalSyllables: 40,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+  {
+    id: "brhati",
+    label: "Bṛhatī",
+    padaCount: 4,
+    syllablesPerPada: null,
+    totalSyllables: 36,
+    matraPattern: null,
+    confidence: "deterministic-candidate",
+    notes: "Candidate only; no authoritative scansion claim.",
+  },
+];
+
+export function normalizeMetreId(value) {
+  return String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[\s_]+/g, "-");
+}
+
+export function getChandasMetre(id) {
+  const normalized = normalizeMetreId(id);
+  return (
+    CHANDAS_METRE_REGISTRY.find(
+      (metre) => normalizeMetreId(metre.id) === normalized,
+    ) || null
+  );
+}
+
+export function listChandasMetres() {
+  return CHANDAS_METRE_REGISTRY.map((metre) => ({ ...metre }));
+}
+
+export function matchMetreBySyllableCount(syllableCount) {
+  const count = Number(syllableCount || 0);
+
+  return CHANDAS_METRE_REGISTRY
+    .filter((metre) => metre.totalSyllables === count)
+    .map((metre) => ({ ...metre }));
+}
+
+export function groupMetresByPadaCount() {
+  return CHANDAS_METRE_REGISTRY.reduce((groups, metre) => {
+    const key = String(metre.padaCount || "unknown");
+
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+
+    groups[key].push({ ...metre });
+
+    return groups;
+  }, {});
+}
+
 export function normalizeChandasRelation(value) {
   return String(value ?? "")
     .trim()

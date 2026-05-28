@@ -1,4 +1,4 @@
-import { CHANDAS_GANA_MAP } from "./chandas-prosody-map.js";
+import { CHANDAS_GANA_MAP, matchMetreBySyllableCount } from "./chandas-prosody-map.js";
 
 const SHORT_VOWELS = new Set(["अ", "इ", "उ", "ऋ", "ऌ"]);
 const LONG_VOWELS = new Set(["आ", "ई", "ऊ", "ॠ", "ए", "ऐ", "ओ", "औ"]);
@@ -161,6 +161,21 @@ function buildPadaCandidates(syllables) {
   return candidates;
 }
 
+function buildMetreCandidates(syllables) {
+  const totalSyllables = syllables.length;
+
+  return matchMetreBySyllableCount(totalSyllables).map((metre, index) => ({
+    id: `chandas.metre.${index}.${stablePart(metre.id)}`,
+    metreId: metre.id,
+    label: metre.label,
+    totalSyllables: metre.totalSyllables,
+    padaCount: metre.padaCount,
+    syllablesPerPada: metre.syllablesPerPada,
+    confidence: "deterministic-candidate",
+    source: "chandas-metre-registry",
+  }));
+}
+
 function buildEdges(syllables, ganas, padaCandidates) {
   const edges = [];
   ganas.forEach((gana) => {
@@ -199,7 +214,7 @@ export function buildChandasProsodyOverlay(input = {}) {
   const syllables = buildSyllables(text);
   const ganas = buildGanas(syllables);
   const padaCandidates = buildPadaCandidates(syllables);
-  const metreCandidates = [];
+  const metreCandidates = buildMetreCandidates(syllables);
   const trailing = syllables.length % 3;
   const unresolvedCount = trailing === 0 ? 0 : trailing;
 
@@ -226,6 +241,7 @@ export function buildChandasProsodyOverlay(input = {}) {
       ganaCount: ganas.length,
       padaCandidateCount: padaCandidates.length,
       metreCandidateCount: metreCandidates.length,
+      matchedMetres: metreCandidates.map((metre) => metre.label),
       unresolvedCount,
       warnings,
     },
