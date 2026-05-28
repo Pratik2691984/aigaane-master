@@ -71,6 +71,22 @@ export const CHANDAS_PROSODY_MAP = [
     confidence: "deterministic",
     color: "#60a5fa",
   },
+    {
+    id: "caesuraCandidate",
+    label: "caesura candidate",
+    trigger: "deterministic-pada-midpoint",
+    description: "Candidate pause point derived from explicit pāda midpoint inspection.",
+    confidence: "deterministic-candidate",
+    color: "#c084fc",
+  },
+  {
+    id: "padaRhythmCandidate",
+    label: "pāda rhythm candidate",
+    trigger: "pada-laghu-guru-sequence",
+    description: "Deterministic laghu/guru rhythm signature for each pāda candidate.",
+    confidence: "deterministic-candidate",
+    color: "#2dd4bf",
+  },
   {
     id: "metreCandidate",
     label: "metre candidate",

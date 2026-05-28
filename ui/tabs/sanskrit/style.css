@@ -3507,7 +3507,10 @@
 .chandas-metre,
 .chandas-metre-candidate,
 .chandas-metre-warning,
-.chandas-unresolved {
+.chandas-rhythm-candidate,
+.chandas-caesura-candidate,
+.chandas-unresolved
+ {
   padding: 0.4rem 0.55rem;
   border-radius: 0.45rem;
   background: rgba(251, 191, 36, 0.035);
@@ -3522,6 +3525,16 @@
 .chandas-pada {
   background: rgba(96, 165, 250, 0.035);
   border-color: rgba(96, 165, 250, 0.12);
+}
+
+.chandas-rhythm-candidate {
+  background: rgba(45, 212, 191, 0.035);
+  border-color: rgba(45, 212, 191, 0.14);
+}
+
+.chandas-caesura-candidate {
+  background: rgba(192, 132, 252, 0.035);
+  border-color: rgba(192, 132, 252, 0.14);
 }
 
 .chandas-metre {
@@ -3550,6 +3563,8 @@
 .chandas-metre small,
 .chandas-metre-candidate small,
 .chandas-metre-warning small,
+.chandas-rhythm-candidate small,
+.chandas-caesura-candidate small,
 .chandas-unresolved small {
   display: block;
   margin-top: 0.2rem;

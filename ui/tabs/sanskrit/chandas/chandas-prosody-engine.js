@@ -176,7 +176,43 @@ function buildMetreCandidates(syllables) {
   }));
 }
 
-function buildEdges(syllables, ganas, padaCandidates) {
+function buildPadaRhythmCandidates(syllables, padaCandidates) {
+  return padaCandidates.map((pada, index) => {
+    const group = syllables.slice(pada.startIndex, pada.endIndex + 1);
+    const rhythm = group.map((syllable) => syllable.weight).join("-");
+    const matraPattern = group.map((syllable) => syllable.matra).join("-");
+
+    return {
+      id: `chandas.rhythm.${index}.${pada.startIndex}.${pada.endIndex}`,
+      padaId: pada.id,
+      startIndex: pada.startIndex,
+      endIndex: pada.endIndex,
+      rhythm,
+      matraPattern,
+      syllableIds: group.map((syllable) => syllable.id),
+      confidence: "deterministic-candidate",
+      source: "chandas-pada-rhythm",
+    };
+  });
+}
+
+function buildCaesuraCandidates(padaCandidates) {
+  return padaCandidates.map((pada, index) => {
+    const midpoint = Math.floor((pada.startIndex + pada.endIndex) / 2);
+
+    return {
+      id: `chandas.caesura.${index}.${pada.startIndex}.${pada.endIndex}`,
+      padaId: pada.id,
+      afterSyllableIndex: midpoint,
+      beforeSyllableIndex: midpoint + 1,
+      confidence: "deterministic-candidate",
+      source: "chandas-deterministic-midpoint",
+      notes: "Candidate pause only; no authoritative caesura or poetic intent is claimed.",
+    };
+  });
+}
+
+function buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates = [], caesuraCandidates = []) {
   const edges = [];
   ganas.forEach((gana) => {
     gana.syllableIds.forEach((syllableId) => {
@@ -204,6 +240,31 @@ function buildEdges(syllables, ganas, padaCandidates) {
       });
     });
   });
+    padaRhythmCandidates.forEach((rhythm) => {
+    rhythm.syllableIds.forEach((syllableId) => {
+      edges.push({
+        id: `chandas.edge.${stablePart(syllableId)}.${stablePart(rhythm.id)}`,
+        source: syllableId,
+        target: rhythm.id,
+        relation: "padaRhythmCandidate",
+        label: "pāda rhythm",
+        confidence: "deterministic-candidate",
+        sourceLayer: "chandas-prosody",
+      });
+    });
+  });
+
+  caesuraCandidates.forEach((caesura) => {
+    edges.push({
+      id: `chandas.edge.${stablePart(caesura.padaId)}.${stablePart(caesura.id)}`,
+      source: caesura.padaId,
+      target: caesura.id,
+      relation: "caesuraCandidate",
+      label: "caesura candidate",
+      confidence: "deterministic-candidate",
+      sourceLayer: "chandas-prosody",
+    });
+  });
   return edges;
 }
 
@@ -215,6 +276,8 @@ export function buildChandasProsodyOverlay(input = {}) {
   const ganas = buildGanas(syllables);
   const padaCandidates = buildPadaCandidates(syllables);
   const metreCandidates = buildMetreCandidates(syllables);
+  const padaRhythmCandidates = buildPadaRhythmCandidates(syllables, padaCandidates);
+  const caesuraCandidates = buildCaesuraCandidates(padaCandidates);
   const trailing = syllables.length % 3;
   const unresolvedCount = trailing === 0 ? 0 : trailing;
 
@@ -232,7 +295,9 @@ export function buildChandasProsodyOverlay(input = {}) {
     ganas,
     padaCandidates,
     metreCandidates,
-    edges: buildEdges(syllables, ganas, padaCandidates),
+    padaRhythmCandidates,
+    caesuraCandidates,
+    edges: buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates, caesuraCandidates),
     diagnostics: {
       syllableCount: syllables.length,
       laghuCount,
@@ -241,6 +306,8 @@ export function buildChandasProsodyOverlay(input = {}) {
       ganaCount: ganas.length,
       padaCandidateCount: padaCandidates.length,
       metreCandidateCount: metreCandidates.length,
+      padaRhythmCandidateCount: padaRhythmCandidates.length,
+      caesuraCandidateCount: caesuraCandidates.length,
       matchedMetres: metreCandidates.map((metre) => metre.label),
       unresolvedCount,
       warnings,
@@ -254,7 +321,7 @@ export function attachChandasOverlay(graph, overlayData = {}, bridge = {}) {
     graph,
     "chandas",
     overlayData,
-    ["syllables", "ganas", "padaCandidates", "metreCandidates"],
+    ["syllables", "ganas", "padaCandidates", "metreCandidates", "padaRhythmCandidates", "caesuraCandidates"],
     ["edges"],
   );
 }

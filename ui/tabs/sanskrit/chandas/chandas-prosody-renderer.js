@@ -41,6 +41,8 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
     `pāda: ${diagnostics.padaCandidateCount || 0}`,
     `metre: ${diagnostics.metreCandidateCount || 0}`,
     `unresolved: ${diagnostics.unresolvedCount || 0}`,
+    `rhythm: ${diagnostics.padaRhythmCandidateCount || 0}`,
+    `caesura: ${diagnostics.caesuraCandidateCount || 0}`,
   ].join(" · ");
   container.appendChild(diagnosticsNode);
 
@@ -57,6 +59,28 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
   const padas = Array.isArray(overlay?.padaCandidates) ? overlay.padaCandidates : [];
   padas.forEach((pada) => {
     appendBox(container, "chandas-pada", "pāda", `${pada.startIndex}-${pada.endIndex}`, `${pada.matraCount} mātrā`);
+  });
+
+    const rhythms = Array.isArray(overlay?.padaRhythmCandidates) ? overlay.padaRhythmCandidates : [];
+  rhythms.forEach((rhythm) => {
+    appendBox(
+      container,
+      "chandas-rhythm-candidate",
+      "pāda rhythm",
+      rhythm.rhythm,
+      `${rhythm.matraPattern} mātrā pattern`,
+    );
+  });
+
+  const caesuras = Array.isArray(overlay?.caesuraCandidates) ? overlay.caesuraCandidates : [];
+  caesuras.forEach((caesura) => {
+    appendBox(
+      container,
+      "chandas-caesura-candidate",
+      "caesura",
+      `after syllable ${caesura.afterSyllableIndex}`,
+      "Candidate midpoint pause only; no poetic intent is inferred.",
+    );
   });
 
   const metres = Array.isArray(overlay?.metreCandidates) ? overlay.metreCandidates : [];

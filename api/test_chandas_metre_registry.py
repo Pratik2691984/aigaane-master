@@ -1,3 +1,4 @@
+from asyncio import graph
 import unittest
 
 
@@ -18,6 +19,9 @@ class TestChandasMetreRegistry(unittest.TestCase):
             overlay for overlay in graph["overlays"] if overlay["overlayType"] == "chandas"
         )
         self.assertIn("metreCandidateCount", chandas_overlay["diagnostics"])
+        self.assertIn("padaRhythmCandidateCount", chandas_overlay["diagnostics"])
+        self.assertIn("caesuraCandidateCount", chandas_overlay["diagnostics"])
+        self.assertTrue(graph["metadata"].get("chandasRhythmLayerAttached"))
 
 
 if __name__ == "__main__":
