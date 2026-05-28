@@ -16,6 +16,8 @@ import { verifyChandasOverlayAudit } from "./chandas/chandas-overlay-verificatio
 import { renderChandasOverlayVerification } from "./chandas/chandas-overlay-verification-renderer.js";
 import { certifyChandasOverlayVerification } from "./chandas/chandas-overlay-certification-engine.js";
 import { renderChandasOverlayCertification } from "./chandas/chandas-overlay-certification-renderer.js";
+import { governChandasOverlayCertification } from "./chandas/chandas-overlay-governance-engine.js";
+import { renderChandasOverlayGovernance } from "./chandas/chandas-overlay-governance-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -1247,6 +1249,18 @@ function renderChandasProsodyPanel(inputText = "") {
     renderChandasOverlayCertification(certification);
 
   container.appendChild(certificationHost);
+
+    const governance =
+    governChandasOverlayCertification(certification);
+
+  const governanceHost = document.createElement("div");
+  governanceHost.className =
+    "chandas-overlay-governance-host";
+
+  governanceHost.innerHTML =
+    renderChandasOverlayGovernance(governance);
+
+  container.appendChild(governanceHost);
 }
 
 
