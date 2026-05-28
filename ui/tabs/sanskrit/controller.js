@@ -2,6 +2,8 @@ import { buildChandasProsodyOverlay } from "./chandas/chandas-prosody-engine.js"
 import { renderChandasProsodyOverlay } from "./chandas/chandas-prosody-renderer.js";
 import { inspectChandasOverlayRegistry } from "./chandas/chandas-overlay-inspection-engine.js";
 import { renderChandasOverlayInspection } from "./chandas/chandas-overlay-inspection-renderer.js";
+import { createChandasOverlaySnapshot } from "./chandas/chandas-overlay-snapshot-engine.js";
+import { renderChandasOverlaySnapshot } from "./chandas/chandas-overlay-snapshot-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -1170,7 +1172,16 @@ function renderChandasProsodyPanel(inputText = "") {
   inspectionHost.className = "chandas-overlay-inspection-host";
   inspectionHost.innerHTML = renderChandasOverlayInspection(inspection);
   container.appendChild(inspectionHost);
+    const snapshot = createChandasOverlaySnapshot(inspection, {
+    sequence: 1,
+  });
+
+  const snapshotHost = document.createElement("div");
+  snapshotHost.className = "chandas-overlay-snapshot-host";
+  snapshotHost.innerHTML = renderChandasOverlaySnapshot(snapshot);
+  container.appendChild(snapshotHost);
 }
+
 
 function appendEmpty(node, message = "No entries") {
   if (!node) return;
