@@ -17,6 +17,8 @@ import { renderPrakriyaTraceGraph } from "./prakriya/prakriya-graph-renderer.js"
 import { attachAllOverlays } from "./prakriya/prakriya-overlay-bridge.js";
 import { renderPrakriya } from "./prakriya/prakriya-renderer.js";
 import { buildPrakriyaTraceGraph } from "./prakriya/prakriya-trace-graph.js";
+import { executeRulefire, attachRulefireToGraph } from "./rulefire/rulefire-engine.js";
+import { renderRulefire } from "./rulefire/rulefire-renderer.js";
 import { executeSandhi } from "./sandhi/sandhi-execution-engine.js";
 import { renderSandhiExecution } from "./sandhi/sandhi-trace-renderer.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
@@ -980,12 +982,20 @@ function renderPrakriyaCompositionPanel(inputText = "") {
 
 function renderPrakriyaTraceGraphPanel(inputText = "") {
   const container = byId("prakriya-trace-graph-panel");
-  if (!container) return;
+  const rulefireContainer = byId("rulefire-panel");
+  if (!container && !rulefireContainer) return;
 
   const execution = executePrakriya(buildPrakriyaCompositionInput(inputText));
   const traceGraph = buildPrakriyaTraceGraph(execution);
+  const rulefire = executeRulefire({
+    ...execution,
+    enableTrace: true,
+    enableSnapshots: true,
+    enableReversePreview: true,
+  });
+  const rulefireGraph = attachRulefireToGraph(traceGraph, rulefire);
   const morphologyTransitions = inspectMorphologyTransitions(inputText);
-  const unifiedGraph = attachAllOverlays(traceGraph, execution, {
+  const unifiedGraph = attachAllOverlays(rulefireGraph, execution, {
     inputText,
     morphologyTransitions,
     tokens: String(inputText || "")
@@ -994,6 +1004,7 @@ function renderPrakriyaTraceGraphPanel(inputText = "") {
       .map((token, index) => ({ token, index })),
   });
   renderPrakriyaTraceGraph(container, unifiedGraph);
+  renderRulefire(rulefireContainer, rulefire);
 }
 
 function renderKarakaOverlayPanel(inputText = "") {

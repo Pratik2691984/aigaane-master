@@ -782,6 +782,27 @@ def build_prakriya_graph(
     }
 
 
+def build_rulefire_projection() -> Dict[str, Any]:
+    return {
+        "schemaVersion": "rulefire.v1",
+        "status": "ready",
+        "executionType": "deterministic-rulefire",
+        "initialState": {},
+        "finalState": {},
+        "firedRules": [],
+        "snapshots": [],
+        "trace": [],
+        "graphProjection": {"nodes": [], "edges": []},
+        "reversePreview": [],
+        "diagnostics": {
+            "firedCount": 0,
+            "snapshotCount": 0,
+            "unresolvedCount": 0,
+            "warnings": ["Rulefire JS runtime available in frontend; backend projection placeholder retained."],
+        },
+    }
+
+
 def lexical_lookup(text: str) -> List[Dict[str, Any]]:
     entries: List[Dict[str, Any]] = []
     for token in TOKEN_PATTERN.findall(text.lower())[:MAX_CANDIDATES]:
@@ -823,6 +844,7 @@ def empty_payload(input_text: str, diagnostics: List[Dict[str, str]]) -> Dict[st
         "phonological_syllables": [],
         "derivation_history": [],
         "prakriya_graph": build_prakriya_graph([]),
+        "rulefire": build_rulefire_projection(),
         "lexical_lookup": [],
         "parser_diagnostics": diagnostics,
         "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
@@ -873,6 +895,7 @@ def analyze_sanskrit(input_text: str) -> Dict[str, Any]:
                 padas=padas,
                 phonological_syllables=phonological_syllable_dicts,
             ),
+            "rulefire": build_rulefire_projection(),
             "lexical_lookup": lexical_entries,
             "parser_diagnostics": diagnostics,
             "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
