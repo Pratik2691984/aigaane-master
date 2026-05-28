@@ -119,6 +119,22 @@ export const CHANDAS_PROSODY_MAP = [
     confidence: "deterministic-candidate",
     color: "#67e8f9",
   },
+    {
+    id: "recitationTimingCandidate",
+    label: "recitation timing candidate",
+    trigger: "matra-duration-projection",
+    description: "Deterministic timing projection derived only from explicit laghu/guru mātrā counts.",
+    confidence: "deterministic-candidate",
+    color: "#facc15",
+  },
+  {
+    id: "padaTimingSummary",
+    label: "pāda timing summary",
+    trigger: "pada-matra-duration-summary",
+    description: "Deterministic pāda duration summary derived from explicit syllable mātrā counts.",
+    confidence: "deterministic-candidate",
+    color: "#4ade80",
+  },
   {
     id: "metreCandidate",
     label: "metre candidate",

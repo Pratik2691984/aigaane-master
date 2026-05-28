@@ -16,6 +16,7 @@ class TestChandasMetreRegistry(unittest.TestCase):
         self.assertTrue(graph["metadata"].get("chandasRhythmLayerAttached"))
         self.assertTrue(graph["metadata"].get("chandasStructuralGraphAttached"))
         self.assertTrue(graph["metadata"].get("chandasRecitationFlowAttached"))
+        self.assertTrue(graph["metadata"].get("chandasRecitationTimingAttached"))
 
         chandas_overlay = next(
             overlay for overlay in graph["overlays"] if overlay["overlayType"] == "chandas"
@@ -28,6 +29,9 @@ class TestChandasMetreRegistry(unittest.TestCase):
         self.assertIn("structuralGraphEdgeCount", chandas_overlay["diagnostics"])
         self.assertIn("recitationFlowCandidateCount", chandas_overlay["diagnostics"])
         self.assertIn("breathWindowCandidateCount", chandas_overlay["diagnostics"])
+        self.assertIn("recitationTimingCandidateCount", chandas_overlay["diagnostics"])
+        self.assertIn("padaTimingSummaryCount", chandas_overlay["diagnostics"])
+        self.assertIn("timingMatraTotal", chandas_overlay["diagnostics"])
 
 if __name__ == "__main__":
     unittest.main()

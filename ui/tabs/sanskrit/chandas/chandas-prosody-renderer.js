@@ -47,6 +47,9 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
     `struct edges: ${diagnostics.structuralGraphEdgeCount || 0}`,
     `flow: ${diagnostics.recitationFlowCandidateCount || 0}`,
     `breath: ${diagnostics.breathWindowCandidateCount || 0}`,
+    `timing: ${diagnostics.recitationTimingCandidateCount || 0}`,
+    `pāda timing: ${diagnostics.padaTimingSummaryCount || 0}`,
+    `timing mātrā: ${diagnostics.timingMatraTotal || 0}`,
   ].join(" · ");
   container.appendChild(diagnosticsNode);
 
@@ -119,6 +122,29 @@ export function renderChandasProsodyOverlay(containerOrId, overlay) {
       "breath window",
       `after syllable ${window.afterSyllableIndex}`,
       "Candidate pause window only; no chanting instruction is inferred.",
+    );
+  });
+
+    const timingCandidates = Array.isArray(overlay?.recitationTimingCandidates) ? overlay.recitationTimingCandidates : [];
+  const padaTimings = Array.isArray(overlay?.padaTimingSummaries) ? overlay.padaTimingSummaries : [];
+
+  if (timingCandidates.length > 0) {
+    appendBox(
+      container,
+      "chandas-recitation-timing",
+      "timing projection",
+      `${timingCandidates.length} syllables`,
+      "Mātrā projection only; no audio tempo or chanting-speed inference is claimed.",
+    );
+  }
+
+  padaTimings.forEach((timing) => {
+    appendBox(
+      container,
+      "chandas-pada-timing",
+      "pāda timing",
+      `${timing.durationMatra} mātrā`,
+      `syllables ${timing.startIndex}-${timing.endIndex}`,
     );
   });
 

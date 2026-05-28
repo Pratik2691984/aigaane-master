@@ -3511,6 +3511,8 @@
 .chandas-caesura-candidate,
 .chandas-recitation-flow,
 .chandas-breath-window,
+.chandas-recitation-timing,
+.chandas-pada-timing,
 .chandas-unresolved
  {
   padding: 0.4rem 0.55rem;
@@ -3569,6 +3571,16 @@
   border-color: rgba(103, 232, 249, 0.14);
 }
 
+.chandas-recitation-timing {
+  background: rgba(250, 204, 21, 0.035);
+  border-color: rgba(250, 204, 21, 0.14);
+}
+
+.chandas-pada-timing {
+  background: rgba(74, 222, 128, 0.035);
+  border-color: rgba(74, 222, 128, 0.14);
+}
+
 .chandas-unresolved {
   background: rgba(148, 163, 184, 0.035);
   border-color: rgba(148, 163, 184, 0.12);
@@ -3585,6 +3597,8 @@
 .chandas-structural-graph small,
 .chandas-recitation-flow small,
 .chandas-breath-window small,
+.chandas-recitation-timing small,
+.chandas-pada-timing small,
 .chandas-unresolved small {
   display: block;
   margin-top: 0.2rem;

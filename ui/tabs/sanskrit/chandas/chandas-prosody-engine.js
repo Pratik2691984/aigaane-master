@@ -367,6 +367,57 @@ function buildBreathWindowCandidates(padaCandidates) {
   }));
 }
 
+function buildRecitationTimingCandidates(syllables) {
+  let cursor = 0;
+
+  return syllables.map((syllable) => {
+    const startMatra = cursor;
+    const durationMatra = syllable.matra;
+    const endMatra = startMatra + durationMatra;
+    cursor = endMatra;
+
+    return {
+      id: `chandas.timing.${syllable.index}.${stablePart(syllable.id)}`,
+      syllableId: syllable.id,
+      syllableIndex: syllable.index,
+      weight: syllable.weight,
+      startMatra,
+      durationMatra,
+      endMatra,
+      confidence: "deterministic-candidate",
+      source: "chandas-matra-timing",
+      notes: "Mātrā timing projection only; no audio timing, tempo, or chanting-speed inference is claimed.",
+    };
+  });
+}
+
+function buildPadaTimingSummaries(padaCandidates, timingCandidates) {
+  return padaCandidates.map((pada, index) => {
+    const timings = timingCandidates.filter(
+      (timing) =>
+        timing.syllableIndex >= pada.startIndex &&
+        timing.syllableIndex <= pada.endIndex,
+    );
+
+    const startMatra = timings.length ? timings[0].startMatra : 0;
+    const endMatra = timings.length ? timings[timings.length - 1].endMatra : startMatra;
+
+    return {
+      id: `chandas.pada.timing.${index}.${pada.startIndex}.${pada.endIndex}`,
+      padaId: pada.id,
+      startIndex: pada.startIndex,
+      endIndex: pada.endIndex,
+      startMatra,
+      endMatra,
+      durationMatra: endMatra - startMatra,
+      syllableTimingIds: timings.map((timing) => timing.id),
+      confidence: "deterministic-candidate",
+      source: "chandas-pada-timing-summary",
+      notes: "Duration summary only; no performative recitation timing is inferred.",
+    };
+  });
+}
+
 function buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates = [], caesuraCandidates = []) {
   const edges = [];
   ganas.forEach((gana) => {
@@ -451,6 +502,8 @@ const structuralGraphEdges = buildStructuralGraphEdges(
 );
   const recitationFlowCandidates = buildRecitationFlowCandidates(padaRhythmCandidates);
   const breathWindowCandidates = buildBreathWindowCandidates(padaCandidates);
+  const recitationTimingCandidates = buildRecitationTimingCandidates(syllables);
+  const padaTimingSummaries = buildPadaTimingSummaries(padaCandidates, recitationTimingCandidates);
   const trailing = syllables.length % 3;
   const unresolvedCount = trailing === 0 ? 0 : trailing;
 
@@ -474,6 +527,8 @@ const structuralGraphEdges = buildStructuralGraphEdges(
     structuralGraphEdges,
     recitationFlowCandidates,
     breathWindowCandidates,
+    recitationTimingCandidates,
+    padaTimingSummaries,
     edges: buildEdges(syllables, ganas, padaCandidates, padaRhythmCandidates, caesuraCandidates),
     diagnostics: {
       syllableCount: syllables.length,
@@ -490,6 +545,9 @@ const structuralGraphEdges = buildStructuralGraphEdges(
       structuralGraphEdgeCount: structuralGraphEdges.length,
       recitationFlowCandidateCount: recitationFlowCandidates.length,
       breathWindowCandidateCount: breathWindowCandidates.length,
+      recitationTimingCandidateCount: recitationTimingCandidates.length,
+      padaTimingSummaryCount: padaTimingSummaries.length,
+      timingMatraTotal: recitationTimingCandidates.reduce((total, timing) => total + timing.durationMatra, 0),
       unresolvedCount,
       warnings,
     },
@@ -513,6 +571,8 @@ export function attachChandasOverlay(graph, overlayData = {}, bridge = {}) {
   "structuralGraphEdges",
   "recitationFlowCandidates",
   "breathWindowCandidates",
+  "recitationTimingCandidates",
+  "padaTimingSummaries",
 ],
     ["edges"],
   );
