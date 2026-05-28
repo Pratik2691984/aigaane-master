@@ -767,6 +767,7 @@ def build_prakriya_graph(
         "overlays": overlays,
         "metadata": {
             "overlaysAttached": list(PRAKRIYA_OVERLAY_TYPES),
+            "dependenciesAttached": True,
             "overlayBridge": {
                 "status": "ready",
                 "schemaVersion": "prakriya-overlay-bridge.backend.v1",
@@ -799,6 +800,23 @@ def build_rulefire_projection() -> Dict[str, Any]:
             "snapshotCount": 0,
             "unresolvedCount": 0,
             "warnings": ["Rulefire JS runtime available in frontend; backend projection placeholder retained."],
+        },
+    }
+
+
+def build_sutra_dependency_projection() -> Dict[str, Any]:
+    return {
+        "schemaVersion": "sutra-dependency.v1",
+        "status": "ready",
+        "graphType": "deterministic-sutra-dependency",
+        "nodes": [],
+        "edges": [],
+        "unresolved": [],
+        "diagnostics": {
+            "nodeCount": 0,
+            "edgeCount": 0,
+            "unresolvedCount": 0,
+            "warnings": [],
         },
     }
 
@@ -845,6 +863,7 @@ def empty_payload(input_text: str, diagnostics: List[Dict[str, str]]) -> Dict[st
         "derivation_history": [],
         "prakriya_graph": build_prakriya_graph([]),
         "rulefire": build_rulefire_projection(),
+        "sutra_dependency": build_sutra_dependency_projection(),
         "lexical_lookup": [],
         "parser_diagnostics": diagnostics,
         "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
@@ -896,6 +915,7 @@ def analyze_sanskrit(input_text: str) -> Dict[str, Any]:
                 phonological_syllables=phonological_syllable_dicts,
             ),
             "rulefire": build_rulefire_projection(),
+            "sutra_dependency": build_sutra_dependency_projection(),
             "lexical_lookup": lexical_entries,
             "parser_diagnostics": diagnostics,
             "lexical_source_governance": LEXICAL_SOURCE_GOVERNANCE,
