@@ -32,3 +32,35 @@ Trace nodes use stable ordered stages: subanta generation, tiṅanta generation,
 ## Runtime Isolation
 
 `executePrakriya(input)` does not mutate input objects, canonical registries, existing overlay state, or source generator outputs. Identical input returns identical output.
+
+## Node 31E - Prakriya Trace Graph
+
+`buildPrakriyaTraceGraph(execution)` projects a deterministic 31D execution into graph-safe nodes and edges. This is a structural graph projection only; it does not add missing derivation steps, infer grammar, or make authoritative prakriya claims.
+
+Node types:
+
+- `input`
+- `subantaGeneration`
+- `tinantaGeneration`
+- `padaAssembly`
+- `sandhiExecution`
+- `sentenceComposition`
+- `reversePreview`
+- `diagnostic`
+- `unresolved`
+
+Edge types:
+
+- `feeds`
+- `transforms`
+- `assembles`
+- `appliesSandhi`
+- `reversesTo`
+- `annotates`
+- `unresolved`
+
+`serializePrakriyaTraceGraph(graph)` returns stable JSON-safe graph text for inspection and later storage. `attachPrakriyaOverlay(graph, overlayData)` returns a new graph with deterministic overlay annotations and does not mutate the original graph.
+
+`renderPrakriyaTraceGraph(containerOrId, graph)` uses simple read-only DOM rendering. It does not require D3, canvas, vis-network, or external libraries. The renderer lists diagnostics, ordered nodes, directed edges, overlay annotations, unresolved warnings, and a serialized JSON preview.
+
+Runtime isolation remains the same as the composition engine: graph construction never mutates execution objects, overlay inputs, canonical registries, or existing overlay state. Identical execution input produces identical graph output.

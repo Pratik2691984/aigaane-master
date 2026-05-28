@@ -13,7 +13,9 @@ import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 import { executePrakriya } from "./prakriya/prakriya-composition-engine.js";
+import { renderPrakriyaTraceGraph } from "./prakriya/prakriya-graph-renderer.js";
 import { renderPrakriya } from "./prakriya/prakriya-renderer.js";
+import { buildPrakriyaTraceGraph } from "./prakriya/prakriya-trace-graph.js";
 import { executeSandhi } from "./sandhi/sandhi-execution-engine.js";
 import { renderSandhiExecution } from "./sandhi/sandhi-trace-renderer.js";
 import { inspectDhatuSemanticGraph } from "./semantic/dhatu-semantic-engine.js";
@@ -944,10 +946,7 @@ function renderTinantaGeneratorPanels(inputText = "") {
   if (paradigmContainer) renderTinantaParadigm(paradigmContainer, generateTinantaParadigm(baseInput));
 }
 
-function renderPrakriyaCompositionPanel(inputText = "") {
-  const container = byId("prakriya-composition-panel");
-  if (!container) return;
-
+function buildPrakriyaCompositionInput(inputText = "") {
   const firstToken = String(inputText || "")
     .split(/\s+/)
     .filter(Boolean)[0] || "";
@@ -962,13 +961,28 @@ function renderPrakriyaCompositionPanel(inputText = "") {
       ? { dhatu: "nī", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" }
       : { dhatu: "gam", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" };
 
-  renderPrakriya(container, executePrakriya({
+  return {
     nounInputs: [nounInput],
     verbInput,
     enableSandhi: true,
     enableTrace: true,
     enableReversePreview: true,
-  }));
+  };
+}
+
+function renderPrakriyaCompositionPanel(inputText = "") {
+  const container = byId("prakriya-composition-panel");
+  if (!container) return;
+
+  renderPrakriya(container, executePrakriya(buildPrakriyaCompositionInput(inputText)));
+}
+
+function renderPrakriyaTraceGraphPanel(inputText = "") {
+  const container = byId("prakriya-trace-graph-panel");
+  if (!container) return;
+
+  const execution = executePrakriya(buildPrakriyaCompositionInput(inputText));
+  renderPrakriyaTraceGraph(container, buildPrakriyaTraceGraph(execution));
 }
 
 function renderKarakaOverlayPanel(inputText = "") {
@@ -5223,6 +5237,7 @@ async function analyzeCurrentInput() {
     renderSubantaGeneratorPanel(inputText);
     renderTinantaGeneratorPanels(inputText);
     renderPrakriyaCompositionPanel(inputText);
+    renderPrakriyaTraceGraphPanel(inputText);
     renderDerivationGraphPanel(inputText);
     renderSutraReferencePanel(inputText);
     renderRuleTracePanel(inputText);
@@ -5242,6 +5257,7 @@ async function analyzeCurrentInput() {
   renderSubantaGeneratorPanel(inputText);
   renderTinantaGeneratorPanels(inputText);
   renderPrakriyaCompositionPanel(inputText);
+  renderPrakriyaTraceGraphPanel(inputText);
   renderDerivationGraphPanel(inputText);
   renderSutraReferencePanel(inputText);
   renderRuleTracePanel(inputText);
@@ -6114,6 +6130,7 @@ export function init(node) {
   renderSubantaGeneratorPanel(inputNode?.value || "");
   renderTinantaGeneratorPanels(inputNode?.value || "");
   renderPrakriyaCompositionPanel(inputNode?.value || "");
+  renderPrakriyaTraceGraphPanel(inputNode?.value || "");
   renderSymbolicCompressionPanel();
   renderPhoneticTopologyPanel(inputNode?.value || "");
   renderDerivationGraphPanel(inputNode?.value || "");
