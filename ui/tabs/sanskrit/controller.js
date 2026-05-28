@@ -10,6 +10,8 @@ import { buildChandasOverlayHistory } from "./chandas/chandas-overlay-history-en
 import { renderChandasOverlayHistory } from "./chandas/chandas-overlay-history-renderer.js";
 import { buildChandasOverlayReplay } from "./chandas/chandas-overlay-replay-engine.js";
 import { renderChandasOverlayReplay } from "./chandas/chandas-overlay-replay-renderer.js";
+import { auditChandasOverlayReplay } from "./chandas/chandas-overlay-audit-engine.js";
+import { renderChandasOverlayAudit } from "./chandas/chandas-overlay-audit-renderer.js";
 import { inspectDerivationGraph } from "./derivation/derivation-graph-engine.js";
 import { renderDerivationOverlayList } from "./derivation/derivation-overlay-renderer.js";
 import { buildKarakaOverlay } from "./karaka/karaka-overlay-engine.js";
@@ -1216,6 +1218,13 @@ function renderChandasProsodyPanel(inputText = "") {
   replayHost.className = "chandas-overlay-replay-host";
   replayHost.innerHTML = renderChandasOverlayReplay(replay);
   container.appendChild(replayHost);
+
+    const audit = auditChandasOverlayReplay(replay);
+
+  const auditHost = document.createElement("div");
+  auditHost.className = "chandas-overlay-audit-host";
+  auditHost.innerHTML = renderChandasOverlayAudit(audit);
+  container.appendChild(auditHost);
 }
 
 
