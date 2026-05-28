@@ -49,3 +49,8 @@ export function inspectRuleTrace(input = "") {
     safetyNote: RULE_TRACE_SAFETY_NOTE,
   };
 }
+
+export function attachRuleTraceOverlay(graph, overlayData = {}, bridge = {}) {
+  if (typeof bridge.attachOverlayItems !== "function") return graph;
+  return bridge.attachOverlayItems(graph, "rule-trace", overlayData?.traceGraph || overlayData, ["nodes"], ["edges"]);
+}

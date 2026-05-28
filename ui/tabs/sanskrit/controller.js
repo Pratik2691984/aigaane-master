@@ -14,6 +14,7 @@ import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-eng
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 import { executePrakriya } from "./prakriya/prakriya-composition-engine.js";
 import { renderPrakriyaTraceGraph } from "./prakriya/prakriya-graph-renderer.js";
+import { attachAllOverlays } from "./prakriya/prakriya-overlay-bridge.js";
 import { renderPrakriya } from "./prakriya/prakriya-renderer.js";
 import { buildPrakriyaTraceGraph } from "./prakriya/prakriya-trace-graph.js";
 import { executeSandhi } from "./sandhi/sandhi-execution-engine.js";
@@ -982,7 +983,17 @@ function renderPrakriyaTraceGraphPanel(inputText = "") {
   if (!container) return;
 
   const execution = executePrakriya(buildPrakriyaCompositionInput(inputText));
-  renderPrakriyaTraceGraph(container, buildPrakriyaTraceGraph(execution));
+  const traceGraph = buildPrakriyaTraceGraph(execution);
+  const morphologyTransitions = inspectMorphologyTransitions(inputText);
+  const unifiedGraph = attachAllOverlays(traceGraph, execution, {
+    inputText,
+    morphologyTransitions,
+    tokens: String(inputText || "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((token, index) => ({ token, index })),
+  });
+  renderPrakriyaTraceGraph(container, unifiedGraph);
 }
 
 function renderKarakaOverlayPanel(inputText = "") {

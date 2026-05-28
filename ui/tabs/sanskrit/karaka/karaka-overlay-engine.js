@@ -111,3 +111,8 @@ export function buildKarakaOverlay(input = {}) {
     safetyNote: KARAKA_OVERLAY_SAFETY_NOTE,
   };
 }
+
+export function attachKarakaOverlay(graph, overlayData = {}, bridge = {}) {
+  if (typeof bridge.attachOverlayItems !== "function") return graph;
+  return bridge.attachOverlayItems(graph, "karaka", overlayData, ["nodes"]);
+}

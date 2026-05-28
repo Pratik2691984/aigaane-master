@@ -38,3 +38,8 @@ export function inspectDhatuSemanticGraph(input = "") {
     safetyNote: DHATU_SEMANTIC_SAFETY_NOTE,
   };
 }
+
+export function attachSemanticOverlay(graph, overlayData = {}, bridge = {}) {
+  if (typeof bridge.attachOverlayItems !== "function") return graph;
+  return bridge.attachOverlayItems(graph, "semantic", overlayData?.graph || overlayData, ["nodes"], ["edges"]);
+}

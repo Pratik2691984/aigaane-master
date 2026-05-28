@@ -192,3 +192,8 @@ export function buildVakyaDependencyOverlay(input = {}) {
     },
   };
 }
+
+export function attachVakyaOverlay(graph, overlayData = {}, bridge = {}) {
+  if (typeof bridge.attachOverlayItems !== "function") return graph;
+  return bridge.attachOverlayItems(graph, "vakya", overlayData, ["anchors", "nodes"], ["edges"]);
+}

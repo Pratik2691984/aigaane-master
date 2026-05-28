@@ -231,3 +231,14 @@ export function buildChandasProsodyOverlay(input = {}) {
     },
   };
 }
+
+export function attachChandasOverlay(graph, overlayData = {}, bridge = {}) {
+  if (typeof bridge.attachOverlayItems !== "function") return graph;
+  return bridge.attachOverlayItems(
+    graph,
+    "chandas",
+    overlayData,
+    ["syllables", "ganas", "padaCandidates", "metreCandidates"],
+    ["edges"],
+  );
+}

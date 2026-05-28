@@ -64,3 +64,20 @@ Edge types:
 `renderPrakriyaTraceGraph(containerOrId, graph)` uses simple read-only DOM rendering. It does not require D3, canvas, vis-network, or external libraries. The renderer lists diagnostics, ordered nodes, directed edges, overlay annotations, unresolved warnings, and a serialized JSON preview.
 
 Runtime isolation remains the same as the composition engine: graph construction never mutates execution objects, overlay inputs, canonical registries, or existing overlay state. Identical execution input produces identical graph output.
+
+## Node 31F - Prakriya Overlay Integration Bridge
+
+`prakriya-overlay-bridge.js` makes the prakriya trace graph the central read-only spine for deterministic overlay data. It attaches compact overlay payloads from karaka, vakya, chandas, sandarbha, semantic, and rule-trace layers onto `node.overlays` and `edge.overlays`.
+
+The bridge exports:
+
+- `cloneGraph(graph)`
+- `attachOverlayToNode(graph, nodeId, overlayType, overlayData)`
+- `attachOverlayToEdge(graph, edgeId, overlayType, overlayData)`
+- `findNodeByOriginalId(graph, originalId)`
+- `findEdgeByEndpoint(graph, source, target, type)`
+- `attachAllOverlays(graph, execution, options = {})`
+
+All bridge operations clone graph input and preserve execution input. Existing `build...Overlay` functions keep their current behavior; the new `attach...Overlay` functions only add deterministic graph-spine integration when called by the bridge.
+
+`attachAllOverlays` returns a unified graph with `metadata.overlaysAttached`, renderer-compatible `overlays` objects on nodes and edges, and updated overlay diagnostics. It does not add backend work, external graph libraries, or authoritative grammar claims.

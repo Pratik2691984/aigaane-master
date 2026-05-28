@@ -285,3 +285,8 @@ export function buildSandarbhaContextOverlay(input = {}) {
     },
   };
 }
+
+export function attachSandarbhaOverlay(graph, overlayData = {}, bridge = {}) {
+  if (typeof bridge.attachOverlayItems !== "function") return graph;
+  return bridge.attachOverlayItems(graph, "sandarbha", overlayData, ["neighborhoods", "candidates"], ["edges"]);
+}

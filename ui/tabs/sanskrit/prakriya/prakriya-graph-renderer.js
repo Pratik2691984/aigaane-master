@@ -20,6 +20,21 @@ function appendBox(container, className, label, value, detail) {
   appendText(row, "strong", value || "-");
   if (detail) appendText(row, "small", detail);
   container.appendChild(row);
+  return row;
+}
+
+function overlayTypes(item) {
+  const overlays = item?.overlays && typeof item.overlays === "object" ? item.overlays : {};
+  return Object.keys(overlays).sort();
+}
+
+function appendOverlayBadges(row, item) {
+  const types = overlayTypes(item);
+  if (!types.length) return;
+  const badges = document.createElement("span");
+  badges.className = "prakriya-graph-overlay-badges";
+  types.forEach((type) => appendText(badges, "span", type, "prakriya-graph-overlay-badge"));
+  row.appendChild(badges);
 }
 
 export function renderPrakriyaTraceGraph(containerOrId, graph) {
@@ -53,17 +68,19 @@ export function renderPrakriyaTraceGraph(containerOrId, graph) {
   if (nodes.length === 0) appendBox(container, "prakriya-graph-unresolved", "empty", "No graph nodes", "No deterministic trace graph nodes were available.");
 
   nodes.forEach((node) => {
-    appendBox(
+    const row = appendBox(
       container,
       node.type === "unresolved" ? "prakriya-graph-unresolved" : "prakriya-graph-node",
       node.type,
       node.label,
       `${node.id}; stage ${node.stage}; order ${node.order}`,
     );
+    appendOverlayBadges(row, node);
   });
 
   edges.forEach((edge) => {
-    appendBox(container, "prakriya-graph-edge", edge.type, `${edge.source} -> ${edge.target}`, edge.label);
+    const row = appendBox(container, "prakriya-graph-edge", edge.type, `${edge.source} -> ${edge.target}`, edge.label);
+    appendOverlayBadges(row, edge);
   });
 
   overlays.forEach((overlay) => {
