@@ -878,6 +878,40 @@ def query_chandas_overlay_projection(
         "warnings": [],
     }
 
+def navigate_chandas_overlay_projection(
+    projection: Optional[Dict[str, Any]] = None,
+    path: Optional[str] = None,
+) -> Dict[str, Any]:
+    safe_projection = dict(projection or {})
+    normalized_path = str(path or "").strip()
+
+    path_map = {
+        "": {
+            "availablePaths": [
+                "capabilities",
+                "diagnostics",
+                "graphDiagnostics",
+                "overlay",
+            ],
+        },
+        "capabilities": dict(safe_projection.get("capabilities") or {}),
+        "graphDiagnostics": dict(safe_projection.get("graphDiagnostics") or {}),
+        "overlay": dict(safe_projection.get("overlay") or {}),
+        "diagnostics": dict(
+            (safe_projection.get("overlay") or {}).get("diagnostics") or {}
+        ),
+    }
+
+    result = path_map.get(normalized_path, {})
+
+    return {
+        "schemaVersion": "chandas-overlay-navigation.v1",
+        "status": "ready",
+        "path": normalized_path or "root",
+        "result": result,
+        "warnings": [] if normalized_path in path_map else ["Unknown chandas overlay navigation path."],
+    }
+
 def build_rulefire_projection() -> Dict[str, Any]:
     return {
         "schemaVersion": "rulefire.v1",

@@ -122,6 +122,39 @@ class TestChandasMetreRegistry(unittest.TestCase):
         )
         self.assertTrue(capabilities["result"]["metreRegistry"])
 
+    def test_chandas_overlay_navigation_projection(self):
+        from api.engines.vyakarana import (
+            build_chandas_overlay_api_projection,
+            build_prakriya_graph,
+            navigate_chandas_overlay_projection,
+        )
+
+        graph = build_prakriya_graph(
+            [{"stage": "input", "input": "x", "output": "x", "rule": "identity"}],
+            phonological_syllables=[{"text": "अ"}],
+            padas=[],
+        )
+
+        projection = build_chandas_overlay_api_projection(graph)
+
+        root = navigate_chandas_overlay_projection(projection)
+        self.assertEqual(root["schemaVersion"], "chandas-overlay-navigation.v1")
+        self.assertEqual(root["status"], "ready")
+        self.assertEqual(root["path"], "root")
+        self.assertIn("availablePaths", root["result"])
+
+        diagnostics = navigate_chandas_overlay_projection(projection, "diagnostics")
+        self.assertEqual(diagnostics["path"], "diagnostics")
+        self.assertIn("metreCandidateCount", diagnostics["result"])
+
+        capabilities = navigate_chandas_overlay_projection(projection, "capabilities")
+        self.assertEqual(capabilities["path"], "capabilities")
+        self.assertTrue(capabilities["result"]["metreRegistry"])
+
+        unknown = navigate_chandas_overlay_projection(projection, "unknown")
+        self.assertEqual(unknown["path"], "unknown")
+        self.assertIn("Unknown chandas overlay navigation path.", unknown["warnings"])
+
 
 if __name__ == "__main__":
     unittest.main()
