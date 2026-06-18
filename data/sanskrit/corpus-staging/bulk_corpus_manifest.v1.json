@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-staging.v1",
+  "status": "staging-ready",
+  "mode": "preview-only",
+  "canonicalWriteAllowed": false,
+  "maxRecords": 2000,
+  "batches": [],
+  "metadata": {
+    "createdFor": "Node 39A Sanskrit Bulk Corpus Staging Layer",
+    "readOnly": true
+  }
+}
