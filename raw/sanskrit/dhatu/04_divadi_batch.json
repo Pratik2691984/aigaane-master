@@ -6,1124 +6,1124 @@
   "description": "Real corpus dhatu batch for divadi gana",
   "records": [
     {
-      "id": "04.0001",
+      "id": "06.0094",
       "type": "dhatu",
-      "text": "????",
-      "source": "raw/dhatupatha.csv",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "text": "पुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to hug, to embrace"
     },
     {
-      "id": "04.GEN.0002",
+      "id": "06.0097",
       "type": "dhatu",
-      "text": "????",
+      "text": "गुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to protect, to create"
     },
     {
-      "id": "04.GEN.0003",
+      "id": "06.0099",
       "type": "dhatu",
-      "text": "????",
+      "text": "छुर्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cut,to engrave"
     },
     {
-      "id": "04.GEN.0004",
+      "id": "06.0102",
       "type": "dhatu",
-      "text": "????",
+      "text": "त्रुट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cut,to break"
     },
     {
-      "id": "04.GEN.0005",
+      "id": "06.0103",
       "type": "dhatu",
-      "text": "????",
+      "text": "तुट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to quarrel,to argue, to fight"
     },
     {
-      "id": "04.GEN.0006",
+      "id": "06.0104",
       "type": "dhatu",
-      "text": "????",
+      "text": "चुट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cut, to pierce"
     },
     {
-      "id": "04.GEN.0007",
+      "id": "06.0105",
       "type": "dhatu",
-      "text": "????",
+      "text": "छुट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cut, to pierce"
     },
     {
-      "id": "04.GEN.0008",
+      "id": "06.0107",
       "type": "dhatu",
-      "text": "????",
+      "text": "जुट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to join, to tie"
     },
     {
-      "id": "04.GEN.0009",
+      "id": "06.0112",
       "type": "dhatu",
-      "text": "????",
+      "text": "कृड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to thicken, to solidify"
     },
     {
-      "id": "04.GEN.0010",
+      "id": "06.0113",
       "type": "dhatu",
-      "text": "????",
+      "text": "कुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to act as a child,to kid, to heap, to collect"
     },
     {
-      "id": "04.GEN.0011",
+      "id": "06.0117",
       "type": "dhatu",
-      "text": "????",
+      "text": "थुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover"
     },
     {
-      "id": "04.GEN.0012",
+      "id": "06.0118",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्थुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover"
     },
     {
-      "id": "04.GEN.0013",
+      "id": "06.0119",
       "type": "dhatu",
-      "text": "????",
+      "text": "खुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover"
     },
     {
-      "id": "04.GEN.0014",
+      "id": "06.0120",
       "type": "dhatu",
-      "text": "????",
+      "text": "छुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover"
     },
     {
-      "id": "04.GEN.0015",
+      "id": "06.0121",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्फुर्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
     },
     {
-      "id": "04.GEN.0016",
+      "id": "06.0122",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्फुल्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
     },
     {
-      "id": "04.GEN.0017",
+      "id": "06.0123",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्फर्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
     },
     {
-      "id": "04.GEN.0018",
+      "id": "06.0124",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्फल्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
     },
     {
-      "id": "04.GEN.0019",
+      "id": "06.0125",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्फुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover, to conceal"
     },
     {
-      "id": "04.GEN.0020",
+      "id": "06.0126",
       "type": "dhatu",
-      "text": "????",
+      "text": "चुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover, to conceal"
     },
     {
-      "id": "04.GEN.0021",
+      "id": "06.0127",
       "type": "dhatu",
-      "text": "????",
+      "text": "व्रुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cover, to conceal"
     },
     {
-      "id": "04.GEN.0022",
+      "id": "06.0128",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्रुड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to sink"
     },
     {
-      "id": "04.GEN.0023",
+      "id": "06.0129",
       "type": "dhatu",
-      "text": "????",
+      "text": "भृड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to sink"
     },
     {
-      "id": "04.GEN.0024",
+      "id": "06.0131",
       "type": "dhatu",
-      "text": "????",
+      "text": "गुर्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to try, to make effort"
     },
     {
-      "id": "04.GEN.0025",
+      "id": "06.0132",
       "type": "dhatu",
-      "text": "????",
+      "text": "नू",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to praise"
     },
     {
-      "id": "04.GEN.0026",
+      "id": "06.0137",
       "type": "dhatu",
-      "text": "????",
+      "text": "कू",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to hum,to moan,to speak inarticulately, to sound"
     },
     {
-      "id": "04.GEN.0027",
+      "id": "06.0139",
       "type": "dhatu",
-      "text": "????",
+      "text": "मृ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to die"
     },
     {
-      "id": "04.GEN.0028",
+      "id": "06.0141",
       "type": "dhatu",
-      "text": "????",
+      "text": "पि",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to go"
     },
     {
-      "id": "04.GEN.0029",
+      "id": "06.0142",
       "type": "dhatu",
-      "text": "????",
+      "text": "धि",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to hold,to possess, to become"
     },
     {
-      "id": "04.GEN.0030",
+      "id": "06.0145",
       "type": "dhatu",
-      "text": "????",
+      "text": "कॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to discard, to throw away"
     },
     {
-      "id": "04.GEN.0031",
+      "id": "06.0146",
       "type": "dhatu",
-      "text": "????",
+      "text": "गॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to eat, to swallow"
     },
     {
-      "id": "04.GEN.0032",
+      "id": "06.0149",
       "type": "dhatu",
-      "text": "????",
+      "text": "प्रच्छ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to ask, to seek, to question"
     },
     {
-      "id": "04.GEN.0033",
+      "id": "06.0151",
       "type": "dhatu",
-      "text": "????",
+      "text": "मज्ज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to bathe, to submerge"
     },
     {
-      "id": "04.GEN.0034",
+      "id": "06.0152",
       "type": "dhatu",
-      "text": "????",
+      "text": "रुज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to have pain, to be ill, to bend, to break"
     },
     {
-      "id": "04.GEN.0035",
+      "id": "06.0153",
       "type": "dhatu",
-      "text": "????",
+      "text": "भुज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to bend,to curve,to be crooked"
     },
     {
-      "id": "04.GEN.0036",
+      "id": "06.0154",
       "type": "dhatu",
-      "text": "????",
+      "text": "छुप्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to touch"
     },
     {
-      "id": "04.GEN.0037",
+      "id": "06.0155",
       "type": "dhatu",
-      "text": "????",
+      "text": "रुश्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "04.GEN.0038",
+      "id": "06.0156",
       "type": "dhatu",
-      "text": "????",
+      "text": "रिश्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "04.GEN.0039",
+      "id": "06.0158",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्पृश्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to touch"
     },
     {
-      "id": "04.GEN.0040",
+      "id": "06.0159",
       "type": "dhatu",
-      "text": "????",
+      "text": "विच्छ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to go"
     },
     {
-      "id": "04.GEN.0041",
+      "id": "06.0160",
       "type": "dhatu",
-      "text": "????",
+      "text": "विश्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to enter"
     },
     {
-      "id": "04.GEN.0042",
+      "id": "06.0161",
       "type": "dhatu",
-      "text": "????",
+      "text": "मृश्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to touch"
     },
     {
-      "id": "04.GEN.0043",
+      "id": "06.0166",
       "type": "dhatu",
-      "text": "????",
+      "text": "मुच्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to free,to liberate,to leave, to release,to loosen,to abandon"
     },
     {
-      "id": "04.GEN.0044",
+      "id": "06.0169",
       "type": "dhatu",
-      "text": "????",
+      "text": "लिप्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to anoint,to besmear,to cover,to spread over,to stain"
     },
     {
-      "id": "04.GEN.0045",
+      "id": "06.0170",
       "type": "dhatu",
-      "text": "????",
+      "text": "सिच्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to sprinkle,to moisten"
     },
     {
-      "id": "04.GEN.0046",
+      "id": "06.0171",
       "type": "dhatu",
-      "text": "????",
+      "text": "कृत्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to cut, to break, to slice"
     },
     {
-      "id": "04.GEN.0047",
+      "id": "06.0174",
       "type": "dhatu",
-      "text": "????",
+      "text": "फुल्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
     },
     {
-      "id": "04.GEN.0048",
+      "id": "07.0002",
       "type": "dhatu",
-      "text": "????",
+      "text": "भिद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to cut, to break, to divide"
     },
     {
-      "id": "04.GEN.0049",
+      "id": "07.0003",
       "type": "dhatu",
-      "text": "????",
+      "text": "छिद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to cut,to grind, to truncate, to incise"
     },
     {
-      "id": "04.GEN.0050",
+      "id": "07.0004",
       "type": "dhatu",
-      "text": "????",
+      "text": "रिच्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to separate, to abort, to purify the body, to sweep, to cleanse the body"
     },
     {
-      "id": "04.GEN.0051",
+      "id": "07.0005",
       "type": "dhatu",
-      "text": "????",
+      "text": "विच्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to divide,to separate,to remove from"
     },
     {
-      "id": "04.GEN.0052",
+      "id": "07.0006",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्षुद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to crush, to grind, to powder"
     },
     {
-      "id": "04.GEN.0053",
+      "id": "07.0008",
       "type": "dhatu",
-      "text": "????",
+      "text": "छृद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to glow, to shine,to play"
     },
     {
-      "id": "04.GEN.0054",
+      "id": "07.0009",
       "type": "dhatu",
-      "text": "????",
+      "text": "तृद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to kill,to destroy, to disregard, to insult"
     },
     {
-      "id": "04.GEN.0055",
+      "id": "07.0011",
       "type": "dhatu",
-      "text": "????",
+      "text": "इन्ध्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to shine, to glow"
     },
     {
-      "id": "04.GEN.0056",
+      "id": "07.0015",
       "type": "dhatu",
-      "text": "????",
+      "text": "पिष्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to grind,to powder,to crush, to kill, to destroy"
     },
     {
-      "id": "04.GEN.0057",
+      "id": "07.0016",
       "type": "dhatu",
-      "text": "????",
+      "text": "भञ्ज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to destroy"
     },
     {
-      "id": "04.GEN.0058",
+      "id": "07.0019",
       "type": "dhatu",
-      "text": "????",
+      "text": "हिंस्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to kill to destroy, to give pain"
     },
     {
-      "id": "04.GEN.0059",
+      "id": "07.0020",
       "type": "dhatu",
-      "text": "????",
+      "text": "उन्द्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to moisten, to be wet"
     },
     {
-      "id": "04.GEN.0060",
+      "id": "07.0021",
       "type": "dhatu",
-      "text": "????",
+      "text": "अञ्ज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "07",
+      "notes": "to anoint, to polish, to smear"
     },
     {
-      "id": "04.GEN.0061",
+      "id": "08.0001",
       "type": "dhatu",
-      "text": "????",
+      "text": "तन्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "08",
+      "notes": "to spread, to stretch, to expand, to increase"
     },
     {
-      "id": "04.GEN.0062",
+      "id": "08.0003",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्षण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "08",
+      "notes": "to kill, to destroy, to irritate, to cause pain, to hurt, to break"
     },
     {
-      "id": "04.GEN.0063",
+      "id": "08.0004",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्षिण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "08",
+      "notes": "to kill, to destroy, to irritate, to cause pain, to hurt, to break"
     },
     {
-      "id": "04.GEN.0064",
+      "id": "08.0005",
       "type": "dhatu",
-      "text": "????",
+      "text": "ऋण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "08",
+      "notes": "to go"
     },
     {
-      "id": "04.GEN.0065",
+      "id": "08.0006",
       "type": "dhatu",
-      "text": "????",
+      "text": "तृण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "08",
+      "notes": "to eat,to graze"
     },
     {
-      "id": "04.GEN.0066",
+      "id": "08.0007",
       "type": "dhatu",
-      "text": "????",
+      "text": "घृण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "08",
+      "notes": "to shine,to glow"
     },
     {
-      "id": "04.GEN.0067",
+      "id": "09.0001",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्री",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to buy, to purchase"
     },
     {
-      "id": "04.GEN.0068",
+      "id": "09.0003",
       "type": "dhatu",
-      "text": "????",
+      "text": "श्री",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to cook"
     },
     {
-      "id": "04.GEN.0069",
+      "id": "09.0006",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्कु",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to jump, to leap, to make something fly, to pull up, to cover"
     },
     {
-      "id": "04.GEN.0070",
+      "id": "09.0008",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्तुम्भ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to stop,to hinder,to become stiff, to obstruct"
     },
     {
-      "id": "04.GEN.0071",
+      "id": "09.0010",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्कुम्भ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to stop,to hinder,to become stiff, to obstruct"
     },
     {
-      "id": "04.GEN.0072",
+      "id": "09.0012",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्नू",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to sound"
     },
     {
-      "id": "04.GEN.0073",
+      "id": "09.0013",
       "type": "dhatu",
-      "text": "????",
+      "text": "द्रू",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "04.GEN.0074",
+      "id": "09.0015",
       "type": "dhatu",
-      "text": "????",
+      "text": "शॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "04.GEN.0075",
+      "id": "09.0016",
       "type": "dhatu",
-      "text": "????",
+      "text": "लू",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to cut, to pluck, to destroy, to dissolve"
     },
     {
-      "id": "04.GEN.0076",
+      "id": "09.0017",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्तॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to wrap, to cover, to clothe"
     },
     {
-      "id": "04.GEN.0077",
+      "id": "09.0019",
       "type": "dhatu",
-      "text": "????",
+      "text": "वॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to marry, to accept, to own, to choose"
     },
     {
-      "id": "04.GEN.0078",
+      "id": "09.0024",
       "type": "dhatu",
-      "text": "????",
+      "text": "भॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to hate, to insult"
     },
     {
-      "id": "04.GEN.0079",
+      "id": "09.0025",
       "type": "dhatu",
-      "text": "????",
+      "text": "मॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to kill, to destroy, to hurt"
     },
     {
-      "id": "04.GEN.0080",
+      "id": "09.0029",
       "type": "dhatu",
-      "text": "????",
+      "text": "धॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "वयोहानौ"
     },
     {
-      "id": "04.GEN.0081",
+      "id": "09.0032",
       "type": "dhatu",
-      "text": "????",
+      "text": "ॠ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to go"
     },
     {
-      "id": "04.GEN.0082",
+      "id": "09.0034",
       "type": "dhatu",
-      "text": "????",
+      "text": "ज्या",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to become old,to decay"
     },
     {
-      "id": "04.GEN.0083",
+      "id": "09.0037",
       "type": "dhatu",
-      "text": "????",
+      "text": "व्ली",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to choose,to select,to find, to marry, to cover, to glean"
     },
     {
-      "id": "04.GEN.0084",
+      "id": "09.0038",
       "type": "dhatu",
-      "text": "????",
+      "text": "ब्ली",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to choose,to select,to find, to marry, to cover, to glean"
     },
     {
-      "id": "04.GEN.0085",
+      "id": "09.0039",
       "type": "dhatu",
-      "text": "????",
+      "text": "प्ली",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to go"
     },
     {
-      "id": "04.GEN.0086",
+      "id": "09.0041",
       "type": "dhatu",
-      "text": "????",
+      "text": "भ्री",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to fear,to support, to wear, to obey"
     },
     {
-      "id": "04.GEN.0087",
+      "id": "09.0042",
       "type": "dhatu",
-      "text": "????",
+      "text": "क्षी",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to kill, to destroy, to cause pain, to hurt"
     },
     {
-      "id": "04.GEN.0088",
+      "id": "09.0044",
       "type": "dhatu",
-      "text": "????",
+      "text": "बन्ध्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to tie, to bind"
     },
     {
-      "id": "04.GEN.0089",
+      "id": "09.0051",
       "type": "dhatu",
-      "text": "????",
+      "text": "मृद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to powder, to cut, to grind"
     },
     {
-      "id": "04.GEN.0090",
+      "id": "09.0054",
       "type": "dhatu",
-      "text": "????",
+      "text": "कुष्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to take out, to extract, to examine a metal, to investigate purity of a metal"
     },
     {
-      "id": "04.GEN.0091",
+      "id": "09.0060",
       "type": "dhatu",
-      "text": "????",
+      "text": "ध्रस्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to gather, to pick, to glean"
     },
     {
-      "id": "04.GEN.0092",
+      "id": "09.0067",
       "type": "dhatu",
-      "text": "????",
+      "text": "खच्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to occur in abundance"
     },
     {
-      "id": "04.GEN.0093",
+      "id": "09.0068",
       "type": "dhatu",
-      "text": "????",
+      "text": "खव्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to occur in abundance"
     },
     {
-      "id": "04.GEN.0094",
+      "id": "09.0070",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्वॄ",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to marry, to accept, to own, to choose"
     },
     {
-      "id": "04.GEN.0095",
+      "id": "09.0071",
       "type": "dhatu",
-      "text": "????",
+      "text": "ग्रह्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "09",
+      "notes": "to take, to accept, to obtain"
     },
     {
-      "id": "04.GEN.0096",
+      "id": "10.0001",
       "type": "dhatu",
-      "text": "????",
+      "text": "चुर्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to steal"
     },
     {
-      "id": "04.GEN.0097",
+      "id": "10.0002",
       "type": "dhatu",
-      "text": "????",
+      "text": "चिन्त्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to contemplate,to think,to discuss,to remember, to worry"
     },
     {
-      "id": "04.GEN.0098",
+      "id": "10.0003",
       "type": "dhatu",
-      "text": "????",
+      "text": "यन्त्र्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to restrain,to shy"
     },
     {
-      "id": "04.GEN.0099",
+      "id": "10.0006",
       "type": "dhatu",
-      "text": "????",
+      "text": "लक्ष्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to observe,to see,to look, to mark, to point, to deliberate"
     },
     {
-      "id": "04.GEN.0100",
+      "id": "10.0007",
       "type": "dhatu",
-      "text": "????",
+      "text": "कुन्द्र्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to tell a lie"
     },
     {
-      "id": "04.GEN.0101",
+      "id": "10.0008",
       "type": "dhatu",
-      "text": "????",
+      "text": "कुद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to tell a lie"
     },
     {
-      "id": "04.GEN.0102",
+      "id": "10.0009",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्पुण्ड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to make fun of, to laugh at, to joke"
     },
     {
-      "id": "04.GEN.0103",
+      "id": "10.0011",
       "type": "dhatu",
-      "text": "????",
+      "text": "मिन्द्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to soften, to melt, to become greasy, to love"
     },
     {
-      "id": "04.GEN.0104",
+      "id": "10.0013",
       "type": "dhatu",
-      "text": "????",
+      "text": "लण्ड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to throw up"
     },
     {
-      "id": "04.GEN.0105",
+      "id": "10.0014",
       "type": "dhatu",
-      "text": "????",
+      "text": "ओलण्ड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to throw up"
     },
     {
-      "id": "04.GEN.0106",
+      "id": "10.0017",
       "type": "dhatu",
-      "text": "????",
+      "text": "पीड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to harass,to annoy,to irritate,to give pain"
     },
     {
-      "id": "04.GEN.0107",
+      "id": "10.0023",
       "type": "dhatu",
-      "text": "????",
+      "text": "ऊर्ज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to be strong,to live with energy, to win"
     },
     {
-      "id": "04.GEN.0108",
+      "id": "10.0025",
       "type": "dhatu",
-      "text": "????",
+      "text": "वर्ण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to order, to motivate, to inspire, to paint, to color"
     },
     {
-      "id": "04.GEN.0109",
+      "id": "10.0026",
       "type": "dhatu",
-      "text": "????",
+      "text": "चूर्ण्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to order, to motivate, to inspire, to paint, to color, to pull"
     },
     {
-      "id": "04.GEN.0110",
+      "id": "10.0028",
       "type": "dhatu",
-      "text": "????",
+      "text": "पृथ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to throw,to send,to direct, to inspire"
     },
     {
-      "id": "04.GEN.0111",
+      "id": "10.0030",
       "type": "dhatu",
-      "text": "????",
+      "text": "सम्ब्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to join, to articulate"
     },
     {
-      "id": "04.GEN.0112",
+      "id": "10.0031",
       "type": "dhatu",
-      "text": "????",
+      "text": "शम्ब्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to join, to articulate"
     },
     {
-      "id": "04.GEN.0113",
+      "id": "10.0032",
       "type": "dhatu",
-      "text": "????",
+      "text": "साम्ब्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to join, to articulate"
     },
     {
-      "id": "04.GEN.0114",
+      "id": "10.0034",
       "type": "dhatu",
-      "text": "????",
+      "text": "कुट्ट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to cut, to criticise, to blame"
     },
     {
-      "id": "04.GEN.0115",
+      "id": "10.0035",
       "type": "dhatu",
-      "text": "????",
+      "text": "पुट्ट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to decrease,to diminish, to reduce, to shrink"
     },
     {
-      "id": "04.GEN.0116",
+      "id": "10.0036",
       "type": "dhatu",
-      "text": "????",
+      "text": "चुट्ट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to decrease,to diminish, to reduce, to shrink"
     },
     {
-      "id": "04.GEN.0117",
+      "id": "10.0038",
       "type": "dhatu",
-      "text": "????",
+      "text": "सुट्ट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to insult, to dishonor, to disrespect"
     },
     {
-      "id": "04.GEN.0118",
+      "id": "10.0042",
       "type": "dhatu",
-      "text": "????",
+      "text": "श्वठ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to cheat,to fraud, to leave unfinished, to leave unattended, to ill-behave"
     },
     {
-      "id": "04.GEN.0119",
+      "id": "10.0043",
       "type": "dhatu",
-      "text": "????",
+      "text": "श्वण्ठ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to cheat,to fraud, to leave unfinished, to leave unattended, to ill-behave"
     },
     {
-      "id": "04.GEN.0120",
+      "id": "10.0046",
       "type": "dhatu",
-      "text": "????",
+      "text": "पिज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt, to injure, to become powerful, to take, to dwell, to stay"
     },
     {
-      "id": "04.GEN.0121",
+      "id": "10.0049",
       "type": "dhatu",
-      "text": "????",
+      "text": "लुञ्ज्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt, to injure, to become powerful, to take, to dwell, to stay"
     },
     {
-      "id": "04.GEN.0122",
+      "id": "10.0051",
       "type": "dhatu",
-      "text": "????",
+      "text": "सान्त्व्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to pacify, to appease, to console"
     },
     {
-      "id": "04.GEN.0123",
+      "id": "10.0053",
       "type": "dhatu",
-      "text": "????",
+      "text": "श्वल्क्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to speak, to tell, to narrate"
     },
     {
-      "id": "04.GEN.0124",
+      "id": "10.0054",
       "type": "dhatu",
-      "text": "????",
+      "text": "वल्क्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to speak, to tell, to narrate, to see"
     },
     {
-      "id": "04.GEN.0125",
+      "id": "10.0056",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्फिट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "04.GEN.0126",
+      "id": "10.0057",
       "type": "dhatu",
-      "text": "????",
+      "text": "स्मिट्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to insult, to disrespect, to dishonor"
     },
     {
-      "id": "04.GEN.0127",
+      "id": "10.0060",
       "type": "dhatu",
-      "text": "????",
+      "text": "पन्थ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to go"
     },
     {
-      "id": "04.GEN.0128",
+      "id": "10.0061",
       "type": "dhatu",
-      "text": "????",
+      "text": "पिच्छ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to cut, to split, to tamp, to slice, to torture"
     },
     {
-      "id": "04.GEN.0129",
+      "id": "10.0062",
       "type": "dhatu",
-      "text": "????",
+      "text": "छन्द्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to cover"
     },
     {
-      "id": "04.GEN.0130",
+      "id": "10.0064",
       "type": "dhatu",
-      "text": "????",
+      "text": "तड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to strike,to beat, to hit"
     },
     {
-      "id": "04.GEN.0131",
+      "id": "10.0065",
       "type": "dhatu",
-      "text": "????",
+      "text": "खड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to break"
     },
     {
-      "id": "04.GEN.0132",
+      "id": "10.0069",
       "type": "dhatu",
-      "text": "????",
+      "text": "गुण्ड्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to enclose,to cover,to envelope, to protect, to powder"
     },
     {
-      "id": "04.GEN.0133",
+      "id": "10.0071",
       "type": "dhatu",
-      "text": "????",
+      "text": "गुण्ठ्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to protect"
     },
     {
-      "id": "04.GEN.0134",
+      "id": "10.0078",
       "type": "dhatu",
-      "text": "????",
+      "text": "छर्द्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to vomit"
     },
     {
-      "id": "04.GEN.0135",
+      "id": "10.0079",
       "type": "dhatu",
-      "text": "????",
+      "text": "पुस्त्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to honour,to dishonour,to respect,to disrespect"
     },
     {
-      "id": "04.GEN.0136",
+      "id": "10.0080",
       "type": "dhatu",
-      "text": "????",
+      "text": "बुस्त्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to honour,to dishonour,to respect,to disrespect"
     },
     {
-      "id": "04.GEN.0137",
+      "id": "10.0081",
       "type": "dhatu",
-      "text": "????",
+      "text": "चुद्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to inspire, to question, to ask, to request"
     },
     {
-      "id": "04.GEN.0138",
+      "id": "10.0082",
       "type": "dhatu",
-      "text": "????",
+      "text": "नक्क्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to kill, to destroy, to uproot"
     },
     {
-      "id": "04.GEN.0139",
+      "id": "10.0083",
       "type": "dhatu",
-      "text": "????",
+      "text": "धक्क्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to kill, to destroy, to uproot"
     },
     {
-      "id": "04.GEN.0140",
+      "id": "10.0084",
       "type": "dhatu",
-      "text": "????",
+      "text": "चक्क्",
       "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
-      "gana": "04",
-      "notes": "[\"to play\", \"to sport\"]"
+      "gana": "10",
+      "notes": "to suffer,to give pain"
     }
   ]
 }

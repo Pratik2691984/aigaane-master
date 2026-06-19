@@ -6,1124 +6,1124 @@
   "description": "Real corpus dhatu batch for kryadi gana",
   "records": [
     {
-      "id": "09.0001",
+      "id": "09.0002",
       "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/dhatupatha.csv",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0004",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0005",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0007",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0009",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0011",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0014",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0018",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0020",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0021",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0022",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0023",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0026",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0027",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0028",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0030",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0031",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0033",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0035",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0036",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0040",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0043",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0045",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0046",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0047",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0048",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0049",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0050",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0052",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0053",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0055",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0056",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0057",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0058",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0059",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0061",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0062",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0063",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0064",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0065",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0066",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0069",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0072",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0073",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0074",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0075",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0076",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0077",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0078",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0079",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0080",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0081",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0082",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0083",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0084",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0085",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0086",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0087",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0088",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0089",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0090",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0091",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0092",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0093",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0094",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0095",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0096",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0097",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0098",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0099",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "09.0100",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+      "gana": "09",
+      "notes": "reserved placeholder"
     },
     {
       "id": "09.0101",
       "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0003",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0004",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0005",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0006",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0007",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0008",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0009",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0010",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0011",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0012",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0013",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0014",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0015",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0016",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0017",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0018",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0019",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0020",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0021",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0022",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0023",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0024",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0025",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0026",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0027",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0028",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0029",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0030",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0031",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0032",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0033",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0034",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0035",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0036",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0037",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0038",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0039",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0040",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0041",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0042",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0043",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0044",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0045",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0046",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0047",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0048",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0049",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0050",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0051",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0052",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0053",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0054",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0055",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0056",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0057",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0058",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0059",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0060",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0061",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0062",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0063",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0064",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0065",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0066",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0067",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0068",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0069",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0070",
-      "type": "dhatu",
-      "text": "ज्ञा",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to know"
-    },
-    {
-      "id": "09.GEN.0071",
-      "type": "dhatu",
-      "text": "क्री",
-      "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
-      "gana": "09",
-      "notes": "to buy"
-    },
-    {
-      "id": "09.GEN.0072",
-      "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0073",
+      "id": "09.0102",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0074",
+      "id": "09.0103",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0075",
+      "id": "09.0104",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0076",
+      "id": "09.0105",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0077",
+      "id": "09.0106",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0078",
+      "id": "09.0107",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0079",
+      "id": "09.0108",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0080",
+      "id": "09.0109",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0081",
+      "id": "09.0110",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0082",
+      "id": "09.0111",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0083",
+      "id": "09.0112",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0084",
+      "id": "09.0113",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0085",
+      "id": "09.0114",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0086",
+      "id": "09.0115",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0087",
+      "id": "09.0116",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0088",
+      "id": "09.0117",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0089",
+      "id": "09.0118",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0090",
+      "id": "09.0119",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0091",
+      "id": "09.0120",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0092",
+      "id": "09.0121",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0093",
+      "id": "09.0122",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0094",
+      "id": "09.0123",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0095",
+      "id": "09.0124",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0096",
+      "id": "09.0125",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0097",
+      "id": "09.0126",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0098",
+      "id": "09.0127",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0099",
+      "id": "09.0128",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0100",
+      "id": "09.0129",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0101",
+      "id": "09.0130",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0102",
+      "id": "09.0131",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0103",
+      "id": "09.0132",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0104",
+      "id": "09.0133",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0105",
+      "id": "09.0134",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0106",
+      "id": "09.0135",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0107",
+      "id": "09.0136",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0108",
+      "id": "09.0137",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0109",
+      "id": "09.0138",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0110",
+      "id": "09.0139",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0111",
+      "id": "09.0140",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0112",
+      "id": "09.0141",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0113",
+      "id": "09.0142",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0114",
+      "id": "09.0143",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0115",
+      "id": "09.0144",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0116",
+      "id": "09.0145",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0117",
+      "id": "09.0146",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0118",
+      "id": "09.0147",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0119",
+      "id": "09.0148",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0120",
+      "id": "09.0149",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0121",
+      "id": "09.0150",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0122",
+      "id": "09.0151",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0123",
+      "id": "09.0152",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0124",
+      "id": "09.0153",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0125",
+      "id": "09.0154",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0126",
+      "id": "09.0155",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0127",
+      "id": "09.0156",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0128",
+      "id": "09.0157",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0129",
+      "id": "09.0158",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0130",
+      "id": "09.0159",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0131",
+      "id": "09.0160",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0132",
+      "id": "09.0161",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0133",
+      "id": "09.0162",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0134",
+      "id": "09.0163",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0135",
+      "id": "09.0164",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0136",
+      "id": "09.0165",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0137",
+      "id": "09.0166",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0138",
+      "id": "09.0167",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0139",
+      "id": "09.0168",
       "type": "dhatu",
-      "text": "क्री",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to buy"
+      "notes": "reserved placeholder"
     },
     {
-      "id": "09.GEN.0140",
+      "id": "09.0169",
       "type": "dhatu",
-      "text": "ज्ञा",
+      "text": "भू",
       "source": "raw/sanskrit/dhatu/09_kryadi_batch.json",
       "gana": "09",
-      "notes": "to know"
+      "notes": "reserved placeholder"
     }
   ]
 }

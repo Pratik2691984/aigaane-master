@@ -6,1124 +6,1124 @@
   "description": "Real corpus dhatu batch for svadi gana",
   "records": [
     {
-      "id": "05.0101",
+      "id": "10.0085",
       "type": "dhatu",
-      "text": "श्रु",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
-      "gana": "05",
-      "notes": "to hear"
+      "text": "चुक्क्",
+      "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
+      "gana": "10",
+      "notes": "to suffer,to give pain"
     },
     {
-      "id": "05.GEN.0002",
+      "id": "10.0087",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "तल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to establish, to make someone sit, to complete"
     },
     {
-      "id": "05.GEN.0003",
+      "id": "10.0088",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "तुल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to weigh,to measure"
     },
     {
-      "id": "05.GEN.0004",
+      "id": "10.0089",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "दुल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to uproot, to remove, to throw, to shake, to move, to swing"
     },
     {
-      "id": "05.GEN.0005",
+      "id": "10.0091",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "चुल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to raise,to elevate, to make something sink, to make wet"
     },
     {
-      "id": "05.GEN.0006",
+      "id": "10.0098",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पाल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to protect,to govern"
     },
     {
-      "id": "05.GEN.0007",
+      "id": "10.0101",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "शुल्ब्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to weigh, to measure"
     },
     {
-      "id": "05.GEN.0008",
+      "id": "10.0102",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "शूर्प्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to weigh, to measure"
     },
     {
-      "id": "05.GEN.0009",
+      "id": "10.0105",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "उलण्ड्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to throw up"
     },
     {
-      "id": "05.GEN.0010",
+      "id": "10.0107",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to destroy"
     },
     {
-      "id": "05.GEN.0011",
+      "id": "10.0108",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मार्ग",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to do cultural rites, to cultivate, to complete, to prepare, to turn, to go"
     },
     {
-      "id": "05.GEN.0012",
+      "id": "10.0110",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "शुल्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to tax, to pay tax, to produce goods"
     },
     {
-      "id": "05.GEN.0013",
+      "id": "10.0111",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "चम्प्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to go"
     },
     {
-      "id": "05.GEN.0014",
+      "id": "10.0112",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "क्षम्प्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to endure,to tolerate, to forgive, to shine"
     },
     {
-      "id": "05.GEN.0015",
+      "id": "10.0114",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "छञ्ज्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to live miserably, to live hard life"
     },
     {
-      "id": "05.GEN.0016",
+      "id": "10.0115",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "श्वर्त्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to go"
     },
     {
-      "id": "05.GEN.0017",
+      "id": "10.0116",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "स्वर्त्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to live miserably, to live hard life, to go"
     },
     {
-      "id": "05.GEN.0018",
+      "id": "10.0117",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "श्वभ्र्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to go"
     },
     {
-      "id": "05.GEN.0019",
+      "id": "10.0118",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ज्ञप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to know, to understand, to teach, to educate, to explain, to clarify, to make happy, to hit, to sharpen"
     },
     {
-      "id": "05.GEN.0020",
+      "id": "10.0126",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मुस्त्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to collect, to pile, to make a heap"
     },
     {
-      "id": "05.GEN.0021",
+      "id": "10.0127",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "खट्ट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cover, to hide"
     },
     {
-      "id": "05.GEN.0022",
+      "id": "10.0128",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "सट्ट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt, to irritate"
     },
     {
-      "id": "05.GEN.0023",
+      "id": "10.0129",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "स्फिट्ट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "05.GEN.0024",
+      "id": "10.0132",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पूर्ण्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to collect, to make a heap, to make a pile"
     },
     {
-      "id": "05.GEN.0025",
+      "id": "10.0134",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पुंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to grow, to prosper"
     },
     {
-      "id": "05.GEN.0026",
+      "id": "10.0135",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "टङ्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to bind,to build"
     },
     {
-      "id": "05.GEN.0027",
+      "id": "10.0136",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "व्यप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to throw"
     },
     {
-      "id": "05.GEN.0028",
+      "id": "10.0139",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "धूस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be decorated"
     },
     {
-      "id": "05.GEN.0029",
+      "id": "10.0140",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "धूष्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be decorated"
     },
     {
-      "id": "05.GEN.0030",
+      "id": "10.0141",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "धूश्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be decorated"
     },
     {
-      "id": "05.GEN.0031",
+      "id": "10.0142",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कीट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to tinge,to color"
     },
     {
-      "id": "05.GEN.0032",
+      "id": "10.0144",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पूज्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to worship, to pray, to honor, to respect"
     },
     {
-      "id": "05.GEN.0033",
+      "id": "10.0145",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "अर्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to praise,to heat"
     },
     {
-      "id": "05.GEN.0034",
+      "id": "10.0150",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मार्ज्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to sound"
     },
     {
-      "id": "05.GEN.0035",
+      "id": "10.0151",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मर्च्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to sound"
     },
     {
-      "id": "05.GEN.0036",
+      "id": "10.0155",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कॄत्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to make famous, to be famous"
     },
     {
-      "id": "05.GEN.0037",
+      "id": "10.0156",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "वर्ध्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cut,to fill, to complete"
     },
     {
-      "id": "05.GEN.0038",
+      "id": "10.0158",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कुम्भ्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cover"
     },
     {
-      "id": "05.GEN.0039",
+      "id": "10.0161",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ह्लप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak articulately, to talk clearly"
     },
     {
-      "id": "05.GEN.0040",
+      "id": "10.0162",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "क्लप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak articulately, to talk clearly"
     },
     {
-      "id": "05.GEN.0041",
+      "id": "10.0163",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ह्रप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak articulately, to talk clearly"
     },
     {
-      "id": "05.GEN.0042",
+      "id": "10.0165",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ब्रीस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt"
     },
     {
-      "id": "05.GEN.0043",
+      "id": "10.0166",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "दंह्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to protect,to release"
     },
     {
-      "id": "05.GEN.0044",
+      "id": "10.0169",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "अस्त्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to collect, to pile, to make a heap"
     },
     {
-      "id": "05.GEN.0045",
+      "id": "10.0171",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "छम्प्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to go"
     },
     {
-      "id": "05.GEN.0046",
+      "id": "10.0172",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ब्रूस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt"
     },
     {
-      "id": "05.GEN.0047",
+      "id": "10.0175",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पिच्च्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cut, to split, to tamp, to slice, to torture"
     },
     {
-      "id": "05.GEN.0048",
+      "id": "10.0176",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "बुल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to immerse"
     },
     {
-      "id": "05.GEN.0049",
+      "id": "10.0179",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गर्ध्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to desire, to wish"
     },
     {
-      "id": "05.GEN.0050",
+      "id": "10.0180",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गूद्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to dwell, to reside, to stay, to invite"
     },
     {
-      "id": "05.GEN.0051",
+      "id": "10.0182",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "जंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to protect,to release"
     },
     {
-      "id": "05.GEN.0052",
+      "id": "10.0186",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पर्थ्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to throw,to send,to direct, to inspire"
     },
     {
-      "id": "05.GEN.0053",
+      "id": "10.0194",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "दंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to see, to bite,to sting"
     },
     {
-      "id": "05.GEN.0054",
+      "id": "10.0196",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "डप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to collect, to bring together, to pile up, to heap"
     },
     {
-      "id": "05.GEN.0055",
+      "id": "10.0198",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "तन्त्र्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to support the family, to govern, to lead"
     },
     {
-      "id": "05.GEN.0056",
+      "id": "10.0199",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मन्त्र्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to consult, to advise, to discuss privately"
     },
     {
-      "id": "05.GEN.0057",
+      "id": "10.0202",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "भर्त्स्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to hate, to insult, to ignore, to blame, to criticize, to frighten"
     },
     {
-      "id": "05.GEN.0058",
+      "id": "10.0203",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "बस्त्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hit, to cause pain"
     },
     {
-      "id": "05.GEN.0059",
+      "id": "10.0204",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गन्ध्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy, to hit, to cause pain"
     },
     {
-      "id": "05.GEN.0060",
+      "id": "10.0206",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पिल्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to throw, to  make something fly"
     },
     {
-      "id": "05.GEN.0061",
+      "id": "10.0207",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "विष्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "05.GEN.0062",
+      "id": "10.0208",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "हिष्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "05.GEN.0063",
+      "id": "10.0209",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "निष्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to measure,to weigh"
     },
     {
-      "id": "05.GEN.0064",
+      "id": "10.0211",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कूण्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to constrict, to contract"
     },
     {
-      "id": "05.GEN.0065",
+      "id": "10.0212",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "तूण्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to complete, to fill, to fulfill"
     },
     {
-      "id": "05.GEN.0066",
+      "id": "10.0213",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "भ्रूण्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to hope, to believe, to doubt, to question, to become pregnant"
     },
     {
-      "id": "05.GEN.0067",
+      "id": "10.0215",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "यक्ष्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to pray, to worship, to respect"
     },
     {
-      "id": "05.GEN.0068",
+      "id": "10.0220",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कुत्स्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to insult, to criticize, to blame, to hate"
     },
     {
-      "id": "05.GEN.0069",
+      "id": "10.0225",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कूट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to avoid giving, to cheat, to do indistinctly, to collect"
     },
     {
-      "id": "05.GEN.0070",
+      "id": "10.0236",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कुस्म्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to smile inappropriately, to smile with an insult"
     },
     {
-      "id": "05.GEN.0071",
+      "id": "10.0239",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "शब्द्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to utter, to sound, to explain"
     },
     {
-      "id": "05.GEN.0072",
+      "id": "10.0241",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "जम्भ्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to kill, to destroy"
     },
     {
-      "id": "05.GEN.0073",
+      "id": "10.0244",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पश्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to lockup, to bind, to hang till death"
     },
     {
-      "id": "05.GEN.0074",
+      "id": "10.0254",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "तंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to adorn, to decorate"
     },
     {
-      "id": "05.GEN.0075",
+      "id": "10.0256",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मोक्ष्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to leave, to abandon"
     },
     {
-      "id": "05.GEN.0076",
+      "id": "10.0262",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रक्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to taste"
     },
     {
-      "id": "05.GEN.0077",
+      "id": "10.0264",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रघ्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to taste"
     },
     {
-      "id": "05.GEN.0078",
+      "id": "10.0271",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "उध्रस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to pick, to glean"
     },
     {
-      "id": "05.GEN.0079",
+      "id": "10.0276",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "च्युस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to endure, to tolerate, to laugh"
     },
     {
-      "id": "05.GEN.0080",
+      "id": "10.0286",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मिञ्ज्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0081",
+      "id": "10.0288",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "लक्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to taste"
     },
     {
-      "id": "05.GEN.0082",
+      "id": "10.0292",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "त्रंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk, to shine, to glow"
     },
     {
-      "id": "05.GEN.0083",
+      "id": "10.0293",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पिंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk, to shine, to glow"
     },
     {
-      "id": "05.GEN.0084",
+      "id": "10.0294",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कुंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk, to shine, to glow"
     },
     {
-      "id": "05.GEN.0085",
+      "id": "10.0296",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कुंश्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0086",
+      "id": "10.0298",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "घण्ट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk, to shine, to glow"
     },
     {
-      "id": "05.GEN.0087",
+      "id": "10.0311",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "तर्क्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0088",
+      "id": "10.0318",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "भृंश्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0089",
+      "id": "10.0319",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रुंश्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0090",
+      "id": "10.0321",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रुंस्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0091",
+      "id": "10.0322",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "नण्ट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0092",
+      "id": "10.0323",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पुण्ट्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0093",
+      "id": "10.0326",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रन्ध्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to talk"
     },
     {
-      "id": "05.GEN.0094",
+      "id": "10.0353",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "चृप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to ignite, to set on fire"
     },
     {
-      "id": "05.GEN.0095",
+      "id": "10.0354",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "छृप्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to ignite, to set on fire"
     },
     {
-      "id": "05.GEN.0096",
+      "id": "10.0364",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "चीक्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to tolerate, to suffer, to be eager, to be hasty, to be intolerant"
     },
     {
-      "id": "05.GEN.0097",
+      "id": "10.0384",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मार्ग्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to investigate, to search, to cleanse, to purify"
     },
     {
-      "id": "05.GEN.0098",
+      "id": "10.0389",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कथ",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to speak, to tell, to state, to explain, to narrate"
     },
     {
-      "id": "05.GEN.0099",
+      "id": "10.0390",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "वर",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to wish, to desire, to hope"
     },
     {
-      "id": "05.GEN.0100",
+      "id": "10.0391",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गण",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to count, to enumerate"
     },
     {
-      "id": "05.GEN.0101",
+      "id": "10.0392",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "शठ",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to ill-speak, to abuse, to tell lies, to keep quiet"
     },
     {
-      "id": "05.GEN.0102",
+      "id": "10.0393",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "श्वठ",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to ill-speak, to abuse, to tell lies, to keep quiet"
     },
     {
-      "id": "05.GEN.0103",
+      "id": "10.0394",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पठ",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to clothe, to knead, to cover, to make parts"
     },
     {
-      "id": "05.GEN.0104",
+      "id": "10.0395",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "वठ",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to tie, to join"
     },
     {
-      "id": "05.GEN.0105",
+      "id": "10.0396",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रह",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to leave, to abandon"
     },
     {
-      "id": "05.GEN.0106",
+      "id": "10.0398",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "स्तन",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to have thunderstorm, to have cloud collision"
     },
     {
-      "id": "05.GEN.0107",
+      "id": "10.0399",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गद",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to have thunderstorm, to have cloud collision"
     },
     {
-      "id": "05.GEN.0108",
+      "id": "10.0400",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पत",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to fall down, to go down, to descend, to go"
     },
     {
-      "id": "05.GEN.0109",
+      "id": "10.0401",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पष",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to go"
     },
     {
-      "id": "05.GEN.0110",
+      "id": "10.0402",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "स्वर",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to sound, to blame, to insult, to object"
     },
     {
-      "id": "05.GEN.0111",
+      "id": "10.0403",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "रच",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to create, to craft, to compose"
     },
     {
-      "id": "05.GEN.0112",
+      "id": "10.0404",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कल",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to go, to count, to enumerate"
     },
     {
-      "id": "05.GEN.0113",
+      "id": "10.0405",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "चह",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to grind"
     },
     {
-      "id": "05.GEN.0114",
+      "id": "10.0406",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "मह",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to worship, to pray, to honor, to respect"
     },
     {
-      "id": "05.GEN.0115",
+      "id": "10.0407",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "सार",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be weak"
     },
     {
-      "id": "05.GEN.0116",
+      "id": "10.0408",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कृप",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be weak"
     },
     {
-      "id": "05.GEN.0117",
+      "id": "10.0409",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "श्रथ",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be weak"
     },
     {
-      "id": "05.GEN.0118",
+      "id": "10.0410",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "स्पृह",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to desire, to wish"
     },
     {
-      "id": "05.GEN.0119",
+      "id": "10.0411",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "भाम",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to reject, to be angry"
     },
     {
-      "id": "05.GEN.0120",
+      "id": "10.0412",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "सूच",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to indicate, to do favor, to explain, to point mistakes"
     },
     {
-      "id": "05.GEN.0121",
+      "id": "10.0413",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "खेट",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to eat"
     },
     {
-      "id": "05.GEN.0122",
+      "id": "10.0414",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "खेड्",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to eat"
     },
     {
-      "id": "05.GEN.0123",
+      "id": "10.0415",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "खोट",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to eat"
     },
     {
-      "id": "05.GEN.0124",
+      "id": "10.0416",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "क्षोट",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to project, to throw"
     },
     {
-      "id": "05.GEN.0125",
+      "id": "10.0417",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गोम",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to coat, to put a layer"
     },
     {
-      "id": "05.GEN.0126",
+      "id": "10.0418",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कुमार",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to play like a child"
     },
     {
-      "id": "05.GEN.0127",
+      "id": "10.0419",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "शील",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to wear, to recognize"
     },
     {
-      "id": "05.GEN.0128",
+      "id": "10.0420",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "साम",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to consolidate, to make happy, to pacify"
     },
     {
-      "id": "05.GEN.0129",
+      "id": "10.0421",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "वेल",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to measure time, to preach, to explain on time"
     },
     {
-      "id": "05.GEN.0130",
+      "id": "10.0422",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "काल",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to measure time, to preach, to explain on time"
     },
     {
-      "id": "05.GEN.0131",
+      "id": "10.0423",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "पल्पूल",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cut, to purify, to cleanse, to drop"
     },
     {
-      "id": "05.GEN.0132",
+      "id": "10.0424",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "वात",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to be happy, to rejoice, to serve, to love to go"
     },
     {
-      "id": "05.GEN.0133",
+      "id": "10.0425",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "गवेष",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to search, to investigate, to find"
     },
     {
-      "id": "05.GEN.0134",
+      "id": "10.0426",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "वास",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to make someone stay, to make something fragrant, to burn incense sticks"
     },
     {
-      "id": "05.GEN.0135",
+      "id": "10.0427",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "निवास",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cover, to surround"
     },
     {
-      "id": "05.GEN.0136",
+      "id": "10.0428",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "भाज",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to cut into pieces"
     },
     {
-      "id": "05.GEN.0137",
+      "id": "10.0429",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "सभाज",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to love, to show affection, to serve, to see"
     },
     {
-      "id": "05.GEN.0138",
+      "id": "10.0430",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ऊन",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to reduce, to shorten"
     },
     {
-      "id": "05.GEN.0139",
+      "id": "10.0431",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "ध्वन",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to sound"
     },
     {
-      "id": "05.GEN.0140",
+      "id": "10.0432",
       "type": "dhatu",
-      "text": "श्रु",
+      "text": "कूट",
       "source": "raw/sanskrit/dhatu/05_svadi_batch.json",
-      "gana": "05",
-      "notes": "to hear"
+      "gana": "10",
+      "notes": "to irritate, to cause pain, to set on fire, to make something burn"
     }
   ]
 }

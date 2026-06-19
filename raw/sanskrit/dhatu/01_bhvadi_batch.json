@@ -8,1122 +8,1122 @@
     {
       "id": "01.0001",
       "type": "dhatu",
-      "text": "??",
-      "source": "raw/dhatupatha.csv",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+      "notes": "to exist, to become, to be, to happen"
     },
     {
       "id": "01.0002",
       "type": "dhatu",
-      "text": "???",
-      "source": "raw/dhatupatha.csv",
+      "text": "एध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+      "notes": "to grow, to increase, to prosper, to extend, to swell, to rise"
+    },
+    {
+      "id": "01.0003",
+      "type": "dhatu",
+      "text": "स्पर्ध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to challenge, to compete, to conflict, to rival, to struggle"
+    },
+    {
+      "id": "01.0004",
+      "type": "dhatu",
+      "text": "गाध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to praise oneself, to desire, to tie together, to string together, to seek, to stay together, to stand firmly, to compile"
+    },
+    {
+      "id": "01.0005",
+      "type": "dhatu",
+      "text": "बाध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to oppress, to torment, to harass, to destroy, to infect, to torture"
+    },
+    {
+      "id": "01.0006",
+      "type": "dhatu",
+      "text": "नाध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to seek help, to beg, to irritate, to bless, to master"
+    },
+    {
+      "id": "01.0007",
+      "type": "dhatu",
+      "text": "नाथ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to seek help, to beg, to irritate, to bless, to master"
+    },
+    {
+      "id": "01.0008",
+      "type": "dhatu",
+      "text": "दध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to hold, to possess"
+    },
+    {
+      "id": "01.0009",
+      "type": "dhatu",
+      "text": "स्कुन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to jump, to raise, to lift up"
+    },
+    {
+      "id": "01.0010",
+      "type": "dhatu",
+      "text": "श्विन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be white"
+    },
+    {
+      "id": "01.0011",
+      "type": "dhatu",
+      "text": "वन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to worship, to show honor, to do homage, to show respect, to venerate, to bow, to salute, to praise, to adore, to greet"
+    },
+    {
+      "id": "01.0012",
+      "type": "dhatu",
+      "text": "भन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be prosperous, to be glad, to be happy"
+    },
+    {
+      "id": "01.0013",
+      "type": "dhatu",
+      "text": "मन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to praise, to be glad, to be proud, to sleep, to shine, to move slowly, to intoxicate"
+    },
+    {
+      "id": "01.0014",
+      "type": "dhatu",
+      "text": "स्पन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to vibrate, to shake, to move a little, to palpitate, to quake, to tremble, to kick"
+    },
+    {
+      "id": "01.0015",
+      "type": "dhatu",
+      "text": "क्लिन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lament"
+    },
+    {
+      "id": "01.0016",
+      "type": "dhatu",
+      "text": "मुद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be glad,to be happy, to rejoice, to delight"
+    },
+    {
+      "id": "01.0017",
+      "type": "dhatu",
+      "text": "दद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to give,to offer,to present"
+    },
+    {
+      "id": "01.0018",
+      "type": "dhatu",
+      "text": "स्वद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to taste, to eat,to please the tongue, to have delight"
+    },
+    {
+      "id": "01.0019",
+      "type": "dhatu",
+      "text": "स्वर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to taste,to eat,to please the tongue, to have delight"
+    },
+    {
+      "id": "01.0020",
+      "type": "dhatu",
+      "text": "ऊर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to measure,to leap, to jump, to taste,to grant,to be cheerful"
+    },
+    {
+      "id": "01.0021",
+      "type": "dhatu",
+      "text": "कूर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to leap, to jump"
+    },
+    {
+      "id": "01.0022",
+      "type": "dhatu",
+      "text": "खूर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to leap, to jump"
+    },
+    {
+      "id": "01.0023",
+      "type": "dhatu",
+      "text": "गूर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to leap, to jump"
+    },
+    {
+      "id": "01.0024",
+      "type": "dhatu",
+      "text": "गुद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to leap, to jump"
+    },
+    {
+      "id": "01.0025",
+      "type": "dhatu",
+      "text": "सूद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to trickle, to leak, to ooze out, to distill, to emerge drop by drop"
+    },
+    {
+      "id": "01.0026",
+      "type": "dhatu",
+      "text": "ह्राद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to make a sound"
+    },
+    {
+      "id": "01.0027",
+      "type": "dhatu",
+      "text": "ह्लाद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be  glad, to be pleasant, to make a sound"
+    },
+    {
+      "id": "01.0028",
+      "type": "dhatu",
+      "text": "स्वाद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to taste,to please the tongue, to have delight"
+    },
+    {
+      "id": "01.0029",
+      "type": "dhatu",
+      "text": "पर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to fart"
+    },
+    {
+      "id": "01.0030",
+      "type": "dhatu",
+      "text": "यत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to try, to strive, to make effort, to attempt"
+    },
+    {
+      "id": "01.0031",
+      "type": "dhatu",
+      "text": "युत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to shine"
+    },
+    {
+      "id": "01.0032",
+      "type": "dhatu",
+      "text": "जुत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to shine"
+    },
+    {
+      "id": "01.0033",
+      "type": "dhatu",
+      "text": "विथ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to beg,to ask"
+    },
+    {
+      "id": "01.0034",
+      "type": "dhatu",
+      "text": "वेथ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to beg,to ask"
+    },
+    {
+      "id": "01.0035",
+      "type": "dhatu",
+      "text": "श्रन्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be tired, to be fatigued"
+    },
+    {
+      "id": "01.0036",
+      "type": "dhatu",
+      "text": "ग्रन्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be crooked, to be wicked"
+    },
+    {
+      "id": "01.0037",
+      "type": "dhatu",
+      "text": "कत्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to praise,to boast,to flatter"
+    },
+    {
+      "id": "01.0038",
+      "type": "dhatu",
+      "text": "अत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to run, to walk with speed, to move continuously"
+    },
+    {
+      "id": "01.0039",
+      "type": "dhatu",
+      "text": "चित्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to perceive,to think,to recover consciousness,to observe, to see,to regain consciousness"
+    },
+    {
+      "id": "01.0040",
+      "type": "dhatu",
+      "text": "च्युत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to sprinkle, to flow,to trickle, to fall, to deviate"
+    },
+    {
+      "id": "01.0041",
+      "type": "dhatu",
+      "text": "श्चुत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to flow,to trickle, to fall, to deviate"
+    },
+    {
+      "id": "01.0042",
+      "type": "dhatu",
+      "text": "श्च्युत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to flow,to trickle, to fall, to deviate"
+    },
+    {
+      "id": "01.0043",
+      "type": "dhatu",
+      "text": "ज्युत्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to illumine, to shine"
+    },
+    {
+      "id": "01.0044",
+      "type": "dhatu",
+      "text": "मन्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to strike,to destroy, to kill, to crush, to tear off, to injure, to cause pain"
+    },
+    {
+      "id": "01.0045",
+      "type": "dhatu",
+      "text": "कुन्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to strike,to destroy, to kill, to crush, to tear off, to injure, to cause pain"
+    },
+    {
+      "id": "01.0046",
+      "type": "dhatu",
+      "text": "पुन्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to strike,to destroy, to kill, to crush, to tear off, to injure, to cause pain"
+    },
+    {
+      "id": "01.0047",
+      "type": "dhatu",
+      "text": "लुन्थ्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to strike,to destroy, to kill, to crush, to tear off, to injure, to cause pain"
+    },
+    {
+      "id": "01.0049",
+      "type": "dhatu",
+      "text": "सिध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to regulate, to punish, to hinder, to instruct, to scare away, to drive off, to restrain"
+    },
+    {
+      "id": "01.0051",
+      "type": "dhatu",
+      "text": "खाद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to eat,to consume"
+    },
+    {
+      "id": "01.0052",
+      "type": "dhatu",
+      "text": "खद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be firm,to be steady, to hurt, to kill, to eat, to consume, to bite"
+    },
+    {
+      "id": "01.0053",
+      "type": "dhatu",
+      "text": "बद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be firm, to be steady"
+    },
+    {
+      "id": "01.0054",
+      "type": "dhatu",
+      "text": "गद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak, to tell, to explain, to talk"
+    },
+    {
+      "id": "01.0055",
+      "type": "dhatu",
+      "text": "रद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to cut, to split, to scratch, to divide"
+    },
+    {
+      "id": "01.0056",
+      "type": "dhatu",
+      "text": "नद्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to thunder, to roar, to make a loud sound"
+    },
+    {
+      "id": "01.0057",
+      "type": "dhatu",
+      "text": "अर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go,to beg, to request"
+    },
+    {
+      "id": "01.0058",
+      "type": "dhatu",
+      "text": "नर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to make a sound, to shout"
+    },
+    {
+      "id": "01.0059",
+      "type": "dhatu",
+      "text": "गर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to make a sound, to shout"
+    },
+    {
+      "id": "01.0060",
+      "type": "dhatu",
+      "text": "तर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to injure,to hurt,to kill, to destroy"
+    },
+    {
+      "id": "01.0061",
+      "type": "dhatu",
+      "text": "कर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to rumble,to caw"
+    },
+    {
+      "id": "01.0062",
+      "type": "dhatu",
+      "text": "खर्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to bite,to sting"
+    },
+    {
+      "id": "01.0063",
+      "type": "dhatu",
+      "text": "अन्त्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to bind"
+    },
+    {
+      "id": "01.0064",
+      "type": "dhatu",
+      "text": "अन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to bind"
+    },
+    {
+      "id": "01.0065",
+      "type": "dhatu",
+      "text": "इन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be powerful, to be gifted, to have divine power"
+    },
+    {
+      "id": "01.0066",
+      "type": "dhatu",
+      "text": "बिन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to split,to cleave,to divide"
+    },
+    {
+      "id": "01.0067",
+      "type": "dhatu",
+      "text": "भिन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to split,to cleave,to divide"
+    },
+    {
+      "id": "01.0068",
+      "type": "dhatu",
+      "text": "गण्ड्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to have cheek disease"
+    },
+    {
+      "id": "01.0069",
+      "type": "dhatu",
+      "text": "निन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to blame,to censure,to condemn, to insult, to ridicule, to revile, to criticise"
+    },
+    {
+      "id": "01.0070",
+      "type": "dhatu",
+      "text": "नन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to prosper"
+    },
+    {
+      "id": "01.0071",
+      "type": "dhatu",
+      "text": "चन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be glad, to shine"
+    },
+    {
+      "id": "01.0072",
+      "type": "dhatu",
+      "text": "त्रन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to try, to be busy, to be active"
+    },
+    {
+      "id": "01.0073",
+      "type": "dhatu",
+      "text": "कन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to call out,to cry,to cry out continually,to lament,to grieve, to shed tears"
+    },
+    {
+      "id": "01.0074",
+      "type": "dhatu",
+      "text": "क्रन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to call out,to cry,to cry out continually,to lament,to grieve, to shed tears"
+    },
+    {
+      "id": "01.0075",
+      "type": "dhatu",
+      "text": "क्लन्द्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to call out,to cry,to cry out continually,to lament,to grieve, to shed tears"
+    },
+    {
+      "id": "01.0077",
+      "type": "dhatu",
+      "text": "शुन्ध्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to purify, to cleanse"
+    },
+    {
+      "id": "01.0078",
+      "type": "dhatu",
+      "text": "शीक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to sprinkle"
+    },
+    {
+      "id": "01.0079",
+      "type": "dhatu",
+      "text": "सीक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to sprinkle"
+    },
+    {
+      "id": "01.0080",
+      "type": "dhatu",
+      "text": "लोक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see,to perceive,to look"
+    },
+    {
+      "id": "01.0081",
+      "type": "dhatu",
+      "text": "श्लोक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to compose, to write poem"
+    },
+    {
+      "id": "01.0082",
+      "type": "dhatu",
+      "text": "श्रेक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to compose, to write poem"
+    },
+    {
+      "id": "01.0083",
+      "type": "dhatu",
+      "text": "द्रेक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to sound,to show joy, to be exhilarated"
+    },
+    {
+      "id": "01.0084",
+      "type": "dhatu",
+      "text": "ध्रेक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to sound,to show joy, to be exhilarated"
+    },
+    {
+      "id": "01.0085",
+      "type": "dhatu",
+      "text": "रेक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to doubt, to suspect"
+    },
+    {
+      "id": "01.0086",
+      "type": "dhatu",
+      "text": "सेक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go,to move"
+    },
+    {
+      "id": "01.0087",
+      "type": "dhatu",
+      "text": "स्रेक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go,to move"
+    },
+    {
+      "id": "01.0088",
+      "type": "dhatu",
+      "text": "स्रङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go,to move"
+    },
+    {
+      "id": "01.0089",
+      "type": "dhatu",
+      "text": "श्रङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go,to move"
+    },
+    {
+      "id": "01.0090",
+      "type": "dhatu",
+      "text": "श्लङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go,to move"
+    },
+    {
+      "id": "01.0091",
+      "type": "dhatu",
+      "text": "शङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to doubt,to suspect"
+    },
+    {
+      "id": "01.0092",
+      "type": "dhatu",
+      "text": "अङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go, to blame,to censure,to condemn, to insult, to ridicule, to revile, to criticise"
+    },
+    {
+      "id": "01.0093",
+      "type": "dhatu",
+      "text": "वङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be crooked, to bend, to move in curve"
+    },
+    {
+      "id": "01.0094",
+      "type": "dhatu",
+      "text": "मङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to decorate"
+    },
+    {
+      "id": "01.0095",
+      "type": "dhatu",
+      "text": "कक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be proud,to be unsteady,to be thirsty"
+    },
+    {
+      "id": "01.0096",
+      "type": "dhatu",
+      "text": "कुक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to take,to accept,to seize"
+    },
+    {
+      "id": "01.0097",
+      "type": "dhatu",
+      "text": "वृक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to accept,to seize"
+    },
+    {
+      "id": "01.0098",
+      "type": "dhatu",
+      "text": "चक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to be satisfied, to be contended, to repel, to cheat, to betray"
+    },
+    {
+      "id": "01.0099",
+      "type": "dhatu",
+      "text": "कङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
     },
     {
       "id": "01.0101",
       "type": "dhatu",
-      "text": "गम्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "श्वङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
       "id": "01.0102",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "त्रङ्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to stand"
+      "notes": "to go"
     },
     {
       "id": "01.0103",
       "type": "dhatu",
-      "text": "नी",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "ढौक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to lead or carry"
+      "notes": "to go"
     },
     {
       "id": "01.0104",
       "type": "dhatu",
-      "text": "पा",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "त्रौक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to drink"
+      "notes": "to go"
     },
     {
       "id": "01.0105",
       "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "ष्वष्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to see"
+      "notes": "to go"
     },
     {
       "id": "01.0106",
       "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "वस्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to speak"
+      "notes": "to go"
     },
     {
       "id": "01.0107",
       "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "मस्क्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to read or recite"
+      "notes": "to go"
     },
     {
       "id": "01.0108",
       "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "टिक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to write"
+      "notes": "to go"
     },
     {
       "id": "01.0109",
       "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "टीक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to remember"
+      "notes": "to go"
     },
     {
       "id": "01.0110",
       "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "text": "तिक्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to obtain"
+      "notes": "to go"
     },
     {
       "id": "01.0111",
       "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/dhatupatha_controlled_batch_01.csv",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.STAGED.0001",
-      "type": "dhatu",
-      "text": "गम्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to go"
-    },
-    {
-      "id": "01.STAGED.0002",
-      "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.STAGED.0003",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to lead"
-    },
-    {
-      "id": "01.STAGED.0004",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.STAGED.0005",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.STAGED.0006",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.STAGED.0007",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.STAGED.0008",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.STAGED.0009",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.STAGED.0010",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.STAGED.0011",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.STAGED.0012",
-      "type": "dhatu",
-      "text": "चर्",
-      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "gana": "01",
-      "notes": "to move or wander"
-    },
-    {
-      "id": "01.GEN.0026",
-      "type": "dhatu",
-      "text": "??",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to be\", \"to become\", \"to exist\"]"
-    },
-    {
-      "id": "01.GEN.0027",
-      "type": "dhatu",
-      "text": "???",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
-    },
-    {
-      "id": "01.GEN.0028",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "तीक्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0029",
+      "id": "01.0112",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.GEN.0030",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead or carry"
-    },
-    {
-      "id": "01.GEN.0031",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0032",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0033",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0034",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0035",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0036",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0037",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0038",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0039",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "रङ्घ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0040",
+      "id": "01.0113",
       "type": "dhatu",
-      "text": "स्था",
+      "text": "लङ्घ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to stand"
+      "notes": "to go, to fast, to abstain from food"
     },
     {
-      "id": "01.GEN.0041",
+      "id": "01.0114",
       "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead"
-    },
-    {
-      "id": "01.GEN.0042",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0043",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0044",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0045",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0046",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0047",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0048",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0049",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0050",
-      "type": "dhatu",
-      "text": "चर्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to move or wander"
-    },
-    {
-      "id": "01.GEN.0051",
-      "type": "dhatu",
-      "text": "??",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to be\", \"to become\", \"to exist\"]"
-    },
-    {
-      "id": "01.GEN.0052",
-      "type": "dhatu",
-      "text": "???",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
-    },
-    {
-      "id": "01.GEN.0053",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "ष्वक्क्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0054",
+      "id": "01.0115",
       "type": "dhatu",
-      "text": "स्था",
+      "text": "अङ्घ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to stand"
+      "notes": "to set out, to go, to commence, to blame"
     },
     {
-      "id": "01.GEN.0055",
+      "id": "01.0116",
       "type": "dhatu",
-      "text": "नी",
+      "text": "वङ्घ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to lead or carry"
+      "notes": "to set out, to go, to commence, to blame"
     },
     {
-      "id": "01.GEN.0056",
+      "id": "01.0117",
       "type": "dhatu",
-      "text": "पा",
+      "text": "मङ्घ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to drink"
+      "notes": "to set out, to go, to commence, to blame, to cheat"
     },
     {
-      "id": "01.GEN.0057",
+      "id": "01.0118",
       "type": "dhatu",
-      "text": "दृश्",
+      "text": "राघ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to see"
+      "notes": "to be competent, to be able, to be powerful"
     },
     {
-      "id": "01.GEN.0058",
+      "id": "01.0119",
       "type": "dhatu",
-      "text": "वद्",
+      "text": "लाघ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to speak"
+      "notes": "to be competent, to be able, to be powerful"
     },
     {
-      "id": "01.GEN.0059",
+      "id": "01.0120",
       "type": "dhatu",
-      "text": "पठ्",
+      "text": "द्राघ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to read or recite"
+      "notes": "to be competent, to be able, to be powerful, to stretch, to spread"
     },
     {
-      "id": "01.GEN.0060",
+      "id": "01.0121",
       "type": "dhatu",
-      "text": "लिख्",
+      "text": "ध्राघ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to write"
+      "notes": "to be competent, to be able, to be powerful"
     },
     {
-      "id": "01.GEN.0061",
+      "id": "01.0122",
       "type": "dhatu",
-      "text": "स्मृ",
+      "text": "श्लाघ्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to remember"
+      "notes": "to praise,to flatter,to boast"
     },
     {
-      "id": "01.GEN.0062",
+      "id": "01.0123",
       "type": "dhatu",
-      "text": "लभ्",
+      "text": "फक्क्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to obtain"
+      "notes": "to go slowly, to misbehave"
     },
     {
-      "id": "01.GEN.0063",
+      "id": "01.0124",
       "type": "dhatu",
-      "text": "सेव्",
+      "text": "तक्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to serve"
+      "notes": "to make fun, to laugh at"
     },
     {
-      "id": "01.GEN.0064",
+      "id": "01.0125",
       "type": "dhatu",
-      "text": "गम्",
+      "text": "तङ्क्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to go"
+      "notes": "to live in distress"
     },
     {
-      "id": "01.GEN.0065",
+      "id": "01.0126",
       "type": "dhatu",
-      "text": "स्था",
+      "text": "बुक्क्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to stand"
+      "notes": "to bark"
     },
     {
-      "id": "01.GEN.0066",
+      "id": "01.0127",
       "type": "dhatu",
-      "text": "नी",
+      "text": "शुक्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to lead"
+      "notes": "to move, to go"
     },
     {
-      "id": "01.GEN.0067",
+      "id": "01.0128",
       "type": "dhatu",
-      "text": "पा",
+      "text": "कख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to drink"
+      "notes": "to laugh"
     },
     {
-      "id": "01.GEN.0068",
+      "id": "01.0129",
       "type": "dhatu",
-      "text": "दृश्",
+      "text": "ओख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to see"
+      "notes": "to dry out, to decorate, to be sufficient, to refuse, to prevent, to stop"
     },
     {
-      "id": "01.GEN.0069",
+      "id": "01.0130",
       "type": "dhatu",
-      "text": "वद्",
+      "text": "राख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to speak"
+      "notes": "to dry out, to decorate, to be sufficient, to refuse, to prevent, to stop"
     },
     {
-      "id": "01.GEN.0070",
+      "id": "01.0131",
       "type": "dhatu",
-      "text": "पठ्",
+      "text": "लाख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to read or recite"
+      "notes": "to dry out, to decorate, to be sufficient, to refuse, to prevent, to stop"
     },
     {
-      "id": "01.GEN.0071",
+      "id": "01.0132",
       "type": "dhatu",
-      "text": "लिख्",
+      "text": "द्राख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to write"
+      "notes": "to dry out, to decorate, to be sufficient, to refuse, to prevent, to stop"
     },
     {
-      "id": "01.GEN.0072",
+      "id": "01.0133",
       "type": "dhatu",
-      "text": "स्मृ",
+      "text": "ध्राख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to remember"
+      "notes": "to dry out, to decorate, to be sufficient, to refuse, to prevent, to stop"
     },
     {
-      "id": "01.GEN.0073",
+      "id": "01.0134",
       "type": "dhatu",
-      "text": "लभ्",
+      "text": "शाख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to obtain"
+      "notes": "to pervade, to spread, to penetrate, to occupy"
     },
     {
-      "id": "01.GEN.0074",
+      "id": "01.0135",
       "type": "dhatu",
-      "text": "सेव्",
+      "text": "श्लाख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to serve"
+      "notes": "to pervade,to spread, to penetrate, to occupy"
     },
     {
-      "id": "01.GEN.0075",
+      "id": "01.0136",
       "type": "dhatu",
-      "text": "चर्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to move or wander"
-    },
-    {
-      "id": "01.GEN.0076",
-      "type": "dhatu",
-      "text": "??",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to be\", \"to become\", \"to exist\"]"
-    },
-    {
-      "id": "01.GEN.0077",
-      "type": "dhatu",
-      "text": "???",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
-    },
-    {
-      "id": "01.GEN.0078",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "उख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0079",
+      "id": "01.0137",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.GEN.0080",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead or carry"
-    },
-    {
-      "id": "01.GEN.0081",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0082",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0083",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0084",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0085",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0086",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0087",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0088",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0089",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "उङ्ख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0090",
+      "id": "01.0138",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.GEN.0091",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead"
-    },
-    {
-      "id": "01.GEN.0092",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0093",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0094",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0095",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0096",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0097",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0098",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0099",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0100",
-      "type": "dhatu",
-      "text": "चर्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to move or wander"
-    },
-    {
-      "id": "01.GEN.0101",
-      "type": "dhatu",
-      "text": "??",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to be\", \"to become\", \"to exist\"]"
-    },
-    {
-      "id": "01.GEN.0102",
-      "type": "dhatu",
-      "text": "???",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
-    },
-    {
-      "id": "01.GEN.0103",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "वख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0104",
+      "id": "01.0139",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.GEN.0105",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead or carry"
-    },
-    {
-      "id": "01.GEN.0106",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0107",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0108",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0109",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0110",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0111",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0112",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0113",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0114",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "वङ्ख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0115",
+      "id": "01.0140",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.GEN.0116",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead"
-    },
-    {
-      "id": "01.GEN.0117",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0118",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0119",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0120",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0121",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0122",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0123",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0124",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0125",
-      "type": "dhatu",
-      "text": "चर्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to move or wander"
-    },
-    {
-      "id": "01.GEN.0126",
-      "type": "dhatu",
-      "text": "??",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to be\", \"to become\", \"to exist\"]"
-    },
-    {
-      "id": "01.GEN.0127",
-      "type": "dhatu",
-      "text": "???",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
-    },
-    {
-      "id": "01.GEN.0128",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "मख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0129",
+      "id": "01.0141",
       "type": "dhatu",
-      "text": "स्था",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to stand"
-    },
-    {
-      "id": "01.GEN.0130",
-      "type": "dhatu",
-      "text": "नी",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to lead or carry"
-    },
-    {
-      "id": "01.GEN.0131",
-      "type": "dhatu",
-      "text": "पा",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to drink"
-    },
-    {
-      "id": "01.GEN.0132",
-      "type": "dhatu",
-      "text": "दृश्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to see"
-    },
-    {
-      "id": "01.GEN.0133",
-      "type": "dhatu",
-      "text": "वद्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to speak"
-    },
-    {
-      "id": "01.GEN.0134",
-      "type": "dhatu",
-      "text": "पठ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to read or recite"
-    },
-    {
-      "id": "01.GEN.0135",
-      "type": "dhatu",
-      "text": "लिख्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to write"
-    },
-    {
-      "id": "01.GEN.0136",
-      "type": "dhatu",
-      "text": "स्मृ",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to remember"
-    },
-    {
-      "id": "01.GEN.0137",
-      "type": "dhatu",
-      "text": "लभ्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to obtain"
-    },
-    {
-      "id": "01.GEN.0138",
-      "type": "dhatu",
-      "text": "सेव्",
-      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
-      "gana": "01",
-      "notes": "to serve"
-    },
-    {
-      "id": "01.GEN.0139",
-      "type": "dhatu",
-      "text": "गम्",
+      "text": "मङ्ख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
       "notes": "to go"
     },
     {
-      "id": "01.GEN.0140",
+      "id": "01.0142",
       "type": "dhatu",
-      "text": "स्था",
+      "text": "नख्",
       "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
       "gana": "01",
-      "notes": "to stand"
+      "notes": "to go"
+    },
+    {
+      "id": "01.0143",
+      "type": "dhatu",
+      "text": "नङ्ख्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.0144",
+      "type": "dhatu",
+      "text": "रख्",
+      "source": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
     }
   ]
 }

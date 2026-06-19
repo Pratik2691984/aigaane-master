@@ -8,7 +8,7 @@
       "edition": "v1",
       "language": "sa",
       "license": "review",
-      "checksum": "68b026f8ad2dc9b97d089acb7f1bcf5acffda1ee497d9e2a66ec610304c4c31c",
+      "checksum": "2ce4f3ad8481523a2cbde7303652c0c2526a76572f41d7c7c446fa738c093b79",
       "landingZone": "raw/sanskrit/dhatu"
     },
     {
@@ -17,7 +17,7 @@
       "edition": "v1",
       "language": "sa",
       "license": "review",
-      "checksum": "b3ea4a6373367d414ac7c87f68da3c86d6aec8cef1855539fdc39e57e9396ffe",
+      "checksum": "2444d56cb47d3c9607c5d80d51b61b03ede8f53595763a8cbae515b7af4dbf04",
       "landingZone": "raw/sanskrit/sutra"
     },
     {
@@ -26,7 +26,7 @@
       "edition": "v1",
       "language": "sa",
       "license": "review",
-      "checksum": "eb98e0723bc2d13e335f135bf806bb8babb1ffdde09f2d41a44490e66675041b",
+      "checksum": "d9de58c72867cf25aa3391f0bc7f1fb25307c504c3e75ae5ca67a86930618bad",
       "landingZone": "raw/sanskrit/stotra"
     }
   ],

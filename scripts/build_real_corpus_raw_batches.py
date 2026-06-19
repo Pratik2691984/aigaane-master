@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
+import re
+import urllib.request
+from collections import defaultdict
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -11,10 +13,16 @@ from typing import Any, Dict, List, Tuple
 ROOT = Path(__file__).resolve().parents[1]
 RAW_CORPUS_ROOT = ROOT / "raw" / "sanskrit"
 RAW_MANIFEST = ROOT / "raw" / "corpus" / "manifest.v1.json"
+CORPUS_SOURCES = ROOT / "data" / "sanskrit" / "corpus-sources"
+
+ASHTADHYAYI_DHATU_PATH = CORPUS_SOURCES / "dhatupatha" / "ashtadhyayi_dhatu.v1.json"
+ASHTADHYAYI_SUTRA_PATH = CORPUS_SOURCES / "sutra" / "ashtadhyayi_sutra.v1.json"
+GITA_STOTRA_PATH = CORPUS_SOURCES / "stotra" / "gita_verses.v1.json"
 
 TARGET_DHATU = 1400
 TARGET_SUTRA = 400
 TARGET_STOTRA = 200
+PER_GANA_DHATU = 140
 
 GANA_DIRS = [
     ("01", "bhvadi"),
@@ -29,38 +37,13 @@ GANA_DIRS = [
     ("10", "curadi"),
 ]
 
-SUTRA_SEEDS = [
-    ("1.1.1", "वृद्धिरादै"),
-    ("1.1.2", "अदेङ् गुणः"),
-    ("1.2.3", "हलन्त्यत्"),
-    ("1.3.1", "भूवादयो धातवः"),
-    ("1.3.2", "उपसर्गे धातुजम्"),
-    ("1.4.14", "सुप्तिङन्तं धातुः"),
-    ("3.1.68", "अर्धधातुकं शेषः"),
-    ("3.2.3", "आत्मनेपदेषु"),
-    ("3.4.113", "टित आत्मनेपदम्"),
-    ("4.1.2", "प्राग्दीर्घात् सम्प्रसारणात्"),
-    ("6.1.1", "एकः पूर्वपरयोः"),
-    ("6.1.3", "नो नः स्वरि"),
-    ("6.1.72", "एङः पदान्तादति"),
-    ("8.2.66", "समासेऽनात्पौर्वपदात्"),
-    ("8.3.14", "तृजुग्लुभुह्रदादिभ्यो ङित्"),
-    ("8.4.11", "वाऽवसानस्य"),
-    ("8.4.40", "स्तोः श्चुना श्चुः"),
-]
+SOURCE_URLS = {
+    ASHTADHYAYI_DHATU_PATH: "https://raw.githubusercontent.com/ashtadhyayi-com/data/master/dhatu/data.txt",
+    ASHTADHYAYI_SUTRA_PATH: "https://raw.githubusercontent.com/ashtadhyayi-com/data/master/sutraani/data.txt",
+}
 
-STOTRA_SEEDS = [
-    ("stotra-001", "नमः शिवाय"),
-    ("stotra-002", "विष्णु सहस्रनाम"),
-    ("stotra-003", "शान्तं शाश्वतमप्रमेयम्"),
-    ("stotra-004", "कराग्रे वसते लक्ष्मीः"),
-    ("stotra-005", "सर्वं खल्विदं ब्रह्म"),
-    ("stotra-006", "त्वमेव माता च पिता त्वमेव"),
-    ("stotra-007", "असतो मा सद्गमय"),
-    ("stotra-008", "तमसो मा ज्योतिर्गमय"),
-    ("stotra-009", "मृत्योर्मा अमृतं गमय"),
-    ("stotra-010", "ॐ भूर्भुवः स्वः"),
-]
+GITA_CHAPTER_URL = "https://raw.githubusercontent.com/bhavykhatri/DharmicData/main/SrimadBhagvadGita/bhagavad_gita_chapter_{chapter}.json"
+DEVANAGARI_RE = re.compile(r"[\u0900-\u097F]+")
 
 
 def _read_json(path: Path) -> Dict[str, Any]:
@@ -75,119 +58,208 @@ def _write_json(path: Path, payload: Dict[str, Any]) -> None:
         handle.write("\n")
 
 
-def _load_csv_rows(path: Path) -> List[Dict[str, str]]:
-    with path.open("r", encoding="utf-8-sig", newline="") as handle:
-        return [
-            {key: (value or "").strip() for key, value in row.items()}
-            for row in csv.DictReader(handle)
-        ]
+def _ensure_source(path: Path) -> None:
+    if path.exists():
+        return
+    url = SOURCE_URLS.get(path)
+    if not url:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    urllib.request.urlretrieve(url, path)
 
 
-def _normalize_dhatu_record(record: Dict[str, Any], source_file: str) -> Dict[str, Any]:
-    record_id = str(record.get("root_id") or record.get("id") or "").strip()
-    text = str(
-        record.get("devanagari")
-        or record.get("root")
-        or record.get("canonicalForm")
-        or ""
-    ).strip()
-    gana = str(record.get("gana") or record.get("gana_id") or "").strip()
-    gloss = str(record.get("artha") or record.get("semantics_english") or "").strip()
-
-    return {
-        "id": record_id,
-        "type": "dhatu",
-        "text": text,
-        "source": source_file,
-        "gana": gana,
-        "notes": gloss,
-    }
+def _clean_gita_verse(text: str) -> str:
+    lines = [line.strip() for line in str(text or "").splitlines() if line.strip()]
+    for line in lines:
+        if "उवाच" in line and "।" not in line:
+            continue
+        if DEVANAGARI_RE.search(line):
+            cleaned = re.sub(r"।।[\d.]+।।", "।", line)
+            cleaned = re.sub(r"\s+", " ", cleaned).strip()
+            if cleaned:
+                return cleaned
+    return re.sub(r"\s+", " ", str(text or "")).strip()
 
 
-def collect_real_dhatu_records() -> List[Dict[str, Any]]:
+def _load_gita_stotra_verses(limit: int = TARGET_STOTRA) -> List[Dict[str, Any]]:
+    if GITA_STOTRA_PATH.exists():
+        payload = _read_json(GITA_STOTRA_PATH)
+        records = payload.get("records", [])
+        if len(records) >= limit:
+            return records[:limit]
+
     records: List[Dict[str, Any]] = []
     seen = set()
-
-    csv_paths = [
-        ROOT / "raw" / "dhatupatha.csv",
-        ROOT / "raw" / "dhatupatha_controlled_batch_01.csv",
-    ]
-    for csv_path in csv_paths:
-        if not csv_path.exists():
+    for chapter in range(1, 19):
+        if len(records) >= limit:
+            break
+        url = GITA_CHAPTER_URL.format(chapter=chapter)
+        try:
+            payload = json.loads(urllib.request.urlopen(url, timeout=60).read().decode("utf-8"))
+        except Exception:
             continue
-        rel = str(csv_path.relative_to(ROOT)).replace("\\", "/")
-        for row in _load_csv_rows(csv_path):
-            item = _normalize_dhatu_record(row, rel)
-            if item["id"] and item["text"] and item["id"] not in seen:
-                seen.add(item["id"])
-                records.append(item)
+        for item in payload.get("BhagavadGitaChapter", []):
+            text = _clean_gita_verse(item.get("text", ""))
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            verse = str(item.get("verse", "")).strip()
+            records.append({
+                "id": f"gita-{chapter}.{verse}",
+                "text": text,
+                "title": f"Bhagavad Gita {chapter}.{verse}",
+                "source": "DharmicData/SrimadBhagvadGita",
+            })
+            if len(records) >= limit:
+                break
 
-    batch_path = ROOT / "raw" / "dhatupatha_batches" / "01_bhvadi" / "bhvadi_batch_001.json"
-    if batch_path.exists():
-        rel = str(batch_path.relative_to(ROOT)).replace("\\", "/")
-        payload = _read_json(batch_path)
-        for row in payload.get("records", []):
-            item = _normalize_dhatu_record(row, rel)
-            if item["id"] and item["text"] and item["id"] not in seen:
-                seen.add(item["id"])
-                records.append(item)
+    _write_json(
+        GITA_STOTRA_PATH,
+        {
+            "schemaVersion": "sanskrit-corpus-stotra-source.v1",
+            "sourceId": "gita-dharmicdata-v1",
+            "recordCount": len(records),
+            "records": records,
+        },
+    )
+    return records[:limit]
 
+
+def _load_ashtadhyayi_dhatus() -> List[Dict[str, Any]]:
+    legacy = CORPUS_SOURCES / "dhatupatha" / "ashtadhyayi_dhatu_sample.txt"
+    if legacy.exists() and not ASHTADHYAYI_DHATU_PATH.exists():
+        ASHTADHYAYI_DHATU_PATH.write_text(legacy.read_text(encoding="utf-8"), encoding="utf-8")
+    _ensure_source(ASHTADHYAYI_DHATU_PATH)
+    payload = _read_json(ASHTADHYAYI_DHATU_PATH)
+
+    records: List[Dict[str, Any]] = []
+    seen_ids = set()
+    seen_texts = set()
+    for row in payload.get("data", []):
+        root = str(row.get("dhatu") or row.get("aupadeshik") or "").strip()
+        record_id = str(row.get("baseindex") or "").strip()
+        gana = str(row.get("gana") or "").strip().zfill(2)[-2:]
+        gloss = str(row.get("artha_english") or row.get("artha") or row.get("artha_hindi") or "").strip()
+        if not root or not record_id or not gloss:
+            continue
+        if record_id in seen_ids or root in seen_texts:
+            continue
+        if not DEVANAGARI_RE.search(root):
+            continue
+        if len(root) > 32:
+            continue
+        seen_ids.add(record_id)
+        seen_texts.add(root)
+        records.append({
+            "id": record_id,
+            "type": "dhatu",
+            "text": root,
+            "source": str(ASHTADHYAYI_DHATU_PATH.relative_to(ROOT)).replace("\\", "/"),
+            "gana": gana,
+            "notes": gloss,
+        })
     return records
 
 
-def _gana_for_record(record: Dict[str, Any]) -> str:
-    gana = str(record.get("gana") or "").strip()
-    if gana:
-        return gana.zfill(2)[-2:]
-    record_id = str(record.get("id") or "")
-    if "." in record_id:
-        return record_id.split(".", 1)[0].zfill(2)[-2:]
-    return "01"
+def _load_ashtadhyayi_sutras(limit: int = TARGET_SUTRA) -> List[Dict[str, Any]]:
+    legacy = CORPUS_SOURCES / "sutra" / "ashtadhyayi_sutra_sample.txt"
+    if legacy.exists() and not ASHTADHYAYI_SUTRA_PATH.exists():
+        ASHTADHYAYI_SUTRA_PATH.write_text(legacy.read_text(encoding="utf-8"), encoding="utf-8")
+    _ensure_source(ASHTADHYAYI_SUTRA_PATH)
+    payload = _read_json(ASHTADHYAYI_SUTRA_PATH)
+
+    rows = sorted(
+        payload.get("data", []),
+        key=lambda item: (
+            int(str(item.get("a") or "0")),
+            int(str(item.get("p") or "0")),
+            int(str(item.get("n") or "0")),
+        ),
+    )
+
+    records: List[Dict[str, Any]] = []
+    seen_refs = set()
+    seen_texts = set()
+    for row in rows:
+        text = str(row.get("s") or "").strip()
+        adhyaya = str(row.get("a") or "").strip()
+        pada = str(row.get("p") or "").strip()
+        number = str(row.get("n") or "").strip()
+        ref = f"{adhyaya}.{pada}.{number}"
+        if not text or ref in seen_refs or text in seen_texts:
+            continue
+        seen_refs.add(ref)
+        seen_texts.add(text)
+        seq = len(records) + 1
+        records.append({
+            "id": f"sutra-{seq:04d}",
+            "type": "sutra",
+            "text": text,
+            "source": str(ASHTADHYAYI_SUTRA_PATH.relative_to(ROOT)).replace("\\", "/"),
+            "notes": f"ashtadhyayi-ref:{ref}",
+        })
+        if len(records) >= limit:
+            break
+    return records
 
 
 def build_dhatu_batches(records: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[str, int]]:
-    per_gana: Dict[str, List[Dict[str, Any]]] = {gana_id: [] for gana_id, _ in GANA_DIRS}
-
+    by_gana: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for record in records:
-        gana_id = _gana_for_record(record)
-        if gana_id in per_gana:
-            per_gana[gana_id].append(record)
+        gana = str(record.get("gana") or "").zfill(2)[-2:]
+        by_gana[gana].append(record)
 
-    per_gana_count = 140
+    for gana in by_gana:
+        by_gana[gana].sort(key=lambda item: item["id"])
+
+    global_used_ids = set()
+    overflow: List[Dict[str, Any]] = []
+    for gana in sorted(by_gana):
+        for record in by_gana[gana]:
+            if record["id"] not in global_used_ids:
+                overflow.append(record)
+
     written_batches: List[Dict[str, Any]] = []
     counts = {"dhatu": 0}
+    overflow_index = 0
 
     for gana_id, slug in GANA_DIRS:
-        seeds = per_gana[gana_id] or [item for item in records if _gana_for_record(item) == "01"] or records
-        if not seeds:
-            continue
-
         batch_records: List[Dict[str, Any]] = []
-        used_ids = set()
+        rel_source = f"raw/sanskrit/dhatu/{gana_id}_{slug}_batch.json"
 
-        for record in per_gana[gana_id]:
+        for record in by_gana.get(gana_id, []):
+            if record["id"] in global_used_ids:
+                continue
             item = dict(record)
-            if item["id"] not in used_ids:
-                used_ids.add(item["id"])
-                batch_records.append(item)
+            item["source"] = rel_source
+            batch_records.append(item)
+            global_used_ids.add(record["id"])
 
-        gen_index = 0
-        while len(batch_records) < per_gana_count:
-            seed = seeds[gen_index % len(seeds)]
-            generated_id = f"{gana_id}.GEN.{len(used_ids) + 1:04d}"
-            while generated_id in used_ids:
-                generated_id = f"{gana_id}.GEN.{len(used_ids) + 1:04d}"
-            used_ids.add(generated_id)
-            source = f"raw/sanskrit/dhatu/{gana_id}_{slug}_batch.json"
+        while len(batch_records) < PER_GANA_DHATU and overflow_index < len(overflow):
+            candidate = overflow[overflow_index]
+            overflow_index += 1
+            if candidate["id"] in global_used_ids:
+                continue
+            item = dict(candidate)
+            item["source"] = rel_source
+            batch_records.append(item)
+            global_used_ids.add(candidate["id"])
+
+        while len(batch_records) < PER_GANA_DHATU:
+            seq = len(batch_records) + 1
+            filler_id = f"{gana_id}.{seq:04d}"
+            while filler_id in global_used_ids:
+                seq += 1
+                filler_id = f"{gana_id}.{seq:04d}"
+            global_used_ids.add(filler_id)
             batch_records.append({
-                "id": generated_id,
+                "id": filler_id,
                 "type": "dhatu",
-                "text": seed["text"],
-                "source": source,
+                "text": "भू",
+                "source": rel_source,
                 "gana": gana_id,
-                "notes": seed.get("notes", ""),
+                "notes": "reserved placeholder",
             })
-            gen_index += 1
 
         rel_path = f"raw/sanskrit/dhatu/{gana_id}_{slug}_batch.json"
         payload = {
@@ -196,85 +268,83 @@ def build_dhatu_batches(records: List[Dict[str, Any]]) -> Tuple[List[Dict[str, A
             "slug": slug,
             "corpusType": "dhatu",
             "description": f"Real corpus dhatu batch for {slug} gana",
-            "records": batch_records,
+            "records": batch_records[:PER_GANA_DHATU],
         }
         _write_json(ROOT / rel_path, payload)
         written_batches.append({
             "batchId": payload["batchId"],
             "path": rel_path,
-            "recordCount": len(batch_records),
+            "recordCount": len(payload["records"]),
         })
-        counts["dhatu"] += len(batch_records)
+        counts["dhatu"] += len(payload["records"])
 
     return written_batches, counts
 
 
-def build_sutra_batch() -> Tuple[Dict[str, Any], int]:
-    records: List[Dict[str, Any]] = []
-    for index in range(TARGET_SUTRA):
-        sutra_id, text = SUTRA_SEEDS[index % len(SUTRA_SEEDS)]
-        seq = index + 1
-        records.append({
-            "id": f"sutra-{seq:04d}",
-            "type": "sutra",
-            "text": text,
-            "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-            "notes": f"ashtadhyayi-ref:{sutra_id}",
-        })
-
+def build_sutra_batch(records: List[Dict[str, Any]]) -> Tuple[Dict[str, Any], int]:
     payload = {
         "batchId": "SUTRA_CORPUS_BATCH_001",
         "corpusType": "sutra",
-        "description": "Real corpus sutra batch seeded from local Paninian references",
-        "records": records,
+        "description": "Real corpus sutra batch from Ashtadhyayi source registry",
+        "records": records[:TARGET_SUTRA],
     }
     rel_path = "raw/sanskrit/sutra/sutra_corpus_batch_001.json"
     _write_json(ROOT / rel_path, payload)
-    return {"batchId": payload["batchId"], "path": rel_path, "recordCount": len(records)}, len(records)
+    return {"batchId": payload["batchId"], "path": rel_path, "recordCount": len(payload["records"])}, len(payload["records"])
 
 
-def build_stotra_batch() -> Tuple[Dict[str, Any], int]:
-    records: List[Dict[str, Any]] = []
-    for index in range(TARGET_STOTRA):
-        seed_id, text = STOTRA_SEEDS[index % len(STOTRA_SEEDS)]
-        seq = index + 1
-        records.append({
-            "id": f"stotra-{seq:04d}",
+def build_stotra_batch(records: List[Dict[str, Any]]) -> Tuple[Dict[str, Any], int]:
+    batch_records: List[Dict[str, Any]] = []
+    for index, record in enumerate(records[:TARGET_STOTRA], start=1):
+        batch_records.append({
+            "id": f"stotra-{index:04d}",
             "type": "stotra",
-            "text": text,
+            "text": record["text"],
             "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-            "notes": f"seed:{seed_id}",
+            "notes": f"title:{record.get('title', record.get('id', 'stotra'))};seed:{record.get('id', f'stotra-{index:04d}')}",
         })
 
     payload = {
         "batchId": "STOTRA_CORPUS_BATCH_001",
         "corpusType": "stotra",
-        "description": "Real corpus stotra batch seeded from local devotional text fragments",
-        "records": records,
+        "description": "Real corpus stotra batch from Bhagavad Gita verses",
+        "records": batch_records,
     }
     rel_path = "raw/sanskrit/stotra/stotra_corpus_batch_001.json"
     _write_json(ROOT / rel_path, payload)
-    return {"batchId": payload["batchId"], "path": rel_path, "recordCount": len(records)}, len(records)
+    return {"batchId": payload["batchId"], "path": rel_path, "recordCount": len(batch_records)}, len(batch_records)
 
 
 def build_real_corpus_raw_batches() -> Dict[str, Any]:
-    dhatu_records = collect_real_dhatu_records()
+    dhatu_records = _load_ashtadhyayi_dhatus()
+    sutra_records = _load_ashtadhyayi_sutras()
+    stotra_records = _load_gita_stotra_verses()
+
     dhatu_batches, dhatu_counts = build_dhatu_batches(dhatu_records)
-    sutra_batch, sutra_count = build_sutra_batch()
-    stotra_batch, stotra_count = build_stotra_batch()
+    sutra_batch, sutra_count = build_sutra_batch(sutra_records)
+    stotra_batch, stotra_count = build_stotra_batch(stotra_records)
 
     total = dhatu_counts["dhatu"] + sutra_count + stotra_count
+    unique_dhatu_texts = len({record["text"] for record in dhatu_records})
+
     valid = (
         dhatu_counts["dhatu"] == TARGET_DHATU
         and sutra_count == TARGET_SUTRA
         and stotra_count == TARGET_STOTRA
         and total == TARGET_DHATU + TARGET_SUTRA + TARGET_STOTRA
+        and len(dhatu_records) >= TARGET_DHATU
     )
 
-    manifest = _read_json(RAW_MANIFEST)
+    manifest = _read_json(RAW_MANIFEST) if RAW_MANIFEST.exists() else {}
     manifest["status"] = "raw-batches-ready" if valid else "raw-batches-partial"
     manifest["seedDhatuCount"] = len(dhatu_records)
-    manifest["generatedAt"] = "phase-11"
+    manifest["uniqueDhatuCount"] = unique_dhatu_texts
+    manifest["generatedAt"] = "phase-11-expanded"
+    manifest["sources"] = {
+        "dhatu": str(ASHTADHYAYI_DHATU_PATH.relative_to(ROOT)).replace("\\", "/"),
+        "sutra": str(ASHTADHYAYI_SUTRA_PATH.relative_to(ROOT)).replace("\\", "/"),
+        "stotra": str(GITA_STOTRA_PATH.relative_to(ROOT)).replace("\\", "/"),
+    }
     manifest["batches"] = {
         "dhatu": dhatu_batches,
         "sutra": [sutra_batch],
@@ -293,9 +363,16 @@ def build_real_corpus_raw_batches() -> Dict[str, Any]:
         "phase": "11",
         "title": "Real Corpus Loading",
         "seedDhatuCount": len(dhatu_records),
+        "uniqueDhatuCount": unique_dhatu_texts,
         "counts": manifest["counts"],
-        "targets": manifest["targets"],
+        "targets": manifest.get("targets", {
+            "dhatu": TARGET_DHATU,
+            "sutra": TARGET_SUTRA,
+            "stotra": TARGET_STOTRA,
+            "total": TARGET_DHATU + TARGET_SUTRA + TARGET_STOTRA,
+        }),
         "batches": manifest["batches"],
+        "sources": manifest["sources"],
         "previewOnly": True,
         "canonicalWriteAllowed": False,
     }

@@ -1,1407 +1,1407 @@
 {
   "batchId": "STOTRA_CORPUS_BATCH_001",
   "corpusType": "stotra",
-  "description": "Real corpus stotra batch seeded from local devotional text fragments",
+  "description": "Real corpus stotra batch from Bhagavad Gita verses",
   "records": [
     {
       "id": "stotra-0001",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 1.1;seed:gita-1.1"
     },
     {
       "id": "stotra-0002",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 1.2;seed:gita-1.2"
     },
     {
       "id": "stotra-0003",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "पश्यैतां पाण्डुपुत्राणामाचार्य महतीं चमूम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 1.3;seed:gita-1.3"
     },
     {
       "id": "stotra-0004",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "अत्र शूरा महेष्वासा भीमार्जुनसमा युधि।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 1.4;seed:gita-1.4"
     },
     {
       "id": "stotra-0005",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "धृष्टकेतुश्चेकितानः काशिराजश्च वीर्यवान्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 1.5;seed:gita-1.5"
     },
     {
       "id": "stotra-0006",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "युधामन्युश्च विक्रान्त उत्तमौजाश्च वीर्यवान्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 1.6;seed:gita-1.6"
     },
     {
       "id": "stotra-0007",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "अस्माकं तु विशिष्टा ये तान्निबोध द्विजोत्तम।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 1.7;seed:gita-1.7"
     },
     {
       "id": "stotra-0008",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "भवान्भीष्मश्च कर्णश्च कृपश्च समितिञ्जयः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 1.8;seed:gita-1.8"
     },
     {
       "id": "stotra-0009",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "अन्ये च बहवः शूरा मदर्थे त्यक्तजीविताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 1.9;seed:gita-1.9"
     },
     {
       "id": "stotra-0010",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "अपर्याप्तं तदस्माकं बलं भीष्माभिरक्षितम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 1.10;seed:gita-1.10"
     },
     {
       "id": "stotra-0011",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "अयनेषु च सर्वेषु यथाभागमवस्थिताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 1.11;seed:gita-1.11"
     },
     {
       "id": "stotra-0012",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "तस्य संजनयन्हर्षं कुरुवृद्धः पितामहः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 1.12;seed:gita-1.12"
     },
     {
       "id": "stotra-0013",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "ततः शङ्खाश्च भेर्यश्च पणवानकगोमुखाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 1.13;seed:gita-1.13"
     },
     {
       "id": "stotra-0014",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "ततः श्वेतैर्हयैर्युक्ते महति स्यन्दने स्थितौ।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 1.14;seed:gita-1.14"
     },
     {
       "id": "stotra-0015",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "पाञ्चजन्यं हृषीकेशो देवदत्तं धनंजयः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 1.15;seed:gita-1.15"
     },
     {
       "id": "stotra-0016",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "अनन्तविजयं राजा कुन्तीपुत्रो युधिष्ठिरः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 1.16;seed:gita-1.16"
     },
     {
       "id": "stotra-0017",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "काश्यश्च परमेष्वासः शिखण्डी च महारथः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 1.17;seed:gita-1.17"
     },
     {
       "id": "stotra-0018",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "द्रुपदो द्रौपदेयाश्च सर्वशः पृथिवीपते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 1.18;seed:gita-1.18"
     },
     {
       "id": "stotra-0019",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "स घोषो धार्तराष्ट्राणां हृदयानि व्यदारयत्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 1.19;seed:gita-1.19"
     },
     {
       "id": "stotra-0020",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "अथ व्यवस्थितान् दृष्ट्वा धार्तराष्ट्रान्कपिध्वजः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 1.20;seed:gita-1.20"
     },
     {
       "id": "stotra-0021",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "हृषीकेशं तदा वाक्यमिदमाह महीपते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 1.21;seed:gita-1.21"
     },
     {
       "id": "stotra-0022",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "यावदेतान्निरीक्षेऽहं योद्धुकामानवस्थितान्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 1.22;seed:gita-1.22"
     },
     {
       "id": "stotra-0023",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "योत्स्यमानानवेक्षेऽहं य एतेऽत्र समागताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 1.23;seed:gita-1.23"
     },
     {
       "id": "stotra-0024",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "एवमुक्तो हृषीकेशो गुडाकेशेन भारत।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 1.24;seed:gita-1.24"
     },
     {
       "id": "stotra-0025",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "भीष्मद्रोणप्रमुखतः सर्वेषां च महीक्षिताम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 1.25;seed:gita-1.25"
     },
     {
       "id": "stotra-0026",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "तत्रापश्यत्स्थितान्पार्थः पितृ़नथ पितामहान्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 1.26;seed:gita-1.26"
     },
     {
       "id": "stotra-0027",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "श्वशुरान्सुहृदश्चैव सेनयोरुभयोरपि।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 1.27;seed:gita-1.27"
     },
     {
       "id": "stotra-0028",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "कृपया परयाऽऽविष्टो विषीदन्निदमब्रवीत्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 1.28;seed:gita-1.28"
     },
     {
       "id": "stotra-0029",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "सीदन्ति मम गात्राणि मुखं च परिशुष्यति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 1.29;seed:gita-1.29"
     },
     {
       "id": "stotra-0030",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "गाण्डीवं स्रंसते हस्तात्त्वक्चैव परिदह्यते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 1.30;seed:gita-1.30"
     },
     {
       "id": "stotra-0031",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "निमित्तानि च पश्यामि विपरीतानि केशव।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 1.31;seed:gita-1.31"
     },
     {
       "id": "stotra-0032",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "न काङ्क्षे विजयं कृष्ण न च राज्यं सुखानि च।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 1.32;seed:gita-1.32"
     },
     {
       "id": "stotra-0033",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "येषामर्थे काङ्क्षितं नो राज्यं भोगाः सुखानि च।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 1.33;seed:gita-1.33"
     },
     {
       "id": "stotra-0034",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "आचार्याः पितरः पुत्रास्तथैव च पितामहाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 1.34;seed:gita-1.34"
     },
     {
       "id": "stotra-0035",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "एतान्न हन्तुमिच्छामि घ्नतोऽपि मधुसूदन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 1.35;seed:gita-1.35"
     },
     {
       "id": "stotra-0036",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "निहत्य धार्तराष्ट्रान्नः का प्रीतिः स्याज्जनार्दन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 1.36;seed:gita-1.36"
     },
     {
       "id": "stotra-0037",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "तस्मान्नार्हा वयं हन्तुं धार्तराष्ट्रान्स्वबान्धवान्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 1.37;seed:gita-1.37"
     },
     {
       "id": "stotra-0038",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "यद्यप्येते न पश्यन्ति लोभोपहतचेतसः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 1.38;seed:gita-1.38"
     },
     {
       "id": "stotra-0039",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "कथं न ज्ञेयमस्माभिः पापादस्मान्निवर्तितुम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 1.39;seed:gita-1.39"
     },
     {
       "id": "stotra-0040",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "कुलक्षये प्रणश्यन्ति कुलधर्माः सनातनाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 1.40;seed:gita-1.40"
     },
     {
       "id": "stotra-0041",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "अधर्माभिभवात्कृष्ण प्रदुष्यन्ति कुलस्त्रियः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 1.41;seed:gita-1.41"
     },
     {
       "id": "stotra-0042",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "सङ्करो नरकायैव कुलघ्नानां कुलस्य च।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 1.42;seed:gita-1.42"
     },
     {
       "id": "stotra-0043",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "दोषैरेतैः कुलघ्नानां वर्णसङ्करकारकैः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 1.43;seed:gita-1.43"
     },
     {
       "id": "stotra-0044",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "उत्सन्नकुलधर्माणां मनुष्याणां जनार्दन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 1.44;seed:gita-1.44"
     },
     {
       "id": "stotra-0045",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "अहो बत महत्पापं कर्तुं व्यवसिता वयम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 1.45;seed:gita-1.45"
     },
     {
       "id": "stotra-0046",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "यदि मामप्रतीकारमशस्त्रं शस्त्रपाणयः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 1.46;seed:gita-1.46"
     },
     {
       "id": "stotra-0047",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "एवमुक्त्वाऽर्जुनः संख्ये रथोपस्थ उपाविशत्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 1.47;seed:gita-1.47"
     },
     {
       "id": "stotra-0048",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "तं तथा कृपयाऽविष्टमश्रुपूर्णाकुलेक्षणम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.1;seed:gita-2.1"
     },
     {
       "id": "stotra-0049",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "श्री भगवानुवाच",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.2;seed:gita-2.2"
     },
     {
       "id": "stotra-0050",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "क्लैब्यं मा स्म गमः पार्थ नैतत्त्वय्युपपद्यते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.3;seed:gita-2.3"
     },
     {
       "id": "stotra-0051",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "कथं भीष्ममहं संख्ये द्रोणं च मधुसूदन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.4;seed:gita-2.4"
     },
     {
       "id": "stotra-0052",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "गुरूनहत्वा हि महानुभावान्",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.5;seed:gita-2.5"
     },
     {
       "id": "stotra-0053",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "न चैतद्विद्मः कतरन्नो गरीयो",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.6;seed:gita-2.6"
     },
     {
       "id": "stotra-0054",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "कार्पण्यदोषोपहतस्वभावः",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.7;seed:gita-2.7"
     },
     {
       "id": "stotra-0055",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "न हि प्रपश्यामि ममापनुद्या",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.8;seed:gita-2.8"
     },
     {
       "id": "stotra-0056",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "एवमुक्त्वा हृषीकेशं गुडाकेशः परन्तप।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.9;seed:gita-2.9"
     },
     {
       "id": "stotra-0057",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "तमुवाच हृषीकेशः प्रहसन्निव भारत।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.10;seed:gita-2.10"
     },
     {
       "id": "stotra-0058",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "न त्वेवाहं जातु नासं न त्वं नेमे जनाधिपाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.12;seed:gita-2.12"
     },
     {
       "id": "stotra-0059",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "देहिनोऽस्मिन्यथा देहे कौमारं यौवनं जरा।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.13;seed:gita-2.13"
     },
     {
       "id": "stotra-0060",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "मात्रास्पर्शास्तु कौन्तेय शीतोष्णसुखदुःखदाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.14;seed:gita-2.14"
     },
     {
       "id": "stotra-0061",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "यं हि न व्यथयन्त्येते पुरुषं पुरुषर्षभ।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.15;seed:gita-2.15"
     },
     {
       "id": "stotra-0062",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "नासतो विद्यते भावो नाभावो विद्यते सतः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.16;seed:gita-2.16"
     },
     {
       "id": "stotra-0063",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "अविनाशि तु तद्विद्धि येन सर्वमिदं ततम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.17;seed:gita-2.17"
     },
     {
       "id": "stotra-0064",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "अन्तवन्त इमे देहा नित्यस्योक्ताः शरीरिणः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.18;seed:gita-2.18"
     },
     {
       "id": "stotra-0065",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "य एनं वेत्ति हन्तारं यश्चैनं मन्यते हतम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.19;seed:gita-2.19"
     },
     {
       "id": "stotra-0066",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "न जायते म्रियते वा कदाचि",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.20;seed:gita-2.20"
     },
     {
       "id": "stotra-0067",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "वेदाविनाशिनं नित्यं य एनमजमव्ययम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.21;seed:gita-2.21"
     },
     {
       "id": "stotra-0068",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "वासांसि जीर्णानि यथा विहाय",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.22;seed:gita-2.22"
     },
     {
       "id": "stotra-0069",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "नैनं छिन्दन्ति शस्त्राणि नैनं दहति पावकः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.23;seed:gita-2.23"
     },
     {
       "id": "stotra-0070",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "अच्छेद्योऽयमदाह्योऽयमक्लेद्योऽशोष्य एव च।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.24;seed:gita-2.24"
     },
     {
       "id": "stotra-0071",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "अव्यक्तोऽयमचिन्त्योऽयमविकार्योऽयमुच्यते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.25;seed:gita-2.25"
     },
     {
       "id": "stotra-0072",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "अथ चैनं नित्यजातं नित्यं वा मन्यसे मृतम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.26;seed:gita-2.26"
     },
     {
       "id": "stotra-0073",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "जातस्य हि ध्रुवो मृत्युर्ध्रुवं जन्म मृतस्य च।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.27;seed:gita-2.27"
     },
     {
       "id": "stotra-0074",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "अव्यक्तादीनि भूतानि व्यक्तमध्यानि भारत।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.28;seed:gita-2.28"
     },
     {
       "id": "stotra-0075",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "आश्चर्यवत्पश्यति कश्चिदेन",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.29;seed:gita-2.29"
     },
     {
       "id": "stotra-0076",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "देही नित्यमवध्योऽयं देहे सर्वस्य भारत।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.30;seed:gita-2.30"
     },
     {
       "id": "stotra-0077",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "स्वधर्ममपि चावेक्ष्य न विकम्पितुमर्हसि।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.31;seed:gita-2.31"
     },
     {
       "id": "stotra-0078",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "यदृच्छया चोपपन्नं स्वर्गद्वारमपावृतम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.32;seed:gita-2.32"
     },
     {
       "id": "stotra-0079",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "अथ चैत्त्वमिमं धर्म्यं संग्रामं न करिष्यसि।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.33;seed:gita-2.33"
     },
     {
       "id": "stotra-0080",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "अकीर्तिं चापि भूतानि कथयिष्यन्ति तेऽव्ययाम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.34;seed:gita-2.34"
     },
     {
       "id": "stotra-0081",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "भयाद्रणादुपरतं मंस्यन्ते त्वां महारथाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.35;seed:gita-2.35"
     },
     {
       "id": "stotra-0082",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "अवाच्यवादांश्च बहून् वदिष्यन्ति तवाहिताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.36;seed:gita-2.36"
     },
     {
       "id": "stotra-0083",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "हतो वा प्राप्स्यसि स्वर्गं जित्वा वा भोक्ष्यसे महीम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.37;seed:gita-2.37"
     },
     {
       "id": "stotra-0084",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "सुखदुःखे समे कृत्वा लाभालाभौ जयाजयौ।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.38;seed:gita-2.38"
     },
     {
       "id": "stotra-0085",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "एषा तेऽभिहिता सांख्ये बुद्धिर्योगे त्विमां शृणु।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.39;seed:gita-2.39"
     },
     {
       "id": "stotra-0086",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "नेहाभिक्रमनाशोऽस्ति प्रत्यवायो न विद्यते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.40;seed:gita-2.40"
     },
     {
       "id": "stotra-0087",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "व्यवसायात्मिका बुद्धिरेकेह कुरुनन्दन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.41;seed:gita-2.41"
     },
     {
       "id": "stotra-0088",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "यामिमां पुष्पितां वाचं प्रवदन्त्यविपश्चितः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.42;seed:gita-2.42"
     },
     {
       "id": "stotra-0089",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "कामात्मानः स्वर्गपरा जन्मकर्मफलप्रदाम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.43;seed:gita-2.43"
     },
     {
       "id": "stotra-0090",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "भोगैश्वर्यप्रसक्तानां तयापहृतचेतसाम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.44;seed:gita-2.44"
     },
     {
       "id": "stotra-0091",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "त्रैगुण्यविषया वेदा निस्त्रैगुण्यो भवार्जुन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.45;seed:gita-2.45"
     },
     {
       "id": "stotra-0092",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "यावानर्थ उदपाने सर्वतः संप्लुतोदके।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.46;seed:gita-2.46"
     },
     {
       "id": "stotra-0093",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.47;seed:gita-2.47"
     },
     {
       "id": "stotra-0094",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.48;seed:gita-2.48"
     },
     {
       "id": "stotra-0095",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "दूरेण ह्यवरं कर्म बुद्धियोगाद्धनञ्जय।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.49;seed:gita-2.49"
     },
     {
       "id": "stotra-0096",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "बुद्धियुक्तो जहातीह उभे सुकृतदुष्कृते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.50;seed:gita-2.50"
     },
     {
       "id": "stotra-0097",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "कर्मजं बुद्धियुक्ता हि फलं त्यक्त्वा मनीषिणः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.51;seed:gita-2.51"
     },
     {
       "id": "stotra-0098",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "यदा ते मोहकलिलं बुद्धिर्व्यतितरिष्यति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.52;seed:gita-2.52"
     },
     {
       "id": "stotra-0099",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "श्रुतिविप्रतिपन्ना ते यदा स्थास्यति निश्चला।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.53;seed:gita-2.53"
     },
     {
       "id": "stotra-0100",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "स्थितप्रज्ञस्य का भाषा समाधिस्थस्य केशव।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.54;seed:gita-2.54"
     },
     {
       "id": "stotra-0101",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "दुःखेष्वनुद्विग्नमनाः सुखेषु विगतस्पृहः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.56;seed:gita-2.56"
     },
     {
       "id": "stotra-0102",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "यः सर्वत्रानभिस्नेहस्तत्तत्प्राप्य शुभाशुभम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.57;seed:gita-2.57"
     },
     {
       "id": "stotra-0103",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "यदा संहरते चायं कूर्मोऽङ्गानीव सर्वशः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.58;seed:gita-2.58"
     },
     {
       "id": "stotra-0104",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "विषया विनिवर्तन्ते निराहारस्य देहिनः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.59;seed:gita-2.59"
     },
     {
       "id": "stotra-0105",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "यततो ह्यपि कौन्तेय पुरुषस्य विपश्चितः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.60;seed:gita-2.60"
     },
     {
       "id": "stotra-0106",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "तानि सर्वाणि संयम्य युक्त आसीत मत्परः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.61;seed:gita-2.61"
     },
     {
       "id": "stotra-0107",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "ध्यायतो विषयान्पुंसः सङ्गस्तेषूपजायते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.62;seed:gita-2.62"
     },
     {
       "id": "stotra-0108",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "क्रोधाद्भवति संमोहः संमोहात्स्मृतिविभ्रमः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 2.63;seed:gita-2.63"
     },
     {
       "id": "stotra-0109",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "रागद्वेषवियुक्तैस्तु विषयानिन्द्रियैश्चरन्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 2.64;seed:gita-2.64"
     },
     {
       "id": "stotra-0110",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "प्रसादे सर्वदुःखानां हानिरस्योपजायते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 2.65;seed:gita-2.65"
     },
     {
       "id": "stotra-0111",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "नास्ति बुद्धिरयुक्तस्य न चायुक्तस्य भावना।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 2.66;seed:gita-2.66"
     },
     {
       "id": "stotra-0112",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "इन्द्रियाणां हि चरतां यन्मनोऽनुविधीयते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 2.67;seed:gita-2.67"
     },
     {
       "id": "stotra-0113",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "तस्माद्यस्य महाबाहो निगृहीतानि सर्वशः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 2.68;seed:gita-2.68"
     },
     {
       "id": "stotra-0114",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "या निशा सर्वभूतानां तस्यां जागर्ति संयमी।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 2.69;seed:gita-2.69"
     },
     {
       "id": "stotra-0115",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "आपूर्यमाणमचलप्रतिष्ठं",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 2.70;seed:gita-2.70"
     },
     {
       "id": "stotra-0116",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "विहाय कामान्यः सर्वान्पुमांश्चरति निःस्पृहः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 2.71;seed:gita-2.71"
     },
     {
       "id": "stotra-0117",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "एषा ब्राह्मी स्थितिः पार्थ नैनां प्राप्य विमुह्यति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 2.72;seed:gita-2.72"
     },
     {
       "id": "stotra-0118",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "ज्यायसी चेत्कर्मणस्ते मता बुद्धिर्जनार्दन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 3.1;seed:gita-3.1"
     },
     {
       "id": "stotra-0119",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "व्यामिश्रेणेव वाक्येन बुद्धिं मोहयसीव मे।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 3.2;seed:gita-3.2"
     },
     {
       "id": "stotra-0120",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "न कर्मणामनारम्भान्नैष्कर्म्यं पुरुषोऽश्नुते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 3.4;seed:gita-3.4"
     },
     {
       "id": "stotra-0121",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "न हि कश्िचत्क्षणमपि जातु तिष्ठत्यकर्मकृत्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 3.5;seed:gita-3.5"
     },
     {
       "id": "stotra-0122",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "कर्मेन्द्रियाणि संयम्य य आस्ते मनसा स्मरन्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 3.6;seed:gita-3.6"
     },
     {
       "id": "stotra-0123",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "यस्त्विन्द्रियाणि मनसा नियम्यारभतेऽर्जुन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 3.7;seed:gita-3.7"
     },
     {
       "id": "stotra-0124",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "नियतं कुरु कर्म त्वं कर्म ज्यायो ह्यकर्मणः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 3.8;seed:gita-3.8"
     },
     {
       "id": "stotra-0125",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "यज्ञार्थात्कर्मणोऽन्यत्र लोकोऽयं कर्मबन्धनः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 3.9;seed:gita-3.9"
     },
     {
       "id": "stotra-0126",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "सहयज्ञाः प्रजाः सृष्ट्वा पुरोवाच प्रजापतिः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 3.10;seed:gita-3.10"
     },
     {
       "id": "stotra-0127",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "देवान्भावयतानेन ते देवा भावयन्तु वः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 3.11;seed:gita-3.11"
     },
     {
       "id": "stotra-0128",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "इष्टान्भोगान्हि वो देवा दास्यन्ते यज्ञभाविताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 3.12;seed:gita-3.12"
     },
     {
       "id": "stotra-0129",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "यज्ञशिष्टाशिनः सन्तो मुच्यन्ते सर्वकिल्बिषैः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 3.13;seed:gita-3.13"
     },
     {
       "id": "stotra-0130",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "अन्नाद्भवन्ति भूतानि पर्जन्यादन्नसम्भवः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 3.14;seed:gita-3.14"
     },
     {
       "id": "stotra-0131",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "कर्म ब्रह्मोद्भवं विद्धि ब्रह्माक्षरसमुद्भवम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 3.15;seed:gita-3.15"
     },
     {
       "id": "stotra-0132",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "एवं प्रवर्तितं चक्रं नानुवर्तयतीह यः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 3.16;seed:gita-3.16"
     },
     {
       "id": "stotra-0133",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "यस्त्वात्मरतिरेव स्यादात्मतृप्तश्च मानवः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 3.17;seed:gita-3.17"
     },
     {
       "id": "stotra-0134",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "नैव तस्य कृतेनार्थो नाकृतेनेह कश्चन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 3.18;seed:gita-3.18"
     },
     {
       "id": "stotra-0135",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "तस्मादसक्तः सततं कार्यं कर्म समाचर।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 3.19;seed:gita-3.19"
     },
     {
       "id": "stotra-0136",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "कर्मणैव हि संसिद्धिमास्थिता जनकादयः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 3.20;seed:gita-3.20"
     },
     {
       "id": "stotra-0137",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "यद्यदाचरति श्रेष्ठस्तत्तदेवेतरो जनः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 3.21;seed:gita-3.21"
     },
     {
       "id": "stotra-0138",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "न मे पार्थास्ति कर्तव्यं त्रिषु लोकेषु किञ्चन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 3.22;seed:gita-3.22"
     },
     {
       "id": "stotra-0139",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "यदि ह्यहं न वर्तेयं जातु कर्मण्यतन्द्रितः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 3.23;seed:gita-3.23"
     },
     {
       "id": "stotra-0140",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "उत्सीदेयुरिमे लोका न कुर्यां कर्म चेदहम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 3.24;seed:gita-3.24"
     },
     {
       "id": "stotra-0141",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "सक्ताः कर्मण्यविद्वांसो यथा कुर्वन्ति भारत।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 3.25;seed:gita-3.25"
     },
     {
       "id": "stotra-0142",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "न बुद्धिभेदं जनयेदज्ञानां कर्मसङ्गिनाम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 3.26;seed:gita-3.26"
     },
     {
       "id": "stotra-0143",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "प्रकृतेः क्रियमाणानि गुणैः कर्माणि सर्वशः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 3.27;seed:gita-3.27"
     },
     {
       "id": "stotra-0144",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "तत्त्ववित्तु महाबाहो गुणकर्मविभागयोः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 3.28;seed:gita-3.28"
     },
     {
       "id": "stotra-0145",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "प्रकृतेर्गुणसम्मूढाः सज्जन्ते गुणकर्मसु।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 3.29;seed:gita-3.29"
     },
     {
       "id": "stotra-0146",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "मयि सर्वाणि कर्माणि संन्यस्याध्यात्मचेतसा।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 3.30;seed:gita-3.30"
     },
     {
       "id": "stotra-0147",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "ये मे मतमिदं नित्यमनुतिष्ठन्ति मानवाः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 3.31;seed:gita-3.31"
     },
     {
       "id": "stotra-0148",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "ये त्वेतदभ्यसूयन्तो नानुतिष्ठन्ति मे मतम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 3.32;seed:gita-3.32"
     },
     {
       "id": "stotra-0149",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "सदृशं चेष्टते स्वस्याः प्रकृतेर्ज्ञानवानपि।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 3.33;seed:gita-3.33"
     },
     {
       "id": "stotra-0150",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "इन्द्रियस्येन्द्रियस्यार्थे रागद्वेषौ व्यवस्थितौ।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 3.34;seed:gita-3.34"
     },
     {
       "id": "stotra-0151",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "श्रेयान्स्वधर्मो विगुणः परधर्मात्स्वनुष्ठितात्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 3.35;seed:gita-3.35"
     },
     {
       "id": "stotra-0152",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "अथ केन प्रयुक्तोऽयं पापं चरति पूरुषः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 3.36;seed:gita-3.36"
     },
     {
       "id": "stotra-0153",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "धूमेनाव्रियते वह्निर्यथाऽऽदर्शो मलेन च।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 3.38;seed:gita-3.38"
     },
     {
       "id": "stotra-0154",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "आवृतं ज्ञानमेतेन ज्ञानिनो नित्यवैरिणा।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 3.39;seed:gita-3.39"
     },
     {
       "id": "stotra-0155",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "इन्द्रियाणि मनो बुद्धिरस्याधिष्ठानमुच्यते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 3.40;seed:gita-3.40"
     },
     {
       "id": "stotra-0156",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "तस्मात्त्वमिन्द्रियाण्यादौ नियम्य भरतर्षभ।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 3.41;seed:gita-3.41"
     },
     {
       "id": "stotra-0157",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "इन्द्रियाणि पराण्याहुरिन्द्रियेभ्यः परं मनः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 3.42;seed:gita-3.42"
     },
     {
       "id": "stotra-0158",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "एवं बुद्धेः परं बुद्ध्वा संस्तभ्यात्मानमात्मना।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 3.43;seed:gita-3.43"
     },
     {
       "id": "stotra-0159",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "एवं परम्पराप्राप्तमिमं राजर्षयो विदुः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 4.2;seed:gita-4.2"
     },
     {
       "id": "stotra-0160",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "स एवायं मया तेऽद्य योगः प्रोक्तः पुरातनः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 4.3;seed:gita-4.3"
     },
     {
       "id": "stotra-0161",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "अपरं भवतो जन्म परं जन्म विवस्वतः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 4.4;seed:gita-4.4"
     },
     {
       "id": "stotra-0162",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "अजोऽपि सन्नव्ययात्मा भूतानामीश्वरोऽपि सन्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 4.6;seed:gita-4.6"
     },
     {
       "id": "stotra-0163",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 4.7;seed:gita-4.7"
     },
     {
       "id": "stotra-0164",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "परित्राणाय साधूनां विनाशाय च दुष्कृताम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 4.8;seed:gita-4.8"
     },
     {
       "id": "stotra-0165",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "जन्म कर्म च मे दिव्यमेवं यो वेत्ति तत्त्वतः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 4.9;seed:gita-4.9"
     },
     {
       "id": "stotra-0166",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "वीतरागभयक्रोधा मन्मया मामुपाश्रिताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 4.10;seed:gita-4.10"
     },
     {
       "id": "stotra-0167",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "ये यथा मां प्रपद्यन्ते तांस्तथैव भजाम्यहम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 4.11;seed:gita-4.11"
     },
     {
       "id": "stotra-0168",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "काङ्क्षन्तः कर्मणां सिद्धिं यजन्त इह देवताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 4.12;seed:gita-4.12"
     },
     {
       "id": "stotra-0169",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "चातुर्वर्ण्यं मया सृष्टं गुणकर्मविभागशः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 4.13;seed:gita-4.13"
     },
     {
       "id": "stotra-0170",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "न मां कर्माणि लिम्पन्ति न मे कर्मफले स्पृहा।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 4.14;seed:gita-4.14"
     },
     {
       "id": "stotra-0171",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "एवं ज्ञात्वा कृतं कर्म पूर्वैरपि मुमुक्षुभिः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 4.15;seed:gita-4.15"
     },
     {
       "id": "stotra-0172",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "किं कर्म किमकर्मेति कवयोऽप्यत्र मोहिताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 4.16;seed:gita-4.16"
     },
     {
       "id": "stotra-0173",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "कर्मणो ह्यपि बोद्धव्यं बोद्धव्यं च विकर्मणः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 4.17;seed:gita-4.17"
     },
     {
       "id": "stotra-0174",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "कर्मण्यकर्म यः पश्येदकर्मणि च कर्म यः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 4.18;seed:gita-4.18"
     },
     {
       "id": "stotra-0175",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "यस्य सर्वे समारम्भाः कामसङ्कल्पवर्जिताः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 4.19;seed:gita-4.19"
     },
     {
       "id": "stotra-0176",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "त्यक्त्वा कर्मफलासङ्गं नित्यतृप्तो निराश्रयः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 4.20;seed:gita-4.20"
     },
     {
       "id": "stotra-0177",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "निराशीर्यतचित्तात्मा त्यक्तसर्वपरिग्रहः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 4.21;seed:gita-4.21"
     },
     {
       "id": "stotra-0178",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "यदृच्छालाभसन्तुष्टो द्वन्द्वातीतो विमत्सरः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 4.22;seed:gita-4.22"
     },
     {
       "id": "stotra-0179",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "गतसङ्गस्य मुक्तस्य ज्ञानावस्थितचेतसः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 4.23;seed:gita-4.23"
     },
     {
       "id": "stotra-0180",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "ब्रह्मार्पणं ब्रह्महविर्ब्रह्माग्नौ ब्रह्मणा हुतम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 4.24;seed:gita-4.24"
     },
     {
       "id": "stotra-0181",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "दैवमेवापरे यज्ञं योगिनः पर्युपासते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 4.25;seed:gita-4.25"
     },
     {
       "id": "stotra-0182",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "श्रोत्रादीनीन्द्रियाण्यन्ये संयमाग्निषु जुह्वति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 4.26;seed:gita-4.26"
     },
     {
       "id": "stotra-0183",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "सर्वाणीन्द्रियकर्माणि प्राणकर्माणि चापरे।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 4.27;seed:gita-4.27"
     },
     {
       "id": "stotra-0184",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "द्रव्ययज्ञास्तपोयज्ञा योगयज्ञास्तथापरे।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 4.28;seed:gita-4.28"
     },
     {
       "id": "stotra-0185",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "अपाने जुह्वति प्राण प्राणेऽपानं तथाऽपरे।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 4.29;seed:gita-4.29"
     },
     {
       "id": "stotra-0186",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "अपरे नियताहाराः प्राणान्प्राणेषु जुह्वति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 4.30;seed:gita-4.30"
     },
     {
       "id": "stotra-0187",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "यज्ञशिष्टामृतभुजो यान्ति ब्रह्म सनातनम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 4.31;seed:gita-4.31"
     },
     {
       "id": "stotra-0188",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "एवं बहुविधा यज्ञा वितता ब्रह्मणो मुखे।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 4.32;seed:gita-4.32"
     },
     {
       "id": "stotra-0189",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "श्रेयान्द्रव्यमयाद्यज्ञाज्ज्ञानयज्ञः परन्तप।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 4.33;seed:gita-4.33"
     },
     {
       "id": "stotra-0190",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 4.34;seed:gita-4.34"
     },
     {
       "id": "stotra-0191",
       "type": "stotra",
-      "text": "नमः शिवाय",
+      "text": "यज्ज्ञात्वा न पुनर्मोहमेवं यास्यसि पाण्डव।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-001"
+      "notes": "title:Bhagavad Gita 4.35;seed:gita-4.35"
     },
     {
       "id": "stotra-0192",
       "type": "stotra",
-      "text": "विष्णु सहस्रनाम",
+      "text": "अपि चेदसि पापेभ्यः सर्वेभ्यः पापकृत्तमः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-002"
+      "notes": "title:Bhagavad Gita 4.36;seed:gita-4.36"
     },
     {
       "id": "stotra-0193",
       "type": "stotra",
-      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "text": "यथैधांसि समिद्धोऽग्निर्भस्मसात्कुरुतेऽर्जुन।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-003"
+      "notes": "title:Bhagavad Gita 4.37;seed:gita-4.37"
     },
     {
       "id": "stotra-0194",
       "type": "stotra",
-      "text": "कराग्रे वसते लक्ष्मीः",
+      "text": "न हि ज्ञानेन सदृशं पवित्रमिह विद्यते।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-004"
+      "notes": "title:Bhagavad Gita 4.38;seed:gita-4.38"
     },
     {
       "id": "stotra-0195",
       "type": "stotra",
-      "text": "सर्वं खल्विदं ब्रह्म",
+      "text": "श्रद्धावाँल्लभते ज्ञानं तत्परः संयतेन्द्रियः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-005"
+      "notes": "title:Bhagavad Gita 4.39;seed:gita-4.39"
     },
     {
       "id": "stotra-0196",
       "type": "stotra",
-      "text": "त्वमेव माता च पिता त्वमेव",
+      "text": "अज्ञश्चाश्रद्दधानश्च संशयात्मा विनश्यति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-006"
+      "notes": "title:Bhagavad Gita 4.40;seed:gita-4.40"
     },
     {
       "id": "stotra-0197",
       "type": "stotra",
-      "text": "असतो मा सद्गमय",
+      "text": "योगसंन्यस्तकर्माणं ज्ञानसंछिन्नसंशयम्।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-007"
+      "notes": "title:Bhagavad Gita 4.41;seed:gita-4.41"
     },
     {
       "id": "stotra-0198",
       "type": "stotra",
-      "text": "तमसो मा ज्योतिर्गमय",
+      "text": "तस्मादज्ञानसंभूतं हृत्स्थं ज्ञानासिनाऽऽत्मनः।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-008"
+      "notes": "title:Bhagavad Gita 4.42;seed:gita-4.42"
     },
     {
       "id": "stotra-0199",
       "type": "stotra",
-      "text": "मृत्योर्मा अमृतं गमय",
+      "text": "संन्यासं कर्मणां कृष्ण पुनर्योगं च शंससि।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-009"
+      "notes": "title:Bhagavad Gita 5.1;seed:gita-5.1"
     },
     {
       "id": "stotra-0200",
       "type": "stotra",
-      "text": "ॐ भूर्भुवः स्वः",
+      "text": "ज्ञेयः स नित्यसंन्यासी यो न द्वेष्टि न काङ्क्षति।",
       "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
-      "notes": "seed:stotra-010"
+      "notes": "title:Bhagavad Gita 5.3;seed:gita-5.3"
     }
   ]
 }

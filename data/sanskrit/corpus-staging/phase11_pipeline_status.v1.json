@@ -55,8 +55,8 @@
       "summary": {
         "valid": true,
         "phase": "11E",
-        "duplicateCount": 1949,
-        "uniqueCount": 51
+        "duplicateCount": 659,
+        "uniqueCount": 1341
       }
     },
     {
@@ -65,7 +65,7 @@
       "summary": {
         "valid": true,
         "phase": "11F",
-        "recordCount": 51
+        "recordCount": 1341
       }
     },
     {
@@ -87,11 +87,11 @@
         "phase": "11H",
         "writeAllowed": false,
         "readOnly": true,
-        "recordCount": 51,
+        "recordCount": 1341,
         "typeCounts": {
-          "dhatu": 24,
-          "sutra": 17,
-          "stotra": 10
+          "dhatu": 741,
+          "sutra": 400,
+          "stotra": 200
         },
         "artifacts": [
           "data/sanskrit/canonical/dhatu/dhatu_registry.v1.json",
@@ -107,7 +107,7 @@
       "summary": {
         "valid": true,
         "phase": "11I",
-        "recordCount": 51,
+        "recordCount": 1341,
         "indexPath": "data/sanskrit/index/corpus_index.v1.json"
       }
     },
@@ -117,11 +117,11 @@
       "summary": {
         "valid": true,
         "phase": "11L",
-        "hookCount": 51
+        "hookCount": 1341
       }
     }
   ],
-  "recordCount": 51,
+  "recordCount": 1341,
   "previewOnly": true,
   "canonicalWriteAllowed": false
 }

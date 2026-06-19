@@ -3,12 +3,12 @@
   "phase": "11H",
   "readOnly": true,
   "writeAllowed": false,
-  "recordCount": 17,
+  "recordCount": 400,
   "records": [
     {
       "id": "sutra-0001",
-      "text": "वृद्धिरादै",
-      "normalized": "वृदधिरादै",
+      "text": "वृद्धिरादैच्",
+      "normalized": "वृदधिरादैच",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -37,8 +37,1133 @@
     },
     {
       "id": "sutra-0003",
-      "text": "हलन्त्यत्",
-      "normalized": "हलनतयत",
+      "text": "इको गुणवृद्धी",
+      "normalized": "इको गुणवृदधी",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.3"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0004",
+      "text": "न धातुलोप आर्धधातुके",
+      "normalized": "न धातुलोप आरधधातुके",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.4"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0005",
+      "text": "क्ङिति च",
+      "normalized": "कङिति च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.5"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0006",
+      "text": "दीधीवेवीटाम्",
+      "normalized": "दीधीवेवीटाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.6"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0007",
+      "text": "हलोऽनन्तराः संयोगः",
+      "normalized": "हलोऽननतराः संयोगः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.7"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0008",
+      "text": "मुखनासिकावचनोऽनुनासिकः",
+      "normalized": "मुखनासिकावचनोऽनुनासिकः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.8"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0009",
+      "text": "तुल्यास्यप्रयत्नं सवर्णम्",
+      "normalized": "तुलयासयपरयतनं सवरणम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.9"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0010",
+      "text": "नाज्झलौ",
+      "normalized": "नाजझलौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.10"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0011",
+      "text": "ईदूदेद्द्विवचनं प्रगृह्यम्",
+      "normalized": "ईदूदेददविवचनं परगृहयम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.11"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0012",
+      "text": "अदसो मात्",
+      "normalized": "अदसो मात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.12"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0013",
+      "text": "शे",
+      "normalized": "शे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.13"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0014",
+      "text": "निपात एकाजनाङ्",
+      "normalized": "निपात एकाजनाङ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.14"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0015",
+      "text": "ओत्",
+      "normalized": "ओत",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.15"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0016",
+      "text": "सम्बुद्धौ शाकल्यस्येतावनार्षे",
+      "normalized": "समबुदधौ शाकलयसयेतावनारषे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.16"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0017",
+      "text": "उञः",
+      "normalized": "उञः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.17"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0018",
+      "text": "ऊँ",
+      "normalized": "ऊँ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.18"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0019",
+      "text": "ईदूतौ च सप्तम्यर्थे",
+      "normalized": "ईदूतौ च सपतमयरथे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.19"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0020",
+      "text": "दाधा घ्वदाप्",
+      "normalized": "दाधा घवदाप",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.20"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0021",
+      "text": "आद्यन्तवदेकस्मिन्",
+      "normalized": "आदयनतवदेकसमिन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.21"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0022",
+      "text": "तरप्तमपौ घः",
+      "normalized": "तरपतमपौ घः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.22"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0023",
+      "text": "बहुगणवतुडति संख्या",
+      "normalized": "बहुगणवतुडति संखया",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.23"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0024",
+      "text": "ष्णान्ता षट्",
+      "normalized": "षणानता षट",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.24"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0025",
+      "text": "डति च",
+      "normalized": "डति च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.25"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0026",
+      "text": "क्तक्तवतू निष्ठा",
+      "normalized": "कतकतवतू निषठा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.26"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0027",
+      "text": "सर्वादीनि सर्वनामानि",
+      "normalized": "सरवादीनि सरवनामानि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.27"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0028",
+      "text": "विभाषा दिक्समासे बहुव्रीहौ",
+      "normalized": "विभाषा दिकसमासे बहुवरीहौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.28"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0029",
+      "text": "न बहुव्रीहौ",
+      "normalized": "न बहुवरीहौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.29"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0030",
+      "text": "तृतीयासमासे",
+      "normalized": "तृतीयासमासे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.30"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0031",
+      "text": "द्वन्द्वे च",
+      "normalized": "दवनदवे च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.31"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0032",
+      "text": "विभाषा जसि",
+      "normalized": "विभाषा जसि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.32"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0033",
+      "text": "प्रथमचरमतयाल्पार्धकतिपयनेमाश्च",
+      "normalized": "परथमचरमतयालपारधकतिपयनेमाशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.33"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0034",
+      "text": "पूर्वपरावरदक्षिणोत्तरापराधराणि व्यवस्थायामसंज्ञायाम्",
+      "normalized": "पूरवपरावरदकषिणोततरापराधराणि वयवसथायामसंजञायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.34"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0035",
+      "text": "स्वमज्ञातिधनाख्यायाम्",
+      "normalized": "सवमजञातिधनाखयायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.35"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0036",
+      "text": "अन्तरं बहिर्योगोपसंव्यानयोः",
+      "normalized": "अनतरं बहिरयोगोपसंवयानयोः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.36"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0037",
+      "text": "स्वरादिनिपातमव्ययम्",
+      "normalized": "सवरादिनिपातमवययम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.37"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0038",
+      "text": "तद्धितश्चासर्वविभक्तिः",
+      "normalized": "तदधितशचासरवविभकतिः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.38"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0039",
+      "text": "कृन्मेजन्तः",
+      "normalized": "कृनमेजनतः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.39"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0040",
+      "text": "क्त्वातोसुन्कसुनः",
+      "normalized": "कतवातोसुनकसुनः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.40"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0041",
+      "text": "अव्ययीभावश्च",
+      "normalized": "अवययीभावशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.41"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0042",
+      "text": "शि सर्वनामस्थानम्",
+      "normalized": "शि सरवनामसथानम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.42"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0043",
+      "text": "सुडनपुंसकस्य",
+      "normalized": "सुडनपुंसकसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.43"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0044",
+      "text": "न वेति विभाषा",
+      "normalized": "न वेति विभाषा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.44"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0045",
+      "text": "इग्यणः सम्प्रसारणम्",
+      "normalized": "इगयणः समपरसारणम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.45"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0046",
+      "text": "आद्यन्तौ टकितौ",
+      "normalized": "आदयनतौ टकितौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.46"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0047",
+      "text": "मिदचोऽन्त्यात्परः",
+      "normalized": "मिदचोऽनतयातपरः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.47"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0048",
+      "text": "एच इग्घ्रस्वादेशे",
+      "normalized": "एच इगघरसवादेशे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.48"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0049",
+      "text": "षष्ठी स्थानेयोगा",
+      "normalized": "षषठी सथानेयोगा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.49"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0050",
+      "text": "स्थानेऽन्तरतमः",
+      "normalized": "सथानेऽनतरतमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.50"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0051",
+      "text": "उरण् रपरः",
+      "normalized": "उरण रपरः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.51"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0052",
+      "text": "अलोऽन्त्यस्य",
+      "normalized": "अलोऽनतयसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.52"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0053",
+      "text": "ङिच्च",
+      "normalized": "ङिचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.53"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0054",
+      "text": "आदेः परस्य",
+      "normalized": "आदेः परसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.54"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0055",
+      "text": "अनेकाल्शित्सर्वस्य",
+      "normalized": "अनेकालशितसरवसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.55"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0056",
+      "text": "स्थानिवदादेशोऽनल्विधौ",
+      "normalized": "सथानिवदादेशोऽनलविधौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.56"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0057",
+      "text": "अचः परस्मिन् पूर्वविधौ",
+      "normalized": "अचः परसमिन पूरवविधौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.57"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0058",
+      "text": "न पदान्तद्विर्वचनवरेयलोपस्वरसवर्णानुस्वारदीर्घजश्चर्विधिषु",
+      "normalized": "न पदानतदविरवचनवरेयलोपसवरसवरणानुसवारदीरघजशचरविधिषु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.58"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0059",
+      "text": "द्विर्वचनेऽचि",
+      "normalized": "दविरवचनेऽचि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.59"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0060",
+      "text": "अदर्शनं लोपः",
+      "normalized": "अदरशनं लोपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.60"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0061",
+      "text": "प्रत्ययस्य लुक्श्लुलुपः",
+      "normalized": "परतययसय लुकशलुलुपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.61"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0062",
+      "text": "प्रत्ययलोपे प्रत्ययलक्षणम्",
+      "normalized": "परतययलोपे परतययलकषणम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.62"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0063",
+      "text": "न लुमताङ्गस्य",
+      "normalized": "न लुमताङगसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.63"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0064",
+      "text": "अचोऽन्त्यादि टि",
+      "normalized": "अचोऽनतयादि टि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.64"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0065",
+      "text": "अलोऽन्त्यात् पूर्व उपधा",
+      "normalized": "अलोऽनतयात पूरव उपधा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.65"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0066",
+      "text": "तस्मिन्निति निर्दिष्टे पूर्वस्य",
+      "normalized": "तसमिननिति निरदिषटे पूरवसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.66"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0067",
+      "text": "तस्मादित्युत्तरस्य",
+      "normalized": "तसमादितयुततरसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.67"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0068",
+      "text": "स्वं रूपं शब्दस्याशब्दसंज्ञा",
+      "normalized": "सवं रूपं शबदसयाशबदसंजञा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.68"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0069",
+      "text": "अणुदित् सवर्णस्य चाप्रत्ययः",
+      "normalized": "अणुदित सवरणसय चापरतययः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.69"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0070",
+      "text": "तपरस्तत्कालस्य",
+      "normalized": "तपरसततकालसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.70"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0071",
+      "text": "आदिरन्त्येन सहेता",
+      "normalized": "आदिरनतयेन सहेता",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.71"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0072",
+      "text": "येन विधिस्तदन्तस्य",
+      "normalized": "येन विधिसतदनतसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.72"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0073",
+      "text": "वृद्धिर्यस्याचामादिस्तद् वृद्धम्",
+      "normalized": "वृदधिरयसयाचामादिसतद वृदधम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.73"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0074",
+      "text": "त्यदादीनि च",
+      "normalized": "तयदादीनि च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.74"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0075",
+      "text": "एङ् प्राचां देशे",
+      "normalized": "एङ पराचां देशे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.75"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0076",
+      "text": "गाङ्कुटादिभ्योऽञ्णिन्ङित्",
+      "normalized": "गाङकुटादिभयोऽञणिनङित",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.1"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0077",
+      "text": "विज इट्",
+      "normalized": "विज इट",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.2"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0078",
+      "text": "विभाषोर्णोः",
+      "normalized": "विभाषोरणोः",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -51,7 +1176,1057 @@
       "readOnly": true
     },
     {
-      "id": "sutra-0004",
+      "id": "sutra-0079",
+      "text": "सार्वधातुकमपित्",
+      "normalized": "सारवधातुकमपित",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.4"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0080",
+      "text": "असंयोगाल्लिट् कित्",
+      "normalized": "असंयोगाललिट कित",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.5"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0081",
+      "text": "इन्धिभवतिभ्यां च",
+      "normalized": "इनधिभवतिभयां च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.6"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0082",
+      "text": "मृडमृदगुधकुषक्लिशवदवसः क्त्वा",
+      "normalized": "मृडमृदगुधकुषकलिशवदवसः कतवा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.7"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0083",
+      "text": "रुदविदमुषग्रहिस्वपिप्रच्छः सँश्च",
+      "normalized": "रुदविदमुषगरहिसवपिपरचछः सँशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.8"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0084",
+      "text": "इको झल्",
+      "normalized": "इको झल",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.9"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0085",
+      "text": "हलन्ताच्च",
+      "normalized": "हलनताचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.10"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0086",
+      "text": "लिङ्सिचावात्मनेपदेषु",
+      "normalized": "लिङसिचावातमनेपदेषु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.11"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0087",
+      "text": "उश्च",
+      "normalized": "उशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.12"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0088",
+      "text": "वा गमः",
+      "normalized": "वा गमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.13"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0089",
+      "text": "हनः सिच्",
+      "normalized": "हनः सिच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.14"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0090",
+      "text": "यमो गन्धने",
+      "normalized": "यमो गनधने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.15"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0091",
+      "text": "विभाषोपयमने",
+      "normalized": "विभाषोपयमने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.16"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0092",
+      "text": "स्था घ्वोरिच्च",
+      "normalized": "सथा घवोरिचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.17"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0093",
+      "text": "न क्त्वा सेट्",
+      "normalized": "न कतवा सेट",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.18"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0094",
+      "text": "निष्ठा शीङ्स्विदिमिदिक्ष्विदिधृषः",
+      "normalized": "निषठा शीङसविदिमिदिकषविदिधृषः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.19"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0095",
+      "text": "मृषस्तितिक्षायाम्",
+      "normalized": "मृषसतितिकषायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.20"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0096",
+      "text": "उदुपधाद्भावादिकर्मणोरन्यतरस्याम्",
+      "normalized": "उदुपधादभावादिकरमणोरनयतरसयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.21"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0097",
+      "text": "पूङः क्त्वा च",
+      "normalized": "पूङः कतवा च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.22"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0098",
+      "text": "नोपधात्थफान्ताद्वा",
+      "normalized": "नोपधातथफानतादवा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.23"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0099",
+      "text": "वञ्चिलुञ्च्यृतश्च",
+      "normalized": "वञचिलुञचयृतशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.24"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0100",
+      "text": "तृषिमृषिकृशेः काश्यपस्य",
+      "normalized": "तृषिमृषिकृशेः काशयपसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.25"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0101",
+      "text": "रलो व्युपधाद्धलादेः संश्च",
+      "normalized": "रलो वयुपधादधलादेः संशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.26"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0102",
+      "text": "ऊकालोऽज्झ्रस्वदीर्घप्लुतः",
+      "normalized": "ऊकालोऽजझरसवदीरघपलुतः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.27"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0103",
+      "text": "अचश्च",
+      "normalized": "अचशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.28"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0104",
+      "text": "उच्चैरुदात्तः",
+      "normalized": "उचचैरुदाततः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.29"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0105",
+      "text": "नीचैरनुदात्तः",
+      "normalized": "नीचैरनुदाततः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.30"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0106",
+      "text": "समाहारः स्वरितः",
+      "normalized": "समाहारः सवरितः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.31"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0107",
+      "text": "तस्यादित उदात्तमर्धह्रस्वम्",
+      "normalized": "तसयादित उदाततमरधहरसवम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.32"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0108",
+      "text": "एकश्रुति दूरात् सम्बुद्धौ",
+      "normalized": "एकशरुति दूरात समबुदधौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.33"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0109",
+      "text": "यज्ञकर्मण्यजपन्यूङ्खसामसु",
+      "normalized": "यजञकरमणयजपनयूङखसामसु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.34"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0110",
+      "text": "उच्चैस्तरां वा वषट्कारः",
+      "normalized": "उचचैसतरां वा वषटकारः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.35"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0111",
+      "text": "विभाषा छन्दसि",
+      "normalized": "विभाषा छनदसि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.36"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0112",
+      "text": "न सुब्रह्मण्यायां स्वरितस्य तूदात्तः",
+      "normalized": "न सुबरहमणयायां सवरितसय तूदाततः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.37"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0113",
+      "text": "देवब्रह्मणोरनुदात्तः",
+      "normalized": "देवबरहमणोरनुदाततः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.38"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0114",
+      "text": "स्वरितात् संहितायामनुदात्तानाम्",
+      "normalized": "सवरितात संहितायामनुदाततानाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.39"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0115",
+      "text": "उदात्तस्वरितपरस्य सन्नतरः",
+      "normalized": "उदाततसवरितपरसय सननतरः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.40"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0116",
+      "text": "अपृक्त एकाल् प्रत्ययः",
+      "normalized": "अपृकत एकाल परतययः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.41"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0117",
+      "text": "तत्पुरुषः समानाधिकरणः कर्मधारयः",
+      "normalized": "ततपुरुषः समानाधिकरणः करमधारयः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.42"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0118",
+      "text": "प्रथमानिर्दिष्टं समास उपसर्जनम्",
+      "normalized": "परथमानिरदिषटं समास उपसरजनम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.43"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0119",
+      "text": "एकविभक्ति चापूर्वनिपाते",
+      "normalized": "एकविभकति चापूरवनिपाते",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.44"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0120",
+      "text": "अर्थवदधातुरप्रत्ययः प्रातिपदिकम्",
+      "normalized": "अरथवदधातुरपरतययः परातिपदिकम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.45"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0121",
+      "text": "कृत्तद्धितसमासाश्च",
+      "normalized": "कृततदधितसमासाशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.46"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0122",
+      "text": "ह्रस्वो नपुंसके प्रातिपदिकस्य",
+      "normalized": "हरसवो नपुंसके परातिपदिकसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.47"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0123",
+      "text": "गोस्त्रियोरुपसर्जनस्य",
+      "normalized": "गोसतरियोरुपसरजनसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.48"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0124",
+      "text": "लुक् तद्धितलुकि",
+      "normalized": "लुक तदधितलुकि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.49"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0125",
+      "text": "इद्गोण्याः",
+      "normalized": "इदगोणयाः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.50"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0126",
+      "text": "लुपि युक्तवद्व्यक्तिवचने",
+      "normalized": "लुपि युकतवदवयकतिवचने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.51"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0127",
+      "text": "विशेषणानां चाजातेः",
+      "normalized": "विशेषणानां चाजातेः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.52"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0128",
+      "text": "तदशिष्यं संज्ञाप्रमाणत्वात्",
+      "normalized": "तदशिषयं संजञापरमाणतवात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.53"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0129",
+      "text": "लुब्योगाप्रख्यानात्",
+      "normalized": "लुबयोगापरखयानात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.54"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0130",
+      "text": "योगप्रमाणे च तदभावेऽदर्शनं स्यात्",
+      "normalized": "योगपरमाणे च तदभावेऽदरशनं सयात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.55"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0131",
+      "text": "प्रधानप्रत्ययार्थवचनमर्थस्यान्यप्रमाणत्वात्",
+      "normalized": "परधानपरतययारथवचनमरथसयानयपरमाणतवात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.56"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0132",
+      "text": "कालोपसर्जने च तुल्यम्",
+      "normalized": "कालोपसरजने च तुलयम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.57"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0133",
+      "text": "जात्याख्यायामेकस्मिन् बहुवचनमन्यतरस्याम्",
+      "normalized": "जातयाखयायामेकसमिन बहुवचनमनयतरसयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.58"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0134",
+      "text": "अस्मदो द्वयोश्च",
+      "normalized": "असमदो दवयोशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.59"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0135",
+      "text": "फल्गुनीप्रोष्ठपदानां च नक्षत्रे",
+      "normalized": "फलगुनीपरोषठपदानां च नकषतरे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.60"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0136",
+      "text": "छन्दसि पुनर्वस्वोरेकवचनम्",
+      "normalized": "छनदसि पुनरवसवोरेकवचनम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.61"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0137",
+      "text": "विशाखयोश्च",
+      "normalized": "विशाखयोशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.62"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0138",
+      "text": "तिष्यपुनर्वस्वोर्नक्षत्रद्वन्द्वे बहुवचनस्य द्विवचनं नित्यम्",
+      "normalized": "तिषयपुनरवसवोरनकषतरदवनदवे बहुवचनसय दविवचनं नितयम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.63"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0139",
+      "text": "सरूपाणामेकशेष एकविभक्तौ",
+      "normalized": "सरूपाणामेकशेष एकविभकतौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.64"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0140",
+      "text": "वृद्धो यूना तल्लक्षणश्चेदेव विशेषः",
+      "normalized": "वृदधो यूना तललकषणशचेदेव विशेषः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.65"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0141",
+      "text": "स्त्री पुंवच्च",
+      "normalized": "सतरी पुंवचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.66"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0142",
+      "text": "पुमान् स्त्रिया",
+      "normalized": "पुमान सतरिया",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.67"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0143",
+      "text": "भ्रातृपुत्रौ स्वसृदुहितृभ्याम्",
+      "normalized": "भरातृपुतरौ सवसृदुहितृभयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.68"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0144",
+      "text": "नपुंसकमनपुंसकेनैकवच्चास्यान्यतरस्याम्",
+      "normalized": "नपुंसकमनपुंसकेनैकवचचासयानयतरसयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.69"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0145",
+      "text": "पिता मात्रा",
+      "normalized": "पिता मातरा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.70"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0146",
+      "text": "श्वशुरः श्वश्र्वा",
+      "normalized": "शवशुरः शवशरवा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.71"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0147",
+      "text": "त्यदादीनि सर्वैर्नित्यम्",
+      "normalized": "तयदादीनि सरवैरनितयम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.72"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0148",
+      "text": "ग्राम्यपशुसंघेष्वतरुणेषु स्त्री",
+      "normalized": "गरामयपशुसंघेषवतरुणेषु सतरी",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.73"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0149",
       "text": "भूवादयो धातवः",
       "normalized": "भूवादयो धातवः",
       "computed": {
@@ -66,9 +2241,9 @@
       "readOnly": true
     },
     {
-      "id": "sutra-0005",
-      "text": "उपसर्गे धातुजम्",
-      "normalized": "उपसरगे धातुजम",
+      "id": "sutra-0150",
+      "text": "उपदेशेऽजनुनासिक इत्",
+      "normalized": "उपदेशेऽजनुनासिक इत",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -81,9 +2256,1539 @@
       "readOnly": true
     },
     {
-      "id": "sutra-0006",
-      "text": "सुप्तिङन्तं धातुः",
-      "normalized": "सुपतिङनतं धातुः",
+      "id": "sutra-0151",
+      "text": "हलन्त्यम्",
+      "normalized": "हलनतयम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.3"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0152",
+      "text": "न विभक्तौ तुस्माः",
+      "normalized": "न विभकतौ तुसमाः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.4"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0153",
+      "text": "आदिर्ञिटुडवः",
+      "normalized": "आदिरञिटुडवः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.5"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0154",
+      "text": "षः प्रत्ययस्य",
+      "normalized": "षः परतययसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.6"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0155",
+      "text": "चुटू",
+      "normalized": "चुटू",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.7"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0156",
+      "text": "लशक्वतद्धिते",
+      "normalized": "लशकवतदधिते",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.8"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0157",
+      "text": "तस्य लोपः",
+      "normalized": "तसय लोपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.9"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0158",
+      "text": "यथासंख्यमनुदेशः समानाम्",
+      "normalized": "यथासंखयमनुदेशः समानाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.10"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0159",
+      "text": "स्वरितेनाधिकारः",
+      "normalized": "सवरितेनाधिकारः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.11"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0160",
+      "text": "अनुदात्तङित आत्मनेपदम्",
+      "normalized": "अनुदाततङित आतमनेपदम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.12"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0161",
+      "text": "भावकर्मणोः",
+      "normalized": "भावकरमणोः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.13"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0162",
+      "text": "कर्तरि कर्मव्यतिहारे",
+      "normalized": "करतरि करमवयतिहारे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.14"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0163",
+      "text": "न गतिहिंसार्थेभ्यः",
+      "normalized": "न गतिहिंसारथेभयः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.15"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0164",
+      "text": "इतरेतरान्योन्योपपदाच्च",
+      "normalized": "इतरेतरानयोनयोपपदाचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.16"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0165",
+      "text": "नेर्विशः",
+      "normalized": "नेरविशः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.17"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0166",
+      "text": "परिव्यवेभ्यः क्रियः",
+      "normalized": "परिवयवेभयः करियः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.18"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0167",
+      "text": "विपराभ्यां जेः",
+      "normalized": "विपराभयां जेः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.19"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0168",
+      "text": "आङो दोऽनास्यविहरणे",
+      "normalized": "आङो दोऽनासयविहरणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.20"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0169",
+      "text": "क्रीडोऽनुसम्परिभ्यश्च",
+      "normalized": "करीडोऽनुसमपरिभयशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.21"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0170",
+      "text": "समवप्रविभ्यः स्थः",
+      "normalized": "समवपरविभयः सथः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.22"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0171",
+      "text": "प्रकाशनस्थेयाख्ययोश्च",
+      "normalized": "परकाशनसथेयाखययोशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.23"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0172",
+      "text": "उदोऽनूर्ध्वकर्मणि",
+      "normalized": "उदोऽनूरधवकरमणि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.24"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0173",
+      "text": "उपान्मन्त्रकरणे",
+      "normalized": "उपानमनतरकरणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.25"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0174",
+      "text": "अकर्मकाच्च",
+      "normalized": "अकरमकाचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.26"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0175",
+      "text": "उद्विभ्यां तपः",
+      "normalized": "उदविभयां तपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.27"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0176",
+      "text": "आङो यमहनः",
+      "normalized": "आङो यमहनः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.28"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0177",
+      "text": "समो गम्यृच्छिप्रच्छिस्वरत्यर्तिश्रुविदिभ्यः",
+      "normalized": "समो गमयृचछिपरचछिसवरतयरतिशरुविदिभयः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.29"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0178",
+      "text": "निसमुपविभ्यो ह्वः",
+      "normalized": "निसमुपविभयो हवः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.30"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0179",
+      "text": "स्पर्द्धायामाङः",
+      "normalized": "सपरदधायामाङः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.31"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0180",
+      "text": "गन्धनावक्षेपणसेवनसाहसिक्यप्रतियत्नप्रकथनोपयोगेषु कृञः",
+      "normalized": "गनधनावकषेपणसेवनसाहसिकयपरतियतनपरकथनोपयोगेषु कृञः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.32"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0181",
+      "text": "अधेः प्रसहने",
+      "normalized": "अधेः परसहने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.33"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0182",
+      "text": "वेः शब्दकर्मणः",
+      "normalized": "वेः शबदकरमणः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.34"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0183",
+      "text": "सम्माननोत्सञ्जनाचार्यकरणज्ञानभृतिविगणनव्ययेषु नियः",
+      "normalized": "सममाननोतसञजनाचारयकरणजञानभृतिविगणनवययेषु नियः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.36"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0184",
+      "text": "कर्तृस्थे चाशरीरे कर्मणि",
+      "normalized": "करतृसथे चाशरीरे करमणि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.37"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0185",
+      "text": "वृत्तिसर्गतायनेषु क्रमः",
+      "normalized": "वृततिसरगतायनेषु करमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.38"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0186",
+      "text": "उपपराभ्याम्",
+      "normalized": "उपपराभयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.39"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0187",
+      "text": "आङ उद्गमने",
+      "normalized": "आङ उदगमने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.40"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0188",
+      "text": "वेः पादविहरणे",
+      "normalized": "वेः पादविहरणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.41"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0189",
+      "text": "प्रोपाभ्यां समर्थाभ्याम्",
+      "normalized": "परोपाभयां समरथाभयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.42"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0190",
+      "text": "अनुपसर्गाद्वा",
+      "normalized": "अनुपसरगादवा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.43"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0191",
+      "text": "अपह्नवे ज्ञः",
+      "normalized": "अपहनवे जञः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.44"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0192",
+      "text": "सम्प्रतिभ्यामनाध्याने",
+      "normalized": "समपरतिभयामनाधयाने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.46"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0193",
+      "text": "भासनोपसम्भाषाज्ञानयत्नविमत्युपमन्त्रणेषु वदः",
+      "normalized": "भासनोपसमभाषाजञानयतनविमतयुपमनतरणेषु वदः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.47"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0194",
+      "text": "व्यक्तवाचां समुच्चारणे",
+      "normalized": "वयकतवाचां समुचचारणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.48"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0195",
+      "text": "अनोरकर्मकात्",
+      "normalized": "अनोरकरमकात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.49"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0196",
+      "text": "विभाषा विप्रलापे",
+      "normalized": "विभाषा विपरलापे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.50"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0197",
+      "text": "अवाद्ग्रः",
+      "normalized": "अवादगरः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.51"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0198",
+      "text": "समः प्रतिज्ञाने",
+      "normalized": "समः परतिजञाने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.52"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0199",
+      "text": "उदश्चरः सकर्मकात्",
+      "normalized": "उदशचरः सकरमकात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.53"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0200",
+      "text": "समस्तृतीयायुक्तात्",
+      "normalized": "समसतृतीयायुकतात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.54"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0201",
+      "text": "दाणश्च सा चेच्चतुर्थ्यर्थे",
+      "normalized": "दाणशच सा चेचचतुरथयरथे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.55"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0202",
+      "text": "उपाद्यमः स्वकरणे",
+      "normalized": "उपादयमः सवकरणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.56"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0203",
+      "text": "ज्ञाश्रुस्मृदृशां सनः",
+      "normalized": "जञाशरुसमृदृशां सनः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.57"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0204",
+      "text": "नानोर्ज्ञः",
+      "normalized": "नानोरजञः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.58"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0205",
+      "text": "प्रत्याङ्भ्यां श्रुवः",
+      "normalized": "परतयाङभयां शरुवः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.59"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0206",
+      "text": "शदेः शितः",
+      "normalized": "शदेः शितः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.60"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0207",
+      "text": "म्रियतेर्लुङ्लिङोश्च",
+      "normalized": "मरियतेरलुङलिङोशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.61"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0208",
+      "text": "पूर्ववत् सनः",
+      "normalized": "पूरववत सनः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.62"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0209",
+      "text": "आम्प्रत्ययवत् कृञोऽनुप्रयोगस्य",
+      "normalized": "आमपरतययवत कृञोऽनुपरयोगसय",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.63"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0210",
+      "text": "प्रोपाभ्यां युजेरयज्ञपात्रेषु",
+      "normalized": "परोपाभयां युजेरयजञपातरेषु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.64"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0211",
+      "text": "समः क्ष्णुवः",
+      "normalized": "समः कषणुवः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.65"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0212",
+      "text": "भुजोऽनवने",
+      "normalized": "भुजोऽनवने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.66"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0213",
+      "text": "णेरणौ यत्कर्म णौ चेत् स कर्ताऽनाध्याने",
+      "normalized": "णेरणौ यतकरम णौ चेत स करताऽनाधयाने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.67"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0214",
+      "text": "भीस्म्योर्हेतुभये",
+      "normalized": "भीसमयोरहेतुभये",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.68"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0215",
+      "text": "गृधिवञ्च्योः प्रलम्भने",
+      "normalized": "गृधिवञचयोः परलमभने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.69"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0216",
+      "text": "लियः सम्माननशालीनीकरणयोश्च",
+      "normalized": "लियः सममाननशालीनीकरणयोशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.70"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0217",
+      "text": "मिथ्योपपदात् कृञोऽभ्यासे",
+      "normalized": "मिथयोपपदात कृञोऽभयासे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.71"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0218",
+      "text": "स्वरितञितः कर्त्रभिप्राये क्रियाफले",
+      "normalized": "सवरितञितः करतरभिपराये करियाफले",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.72"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0219",
+      "text": "अपाद्वदः",
+      "normalized": "अपादवदः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.73"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0220",
+      "text": "णिचश्च",
+      "normalized": "णिचशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.74"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0221",
+      "text": "समुदाङ्भ्यो यमोऽग्रन्थे",
+      "normalized": "समुदाङभयो यमोऽगरनथे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.75"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0222",
+      "text": "अनुपसर्गाज्ज्ञः",
+      "normalized": "अनुपसरगाजजञः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.76"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0223",
+      "text": "विभाषोपपदेन प्रतीयमाने",
+      "normalized": "विभाषोपपदेन परतीयमाने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.77"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0224",
+      "text": "शेषात् कर्तरि परस्मैपदम्",
+      "normalized": "शेषात करतरि परसमैपदम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.78"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0225",
+      "text": "अनुपराभ्यां कृञः",
+      "normalized": "अनुपराभयां कृञः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.79"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0226",
+      "text": "अभिप्रत्यतिभ्यः क्षिपः",
+      "normalized": "अभिपरतयतिभयः कषिपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.80"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0227",
+      "text": "प्राद्वहः",
+      "normalized": "परादवहः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.81"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0228",
+      "text": "परेर्मृषः",
+      "normalized": "परेरमृषः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.82"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0229",
+      "text": "व्याङ्परिभ्यो रमः",
+      "normalized": "वयाङपरिभयो रमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.83"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0230",
+      "text": "उपाच्च",
+      "normalized": "उपाचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.84"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0231",
+      "text": "विभाषाऽकर्मकात्",
+      "normalized": "विभाषाऽकरमकात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.85"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0232",
+      "text": "बुधयुधनशजनेङ्प्रुद्रुस्रुभ्यो णेः",
+      "normalized": "बुधयुधनशजनेङपरुदरुसरुभयो णेः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.86"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0233",
+      "text": "निगरणचलनार्थेभ्यश्च",
+      "normalized": "निगरणचलनारथेभयशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.87"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0234",
+      "text": "अणावकर्मकाच्चित्तवत्कर्तृकात्",
+      "normalized": "अणावकरमकाचचिततवतकरतृकात",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.88"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0235",
+      "text": "न पादम्याङ्यमाङ्यसपरिमुहरुचिनृतिवदवसः",
+      "normalized": "न पादमयाङयमाङयसपरिमुहरुचिनृतिवदवसः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.89"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0236",
+      "text": "वा क्यषः",
+      "normalized": "वा कयषः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.90"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0237",
+      "text": "द्युद्भ्यो लुङि",
+      "normalized": "दयुदभयो लुङि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.91"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0238",
+      "text": "वृद्भ्यः स्यसनोः",
+      "normalized": "वृदभयः सयसनोः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.92"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0239",
+      "text": "लुटि च कॢपः",
+      "normalized": "लुटि च कॢपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.93"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0240",
+      "text": "आ कडारादेका संज्ञा",
+      "normalized": "आ कडारादेका संजञा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.1"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0241",
+      "text": "विप्रतिषेधे परं कार्यम्",
+      "normalized": "विपरतिषेधे परं कारयम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.2"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0242",
+      "text": "यू स्त्र्याख्यौ नदी",
+      "normalized": "यू सतरयाखयौ नदी",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.3"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0243",
+      "text": "नेयङुवङ्स्थानावस्त्री",
+      "normalized": "नेयङुवङसथानावसतरी",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.4"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0244",
+      "text": "वाऽऽमि",
+      "normalized": "वाऽऽमि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.5"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0245",
+      "text": "ङिति ह्रस्वश्च",
+      "normalized": "ङिति हरसवशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.6"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0246",
+      "text": "शेषो घ्यसखि",
+      "normalized": "शेषो घयसखि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.7"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0247",
+      "text": "पतिः समास एव",
+      "normalized": "पतिः समास एव",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.8"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0248",
+      "text": "षष्ठीयुक्तश्छन्दसि वा",
+      "normalized": "षषठीयुकतशछनदसि वा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.9"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0249",
+      "text": "ह्रस्वं लघु",
+      "normalized": "हरसवं लघु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.10"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0250",
+      "text": "संयोगे गुरु",
+      "normalized": "संयोगे गुरु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.11"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0251",
+      "text": "दीर्घं च",
+      "normalized": "दीरघं च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.12"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0252",
+      "text": "यस्मात् प्रत्ययविधिस्तदादि प्रत्ययेऽङ्गम्",
+      "normalized": "यसमात परतययविधिसतदादि परतययेऽङगम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.13"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0253",
+      "text": "सुप्तिङन्तं पदम्",
+      "normalized": "सुपतिङनतं पदम",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -96,9 +3801,9 @@
       "readOnly": true
     },
     {
-      "id": "sutra-0007",
-      "text": "अर्धधातुकं शेषः",
-      "normalized": "अरधधातुकं शेषः",
+      "id": "sutra-0254",
+      "text": "नः क्ये",
+      "normalized": "नः कये",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -106,14 +3811,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:3.1.68"
+        "meaning": "ashtadhyayi-ref:1.4.15"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0008",
-      "text": "आत्मनेपदेषु",
-      "normalized": "आतमनेपदेषु",
+      "id": "sutra-0255",
+      "text": "सिति च",
+      "normalized": "सिति च",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -121,14 +3826,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:3.2.3"
+        "meaning": "ashtadhyayi-ref:1.4.16"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0009",
-      "text": "टित आत्मनेपदम्",
-      "normalized": "टित आतमनेपदम",
+      "id": "sutra-0256",
+      "text": "स्वादिष्वसर्वनामस्थाने",
+      "normalized": "सवादिषवसरवनामसथाने",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -136,14 +3841,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:3.4.113"
+        "meaning": "ashtadhyayi-ref:1.4.17"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0010",
-      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
-      "normalized": "परागदीरघात समपरसारणात",
+      "id": "sutra-0257",
+      "text": "यचि भम्",
+      "normalized": "यचि भम",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -151,14 +3856,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:4.1.2"
+        "meaning": "ashtadhyayi-ref:1.4.18"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0011",
-      "text": "एकः पूर्वपरयोः",
-      "normalized": "एकः पूरवपरयोः",
+      "id": "sutra-0258",
+      "text": "तसौ मत्वर्थे",
+      "normalized": "तसौ मतवरथे",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -166,14 +3871,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:6.1.1"
+        "meaning": "ashtadhyayi-ref:1.4.19"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0012",
-      "text": "नो नः स्वरि",
-      "normalized": "नो नः सवरि",
+      "id": "sutra-0259",
+      "text": "अयस्मयादीनि च्छन्दसि",
+      "normalized": "अयसमयादीनि चछनदसि",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -181,14 +3886,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:6.1.3"
+        "meaning": "ashtadhyayi-ref:1.4.20"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0013",
-      "text": "एङः पदान्तादति",
-      "normalized": "एङः पदानतादति",
+      "id": "sutra-0260",
+      "text": "बहुषु बहुवचनम्",
+      "normalized": "बहुषु बहुवचनम",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -196,14 +3901,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:6.1.72"
+        "meaning": "ashtadhyayi-ref:1.4.21"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0014",
-      "text": "समासेऽनात्पौर्वपदात्",
-      "normalized": "समासेऽनातपौरवपदात",
+      "id": "sutra-0261",
+      "text": "द्व्येकयोर्द्विवचनैकवचने",
+      "normalized": "दवयेकयोरदविवचनैकवचने",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -211,14 +3916,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:8.2.66"
+        "meaning": "ashtadhyayi-ref:1.4.22"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0015",
-      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
-      "normalized": "तृजुगलुभुहरदादिभयो ङित",
+      "id": "sutra-0262",
+      "text": "कारके",
+      "normalized": "कारके",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -226,14 +3931,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:8.3.14"
+        "meaning": "ashtadhyayi-ref:1.4.23"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0016",
-      "text": "वाऽवसानस्य",
-      "normalized": "वाऽवसानसय",
+      "id": "sutra-0263",
+      "text": "ध्रुवमपायेऽपादानम्",
+      "normalized": "धरुवमपायेऽपादानम",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -241,14 +3946,14 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:8.4.11"
+        "meaning": "ashtadhyayi-ref:1.4.24"
       },
       "readOnly": true
     },
     {
-      "id": "sutra-0017",
-      "text": "स्तोः श्चुना श्चुः",
-      "normalized": "सतोः शचुना शचुः",
+      "id": "sutra-0264",
+      "text": "भीत्रार्थानां भयहेतुः",
+      "normalized": "भीतरारथानां भयहेतुः",
       "computed": {
         "adhikara": "vyakarana",
         "ruleClass": "paninian"
@@ -256,7 +3961,2047 @@
       "provenance": {
         "sourceId": "sutra-local-v1",
         "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
-        "meaning": "ashtadhyayi-ref:8.4.40"
+        "meaning": "ashtadhyayi-ref:1.4.25"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0265",
+      "text": "पराजेरसोढः",
+      "normalized": "पराजेरसोढः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.26"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0266",
+      "text": "वारणार्थानामीप्सितः",
+      "normalized": "वारणारथानामीपसितः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.27"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0267",
+      "text": "अन्तर्द्धौ येनादर्शनमिच्छति",
+      "normalized": "अनतरदधौ येनादरशनमिचछति",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.28"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0268",
+      "text": "आख्यातोपयोगे",
+      "normalized": "आखयातोपयोगे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.29"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0269",
+      "text": "जनिकर्तुः प्रकृतिः",
+      "normalized": "जनिकरतुः परकृतिः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.30"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0270",
+      "text": "भुवः प्रभवः",
+      "normalized": "भुवः परभवः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.31"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0271",
+      "text": "कर्मणा यमभिप्रैति स सम्प्रदानम्",
+      "normalized": "करमणा यमभिपरैति स समपरदानम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.32"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0272",
+      "text": "रुच्यर्थानां प्रीयमाणः",
+      "normalized": "रुचयरथानां परीयमाणः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.33"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0273",
+      "text": "श्लाघह्नुङ्स्थाशपां ज्ञीप्स्यमानः",
+      "normalized": "शलाघहनुङसथाशपां जञीपसयमानः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.34"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0274",
+      "text": "धारेरुत्तमर्णः",
+      "normalized": "धारेरुततमरणः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.35"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0275",
+      "text": "स्पृहेरीप्सितः",
+      "normalized": "सपृहेरीपसितः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.36"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0276",
+      "text": "क्रुधद्रुहेर्ष्याऽसूयार्थानां यं प्रति कोपः",
+      "normalized": "करुधदरुहेरषयाऽसूयारथानां यं परति कोपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.37"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0277",
+      "text": "क्रुधद्रुहोरुपसृष्टयोः कर्म",
+      "normalized": "करुधदरुहोरुपसृषटयोः करम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.38"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0278",
+      "text": "राधीक्ष्योर्यस्य विप्रश्नः",
+      "normalized": "राधीकषयोरयसय विपरशनः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.39"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0279",
+      "text": "प्रत्याङ्भ्यां श्रुवः पूर्वस्य कर्ता",
+      "normalized": "परतयाङभयां शरुवः पूरवसय करता",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.40"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0280",
+      "text": "अनुप्रतिगृणश्च",
+      "normalized": "अनुपरतिगृणशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.41"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0281",
+      "text": "साधकतमं करणम्",
+      "normalized": "साधकतमं करणम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.42"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0282",
+      "text": "दिवः कर्म च",
+      "normalized": "दिवः करम च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.43"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0283",
+      "text": "परिक्रयणे सम्प्रदानमन्यतरस्याम्",
+      "normalized": "परिकरयणे समपरदानमनयतरसयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.44"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0284",
+      "text": "आधारोऽधिकरणम्",
+      "normalized": "आधारोऽधिकरणम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.45"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0285",
+      "text": "अधिशीङ्स्थाऽऽसां कर्म",
+      "normalized": "अधिशीङसथाऽऽसां करम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.46"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0286",
+      "text": "अभिनिविशश्च",
+      "normalized": "अभिनिविशशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.47"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0287",
+      "text": "उपान्वध्याङ्वसः",
+      "normalized": "उपानवधयाङवसः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.48"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0288",
+      "text": "कर्तुरीप्सिततमं कर्म",
+      "normalized": "करतुरीपसिततमं करम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.49"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0289",
+      "text": "तथायुक्तं चानीप्सितम्",
+      "normalized": "तथायुकतं चानीपसितम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.50"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0290",
+      "text": "अकथितं च",
+      "normalized": "अकथितं च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.51"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0291",
+      "text": "गतिबुद्धिप्रत्यवसानार्थशब्दकर्माकर्मकाणामणि कर्ता स णौ",
+      "normalized": "गतिबुदधिपरतयवसानारथशबदकरमाकरमकाणामणि करता स णौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.52"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0292",
+      "text": "हृक्रोरन्यतरस्याम्",
+      "normalized": "हृकरोरनयतरसयाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.53"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0293",
+      "text": "स्वतन्त्रः कर्ता",
+      "normalized": "सवतनतरः करता",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.54"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0294",
+      "text": "तत्प्रयोजको हेतुश्च",
+      "normalized": "ततपरयोजको हेतुशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.55"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0295",
+      "text": "प्राग्रीश्वरान्निपाताः",
+      "normalized": "परागरीशवराननिपाताः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.56"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0296",
+      "text": "चादयोऽसत्त्वे",
+      "normalized": "चादयोऽसततवे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.57"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0297",
+      "text": "प्रादयः",
+      "normalized": "परादयः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.58"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0298",
+      "text": "उपसर्गाः क्रियायोगे",
+      "normalized": "उपसरगाः करियायोगे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.59"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0299",
+      "text": "गतिश्च",
+      "normalized": "गतिशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.60"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0300",
+      "text": "ऊर्यादिच्विडाचश्च",
+      "normalized": "ऊरयादिचविडाचशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.61"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0301",
+      "text": "अनुकरणं चानितिपरम्",
+      "normalized": "अनुकरणं चानितिपरम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.62"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0302",
+      "text": "आदरानादरयोः सदसती",
+      "normalized": "आदरानादरयोः सदसती",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.63"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0303",
+      "text": "भूषणेऽलम्",
+      "normalized": "भूषणेऽलम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.64"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0304",
+      "text": "अन्तरपरिग्रहे",
+      "normalized": "अनतरपरिगरहे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.65"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0305",
+      "text": "कणेमनसी श्रद्धाप्रतीघाते",
+      "normalized": "कणेमनसी शरदधापरतीघाते",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.66"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0306",
+      "text": "पुरोऽव्ययम्",
+      "normalized": "पुरोऽवययम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.67"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0307",
+      "text": "अस्तं च",
+      "normalized": "असतं च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.68"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0308",
+      "text": "अच्छ गत्यर्थवदेषु",
+      "normalized": "अचछ गतयरथवदेषु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.69"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0309",
+      "text": "अदोऽनुपदेशे",
+      "normalized": "अदोऽनुपदेशे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.70"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0310",
+      "text": "तिरोऽन्तर्द्धौ",
+      "normalized": "तिरोऽनतरदधौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.71"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0311",
+      "text": "विभाषा कृञि",
+      "normalized": "विभाषा कृञि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.72"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0312",
+      "text": "उपाजेऽन्वाजे",
+      "normalized": "उपाजेऽनवाजे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.73"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0313",
+      "text": "साक्षात्प्रभृतीनि च",
+      "normalized": "साकषातपरभृतीनि च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.74"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0314",
+      "text": "अनत्याधान उरसिमनसी",
+      "normalized": "अनतयाधान उरसिमनसी",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.75"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0315",
+      "text": "मध्ये पदे निवचने च",
+      "normalized": "मधये पदे निवचने च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.76"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0316",
+      "text": "नित्यं हस्ते पाणावुपयमने",
+      "normalized": "नितयं हसते पाणावुपयमने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.77"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0317",
+      "text": "प्राध्वं बन्धने",
+      "normalized": "पराधवं बनधने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.78"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0318",
+      "text": "जीविकोपनिषदावौपम्ये",
+      "normalized": "जीविकोपनिषदावौपमये",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.79"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0319",
+      "text": "ते प्राग्धातोः",
+      "normalized": "ते परागधातोः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.80"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0320",
+      "text": "छन्दसि परेऽपि",
+      "normalized": "छनदसि परेऽपि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.81"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0321",
+      "text": "व्यवहिताश्च",
+      "normalized": "वयवहिताशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.82"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0322",
+      "text": "कर्मप्रवचनीयाः",
+      "normalized": "करमपरवचनीयाः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.83"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0323",
+      "text": "अनुर्लक्षणे",
+      "normalized": "अनुरलकषणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.84"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0324",
+      "text": "तृतीयार्थे",
+      "normalized": "तृतीयारथे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.85"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0325",
+      "text": "हीने",
+      "normalized": "हीने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.86"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0326",
+      "text": "उपोऽधिके च",
+      "normalized": "उपोऽधिके च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.87"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0327",
+      "text": "अपपरी वर्जने",
+      "normalized": "अपपरी वरजने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.88"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0328",
+      "text": "आङ् मर्यादावचने",
+      "normalized": "आङ मरयादावचने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.89"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0329",
+      "text": "लक्षणेत्थम्भूताख्यानभागवीप्सासु प्रतिपर्यनवः",
+      "normalized": "लकषणेतथमभूताखयानभागवीपसासु परतिपरयनवः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.90"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0330",
+      "text": "अभिरभागे",
+      "normalized": "अभिरभागे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.91"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0331",
+      "text": "प्रतिः प्रतिनिधिप्रतिदानयोः",
+      "normalized": "परतिः परतिनिधिपरतिदानयोः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.92"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0332",
+      "text": "अधिपरी अनर्थकौ",
+      "normalized": "अधिपरी अनरथकौ",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.93"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0333",
+      "text": "सुः पूजायाम्",
+      "normalized": "सुः पूजायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.94"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0334",
+      "text": "अतिरतिक्रमणे च",
+      "normalized": "अतिरतिकरमणे च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.95"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0335",
+      "text": "अपिः पदार्थसम्भावनान्ववसर्गगर्हासमुच्चयेषु",
+      "normalized": "अपिः पदारथसमभावनानववसरगगरहासमुचचयेषु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.96"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0336",
+      "text": "अधिरीश्वरे",
+      "normalized": "अधिरीशवरे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.97"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0337",
+      "text": "लः परस्मैपदम्",
+      "normalized": "लः परसमैपदम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.99"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0338",
+      "text": "तङानावात्मनेपदम्",
+      "normalized": "तङानावातमनेपदम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.100"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0339",
+      "text": "तिङस्त्रीणि त्रीणि प्रथममध्यमोत्तमाः",
+      "normalized": "तिङसतरीणि तरीणि परथममधयमोततमाः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.101"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0340",
+      "text": "तान्येकवचनद्विवचनबहुवचनान्येकशः",
+      "normalized": "तानयेकवचनदविवचनबहुवचनानयेकशः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.102"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0341",
+      "text": "सुपः",
+      "normalized": "सुपः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.103"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0342",
+      "text": "विभक्तिश्च",
+      "normalized": "विभकतिशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.104"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0343",
+      "text": "युष्मद्युपपदे समानाधिकरणे स्थानिन्यपि मध्यमः",
+      "normalized": "युषमदयुपपदे समानाधिकरणे सथानिनयपि मधयमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.105"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0344",
+      "text": "प्रहासे च मन्योपपदे मन्यतेरुत्तम एकवच्च",
+      "normalized": "परहासे च मनयोपपदे मनयतेरुततम एकवचच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.106"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0345",
+      "text": "अस्मद्युत्तमः",
+      "normalized": "असमदयुततमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.107"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0346",
+      "text": "शेषे प्रथमः",
+      "normalized": "शेषे परथमः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.108"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0347",
+      "text": "परः सन्निकर्षः संहिता",
+      "normalized": "परः सननिकरषः संहिता",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.109"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0348",
+      "text": "विरामोऽवसानम्",
+      "normalized": "विरामोऽवसानम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.110"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0349",
+      "text": "समर्थः पदविधिः",
+      "normalized": "समरथः पदविधिः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.1"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0350",
+      "text": "सुबामन्त्रिते पराङ्गवत् स्वरे",
+      "normalized": "सुबामनतरिते पराङगवत सवरे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.2"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0351",
+      "text": "प्राक् कडारात् समासः",
+      "normalized": "पराक कडारात समासः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.3"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0352",
+      "text": "सह सुपा",
+      "normalized": "सह सुपा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.4"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0353",
+      "text": "अव्ययीभावः",
+      "normalized": "अवययीभावः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.5"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0354",
+      "text": "अव्ययं विभक्तिसमीपसमृद्धिव्यृद्ध्यर्थाभावात्ययासम्प्रतिशब्दप्रादुर्भावपश्चाद्यथानुपूर्व्ययौगपद्यसादृश्यसम्पत्तिसाकल्यान्तवचनेषु",
+      "normalized": "अवययं विभकतिसमीपसमृदधिवयृदधयरथाभावातययासमपरतिशबदपरादुरभावपशचादयथानुपूरवययौगपदयसादृशयसमपततिसाकलयानतवचनेषु",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.6"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0355",
+      "text": "यथासादृश्ये",
+      "normalized": "यथासादृशये",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.7"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0356",
+      "text": "यावदवधारणे",
+      "normalized": "यावदवधारणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.8"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0357",
+      "text": "सुप्प्रतिना मात्रार्थे",
+      "normalized": "सुपपरतिना मातरारथे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.9"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0358",
+      "text": "अक्षशलाकासंख्याः परिणा",
+      "normalized": "अकषशलाकासंखयाः परिणा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.10"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0359",
+      "text": "विभाषा",
+      "normalized": "विभाषा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.11"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0360",
+      "text": "अपपरिबहिरञ्चवः पञ्चम्या",
+      "normalized": "अपपरिबहिरञचवः पञचमया",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.12"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0361",
+      "text": "आङ् मर्यादाभिविध्योः",
+      "normalized": "आङ मरयादाभिविधयोः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.13"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0362",
+      "text": "लक्षणेनाभिप्रती आभिमुख्ये",
+      "normalized": "लकषणेनाभिपरती आभिमुखये",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.14"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0363",
+      "text": "अनुर्यत्समया",
+      "normalized": "अनुरयतसमया",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.15"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0364",
+      "text": "यस्य चायामः",
+      "normalized": "यसय चायामः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.16"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0365",
+      "text": "तिष्ठद्गुप्रभृतीनि च",
+      "normalized": "तिषठदगुपरभृतीनि च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.17"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0366",
+      "text": "पारे मध्ये षष्ठ्या वा",
+      "normalized": "पारे मधये षषठया वा",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.18"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0367",
+      "text": "संख्या वंश्येन",
+      "normalized": "संखया वंशयेन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.19"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0368",
+      "text": "नदीभिश्च",
+      "normalized": "नदीभिशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.20"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0369",
+      "text": "अन्यपदार्थे च संज्ञायाम्",
+      "normalized": "अनयपदारथे च संजञायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.21"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0370",
+      "text": "तत्पुरुषः",
+      "normalized": "ततपुरुषः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.22"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0371",
+      "text": "द्विगुश्च",
+      "normalized": "दविगुशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.23"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0372",
+      "text": "द्वितीया श्रितातीतपतितगतात्यस्तप्राप्तापन्नैः",
+      "normalized": "दवितीया शरितातीतपतितगतातयसतपरापतापननैः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.24"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0373",
+      "text": "स्वयं क्तेन",
+      "normalized": "सवयं कतेन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.25"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0374",
+      "text": "खट्वा क्षेपे",
+      "normalized": "खटवा कषेपे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.26"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0375",
+      "text": "सामि",
+      "normalized": "सामि",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.27"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0376",
+      "text": "कालाः",
+      "normalized": "कालाः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.28"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0377",
+      "text": "अत्यन्तसंयोगे च",
+      "normalized": "अतयनतसंयोगे च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.29"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0378",
+      "text": "तृतीया तत्कृतार्थेन गुणवचनेन",
+      "normalized": "तृतीया ततकृतारथेन गुणवचनेन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.30"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0379",
+      "text": "पूर्वसदृशसमोनार्थकलहनिपुणमिश्रश्लक्ष्णैः",
+      "normalized": "पूरवसदृशसमोनारथकलहनिपुणमिशरशलकषणैः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.31"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0380",
+      "text": "कर्तृकरणे कृता बहुलम्",
+      "normalized": "करतृकरणे कृता बहुलम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.32"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0381",
+      "text": "कृत्यैरधिकार्थवचने",
+      "normalized": "कृतयैरधिकारथवचने",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.33"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0382",
+      "text": "अन्नेन व्यञ्जनम्",
+      "normalized": "अननेन वयञजनम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.34"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0383",
+      "text": "भक्ष्येण मिश्रीकरणम्",
+      "normalized": "भकषयेण मिशरीकरणम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.35"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0384",
+      "text": "चतुर्थी तदर्थार्थबलिहितसुखरक्षितैः",
+      "normalized": "चतुरथी तदरथारथबलिहितसुखरकषितैः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.36"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0385",
+      "text": "पञ्चमी भयेन",
+      "normalized": "पञचमी भयेन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.37"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0386",
+      "text": "अपेतापोढमुक्तपतितापत्रस्तैरल्पशः",
+      "normalized": "अपेतापोढमुकतपतितापतरसतैरलपशः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.38"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0387",
+      "text": "स्तोकान्तिकदूरार्थकृच्छ्राणि क्तेन",
+      "normalized": "सतोकानतिकदूरारथकृचछराणि कतेन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.39"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0388",
+      "text": "सप्तमी शौण्डैः",
+      "normalized": "सपतमी शौणडैः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.40"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0389",
+      "text": "सिद्धशुष्कपक्वबन्धैश्च",
+      "normalized": "सिदधशुषकपकवबनधैशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.41"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0390",
+      "text": "ध्वाङ्क्षेण क्षेपे",
+      "normalized": "धवाङकषेण कषेपे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.42"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0391",
+      "text": "कृत्यैर्ऋणे",
+      "normalized": "कृतयैरऋणे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.43"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0392",
+      "text": "संज्ञायाम्",
+      "normalized": "संजञायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.44"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0393",
+      "text": "क्तेनाहोरात्रावयवाः",
+      "normalized": "कतेनाहोरातरावयवाः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.45"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0394",
+      "text": "तत्र",
+      "normalized": "ततर",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.46"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0395",
+      "text": "क्षेपे",
+      "normalized": "कषेपे",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.47"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0396",
+      "text": "पात्रेसमितादयश्च",
+      "normalized": "पातरेसमितादयशच",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.48"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0397",
+      "text": "पूर्वकालैकसर्वजरत्पुराणनवकेवलाः समानाधिकरणेन",
+      "normalized": "पूरवकालैकसरवजरतपुराणनवकेवलाः समानाधिकरणेन",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.49"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0398",
+      "text": "दिक्संख्ये संज्ञायाम्",
+      "normalized": "दिकसंखये संजञायाम",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.50"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0399",
+      "text": "तद्धितार्थोत्तरपदसमाहारे च",
+      "normalized": "तदधितारथोततरपदसमाहारे च",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.51"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "sutra-0400",
+      "text": "संख्यापूर्वो द्विगुः",
+      "normalized": "संखयापूरवो दविगुः",
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      },
+      "provenance": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:2.1.52"
       },
       "readOnly": true
     }

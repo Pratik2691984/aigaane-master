@@ -9,18 +9,9 @@
     "total": 2000
   },
   "sources": {
-    "dhatu": [
-      "raw/dhatupatha.csv",
-      "raw/dhatupatha_controlled_batch_01.csv",
-      "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
-      "raw/corpus/dhatu"
-    ],
-    "sutra": [
-      "raw/corpus/sutra"
-    ],
-    "stotra": [
-      "raw/corpus/stotra"
-    ]
+    "dhatu": "data/sanskrit/corpus-sources/dhatupatha/ashtadhyayi_dhatu.v1.json",
+    "sutra": "data/sanskrit/corpus-sources/sutra/ashtadhyayi_sutra.v1.json",
+    "stotra": "data/sanskrit/corpus-sources/stotra/gita_verses.v1.json"
   },
   "pipeline": [
     "raw",
@@ -39,8 +30,8 @@
     "canonicalWriteAllowed": false
   },
   "status": "raw-batches-ready",
-  "seedDhatuCount": 37,
-  "generatedAt": "phase-11",
+  "seedDhatuCount": 1688,
+  "generatedAt": "phase-11-expanded",
   "batches": {
     "dhatu": [
       {
@@ -114,5 +105,6 @@
     "sutra": 400,
     "stotra": 200,
     "total": 2000
-  }
+  },
+  "uniqueDhatuCount": 1688
 }
