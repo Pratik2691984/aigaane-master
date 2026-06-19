@@ -722,6 +722,79 @@
         </div>
     </section>
 
+    <section class="corpus-browser-inspector" id="corpus-browser-panel-host" aria-labelledby="corpus-browser-title" aria-describedby="corpus-browser-description">
+        <header class="corpus-browser-header">
+            <div>
+                <h3 id="corpus-browser-title">Sanskrit Corpus Browser</h3>
+                <p id="corpus-browser-description">Phase 11 read-only corpus: Dhātu, Sūtra, Stotra, Search, Trace, and Preview over ~2000 canonical records.</p>
+            </div>
+            <span id="corpus-browser-status-badge" class="corpus-browser-badge" data-status="loading">Loading</span>
+        </header>
+
+        <div id="corpus-browser-stats" class="corpus-browser-stats-grid" aria-label="Corpus index statistics">
+            <article class="corpus-browser-stat">
+                <span class="corpus-browser-stat-label">Indexed records</span>
+                <strong class="corpus-browser-stat-value">—</strong>
+            </article>
+            <article class="corpus-browser-stat">
+                <span class="corpus-browser-stat-label">Active section</span>
+                <strong class="corpus-browser-stat-value">Preview</strong>
+            </article>
+            <article class="corpus-browser-stat">
+                <span class="corpus-browser-stat-label">Matches</span>
+                <strong class="corpus-browser-stat-value">0</strong>
+            </article>
+            <article class="corpus-browser-stat corpus-browser-stat-status">
+                <span class="corpus-browser-stat-label">Status</span>
+                <strong class="corpus-browser-stat-value">Checking</strong>
+            </article>
+        </div>
+
+        <nav id="corpus-browser-nav" class="corpus-browser-nav" aria-label="Corpus browser sections">
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="dhatu" aria-pressed="false">Dhatu</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="sutra" aria-pressed="false">Sutra</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="stotra" aria-pressed="false">Stotra</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="search" aria-pressed="false">Search</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="trace" aria-pressed="false">Trace</button>
+            <button type="button" class="corpus-browser-nav-btn is-active" data-corpus-section="preview" aria-pressed="true">Preview</button>
+        </nav>
+
+        <div class="corpus-browser-controls" aria-label="Corpus search controls">
+            <label for="corpus-browser-search-input">Search query</label>
+            <input id="corpus-browser-search-input" type="search" spellcheck="false" placeholder="भू, वृद्धि, धर्मक्षेत्रे…" autocomplete="off">
+
+            <label for="corpus-browser-type-filter">Corpus type</label>
+            <select id="corpus-browser-type-filter">
+                <option value="">Any type</option>
+                <option value="dhatu">Dhatu</option>
+                <option value="sutra">Sutra</option>
+                <option value="stotra">Stotra</option>
+            </select>
+
+            <button id="corpus-browser-search-btn" type="button">Search corpus</button>
+            <span id="corpus-browser-search-status" class="corpus-browser-search-status" role="status" aria-live="polite">Idle</span>
+        </div>
+
+        <div class="corpus-browser-layout">
+            <section class="corpus-browser-results-panel" aria-labelledby="corpus-browser-results-title">
+                <h4 id="corpus-browser-results-title">Preview results</h4>
+                <div id="corpus-browser-results" class="corpus-browser-results-list">
+                    <div class="corpus-browser-empty">Loading corpus records…</div>
+                </div>
+            </section>
+
+            <aside class="corpus-browser-trace-panel" aria-labelledby="corpus-browser-trace-title">
+                <h4 id="corpus-browser-trace-title">Trace / Preview</h4>
+                <div id="corpus-browser-trace" class="corpus-browser-trace-list">
+                    <div class="corpus-browser-trace-line">Awaiting corpus index…</div>
+                </div>
+                <div id="corpus-browser-meta" class="corpus-browser-meta" role="note">
+                    Read-only preview. Canonical writes require <code>AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1</code>.
+                </div>
+            </aside>
+        </div>
+    </section>
+
     <section class="semantic-platform-status" aria-labelledby="semantic-platform-status-title" aria-describedby="semantic-platform-status-description">
         <header class="semantic-platform-status-header">
             <h3 id="semantic-platform-status-title">Semantic Platform Status</h3>
@@ -964,14 +1037,6 @@
         <section class="result-section">
             <h3>Parser Diagnostics</h3>
             <ol id="parser-diagnostics-output" class="compact-list"></ol>
-        </section>
-
-        <section class="inspection-card" id="corpus-browser-panel-host" aria-label="Sanskrit corpus browser">
-            <h3>Sanskrit Corpus</h3>
-            <p class="experimental-note">Phase 11 corpus browser: Dhatu, Sutra, Stotra, Search, Trace, Preview (read-only).</p>
-            <div id="corpus-browser-output" class="inspection-list">
-                <div class="inspection-row">Loading corpus browser...</div>
-            </div>
         </section>
 
         <section class="result-section experimental-panel" aria-label="Experimental symbolic panel">

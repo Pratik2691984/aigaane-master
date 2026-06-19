@@ -58,7 +58,13 @@ import { renderRuleTraceList } from "./trace/rule-trace-renderer.js";
 import { buildVakyaDependencyOverlay } from "./vakya/vakya-dependency-engine.js";
 import { renderVakyaDependencyOverlay } from "./vakya/vakya-dependency-renderer.js";
 import { buildCorpusBrowserState, summarizeCorpusResults } from "./corpus/corpus-browser-engine.js";
-import { renderCorpusBrowserPanel } from "./corpus/corpus-browser-renderer.js";
+import {
+  renderCorpusBrowserPanel,
+  renderCorpusNav,
+  renderCorpusResults,
+  renderCorpusStats,
+  renderCorpusTrace
+} from "./corpus/corpus-browser-renderer.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -6165,35 +6171,167 @@ function renderInitialState() {
   });
 }
 
-async function renderCorpusBrowserPanelView(query = "") {
-  const host = byId("corpus-browser-output");
-  if (!host) {
+const CORPUS_SECTION_LABELS = {
+  dhatu: "Dhatu",
+  sutra: "Sutra",
+  stotra: "Stotra",
+  search: "Search",
+  trace: "Trace",
+  preview: "Preview"
+};
+
+let corpusBrowserSection = "preview";
+let corpusBrowserSelected = null;
+
+function renderCorpusBrowserStatusBadge(summary = {}) {
+  const badge = byId("corpus-browser-status-badge");
+  if (!badge) {
+    return;
+  }
+  const blocked = summary.valid === false;
+  badge.textContent = blocked ? "Blocked" : "Read-only";
+  badge.dataset.status = blocked ? "blocked" : "ready";
+}
+
+function renderCorpusBrowserSearchStatus(message = "Idle") {
+  const status = byId("corpus-browser-search-status");
+  if (status) {
+    status.textContent = message;
+  }
+}
+
+function bindCorpusBrowserResultCards() {
+  const resultsHost = byId("corpus-browser-results");
+  if (!resultsHost) {
+    return;
+  }
+  resultsHost.querySelectorAll(".corpus-browser-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      corpusBrowserSelected = {
+        recordId: card.dataset.recordId || "",
+        type: card.dataset.recordType || "",
+        text: card.querySelector(".corpus-browser-card-text")?.textContent || ""
+      };
+      resultsHost.querySelectorAll(".corpus-browser-card.is-selected").forEach((node) => {
+        node.classList.remove("is-selected");
+      });
+      card.classList.add("is-selected");
+      const traceHost = byId("corpus-browser-trace");
+      const state = buildCorpusBrowserState({ recordCount: Number(byId("corpus-browser-stats")?.dataset.recordCount || 0) }, corpusBrowserSection);
+      if (traceHost) {
+        traceHost.innerHTML = renderCorpusTrace(state, { query: byId("corpus-browser-search-input")?.value || "" }, corpusBrowserSelected);
+      }
+    });
+  });
+}
+
+async function fetchCorpusBrowserPayload(section = "preview", query = "", corpusType = "") {
+  const limit = 24;
+  const typeParam = corpusType ? `&type=${encodeURIComponent(corpusType)}` : "";
+
+  if (section === "dhatu" || section === "sutra" || section === "stotra") {
+    const response = await fetch(`/api/sanskrit/${section}?limit=${limit}`);
+    if (!response.ok) {
+      return { valid: false, results: [], records: [], corpusType: section, query };
+    }
+    const payload = await response.json();
+    return {
+      valid: payload.valid !== false,
+      results: Array.isArray(payload.records) ? payload.records.map((item) => ({
+        recordId: item.id || item.recordId,
+        type: section,
+        text: item.text || item.normalized,
+        meaning: item.notes || item.metadata?.meaning
+      })) : [],
+      records: payload.records || [],
+      corpusType: section,
+      count: payload.count || 0,
+      query
+    };
+  }
+
+  if (section === "search") {
+    const searchQuery = query || "भू";
+    const response = await fetch(`/api/sanskrit/search?q=${encodeURIComponent(searchQuery)}&limit=${limit}${typeParam}`);
+    if (!response.ok) {
+      return { valid: false, results: [], query: searchQuery };
+    }
+    return response.json();
+  }
+
+  const response = await fetch(`/api/sanskrit/search?limit=${limit}${typeParam}`);
+  if (!response.ok) {
+    return { valid: false, results: [], query };
+  }
+  return response.json();
+}
+
+async function renderCorpusBrowserPanelView(options = {}) {
+  const statsHost = byId("corpus-browser-stats");
+  const navHost = byId("corpus-browser-nav");
+  const resultsHost = byId("corpus-browser-results");
+  const traceHost = byId("corpus-browser-trace");
+  const resultsTitle = byId("corpus-browser-results-title");
+
+  if (!statsHost || !resultsHost) {
     return;
   }
 
+  const section = String(options.section || corpusBrowserSection || "preview").toLowerCase();
+  const query = String(options.query ?? byId("corpus-browser-search-input")?.value ?? "").trim();
+  const corpusType = String(options.corpusType ?? byId("corpus-browser-type-filter")?.value ?? "").trim();
+  corpusBrowserSection = section;
+
   let indexPayload = { recordCount: 0 };
-  let searchPayload = { valid: false, results: [], query };
+  let summary = { valid: false, results: [], query };
+
+  renderCorpusBrowserSearchStatus("Loading…");
 
   try {
     const indexResponse = await fetch("/api/sanskrit");
     if (indexResponse.ok) {
       indexPayload = await indexResponse.json();
     }
-    const searchUrl = query
-      ? `/api/sanskrit/search?q=${encodeURIComponent(query)}&limit=12`
-      : "/api/sanskrit/search?limit=12";
-    const searchResponse = await fetch(searchUrl);
-    if (searchResponse.ok) {
-      searchPayload = await searchResponse.json();
-    }
+    summary = await fetchCorpusBrowserPayload(section, query, corpusType);
   } catch (_error) {
-    searchPayload = { valid: false, results: [], query };
+    summary = { valid: false, results: [], query };
   }
 
-  const state = buildCorpusBrowserState(indexPayload, query ? "Search" : "Preview");
-  const summary = summarizeCorpusResults(searchPayload);
-  const panel = renderCorpusBrowserPanel(state, summary);
-  host.textContent = panel.body;
+  const label = CORPUS_SECTION_LABELS[section] || "Preview";
+  const state = buildCorpusBrowserState(indexPayload, label);
+  const normalizedSummary = summarizeCorpusResults(summary);
+
+  statsHost.dataset.recordCount = String(state.recordCount || 0);
+  statsHost.innerHTML = renderCorpusStats(state, normalizedSummary);
+  if (navHost) {
+    navHost.innerHTML = renderCorpusNav(state);
+    navHost.querySelectorAll("[data-corpus-section]").forEach((button) => {
+      button.addEventListener("click", () => {
+        renderCorpusBrowserPanelView({ section: button.dataset.corpusSection || "preview", query, corpusType });
+      });
+    });
+  }
+
+  if (resultsTitle) {
+    resultsTitle.textContent = label + " results";
+  }
+  resultsHost.innerHTML = renderCorpusResults(normalizedSummary, label);
+  if (traceHost) {
+    traceHost.innerHTML = renderCorpusTrace(state, normalizedSummary, corpusBrowserSelected);
+  }
+
+  renderCorpusBrowserStatusBadge(normalizedSummary);
+  renderCorpusBrowserSearchStatus(
+    normalizedSummary.valid === false
+      ? "Corpus API unavailable"
+      : normalizedSummary.count + " match(es)"
+  );
+  bindCorpusBrowserResultCards();
+}
+
+function handleCorpusBrowserSearch() {
+  const query = byId("corpus-browser-search-input")?.value || "";
+  renderCorpusBrowserPanelView({ section: "search", query });
 }
 
 export function init(node) {
@@ -6340,6 +6478,16 @@ export function init(node) {
   loadSemanticDerivationGraphPanel();
   runLocalStaticDiagnostics();
   renderCorpusBrowserPanelView();
+  byId("corpus-browser-search-btn")?.addEventListener("click", handleCorpusBrowserSearch);
+  byId("corpus-browser-search-input")?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleCorpusBrowserSearch();
+    }
+  });
+  byId("corpus-browser-type-filter")?.addEventListener("change", () => {
+    renderCorpusBrowserPanelView({ section: corpusBrowserSection });
+  });
 
   if (inputNode && !inputNode.value.trim()) inputNode.value = DEFAULT_PAYLOAD.input_text;
   analyzeCurrentInput();

@@ -26,10 +26,11 @@ function summarizeCorpusResults(payload = {}) {
     query: String(payload.query || ""),
     count: Number(payload.count || results.length),
     results: freeze(results.map((item) => freeze({
-      recordId: String(item.recordId || ""),
+      recordId: String(item.recordId || item.id || ""),
       type: String(item.type || ""),
       text: String(item.text || ""),
-      normalized: String(item.normalized || "")
+      normalized: String(item.normalized || ""),
+      meaning: String(item.meaning || item.notes || item.metadata?.meaning || "")
     }))),
     previewOnly: true,
     readOnly: true
