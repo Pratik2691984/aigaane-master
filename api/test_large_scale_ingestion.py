@@ -1655,7 +1655,11 @@ class LargeScaleIngestionTests(unittest.TestCase):
         analyze_end = controller.index("async function runSandhi()", analyze_start)
         analyze_body = controller[analyze_start:analyze_end]
 
-        self.assertIn('fetch("/api/v3/analyze"', analyze_body)
+        self.assertTrue(
+            'fetchWithLocalBackendFallback("/api/v3/analyze"' in analyze_body
+            or 'fetch("/api/v3/analyze"' in analyze_body,
+            "analyzeCurrentInput must POST JSON to /api/v3/analyze via fetch or local-backend wrapper",
+        )
         self.assertIn("throw new Error", analyze_body)
         self.assertIn("buildLocalSanskritAnalysisFallback(inputText)", analyze_body)
         self.assertIn("Analysis rendered with local fallback", analyze_body)

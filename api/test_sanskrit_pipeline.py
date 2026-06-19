@@ -96,7 +96,11 @@ class SanskritPipelineTests(unittest.TestCase):
 
     def test_frontend_still_posts_json_to_analyze_endpoint(self):
         controller = (ROOT / "ui" / "tabs" / "sanskrit" / "controller.js").read_text(encoding="utf-8")
-        self.assertIn('fetch("/api/v3/analyze"', controller)
+        self.assertTrue(
+            'fetchWithLocalBackendFallback("/api/v3/analyze"' in controller
+            or 'fetch("/api/v3/analyze"' in controller,
+            "Analyze must POST JSON to /api/v3/analyze via fetch or local-backend wrapper",
+        )
         self.assertIn('method: "POST"', controller)
         self.assertIn('"Content-Type": "application/json"', controller)
         self.assertIn("JSON.stringify", controller)

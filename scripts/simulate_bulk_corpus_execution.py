@@ -34,7 +34,13 @@ def simulate_bulk_corpus_execution(data):
 
     total_records = sum(int(item.get("recordCount", 0)) for item in timeline)
     total_seconds = float(timeline_plan.get("totalEstimatedSeconds", 0) or 0)
-    throughput = round(total_records / total_seconds, 3) if total_seconds else 0
+    schedule_plan = timeline_plan.get("schedulePlan", {})
+    window_size = int(schedule_plan.get("windowPlan", {}).get("windowSize", 0) or 0)
+    seconds_per_window = float(schedule_plan.get("secondsPerWindow", 0) or 0)
+    if window_size and seconds_per_window:
+        throughput = round(window_size / seconds_per_window, 1)
+    else:
+        throughput = round(total_records / total_seconds, 1) if total_seconds else 0
 
     valid = (
         timeline_plan.get("valid") is True

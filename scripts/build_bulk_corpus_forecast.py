@@ -18,7 +18,13 @@ def build_bulk_corpus_forecast(data):
 
     total_records = int(simulation.get("totalRecords", 0))
     total_seconds = float(simulation.get("totalEstimatedSeconds", 0) or 0)
-    throughput = float(simulation.get("estimatedThroughputPerSecond", 0) or 0)
+
+    throughput = float(
+        simulation.get(
+            "estimatedThroughputPerSecond",
+            round(total_records / total_seconds, 1) if total_seconds else 0,
+        )
+    )
     final_percent = float(simulation.get("finalCompletionPercent", 0) or 0)
 
     forecast_ready = (
