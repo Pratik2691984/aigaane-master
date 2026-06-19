@@ -9,8 +9,8 @@ from typing import Any, Dict, List, Tuple
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW_CORPUS_ROOT = ROOT / "raw" / "corpus"
-RAW_MANIFEST = RAW_CORPUS_ROOT / "manifest.v1.json"
+RAW_CORPUS_ROOT = ROOT / "raw" / "sanskrit"
+RAW_MANIFEST = ROOT / "raw" / "corpus" / "manifest.v1.json"
 
 TARGET_DHATU = 1400
 TARGET_SUTRA = 400
@@ -178,7 +178,7 @@ def build_dhatu_batches(records: List[Dict[str, Any]]) -> Tuple[List[Dict[str, A
             while generated_id in used_ids:
                 generated_id = f"{gana_id}.GEN.{len(used_ids) + 1:04d}"
             used_ids.add(generated_id)
-            source = f"raw/corpus/dhatu/{gana_id}_{slug}_batch.json"
+            source = f"raw/sanskrit/dhatu/{gana_id}_{slug}_batch.json"
             batch_records.append({
                 "id": generated_id,
                 "type": "dhatu",
@@ -189,7 +189,7 @@ def build_dhatu_batches(records: List[Dict[str, Any]]) -> Tuple[List[Dict[str, A
             })
             gen_index += 1
 
-        rel_path = f"raw/corpus/dhatu/{gana_id}_{slug}_batch.json"
+        rel_path = f"raw/sanskrit/dhatu/{gana_id}_{slug}_batch.json"
         payload = {
             "batchId": f"DHATU_{gana_id}_{slug.upper()}",
             "ganaId": gana_id,
@@ -218,7 +218,7 @@ def build_sutra_batch() -> Tuple[Dict[str, Any], int]:
             "id": f"sutra-{seq:04d}",
             "type": "sutra",
             "text": text,
-            "source": "raw/corpus/sutra/sutra_corpus_batch_001.json",
+            "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
             "notes": f"ashtadhyayi-ref:{sutra_id}",
         })
 
@@ -228,7 +228,7 @@ def build_sutra_batch() -> Tuple[Dict[str, Any], int]:
         "description": "Real corpus sutra batch seeded from local Paninian references",
         "records": records,
     }
-    rel_path = "raw/corpus/sutra/sutra_corpus_batch_001.json"
+    rel_path = "raw/sanskrit/sutra/sutra_corpus_batch_001.json"
     _write_json(ROOT / rel_path, payload)
     return {"batchId": payload["batchId"], "path": rel_path, "recordCount": len(records)}, len(records)
 
@@ -242,7 +242,7 @@ def build_stotra_batch() -> Tuple[Dict[str, Any], int]:
             "id": f"stotra-{seq:04d}",
             "type": "stotra",
             "text": text,
-            "source": "raw/corpus/stotra/stotra_corpus_batch_001.json",
+            "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
             "notes": f"seed:{seed_id}",
         })
 
@@ -252,7 +252,7 @@ def build_stotra_batch() -> Tuple[Dict[str, Any], int]:
         "description": "Real corpus stotra batch seeded from local devotional text fragments",
         "records": records,
     }
-    rel_path = "raw/corpus/stotra/stotra_corpus_batch_001.json"
+    rel_path = "raw/sanskrit/stotra/stotra_corpus_batch_001.json"
     _write_json(ROOT / rel_path, payload)
     return {"batchId": payload["batchId"], "path": rel_path, "recordCount": len(records)}, len(records)
 

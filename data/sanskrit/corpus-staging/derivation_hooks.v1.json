@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "sanskrit-corpus-derivation-hooks.v1",
+  "phase": "11L",
+  "hookCount": 51,
+  "hooks": [
+    {
+      "recordId": "01.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0002",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0002",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0101",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0101",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0102",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0102",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0103",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0103",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0104",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0104",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0105",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0105",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0106",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0106",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0107",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0107",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0108",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0108",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0109",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0109",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0110",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0110",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.0111",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.0111",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "01.STAGED.0012",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=01.STAGED.0012",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "02.0101",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=02.0101",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "04.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=04.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "05.0101",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=05.0101",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "06.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=06.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "07.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=07.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "08.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=08.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "08.0101",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=08.0101",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "09.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=09.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "09.0101",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=09.0101",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "10.0001",
+      "type": "dhatu",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/verb/conjugate",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "semantic": "/api/dhatu/semantic/search?dhatuId=10.0001",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0001",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0002",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0003",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0004",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0005",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0006",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0007",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0008",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0009",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0010",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0011",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0012",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0013",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0014",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0015",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0016",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "sutra-0017",
+      "type": "sutra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0001",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0002",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0003",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0004",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0005",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0006",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0007",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0008",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0009",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    },
+    {
+      "recordId": "stotra-0010",
+      "type": "stotra",
+      "sandhi": "/api/v3/sandhi",
+      "morphology": "/api/v3/morphology/noun/inflect",
+      "prakriya": "ui/tabs/sanskrit/prakriya",
+      "chandas": "ui/tabs/sanskrit/chandas"
+    }
+  ],
+  "previewOnly": true
+}

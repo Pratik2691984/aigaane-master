@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "sanskrit-canonical-stotra.v1",
+  "phase": "11H",
+  "readOnly": true,
+  "writeAllowed": false,
+  "recordCount": 10,
+  "records": [
+    {
+      "id": "stotra-0001",
+      "text": "नमः शिवाय",
+      "normalized": "नमः शिवाय",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 2
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-001"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0002",
+      "text": "विष्णु सहस्रनाम",
+      "normalized": "विषणु सहसरनाम",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 2
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-002"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0003",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "normalized": "शानतं शाशवतमपरमेयम",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 2
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-003"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0004",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "normalized": "करागरे वसते लकषमीः",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-004"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0005",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "normalized": "सरवं खलविदं बरहम",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-005"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0006",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "normalized": "तवमेव माता च पिता तवमेव",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 5
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-006"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0007",
+      "text": "असतो मा सद्गमय",
+      "normalized": "असतो मा सदगमय",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-007"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0008",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "normalized": "तमसो मा जयोतिरगमय",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-008"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0009",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "normalized": "मृतयोरमा अमृतं गमय",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-009"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "stotra-0010",
+      "text": "ॐ भूर्भुवः स्वः",
+      "normalized": "ॐ भूरभुवः सवः",
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      },
+      "provenance": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-010"
+      },
+      "readOnly": true
+    }
+  ]
+}

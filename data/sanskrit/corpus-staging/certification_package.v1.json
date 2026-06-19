@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "sanskrit-corpus-certification.v1",
+  "phase": "11G",
+  "approved": true,
+  "certifiedBy": "manual",
+  "confidence": 100,
+  "recordCount": 51,
+  "duplicateCount": 1949,
+  "previewOnly": true,
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false
+}

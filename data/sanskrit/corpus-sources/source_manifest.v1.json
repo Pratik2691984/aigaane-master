@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "sanskrit-corpus-source-registry.v1",
+  "phase": "11A",
+  "sources": [
+    {
+      "sourceId": "dhatupatha-local-v1",
+      "title": "Dhatupatha",
+      "edition": "v1",
+      "language": "sa",
+      "license": "review",
+      "checksum": "68b026f8ad2dc9b97d089acb7f1bcf5acffda1ee497d9e2a66ec610304c4c31c",
+      "landingZone": "raw/sanskrit/dhatu"
+    },
+    {
+      "sourceId": "sutra-local-v1",
+      "title": "Sutra",
+      "edition": "v1",
+      "language": "sa",
+      "license": "review",
+      "checksum": "b3ea4a6373367d414ac7c87f68da3c86d6aec8cef1855539fdc39e57e9396ffe",
+      "landingZone": "raw/sanskrit/sutra"
+    },
+    {
+      "sourceId": "stotra-local-v1",
+      "title": "Stotra",
+      "edition": "v1",
+      "language": "sa",
+      "license": "review",
+      "checksum": "eb98e0723bc2d13e335f135bf806bb8babb1ffdde09f2d41a44490e66675041b",
+      "landingZone": "raw/sanskrit/stotra"
+    }
+  ],
+  "previewOnly": true,
+  "canonicalWriteAllowed": false
+}

@@ -1,0 +1,2807 @@
+{
+  "batchId": "SUTRA_CORPUS_BATCH_001",
+  "corpusType": "sutra",
+  "description": "Real corpus sutra batch seeded from local Paninian references",
+  "records": [
+    {
+      "id": "sutra-0001",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0002",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0003",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0004",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0005",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0006",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0007",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0008",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0009",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0010",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0011",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0012",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0013",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0014",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0015",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0016",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0017",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0018",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0019",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0020",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0021",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0022",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0023",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0024",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0025",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0026",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0027",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0028",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0029",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0030",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0031",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0032",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0033",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0034",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0035",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0036",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0037",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0038",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0039",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0040",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0041",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0042",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0043",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0044",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0045",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0046",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0047",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0048",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0049",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0050",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0051",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0052",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0053",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0054",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0055",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0056",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0057",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0058",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0059",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0060",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0061",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0062",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0063",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0064",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0065",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0066",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0067",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0068",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0069",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0070",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0071",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0072",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0073",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0074",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0075",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0076",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0077",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0078",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0079",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0080",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0081",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0082",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0083",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0084",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0085",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0086",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0087",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0088",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0089",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0090",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0091",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0092",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0093",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0094",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0095",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0096",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0097",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0098",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0099",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0100",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0101",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0102",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0103",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0104",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0105",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0106",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0107",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0108",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0109",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0110",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0111",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0112",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0113",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0114",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0115",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0116",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0117",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0118",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0119",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0120",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0121",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0122",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0123",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0124",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0125",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0126",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0127",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0128",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0129",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0130",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0131",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0132",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0133",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0134",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0135",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0136",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0137",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0138",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0139",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0140",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0141",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0142",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0143",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0144",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0145",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0146",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0147",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0148",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0149",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0150",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0151",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0152",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0153",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0154",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0155",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0156",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0157",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0158",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0159",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0160",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0161",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0162",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0163",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0164",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0165",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0166",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0167",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0168",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0169",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0170",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0171",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0172",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0173",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0174",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0175",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0176",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0177",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0178",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0179",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0180",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0181",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0182",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0183",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0184",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0185",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0186",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0187",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0188",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0189",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0190",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0191",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0192",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0193",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0194",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0195",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0196",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0197",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0198",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0199",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0200",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0201",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0202",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0203",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0204",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0205",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0206",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0207",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0208",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0209",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0210",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0211",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0212",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0213",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0214",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0215",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0216",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0217",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0218",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0219",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0220",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0221",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0222",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0223",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0224",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0225",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0226",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0227",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0228",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0229",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0230",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0231",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0232",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0233",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0234",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0235",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0236",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0237",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0238",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0239",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0240",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0241",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0242",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0243",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0244",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0245",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0246",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0247",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0248",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0249",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0250",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0251",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0252",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0253",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0254",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0255",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0256",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0257",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0258",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0259",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0260",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0261",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0262",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0263",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0264",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0265",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0266",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0267",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0268",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0269",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0270",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0271",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0272",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0273",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0274",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0275",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0276",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0277",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0278",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0279",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0280",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0281",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0282",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0283",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0284",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0285",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0286",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0287",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0288",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0289",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0290",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0291",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0292",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0293",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0294",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0295",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0296",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0297",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0298",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0299",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0300",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0301",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0302",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0303",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0304",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0305",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0306",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0307",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0308",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0309",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0310",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0311",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0312",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0313",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0314",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0315",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0316",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0317",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0318",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0319",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0320",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0321",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0322",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0323",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0324",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0325",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0326",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0327",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0328",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0329",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0330",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0331",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0332",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0333",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0334",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0335",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0336",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0337",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0338",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0339",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0340",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0341",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0342",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0343",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0344",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0345",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0346",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0347",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0348",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0349",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0350",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0351",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0352",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0353",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0354",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0355",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0356",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0357",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0358",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0359",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0360",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0361",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0362",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0363",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0364",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0365",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0366",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0367",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0368",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0369",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0370",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0371",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0372",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0373",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0374",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0375",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0376",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0377",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0378",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0379",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0380",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0381",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0382",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0383",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    },
+    {
+      "id": "sutra-0384",
+      "type": "sutra",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:4.1.2"
+    },
+    {
+      "id": "sutra-0385",
+      "type": "sutra",
+      "text": "एकः पूर्वपरयोः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.1"
+    },
+    {
+      "id": "sutra-0386",
+      "type": "sutra",
+      "text": "नो नः स्वरि",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.3"
+    },
+    {
+      "id": "sutra-0387",
+      "type": "sutra",
+      "text": "एङः पदान्तादति",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:6.1.72"
+    },
+    {
+      "id": "sutra-0388",
+      "type": "sutra",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.2.66"
+    },
+    {
+      "id": "sutra-0389",
+      "type": "sutra",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.3.14"
+    },
+    {
+      "id": "sutra-0390",
+      "type": "sutra",
+      "text": "वाऽवसानस्य",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.11"
+    },
+    {
+      "id": "sutra-0391",
+      "type": "sutra",
+      "text": "स्तोः श्चुना श्चुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:8.4.40"
+    },
+    {
+      "id": "sutra-0392",
+      "type": "sutra",
+      "text": "वृद्धिरादै",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.1"
+    },
+    {
+      "id": "sutra-0393",
+      "type": "sutra",
+      "text": "अदेङ् गुणः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.1.2"
+    },
+    {
+      "id": "sutra-0394",
+      "type": "sutra",
+      "text": "हलन्त्यत्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.2.3"
+    },
+    {
+      "id": "sutra-0395",
+      "type": "sutra",
+      "text": "भूवादयो धातवः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.1"
+    },
+    {
+      "id": "sutra-0396",
+      "type": "sutra",
+      "text": "उपसर्गे धातुजम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.3.2"
+    },
+    {
+      "id": "sutra-0397",
+      "type": "sutra",
+      "text": "सुप्तिङन्तं धातुः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:1.4.14"
+    },
+    {
+      "id": "sutra-0398",
+      "type": "sutra",
+      "text": "अर्धधातुकं शेषः",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.1.68"
+    },
+    {
+      "id": "sutra-0399",
+      "type": "sutra",
+      "text": "आत्मनेपदेषु",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.2.3"
+    },
+    {
+      "id": "sutra-0400",
+      "type": "sutra",
+      "text": "टित आत्मनेपदम्",
+      "source": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+      "notes": "ashtadhyayi-ref:3.4.113"
+    }
+  ]
+}

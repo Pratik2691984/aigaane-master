@@ -68,6 +68,18 @@ try:
     from api.dhatu_semantic_derivation_graph import traverse_derivation_graph
 except ModuleNotFoundError:
     from dhatu_semantic_derivation_graph import traverse_derivation_graph
+try:
+    from api.sanskrit_corpus_api import (
+        build_sanskrit_corpus_index_response,
+        get_corpus_by_type,
+        search_corpus,
+    )
+except ModuleNotFoundError:
+    from sanskrit_corpus_api import (
+        build_sanskrit_corpus_index_response,
+        get_corpus_by_type,
+        search_corpus,
+    )
 from engines.consonant_sandhi import ConsonantSandhiException, analyze_consonant_sandhi
 from engines.lexical_governance import (
     ANALYZE_GOVERNANCE,
@@ -673,6 +685,30 @@ async def dhatu_semantic_derivation_graph(
         maxDepth=maxDepth,
         relationType=relationType,
     )
+
+@app.get("/api/sanskrit/search")
+async def sanskrit_corpus_search(
+    q: Optional[str] = None,
+    type: Optional[str] = None,
+    limit: int = 25,
+):
+    return search_corpus(query=q, corpus_type=type, limit=limit)
+
+@app.get("/api/sanskrit/dhatu")
+async def sanskrit_corpus_dhatu(id: Optional[str] = None, limit: int = 25):
+    return get_corpus_by_type("dhatu", record_id=id, limit=limit)
+
+@app.get("/api/sanskrit/sutra")
+async def sanskrit_corpus_sutra(id: Optional[str] = None, limit: int = 25):
+    return get_corpus_by_type("sutra", record_id=id, limit=limit)
+
+@app.get("/api/sanskrit/stotra")
+async def sanskrit_corpus_stotra(id: Optional[str] = None, limit: int = 25):
+    return get_corpus_by_type("stotra", record_id=id, limit=limit)
+
+@app.get("/api/sanskrit")
+async def sanskrit_corpus_index():
+    return build_sanskrit_corpus_index_response()
 
 @app.post("/api/calculate-friction")
 async def calculate_atma_friction(payload: AtmaFrictionRequest):

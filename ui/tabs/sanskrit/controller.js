@@ -57,6 +57,8 @@ import { inspectRuleTrace } from "./trace/rule-trace-engine.js";
 import { renderRuleTraceList } from "./trace/rule-trace-renderer.js";
 import { buildVakyaDependencyOverlay } from "./vakya/vakya-dependency-engine.js";
 import { renderVakyaDependencyOverlay } from "./vakya/vakya-dependency-renderer.js";
+import { buildCorpusBrowserState, summarizeCorpusResults } from "./corpus/corpus-browser-engine.js";
+import { renderCorpusBrowserPanel } from "./corpus/corpus-browser-renderer.js";
 // Sanskrit Tab - deterministic linguistic analysis UI.
 
 let mountNode = null;
@@ -6163,6 +6165,37 @@ function renderInitialState() {
   });
 }
 
+async function renderCorpusBrowserPanelView(query = "") {
+  const host = byId("corpus-browser-output");
+  if (!host) {
+    return;
+  }
+
+  let indexPayload = { recordCount: 0 };
+  let searchPayload = { valid: false, results: [], query };
+
+  try {
+    const indexResponse = await fetch("/api/sanskrit");
+    if (indexResponse.ok) {
+      indexPayload = await indexResponse.json();
+    }
+    const searchUrl = query
+      ? `/api/sanskrit/search?q=${encodeURIComponent(query)}&limit=12`
+      : "/api/sanskrit/search?limit=12";
+    const searchResponse = await fetch(searchUrl);
+    if (searchResponse.ok) {
+      searchPayload = await searchResponse.json();
+    }
+  } catch (_error) {
+    searchPayload = { valid: false, results: [], query };
+  }
+
+  const state = buildCorpusBrowserState(indexPayload, query ? "Search" : "Preview");
+  const summary = summarizeCorpusResults(searchPayload);
+  const panel = renderCorpusBrowserPanel(state, summary);
+  host.textContent = panel.body;
+}
+
 export function init(node) {
   mountNode = node;
   analyzeButton = byId("analyze-sanskrit");
@@ -6306,6 +6339,7 @@ export function init(node) {
   loadSemanticDerivationData();
   loadSemanticDerivationGraphPanel();
   runLocalStaticDiagnostics();
+  renderCorpusBrowserPanelView();
 
   if (inputNode && !inputNode.value.trim()) inputNode.value = DEFAULT_PAYLOAD.input_text;
   analyzeCurrentInput();

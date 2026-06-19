@@ -1,0 +1,441 @@
+{
+  "schemaVersion": "sanskrit-canonical-dhatu.v1",
+  "phase": "11H",
+  "readOnly": true,
+  "writeAllowed": false,
+  "recordCount": 24,
+  "records": [
+    {
+      "id": "01.0001",
+      "text": "??",
+      "normalized": "??",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "[\"to be\", \"to become\", \"to exist\"]",
+        "syllables": 0
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "[\"to be\", \"to become\", \"to exist\"]"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0002",
+      "text": "???",
+      "normalized": "???",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "[\"to grow\", \"to prosper\", \"to increase\"]",
+        "syllables": 0
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "[\"to grow\", \"to prosper\", \"to increase\"]"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0101",
+      "text": "गम्",
+      "normalized": "गम",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to go",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to go"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0102",
+      "text": "स्था",
+      "normalized": "सथा",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to stand",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to stand"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0103",
+      "text": "नी",
+      "normalized": "नी",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to lead or carry",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to lead or carry"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0104",
+      "text": "पा",
+      "normalized": "पा",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to drink",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to drink"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0105",
+      "text": "दृश्",
+      "normalized": "दृश",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to see",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to see"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0106",
+      "text": "वद्",
+      "normalized": "वद",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to speak",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to speak"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0107",
+      "text": "पठ्",
+      "normalized": "पठ",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to read or recite",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to read or recite"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0108",
+      "text": "लिख्",
+      "normalized": "लिख",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to write",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to write"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0109",
+      "text": "स्मृ",
+      "normalized": "समृ",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to remember",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to remember"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0110",
+      "text": "लभ्",
+      "normalized": "लभ",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to obtain",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to obtain"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.0111",
+      "text": "सेव्",
+      "normalized": "सेव",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to serve",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to serve"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "01.STAGED.0012",
+      "text": "चर्",
+      "normalized": "चर",
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to move or wander",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to move or wander"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "02.0101",
+      "text": "हन्",
+      "normalized": "हन",
+      "computed": {
+        "gana": "02",
+        "pada": "parasmaipada",
+        "artha": "to strike or kill",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/02_adadi_batch.json",
+        "gana": "02",
+        "meaning": "to strike or kill"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "04.0001",
+      "text": "????",
+      "normalized": "????",
+      "computed": {
+        "gana": "04",
+        "pada": "parasmaipada",
+        "artha": "[\"to play\", \"to sport\"]",
+        "syllables": 0
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/04_divadi_batch.json",
+        "gana": "04",
+        "meaning": "[\"to play\", \"to sport\"]"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "05.0101",
+      "text": "श्रु",
+      "normalized": "शरु",
+      "computed": {
+        "gana": "05",
+        "pada": "parasmaipada",
+        "artha": "to hear",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/05_svadi_batch.json",
+        "gana": "05",
+        "meaning": "to hear"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "06.0001",
+      "text": "तुद्",
+      "normalized": "तुद",
+      "computed": {
+        "gana": "06",
+        "pada": "parasmaipada",
+        "artha": "to strike",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+        "gana": "06",
+        "meaning": "to strike"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "07.0001",
+      "text": "रुध्",
+      "normalized": "रुध",
+      "computed": {
+        "gana": "07",
+        "pada": "parasmaipada",
+        "artha": "to obstruct",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/07_rudhadi_batch.json",
+        "gana": "07",
+        "meaning": "to obstruct"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "08.0001",
+      "text": "तनु",
+      "normalized": "तनु",
+      "computed": {
+        "gana": "08",
+        "pada": "parasmaipada",
+        "artha": "to stretch",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/08_tanadi_batch.json",
+        "gana": "08",
+        "meaning": "to stretch"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "08.0101",
+      "text": "कृ",
+      "normalized": "कृ",
+      "computed": {
+        "gana": "08",
+        "pada": "parasmaipada",
+        "artha": "to do or make",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/08_tanadi_batch.json",
+        "gana": "08",
+        "meaning": "to do or make"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "09.0001",
+      "text": "क्री",
+      "normalized": "करी",
+      "computed": {
+        "gana": "09",
+        "pada": "parasmaipada",
+        "artha": "to buy",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+        "gana": "09",
+        "meaning": "to buy"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "09.0101",
+      "text": "ज्ञा",
+      "normalized": "जञा",
+      "computed": {
+        "gana": "09",
+        "pada": "parasmaipada",
+        "artha": "to know",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+        "gana": "09",
+        "meaning": "to know"
+      },
+      "readOnly": true
+    },
+    {
+      "id": "10.0001",
+      "text": "चुर्",
+      "normalized": "चुर",
+      "computed": {
+        "gana": "10",
+        "pada": "parasmaipada",
+        "artha": "to steal",
+        "syllables": 1
+      },
+      "provenance": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/10_curadi_batch.json",
+        "gana": "10",
+        "meaning": "to steal"
+      },
+      "readOnly": true
+    }
+  ]
+}

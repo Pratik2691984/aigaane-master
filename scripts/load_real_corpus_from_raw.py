@@ -8,7 +8,8 @@ from typing import Any, Dict, List
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW_CORPUS_ROOT = ROOT / "raw" / "corpus"
+RAW_CORPUS_ROOT = ROOT / "raw" / "sanskrit"
+RAW_LEGACY_ROOT = ROOT / "raw" / "corpus"
 RAW_MANIFEST = RAW_CORPUS_ROOT / "manifest.v1.json"
 STAGING_MANIFEST = ROOT / "data" / "sanskrit" / "corpus-staging" / "bulk_corpus_manifest.v1.json"
 
@@ -75,11 +76,18 @@ def _load_batch_file(path: Path) -> Dict[str, Any]:
 
 def discover_raw_corpus_batches() -> List[Path]:
     paths: List[Path] = []
-    for subdir in ("dhatu", "sutra", "stotra"):
-        batch_dir = RAW_CORPUS_ROOT / subdir
-        if batch_dir.exists():
-            paths.extend(sorted(batch_dir.glob("*.json")))
-    return paths
+    roots = [RAW_CORPUS_ROOT]
+    if RAW_CORPUS_ROOT.exists() and not any(RAW_CORPUS_ROOT.rglob("*.json")):
+        roots.append(RAW_LEGACY_ROOT)
+    elif not RAW_CORPUS_ROOT.exists():
+        roots = [RAW_LEGACY_ROOT]
+
+    for root in roots:
+        for subdir in ("dhatu", "sutra", "stotra"):
+            batch_dir = root / subdir
+            if batch_dir.exists():
+                paths.extend(sorted(batch_dir.glob("*.json")))
+    return list(dict.fromkeys(paths))
 
 
 def load_real_corpus_from_raw(dry_run: bool = True) -> Dict[str, Any]:

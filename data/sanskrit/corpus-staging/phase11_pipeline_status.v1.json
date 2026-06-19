@@ -1,0 +1,127 @@
+{
+  "valid": true,
+  "phase": "11",
+  "title": "Real Corpus Loading",
+  "stages": [
+    {
+      "stage": "11A-source-registry",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11A",
+        "sourceCount": 3,
+        "manifest": "data/sanskrit/corpus-sources/source_manifest.v1.json"
+      }
+    },
+    {
+      "stage": "11B-raw-landing",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11B",
+        "fileCount": 12,
+        "recordCount": 2000,
+        "typeCounts": {
+          "dhatu": 1400,
+          "sutra": 400,
+          "stotra": 200
+        },
+        "previewOnly": true
+      }
+    },
+    {
+      "stage": "11C-normalize",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11C",
+        "recordCount": 2000
+      }
+    },
+    {
+      "stage": "11D-validate",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11D",
+        "recordCount": 2000,
+        "invalidCount": 0,
+        "errors": []
+      }
+    },
+    {
+      "stage": "11E-dedupe",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11E",
+        "duplicateCount": 1949,
+        "uniqueCount": 51
+      }
+    },
+    {
+      "stage": "11F-enrich",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11F",
+        "recordCount": 51
+      }
+    },
+    {
+      "stage": "11G-certify",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11G",
+        "approved": true,
+        "certifiedBy": "manual",
+        "confidence": 100
+      }
+    },
+    {
+      "stage": "11H-canonical",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11H",
+        "writeAllowed": false,
+        "readOnly": true,
+        "recordCount": 51,
+        "typeCounts": {
+          "dhatu": 24,
+          "sutra": 17,
+          "stotra": 10
+        },
+        "artifacts": [
+          "data/sanskrit/canonical/dhatu/dhatu_registry.v1.json",
+          "data/sanskrit/canonical/sutra/sutra_registry.v1.json",
+          "data/sanskrit/canonical/stotra/stotra_registry.v1.json"
+        ],
+        "previewOnly": true
+      }
+    },
+    {
+      "stage": "11I-index",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11I",
+        "recordCount": 51,
+        "indexPath": "data/sanskrit/index/corpus_index.v1.json"
+      }
+    },
+    {
+      "stage": "11L-derivation",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "phase": "11L",
+        "hookCount": 51
+      }
+    }
+  ],
+  "recordCount": 51,
+  "previewOnly": true,
+  "canonicalWriteAllowed": false
+}

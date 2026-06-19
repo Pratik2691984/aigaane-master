@@ -45,66 +45,66 @@
     "dhatu": [
       {
         "batchId": "DHATU_01_BHVADI",
-        "path": "raw/corpus/dhatu/01_bhvadi_batch.json",
+        "path": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_02_ADADI",
-        "path": "raw/corpus/dhatu/02_adadi_batch.json",
+        "path": "raw/sanskrit/dhatu/02_adadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_03_JUHOTYADI",
-        "path": "raw/corpus/dhatu/03_juhotyadi_batch.json",
+        "path": "raw/sanskrit/dhatu/03_juhotyadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_04_DIVADI",
-        "path": "raw/corpus/dhatu/04_divadi_batch.json",
+        "path": "raw/sanskrit/dhatu/04_divadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_05_SVADI",
-        "path": "raw/corpus/dhatu/05_svadi_batch.json",
+        "path": "raw/sanskrit/dhatu/05_svadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_06_TUDADI",
-        "path": "raw/corpus/dhatu/06_tudadi_batch.json",
+        "path": "raw/sanskrit/dhatu/06_tudadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_07_RUDHADI",
-        "path": "raw/corpus/dhatu/07_rudhadi_batch.json",
+        "path": "raw/sanskrit/dhatu/07_rudhadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_08_TANADI",
-        "path": "raw/corpus/dhatu/08_tanadi_batch.json",
+        "path": "raw/sanskrit/dhatu/08_tanadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_09_KRYADI",
-        "path": "raw/corpus/dhatu/09_kryadi_batch.json",
+        "path": "raw/sanskrit/dhatu/09_kryadi_batch.json",
         "recordCount": 140
       },
       {
         "batchId": "DHATU_10_CURADI",
-        "path": "raw/corpus/dhatu/10_curadi_batch.json",
+        "path": "raw/sanskrit/dhatu/10_curadi_batch.json",
         "recordCount": 140
       }
     ],
     "sutra": [
       {
         "batchId": "SUTRA_CORPUS_BATCH_001",
-        "path": "raw/corpus/sutra/sutra_corpus_batch_001.json",
+        "path": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
         "recordCount": 400
       }
     ],
     "stotra": [
       {
         "batchId": "STOTRA_CORPUS_BATCH_001",
-        "path": "raw/corpus/stotra/stotra_corpus_batch_001.json",
+        "path": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
         "recordCount": 200
       }
     ]

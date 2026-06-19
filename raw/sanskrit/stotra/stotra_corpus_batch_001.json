@@ -1,0 +1,1407 @@
+{
+  "batchId": "STOTRA_CORPUS_BATCH_001",
+  "corpusType": "stotra",
+  "description": "Real corpus stotra batch seeded from local devotional text fragments",
+  "records": [
+    {
+      "id": "stotra-0001",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0002",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0003",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0004",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0005",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0006",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0007",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0008",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0009",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0010",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0011",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0012",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0013",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0014",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0015",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0016",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0017",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0018",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0019",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0020",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0021",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0022",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0023",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0024",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0025",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0026",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0027",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0028",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0029",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0030",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0031",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0032",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0033",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0034",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0035",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0036",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0037",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0038",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0039",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0040",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0041",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0042",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0043",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0044",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0045",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0046",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0047",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0048",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0049",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0050",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0051",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0052",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0053",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0054",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0055",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0056",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0057",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0058",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0059",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0060",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0061",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0062",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0063",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0064",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0065",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0066",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0067",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0068",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0069",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0070",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0071",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0072",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0073",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0074",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0075",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0076",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0077",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0078",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0079",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0080",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0081",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0082",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0083",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0084",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0085",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0086",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0087",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0088",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0089",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0090",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0091",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0092",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0093",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0094",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0095",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0096",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0097",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0098",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0099",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0100",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0101",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0102",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0103",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0104",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0105",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0106",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0107",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0108",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0109",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0110",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0111",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0112",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0113",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0114",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0115",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0116",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0117",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0118",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0119",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0120",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0121",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0122",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0123",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0124",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0125",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0126",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0127",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0128",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0129",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0130",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0131",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0132",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0133",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0134",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0135",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0136",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0137",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0138",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0139",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0140",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0141",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0142",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0143",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0144",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0145",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0146",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0147",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0148",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0149",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0150",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0151",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0152",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0153",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0154",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0155",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0156",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0157",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0158",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0159",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0160",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0161",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0162",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0163",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0164",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0165",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0166",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0167",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0168",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0169",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0170",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0171",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0172",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0173",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0174",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0175",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0176",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0177",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0178",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0179",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0180",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0181",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0182",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0183",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0184",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0185",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0186",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0187",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0188",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0189",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0190",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    },
+    {
+      "id": "stotra-0191",
+      "type": "stotra",
+      "text": "नमः शिवाय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-001"
+    },
+    {
+      "id": "stotra-0192",
+      "type": "stotra",
+      "text": "विष्णु सहस्रनाम",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-002"
+    },
+    {
+      "id": "stotra-0193",
+      "type": "stotra",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-003"
+    },
+    {
+      "id": "stotra-0194",
+      "type": "stotra",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-004"
+    },
+    {
+      "id": "stotra-0195",
+      "type": "stotra",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-005"
+    },
+    {
+      "id": "stotra-0196",
+      "type": "stotra",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-006"
+    },
+    {
+      "id": "stotra-0197",
+      "type": "stotra",
+      "text": "असतो मा सद्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-007"
+    },
+    {
+      "id": "stotra-0198",
+      "type": "stotra",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-008"
+    },
+    {
+      "id": "stotra-0199",
+      "type": "stotra",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-009"
+    },
+    {
+      "id": "stotra-0200",
+      "type": "stotra",
+      "text": "ॐ भूर्भुवः स्वः",
+      "source": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+      "notes": "seed:stotra-010"
+    }
+  ]
+}

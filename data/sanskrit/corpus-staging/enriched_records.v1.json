@@ -1,0 +1,906 @@
+{
+  "schemaVersion": "sanskrit-corpus-enriched.v1",
+  "phase": "11F",
+  "recordCount": 51,
+  "records": [
+    {
+      "recordId": "01.0001",
+      "type": "dhatu",
+      "script": "roman",
+      "text": "??",
+      "normalized": "??",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "[\"to be\", \"to become\", \"to exist\"]"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "[\"to be\", \"to become\", \"to exist\"]",
+        "syllables": 0
+      }
+    },
+    {
+      "recordId": "01.0002",
+      "type": "dhatu",
+      "script": "roman",
+      "text": "???",
+      "normalized": "???",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "[\"to grow\", \"to prosper\", \"to increase\"]"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "[\"to grow\", \"to prosper\", \"to increase\"]",
+        "syllables": 0
+      }
+    },
+    {
+      "recordId": "01.0101",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "गम्",
+      "normalized": "गम",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to go"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to go",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0102",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "स्था",
+      "normalized": "सथा",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to stand"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to stand",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0103",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "नी",
+      "normalized": "नी",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to lead or carry"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to lead or carry",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0104",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "पा",
+      "normalized": "पा",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to drink"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to drink",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0105",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "दृश्",
+      "normalized": "दृश",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to see"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to see",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0106",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "वद्",
+      "normalized": "वद",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to speak"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to speak",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0107",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "पठ्",
+      "normalized": "पठ",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to read or recite"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to read or recite",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0108",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "लिख्",
+      "normalized": "लिख",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to write"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to write",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0109",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "स्मृ",
+      "normalized": "समृ",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to remember"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to remember",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0110",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "लभ्",
+      "normalized": "लभ",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to obtain"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to obtain",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.0111",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "सेव्",
+      "normalized": "सेव",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to serve"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to serve",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "01.STAGED.0012",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "चर्",
+      "normalized": "चर",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/01_bhvadi_batch.json",
+        "gana": "01",
+        "meaning": "to move or wander"
+      },
+      "computed": {
+        "gana": "01",
+        "pada": "parasmaipada",
+        "artha": "to move or wander",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "02.0101",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "हन्",
+      "normalized": "हन",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/02_adadi_batch.json",
+        "gana": "02",
+        "meaning": "to strike or kill"
+      },
+      "computed": {
+        "gana": "02",
+        "pada": "parasmaipada",
+        "artha": "to strike or kill",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "04.0001",
+      "type": "dhatu",
+      "script": "roman",
+      "text": "????",
+      "normalized": "????",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/04_divadi_batch.json",
+        "gana": "04",
+        "meaning": "[\"to play\", \"to sport\"]"
+      },
+      "computed": {
+        "gana": "04",
+        "pada": "parasmaipada",
+        "artha": "[\"to play\", \"to sport\"]",
+        "syllables": 0
+      }
+    },
+    {
+      "recordId": "05.0101",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "श्रु",
+      "normalized": "शरु",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/05_svadi_batch.json",
+        "gana": "05",
+        "meaning": "to hear"
+      },
+      "computed": {
+        "gana": "05",
+        "pada": "parasmaipada",
+        "artha": "to hear",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "06.0001",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "तुद्",
+      "normalized": "तुद",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+        "gana": "06",
+        "meaning": "to strike"
+      },
+      "computed": {
+        "gana": "06",
+        "pada": "parasmaipada",
+        "artha": "to strike",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "07.0001",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "रुध्",
+      "normalized": "रुध",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/07_rudhadi_batch.json",
+        "gana": "07",
+        "meaning": "to obstruct"
+      },
+      "computed": {
+        "gana": "07",
+        "pada": "parasmaipada",
+        "artha": "to obstruct",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "08.0001",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "तनु",
+      "normalized": "तनु",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/08_tanadi_batch.json",
+        "gana": "08",
+        "meaning": "to stretch"
+      },
+      "computed": {
+        "gana": "08",
+        "pada": "parasmaipada",
+        "artha": "to stretch",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "08.0101",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "कृ",
+      "normalized": "कृ",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/08_tanadi_batch.json",
+        "gana": "08",
+        "meaning": "to do or make"
+      },
+      "computed": {
+        "gana": "08",
+        "pada": "parasmaipada",
+        "artha": "to do or make",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "09.0001",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "क्री",
+      "normalized": "करी",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+        "gana": "09",
+        "meaning": "to buy"
+      },
+      "computed": {
+        "gana": "09",
+        "pada": "parasmaipada",
+        "artha": "to buy",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "09.0101",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "ज्ञा",
+      "normalized": "जञा",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/09_kryadi_batch.json",
+        "gana": "09",
+        "meaning": "to know"
+      },
+      "computed": {
+        "gana": "09",
+        "pada": "parasmaipada",
+        "artha": "to know",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "10.0001",
+      "type": "dhatu",
+      "script": "devanagari",
+      "text": "चुर्",
+      "normalized": "चुर",
+      "metadata": {
+        "sourceId": "dhatupatha-local-v1",
+        "sourceFile": "raw/sanskrit/dhatu/10_curadi_batch.json",
+        "gana": "10",
+        "meaning": "to steal"
+      },
+      "computed": {
+        "gana": "10",
+        "pada": "parasmaipada",
+        "artha": "to steal",
+        "syllables": 1
+      }
+    },
+    {
+      "recordId": "sutra-0001",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "वृद्धिरादै",
+      "normalized": "वृदधिरादै",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.1"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0002",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "अदेङ् गुणः",
+      "normalized": "अदेङ गुणः",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.1.2"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0003",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "हलन्त्यत्",
+      "normalized": "हलनतयत",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.2.3"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0004",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "भूवादयो धातवः",
+      "normalized": "भूवादयो धातवः",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.1"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0005",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "उपसर्गे धातुजम्",
+      "normalized": "उपसरगे धातुजम",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.3.2"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0006",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "सुप्तिङन्तं धातुः",
+      "normalized": "सुपतिङनतं धातुः",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:1.4.14"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0007",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "अर्धधातुकं शेषः",
+      "normalized": "अरधधातुकं शेषः",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:3.1.68"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0008",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "आत्मनेपदेषु",
+      "normalized": "आतमनेपदेषु",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:3.2.3"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0009",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "टित आत्मनेपदम्",
+      "normalized": "टित आतमनेपदम",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:3.4.113"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0010",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "प्राग्दीर्घात् सम्प्रसारणात्",
+      "normalized": "परागदीरघात समपरसारणात",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:4.1.2"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0011",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "एकः पूर्वपरयोः",
+      "normalized": "एकः पूरवपरयोः",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:6.1.1"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0012",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "नो नः स्वरि",
+      "normalized": "नो नः सवरि",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:6.1.3"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0013",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "एङः पदान्तादति",
+      "normalized": "एङः पदानतादति",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:6.1.72"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0014",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "समासेऽनात्पौर्वपदात्",
+      "normalized": "समासेऽनातपौरवपदात",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:8.2.66"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0015",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "तृजुग्लुभुह्रदादिभ्यो ङित्",
+      "normalized": "तृजुगलुभुहरदादिभयो ङित",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:8.3.14"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0016",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "वाऽवसानस्य",
+      "normalized": "वाऽवसानसय",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:8.4.11"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "sutra-0017",
+      "type": "sutra",
+      "script": "devanagari",
+      "text": "स्तोः श्चुना श्चुः",
+      "normalized": "सतोः शचुना शचुः",
+      "metadata": {
+        "sourceId": "sutra-local-v1",
+        "sourceFile": "raw/sanskrit/sutra/sutra_corpus_batch_001.json",
+        "meaning": "ashtadhyayi-ref:8.4.40"
+      },
+      "computed": {
+        "adhikara": "vyakarana",
+        "ruleClass": "paninian"
+      }
+    },
+    {
+      "recordId": "stotra-0001",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "नमः शिवाय",
+      "normalized": "नमः शिवाय",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-001"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 2
+      }
+    },
+    {
+      "recordId": "stotra-0002",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "विष्णु सहस्रनाम",
+      "normalized": "विषणु सहसरनाम",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-002"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 2
+      }
+    },
+    {
+      "recordId": "stotra-0003",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "शान्तं शाश्वतमप्रमेयम्",
+      "normalized": "शानतं शाशवतमपरमेयम",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-003"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 2
+      }
+    },
+    {
+      "recordId": "stotra-0004",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "कराग्रे वसते लक्ष्मीः",
+      "normalized": "करागरे वसते लकषमीः",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-004"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      }
+    },
+    {
+      "recordId": "stotra-0005",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "सर्वं खल्विदं ब्रह्म",
+      "normalized": "सरवं खलविदं बरहम",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-005"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      }
+    },
+    {
+      "recordId": "stotra-0006",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "त्वमेव माता च पिता त्वमेव",
+      "normalized": "तवमेव माता च पिता तवमेव",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-006"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 5
+      }
+    },
+    {
+      "recordId": "stotra-0007",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "असतो मा सद्गमय",
+      "normalized": "असतो मा सदगमय",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-007"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      }
+    },
+    {
+      "recordId": "stotra-0008",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "तमसो मा ज्योतिर्गमय",
+      "normalized": "तमसो मा जयोतिरगमय",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-008"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      }
+    },
+    {
+      "recordId": "stotra-0009",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "मृत्योर्मा अमृतं गमय",
+      "normalized": "मृतयोरमा अमृतं गमय",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-009"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      }
+    },
+    {
+      "recordId": "stotra-0010",
+      "type": "stotra",
+      "script": "devanagari",
+      "text": "ॐ भूर्भुवः स्वः",
+      "normalized": "ॐ भूरभुवः सवः",
+      "metadata": {
+        "sourceId": "stotra-local-v1",
+        "sourceFile": "raw/sanskrit/stotra/stotra_corpus_batch_001.json",
+        "meaning": "seed:stotra-010"
+      },
+      "computed": {
+        "meter": "anuṣṭubh",
+        "pada": 1,
+        "syllables": 3
+      }
+    }
+  ],
+  "previewOnly": true
+}
