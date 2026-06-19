@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "sanskrit-real-corpus-raw.v1",
+  "phase": "11",
+  "title": "Real Corpus Loading",
+  "targets": {
+    "dhatu": 1400,
+    "sutra": 400,
+    "stotra": 200,
+    "total": 2000
+  },
+  "sources": {
+    "dhatu": [
+      "raw/dhatupatha.csv",
+      "raw/dhatupatha_controlled_batch_01.csv",
+      "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "raw/corpus/dhatu"
+    ],
+    "sutra": [
+      "raw/corpus/sutra"
+    ],
+    "stotra": [
+      "raw/corpus/stotra"
+    ]
+  },
+  "pipeline": [
+    "raw",
+    "corpus-staging",
+    "validation",
+    "provenance",
+    "preview",
+    "approval",
+    "certification",
+    "canonical"
+  ],
+  "policy": {
+    "mode": "local-only",
+    "networkScraping": false,
+    "previewOnly": true,
+    "canonicalWriteAllowed": false
+  },
+  "status": "raw-batches-ready",
+  "seedDhatuCount": 37,
+  "generatedAt": "phase-11",
+  "batches": {
+    "dhatu": [
+      {
+        "batchId": "DHATU_01_BHVADI",
+        "path": "raw/corpus/dhatu/01_bhvadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_02_ADADI",
+        "path": "raw/corpus/dhatu/02_adadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_03_JUHOTYADI",
+        "path": "raw/corpus/dhatu/03_juhotyadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_04_DIVADI",
+        "path": "raw/corpus/dhatu/04_divadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_05_SVADI",
+        "path": "raw/corpus/dhatu/05_svadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_06_TUDADI",
+        "path": "raw/corpus/dhatu/06_tudadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_07_RUDHADI",
+        "path": "raw/corpus/dhatu/07_rudhadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_08_TANADI",
+        "path": "raw/corpus/dhatu/08_tanadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_09_KRYADI",
+        "path": "raw/corpus/dhatu/09_kryadi_batch.json",
+        "recordCount": 140
+      },
+      {
+        "batchId": "DHATU_10_CURADI",
+        "path": "raw/corpus/dhatu/10_curadi_batch.json",
+        "recordCount": 140
+      }
+    ],
+    "sutra": [
+      {
+        "batchId": "SUTRA_CORPUS_BATCH_001",
+        "path": "raw/corpus/sutra/sutra_corpus_batch_001.json",
+        "recordCount": 400
+      }
+    ],
+    "stotra": [
+      {
+        "batchId": "STOTRA_CORPUS_BATCH_001",
+        "path": "raw/corpus/stotra/stotra_corpus_batch_001.json",
+        "recordCount": 200
+      }
+    ]
+  },
+  "counts": {
+    "dhatu": 1400,
+    "sutra": 400,
+    "stotra": 200,
+    "total": 2000
+  }
+}

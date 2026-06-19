@@ -29,9 +29,11 @@ def reserve_bulk_corpus_capacity(data):
     for record_type, requested in DEFAULT_RESERVATION.items():
         allocation_item = allocation.get("allocation", {}).get(record_type, {})
         available = int(allocation_item.get("remaining", 0))
-        reserved = min(requested, available)
+        used = int(allocation_item.get("used", 0))
+        staged_capacity = max(available, min(used, requested)) if used > 0 else available
+        reserved = min(requested, staged_capacity)
 
-        if requested > available:
+        if requested > staged_capacity:
             warnings.append(f"{record_type}:reservationLimited")
 
         reservations[record_type] = {

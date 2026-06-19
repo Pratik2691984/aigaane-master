@@ -1,0 +1,1129 @@
+{
+  "batchId": "DHATU_01_BHVADI",
+  "ganaId": "01",
+  "slug": "bhvadi",
+  "corpusType": "dhatu",
+  "description": "Real corpus dhatu batch for bhvadi gana",
+  "records": [
+    {
+      "id": "01.0001",
+      "type": "dhatu",
+      "text": "??",
+      "source": "raw/dhatupatha.csv",
+      "gana": "01",
+      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+    },
+    {
+      "id": "01.0002",
+      "type": "dhatu",
+      "text": "???",
+      "source": "raw/dhatupatha.csv",
+      "gana": "01",
+      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+    },
+    {
+      "id": "01.0101",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.0102",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.0103",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to lead or carry"
+    },
+    {
+      "id": "01.0104",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.0105",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.0106",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.0107",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.0108",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.0109",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.0110",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.0111",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/dhatupatha_controlled_batch_01.csv",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.STAGED.0001",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.STAGED.0002",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.STAGED.0003",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to lead"
+    },
+    {
+      "id": "01.STAGED.0004",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.STAGED.0005",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.STAGED.0006",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.STAGED.0007",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.STAGED.0008",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.STAGED.0009",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.STAGED.0010",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.STAGED.0011",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.STAGED.0012",
+      "type": "dhatu",
+      "text": "चर्",
+      "source": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "gana": "01",
+      "notes": "to move or wander"
+    },
+    {
+      "id": "01.GEN.0026",
+      "type": "dhatu",
+      "text": "??",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+    },
+    {
+      "id": "01.GEN.0027",
+      "type": "dhatu",
+      "text": "???",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+    },
+    {
+      "id": "01.GEN.0028",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0029",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0030",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead or carry"
+    },
+    {
+      "id": "01.GEN.0031",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0032",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0033",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0034",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0035",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0036",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0037",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0038",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0039",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0040",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0041",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead"
+    },
+    {
+      "id": "01.GEN.0042",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0043",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0044",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0045",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0046",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0047",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0048",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0049",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0050",
+      "type": "dhatu",
+      "text": "चर्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to move or wander"
+    },
+    {
+      "id": "01.GEN.0051",
+      "type": "dhatu",
+      "text": "??",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+    },
+    {
+      "id": "01.GEN.0052",
+      "type": "dhatu",
+      "text": "???",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+    },
+    {
+      "id": "01.GEN.0053",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0054",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0055",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead or carry"
+    },
+    {
+      "id": "01.GEN.0056",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0057",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0058",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0059",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0060",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0061",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0062",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0063",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0064",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0065",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0066",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead"
+    },
+    {
+      "id": "01.GEN.0067",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0068",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0069",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0070",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0071",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0072",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0073",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0074",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0075",
+      "type": "dhatu",
+      "text": "चर्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to move or wander"
+    },
+    {
+      "id": "01.GEN.0076",
+      "type": "dhatu",
+      "text": "??",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+    },
+    {
+      "id": "01.GEN.0077",
+      "type": "dhatu",
+      "text": "???",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+    },
+    {
+      "id": "01.GEN.0078",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0079",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0080",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead or carry"
+    },
+    {
+      "id": "01.GEN.0081",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0082",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0083",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0084",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0085",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0086",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0087",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0088",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0089",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0090",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0091",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead"
+    },
+    {
+      "id": "01.GEN.0092",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0093",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0094",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0095",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0096",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0097",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0098",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0099",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0100",
+      "type": "dhatu",
+      "text": "चर्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to move or wander"
+    },
+    {
+      "id": "01.GEN.0101",
+      "type": "dhatu",
+      "text": "??",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+    },
+    {
+      "id": "01.GEN.0102",
+      "type": "dhatu",
+      "text": "???",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+    },
+    {
+      "id": "01.GEN.0103",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0104",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0105",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead or carry"
+    },
+    {
+      "id": "01.GEN.0106",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0107",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0108",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0109",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0110",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0111",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0112",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0113",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0114",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0115",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0116",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead"
+    },
+    {
+      "id": "01.GEN.0117",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0118",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0119",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0120",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0121",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0122",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0123",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0124",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0125",
+      "type": "dhatu",
+      "text": "चर्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to move or wander"
+    },
+    {
+      "id": "01.GEN.0126",
+      "type": "dhatu",
+      "text": "??",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to be\", \"to become\", \"to exist\"]"
+    },
+    {
+      "id": "01.GEN.0127",
+      "type": "dhatu",
+      "text": "???",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "[\"to grow\", \"to prosper\", \"to increase\"]"
+    },
+    {
+      "id": "01.GEN.0128",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0129",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    },
+    {
+      "id": "01.GEN.0130",
+      "type": "dhatu",
+      "text": "नी",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to lead or carry"
+    },
+    {
+      "id": "01.GEN.0131",
+      "type": "dhatu",
+      "text": "पा",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to drink"
+    },
+    {
+      "id": "01.GEN.0132",
+      "type": "dhatu",
+      "text": "दृश्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to see"
+    },
+    {
+      "id": "01.GEN.0133",
+      "type": "dhatu",
+      "text": "वद्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to speak"
+    },
+    {
+      "id": "01.GEN.0134",
+      "type": "dhatu",
+      "text": "पठ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to read or recite"
+    },
+    {
+      "id": "01.GEN.0135",
+      "type": "dhatu",
+      "text": "लिख्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to write"
+    },
+    {
+      "id": "01.GEN.0136",
+      "type": "dhatu",
+      "text": "स्मृ",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to remember"
+    },
+    {
+      "id": "01.GEN.0137",
+      "type": "dhatu",
+      "text": "लभ्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to obtain"
+    },
+    {
+      "id": "01.GEN.0138",
+      "type": "dhatu",
+      "text": "सेव्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to serve"
+    },
+    {
+      "id": "01.GEN.0139",
+      "type": "dhatu",
+      "text": "गम्",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to go"
+    },
+    {
+      "id": "01.GEN.0140",
+      "type": "dhatu",
+      "text": "स्था",
+      "source": "raw/corpus/dhatu/01_bhvadi_batch.json",
+      "gana": "01",
+      "notes": "to stand"
+    }
+  ]
+}

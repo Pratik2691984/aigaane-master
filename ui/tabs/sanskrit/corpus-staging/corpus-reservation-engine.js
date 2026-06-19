@@ -21,7 +21,9 @@ function buildReservations(allocation = {}, requested = DEFAULT_CORPUS_RESERVATI
     const requestedCount = Number(requested[type] || 0);
     const allocationItem = allocation[type] || {};
     const available = Number(allocationItem.remaining || 0);
-    const reserved = Math.min(requestedCount, available);
+    const used = Number(allocationItem.used || 0);
+    const stagedCapacity = used > 0 ? Math.max(available, Math.min(used, requestedCount)) : available;
+    const reserved = Math.min(requestedCount, stagedCapacity);
     const unreserved = Math.max(0, requestedCount - reserved);
 
     if (unreserved > 0) {

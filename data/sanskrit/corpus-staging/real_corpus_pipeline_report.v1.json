@@ -1,0 +1,121 @@
+{
+  "valid": true,
+  "phase": "11",
+  "title": "Real Corpus Loading Pipeline",
+  "pipeline": [
+    "raw",
+    "corpus-staging",
+    "validation",
+    "provenance",
+    "preview",
+    "approval",
+    "certification",
+    "canonical"
+  ],
+  "stages": [
+    {
+      "stage": "raw",
+      "valid": true,
+      "summary": {
+        "valid": true
+      }
+    },
+    {
+      "stage": "corpus-staging",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "recordCount": 2000,
+        "batchCount": 12,
+        "typeCounts": {
+          "dhatu": 1400,
+          "sutra": 400,
+          "stotra": 200
+        },
+        "errors": []
+      }
+    },
+    {
+      "stage": "validation",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "recordCount": 2000,
+        "errors": []
+      }
+    },
+    {
+      "stage": "provenance",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "recordCount": 2000,
+        "batchCount": 12,
+        "typeCounts": {
+          "dhatu": 1400,
+          "sutra": 400,
+          "stotra": 200
+        },
+        "errors": [],
+        "warnings": [
+          "reusedSources"
+        ]
+      }
+    },
+    {
+      "stage": "preview",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "recordCount": 2000,
+        "typeCounts": {
+          "dhatu": 1400,
+          "sutra": 400,
+          "stotra": 200
+        }
+      }
+    },
+    {
+      "stage": "approval",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "acceptedRecordCount": 2000,
+        "approvalStatus": "approval-ready"
+      }
+    },
+    {
+      "stage": "certification",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "acceptedRecordCount": 2000,
+        "approvalStatus": "approval-ready",
+        "certificationStatus": "certification-ready"
+      }
+    },
+    {
+      "stage": "canonical",
+      "valid": true,
+      "summary": {
+        "valid": true,
+        "acceptedRecordCount": 2000,
+        "certificationStatus": "certification-ready",
+        "canonicalStatus": "canonical-preview-ready"
+      }
+    }
+  ],
+  "recordCount": 2000,
+  "typeCounts": {
+    "dhatu": 1400,
+    "sutra": 400,
+    "stotra": 200
+  },
+  "acceptedRecordCount": 2000,
+  "canonicalStatus": "canonical-preview-ready",
+  "previewOnly": true,
+  "readOnly": true,
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false
+}
