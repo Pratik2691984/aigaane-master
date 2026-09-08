@@ -1,10 +1,13 @@
 // C:\aigaane-master\ui\tabs\sanskrit\controller.js
-// Sanskrit Tab – 49 Phoneme Grid with Varga Grouping
+// Sanskrit Tab – 49 Phoneme Grid with Varga Grouping + read-only Corpus Browser
+
+import { mountCorpusBrowser } from './corpusBrowser.js';
 
 let mountNode = null;
+let corpusApi = null;
 
 const PHONEMES = [
-    "अ","आ","इ","ई","उ","ऊ","ऋ","ॠ","लृ","ॡ","ए","ऐ","ओ","औ","अं","अः",
+    "अ","आ","इ","ई","उ","ऊ","ऋ","ॠ","ऌ","ॡ","ए","ऐ","ओ","औ","ं","ः",
     "क","ख","ग","घ","ङ","च","छ","ज","झ","ञ","ट","ठ","ड","ढ","ण",
     "त","थ","द","ध","न","प","फ","ब","भ","म","य","र","ल","व","श","ष","स","ह"
 ];
@@ -30,7 +33,7 @@ const VARGA_MAP = [
 function buildGrid() {
     const grid = mountNode?.querySelector('#matrikaGrid');
     if (!grid) return;
-    
+
     if (grid.children.length === 0) {
         PHONEMES.forEach((char, idx) => {
             const div = document.createElement('div');
@@ -38,6 +41,7 @@ function buildGrid() {
             div.textContent = char;
             div.dataset.phonemeId = idx;
             div.title = TRANSLIT[idx];
+            div.addEventListener('click', () => highlightPhoneme(idx));
             grid.appendChild(div);
         });
     }
@@ -46,19 +50,19 @@ function buildGrid() {
 function highlightPhoneme(phonemeId) {
     const grid = mountNode?.querySelector('#matrikaGrid');
     if (!grid) return;
-    
+
     const validId = Math.min(Math.max(0, phonemeId), 48);
-    
+
     Array.from(grid.children).forEach((node, idx) => {
         node.classList.toggle('active', idx === validId);
     });
-    
+
     const bigAkshara = mountNode?.querySelector('#bigAkshara');
     const translitValue = mountNode?.querySelector('#translitValue');
     const vargaValue = mountNode?.querySelector('#vargaValue');
     const phonemeIdValue = mountNode?.querySelector('#phonemeIdValue');
     const activeVargaName = mountNode?.querySelector('#active-varga-name');
-    
+
     if (bigAkshara) bigAkshara.innerText = PHONEMES[validId];
     if (translitValue) translitValue.innerText = TRANSLIT[validId];
     if (vargaValue) vargaValue.innerText = VARGA_MAP[validId];
@@ -69,6 +73,8 @@ function highlightPhoneme(phonemeId) {
 export function init(node) {
     mountNode = node;
     buildGrid();
+    const browserRoot = mountNode.querySelector('#corpusBrowser');
+    if (browserRoot) corpusApi = mountCorpusBrowser(browserRoot);
     console.log('[Sanskrit] Tab mounted');
 }
 
@@ -79,12 +85,14 @@ export function render(state, node) {
         console.error('[Sanskrit] State is undefined!');
         return;
     }
-    
+
     const phonemeId = state.phoneme_id ?? 0;
     highlightPhoneme(phonemeId);
 }
 
 export function destroy() {
+    if (corpusApi && typeof corpusApi.destroy === 'function') corpusApi.destroy();
+    corpusApi = null;
     mountNode = null;
     console.log('[Sanskrit] Tab destroyed');
 }

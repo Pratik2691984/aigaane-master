@@ -5,12 +5,8 @@
     </header>
 
     <div class="sanskrit-layout">
-        <!-- The 7x7 Matrika Grid -->
-        <div class="akshara-grid" id="matrikaGrid">
-            <!-- 49 Aksharas injected by controller -->
-        </div>
+        <div class="akshara-grid" id="matrikaGrid"></div>
 
-        <!-- Detail Analysis Panel -->
         <aside class="phoneme-info">
             <div class="focus-card">
                 <span class="label">Current Akshara</span>
@@ -32,4 +28,21 @@
             </div>
         </aside>
     </div>
+
+    <section class="corpus-browser" id="corpusBrowser" data-readonly="true">
+        <div class="corpus-banner" id="corpusBanner">[PREVIEW MODE — 45 / 2000 RECORDS LOADED — READ ONLY]</div>
+        <nav class="corpus-subnav" aria-label="Corpus browser">
+            <button type="button" class="corpus-tab active" data-corpus-view="dhatu">Dhātu</button>
+            <button type="button" class="corpus-tab" data-corpus-view="sutra">Sūtra</button>
+            <button type="button" class="corpus-tab" data-corpus-view="stotra">Stotra</button>
+            <button type="button" class="corpus-tab" data-corpus-view="search">Search</button>
+            <button type="button" class="corpus-tab" data-corpus-view="trace">Trace</button>
+            <button type="button" class="corpus-tab" data-corpus-view="preview">Preview</button>
+        </nav>
+        <div id="corpusSearchWrap" class="corpus-search-wrap" hidden>
+            <label for="corpusSearch">Search</label>
+            <input id="corpusSearch" type="search" placeholder="root, text, title, transliteration" autocomplete="off">
+        </div>
+        <div id="corpusPanel" class="corpus-panel"></div>
+    </section>
 </div>
