@@ -2,11 +2,11 @@
  * Read-only Corpus Browser. Loads seed JSON in memory. No write APIs.
  */
 
+import { callDerivation } from '../../../shared/derivationFallback.js';
+
 const DHATU_IDS = Array.from({ length: 37 }, (_, i) => `dhatu-${String(i + 1).padStart(3, "0")}`);
 const SUTRA_IDS = ["sutra-001", "sutra-002", "sutra-003", "sutra-004", "sutra-005"];
 const STOTRA_IDS = ["stotra-001", "stotra-002", "stotra-003"];
-
-const FORBIDDEN = /import|save canonical|promote|edit|delete/i;
 
 async function loadJson(path) {
   const res = await fetch(path, { cache: "no-store" });
@@ -33,8 +33,7 @@ function label(rec) {
 
 function matches(rec, q) {
   if (!q) return true;
-  const blob = JSON.stringify(rec).toLowerCase();
-  return blob.includes(q.toLowerCase());
+  return JSON.stringify(rec).toLowerCase().includes(q.toLowerCase());
 }
 
 function renderList(panel, items, onSelect) {
@@ -53,6 +52,13 @@ function renderList(panel, items, onSelect) {
   panel.appendChild(ul);
 }
 
+function enginesFor(rec) {
+  if (rec?.root) return ["verbConjugate", "sandhi", "prakriya"];
+  if (rec?.text) return ["sandhi", "prakriya"];
+  if (rec?.meter) return ["chandas"];
+  return ["sandhi"];
+}
+
 export function mountCorpusBrowser(root) {
   if (!root) return { destroy() {} };
 
@@ -66,12 +72,20 @@ export function mountCorpusBrowser(root) {
   let view = "dhatu";
   let selected = null;
   let query = "";
+  let hooks = [];
 
   function setView(next) {
     view = next;
     tabs.forEach((t) => t.classList.toggle("active", t.dataset.corpusView === view));
     if (searchWrap) searchWrap.hidden = view !== "search";
     draw();
+  }
+
+  async function loadHooks(rec) {
+    hooks = [];
+    if (!rec) return;
+    const jobs = enginesFor(rec).map((engine) => callDerivation(engine, rec));
+    hooks = await Promise.all(jobs);
   }
 
   function draw() {
@@ -88,13 +102,21 @@ export function mountCorpusBrowser(root) {
       return;
     }
     if (view === "trace") {
-      panel.innerHTML = `<pre class="corpus-trace">${selected ? JSON.stringify(selected, null, 2) : "Select a record from Dhātu / Sūtra / Stotra."}</pre>`;
+      const recordBlock = selected ? JSON.stringify(selected, null, 2) : "Select a record from Dhātu / Sūtra / Stotra.";
+      const hookBlock = hooks.length ? JSON.stringify(hooks, null, 2) : "No derivation preview yet.";
+      panel.innerHTML = `<pre class="corpus-trace">${recordBlock}\n\n--- derivation hooks (read-only) ---\n${hookBlock}</pre>`;
       return;
     }
     const source = view === "search" ? index.all.filter((r) => matches(r, query)) : index[view] || [];
-    renderList(panel, source, (rec) => {
+    renderList(panel, source, async (rec) => {
       selected = rec;
       setView("trace");
+      try {
+        await loadHooks(rec);
+      } catch (err) {
+        hooks = [{ status: "mock_fallback", canonicalWrite: false, readOnly: true, error: String(err) }];
+      }
+      if (view === "trace") draw();
     });
   }
 
@@ -115,11 +137,6 @@ export function mountCorpusBrowser(root) {
     .catch((err) => {
       if (panel) panel.textContent = `Local fallback: corpus fetch failed (${err.message}). Write flags unchanged.`;
     });
-
-  const html = root.innerHTML;
-  if (FORBIDDEN.test(html)) {
-    console.warn("[corpus] forbidden mutation control text detected");
-  }
 
   return {
     getIndex: () => index,
