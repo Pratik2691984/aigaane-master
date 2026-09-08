@@ -1,5 +1,5 @@
 # C:\aigaane-master\api\kernel_api.py
-# Vercel‑compatible ASGI handler (using Mangum) – WebSockets disabled, routes prefixed with /api
+# Vercel-compatible ASGI handler (using Mangum) – WebSockets disabled, routes prefixed with /api
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,6 +14,7 @@ from mangum import Mangum
 
 sys.path.insert(0, os.path.dirname(__file__))
 from engines.anumana import calculate_friction
+from v3_derivation import router as v3_router
 
 app = FastAPI(title="Aigaane 49D Kernel API", version="3.0")
 
@@ -25,7 +26,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ============ Data Models (unchanged) ============
+app.include_router(v3_router)
+
 class Vector49D(BaseModel):
     spatial: List[float]
     temporal: List[float]
@@ -75,16 +77,12 @@ class AtmaFrictionRequest(BaseModel):
     agni_factor: float
     cosmic_angle: float = 0.0
 
-# ============ Storage ============
 current_state: Optional[KernelState] = None
 history_states: List[KernelState] = []
 golden_builds: List[Dict[str, Any]] = []
 current_golden_build: Optional[Dict[str, Any]] = None
-
-# ============ WebSocket disabled for Vercel ============
 manager = None
 
-# ============ Helper Functions ============
 def vector_to_list(v: Vector49D) -> List[float]:
     return v.spatial + v.temporal + v.planetary + v.guna + v.energy + v.biological + v.stellar
 
@@ -94,7 +92,6 @@ def list_to_vector(vector: List[float]) -> Vector49D:
         guna=vector[21:28], energy=vector[28:35], biological=vector[35:42], stellar=vector[42:49]
     )
 
-# ============ Core Endpoints (now under /api) ============
 @app.get("/api/kernel/v3/current")
 async def get_current_kernel():
     if current_state is None:
@@ -130,7 +127,6 @@ async def compare_states(index_a: int = -2, index_b: int = -1):
         "deltas": deltas[:10]
     }
 
-# ============ Golden Build Endpoints (under /api) ============
 @app.post("/api/kernel/v3/golden/build")
 async def create_golden_build(data: GoldenBuildData):
     global current_golden_build, golden_builds
@@ -163,7 +159,6 @@ async def delete_golden_build(build_id: str):
             return {"status": "deleted", "id": build_id}
     raise HTTPException(status_code=404, detail="Golden Build not found")
 
-# ============ Health & Info (under /api) ============
 @app.get("/api/health")
 async def health_check():
     return {
@@ -201,7 +196,6 @@ async def calculate_atma_friction(payload: AtmaFrictionRequest):
 async def calculate_atma_friction_alias(payload: AtmaFrictionRequest):
     return await calculate_atma_friction(payload)
 
-# ============ Startup: load Golden Build from file ============
 @app.on_event("startup")
 async def startup_event():
     golden_build_path = os.path.join(os.path.dirname(__file__), "..", "golden_build_chitra_53.json")
@@ -220,9 +214,8 @@ async def startup_event():
                 phase_lock=golden_data.get("phase_lock", "LOCKED")
             )
             await create_golden_build(build_data)
-            print(f"[Startup] ✅ Loaded Golden Build from {golden_build_path}")
+            print(f"[Startup] Loaded Golden Build from {golden_build_path}")
         except Exception as e:
-            print(f"[Startup] ⚠️ Failed to load Golden Build: {e}")
+            print(f"[Startup] Failed to load Golden Build: {e}")
 
-# ============ Vercel Handler ============
 handler = Mangum(app)
