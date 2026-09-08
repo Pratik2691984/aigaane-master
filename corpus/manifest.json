@@ -1,0 +1,27 @@
+{
+  "schema": "aigaane.sanskrit.corpus.manifest.v1",
+  "previewOnly": true,
+  "readOnly": true,
+  "canonicalWrite": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "capacity": 2000,
+  "windowSize": 250,
+  "targets": {
+    "dhatu": 1400,
+    "sutra": 400,
+    "stotra": 200,
+    "total": 2000
+  },
+  "discovered": {
+    "dhatu": 37,
+    "sutra": 5,
+    "stotra": 3,
+    "total": 45
+  },
+  "dedupedUniqueReported": 1341,
+  "dedupedUniqueOnDisk": 45,
+  "status": "INCOMPLETE",
+  "blockReason": "discovered 45 < target 2000; do not promote",
+  "note": "1341 is a pipeline design figure, not loaded inventory. Targets are metadata only."
+}
