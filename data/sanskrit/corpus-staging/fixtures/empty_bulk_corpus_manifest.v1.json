@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-manifest.v1",
+  "status": "empty-fixture",
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "batches": [],
+  "recordCount": 0,
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false
+}

@@ -15,13 +15,15 @@ class BulkCorpusCapacityTests(unittest.TestCase):
         return json.loads(result.stdout)
 
     def test_capacity_script_empty_manifest(self):
-        result = subprocess.run(
-            ["python", "scripts/plan_bulk_corpus_capacity.py"],
-            capture_output=True,
-            text=True,
-            check=True
+        import sys
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[1]
+        sys.path.insert(0, str(root / "scripts"))
+        from plan_bulk_corpus_capacity import plan_bulk_corpus_capacity
+        fixture = json.loads(
+            (root / "data" / "sanskrit" / "corpus-staging" / "fixtures" / "empty_bulk_corpus_manifest.v1.json").read_text(encoding="utf-8")
         )
-        data = json.loads(result.stdout)
+        data = plan_bulk_corpus_capacity(fixture)
         self.assertTrue(data["valid"])
         self.assertEqual(data["recordCount"], 0)
         self.assertEqual(data["remainingCapacity"], 2000)
