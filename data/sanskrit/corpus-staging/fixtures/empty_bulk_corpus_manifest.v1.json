@@ -1,13 +1,16 @@
 {
-  "schemaVersion": "sanskrit-bulk-corpus-manifest.v1",
-  "status": "empty-fixture",
+  "schemaVersion": "sanskrit-bulk-corpus-staging.v1",
+  "status": "staging-ready",
   "mode": "preview-only",
-  "previewOnly": true,
-  "readOnly": true,
-  "batches": [],
-  "recordCount": 0,
   "canonicalWriteAllowed": false,
-  "promotionAllowed": false,
-  "importAllowed": false,
-  "executionAllowed": false
+  "metadata": {
+    "readOnly": true,
+    "recordCount": 0,
+    "maxCapacity": 2000
+  },
+  "batches": {
+    "dhatu": [],
+    "sutra": [],
+    "stotra": []
+  }
 }
