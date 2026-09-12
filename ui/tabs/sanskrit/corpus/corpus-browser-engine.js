@@ -2,8 +2,35 @@
 
 const { CORPUS_BROWSER_SCHEMA, CORPUS_SECTIONS } = require("./corpus-browser-map.js");
 
+const VIRTUAL_CONFIG = {
+  rowHeight: 48,
+  viewportHeight: 480,
+  overscan: 5
+};
+
 function freeze(v) {
   return Object.freeze(v);
+}
+
+function computeVirtualWindow(totalCount, scrollTop, config = VIRTUAL_CONFIG) {
+  const count = Math.max(0, Number(totalCount) || 0);
+  const top = Math.max(0, Number(scrollTop) || 0);
+  const rowHeight = config.rowHeight || 48;
+  const viewportHeight = config.viewportHeight || 480;
+  const overscan = config.overscan !== undefined ? config.overscan : 5;
+
+  const visibleCount = Math.ceil(viewportHeight / rowHeight);
+  const rawStart = Math.floor(top / rowHeight);
+  const startIndex = Math.max(0, rawStart - overscan);
+  const endIndex = Math.min(count, rawStart + visibleCount + overscan);
+
+  return freeze({
+    startIndex,
+    endIndex,
+    topPadding: startIndex * rowHeight,
+    bottomPadding: Math.max(0, (count - endIndex) * rowHeight),
+    totalHeight: count * rowHeight
+  });
 }
 
 function buildCorpusBrowserState(indexPayload = {}, section = "Search") {
@@ -38,6 +65,8 @@ function summarizeCorpusResults(payload = {}) {
 }
 
 module.exports = {
+  VIRTUAL_CONFIG,
+  computeVirtualWindow,
   buildCorpusBrowserState,
   summarizeCorpusResults
 };
