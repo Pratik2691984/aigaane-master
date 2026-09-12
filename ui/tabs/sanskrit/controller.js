@@ -59,7 +59,7 @@ import { inspectRuleTrace } from "./trace/rule-trace-engine.js";
 import { renderRuleTraceList } from "./trace/rule-trace-renderer.js";
 import { buildVakyaDependencyOverlay } from "./vakya/vakya-dependency-engine.js";
 import { renderVakyaDependencyOverlay } from "./vakya/vakya-dependency-renderer.js";
-import { buildCorpusBrowserState, summarizeCorpusResults, computeVirtualWindow, VIRTUAL_CONFIG } from "./corpus/corpus-browser-engine.js";
+import { buildCorpusBrowserState, summarizeCorpusResults, computeVirtualWindow, VIRTUAL_CONFIG, nfcCorpusText } from "./corpus/corpus-browser-engine.js";
 import {
   renderCorpusBrowserPanel,
   renderCorpusNav,
@@ -6565,12 +6565,23 @@ async function fetchCorpusBrowserPayload(section = "preview", query = "", corpus
   }
 
   if (section === "search") {
-    const searchQuery = query || "भू";
+    const searchQuery = nfcCorpusText(query).trim();
+    if (!searchQuery) {
+      const response = await fetch(`/api/sanskrit/search?limit=${limit}${typeParam}`);
+      if (!response.ok) {
+        return { valid: false, results: [], query: "" };
+      }
+      const payload = await response.json();
+      payload.query = "";
+      return payload;
+    }
     const response = await fetch(`/api/sanskrit/search?q=${encodeURIComponent(searchQuery)}&limit=${limit}${typeParam}`);
     if (!response.ok) {
       return { valid: false, results: [], query: searchQuery };
     }
-    return response.json();
+    const payload = await response.json();
+    payload.query = searchQuery;
+    return payload;
   }
 
   const response = await fetch(`/api/sanskrit/search?limit=${limit}${typeParam}`);
@@ -6592,7 +6603,7 @@ async function renderCorpusBrowserPanelView(options = {}) {
   }
 
   const section = String(options.section || corpusBrowserSection || "preview").toLowerCase();
-  const query = String(options.query ?? byId("corpus-browser-search-input")?.value ?? "").trim();
+  const query = nfcCorpusText(options.query ?? byId("corpus-browser-search-input")?.value ?? "").trim();
   const corpusType = String(options.corpusType ?? byId("corpus-browser-type-filter")?.value ?? "").trim();
   corpusBrowserSection = section;
 

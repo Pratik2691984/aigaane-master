@@ -12,6 +12,10 @@ function freeze(v) {
   return Object.freeze(v);
 }
 
+function nfcCorpusText(value) {
+  return String(value || "").normalize("NFC");
+}
+
 function computeVirtualWindow(totalCount, scrollTop, config = VIRTUAL_CONFIG) {
   const count = Math.max(0, Number(totalCount) || 0);
   const top = Math.max(0, Number(scrollTop) || 0);
@@ -46,19 +50,55 @@ function buildCorpusBrowserState(indexPayload = {}, section = "Search") {
   });
 }
 
+function matchesCorpusQuery(record, rawQuery) {
+  const cleanQuery = nfcCorpusText(rawQuery).trim();
+  if (!cleanQuery) {
+    return true;
+  }
+  const targetText = nfcCorpusText(record && record.text);
+  const targetNorm = nfcCorpusText(record && record.normalized);
+  const targetId = String((record && (record.recordId || record.id)) || "");
+  return targetText.indexOf(cleanQuery) !== -1
+    || targetNorm.indexOf(cleanQuery) !== -1
+    || targetId.indexOf(cleanQuery) !== -1;
+}
+
+function sortCorpusResults(results) {
+  const list = Array.isArray(results) ? results.slice() : [];
+  return list.sort(function (a, b) {
+    const idA = String((a && (a.recordId || a.id)) || "");
+    const idB = String((b && (b.recordId || b.id)) || "");
+    if (idA < idB) return -1;
+    if (idA > idB) return 1;
+    const typeA = String((a && a.type) || "");
+    const typeB = String((b && b.type) || "");
+    if (typeA < typeB) return -1;
+    if (typeA > typeB) return 1;
+    return 0;
+  });
+}
+
 function summarizeCorpusResults(payload = {}) {
-  const results = Array.isArray(payload.results) ? payload.results : [];
-  return freeze({
-    valid: payload.valid !== false,
-    query: String(payload.query || ""),
-    count: Number(payload.count || results.length),
-    results: freeze(results.map((item) => freeze({
+  const query = nfcCorpusText(payload.query || "").trim();
+  const incoming = Array.isArray(payload.results) ? payload.results : [];
+  const mapped = incoming.map(function (item) {
+    return freeze({
       recordId: String(item.recordId || item.id || ""),
       type: String(item.type || ""),
-      text: String(item.text || ""),
-      normalized: String(item.normalized || ""),
-      meaning: String(item.meaning || item.notes || item.metadata?.meaning || "")
-    }))),
+      text: nfcCorpusText(item.text || ""),
+      normalized: nfcCorpusText(item.normalized || ""),
+      meaning: String(item.meaning || item.notes || (item.metadata && item.metadata.meaning) || "")
+    });
+  });
+  const filtered = mapped.filter(function (item) {
+    return matchesCorpusQuery(item, query);
+  });
+  const sorted = sortCorpusResults(filtered);
+  return freeze({
+    valid: payload.valid !== false,
+    query: query,
+    count: Number(sorted.length),
+    results: freeze(sorted),
     previewOnly: true,
     readOnly: true
   });
@@ -68,5 +108,8 @@ module.exports = {
   VIRTUAL_CONFIG,
   computeVirtualWindow,
   buildCorpusBrowserState,
-  summarizeCorpusResults
+  summarizeCorpusResults,
+  nfcCorpusText,
+  matchesCorpusQuery,
+  sortCorpusResults
 };
