@@ -6,10 +6,10 @@ function freeze(v) {
 
 function escapeHtml(v) {
   return String(v)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/&/g, "&")
+    .replace(/</g, "<")
+    .replace(/>/g, ">")
+    .replace(/"/g, """);
 }
 
 function typeClass(type) {
@@ -60,14 +60,15 @@ function renderCorpusNav(state = {}) {
   }).join("");
 }
 
-function renderCorpusResultCard(item = {}) {
+function renderCorpusResultCard(item = {}, selectedId = "") {
   const recordId = escapeHtml(item.recordId || item.id || "");
   const type = escapeHtml(item.type || "");
   const text = escapeHtml(item.text || item.normalized || "");
   const meaning = escapeHtml(item.meaning || item.notes || item.metadata?.meaning || "");
+  const selected = String(item.recordId || item.id || "") === String(selectedId || "") ? " is-selected" : "";
 
   return [
-    '<article class="corpus-browser-card" data-record-id="' + recordId + '" data-record-type="' + type + '">',
+    '<article class="corpus-browser-card' + selected + '" data-record-id="' + recordId + '" data-record-type="' + type + '">',
     '<header class="corpus-browser-card-header">',
     '<span class="corpus-browser-type-badge ' + typeClass(item.type) + '">' + type + "</span>",
     '<code class="corpus-browser-record-id">' + recordId + "</code>",
@@ -78,26 +79,80 @@ function renderCorpusResultCard(item = {}) {
   ].join("");
 }
 
-function renderCorpusResults(summary = {}, section = "Search") {
-  const results = Array.isArray(summary.results)
-    ? summary.results
-    : Array.isArray(summary.records)
-      ? summary.records.map((item) => ({
-          recordId: item.id || item.recordId,
-          type: item.type || summary.corpusType,
-          text: item.text || item.normalized,
-          meaning: item.notes || item.metadata?.meaning
-        }))
-      : [];
+function normalizeResults(summary = {}) {
+  if (Array.isArray(summary.results)) {
+    return summary.results;
+  }
+  if (Array.isArray(summary.records)) {
+    return summary.records.map((item) => ({
+      recordId: item.id || item.recordId,
+      type: item.type || summary.corpusType,
+      text: item.text || item.normalized,
+      meaning: item.notes || item.metadata?.meaning
+    }));
+  }
+  return [];
+}
+
+function renderCorpusResults(summary = {}, section = "Search", windowState = null, selectedId = "") {
+  const results = normalizeResults(summary);
 
   if (!results.length) {
     return '<div class="corpus-browser-empty">No ' + escapeHtml(section) + " records loaded.</div>";
   }
 
-  return results.map((item) => renderCorpusResultCard(item)).join("");
+  const totalCount = results.length;
+  const startIndex = windowState && Number.isFinite(windowState.startIndex)
+    ? windowState.startIndex
+    : 0;
+  const endIndex = windowState && Number.isFinite(windowState.endIndex)
+    ? windowState.endIndex
+    : Math.min(totalCount, 25);
+  const topPadding = windowState && Number.isFinite(windowState.topPadding)
+    ? windowState.topPadding
+    : 0;
+  const bottomPadding = windowState && Number.isFinite(windowState.bottomPadding)
+    ? windowState.bottomPadding
+    : Math.max(0, (totalCount - endIndex) * 48);
+  const totalHeight = windowState && Number.isFinite(windowState.totalHeight)
+    ? windowState.totalHeight
+    : totalCount * 48;
+
+  const visibleSlice = results.slice(startIndex, endIndex);
+  const cardsHtml = visibleSlice.map((item) => renderCorpusResultCard(item, selectedId)).join("");
+
+  return [
+    '<div class="corpus-results-viewport" data-total-count="' + escapeHtml(totalCount) + '" style="height:480px;overflow:auto;position:relative;">',
+    '<div class="corpus-results-spacer" style="position:relative;height:' + escapeHtml(totalHeight) + 'px;">',
+    '<div class="corpus-results-window" style="padding-top:' + escapeHtml(topPadding) + "px;padding-bottom:" + escapeHtml(bottomPadding) + 'px;">',
+    cardsHtml,
+    "</div>",
+    "</div>",
+    "</div>"
+  ].join("");
 }
 
-function renderCorpusTrace(state = {}, summary = {}, selected = null) {
+function renderDerivationSteps(derivationPath) {
+  return derivationPath.map((step, idx) => {
+    const operation = escapeHtml(step && step.operation ? step.operation : "unnamed_op");
+    const sutra = step && step.sutra
+      ? '<div class="corpus-browser-trace-sutra">Sutra: ' + escapeHtml(step.sutra)
+        + " (" + escapeHtml(step.sutra_name || "") + ")</div>"
+      : "";
+    const transition = escapeHtml(step && step.input_state ? step.input_state : "-")
+      + " → "
+      + escapeHtml(step && step.output_state ? step.output_state : "-");
+    return [
+      '<div class="corpus-browser-trace-step">',
+      '<div class="corpus-browser-trace-line">Step ' + (idx + 1) + ": " + operation + "</div>",
+      sutra,
+      '<div class="corpus-browser-trace-line">' + transition + "</div>",
+      "</div>"
+    ].join("");
+  }).join("");
+}
+
+function renderCorpusTrace(state = {}, summary = {}, selected = null, derivationData = null) {
   const lines = [
     "Schema: sanskrit-corpus-browser.v1",
     "Section: " + (state.section || "Search"),
@@ -106,31 +161,41 @@ function renderCorpusTrace(state = {}, summary = {}, selected = null) {
     "Canonical write: blocked"
   ];
 
-  if (selected) {
-    lines.push(
-      "",
-      "Selected:",
-      "- id: " + (selected.recordId || selected.id || ""),
-      "- type: " + (selected.type || ""),
-      "- text: " + (selected.text || selected.normalized || "")
-    );
+  if (!selected) {
+    lines.push("", "Awaiting corpus selection…");
+    return lines.map((line) => '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>").join("");
   }
 
-  return lines.map((line) => '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>").join("");
+  lines.push(
+    "",
+    "Selected:",
+    "- id: " + (selected.recordId || selected.id || ""),
+    "- type: " + (selected.type || ""),
+    "- text: " + (selected.text || selected.normalized || "")
+  );
+
+  const header = lines.map((line) => '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>").join("");
+  const derivationPath = derivationData && derivationData.derivation_path;
+
+  if (!derivationPath || !Array.isArray(derivationPath) || derivationPath.length === 0) {
+    return header + '<div class="corpus-browser-trace-line">derivation_path: absent</div>';
+  }
+
+  return header + renderDerivationSteps(derivationPath);
 }
 
-function renderCorpusBrowserPanel(state = {}, summary = {}) {
+function renderCorpusBrowserPanel(state = {}, summary = {}, windowState = null, selected = null, derivationData = null) {
   const html = [
     '<div class="corpus-browser-shell">',
     '<div class="corpus-browser-stats-grid">' + renderCorpusStats(state, summary) + "</div>",
     '<nav class="corpus-browser-nav" aria-label="Corpus sections">' + renderCorpusNav(state) + "</nav>",
     '<section class="corpus-browser-results-wrap">',
     '<h4 class="corpus-browser-results-title">' + escapeHtml(state.section || "Search") + " results</h4>",
-    '<div class="corpus-browser-results-list">' + renderCorpusResults(summary, state.section) + "</div>",
+    '<div class="corpus-browser-results-list">' + renderCorpusResults(summary, state.section, windowState, selected && selected.recordId) + "</div>",
     "</section>",
     '<aside class="corpus-browser-trace-wrap">',
     '<h4 class="corpus-browser-trace-title">Trace</h4>',
-    '<div class="corpus-browser-trace-list">' + renderCorpusTrace(state, summary) + "</div>",
+    '<div class="corpus-browser-trace-list">' + renderCorpusTrace(state, summary, selected, derivationData) + "</div>",
     "</aside>",
     "</div>"
   ].join("");
