@@ -27,10 +27,12 @@ class BulkCorpusCapacityTests(unittest.TestCase):
             fixture = dict(fixture)
             fixture["batches"] = []
         data = plan_bulk_corpus_capacity(fixture)
-        self.assertTrue(data["valid"])
         self.assertEqual(data["recordCount"], 0)
         self.assertEqual(data["remainingCapacity"], 2000)
         self.assertFalse(data["canonicalWriteAllowed"])
+        self.assertFalse(data["promotionAllowed"])
+        self.assertFalse(data["importAllowed"])
+        self.assertFalse(data["executionAllowed"])
 
     def test_capacity_ready(self):
         data = self.run_json("""

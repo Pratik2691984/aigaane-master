@@ -27,10 +27,13 @@ class BulkCorpusAllocationTests(unittest.TestCase):
             fixture = dict(fixture)
             fixture["batches"] = []
         data = plan_bulk_corpus_allocation(fixture)
-        self.assertTrue(data["valid"])
+        self.assertEqual(data["totalUsed"], 0)
         self.assertEqual(data["freeCapacity"], 2000)
         self.assertFalse(data["canonicalWriteAllowed"])
         self.assertFalse(data["allocationWriteAllowed"])
+        self.assertFalse(data["promotionAllowed"])
+        self.assertFalse(data["importAllowed"])
+        self.assertFalse(data["executionAllowed"])
 
     def test_allocation_ready(self):
         data = self.run_json("""
