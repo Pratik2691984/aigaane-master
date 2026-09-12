@@ -32,6 +32,7 @@ import { inspectSandhiText } from "./phonetics/sandhi-engine.js";
 import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
+import { inspectSanskritInput, toAnalyzePayload, toDevanagariOnlyPayload } from "./input/sanskrit-input-engine.js";
 import { executePrakriya } from "./prakriya/prakriya-composition-engine.js";
 import { renderPrakriyaTraceGraph } from "./prakriya/prakriya-graph-renderer.js";
 import { attachAllOverlays } from "./prakriya/prakriya-overlay-bridge.js";
@@ -5394,9 +5395,10 @@ function renderReplayTimeline(replay, targetId = "replay-session-output") {
 async function analyzeCurrentInput() {
   if (!inputNode) return;
 
-  const inputText = inputNode.value.trim();
+  const inspectedInput = inspectSanskritInput(inputNode.value);
+  const inputText = inspectedInput.nfc || inspectedInput.trimmed;
 
-  if (!inputText) {
+  if (!inputText || inspectedInput.script === "empty") {
     renderTransliterationPanel(inputText);
     renderPhoneticTopologyPanel(inputText);
     renderSandhiExecutionPanel(inputText);
@@ -5440,7 +5442,7 @@ async function analyzeCurrentInput() {
     const response = await fetch("/api/v3/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ input_text: inputText }),
+      body: JSON.stringify(toAnalyzePayload(inspectedInput)),
     });
 
     if (isExpectedStaticPreviewApiMiss(response)) {
@@ -5515,9 +5517,15 @@ async function runSandhi() {
   setBusy(sandhiButton, true);
 
   try {
+    const word1Gate = toDevanagariOnlyPayload(inspectSanskritInput(fieldValue("sandhi-word1")), "word1");
+    const word2Gate = toDevanagariOnlyPayload(inspectSanskritInput(fieldValue("sandhi-word2")), "word2");
+    if (!word1Gate.ok || !word2Gate.ok) {
+      setStatus("Devanagari input required for Sandhi and Morphology execution.", true);
+      return;
+    }
     const data = await postJson("/api/v3/sandhi", {
-      word1: fieldValue("sandhi-word1"),
-      word2: fieldValue("sandhi-word2"),
+      word1: word1Gate.value,
+      word2: word2Gate.value,
     });
     renderSandhiResult(data);
     renderDerivationTimeline(data?.derivation_path);
@@ -5572,6 +5580,14 @@ async function runMorphology() {
 
   try {
     const request = morphologyRequest();
+    const gatedField = request.body.dhatu != null ? "dhatu" : "stem";
+    const gatedValue = request.body[gatedField];
+    const gate = toDevanagariOnlyPayload(inspectSanskritInput(gatedValue), gatedField);
+    if (!gate.ok) {
+      setStatus("Devanagari input required for Sandhi and Morphology execution.", true);
+      return;
+    }
+    request.body[gatedField] = gate.value;
     const data = await postJson(request.url, request.body);
     renderMorphologyResult(data);
     renderDerivationTimeline(data?.derivation_path);
