@@ -33,6 +33,7 @@ import { analyzeShikshaText } from "./phonetics/shiksha-engine.js";
 import { inspectSymbolicCompression } from "./phonetics/symbolic-compression-engine.js";
 import { inspectTransliteration } from "./phonetics/transliteration-engine.js";
 import { inspectSanskritInput, toAnalyzePayload, toDevanagariOnlyPayload } from "./input/sanskrit-input-engine.js";
+import { normalizeAnalysisEnvelope } from "./input/sanskrit-analysis-envelope.js";
 import { executePrakriya } from "./prakriya/prakriya-composition-engine.js";
 import { renderPrakriyaTraceGraph } from "./prakriya/prakriya-graph-renderer.js";
 import { attachAllOverlays } from "./prakriya/prakriya-overlay-bridge.js";
@@ -3502,7 +3503,8 @@ function renderFallbackAnalysisPanel(payload) {
   const stages = byId("fallback-analysis-stages");
   const tokens = byId("fallback-analysis-tokens");
   const safety = byId("fallback-analysis-safety");
-  const isFallback = payload?.pipelineStatus?.mode === "local-fallback";
+  const fallbackMeta = payload?.client_fallback || payload;
+  const isFallback = fallbackMeta?.pipelineStatus?.mode === "local-fallback";
 
   if (panel) panel.classList.toggle("hidden", !isFallback);
   if (!isFallback) return;
@@ -3510,13 +3512,13 @@ function renderFallbackAnalysisPanel(payload) {
   if (badge) badge.textContent = "Local fallback";
   if (explanation) {
     explanation.textContent = text(
-      payload?.pipelineStatus?.backendUnavailableExplanation,
+      fallbackMeta?.pipelineStatus?.backendUnavailableExplanation,
       "The backend analysis route was unavailable, so a deterministic local fallback was rendered.",
     );
   }
 
   clearChildren(stages);
-  const stageValues = Array.isArray(payload?.pipelineStatus?.stages) ? payload.pipelineStatus.stages : [];
+  const stageValues = Array.isArray(fallbackMeta?.pipelineStatus?.stages) ? fallbackMeta.pipelineStatus.stages : [];
   stageValues.forEach((stage) => {
     const card = document.createElement("div");
     card.className = "fallback-stage-card";
@@ -3529,7 +3531,7 @@ function renderFallbackAnalysisPanel(payload) {
   });
 
   clearChildren(tokens);
-  const tokenValues = Array.isArray(payload?.tokenization?.tokens) ? payload.tokenization.tokens : [];
+  const tokenValues = Array.isArray(fallbackMeta?.tokenization?.tokens) ? fallbackMeta.tokenization.tokens : [];
   tokenValues.forEach((tokenValue) => {
     const item = document.createElement("span");
     item.className = "fallback-token";
@@ -3537,7 +3539,7 @@ function renderFallbackAnalysisPanel(payload) {
     tokens?.appendChild(item);
   });
 
-  if (safety) safety.textContent = text(payload?.safety_note);
+  if (safety) safety.textContent = text(fallbackMeta?.safety_note);
 }
 
 function isExpectedStaticPreviewApiMiss(errorOrResponse) {
@@ -4539,6 +4541,7 @@ function renderDebugSessionStorageList(data) {
 }
 
 function renderPayload(payload) {
+  payload = normalizeAnalysisEnvelope(payload);
   renderFallbackAnalysisPanel(payload);
   setText("overall-stanza-meter", payload?.overall_stanza_meter);
   setText("total-matra-count", payload?.total_matra_count, 0);
@@ -4578,8 +4581,7 @@ async function postJson(url, body) {
 function normalizeSanskritFallbackInput(inputText) {
   return text(inputText, "")
     .trim()
-    .replace(/\s+/g, " ")
-    .toLowerCase();
+    .replace(/\s+/g, " ");
 }
 
 function buildLocalSanskritAnalysisFallback(inputText) {
@@ -4589,7 +4591,7 @@ function buildLocalSanskritAnalysisFallback(inputText) {
   const isLikelyRigvedaOpening = normalizedInput === sampleRigvedaOpening;
   const safetyNote = "Local fallback only: backend analysis is required for authoritative vyakarana, exact chandas, exact sandhi, or canonical grammatical claims. No canonical registry or backend mutation is performed.";
 
-  return {
+  return normalizeAnalysisEnvelope({
     input_text: inputText,
     normalized_input: normalizedInput,
     pipelineStatus: {
@@ -4687,7 +4689,7 @@ function buildLocalSanskritAnalysisFallback(inputText) {
         index,
       })),
     },
-  };
+  });
 }
 
 async function checkLocalStaticFixture(label, path) {
