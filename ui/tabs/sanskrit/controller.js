@@ -74,6 +74,7 @@ let analyzeButton = null;
 let sandhiButton = null;
 let morphologyButton = null;
 let inputNode = null;
+let latestAnalyzeEnvelope = null;
 let debugCreateButton = null;
 let debugAppendButton = null;
 let debugAmbiguityButton = null;
@@ -1094,20 +1095,42 @@ function renderTinantaGeneratorPanels(inputText = "") {
   if (paradigmContainer) renderTinantaParadigm(paradigmContainer, generateTinantaParadigm(baseInput));
 }
 
+function resolvePrakriyaSourceToken(inputText = "") {
+  const candidates = [
+    fieldValue("morphology-stem"),
+    fieldValue("morphology-dhatu"),
+    String(inputText || "").split(/\s+/).filter(Boolean)[0] || "",
+  ];
+  for (const candidate of candidates) {
+    const gate = toDevanagariOnlyPayload(inspectSanskritInput(candidate), "token");
+    if (gate.ok) return gate.value;
+  }
+  return "";
+}
+
 function buildPrakriyaCompositionInput(inputText = "") {
-  const firstToken = String(inputText || "")
-    .split(/\s+/)
-    .filter(Boolean)[0] || "";
-  const nounInput = firstToken === "फल"
-    ? { stem: "फल", stemClass: "a-stem", linga: "neuter", vibhakti: "prathama", vacana: "eka" }
-    : firstToken === "सीता"
-      ? { stem: "सीता", stemClass: "ā-stem", linga: "feminine", vibhakti: "prathama", vacana: "eka" }
-      : { stem: "राम", stemClass: "a-stem", linga: "masculine", vibhakti: "prathama", vacana: "eka" };
-  const verbInput = firstToken === "भू" || firstToken === "bhū"
-    ? { dhatu: "bhū", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" }
-    : firstToken === "नी" || firstToken === "nī"
-      ? { dhatu: "nī", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" }
-      : { dhatu: "gam", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka" };
+  const firstToken = resolvePrakriyaSourceToken(inputText);
+  let nounInput;
+  let verbInput;
+  let heuristic = false;
+
+  if (firstToken === "फल") {
+    nounInput = { stem: "फल", stemClass: "a-stem", linga: "neuter", vibhakti: "prathama", vacana: "eka", heuristic: false };
+  } else if (firstToken === "सीता") {
+    nounInput = { stem: "सीता", stemClass: "ā-stem", linga: "feminine", vibhakti: "prathama", vacana: "eka", heuristic: false };
+  } else {
+    heuristic = true;
+    nounInput = { stem: firstToken, stemClass: "unclassified", linga: "", vibhakti: "prathama", vacana: "eka", heuristic: true };
+  }
+
+  if (firstToken === "भू" || firstToken === "bhū") {
+    verbInput = { dhatu: "bhū", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka", heuristic: false };
+  } else if (firstToken === "नी" || firstToken === "nī") {
+    verbInput = { dhatu: "nī", lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka", heuristic: false };
+  } else {
+    heuristic = true;
+    verbInput = { dhatu: firstToken, lakara: "laṭ", pada: "parasmaipada", purusha: "prathama", vacana: "eka", heuristic: true };
+  }
 
   return {
     nounInputs: [nounInput],
@@ -1115,6 +1138,8 @@ function buildPrakriyaCompositionInput(inputText = "") {
     enableSandhi: true,
     enableTrace: true,
     enableReversePreview: true,
+    heuristic,
+    previewMode: "static-preview",
   };
 }
 
@@ -1125,6 +1150,21 @@ function renderPrakriyaCompositionPanel(inputText = "") {
   renderPrakriya(container, executePrakriya(buildPrakriyaCompositionInput(inputText)));
 }
 
+function renderPrakriyaLiveGraphBadge(container) {
+  if (!container) return;
+  const existing = container.querySelector("[data-prakriya-graph-status]");
+  if (existing) existing.remove();
+  const nodes = latestAnalyzeEnvelope?.prakriya_graph?.nodes;
+  const live = Array.isArray(nodes) && nodes.length > 0;
+  const badge = document.createElement("p");
+  badge.setAttribute("data-prakriya-graph-status", "true");
+  badge.className = live ? "prakriya-graph-live" : "prakriya-graph-absent";
+  badge.textContent = live
+    ? "prakriya_graph: live (" + nodes.length + " nodes)"
+    : "prakriya_graph: absent";
+  container.insertBefore(badge, container.firstChild);
+}
+
 function renderPrakriyaTraceGraphPanel(inputText = "") {
   const container = byId("prakriya-trace-graph-panel");
   const rulefireContainer = byId("rulefire-panel");
@@ -1132,6 +1172,7 @@ function renderPrakriyaTraceGraphPanel(inputText = "") {
   const niruktaContainer = byId("nirukta-etymology-panel");
   if (!container && !rulefireContainer && !sutraDependencyContainer && !niruktaContainer) return;
 
+  renderPrakriyaLiveGraphBadge(container);
   const execution = executePrakriya(buildPrakriyaCompositionInput(inputText));
   const traceGraph = buildPrakriyaTraceGraph(execution);
   const rulefire = executeRulefire({
@@ -4655,6 +4696,7 @@ function renderDebugSessionStorageList(data) {
 
 function renderPayload(payload) {
   payload = normalizeAnalysisEnvelope(payload);
+  latestAnalyzeEnvelope = payload;
   renderFallbackAnalysisPanel(payload);
   setText("overall-stanza-meter", payload?.overall_stanza_meter);
   setText("total-matra-count", payload?.total_matra_count, 0);
