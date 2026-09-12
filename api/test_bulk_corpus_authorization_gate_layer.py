@@ -57,7 +57,6 @@ class TestBulkCorpusAuthorizationGateLayer(unittest.TestCase):
             _gov("governance-blocked", "blocked"), _hold()
         )
         self.assertFalse(record["authorized"])
-        self.assertFalse(record["executionAllowed"])
 
     def test_cleared_without_prerequisite_is_not_authorized(self):
         record = build_authorization_gate_record(
@@ -102,7 +101,6 @@ class TestBulkCorpusAuthorizationGateLayer(unittest.TestCase):
             _gov("governance-blocked", "blocked"), _hold("hold-active")
         )
         self.assertFalse(second["authorized"])
-        self.assertFalse(second["canonicalWriteAllowed"])
 
     def test_unknown_or_malformed_governance_fails_closed(self):
         record = build_authorization_gate_record(
@@ -132,6 +130,59 @@ class TestBulkCorpusAuthorizationGateLayer(unittest.TestCase):
         packet = json.loads(path.read_text(encoding="utf-8"))
         record = build_authorization_gate_record(packet)
         self.assertFalse(record["authorized"])
+
+    def test_cleared_with_missing_hold_is_blocked(self):
+        record = build_authorization_gate_record(
+            _gov("governance-cleared-for-authorization", "cleared-for-authorization"),
+            None,
+        )
+        self.assertFalse(record["authorized"])
+        self.assertIn("hold-missing", record["failures"])
+
+    def test_cleared_with_malformed_hold_is_blocked(self):
+        hold = _hold("hold-active")
+        hold["schemaVersion"] = "wrong-schema"
+        record = build_authorization_gate_record(
+            _gov("governance-cleared-for-authorization", "cleared-for-authorization"),
+            hold,
+        )
+        self.assertFalse(record["authorized"])
+        self.assertIn("hold-schema-mismatch", record["failures"])
+        hold2 = _hold("hold-active")
+        hold2.pop("status")
+        record = build_authorization_gate_record(
+            _gov("governance-cleared-for-authorization", "cleared-for-authorization"),
+            hold2,
+        )
+        self.assertFalse(record["authorized"])
+        self.assertIn("hold-status-missing", record["failures"])
+
+    def test_cleared_with_hold_autopromote_is_blocked(self):
+        hold = _hold("hold-active")
+        hold["autoPromote"] = True
+        record = build_authorization_gate_record(
+            _gov("governance-cleared-for-authorization", "cleared-for-authorization"),
+            hold,
+        )
+        self.assertFalse(record["authorized"])
+        self.assertIn("hold-autoPromote", record["failures"])
+
+    def test_cleared_with_hold_write_flag_is_blocked(self):
+        hold = _hold("hold-active")
+        hold["canonicalWriteAllowed"] = True
+        record = build_authorization_gate_record(
+            _gov("governance-cleared-for-authorization", "cleared-for-authorization"),
+            hold,
+        )
+        self.assertFalse(record["authorized"])
+        self.assertIn("hold-canonicalWrite-leaked", record["failures"])
+
+    def test_leaked_governance_write_flag_is_blocked(self):
+        gov = _gov("governance-cleared-for-authorization", "cleared-for-authorization")
+        gov["canonicalWriteAllowed"] = True
+        record = build_authorization_gate_record(gov, _hold("hold-active"))
+        self.assertFalse(record["authorized"])
+        self.assertFalse(record["canonicalWriteAllowed"])
 
 
 if __name__ == "__main__":

@@ -37,6 +37,8 @@ EXPECTED_GOV_SCHEMA = "sanskrit-bulk-corpus-governance-decision.v1"
 CLEARED = "governance-cleared-for-authorization"
 PENDING = "governance-decision-pending"
 BLOCKED = "governance-blocked"
+EXPECTED_HOLD_SCHEMA = "sanskrit-bulk-corpus-post-attestation-hold.v1"
+VALID_HOLD_STATUSES = ("hold-waiting-attestation", "hold-active")
 
 
 def _failures(governance: Dict[str, Any], hold: Optional[Dict[str, Any]]) -> List[str]:
@@ -66,9 +68,18 @@ def _failures(governance: Dict[str, Any], hold: Optional[Dict[str, Any]]) -> Lis
         found.append("governance-claimed-authorization")
     if auth.get("governanceDecisionIsExecutionAuthorization") is True:
         found.append("governance-claimed-execution")
-    if hold is not None:
-        if hold.get("status") == "hold-blocked":
+    if hold is None:
+        found.append("hold-missing")
+    else:
+        if hold.get("schemaVersion") != EXPECTED_HOLD_SCHEMA:
+            found.append("hold-schema-mismatch")
+        hold_status = hold.get("status")
+        if hold_status is None:
+            found.append("hold-status-missing")
+        elif hold_status == "hold-blocked":
             found.append("hold-blocked")
+        elif hold_status not in VALID_HOLD_STATUSES:
+            found.append("hold-status-unknown")
         if hold.get("autoPromote") is True:
             found.append("hold-autoPromote")
         if hold.get("canonicalWriteAllowed") is True:
