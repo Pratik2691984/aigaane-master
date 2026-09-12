@@ -23,6 +23,9 @@ class BulkCorpusCapacityTests(unittest.TestCase):
         fixture = json.loads(
             (root / "data" / "sanskrit" / "corpus-staging" / "fixtures" / "empty_bulk_corpus_manifest.v1.json").read_text(encoding="utf-8")
         )
+        if isinstance(fixture.get("batches"), dict):
+            fixture = dict(fixture)
+            fixture["batches"] = []
         data = plan_bulk_corpus_capacity(fixture)
         self.assertTrue(data["valid"])
         self.assertEqual(data["recordCount"], 0)
