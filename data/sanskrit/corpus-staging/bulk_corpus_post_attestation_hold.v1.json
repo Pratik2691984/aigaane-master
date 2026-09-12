@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-post-attestation-hold.v1",
+  "status": "hold-waiting-attestation",
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "hardStop": true,
+  "holdActive": true,
+  "waitingAttestation": true,
+  "holdCompleted": false,
+  "autoPromote": false,
+  "sourceReview": {
+    "status": "manual-review-pending",
+    "attested": false
+  },
+  "failures": [],
+  "authorization": {
+    "holdIsAuthorization": false,
+    "attestationIsAuthorization": false,
+    "manualReviewIsExecutionAuthorization": false,
+    "canonicalWrite": false,
+    "promotion": false,
+    "import": false,
+    "execution": false
+  },
+  "nextGate": "38F FINAL GOVERNANCE DECISION",
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false,
+  "holdExecutionAllowed": false,
+  "manualReviewExecutionAllowed": false
+}
