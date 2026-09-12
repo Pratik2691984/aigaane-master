@@ -9,7 +9,7 @@ function escapeHtml(v) {
     .replace(/&/g, "&")
     .replace(/</g, "<")
     .replace(/>/g, ">")
-    .replace(/"/g, """);
+    .replace(new RegExp(String.fromCharCode(34), "g"), """);
 }
 
 function typeClass(type) {
@@ -20,11 +20,12 @@ function typeClass(type) {
   return "corpus-type-unknown";
 }
 
-function renderCorpusStats(state = {}, summary = {}) {
+function renderCorpusStats(state, summary) {
+  state = state || {};
+  summary = summary || {};
   const recordCount = Number(state.recordCount || 0);
   const matchCount = Number(summary.count || 0);
   const status = summary.valid === false ? "Blocked" : "Ready";
-
   return [
     '<article class="corpus-browser-stat">',
     '<span class="corpus-browser-stat-label">Indexed records</span>',
@@ -45,9 +46,10 @@ function renderCorpusStats(state = {}, summary = {}) {
   ].join("");
 }
 
-function renderCorpusNav(state = {}) {
+function renderCorpusNav(state) {
+  state = state || {};
   const sections = Array.isArray(state.sections) ? state.sections : [];
-  return sections.map((name) => {
+  return sections.map(function (name) {
     const active = name === state.section ? " is-active" : "";
     const slug = String(name).toLowerCase();
     return (
@@ -60,13 +62,14 @@ function renderCorpusNav(state = {}) {
   }).join("");
 }
 
-function renderCorpusResultCard(item = {}, selectedId = "") {
+function renderCorpusResultCard(item, selectedId) {
+  item = item || {};
+  selectedId = selectedId || "";
   const recordId = escapeHtml(item.recordId || item.id || "");
   const type = escapeHtml(item.type || "");
   const text = escapeHtml(item.text || item.normalized || "");
-  const meaning = escapeHtml(item.meaning || item.notes || item.metadata?.meaning || "");
-  const selected = String(item.recordId || item.id || "") === String(selectedId || "") ? " is-selected" : "";
-
+  const meaning = escapeHtml(item.meaning || item.notes || "");
+  const selected = String(item.recordId || item.id || "") === String(selectedId) ? " is-selected" : "";
   return [
     '<article class="corpus-browser-card' + selected + '" data-record-id="' + recordId + '" data-record-type="' + type + '">',
     '<header class="corpus-browser-card-header">',
@@ -79,69 +82,60 @@ function renderCorpusResultCard(item = {}, selectedId = "") {
   ].join("");
 }
 
-function normalizeResults(summary = {}) {
+function normalizeResults(summary) {
+  summary = summary || {};
   if (Array.isArray(summary.results)) {
     return summary.results;
   }
   if (Array.isArray(summary.records)) {
-    return summary.records.map((item) => ({
-      recordId: item.id || item.recordId,
-      type: item.type || summary.corpusType,
-      text: item.text || item.normalized,
-      meaning: item.notes || item.metadata?.meaning
-    }));
+    return summary.records.map(function (item) {
+      return {
+        recordId: item.id || item.recordId,
+        type: item.type || summary.corpusType,
+        text: item.text || item.normalized,
+        meaning: item.notes || ""
+      };
+    });
   }
   return [];
 }
 
-function renderCorpusResults(summary = {}, section = "Search", windowState = null, selectedId = "") {
+function renderCorpusResults(summary, section, windowState, selectedId) {
+  summary = summary || {};
+  section = section || "Search";
+  windowState = windowState || null;
+  selectedId = selectedId || "";
   const results = normalizeResults(summary);
-
   if (!results.length) {
     return '<div class="corpus-browser-empty">No ' + escapeHtml(section) + " records loaded.</div>";
   }
-
   const totalCount = results.length;
-  const startIndex = windowState && Number.isFinite(windowState.startIndex)
-    ? windowState.startIndex
-    : 0;
-  const endIndex = windowState && Number.isFinite(windowState.endIndex)
-    ? windowState.endIndex
-    : Math.min(totalCount, 25);
-  const topPadding = windowState && Number.isFinite(windowState.topPadding)
-    ? windowState.topPadding
-    : 0;
-  const bottomPadding = windowState && Number.isFinite(windowState.bottomPadding)
-    ? windowState.bottomPadding
-    : Math.max(0, (totalCount - endIndex) * 48);
-  const totalHeight = windowState && Number.isFinite(windowState.totalHeight)
-    ? windowState.totalHeight
-    : totalCount * 48;
-
+  const startIndex = windowState && Number.isFinite(windowState.startIndex) ? windowState.startIndex : 0;
+  const endIndex = windowState && Number.isFinite(windowState.endIndex) ? windowState.endIndex : Math.min(totalCount, 25);
+  const topPadding = windowState && Number.isFinite(windowState.topPadding) ? windowState.topPadding : 0;
+  const bottomPadding = windowState && Number.isFinite(windowState.bottomPadding) ? windowState.bottomPadding : Math.max(0, (totalCount - endIndex) * 48);
+  const totalHeight = windowState && Number.isFinite(windowState.totalHeight) ? windowState.totalHeight : totalCount * 48;
   const visibleSlice = results.slice(startIndex, endIndex);
-  const cardsHtml = visibleSlice.map((item) => renderCorpusResultCard(item, selectedId)).join("");
-
+  const cardsHtml = visibleSlice.map(function (item) {
+    return renderCorpusResultCard(item, selectedId);
+  }).join("");
   return [
     '<div class="corpus-results-viewport" data-total-count="' + escapeHtml(totalCount) + '" style="height:480px;overflow:auto;position:relative;">',
     '<div class="corpus-results-spacer" style="position:relative;height:' + escapeHtml(totalHeight) + 'px;">',
-    '<div class="corpus-results-window" style="padding-top:' + escapeHtml(topPadding) + "px;padding-bottom:" + escapeHtml(bottomPadding) + 'px;">',
+    '<div class="corpus-results-window" style="padding-top:' + escapeHtml(topPadding) + 'px;padding-bottom:' + escapeHtml(bottomPadding) + 'px;">',
     cardsHtml,
-    "</div>",
-    "</div>",
-    "</div>"
+    "</div></div></div>"
   ].join("");
 }
 
 function renderDerivationSteps(derivationPath) {
-  return derivationPath.map((step, idx) => {
-    const operation = escapeHtml(step && step.operation ? step.operation : "unnamed_op");
-    const sutra = step && step.sutra
-      ? '<div class="corpus-browser-trace-sutra">Sutra: ' + escapeHtml(step.sutra)
-        + " (" + escapeHtml(step.sutra_name || "") + ")</div>"
+  return derivationPath.map(function (step, idx) {
+    step = step || {};
+    const operation = escapeHtml(step.operation || "unnamed_op");
+    const sutra = step.sutra
+      ? '<div class="corpus-browser-trace-sutra">Sutra: ' + escapeHtml(step.sutra) + " (" + escapeHtml(step.sutra_name || "") + ")</div>"
       : "";
-    const transition = escapeHtml(step && step.input_state ? step.input_state : "-")
-      + " → "
-      + escapeHtml(step && step.output_state ? step.output_state : "-");
+    const transition = escapeHtml(step.input_state || "-") + " -> " + escapeHtml(step.output_state || "-");
     return [
       '<div class="corpus-browser-trace-step">',
       '<div class="corpus-browser-trace-line">Step ' + (idx + 1) + ": " + operation + "</div>",
@@ -152,7 +146,11 @@ function renderDerivationSteps(derivationPath) {
   }).join("");
 }
 
-function renderCorpusTrace(state = {}, summary = {}, selected = null, derivationData = null) {
+function renderCorpusTrace(state, summary, selected, derivationData) {
+  state = state || {};
+  summary = summary || {};
+  selected = selected || null;
+  derivationData = derivationData || null;
   const lines = [
     "Schema: sanskrit-corpus-browser.v1",
     "Section: " + (state.section || "Search"),
@@ -160,12 +158,12 @@ function renderCorpusTrace(state = {}, summary = {}, selected = null, derivation
     "Preview only: true",
     "Canonical write: blocked"
   ];
-
   if (!selected) {
-    lines.push("", "Awaiting corpus selection…");
-    return lines.map((line) => '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>").join("");
+    lines.push("", "Awaiting corpus selection...");
+    return lines.map(function (line) {
+      return '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>";
+    }).join("");
   }
-
   lines.push(
     "",
     "Selected:",
@@ -173,18 +171,19 @@ function renderCorpusTrace(state = {}, summary = {}, selected = null, derivation
     "- type: " + (selected.type || ""),
     "- text: " + (selected.text || selected.normalized || "")
   );
-
-  const header = lines.map((line) => '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>").join("");
+  const header = lines.map(function (line) {
+    return '<div class="corpus-browser-trace-line">' + escapeHtml(line) + "</div>";
+  }).join("");
   const derivationPath = derivationData && derivationData.derivation_path;
-
   if (!derivationPath || !Array.isArray(derivationPath) || derivationPath.length === 0) {
     return header + '<div class="corpus-browser-trace-line">derivation_path: absent</div>';
   }
-
   return header + renderDerivationSteps(derivationPath);
 }
 
-function renderCorpusBrowserPanel(state = {}, summary = {}, windowState = null, selected = null, derivationData = null) {
+function renderCorpusBrowserPanel(state, summary, windowState, selected, derivationData) {
+  state = state || {};
+  summary = summary || {};
   const html = [
     '<div class="corpus-browser-shell">',
     '<div class="corpus-browser-stats-grid">' + renderCorpusStats(state, summary) + "</div>",
@@ -199,7 +198,6 @@ function renderCorpusBrowserPanel(state = {}, summary = {}, windowState = null, 
     "</aside>",
     "</div>"
   ].join("");
-
   const results = Array.isArray(summary.results) ? summary.results : [];
   const body = [
     "Corpus Browser",
@@ -208,21 +206,20 @@ function renderCorpusBrowserPanel(state = {}, summary = {}, windowState = null, 
     "Matches: " + (summary.count || results.length),
     "Results: " + results.length
   ].join("\n");
-
   return freeze({
     title: "Sanskrit Corpus Browser",
     status: summary.valid === false ? "CORPUS_BLOCKED" : "CORPUS_READY",
     readOnly: true,
-    html,
-    body
+    html: html,
+    body: body
   });
 }
 
 module.exports = {
-  renderCorpusBrowserPanel,
-  renderCorpusStats,
-  renderCorpusNav,
-  renderCorpusResults,
-  renderCorpusTrace,
-  renderCorpusResultCard
+  renderCorpusBrowserPanel: renderCorpusBrowserPanel,
+  renderCorpusStats: renderCorpusStats,
+  renderCorpusNav: renderCorpusNav,
+  renderCorpusResults: renderCorpusResults,
+  renderCorpusTrace: renderCorpusTrace,
+  renderCorpusResultCard: renderCorpusResultCard
 };
