@@ -57,7 +57,7 @@ import { inspectRuleTrace } from "./trace/rule-trace-engine.js";
 import { renderRuleTraceList } from "./trace/rule-trace-renderer.js";
 import { buildVakyaDependencyOverlay } from "./vakya/vakya-dependency-engine.js";
 import { renderVakyaDependencyOverlay } from "./vakya/vakya-dependency-renderer.js";
-import { buildCorpusBrowserState, summarizeCorpusResults } from "./corpus/corpus-browser-engine.js";
+import { buildCorpusBrowserState, summarizeCorpusResults, computeVirtualWindow, VIRTUAL_CONFIG } from "./corpus/corpus-browser-engine.js";
 import {
   renderCorpusBrowserPanel,
   renderCorpusNav,
@@ -6182,6 +6182,10 @@ const CORPUS_SECTION_LABELS = {
 
 let corpusBrowserSection = "preview";
 let corpusBrowserSelected = null;
+let corpusBrowserSummary = { valid: true, results: [], query: "", count: 0 };
+let corpusBrowserScrollTop = 0;
+let corpusBrowserDerivation = null;
+let corpusBrowserRaf = 0;
 
 function renderCorpusBrowserStatusBadge(summary = {}) {
   const badge = byId("corpus-browser-status-badge");
@@ -6200,33 +6204,99 @@ function renderCorpusBrowserSearchStatus(message = "Idle") {
   }
 }
 
+function currentCorpusWindow(resultCount) {
+  return computeVirtualWindow(resultCount, corpusBrowserScrollTop, VIRTUAL_CONFIG);
+}
+
+function paintCorpusBrowserResults(state, summary) {
+  const resultsHost = byId("corpus-browser-results");
+  const traceHost = byId("corpus-browser-trace");
+  if (!resultsHost) {
+    return;
+  }
+  const results = Array.isArray(summary.results) ? summary.results : [];
+  const windowState = currentCorpusWindow(results.length);
+  const label = state.section || CORPUS_SECTION_LABELS[corpusBrowserSection] || "Preview";
+  resultsHost.innerHTML = renderCorpusResults(summary, label, windowState, corpusBrowserSelected && corpusBrowserSelected.recordId);
+  const viewport = resultsHost.querySelector(".corpus-results-viewport");
+  if (viewport) {
+    viewport.scrollTop = corpusBrowserScrollTop;
+    viewport.addEventListener("scroll", handleCorpusBrowserScroll, { passive: true });
+  }
+  if (traceHost) {
+    traceHost.innerHTML = renderCorpusTrace(state, summary, corpusBrowserSelected, corpusBrowserDerivation);
+  }
+  bindCorpusBrowserResultCards();
+}
+
+function handleCorpusBrowserScroll(event) {
+  const viewport = event.currentTarget;
+  corpusBrowserScrollTop = viewport.scrollTop || 0;
+  if (corpusBrowserRaf) {
+    return;
+  }
+  corpusBrowserRaf = requestAnimationFrame(() => {
+    corpusBrowserRaf = 0;
+    const statsHost = byId("corpus-browser-stats");
+    const label = CORPUS_SECTION_LABELS[corpusBrowserSection] || "Preview";
+    const state = buildCorpusBrowserState({ recordCount: Number(statsHost?.dataset.recordCount || 0) }, label);
+    paintCorpusBrowserResults(state, corpusBrowserSummary);
+  });
+}
+
+async function loadCorpusDerivation(selected) {
+  corpusBrowserDerivation = null;
+  if (!selected || String(selected.type || "").toLowerCase() !== "dhatu" || !selected.text) {
+    return;
+  }
+  try {
+    const response = await fetch("/api/v3/morphology/verb/conjugate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dhatu: selected.text,
+        lakara: "lat",
+        person: "prathama",
+        number: "ekavacana"
+      })
+    });
+    if (!response.ok) {
+      return;
+    }
+    const payload = await response.json();
+    corpusBrowserDerivation = payload && Object.prototype.hasOwnProperty.call(payload, "derivation_path")
+      ? { derivation_path: payload.derivation_path }
+      : { derivation_path: null };
+  } catch (_error) {
+    corpusBrowserDerivation = { derivation_path: null };
+  }
+}
+
 function bindCorpusBrowserResultCards() {
   const resultsHost = byId("corpus-browser-results");
   if (!resultsHost) {
     return;
   }
   resultsHost.querySelectorAll(".corpus-browser-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      corpusBrowserSelected = {
-        recordId: card.dataset.recordId || "",
+    card.addEventListener("click", async () => {
+      const selectedId = card.dataset.recordId || "";
+      const fromMemory = (corpusBrowserSummary.results || []).find((item) => String(item.recordId) === selectedId);
+      corpusBrowserSelected = fromMemory || {
+        recordId: selectedId,
         type: card.dataset.recordType || "",
         text: card.querySelector(".corpus-browser-card-text")?.textContent || ""
       };
-      resultsHost.querySelectorAll(".corpus-browser-card.is-selected").forEach((node) => {
-        node.classList.remove("is-selected");
-      });
-      card.classList.add("is-selected");
-      const traceHost = byId("corpus-browser-trace");
-      const state = buildCorpusBrowserState({ recordCount: Number(byId("corpus-browser-stats")?.dataset.recordCount || 0) }, corpusBrowserSection);
-      if (traceHost) {
-        traceHost.innerHTML = renderCorpusTrace(state, { query: byId("corpus-browser-search-input")?.value || "" }, corpusBrowserSelected);
-      }
+      await loadCorpusDerivation(corpusBrowserSelected);
+      const statsHost = byId("corpus-browser-stats");
+      const label = CORPUS_SECTION_LABELS[corpusBrowserSection] || "Preview";
+      const state = buildCorpusBrowserState({ recordCount: Number(statsHost?.dataset.recordCount || 0) }, label);
+      paintCorpusBrowserResults(state, corpusBrowserSummary);
     });
   });
 }
 
 async function fetchCorpusBrowserPayload(section = "preview", query = "", corpusType = "") {
-  const limit = 24;
+  const limit = 2000;
   const typeParam = corpusType ? `&type=${encodeURIComponent(corpusType)}` : "";
 
   if (section === "dhatu" || section === "sutra" || section === "stotra") {
@@ -6315,10 +6385,9 @@ async function renderCorpusBrowserPanelView(options = {}) {
   if (resultsTitle) {
     resultsTitle.textContent = label + " results";
   }
-  resultsHost.innerHTML = renderCorpusResults(normalizedSummary, label);
-  if (traceHost) {
-    traceHost.innerHTML = renderCorpusTrace(state, normalizedSummary, corpusBrowserSelected);
-  }
+  corpusBrowserSummary = normalizedSummary;
+  corpusBrowserScrollTop = 0;
+  paintCorpusBrowserResults(state, normalizedSummary);
 
   renderCorpusBrowserStatusBadge(normalizedSummary);
   renderCorpusBrowserSearchStatus(
