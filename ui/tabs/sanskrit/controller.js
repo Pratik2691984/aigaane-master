@@ -3566,7 +3566,7 @@ function renderDerivationTimeline(path) {
   const steps = Array.isArray(path) ? path : [];
   if (steps.length === 0) {
     const empty = document.createElement("li");
-    empty.textContent = "No derivation path";
+    empty.textContent = "derivation_path: absent";
     container.appendChild(empty);
     return;
   }
@@ -3577,8 +3577,12 @@ function renderDerivationTimeline(path) {
     const body = document.createElement("span");
     const meta = document.createElement("small");
     title.textContent = text(step?.operation);
-    body.textContent = ` ${text(step?.input_state)} -> ${text(step?.output_state)}`;
-    meta.textContent = `${text(step?.sutra)} · ${text(step?.sutra_name)} · ${text(step?.engine_node)}`;
+    body.textContent = " " + text(step?.input_state) + " -> " + text(step?.output_state);
+    const sutraLabel = step?.sutra ? String(step.sutra) : "sutra: absent";
+    const sutraName = step?.sutra ? text(step?.sutra_name) : "";
+    meta.textContent = sutraName
+      ? sutraLabel + " · " + sutraName + " · " + text(step?.engine_node)
+      : sutraLabel + " · " + text(step?.engine_node);
     item.append(title, body, meta);
     container.appendChild(item);
   });
@@ -4706,7 +4710,16 @@ function renderPayload(payload) {
   appendListItems(byId("sandhi-output"), payload?.sandhi, (item) => `${text(item?.rule)}: ${text(item?.before)} -> ${text(item?.after)}`);
   renderPadas(payload?.padas);
   renderSyllables(payload?.phonological_syllables);
-  appendListItems(byId("derivation-history-output"), payload?.derivation_history, (step) => `${text(step?.stage)}: ${text(step?.input)} -> ${text(step?.output)} (${text(step?.rule)})`);
+    const historyContainer = byId("derivation-history-output");
+  const history = Array.isArray(payload?.derivation_history) ? payload.derivation_history : [];
+  if (historyContainer && history.length === 0) {
+    clearChildren(historyContainer);
+    const emptyHistory = document.createElement("li");
+    emptyHistory.textContent = "derivation_history: absent";
+    historyContainer.appendChild(emptyHistory);
+  } else {
+    appendListItems(historyContainer, history, (step) => `${text(step?.stage)}: ${text(step?.input)} -> ${text(step?.output)} (${text(step?.rule)})`);
+  }
   renderGraph(payload?.prakriya_graph);
   renderLexical(payload?.lexical_lookup);
   appendListItems(byId("parser-diagnostics-output"), payload?.parser_diagnostics, (item) => `${text(item?.level)}: ${text(item?.message)}`);
