@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-manual-review.v1",
+  "status": "manual-review-pending",
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "hardStop": true,
+  "attested": false,
+  "reviewer": null,
+  "sourceAssurance": {
+    "status": "assurance-ready",
+    "assured": true,
+    "nextGate": "MANUAL REVIEW / CERTIFIED"
+  },
+  "failures": [],
+  "authorization": {
+    "manualReviewIsAuthorization": false,
+    "manualReviewIsExecutionAuthorization": false,
+    "certificationIsAuthorization": false,
+    "canonicalWrite": false,
+    "promotion": false,
+    "import": false,
+    "execution": false
+  },
+  "nextGate": "POST-ATTESTATION HOLD",
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false,
+  "manualReviewExecutionAllowed": false,
+  "assuranceExecutionAllowed": false,
+  "certificationExecutionAllowed": false
+}
