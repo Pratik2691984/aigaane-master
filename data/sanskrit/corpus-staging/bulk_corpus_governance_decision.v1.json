@@ -5,6 +5,7 @@
   "mode": "preview-only",
   "previewOnly": true,
   "readOnly": true,
+  "governanceDecisionRecorded": false,
   "hardStop": true,
   "sourceHold": {
     "status": "hold-waiting-attestation",
@@ -12,9 +13,18 @@
     "waitingAttestation": true,
     "holdCompleted": false
   },
+  "checked": {
+    "upstreamSchema": "sanskrit-bulk-corpus-post-attestation-hold.v1",
+    "upstreamStatus": "hold-waiting-attestation"
+  },
   "failures": [],
   "authorization": {
     "governanceDecisionIsAuthorization": false,
+    "governanceDecisionIsExecutionAuthorization": false,
+    "governanceClearanceIsWriteAuthorization": false,
+    "governanceClearanceIsPromotionAuthorization": false,
+    "governanceClearanceIsImportAuthorization": false,
+    "governanceClearanceIsExecutionAuthorization": false,
     "clearedForAuthorizationIsWrite": false,
     "clearedForAuthorizationIsImport": false,
     "clearedForAuthorizationIsExecution": false,

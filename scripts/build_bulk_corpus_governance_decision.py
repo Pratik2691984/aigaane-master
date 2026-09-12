@@ -1,7 +1,6 @@
 """
 Node 38F: Final Governance Decision
-Consumes 38E hold. Default PENDING. CLEARED_FOR_AUTHORIZATION is not
-write, import, promotion, or execution authorization.
+Consumes 38E. Default PENDING. Clearance is not write/import/promotion/execution.
 """
 
 from __future__ import annotations
@@ -27,6 +26,7 @@ OUTPUT_PATH = (
 )
 
 EXPECTED_HOLD_SCHEMA = "sanskrit-bulk-corpus-post-attestation-hold.v1"
+VALID_HOLDS = ("hold-waiting-attestation", "hold-active")
 VALID_DECISIONS = (None, "blocked", "cleared-for-authorization")
 
 
@@ -34,6 +34,10 @@ def _hold_failures(hold: Dict[str, Any]) -> List[str]:
     found: List[str] = []
     if hold.get("schemaVersion") != EXPECTED_HOLD_SCHEMA:
         found.append("hold-schema-mismatch")
+    if hold.get("previewOnly") is not True:
+        found.append("hold-previewOnly-missing")
+    if hold.get("readOnly") is not True:
+        found.append("hold-readOnly-missing")
     if hold.get("hardStop") is not True:
         found.append("hold-hardStop-missing")
     if hold.get("autoPromote") is not False:
@@ -43,6 +47,8 @@ def _hold_failures(hold: Dict[str, Any]) -> List[str]:
     auth = hold.get("authorization") or {}
     if auth.get("holdIsAuthorization") is not False:
         found.append("hold-treated-as-authorization")
+    if auth.get("attestationIsAuthorization") is not False:
+        found.append("attestation-treated-as-authorization")
     for key in (
         "canonicalWriteAllowed",
         "promotionAllowed",
@@ -52,6 +58,24 @@ def _hold_failures(hold: Dict[str, Any]) -> List[str]:
         if hold.get(key) is not False:
             found.append(f"hold-{key}-exposed")
     return found
+
+
+def _locked_authorization() -> Dict[str, Any]:
+    return {
+        "governanceDecisionIsAuthorization": False,
+        "governanceDecisionIsExecutionAuthorization": False,
+        "governanceClearanceIsWriteAuthorization": False,
+        "governanceClearanceIsPromotionAuthorization": False,
+        "governanceClearanceIsImportAuthorization": False,
+        "governanceClearanceIsExecutionAuthorization": False,
+        "clearedForAuthorizationIsWrite": False,
+        "clearedForAuthorizationIsImport": False,
+        "clearedForAuthorizationIsExecution": False,
+        "canonicalWrite": False,
+        "promotion": False,
+        "import": False,
+        "execution": False,
+    }
 
 
 def build_governance_decision_record(
@@ -66,20 +90,17 @@ def build_governance_decision_record(
         failures.append("invalid-decision")
         decision = None
 
-    if failures or hold_status == "hold-blocked":
-        status = "governance-decision-blocked"
+    if failures or hold_status == "hold-blocked" or hold_status not in VALID_HOLDS:
+        if hold_status not in VALID_HOLDS and hold_status != "hold-blocked":
+            failures.append("hold-status-not-eligible")
+        status = "governance-blocked"
         resolved = None
     elif decision == "blocked":
-        status = "governance-decision-blocked"
+        status = "governance-blocked"
         resolved = "blocked"
     elif decision == "cleared-for-authorization":
-        if hold_status != "hold-active":
-            status = "governance-decision-blocked"
-            resolved = None
-            failures.append("clearance-requires-hold-active")
-        else:
-            status = "governance-decision-cleared-for-authorization"
-            resolved = "cleared-for-authorization"
+        status = "governance-cleared-for-authorization"
+        resolved = "cleared-for-authorization"
     else:
         status = "governance-decision-pending"
         resolved = None
@@ -91,6 +112,7 @@ def build_governance_decision_record(
         "mode": "preview-only",
         "previewOnly": True,
         "readOnly": True,
+        "governanceDecisionRecorded": resolved is not None,
         "hardStop": True,
         "sourceHold": {
             "status": hold.get("status"),
@@ -98,17 +120,12 @@ def build_governance_decision_record(
             "waitingAttestation": hold.get("waitingAttestation"),
             "holdCompleted": hold.get("holdCompleted"),
         },
-        "failures": failures,
-        "authorization": {
-            "governanceDecisionIsAuthorization": False,
-            "clearedForAuthorizationIsWrite": False,
-            "clearedForAuthorizationIsImport": False,
-            "clearedForAuthorizationIsExecution": False,
-            "canonicalWrite": False,
-            "promotion": False,
-            "import": False,
-            "execution": False,
+        "checked": {
+            "upstreamSchema": hold.get("schemaVersion"),
+            "upstreamStatus": hold.get("status"),
         },
+        "failures": failures,
+        "authorization": _locked_authorization(),
         "nextGate": "38G PROMOTION AUTHORIZATION",
         "canonicalWriteAllowed": False,
         "promotionAllowed": False,
@@ -139,7 +156,7 @@ def main() -> int:
             indent=2,
         )
     )
-    return 0 if record["status"] != "governance-decision-blocked" else 1
+    return 0 if record["status"] != "governance-blocked" else 1
 
 
 if __name__ == "__main__":

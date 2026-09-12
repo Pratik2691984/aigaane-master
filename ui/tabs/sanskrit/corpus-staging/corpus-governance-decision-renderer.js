@@ -16,9 +16,10 @@ function renderCorpusGovernanceDecisionPanel(input = {}) {
     "<h2>Node 38F Governance Decision</h2>",
     "<p>Status: " + status + "</p>",
     "<p>Decision: " + decision + "</p>",
-    "<p>Cleared \u2260 authorized to write or import.</p>",
+    "<p>CLEARED FOR AUTHORIZATION IS NOT AUTHORIZED TO WRITE</p>",
     "<p>Hard stop: CLOSED</p>",
-    "<p>Next: 38G promotion authorization</p>",
+    "<p>Not authorized: canonical write / promotion / import / execution</p>",
+    "<p>Next: 38G PROMOTION AUTHORIZATION</p>",
     "</section>"
   ].join("");
   return { title: "Governance Decision", body };

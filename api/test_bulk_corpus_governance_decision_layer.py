@@ -11,16 +11,22 @@ from scripts.build_bulk_corpus_governance_decision import (
 )
 
 
-def _waiting_hold():
+def _valid_hold(status="hold-waiting-attestation"):
     return {
         "schemaVersion": "sanskrit-bulk-corpus-post-attestation-hold.v1",
-        "status": "hold-waiting-attestation",
+        "status": status,
+        "mode": "preview-only",
+        "previewOnly": True,
+        "readOnly": True,
         "holdActive": True,
-        "waitingAttestation": True,
+        "waitingAttestation": status == "hold-waiting-attestation",
         "holdCompleted": False,
         "autoPromote": False,
         "hardStop": True,
-        "authorization": {"holdIsAuthorization": False},
+        "authorization": {
+            "holdIsAuthorization": False,
+            "attestationIsAuthorization": False,
+        },
         "canonicalWriteAllowed": False,
         "promotionAllowed": False,
         "importAllowed": False,
@@ -28,51 +34,67 @@ def _waiting_hold():
     }
 
 
-def _active_hold():
-    packet = _waiting_hold()
-    packet["status"] = "hold-active"
-    packet["waitingAttestation"] = False
-    return packet
-
-
 class TestBulkCorpusGovernanceDecisionLayer(unittest.TestCase):
-    def test_default_pending_from_waiting_hold(self):
-        record = build_governance_decision_record(_waiting_hold(), decision=None)
+    def test_default_pending_state(self):
+        record = build_governance_decision_record(_valid_hold(), decision=None)
         self.assertEqual(record["status"], "governance-decision-pending")
         self.assertIsNone(record["decision"])
         self.assertTrue(record["hardStop"])
         self.assertFalse(record["authorization"]["governanceDecisionIsAuthorization"])
-        self.assertFalse(record["canonicalWriteAllowed"])
-        self.assertFalse(record["importAllowed"])
-        self.assertFalse(record["executionAllowed"])
-
-    def test_clearance_requires_hold_active(self):
-        record = build_governance_decision_record(
-            _waiting_hold(), decision="cleared-for-authorization"
-        )
-        self.assertEqual(record["status"], "governance-decision-blocked")
-        self.assertIn("clearance-requires-hold-active", record["failures"])
-        self.assertFalse(record["canonicalWriteAllowed"])
-
-    def test_cleared_still_not_write(self):
-        record = build_governance_decision_record(
-            _active_hold(), decision="cleared-for-authorization"
-        )
-        self.assertEqual(
-            record["status"], "governance-decision-cleared-for-authorization"
-        )
-        self.assertEqual(record["decision"], "cleared-for-authorization")
-        self.assertFalse(record["authorization"]["clearedForAuthorizationIsWrite"])
-        self.assertFalse(record["authorization"]["clearedForAuthorizationIsImport"])
-        self.assertFalse(record["authorization"]["clearedForAuthorizationIsExecution"])
+        self.assertFalse(record["authorization"]["governanceDecisionIsExecutionAuthorization"])
         self.assertFalse(record["canonicalWriteAllowed"])
         self.assertFalse(record["promotionAllowed"])
         self.assertFalse(record["importAllowed"])
         self.assertFalse(record["executionAllowed"])
+
+    def test_explicit_blocked_state(self):
+        record = build_governance_decision_record(_valid_hold(), decision="blocked")
+        self.assertEqual(record["status"], "governance-blocked")
+        self.assertEqual(record["decision"], "blocked")
         self.assertTrue(record["hardStop"])
+        self.assertFalse(record["executionAllowed"])
+        self.assertFalse(record["canonicalWriteAllowed"])
+
+    def test_cleared_for_authorization_is_still_non_authorizing(self):
+        record = build_governance_decision_record(
+            _valid_hold(), decision="cleared-for-authorization"
+        )
+        self.assertEqual(record["status"], "governance-cleared-for-authorization")
+        self.assertTrue(record["hardStop"])
+        self.assertFalse(record["canonicalWriteAllowed"])
+        self.assertFalse(record["promotionAllowed"])
+        self.assertFalse(record["importAllowed"])
+        self.assertFalse(record["executionAllowed"])
+        auth = record["authorization"]
+        self.assertFalse(auth["governanceDecisionIsAuthorization"])
+        self.assertFalse(auth["governanceDecisionIsExecutionAuthorization"])
+        self.assertFalse(auth["governanceClearanceIsWriteAuthorization"])
+        self.assertFalse(auth["governanceClearanceIsPromotionAuthorization"])
+        self.assertFalse(auth["governanceClearanceIsImportAuthorization"])
+        self.assertFalse(auth["governanceClearanceIsExecutionAuthorization"])
         self.assertEqual(record["nextGate"], "38G PROMOTION AUTHORIZATION")
 
-    def test_repo_38e_packet_is_pending(self):
+    def test_unsafe_or_blocked_38e_cannot_clear(self):
+        leaked = _valid_hold()
+        leaked["promotionAllowed"] = True
+        record = build_governance_decision_record(
+            leaked, decision="cleared-for-authorization"
+        )
+        self.assertEqual(record["status"], "governance-blocked")
+        self.assertIsNone(record["decision"])
+        self.assertFalse(record["promotionAllowed"])
+        self.assertFalse(record["canonicalWriteAllowed"])
+        self.assertFalse(record["executionAllowed"])
+
+        blocked = _valid_hold()
+        blocked["status"] = "hold-blocked"
+        record = build_governance_decision_record(
+            blocked, decision="cleared-for-authorization"
+        )
+        self.assertEqual(record["status"], "governance-blocked")
+        self.assertFalse(record["executionAllowed"])
+
+    def test_repo_38e_packet_defaults_pending(self):
         path = (
             ROOT
             / "data"
@@ -84,9 +106,7 @@ class TestBulkCorpusGovernanceDecisionLayer(unittest.TestCase):
             self.skipTest("38E packet not on disk")
         packet = json.loads(path.read_text(encoding="utf-8"))
         record = build_governance_decision_record(packet, decision=None)
-        self.assertEqual(
-            record["status"], "governance-decision-pending", record["failures"]
-        )
+        self.assertEqual(record["status"], "governance-decision-pending", record["failures"])
         self.assertIsNone(record["decision"])
 
 

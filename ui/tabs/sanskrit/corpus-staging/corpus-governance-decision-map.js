@@ -4,9 +4,9 @@ const CORPUS_GOVERNANCE_DECISION_SCHEMA =
   "sanskrit-bulk-corpus-governance-decision.v1";
 
 const CORPUS_GOVERNANCE_DECISION_STATES = Object.freeze({
-  PENDING: "GOVERNANCE_DECISION_PENDING",
-  BLOCKED: "GOVERNANCE_DECISION_BLOCKED",
-  CLEARED: "GOVERNANCE_DECISION_CLEARED_FOR_AUTHORIZATION"
+  PENDING: "PENDING",
+  BLOCKED: "BLOCKED",
+  CLEARED_FOR_AUTHORIZATION: "CLEARED_FOR_AUTHORIZATION"
 });
 
 function freeze(v) {
@@ -26,9 +26,11 @@ function normalizeCorpusGovernanceDecisionInput(input = {}) {
     failures: freeze(asArray(input.failures)),
     authorization: freeze({
       governanceDecisionIsAuthorization: false,
-      clearedForAuthorizationIsWrite: false,
-      clearedForAuthorizationIsImport: false,
-      clearedForAuthorizationIsExecution: false,
+      governanceDecisionIsExecutionAuthorization: false,
+      governanceClearanceIsWriteAuthorization: false,
+      governanceClearanceIsPromotionAuthorization: false,
+      governanceClearanceIsImportAuthorization: false,
+      governanceClearanceIsExecutionAuthorization: false,
       canonicalWrite: false,
       promotion: false,
       import: false,
@@ -48,19 +50,26 @@ function buildCorpusGovernanceDecisionRecord(input = {}) {
   const normalized = normalizeCorpusGovernanceDecisionInput(input);
   let state = CORPUS_GOVERNANCE_DECISION_STATES.PENDING;
   if (
+    normalized.status === "governance-blocked" ||
     normalized.status === "governance-decision-blocked" ||
     normalized.failures.length
   ) {
     state = CORPUS_GOVERNANCE_DECISION_STATES.BLOCKED;
   } else if (
+    normalized.status === "governance-cleared-for-authorization" ||
     normalized.status === "governance-decision-cleared-for-authorization"
   ) {
-    state = CORPUS_GOVERNANCE_DECISION_STATES.CLEARED;
+    state = CORPUS_GOVERNANCE_DECISION_STATES.CLEARED_FOR_AUTHORIZATION;
   }
   return freeze({
     ...normalized,
     state,
-    nextGate: "38G PROMOTION AUTHORIZATION"
+    nextGate: "38G PROMOTION AUTHORIZATION",
+    isNonAuthorizing:
+      normalized.canonicalWriteAllowed === false &&
+      normalized.promotionAllowed === false &&
+      normalized.importAllowed === false &&
+      normalized.executionAllowed === false
   });
 }
 
