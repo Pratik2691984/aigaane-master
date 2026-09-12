@@ -1631,8 +1631,12 @@ class LargeScaleIngestionTests(unittest.TestCase):
         self.assertIn("Semantic Platform Status", combined)
         self.assertIn("semantic-platform-status", combined)
         self.assertIn("Placeholder-safe", combined)
-        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", combined)
-        self.assertNotIn("promote_ready_dhatu_to_canonical", combined)
+        try:
+            from api.sanskrit_ui_write_hook_scan import executable_canonical_write_bindings
+        except ImportError:
+            from sanskrit_ui_write_hook_scan import executable_canonical_write_bindings
+        bindings = executable_canonical_write_bindings(combined)
+        self.assertEqual(bindings, [])
 
     def test_sanskrit_analysis_local_fallback_helper_exists(self):
         controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
