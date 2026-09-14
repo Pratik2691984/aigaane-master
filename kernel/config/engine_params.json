@@ -1,0 +1,14 @@
+{
+  "version": "3.0_PRO_final_push",
+  "governance": {
+    "canonicalWrite": false,
+    "promotionAllowed": false,
+    "importAllowed": false,
+    "previewOnly": true,
+    "readOnly": true,
+    "capacity": 2000,
+    "windowSize": 250
+  },
+  "discovered": { "dhatu": 37, "sutra": 5, "stotra": 3, "total": 45, "status": "INCOMPLETE" },
+  "targets": { "dhatu": 1400, "sutra": 400, "stotra": 200, "total": 2000 }
+}
