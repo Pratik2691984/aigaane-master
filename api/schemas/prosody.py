@@ -27,8 +27,8 @@ class PadaScanResult(BaseModel):
 class ProsodyDiagnostic(BaseModel):
     pada: int
     syllable: int
-    found: Literal["L", "G"]
-    expected: Literal["L", "G"]
+    found: str
+    expected: str
     rule: str
     sutra: str
     message: str
@@ -37,7 +37,7 @@ class ProsodyTraceStep(BaseModel):
     rule: str
     pada: int
     syllable: int
-    found: Literal["L", "G"]
+    found: str
     ok: bool
 
 class ProsodyScanResponse(BaseModel):

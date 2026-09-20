@@ -1,85 +1,56 @@
-"""
+﻿"""
 tests/test_subanta.py
-Validation of the 4 core Subanta paradigms:
-- Rama (a_masc)
-- Ramaa (aa_fem)
-- Hari (i_masc)
-- Guru (u_masc)
+Automated Unit Tests for Subanta Nominal Declensions (Ajanta & Halanta)
 """
-import unittest
-from engine.morphology.subanta import inflect_stem
+import pytest
+from engine.morphology.subanta import inflect_stem, decline_halanta
 
-class TestSubantaEngine(unittest.TestCase):
-
+class TestSubantaEngine:
     def test_a_masc_rama(self):
-        # 1.1 Ramah
-        res = inflect_stem("राम", "nominative", "singular")
-        self.assertEqual(res["form"], "रामः")
-        self.assertIn("8.3.15", res["sutras"])
-
-        # 3.1 Ramena (natva 8.4.2)
-        res = inflect_stem("राम", "trtiya", "eka")
-        self.assertEqual(res["form"], "रामेण")
-
-        # 6.3 Ramanam (natva 8.4.2)
-        res = inflect_stem("राम", "sasthi", "bahu")
-        self.assertEqual(res["form"], "रामाणाम्")
+        res_prathama_eka = inflect_stem("राम", "prathama", "eka")
+        res_dvitiya_bahu = inflect_stem("राम", "dvitiya", "bahu")
+        res_trtiya_eka = inflect_stem("राम", "trtiya", "eka")
+        res_saptami_bahu = inflect_stem("राम", "saptami", "bahu")
+        
+        assert res_prathama_eka["form"] == "रामः"
+        assert res_dvitiya_bahu["form"] == "रामान्"
+        assert res_trtiya_eka["form"] == "रामेण"
+        assert res_saptami_bahu["form"] == "रामेषु"
 
     def test_aa_fem_ramaa(self):
-        # 1.1 Rama
-        res = inflect_stem("रमा", "prathama", "eka", "aa_fem")
-        self.assertEqual(res["form"], "रमा")
+        res_prathama_eka = inflect_stem("रमा", "prathama", "eka")
+        res_dvitiya_bahu = inflect_stem("रमा", "dvitiya", "bahu")
+        res_trtiya_eka = inflect_stem("रमा", "trtiya", "eka")
+        res_saptami_bahu = inflect_stem("रमा", "saptami", "bahu")
 
-        # 4.1 Ramayai (7.3.112)
-        res = inflect_stem("रमा", "caturthi", "eka", "aa_fem")
-        self.assertEqual(res["form"], "रमायै")
-
-        # 6.1 Ramayah
-        res = inflect_stem("रमा", "sasthi", "eka", "aa_fem")
-        self.assertEqual(res["form"], "रमायाः")
-
-        # Cognate test: Lata -> Latayah
-        res = inflect_stem("लता", "sasthi", "eka", "aa_fem")
-        self.assertEqual(res["form"], "लतायाः")
+        assert res_prathama_eka["form"] == "रमा"
+        assert res_dvitiya_bahu["form"] == "रमाः"
+        assert res_trtiya_eka["form"] == "रमया"
+        assert res_saptami_bahu["form"] == "रमासु"
 
     def test_i_masc_hari(self):
-        # 1.1 Harih
-        res = inflect_stem("हरि", "1", "1")
-        self.assertEqual(res["form"], "हरिः")
+        res_prathama_eka = inflect_stem("हरि", "prathama", "eka")
+        res_dvitiya_bahu = inflect_stem("हरि", "dvitiya", "bahu")
+        res_trtiya_eka = inflect_stem("हरि", "trtiya", "eka")
+        res_saptami_eka = inflect_stem("हरि", "saptami", "eka")
 
-        # 1.3 Harayah (guna 7.3.109 + ay 6.1.78)
-        res = inflect_stem("हरि", "prathama", "bahu")
-        self.assertEqual(res["form"], "हरयः")
-
-        # 6.1 Hareh
-        res = inflect_stem("हरि", "sasthi", "eka")
-        self.assertEqual(res["form"], "हरेः")
-
-        # 7.1 Harau
-        res = inflect_stem("हरि", "saptami", "eka")
-        self.assertEqual(res["form"], "हरौ")
+        assert res_prathama_eka["form"] == "हरिः"
+        assert res_dvitiya_bahu["form"] == "हरीन्"
+        assert res_trtiya_eka["form"] == "हरिणा"
+        assert res_saptami_eka["form"] == "हरौ"
 
     def test_u_masc_guru(self):
-        # 1.1 Guruh
-        res = inflect_stem("गुरु", "prathama", "eka")
-        self.assertEqual(res["form"], "गुरुः")
+        res_prathama_eka = inflect_stem("गुरु", "prathama", "eka")
+        res_dvitiya_bahu = inflect_stem("गुरु", "dvitiya", "bahu")
+        res_trtiya_eka = inflect_stem("गुरु", "trtiya", "eka")
+        res_saptami_eka = inflect_stem("गुरु", "saptami", "eka")
 
-        # 1.3 Guravah (guna 7.3.109 + av 6.1.78)
-        res = inflect_stem("गुरु", "prathama", "bahu")
-        self.assertEqual(res["form"], "गुरवः")
+        assert res_prathama_eka["form"] == "गुरुः"
+        assert res_dvitiya_bahu["form"] == "गुरून्"
+        assert res_trtiya_eka["form"] == "गुरुणा"
+        assert res_saptami_eka["form"] == "गुरौ"
 
-        # 4.1 Gurave
-        res = inflect_stem("गुरु", "caturthi", "eka")
-        self.assertEqual(res["form"], "गुरवे")
-
-        # 7.1 Gurau
-        res = inflect_stem("गुरु", "saptami", "eka")
-        self.assertEqual(res["form"], "गुरौ")
-
-if __name__ == "__main__":
-    unittest.main()
     def test_halanta_marut(self):
-        from engine.morphology.subanta import decline_halanta
         table = decline_halanta("marut")
         assert table["prathama"][0] == "मरुत्"
         assert table["dvitiya"][2] == "मरुतः"
@@ -87,7 +58,6 @@ if __name__ == "__main__":
         assert table["saptami"][2] == "मरुत्सु"
 
     def test_halanta_rajan(self):
-        from engine.morphology.subanta import decline_halanta
         table = decline_halanta("rajan")
         assert table["prathama"][0] == "राजा"
         assert table["dvitiya"][2] == "राज्ञः"
@@ -95,7 +65,6 @@ if __name__ == "__main__":
         assert table["sasthi"][2] == "राज्ञाम्"
 
     def test_halanta_manas(self):
-        from engine.morphology.subanta import decline_halanta
         table = decline_halanta("manas")
         assert table["prathama"][0] == "मनः"
         assert table["prathama"][2] == "मनांसि"

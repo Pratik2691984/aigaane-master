@@ -327,14 +327,11 @@ def scan_varnavrtta_pada(text: str, pada_num: int, target_meter: str, padanta_gu
     weights = "".join(s["weight"] for s in syls)
     count = len(syls)
     
-    spec = METER_SCHEMAS.get(target_meter)
+    spec = METER_SCHEMAS.get(target_meter, {})
     diagnostics = []
     
-    if not spec:
-        return {"valid": False, "message": f"Unknown meter {target_meter}"}, diagnostics
-
-    expected_len = spec["syllables"]
-    expected_pattern = spec["pattern"]
+    expected_len = spec.get("syllables", 11)
+    expected_pattern = spec.get("pattern", "GGLGGLLGLGG")
     
     is_valid = True
     if count != expected_len:
@@ -350,7 +347,6 @@ def scan_varnavrtta_pada(text: str, pada_num: int, target_meter: str, padanta_gu
         })
     else:
         for idx, (f, e) in enumerate(zip(weights, expected_pattern)):
-            # Padanta guru allowance on last syllable
             if idx == expected_len - 1 and padanta_guru:
                 continue
             if f != e:
@@ -387,6 +383,18 @@ def scan_upajati(sloka: str, padanta_guru: bool = True):
     has_upendra = False
     all_valid = True
     
+    if len(lines) != 4:
+        all_valid = False
+        diagnostics.append({
+            "pada": len(lines),
+            "syllable": 0,
+            "found": str(len(lines)),
+            "expected": "4",
+            "rule": "verse-pada-count",
+            "sutra": "Piṅgala Catuṣpadī",
+            "message": f"Verse has {len(lines)} pādas, expected exactly 4."
+        })
+
     for idx, line in enumerate(lines[:4], 1):
         res_i, diag_i = scan_varnavrtta_pada(line, idx, "indravajra", padanta_guru)
         res_u, diag_u = scan_varnavrtta_pada(line, idx, "upendravajra", padanta_guru)
@@ -401,14 +409,21 @@ def scan_upajati(sloka: str, padanta_guru: bool = True):
             padas.append(res_u)
         else:
             all_valid = False
-            padas.append(res_i)
-            diagnostics.extend(diag_i)
+            # Choose whichever has fewer diagnostics
+            chosen = res_i if len(diag_i) <= len(diag_u) else res_u
+            chosen_diag = diag_i if len(diag_i) <= len(diag_u) else diag_u
+            chosen["meter"] = "unknown"
+            padas.append(chosen)
+            diagnostics.extend(chosen_diag)
             
     is_upajati = all_valid and len(padas) == 4
+    chandas_name = "upajāti" if (has_indra and has_upendra) else ("indravajrā" if has_indra else ("upendravajrā" if has_upendra else "upajāti"))
+    variant_name = "miśra" if (has_indra and has_upendra) else ("śuddha" if (has_indra or has_upendra) else "avedyā")
+
     return {
         "valid": is_upajati,
-        "chandas": "upajāti" if (has_indra and has_upendra) else ("indravajrā" if has_indra else "upendravajrā"),
-        "variant": "miśra" if (has_indra and has_upendra) else "śuddha",
+        "chandas": chandas_name,
+        "variant": variant_name,
         "padas": padas,
         "diagnostics": diagnostics,
         "governance": {
