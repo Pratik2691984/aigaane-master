@@ -229,3 +229,46 @@ def inflect_stem(stem: str, case_in: str, number_in: str, stem_class_in: Optiona
         "sutras": sutras,
         "trace": trace
     }
+
+# Consonant-ending (Halanta) Paradigms
+HALANTA_PARADIGMS = {
+    # marut (t-stem masculine / मरुत्)
+    "marut": {
+        "prathama": ["मरुत्", "मरुतौ", "मरुतः"],
+        "dvitiya": ["मरुतम्", "मरुतौ", "मरुतः"],
+        "trtiya": ["मरुता", "मरुद्भ्याम्", "मरुद्भिः"],
+        "caturthi": ["मरुते", "मरुद्भ्याम्", "मरुद्भ्यः"],
+        "pancami": ["मरुतः", "मरुद्भ्याम्", "मरुद्भ्यः"],
+        "sasthi": ["मरुतः", "मरुतोः", "मरुताम्"],
+        "saptami": ["मरुति", "मरुतोः", "मरुत्सु"],
+        "sambodhana": ["हे मरुत्", "हे मरुतौ", "हे मरुतः"]
+    },
+    # rajan (n-stem masculine / राजन्)
+    "rajan": {
+        "prathama": ["राजा", "राजानौ", "राजानः"],
+        "dvitiya": ["राजानम्", "राजानौ", "राज्ञः"],
+        "trtiya": ["राज्ञा", "राजभ्याम्", "राजभिः"],
+        "caturthi": ["राज्ञे", "राजभ्याम्", "राजभ्यः"],
+        "pancami": ["राज्ञः", "राजभ्याम्", "राजभ्यः"],
+        "sasthi": ["राज्ञः", "राज्ञोः", "राज्ञाम्"],
+        "saptami": ["राज्ञि", "राज्ञोः", "राजसु"],
+        "sambodhana": ["हे राजन्", "हे राजानौ", "हे राजानः"]
+    },
+    # manas (s-stem neuter / मनस्)
+    "manas": {
+        "prathama": ["मनः", "मनसी", "मनांसि"],
+        "dvitiya": ["मनः", "मनसी", "मनांसि"],
+        "trtiya": ["मनसा", "मनोभ्याम्", "मनोभिः"],
+        "caturthi": ["मनसे", "मनोभ्याम्", "मनोभ्यः"],
+        "pancami": ["मनसः", "मनोभ्याम्", "मनोभ्यः"],
+        "sasthi": ["मनसः", "मनसोः", "मनसाम्"],
+        "saptami": ["मनसि", "मनसोः", "मनःसु"],
+        "sambodhana": ["हे मनः", "हे मनसी", "हे मनांसि"]
+    }
+}
+
+def decline_halanta(stem: str) -> dict:
+    stem_clean = stem.strip().lower()
+    if stem_clean in HALANTA_PARADIGMS:
+        return HALANTA_PARADIGMS[stem_clean]
+    raise ValueError(f"Halanta paradigm for '{stem}' not found.")

@@ -78,3 +78,26 @@ class TestSubantaEngine(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    def test_halanta_marut(self):
+        from engine.morphology.subanta import decline_halanta
+        table = decline_halanta("marut")
+        assert table["prathama"][0] == "मरुत्"
+        assert table["dvitiya"][2] == "मरुतः"
+        assert table["trtiya"][1] == "मरुद्भ्याम्"
+        assert table["saptami"][2] == "मरुत्सु"
+
+    def test_halanta_rajan(self):
+        from engine.morphology.subanta import decline_halanta
+        table = decline_halanta("rajan")
+        assert table["prathama"][0] == "राजा"
+        assert table["dvitiya"][2] == "राज्ञः"
+        assert table["trtiya"][0] == "राज्ञा"
+        assert table["sasthi"][2] == "राज्ञाम्"
+
+    def test_halanta_manas(self):
+        from engine.morphology.subanta import decline_halanta
+        table = decline_halanta("manas")
+        assert table["prathama"][0] == "मनः"
+        assert table["prathama"][2] == "मनांसि"
+        assert table["trtiya"][2] == "मनोभिः"
+        assert table["saptami"][0] == "मनसि"

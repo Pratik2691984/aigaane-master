@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useRef } from "react";
 
 export default function ProsodyLab() {
   const [verse, setVerse] = useState(
@@ -7,6 +7,8 @@ export default function ProsodyLab() {
   const [meter, setMeter] = useState("anustubh");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioCtxRef = useRef(null);
 
   async function handleScan() {
     setLoading(true);
@@ -25,10 +27,62 @@ export default function ProsodyLab() {
     }
   }
 
+  function playTone(freq, durationSec, startTime) {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const ctx = audioCtxRef.current;
+    if (ctx.state === "suspended") {
+      ctx.resume();
+    }
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, startTime);
+
+    gain.gain.setValueAtTime(0.001, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.2, startTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + durationSec - 0.02);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(startTime);
+    osc.stop(startTime + durationSec);
+  }
+
+  function playVerseAudio() {
+    if (!result?.padas) return;
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const ctx = audioCtxRef.current;
+    if (ctx.state === "suspended") ctx.resume();
+
+    setIsPlaying(true);
+    let currentTime = ctx.currentTime + 0.1;
+
+    result.padas.forEach((pada) => {
+      pada.weights.forEach((w) => {
+        // Laghu = 1 Matra (240 Hz, 0.25s) | Guru = 2 Matras (360 Hz, 0.50s)
+        const freq = w === "G" ? 360.0 : 240.0;
+        const dur = w === "G" ? 0.48 : 0.24;
+        playTone(freq, dur, currentTime);
+        currentTime += dur + 0.06;
+      });
+      currentTime += 0.25; // Pada pause
+    });
+
+    const totalDurationMs = (currentTime - ctx.currentTime) * 1000;
+    setTimeout(() => setIsPlaying(false), totalDurationMs);
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-slate-900 text-slate-100 rounded-xl shadow-2xl border border-slate-800">
-      <h2 className="text-2xl font-bold mb-1 text-amber-400">पिङ्गल-च्छन्दो-विमर्शः (Prosody Scansion Lab)</h2>
-      <p className="text-sm text-slate-400 mb-6">Real-time Akṣara tokenization, weight classification, and metric validation.</p>
+      <h2 className="text-2xl font-bold mb-1 text-amber-400">पिङ्गल-च्छन्दो-विमर्शः (Prosody Scansion & Synthesis Lab)</h2>
+      <p className="text-sm text-slate-400 mb-6">Real-time Akṣara tokenization, weight classification, and Web Audio mātrā synthesis.</p>
 
       <div className="mb-4">
         <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Sanskrit Verse (Devanagari)</label>
@@ -40,14 +94,14 @@ export default function ProsodyLab() {
         />
       </div>
 
-      <div className="flex gap-4 items-center mb-6">
+      <div className="flex flex-wrap gap-4 items-center mb-6">
         <select
           value={meter}
           onChange={(e) => setMeter(e.target.value)}
           className="bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm text-slate-200"
         >
           <option value="anustubh">Anuṣṭubh (अनुष्टुभ् - 8 syllables)</option>
-          <option value="upajati">Upajāti (उपजाति - 11 syllables)</option>
+          <option value="upajati">Upajāti / Indravajrā (उपजाति - 11 syllables)</option>
           <option value="shardulavikridita">Śārdūlavikrīḍita (शार्दूलविक्रीडितम् - 19 syllables)</option>
         </select>
 
@@ -58,6 +112,16 @@ export default function ProsodyLab() {
         >
           {loading ? "Scanning..." : "Scan Metrics"}
         </button>
+
+        {result && (
+          <button
+            onClick={playVerseAudio}
+            disabled={isPlaying}
+            className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-md transition duration-200 disabled:opacity-50 flex items-center gap-2"
+          >
+            <span>{isPlaying ? "♫ Synthesizing Laya..." : "▶ Play Mātrā Cadence"}</span>
+          </button>
+        )}
       </div>
 
       {result && (

@@ -1,6 +1,7 @@
 ﻿"""
 scripts/generate_verse.py
-Closed-Loop Sanskrit Verse Generator & Pingala Meter Repair Engine
+Multi-Meter Closed-Loop Sanskrit Verse Generator & Repair Engine
+Supports: Anuṣṭubh (Pathyā) & Upajāti (Indravajrā / Upendravajrā)
 Live Endpoint: https://aigaane.in/api/v3/prosody/scan
 """
 import os
@@ -36,31 +37,40 @@ prosody_tool_declaration = {
                 "type": "STRING",
                 "description": "Devanagari verse text (4 padas separated by newlines)."
             },
-            "chandas": {"type": "STRING", "description": "Meter (default: anustubh)"},
-            "padanta_guru": {"type": "BOOLEAN", "description": "Treat final syllable as Guru."}
+            "chandas": {
+                "type": "STRING", 
+                "description": "Target meter: 'anustubh' or 'upajati' (covers indravajra/upendravajra)."
+            },
+            "padanta_guru": {
+                "type": "BOOLEAN", 
+                "description": "Treat final syllable as Guru (padanta-laghu-guru rule)."
+            }
         },
-        "required": ["text"]
+        "required": ["text", "chandas"]
     }
 }
 
-SYSTEM_INSTRUCTION = """
-You are a classical Sanskrit Mahakavi and metric expert adhering strictly to Pingala Chhandahsastra.
-Your goal is to compose an authentic Anuṣṭubh (Pathyā) verse on the user-requested topic.
+SYSTEM_INSTRUCTION_ANUSTUBH = """
+You are a classical Sanskrit Mahākavi adhering strictly to Piṅgala Chhandaḥśāstra.
+Compose an authentic 4-pāda Anuṣṭubh (Pathyā) verse on the given topic.
+Rules:
+1. Strictly 4 pādas, each having exactly 8 akṣaras.
+2. Syllable 5 = L (Laghu) across all pādas.
+3. Syllable 6 = G (Guru) across all pādas.
+4. Syllable 7 alternates: Pāda 1=G, Pāda 2=L, Pāda 3=G, Pāda 4=L.
+Call verify_prosody(text, chandas='anustubh'). If defects are returned, repair only the faulty pādas and call again.
+"""
 
-Meter Rules for Anuṣṭubh Pathyā:
-1. Exactly 4 Pādas, each having strictly 8 akṣaras (syllables).
-2. Syllable 5 of ALL 4 pādas must be Laghu (L).
-3. Syllable 6 of ALL 4 pādas must be Guru (G).
-4. Syllable 7 must ALTERNATE:
-   - Pāda 1: Guru (G)
-   - Pāda 2: Laghu (L)
-   - Pāda 3: Guru (G)
-   - Pāda 4: Laghu (L)
-
-Workflow:
-1. Compose candidate 4-pāda verse in Devanagari.
-2. Call `verify_prosody`.
-3. If diagnostics show failures, rewrite ONLY the failing pādas to hit the 8-syllable and Laghu/Guru requirements, then re-call `verify_prosody`.
+SYSTEM_INSTRUCTION_UPAJATI = """
+You are a classical Sanskrit Mahākavi adhering strictly to Piṅgala Chhandaḥśāstra.
+Compose an authentic 4-pāda Upajāti / Indravajrā verse on the given topic.
+Rules:
+1. Exactly 4 pādas, each having strictly 11 akṣaras.
+2. Each pāda must strictly follow either:
+   - Indravajrā (Ta-Ta-Ja-G-G): GGLGGLLGLGG
+   - Upendravajrā (Ja-Ta-Ja-G-G): LGLGGLLGLGG
+3. Pāda 1 Syllable 1 can be Guru (Indravajrā) or Laghu (Upendravajrā). Syllables 2-11 are identical in both meters.
+Call verify_prosody(text, chandas='upajati'). If defects are returned, adjust words to fix the syllable weights and call again.
 """
 
 def safe_send(chat, message, retries=5, delay=4):
@@ -75,19 +85,22 @@ def safe_send(chat, message, retries=5, delay=4):
             else:
                 raise
 
-def generate_verified_verse(topic: str, max_iterations: int = 5):
+def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations: int = 5):
+    system_prompt = SYSTEM_INSTRUCTION_UPAJATI if meter.lower() in ["upajati", "indravajra"] else SYSTEM_INSTRUCTION_ANUSTUBH
+    target_meter = "upajati" if meter.lower() in ["upajati", "indravajra"] else "anustubh"
+
     client = genai.Client(api_key=GEMINI_API_KEY)
     chat = client.chats.create(
         model="gemini-3.6-flash",
         config=types.GenerateContentConfig(
-            system_instruction=SYSTEM_INSTRUCTION,
+            system_instruction=system_prompt,
             temperature=0.3,
             tools=[types.Tool(function_declarations=[prosody_tool_declaration])]
         )
     )
 
-    print(f"\n[Composer] Requesting composition on: '{topic}'")
-    response = safe_send(chat, f"Compose an Anustubh Pathya sloka on: {topic}")
+    print(f"\n[Composer] Requesting '{target_meter}' verse on: '{topic}'")
+    response = safe_send(chat, f"Compose a 4-pada Sanskrit sloka in {target_meter} meter on the topic: {topic}")
 
     for step in range(1, max_iterations + 1):
         tool_calls = [
@@ -98,43 +111,41 @@ def generate_verified_verse(topic: str, max_iterations: int = 5):
         ]
 
         if not tool_calls:
-            print("\n[Final Output]:")
-            print(response.text)
+            print("\n[Final Text Output]:\n", response.text)
             return
 
         for call in tool_calls:
             fn_name = call.name
             args = dict(call.args)
-            candidate_text = args.get("text")
+            candidate_text = args.get("text", "")
+            scanned_chandas = args.get("chandas", target_meter)
             print(f"\n[Iteration {step}] Candidate Verse:\n{candidate_text}")
 
             result = verify_prosody_tool(
                 text=candidate_text,
-                chandas=args.get("chandas", "anustubh"),
+                chandas=scanned_chandas,
                 padanta_guru=args.get("padanta_guru", True)
             )
 
             is_valid = result.get("valid", False)
-            variant = result.get("variant")
-            print(f">> Scansion Result: Valid={is_valid} | Variant={variant}")
+            print(f">> Result: Valid={is_valid} | Chandas={result.get('chandas')} | Variant={result.get('variant')}")
 
             if is_valid:
-                print("\n==================================================")
-                print("✨ VERIFIED AUTHENTIC ANUṢṬUBH (PATHYĀ) VERSE ✨")
-                print("==================================================")
+                print("\n" + "="*54)
+                print(f"✨ VERIFIED AUTHENTIC {result.get('chandas', target_meter).upper()} VERSE ✨")
+                print("="*54)
                 print(candidate_text.strip())
-                print("--------------------------------------------------")
+                print("-" * 54)
                 for p in result.get("padas", []):
-                    cadence = p["weight_pattern"][4:7]
-                    print(f"Pāda {p['pada_number']}: {p['text']} -> {p['weight_pattern']} (Cadence 5-7: {cadence})")
-                print("Authority: Piṅgala Chhandaḥśāstra | Governance: Passed")
-                print("==================================================\n")
+                    print(f"Pāda {p['pada_number']}: {p['text']} -> {p['weight_pattern']} ({p['total_syllables']} akṣaras)")
+                print(f"Authority: Piṅgala Chhandaḥśāstra | Status: Verified")
+                print("="*54 + "\n")
                 return
 
             diags = result.get("diagnostics", [])
             print(f">> Defects caught: {len(diags)}")
             for d in diags:
-                print(f"   - Pada {d['pada']}, Syl {d['syllable']}: {d['message']}")
+                print(f"   - Pada {d.get('pada')}, Syl {d.get('syllable')}: {d.get('message')}")
 
             response = safe_send(
                 chat,
@@ -142,5 +153,6 @@ def generate_verified_verse(topic: str, max_iterations: int = 5):
             )
 
 if __name__ == "__main__":
-    theme = sys.argv[1] if len(sys.argv) > 1 else "प्रज्ञा (Wisdom and Truth)"
-    generate_verified_verse(theme)
+    theme = sys.argv[1] if len(sys.argv) > 1 else "विद्या (Knowledge and Illumination)"
+    selected_meter = sys.argv[2] if len(sys.argv) > 2 else "anustubh"
+    generate_verified_verse(theme, selected_meter)
