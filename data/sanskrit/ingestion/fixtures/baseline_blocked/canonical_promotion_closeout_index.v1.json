@@ -1,0 +1,158 @@
+{
+  "artifactIndex": [
+    {
+      "exists": true,
+      "name": "manifest",
+      "path": "data/sanskrit/ingestion/large_scale_manifest.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "promotionPreview",
+      "path": "data/sanskrit/ingestion/promotion_preview.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalPromotionPlan",
+      "path": "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "reviewDecisions",
+      "path": "data/sanskrit/ingestion/review_decisions.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "reviewedCanonicalPromotionPlan",
+      "path": "data/sanskrit/ingestion/canonical_promotion_plan.reviewed.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "promotionReadinessLock",
+      "path": "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalPromotionAudit",
+      "path": "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "promotionEvidenceReport",
+      "path": "data/sanskrit/ingestion/dhatu_promotion_evidence_report.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteAuthorization",
+      "path": "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteApproval",
+      "path": "data/sanskrit/ingestion/canonical_write_approval.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteApprovalValidation",
+      "path": "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteCommandManifest",
+      "path": "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteDryRunDiff",
+      "path": "data/sanskrit/ingestion/canonical_write_dry_run_diff.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteReleaseChecklist",
+      "path": "data/sanskrit/ingestion/canonical_write_release_checklist.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteApprovalPackage",
+      "path": "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteReleaseVerification",
+      "path": "data/sanskrit/ingestion/canonical_write_release_verification.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWritePreflightSnapshot",
+      "path": "data/sanskrit/ingestion/canonical_write_preflight_snapshot.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWritePostAuditVerification",
+      "path": "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
+      "required": true
+    },
+    {
+      "exists": true,
+      "name": "canonicalWriteRunbook",
+      "path": "data/sanskrit/ingestion/canonical_write_runbook.v1.md",
+      "required": true
+    }
+  ],
+  "blockingReasons": [
+    "Release checklist is not safe for production write.",
+    "Command manifest is not READY_FOR_MANUAL_EXECUTION.",
+    "Approval validation is not valid.",
+    "Approval status is not APPROVED.",
+    "Approval does not include every authorized ready record id.",
+    "Approval token missing approvedBy.",
+    "Approval token missing approvedAt.",
+    "Approval validation failed.",
+    "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
+    "Evidence release gate is not READY_FOR_CONTROLLED_WRITE.",
+    "Approved record ids do not match authorized ready record ids.",
+    "Required environment guard is not currently satisfied: AIGAANE_ALLOW_TEST_CANONICAL_WRITE.",
+    "Required environment guard is not currently satisfied: AIGAANE_ENABLE_CANONICAL_DHATU_WRITE.",
+    "Authorization is not ready for manual write.",
+    "Command manifest is not ready for manual execution.",
+    "Canonical write was not attempted.",
+    "Canonical write was not enabled.",
+    "Default state has no production canonical write to verify."
+  ],
+  "closeoutStatus": "BLOCKED_NO_PRODUCTION_WRITE",
+  "generatedBy": "scripts/index_dhatu_canonical_promotion_closeout.py",
+  "recommendedNextAction": "Keep production canonical write blocked until human approval, release verification, preflight snapshot, and post-write audit gates are ready.",
+  "safetySummary": {
+    "approvalValid": false,
+    "commandStatus": "REFUSED_APPROVAL_INVALID",
+    "postAuditVerificationStatus": "BLOCKED_NO_PRODUCTION_WRITE",
+    "productionRegistryMutationDetected": false,
+    "releaseVerificationStatus": "BLOCKED",
+    "safeToProceed": false
+  },
+  "schemaVersion": "1.0.0",
+  "sourceFiles": {
+    "approvalValidation": "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
+    "commandManifest": "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
+    "manifest": "data\\sanskrit\\ingestion\\large_scale_manifest.v1.json",
+    "postAuditVerification": "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
+    "releaseVerification": "data/sanskrit/ingestion/canonical_write_release_verification.v1.json",
+    "runbook": "data/sanskrit/ingestion/canonical_write_runbook.v1.md"
+  }
+}

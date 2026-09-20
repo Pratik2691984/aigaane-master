@@ -1,0 +1,38 @@
+{
+  "version": "node3_morphology_phase1",
+  "stems": {
+    "राम": {
+      "stem": "राम",
+      "gender": "masculine",
+      "stem_class": "a",
+      "declension": "masculine_a",
+      "meaning": "Rama"
+    },
+    "हरि": {
+      "stem": "हरि",
+      "gender": "masculine",
+      "stem_class": "i",
+      "declension": "masculine_i",
+      "paradigm": "kavi_masculine",
+      "meaning": "Hari"
+    },
+    "नदी": {
+      "stem": "नदी",
+      "gender": "feminine",
+      "stem_class": "feminine_ii",
+      "ending": "ī",
+      "declension": "feminine_ii",
+      "paradigm": "nadi_feminine",
+      "meaning": "river"
+    },
+    "फल": {
+      "stem": "फल",
+      "gender": "neuter",
+      "ending": "a",
+      "stem_class": "neuter_a",
+      "declension": "neuter_a",
+      "paradigm": "phala_neuter",
+      "meaning": "fruit"
+    }
+  }
+}

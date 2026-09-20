@@ -1,0 +1,413 @@
+{
+  "attributionVersion": "1.0.0",
+  "model": "aigaane-local-provenance",
+  "description": "Canonical source attribution for dhatu ingestion and promotion decisions",
+  "entities": {
+    "raw/dhatupatha.csv": {
+      "entityType": "raw-source-file",
+      "description": "Initial curated raw dhatu CSV",
+      "sourceMode": "local",
+      "networkDerived": false
+    },
+    "raw/dhatupatha_controlled_batch_01.csv": {
+      "entityType": "raw-source-file",
+      "description": "Controlled validation batch",
+      "sourceMode": "local",
+      "networkDerived": false
+    }
+  },
+  "agents": {
+    "manual-reviewer": {
+      "agentType": "human",
+      "name": "Manual reviewer",
+      "role": "reviewer"
+    },
+    "import-pipeline": {
+      "agentType": "software",
+      "name": "scripts/import_dhatus.py",
+      "role": "validator"
+    },
+    "promotion-pipeline": {
+      "agentType": "software",
+      "name": "scripts/promote_verified_dhatus.py",
+      "role": "promotion-controller"
+    }
+  },
+  "activities": {
+    "BATCH_0001_GOLDSET_BASE": {
+      "activityType": "ingestion-validation",
+      "usedEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "associatedAgents": [
+        "import-pipeline",
+        "manual-reviewer"
+      ],
+      "result": "validated"
+    },
+    "BATCH_0002_CONTROLLED_EXPANSION_25": {
+      "activityType": "controlled-validation",
+      "usedEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "associatedAgents": [
+        "import-pipeline",
+        "manual-reviewer",
+        "promotion-pipeline"
+      ],
+      "result": "validated-deferred"
+    }
+  },
+  "recordAttributions": {
+    "01.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "01.0002": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "01.0101": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0102": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0103": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0104": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0105": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0106": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0107": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0108": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0109": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0110": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "01.0111": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "02.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "02.0101": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "03.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "04.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "05.0101": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "06.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "07.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "08.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "08.0101": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "09.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    },
+    "09.0101": {
+      "sourceEntities": [
+        "raw/dhatupatha_controlled_batch_01.csv"
+      ],
+      "reviewStatus": "deferred",
+      "sourceConfidence": "medium",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0002_CONTROLLED_EXPANSION_25"
+      ],
+      "canonicalizationRationale": "Deferred pending traditional dhatupatha id/order verification before canonical promotion."
+    },
+    "10.0001": {
+      "sourceEntities": [
+        "raw/dhatupatha.csv"
+      ],
+      "reviewStatus": "approved",
+      "sourceConfidence": "high",
+      "reviewAgents": [
+        "manual-reviewer"
+      ],
+      "validationActivities": [
+        "BATCH_0001_GOLDSET_BASE"
+      ],
+      "canonicalizationRationale": "Seed canonical goldset record"
+    }
+  }
+}

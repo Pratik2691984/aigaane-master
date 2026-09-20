@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-certification.v1",
+  "status": "certified-read-only",
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "invariants": {
+    "approval-ready": true,
+    "manual-review-ready": true,
+    "acceptedRecords": 2000,
+    "rejectedRecords": 0,
+    "canonicalWriteEnabled": false,
+    "promotionExecutionEnabled": false,
+    "importExecutionEnabled": false,
+    "unsafeWriteRefused": true
+  },
+  "guarantees": {
+    "noMutationPaths": true,
+    "noCanonicalWrites": true,
+    "noImports": true,
+    "noPromotions": true
+  },
+  "targetCorpus": {
+    "dhatuCount": 1400,
+    "sutraCount": 400,
+    "stotraCount": 200,
+    "totalCount": 2000
+  },
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false,
+  "certificationExecutionAllowed": false
+}

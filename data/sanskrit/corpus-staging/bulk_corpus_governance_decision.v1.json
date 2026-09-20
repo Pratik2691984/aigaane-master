@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-governance-decision.v1",
+  "status": "governance-decision-pending",
+  "decision": null,
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "governanceDecisionRecorded": false,
+  "hardStop": true,
+  "sourceHold": {
+    "status": "hold-waiting-attestation",
+    "holdActive": true,
+    "waitingAttestation": true,
+    "holdCompleted": false
+  },
+  "checked": {
+    "upstreamSchema": "sanskrit-bulk-corpus-post-attestation-hold.v1",
+    "upstreamStatus": "hold-waiting-attestation"
+  },
+  "failures": [],
+  "authorization": {
+    "governanceDecisionIsAuthorization": false,
+    "governanceDecisionIsExecutionAuthorization": false,
+    "governanceClearanceIsWriteAuthorization": false,
+    "governanceClearanceIsPromotionAuthorization": false,
+    "governanceClearanceIsImportAuthorization": false,
+    "governanceClearanceIsExecutionAuthorization": false,
+    "clearedForAuthorizationIsWrite": false,
+    "clearedForAuthorizationIsImport": false,
+    "clearedForAuthorizationIsExecution": false,
+    "canonicalWrite": false,
+    "promotion": false,
+    "import": false,
+    "execution": false
+  },
+  "nextGate": "38G PROMOTION AUTHORIZATION",
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false,
+  "governanceExecutionAllowed": false,
+  "holdExecutionAllowed": false
+}

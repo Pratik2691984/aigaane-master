@@ -1,0 +1,61 @@
+{
+  "gana": {
+    "id": "04",
+    "name": "दिवादिगणः",
+    "slug": "divadi"
+  },
+  "records": [
+    {
+      "derivations": [],
+      "forms": {},
+      "grammar": {
+        "gana": {
+          "id": "04",
+          "name": "दिवादिगणः",
+          "slug": "divadi"
+        },
+        "itStatus": "set",
+        "karmatva": "akarmaka",
+        "primaryPada": "parasmaipada"
+      },
+      "id": "04.0001",
+      "identity": {
+        "canonicalForm": "दीव्यति",
+        "root": "दिव्",
+        "rootIast": "div",
+        "upadesha": "दिवुँ"
+      },
+      "padaProfile": {
+        "isUbhayapada": false,
+        "primary": "parasmaipada",
+        "ruleTriggers": []
+      },
+      "prakriyaRefs": [],
+      "schema": "aigaane.dhatu.v2",
+      "semantics": {
+        "english": "[to play,to sport]",
+        "sanskrit": "क्रीडायाम्"
+      },
+      "sources": [
+        {
+          "ashtadhyayi": "https://ashtadhyayi.com/dhatu/04.0001",
+          "citation": "https://ashtadhyayi.com/dhatu/04.0001",
+          "license": "external-reference",
+          "name": "Ashtadhyayi dhatu reference",
+          "type": "scholarly"
+        }
+      ],
+      "tags": [
+        "akarmaka",
+        "dhatu",
+        "divadi",
+        "parasmaipada",
+        "set"
+      ],
+      "upasargaVariants": [],
+      "version": "20B.import.1"
+    }
+  ],
+  "schema": "aigaane.dhatu_file.v1",
+  "version": "20B.import.1"
+}

@@ -1,0 +1,22 @@
+{
+  "batchVersion": "1.0.0",
+  "description": "Approved dhatu promotion batch controller",
+  "policy": {
+    "defaultMode": "dry-run",
+    "requiresWriteFlag": true,
+    "requiresApprovedPromotion": true,
+    "requiresCanonicalPreference": true,
+    "requiresSourceAttribution": true,
+    "autoPromote": false
+  },
+  "batches": [
+    {
+      "batchId": "PROMOTION_BATCH_0001",
+      "sourcePromotionFile": "data/sanskrit/ingestion/verified_promotions.v1.json",
+      "sourceRawFile": "raw/dhatupatha_controlled_batch_01.csv",
+      "status": "planned",
+      "allowedStatuses": ["approved"],
+      "notes": "No controlled candidates are approved yet; dry-run should promote zero records."
+    }
+  ]
+}

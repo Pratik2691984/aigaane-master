@@ -1,0 +1,89 @@
+{
+  "afterCount": 13,
+  "beforeCount": 10,
+  "blockingReasons": [],
+  "canonicalWriteAttempted": true,
+  "canonicalWriteEnabled": true,
+  "consistencyChecks": {
+    "afterCountMatchesExpectedAfterCount": true,
+    "auditWriteAttempted": true,
+    "auditWriteEnabled": true,
+    "dryRunHadNoDuplicateIds": true,
+    "dryRunHadNoMissingStagedRecords": true,
+    "preflightBeforeCountMatchesRegistryBefore": true,
+    "preflightSnapshotPresent": true,
+    "promotedCountMatchesExpectedRecords": true,
+    "promotedCountMatchesRecordIds": true,
+    "registryShaChangedOnlyWhenPromoted": true
+  },
+  "expectedAfterCount": 13,
+  "expectedRecordsToAdd": [
+    {
+      "canonicalId": "01.0005",
+      "canonicalRecord": {
+        "canonicalForm": "गम्",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to go",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0001"
+        },
+        "root": "गम्",
+        "rootIast": "gam"
+      },
+      "sourceRootId": "01.STAGED.0001"
+    },
+    {
+      "canonicalId": "01.0013",
+      "canonicalRecord": {
+        "canonicalForm": "स्था",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to stand",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0002"
+        },
+        "root": "स्था",
+        "rootIast": "sthā"
+      },
+      "sourceRootId": "01.STAGED.0002"
+    },
+    {
+      "canonicalId": "01.0008",
+      "canonicalRecord": {
+        "canonicalForm": "नी",
+        "gana": {
+          "id": "01"
+        },
+        "gloss": "to lead",
+        "promotion": {
+          "source": "local-staged-bhvadi-batch-001",
+          "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+          "sourceRootId": "01.STAGED.0003"
+        },
+        "root": "नी",
+        "rootIast": "nī"
+      },
+      "sourceRootId": "01.STAGED.0003"
+    }
+  ],
+  "generatedBy": "scripts/verify_dhatu_post_canonical_write_audit.py",
+  "preflightSnapshotStatus": "READY_PREWRITE",
+  "productionRegistryMutationDetected": true,
+  "promotedCount": 3,
+  "promotedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "registrySha256After": "be1db973c000bc90a1a227bdfd64b92235340f7fe9bb4d3eeb9075576f092734",
+  "registrySha256Before": "9c7faa2d69235b26e31a122e7069ef62c9b6b555566123e5cb3429a85cfe5801",
+  "schemaVersion": "1.0.0",
+  "verificationStatus": "VERIFIED_TEST_WRITE"
+}

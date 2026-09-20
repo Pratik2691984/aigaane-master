@@ -1,0 +1,60 @@
+{
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/search",
+  "query": {
+    "action": null,
+    "cluster": null,
+    "dhatuId": null,
+    "gloss": "stand",
+    "iast": null,
+    "root": null
+  },
+  "resultCount": 1,
+  "results": [
+    {
+      "actionVector": {
+        "facets": [
+          "stability",
+          "standing",
+          "persistence"
+        ],
+        "primary": "stability"
+      },
+      "derivationLinks": [],
+      "dhatuId": "01.0013",
+      "gloss": "to stand",
+      "glossTaxonomy": [
+        {
+          "category": "posture",
+          "dhatuId": "01.0013",
+          "engineUse": "semantic search, action classification, derivation graph seeding",
+          "englishGloss": "to stand",
+          "id": "posture.to_stand"
+        }
+      ],
+      "iast": "sth\u0101",
+      "matchReasons": [
+        "gloss"
+      ],
+      "paniniReferences": [
+        {
+          "confidence": "unreviewed",
+          "dhatuId": "01.0013",
+          "notes": "No exact sutra claim is made in this foundation layer.",
+          "relationType": "semantic-reference-placeholder",
+          "source": "placeholder-local-review-required",
+          "sutraId": null
+        }
+      ],
+      "rankScore": 65,
+      "root": "\u0938\u094d\u0925\u093e",
+      "semanticClusters": [
+        {
+          "description": "Standing, remaining, persistence, or stable posture.",
+          "id": "stability",
+          "label": "Stability"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

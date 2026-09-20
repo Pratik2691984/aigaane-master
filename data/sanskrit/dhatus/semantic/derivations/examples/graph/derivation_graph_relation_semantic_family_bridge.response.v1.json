@@ -1,0 +1,203 @@
+{
+  "edgeCount": 3,
+  "edges": [
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0001",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "motion -> motion_transition_family",
+      "relationType": "semantic_family_bridge",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "motion",
+      "sourceType": "semantic_cluster",
+      "targetId": "motion_transition_family",
+      "targetType": "derivation_family"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0002",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "guidance -> directional_guidance_family",
+      "relationType": "semantic_family_bridge",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "guidance",
+      "sourceType": "semantic_cluster",
+      "targetId": "directional_guidance_family",
+      "targetType": "derivation_family"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0003",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "stability -> grounding_stability_family",
+      "relationType": "semantic_family_bridge",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "stability",
+      "sourceType": "semantic_cluster",
+      "targetId": "grounding_stability_family",
+      "targetType": "derivation_family"
+    }
+  ],
+  "errorCode": null,
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/derivation-graph",
+  "nodeCount": 6,
+  "nodes": [
+    {
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "graphNodeId": "directional_guidance_family",
+      "label": "directional guidance family",
+      "nodeType": "derivation_family",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "guidance",
+        "leading",
+        "transfer"
+      ],
+      "transformationHints": [
+        "guidance-and-transfer exploration"
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.stability-state",
+      "graphNodeId": "grounding_stability_family",
+      "label": "grounding stability family",
+      "nodeType": "derivation_family",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "stability",
+        "standing",
+        "persistence"
+      ],
+      "transformationHints": [
+        "stability-and-state exploration"
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.motion-transition",
+      "graphNodeId": "motion_transition_family",
+      "label": "motion transition family",
+      "nodeType": "derivation_family",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "movement",
+        "traversal",
+        "transition"
+      ],
+      "transformationHints": [
+        "movement-to-result exploration"
+      ]
+    },
+    {
+      "graphNodeId": "guidance",
+      "label": "guidance",
+      "nodeType": "semantic_cluster",
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "graphNodeId": "motion",
+      "label": "motion",
+      "nodeType": "semantic_cluster",
+      "reviewStatus": "placeholder-local-review-required"
+    },
+    {
+      "graphNodeId": "stability",
+      "label": "stability",
+      "nodeType": "semantic_cluster",
+      "reviewStatus": "placeholder-local-review-required"
+    }
+  ],
+  "pathCount": 3,
+  "paths": [
+    {
+      "depth": 1,
+      "edges": [
+        "edge.derivation.semantic.0002"
+      ],
+      "nodes": [
+        {
+          "nodeId": "guidance",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "directional_guidance_family",
+          "nodeType": "derivation_family"
+        }
+      ],
+      "pathId": "path.derivation.semantic.0001",
+      "relationLabels": [
+        "guidance -> directional_guidance_family"
+      ],
+      "terminalNodeId": "directional_guidance_family"
+    },
+    {
+      "depth": 1,
+      "edges": [
+        "edge.derivation.semantic.0003"
+      ],
+      "nodes": [
+        {
+          "nodeId": "stability",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "grounding_stability_family",
+          "nodeType": "derivation_family"
+        }
+      ],
+      "pathId": "path.derivation.semantic.0002",
+      "relationLabels": [
+        "stability -> grounding_stability_family"
+      ],
+      "terminalNodeId": "grounding_stability_family"
+    },
+    {
+      "depth": 1,
+      "edges": [
+        "edge.derivation.semantic.0001"
+      ],
+      "nodes": [
+        {
+          "nodeId": "motion",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "motion_transition_family",
+          "nodeType": "derivation_family"
+        }
+      ],
+      "pathId": "path.derivation.semantic.0003",
+      "relationLabels": [
+        "motion -> motion_transition_family"
+      ],
+      "terminalNodeId": "motion_transition_family"
+    }
+  ],
+  "query": {
+    "dhatuId": null,
+    "domain": null,
+    "family": null,
+    "maxDepth": 1,
+    "relation": null,
+    "relationType": "semantic_family_bridge"
+  },
+  "safety": {
+    "authoritativePaninianClaims": false,
+    "automatedDerivationGeneration": false,
+    "canonicalRegistryMutation": false,
+    "exactSutraAssertions": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "requiredConfidence": "unreviewed",
+    "requiredReviewStatus": "placeholder-local-review-required",
+    "warning": "Placeholder-only derivation graph bridge; no exact Paninian derivation claim is made."
+  },
+  "schemaVersion": "1.0.0",
+  "traversalStatus": "OK",
+  "traversedEdgeIds": [
+    "edge.derivation.semantic.0001",
+    "edge.derivation.semantic.0002",
+    "edge.derivation.semantic.0003"
+  ]
+}

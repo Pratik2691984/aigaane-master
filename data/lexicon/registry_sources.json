@@ -1,0 +1,11 @@
+{
+  "sources": [
+    {
+      "name": "Aigaane Manual Seed Lexicon",
+      "type": "manual",
+      "citation": "Aigaane Sanskrit V3 internal seed entries for schema governance tests.",
+      "license": "project-internal",
+      "verified": true
+    }
+  ]
+}

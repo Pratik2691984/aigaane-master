@@ -1,0 +1,4311 @@
+import copy
+import importlib.util
+import json
+import sys
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SANSKRIT_VIEW_PATH = ROOT / "ui" / "tabs" / "sanskrit" / "view.html"
+SANSKRIT_CONTROLLER_PATH = ROOT / "ui" / "tabs" / "sanskrit" / "controller.js"
+SANSKRIT_STYLE_PATH = ROOT / "ui" / "tabs" / "sanskrit" / "style.css"
+SCRIPT_PATH = ROOT / "scripts" / "validate_large_scale_ingestion.py"
+PREVIEW_SCRIPT_PATH = ROOT / "scripts" / "preview_dhatu_batch_promotion.py"
+PLAN_SCRIPT_PATH = ROOT / "scripts" / "plan_dhatu_canonical_promotion.py"
+REVIEW_SCRIPT_PATH = ROOT / "scripts" / "apply_dhatu_review_decisions.py"
+LOCK_SCRIPT_PATH = ROOT / "scripts" / "lock_dhatu_promotion_readiness.py"
+PROMOTE_SCRIPT_PATH = ROOT / "scripts" / "promote_ready_dhatu_to_canonical.py"
+EVIDENCE_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_promotion_evidence.py"
+AUTHORIZATION_SCRIPT_PATH = ROOT / "scripts" / "authorize_dhatu_canonical_write.py"
+COMMAND_SCRIPT_PATH = ROOT / "scripts" / "prepare_dhatu_canonical_write_command.py"
+APPROVAL_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_canonical_write_approval.py"
+SIMULATE_APPROVAL_SCRIPT_PATH = ROOT / "scripts" / "simulate_dhatu_canonical_write_approval.py"
+DRY_RUN_DIFF_SCRIPT_PATH = ROOT / "scripts" / "diff_dhatu_canonical_write_dry_run.py"
+RELEASE_CHECKLIST_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_release_checklist.py"
+APPROVAL_PACKAGE_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_canonical_write_approval_package.py"
+RELEASE_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_canonical_write_release.py"
+PREFLIGHT_SNAPSHOT_SCRIPT_PATH = ROOT / "scripts" / "snapshot_dhatu_pre_canonical_write_state.py"
+POST_AUDIT_VERIFICATION_SCRIPT_PATH = ROOT / "scripts" / "verify_dhatu_post_canonical_write_audit.py"
+CLOSEOUT_INDEX_SCRIPT_PATH = ROOT / "scripts" / "index_dhatu_canonical_promotion_closeout.py"
+ARCHIVE_RELEASE_SCRIPT_PATH = ROOT / "scripts" / "archive_dhatu_release_state.py"
+MERGE_READINESS_SCRIPT_PATH = ROOT / "scripts" / "report_dhatu_merge_readiness.py"
+SEMANTIC_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_layer.py"
+SEMANTIC_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantics.py"
+SEMANTIC_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_api.py"
+SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_examples.py"
+SEMANTIC_QUERY_API_PATH = ROOT / "api" / "dhatu_semantic_query.py"
+SEMANTIC_GRAPH_API_PATH = ROOT / "api" / "dhatu_semantic_graph.py"
+SEMANTIC_DERIVATION_API_PATH = ROOT / "api" / "dhatu_semantic_derivation.py"
+SEMANTIC_DERIVATION_GRAPH_API_PATH = ROOT / "api" / "dhatu_semantic_derivation_graph.py"
+SEMANTIC_GRAPH_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_graph.py"
+SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_neighbors.py"
+SEMANTIC_GRAPH_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_graph_api.py"
+SEMANTIC_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_graph_examples.py"
+SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_traversal.py"
+SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_traversal_api.py"
+SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_traversal_examples.py"
+SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_ui_examples.py"
+SEMANTIC_DERIVATION_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_derivations.py"
+SEMANTIC_DERIVATION_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_derivations.py"
+SEMANTIC_DERIVATION_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_derivation_examples.py"
+SEMANTIC_DERIVATION_GRAPH_VALIDATION_SCRIPT_PATH = ROOT / "scripts" / "validate_dhatu_semantic_derivation_graph.py"
+SEMANTIC_DERIVATION_GRAPH_QUERY_SCRIPT_PATH = ROOT / "scripts" / "query_dhatu_semantic_derivation_graph.py"
+SEMANTIC_DERIVATION_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_derivation_graph_examples.py"
+SEMANTIC_DERIVATION_GRAPH_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_derivation_graph_api.py"
+SEMANTIC_PLATFORM_CHECKPOINT_SCRIPT_PATH = ROOT / "scripts" / "build_dhatu_semantic_platform_checkpoint.py"
+SEMANTIC_PLATFORM_INDEX_SMOKE_SCRIPT_PATH = ROOT / "scripts" / "smoke_dhatu_semantic_platform_index.py"
+SEMANTIC_PLATFORM_UI_EXAMPLE_EXPORT_SCRIPT_PATH = ROOT / "scripts" / "export_dhatu_semantic_platform_ui_examples.py"
+MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "large_scale_manifest.v1.json"
+REVIEW_DECISIONS_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "review_decisions.v1.json"
+READINESS_LOCK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "promotion_readiness_lock.v1.json"
+EVIDENCE_REPORT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "dhatu_promotion_evidence_report.v1.json"
+AUTHORIZATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_authorization.v1.json"
+APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.v1.json"
+COMMAND_MANIFEST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_command_manifest.v1.json"
+APPROVAL_VALIDATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_validation.v1.json"
+SIMULATED_APPROVAL_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval.simulated.v1.json"
+DRY_RUN_DIFF_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_dry_run_diff.v1.json"
+RELEASE_CHECKLIST_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_checklist.v1.json"
+APPROVAL_PACKAGE_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_approval_package.v1.md"
+RELEASE_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_release_verification.v1.json"
+PREFLIGHT_SNAPSHOT_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_preflight_snapshot.v1.json"
+POST_AUDIT_VERIFICATION_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_post_audit_verification.v1.json"
+RUNBOOK_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_write_runbook.v1.md"
+CLOSEOUT_INDEX_PATH = ROOT / "data" / "sanskrit" / "ingestion" / "canonical_promotion_closeout_index.v1.json"
+FIXTURE_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "fixtures"
+BASELINE_BLOCKED_FIXTURE_ROOT = FIXTURE_ROOT / "baseline_blocked"
+EXECUTED_WRITE_FIXTURE_ROOT = FIXTURE_ROOT / "executed_write"
+RELEASE_V50_ROOT = ROOT / "data" / "sanskrit" / "ingestion" / "releases" / "v50"
+MERGE_READINESS_REPORT_PATH = RELEASE_V50_ROOT / "merge_readiness_report.v50.json"
+RAW_BATCH_ROOT = ROOT / "raw" / "dhatupatha_batches"
+BHVADI_BATCH = RAW_BATCH_ROOT / "01_bhvadi" / "bhvadi_batch_001.json"
+DHATU_ROOT = ROOT / "data" / "sanskrit" / "dhatus"
+SEMANTIC_ROOT = DHATU_ROOT / "semantic"
+SEMANTIC_SCHEMA_PATH = SEMANTIC_ROOT / "semantic_schema.v2.json"
+SEMANTIC_MANIFEST_PATH = SEMANTIC_ROOT / "semantic_manifest.v1.json"
+SEMANTIC_CLUSTERS_PATH = SEMANTIC_ROOT / "semantic_clusters.v1.json"
+ACTION_VECTORS_PATH = SEMANTIC_ROOT / "action_vectors.v1.json"
+SEMANTIC_API_DOC_PATH = SEMANTIC_ROOT / "SEMANTIC_API.md"
+SEMANTIC_UI_DOC_PATH = SEMANTIC_ROOT / "UI_INTEGRATION.md"
+SEMANTIC_EXAMPLES_ROOT = SEMANTIC_ROOT / "examples"
+SEMANTIC_GRAPH_EXAMPLES_ROOT = SEMANTIC_EXAMPLES_ROOT / "graph"
+SEMANTIC_UI_EXAMPLES_ROOT = SEMANTIC_EXAMPLES_ROOT / "ui"
+SEMANTIC_EDGES_PATH = SEMANTIC_ROOT / "edges" / "semantic_edges.v1.json"
+SEMANTIC_DERIVATION_ROOT = SEMANTIC_ROOT / "derivations"
+SEMANTIC_DERIVATION_PATH = SEMANTIC_DERIVATION_ROOT / "semantic_derivations.v1.json"
+SEMANTIC_DERIVATION_EDGES_PATH = SEMANTIC_DERIVATION_ROOT / "semantic_derivation_edges.v1.json"
+SEMANTIC_DERIVATION_GRAPH_EXAMPLES_ROOT = SEMANTIC_DERIVATION_ROOT / "examples" / "graph"
+SEMANTIC_DERIVATION_DOC_PATH = SEMANTIC_ROOT / "DERIVATION_API.md"
+SEMANTIC_PLATFORM_DOC_PATH = SEMANTIC_ROOT / "SEMANTIC_PLATFORM.md"
+SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH = SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_platform_status_panel.v1.json"
+SEMANTIC_RELEASE_V70_ROOT = SEMANTIC_ROOT / "releases" / "v70"
+SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH = SEMANTIC_RELEASE_V70_ROOT / "semantic_platform_checkpoint.v70.json"
+SEMANTIC_PLATFORM_CHECKPOINT_MD_PATH = SEMANTIC_RELEASE_V70_ROOT / "semantic_platform_checkpoint.v70.md"
+GOLDSET_ROOT = ROOT / "data" / "sanskrit" / "goldset"
+FORBIDDEN_RUNTIME_IMPORTS = {
+    "engines.morphology",
+    "engines.sandhi",
+    "engines.vyakarana",
+    "engines.derivation_replay_exporter",
+    "engines.replay_analytics_engine",
+    "engines.trace_graph",
+}
+EXPECTED_GANA_DIRS = {
+    "01_bhvadi",
+    "02_adadi",
+    "03_juhotyadi",
+    "04_divadi",
+    "05_svadi",
+    "06_tudadi",
+    "07_rudhadi",
+    "08_tanadi",
+    "09_kryadi",
+    "10_curadi",
+}
+PROMOTED_SOURCE_IDS = ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"]
+PROMOTED_CANONICAL_IDS = ["01.0005", "01.0013", "01.0008"]
+
+
+def load_fixture_json(fixture_root, filename):
+    return json.loads((fixture_root / filename).read_text(encoding="utf-8"))
+
+
+spec = importlib.util.spec_from_file_location("validate_large_scale_ingestion", SCRIPT_PATH)
+validator = importlib.util.module_from_spec(spec)
+sys.modules["validate_large_scale_ingestion"] = validator
+spec.loader.exec_module(validator)
+
+preview_spec = importlib.util.spec_from_file_location("preview_dhatu_batch_promotion", PREVIEW_SCRIPT_PATH)
+previewer = importlib.util.module_from_spec(preview_spec)
+sys.modules["preview_dhatu_batch_promotion"] = previewer
+preview_spec.loader.exec_module(previewer)
+
+plan_spec = importlib.util.spec_from_file_location("plan_dhatu_canonical_promotion", PLAN_SCRIPT_PATH)
+planner = importlib.util.module_from_spec(plan_spec)
+sys.modules["plan_dhatu_canonical_promotion"] = planner
+plan_spec.loader.exec_module(planner)
+
+review_spec = importlib.util.spec_from_file_location("apply_dhatu_review_decisions", REVIEW_SCRIPT_PATH)
+reviewer = importlib.util.module_from_spec(review_spec)
+sys.modules["apply_dhatu_review_decisions"] = reviewer
+review_spec.loader.exec_module(reviewer)
+
+lock_spec = importlib.util.spec_from_file_location("lock_dhatu_promotion_readiness", LOCK_SCRIPT_PATH)
+locker = importlib.util.module_from_spec(lock_spec)
+sys.modules["lock_dhatu_promotion_readiness"] = locker
+lock_spec.loader.exec_module(locker)
+
+promote_spec = importlib.util.spec_from_file_location("promote_ready_dhatu_to_canonical", PROMOTE_SCRIPT_PATH)
+promoter = importlib.util.module_from_spec(promote_spec)
+sys.modules["promote_ready_dhatu_to_canonical"] = promoter
+promote_spec.loader.exec_module(promoter)
+
+evidence_spec = importlib.util.spec_from_file_location("report_dhatu_promotion_evidence", EVIDENCE_SCRIPT_PATH)
+evidence_reporter = importlib.util.module_from_spec(evidence_spec)
+sys.modules["report_dhatu_promotion_evidence"] = evidence_reporter
+evidence_spec.loader.exec_module(evidence_reporter)
+
+authorization_spec = importlib.util.spec_from_file_location("authorize_dhatu_canonical_write", AUTHORIZATION_SCRIPT_PATH)
+authorizer = importlib.util.module_from_spec(authorization_spec)
+sys.modules["authorize_dhatu_canonical_write"] = authorizer
+authorization_spec.loader.exec_module(authorizer)
+
+command_spec = importlib.util.spec_from_file_location("prepare_dhatu_canonical_write_command", COMMAND_SCRIPT_PATH)
+command_preparer = importlib.util.module_from_spec(command_spec)
+sys.modules["prepare_dhatu_canonical_write_command"] = command_preparer
+command_spec.loader.exec_module(command_preparer)
+
+approval_validation_spec = importlib.util.spec_from_file_location(
+    "validate_dhatu_canonical_write_approval",
+    APPROVAL_VALIDATION_SCRIPT_PATH,
+)
+approval_validator = importlib.util.module_from_spec(approval_validation_spec)
+sys.modules["validate_dhatu_canonical_write_approval"] = approval_validator
+approval_validation_spec.loader.exec_module(approval_validator)
+
+simulate_approval_spec = importlib.util.spec_from_file_location(
+    "simulate_dhatu_canonical_write_approval",
+    SIMULATE_APPROVAL_SCRIPT_PATH,
+)
+approval_simulator = importlib.util.module_from_spec(simulate_approval_spec)
+sys.modules["simulate_dhatu_canonical_write_approval"] = approval_simulator
+simulate_approval_spec.loader.exec_module(approval_simulator)
+
+dry_run_diff_spec = importlib.util.spec_from_file_location(
+    "diff_dhatu_canonical_write_dry_run",
+    DRY_RUN_DIFF_SCRIPT_PATH,
+)
+dry_run_differ = importlib.util.module_from_spec(dry_run_diff_spec)
+sys.modules["diff_dhatu_canonical_write_dry_run"] = dry_run_differ
+dry_run_diff_spec.loader.exec_module(dry_run_differ)
+
+release_checklist_spec = importlib.util.spec_from_file_location(
+    "build_dhatu_canonical_write_release_checklist",
+    RELEASE_CHECKLIST_SCRIPT_PATH,
+)
+release_checklister = importlib.util.module_from_spec(release_checklist_spec)
+sys.modules["build_dhatu_canonical_write_release_checklist"] = release_checklister
+release_checklist_spec.loader.exec_module(release_checklister)
+
+approval_package_spec = importlib.util.spec_from_file_location(
+    "build_dhatu_canonical_write_approval_package",
+    APPROVAL_PACKAGE_SCRIPT_PATH,
+)
+approval_packager = importlib.util.module_from_spec(approval_package_spec)
+sys.modules["build_dhatu_canonical_write_approval_package"] = approval_packager
+approval_package_spec.loader.exec_module(approval_packager)
+
+release_verification_spec = importlib.util.spec_from_file_location(
+    "verify_dhatu_canonical_write_release",
+    RELEASE_VERIFICATION_SCRIPT_PATH,
+)
+release_verifier = importlib.util.module_from_spec(release_verification_spec)
+sys.modules["verify_dhatu_canonical_write_release"] = release_verifier
+release_verification_spec.loader.exec_module(release_verifier)
+
+preflight_snapshot_spec = importlib.util.spec_from_file_location(
+    "snapshot_dhatu_pre_canonical_write_state",
+    PREFLIGHT_SNAPSHOT_SCRIPT_PATH,
+)
+preflight_snapshooter = importlib.util.module_from_spec(preflight_snapshot_spec)
+sys.modules["snapshot_dhatu_pre_canonical_write_state"] = preflight_snapshooter
+preflight_snapshot_spec.loader.exec_module(preflight_snapshooter)
+
+post_audit_verification_spec = importlib.util.spec_from_file_location(
+    "verify_dhatu_post_canonical_write_audit",
+    POST_AUDIT_VERIFICATION_SCRIPT_PATH,
+)
+post_audit_verifier = importlib.util.module_from_spec(post_audit_verification_spec)
+sys.modules["verify_dhatu_post_canonical_write_audit"] = post_audit_verifier
+post_audit_verification_spec.loader.exec_module(post_audit_verifier)
+
+closeout_index_spec = importlib.util.spec_from_file_location(
+    "index_dhatu_canonical_promotion_closeout",
+    CLOSEOUT_INDEX_SCRIPT_PATH,
+)
+closeout_indexer = importlib.util.module_from_spec(closeout_index_spec)
+sys.modules["index_dhatu_canonical_promotion_closeout"] = closeout_indexer
+closeout_index_spec.loader.exec_module(closeout_indexer)
+
+archive_release_spec = importlib.util.spec_from_file_location(
+    "archive_dhatu_release_state",
+    ARCHIVE_RELEASE_SCRIPT_PATH,
+)
+release_archiver = importlib.util.module_from_spec(archive_release_spec)
+sys.modules["archive_dhatu_release_state"] = release_archiver
+archive_release_spec.loader.exec_module(release_archiver)
+
+merge_readiness_spec = importlib.util.spec_from_file_location(
+    "report_dhatu_merge_readiness",
+    MERGE_READINESS_SCRIPT_PATH,
+)
+merge_readiness_reporter = importlib.util.module_from_spec(merge_readiness_spec)
+sys.modules["report_dhatu_merge_readiness"] = merge_readiness_reporter
+merge_readiness_spec.loader.exec_module(merge_readiness_reporter)
+
+semantic_validation_spec = importlib.util.spec_from_file_location(
+    "validate_dhatu_semantic_layer",
+    SEMANTIC_VALIDATION_SCRIPT_PATH,
+)
+semantic_validator = importlib.util.module_from_spec(semantic_validation_spec)
+sys.modules["validate_dhatu_semantic_layer"] = semantic_validator
+semantic_validation_spec.loader.exec_module(semantic_validator)
+
+semantic_query_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_query",
+    SEMANTIC_QUERY_API_PATH,
+)
+semantic_query = importlib.util.module_from_spec(semantic_query_spec)
+sys.modules["dhatu_semantic_query"] = semantic_query
+semantic_query_spec.loader.exec_module(semantic_query)
+
+semantic_graph_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_graph",
+    SEMANTIC_GRAPH_API_PATH,
+)
+semantic_graph = importlib.util.module_from_spec(semantic_graph_spec)
+sys.modules["dhatu_semantic_graph"] = semantic_graph
+semantic_graph_spec.loader.exec_module(semantic_graph)
+
+semantic_derivation_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_derivation",
+    SEMANTIC_DERIVATION_API_PATH,
+)
+semantic_derivation = importlib.util.module_from_spec(semantic_derivation_spec)
+sys.modules["dhatu_semantic_derivation"] = semantic_derivation
+semantic_derivation_spec.loader.exec_module(semantic_derivation)
+
+semantic_derivation_graph_spec = importlib.util.spec_from_file_location(
+    "dhatu_semantic_derivation_graph",
+    SEMANTIC_DERIVATION_GRAPH_API_PATH,
+)
+semantic_derivation_graph = importlib.util.module_from_spec(semantic_derivation_graph_spec)
+sys.modules["dhatu_semantic_derivation_graph"] = semantic_derivation_graph
+semantic_derivation_graph_spec.loader.exec_module(semantic_derivation_graph)
+
+semantic_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_examples",
+    SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_example_exporter = importlib.util.module_from_spec(semantic_example_export_spec)
+sys.modules["export_dhatu_semantic_examples"] = semantic_example_exporter
+semantic_example_export_spec.loader.exec_module(semantic_example_exporter)
+
+semantic_graph_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_graph_examples",
+    SEMANTIC_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_graph_example_exporter = importlib.util.module_from_spec(semantic_graph_example_export_spec)
+sys.modules["export_dhatu_semantic_graph_examples"] = semantic_graph_example_exporter
+semantic_graph_example_export_spec.loader.exec_module(semantic_graph_example_exporter)
+
+semantic_traversal_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_traversal_examples",
+    SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_traversal_example_exporter = importlib.util.module_from_spec(semantic_traversal_example_export_spec)
+sys.modules["export_dhatu_semantic_traversal_examples"] = semantic_traversal_example_exporter
+semantic_traversal_example_export_spec.loader.exec_module(semantic_traversal_example_exporter)
+
+semantic_ui_example_export_spec = importlib.util.spec_from_file_location(
+    "export_dhatu_semantic_ui_examples",
+    SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH,
+)
+semantic_ui_example_exporter = importlib.util.module_from_spec(semantic_ui_example_export_spec)
+sys.modules["export_dhatu_semantic_ui_examples"] = semantic_ui_example_exporter
+semantic_ui_example_export_spec.loader.exec_module(semantic_ui_example_exporter)
+
+kernel_api_spec = importlib.util.spec_from_file_location("kernel_api", ROOT / "api" / "kernel_api.py")
+kernel_api = importlib.util.module_from_spec(kernel_api_spec)
+sys.modules["kernel_api"] = kernel_api
+kernel_api_spec.loader.exec_module(kernel_api)
+
+
+class LargeScaleIngestionTests(unittest.TestCase):
+    def setUp(self):
+        self.payload = validator.load_large_scale_manifest(MANIFEST_PATH)
+
+    def _write_pre_promotion_registry_fixture(self, registry_path):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        for record_id, record in list(registry.get("records", {}).items()):
+            promotion = record.get("promotion", {})
+            if promotion.get("sourceRootId") in PROMOTED_SOURCE_IDS:
+                registry["records"].pop(record_id)
+        registry_path.write_text(json.dumps(registry, indent=2, sort_keys=True), encoding="utf-8")
+        return registry
+
+    def test_large_scale_manifest_loads(self):
+        self.assertTrue(MANIFEST_PATH.exists())
+        self.assertEqual(self.payload["manifestVersion"], "1.0.0")
+
+    def test_manifest_policy_is_local_only(self):
+        self.assertEqual(self.payload["policy"]["mode"], "local-only")
+
+    def test_network_scraping_is_false(self):
+        self.assertFalse(self.payload["policy"]["networkScraping"])
+
+    def test_allow_direct_canonical_write_is_false(self):
+        self.assertFalse(self.payload["policy"]["allowDirectCanonicalWrite"])
+
+    def test_all_ten_gana_batch_folders_exist(self):
+        self.assertTrue(RAW_BATCH_ROOT.exists())
+        actual = {path.name for path in RAW_BATCH_ROOT.iterdir() if path.is_dir()}
+
+        self.assertEqual(actual, EXPECTED_GANA_DIRS)
+        for dirname in EXPECTED_GANA_DIRS:
+            self.assertTrue((RAW_BATCH_ROOT / dirname / ".gitkeep").exists())
+
+    def test_manifest_contains_exactly_ten_gana_batch_entries(self):
+        self.assertEqual(len(self.payload["ganaBatches"]), 10)
+
+    def test_gana_ids_are_unique(self):
+        ids = [batch["ganaId"] for batch in self.payload["ganaBatches"]]
+
+        self.assertEqual(len(ids), len(set(ids)))
+
+    def test_slugs_are_unique(self):
+        slugs = [batch["slug"] for batch in self.payload["ganaBatches"]]
+
+        self.assertEqual(len(slugs), len(set(slugs)))
+
+    def test_raw_dir_paths_are_under_batch_root(self):
+        for batch in self.payload["ganaBatches"]:
+            self.assertTrue(batch["rawDir"].startswith("raw/dhatupatha_batches/"))
+            self.assertNotIn("data/sanskrit/dhatus", batch["rawDir"])
+
+    def test_validator_script_exists(self):
+        self.assertTrue(SCRIPT_PATH.exists())
+
+    def test_preview_script_exists(self):
+        self.assertTrue(PREVIEW_SCRIPT_PATH.exists())
+
+    def test_plan_script_exists(self):
+        self.assertTrue(PLAN_SCRIPT_PATH.exists())
+
+    def test_review_script_and_decisions_exist(self):
+        self.assertTrue(REVIEW_SCRIPT_PATH.exists())
+        self.assertTrue(REVIEW_DECISIONS_PATH.exists())
+
+    def test_lock_script_exists(self):
+        self.assertTrue(LOCK_SCRIPT_PATH.exists())
+
+    def test_promote_script_exists(self):
+        self.assertTrue(PROMOTE_SCRIPT_PATH.exists())
+
+    def test_evidence_report_script_exists(self):
+        self.assertTrue(EVIDENCE_SCRIPT_PATH.exists())
+
+    def test_authorization_script_exists(self):
+        self.assertTrue(AUTHORIZATION_SCRIPT_PATH.exists())
+
+    def test_command_manifest_script_exists(self):
+        self.assertTrue(COMMAND_SCRIPT_PATH.exists())
+
+    def test_approval_validation_script_exists(self):
+        self.assertTrue(APPROVAL_VALIDATION_SCRIPT_PATH.exists())
+
+    def test_simulated_approval_script_exists(self):
+        self.assertTrue(SIMULATE_APPROVAL_SCRIPT_PATH.exists())
+
+    def test_dry_run_diff_script_exists(self):
+        self.assertTrue(DRY_RUN_DIFF_SCRIPT_PATH.exists())
+
+    def test_release_checklist_script_exists(self):
+        self.assertTrue(RELEASE_CHECKLIST_SCRIPT_PATH.exists())
+
+    def test_approval_package_script_exists(self):
+        self.assertTrue(APPROVAL_PACKAGE_SCRIPT_PATH.exists())
+
+    def test_release_verification_script_exists(self):
+        self.assertTrue(RELEASE_VERIFICATION_SCRIPT_PATH.exists())
+
+    def test_preflight_snapshot_script_exists(self):
+        self.assertTrue(PREFLIGHT_SNAPSHOT_SCRIPT_PATH.exists())
+
+    def test_post_audit_verification_script_exists(self):
+        self.assertTrue(POST_AUDIT_VERIFICATION_SCRIPT_PATH.exists())
+
+    def test_closeout_index_script_exists(self):
+        self.assertTrue(CLOSEOUT_INDEX_SCRIPT_PATH.exists())
+
+    def test_archive_release_script_exists(self):
+        self.assertTrue(ARCHIVE_RELEASE_SCRIPT_PATH.exists())
+
+    def test_merge_readiness_script_exists(self):
+        self.assertTrue(MERGE_READINESS_SCRIPT_PATH.exists())
+
+    def test_semantic_validation_script_exists(self):
+        self.assertTrue(SEMANTIC_VALIDATION_SCRIPT_PATH.exists())
+
+    def test_semantic_query_script_and_api_exist(self):
+        self.assertTrue(SEMANTIC_QUERY_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_API_SMOKE_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_QUERY_API_PATH.exists())
+        self.assertTrue(SEMANTIC_GRAPH_API_PATH.exists())
+        self.assertTrue(SEMANTIC_GRAPH_VALIDATION_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_NEIGHBOR_QUERY_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_GRAPH_API_SMOKE_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_GRAPH_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_TRAVERSAL_QUERY_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_TRAVERSAL_API_SMOKE_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_TRAVERSAL_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_UI_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+
+    def test_canonical_write_approval_file_exists(self):
+        self.assertTrue(APPROVAL_PATH.exists())
+
+    def test_canonical_write_runbook_exists(self):
+        self.assertTrue(RUNBOOK_PATH.exists())
+
+    def test_canonical_promotion_closeout_index_exists(self):
+        self.assertTrue(CLOSEOUT_INDEX_PATH.exists())
+
+    def test_canonical_write_fixture_folders_exist(self):
+        self.assertTrue(BASELINE_BLOCKED_FIXTURE_ROOT.exists())
+        self.assertTrue(EXECUTED_WRITE_FIXTURE_ROOT.exists())
+
+    def test_release_v50_archive_directory_exists(self):
+        self.assertTrue(RELEASE_V50_ROOT.exists())
+
+    def test_merge_readiness_report_exists(self):
+        self.assertTrue(MERGE_READINESS_REPORT_PATH.exists())
+
+    def test_semantic_directory_and_core_files_exist(self):
+        self.assertTrue(SEMANTIC_ROOT.exists())
+        self.assertTrue(SEMANTIC_SCHEMA_PATH.exists())
+        self.assertTrue(SEMANTIC_MANIFEST_PATH.exists())
+
+    def test_semantic_api_docs_and_examples_exist(self):
+        self.assertTrue(SEMANTIC_API_DOC_PATH.exists())
+        self.assertTrue(SEMANTIC_UI_DOC_PATH.exists())
+        self.assertTrue(SEMANTIC_EXAMPLES_ROOT.exists())
+        self.assertTrue(SEMANTIC_GRAPH_EXAMPLES_ROOT.exists())
+        self.assertTrue(SEMANTIC_UI_EXAMPLES_ROOT.exists())
+        self.assertTrue(SEMANTIC_EDGES_PATH.exists())
+
+    def test_first_bhvadi_batch_file_exists(self):
+        self.assertTrue(BHVADI_BATCH.exists())
+        bhvadi = validator.find_gana_batch(self.payload, "01")
+
+        self.assertIn("raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json", bhvadi["batchFiles"])
+
+    def test_discovered_batch_files_match_manifest_entries(self):
+        discovered = validator.discover_staged_batch_files()
+        manifest_files = validator.list_manifest_batch_files(self.payload)
+
+        self.assertEqual(discovered, manifest_files)
+        self.assertEqual(self.payload["batchFileCount"], len(discovered))
+
+    def test_first_bhvadi_batch_json_is_valid(self):
+        payload = json.loads(BHVADI_BATCH.read_text(encoding="utf-8"))
+
+        self.assertEqual(payload["ganaId"], "01")
+        self.assertGreaterEqual(len(payload["records"]), 10)
+        self.assertLessEqual(len(payload["records"]), 25)
+
+    def test_first_bhvadi_batch_records_have_required_fields(self):
+        records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
+        required = {"root_id", "devanagari", "iast", "gana", "pada", "artha", "source", "status"}
+
+        self.assertGreaterEqual(len(records), 10)
+        for record in records:
+            self.assertTrue(required.issubset(record), record)
+            self.assertEqual(record["status"], "staged")
+            self.assertEqual(record["gana"], "01")
+
+    def test_live_canonical_registry_has_promoted_records_after_write(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        records = registry["records"]
+
+        self.assertEqual(len(records), 13)
+        for canonical_id, source_id in zip(PROMOTED_CANONICAL_IDS, PROMOTED_SOURCE_IDS):
+            self.assertIn(canonical_id, records)
+            self.assertEqual(records[canonical_id]["promotion"]["sourceRootId"], source_id)
+
+    def test_live_canonical_registry_has_no_duplicate_dhatu_ids_after_write(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        ids = list(registry["records"].keys())
+
+        self.assertEqual(len(ids), len(set(ids)))
+
+    def test_live_post_write_audit_records_three_promotions(self):
+        audit = json.loads(POST_AUDIT_VERIFICATION_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(audit["promotedCount"], 3)
+        self.assertEqual(audit["afterCount"], 13)
+        self.assertEqual(audit["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+
+    def test_semantic_records_include_promoted_canonical_roots(self):
+        action_vectors = json.loads(ACTION_VECTORS_PATH.read_text(encoding="utf-8"))
+        semantic_ids = [record["dhatuId"] for record in action_vectors["records"]]
+
+        self.assertEqual(sorted(semantic_ids), sorted(PROMOTED_CANONICAL_IDS))
+
+    def test_semantic_ids_are_subset_of_canonical_ids(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        action_vectors = json.loads(ACTION_VECTORS_PATH.read_text(encoding="utf-8"))
+        canonical_ids = set(registry["records"].keys())
+        semantic_ids = {record["dhatuId"] for record in action_vectors["records"]}
+
+        self.assertTrue(semantic_ids.issubset(canonical_ids))
+
+    def test_action_vectors_reference_valid_semantic_clusters(self):
+        clusters = json.loads(SEMANTIC_CLUSTERS_PATH.read_text(encoding="utf-8"))
+        action_vectors = json.loads(ACTION_VECTORS_PATH.read_text(encoding="utf-8"))
+        cluster_ids = {cluster["id"] for cluster in clusters["clusters"]}
+        referenced = {
+            cluster_id
+            for record in action_vectors["records"]
+            for cluster_id in record["semanticClusterIds"]
+        }
+
+        self.assertTrue(referenced.issubset(cluster_ids))
+
+    def test_semantic_validator_passes_and_keeps_registry_unchanged(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        summary = semantic_validator.validate_semantic_layer()
+
+        self.assertEqual(summary["semanticValidationStatus"], "PASS")
+        self.assertEqual(summary["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(summary["semanticRecordCount"], 3)
+        self.assertEqual(summary["coveredDhatuIds"], sorted(PROMOTED_CANONICAL_IDS))
+        self.assertTrue(summary["checks"]["canonicalRegistryUnchanged"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_query_by_dhatu_id_returns_gam(self):
+        results = semantic_query.query_semantics(dhatu_id="01.0005")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+        self.assertEqual(results[0]["iast"], "gam")
+
+    def test_semantic_query_by_iast_gam_returns_promoted_id(self):
+        results = semantic_query.query_semantics(iast="gam")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+
+    def test_semantic_query_by_devanagari_root_returns_promoted_id(self):
+        results = semantic_query.query_semantics(root="गम्")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+
+    def test_semantic_query_by_cluster_motion_returns_gam(self):
+        results = semantic_query.query_semantics(cluster="motion")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0005")
+        self.assertEqual(results[0]["iast"], "gam")
+
+    def test_semantic_query_by_action_guidance_returns_ni(self):
+        results = semantic_query.query_semantics(action="guidance")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0008")
+        self.assertEqual(results[0]["iast"], "nī")
+
+    def test_semantic_query_by_gloss_stand_returns_stha(self):
+        results = semantic_query.query_semantics(gloss="stand")
+
+        self.assertEqual(results[0]["dhatuId"], "01.0013")
+        self.assertEqual(results[0]["iast"], "sthā")
+
+    def test_semantic_query_results_are_canonical_and_unique(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        results = semantic_query.query_semantics(action="motion")
+        result_ids = [result["dhatuId"] for result in results]
+
+        self.assertTrue(set(result_ids).issubset(set(registry["records"].keys())))
+        self.assertEqual(len(result_ids), len(set(result_ids)))
+
+    def test_semantic_query_cli_json_returns_valid_json(self):
+        import subprocess
+
+        output = subprocess.check_output(
+            [sys.executable, str(SEMANTIC_QUERY_SCRIPT_PATH), "--dhatu-id", "01.0005", "--json"],
+            cwd=ROOT,
+            text=True,
+            encoding="utf-8",
+        )
+        payload = json.loads(output)
+
+        self.assertEqual(payload["resultCount"], 1)
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
+
+    def test_kernel_semantic_api_helper_searches_by_dhatu_id(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(dhatuId="01.0005")
+
+        self.assertEqual(payload["schemaVersion"], "1.0.0")
+        self.assertEqual(payload["query"]["dhatuId"], "01.0005")
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
+
+    def test_kernel_semantic_api_cluster_motion_returns_gam(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(cluster="motion")
+
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0005")
+        self.assertEqual(payload["results"][0]["iast"], "gam")
+
+    def test_kernel_semantic_api_action_guidance_returns_ni(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(action="guidance")
+
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0008")
+        self.assertEqual(payload["results"][0]["iast"], "nī")
+
+    def test_kernel_semantic_api_gloss_stand_returns_stha(self):
+        payload = kernel_api.build_dhatu_semantic_search_response(gloss="stand")
+
+        self.assertEqual(payload["results"][0]["dhatuId"], "01.0013")
+        self.assertEqual(payload["results"][0]["iast"], "sthā")
+
+    def test_kernel_semantic_api_empty_query_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_search_response()
+
+        self.assertEqual(payload["resultCount"], 0)
+        self.assertEqual(payload["results"], [])
+        self.assertEqual(payload["error"]["code"], "empty_semantic_query")
+
+    def test_kernel_semantic_api_results_are_canonical_and_json_serializable(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        payload = kernel_api.build_dhatu_semantic_search_response(cluster="motion")
+        result_ids = [result["dhatuId"] for result in payload["results"]]
+
+        self.assertTrue(set(result_ids).issubset(set(registry["records"].keys())))
+        json.dumps(payload)
+
+    def test_semantic_api_docs_mention_endpoint_and_query_params(self):
+        docs = SEMANTIC_API_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/search", docs)
+        for param in ["dhatuId", "root", "iast", "cluster", "gloss", "action"]:
+            self.assertIn(param, docs)
+        self.assertIn("scripts/query_dhatu_semantics.py", docs)
+        self.assertIn("api.dhatu_semantic_query", docs)
+        self.assertIn("sidecar-only", docs)
+
+    def test_semantic_api_docs_mention_graph_endpoint_and_query_params(self):
+        docs = SEMANTIC_API_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/neighbors", docs)
+        for param in ["nodeId", "depth", "relationType"]:
+            self.assertIn(param, docs)
+        self.assertIn("nodeId=01.0005", docs)
+        self.assertIn("nodeId=motion&depth=2", docs)
+        self.assertIn("nodeId=guidance&relationType=guides", docs)
+        self.assertIn("empty_semantic_graph_query", docs)
+        self.assertIn("foundation-placeholder", docs)
+        self.assertIn("Paninian derivation claims", docs)
+
+    def test_semantic_api_docs_mention_traversal_endpoint_and_query_params(self):
+        docs = SEMANTIC_API_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/traverse", docs)
+        for param in ["nodeId", "maxDepth", "relationType"]:
+            self.assertIn(param, docs)
+        self.assertIn("nodeId=motion&maxDepth=2", docs)
+        self.assertIn("nodeId=01.0005&maxDepth=2", docs)
+        self.assertIn("nodeId=guidance&relationType=guides", docs)
+        self.assertIn("empty_semantic_traversal_query", docs)
+        self.assertIn("semantic_graph_node_not_found", docs)
+        self.assertIn("foundation-placeholder semantic links", docs)
+
+    def test_semantic_ui_docs_mention_all_api_endpoints(self):
+        docs = SEMANTIC_UI_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("/api/dhatu/semantic/search", docs)
+        self.assertIn("/api/dhatu/semantic/neighbors", docs)
+        self.assertIn("/api/dhatu/semantic/traverse", docs)
+        for section in ["Search Results", "Semantic Neighbors", "Traversal Paths", "Safety Notes"]:
+            self.assertIn(section, docs)
+        self.assertIn("No Runtime Mutation Policy", docs)
+        self.assertIn("data/sanskrit/dhatus/semantic/examples/ui/", docs)
+
+    def test_semantic_api_example_fixtures_have_expected_results(self):
+        cluster = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_cluster_motion.response.v1.json").read_text(encoding="utf-8"))
+        action = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_action_guidance.response.v1.json").read_text(encoding="utf-8"))
+        gloss = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_by_gloss_stand.response.v1.json").read_text(encoding="utf-8"))
+        empty = json.loads((SEMANTIC_EXAMPLES_ROOT / "search_empty_query.response.v1.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(cluster["results"][0]["dhatuId"], "01.0005")
+        self.assertEqual(action["results"][0]["dhatuId"], "01.0008")
+        self.assertEqual(gloss["results"][0]["dhatuId"], "01.0013")
+        self.assertEqual(empty["resultCount"], 0)
+        self.assertEqual(empty["error"]["code"], "empty_semantic_query")
+
+    def test_semantic_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-examples-") as tmp:
+            first = semantic_example_exporter.write_examples(Path(tmp))
+            second = semantic_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
+
+    def test_semantic_graph_example_fixtures_exist(self):
+        expected = {
+            "neighbor_01_0005.response.v1.json",
+            "neighbor_motion_depth2.response.v1.json",
+            "neighbor_guidance_guides.response.v1.json",
+            "neighbor_empty_query.response.v1.json",
+        }
+
+        self.assertTrue(SEMANTIC_GRAPH_EXAMPLES_ROOT.exists())
+        self.assertTrue(expected.issubset({path.name for path in SEMANTIC_GRAPH_EXAMPLES_ROOT.glob("*.json")}))
+
+    def test_semantic_graph_example_fixtures_have_expected_results(self):
+        gam = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "neighbor_01_0005.response.v1.json").read_text(encoding="utf-8"))
+        motion = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "neighbor_motion_depth2.response.v1.json").read_text(encoding="utf-8"))
+        guidance = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "neighbor_guidance_guides.response.v1.json").read_text(encoding="utf-8"))
+        empty = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "neighbor_empty_query.response.v1.json").read_text(encoding="utf-8"))
+
+        self.assertIn("motion", {neighbor["nodeId"] for neighbor in gam["neighbors"]})
+        self.assertTrue({"guidance", "stability"} & {neighbor["nodeId"] for neighbor in motion["neighbors"]})
+        self.assertEqual(guidance["relationType"], "guides")
+        self.assertEqual({neighbor["relationTypes"][0] for neighbor in guidance["neighbors"]}, {"guides"})
+        self.assertEqual(empty["error"]["code"], "empty_semantic_graph_query")
+
+    def test_semantic_graph_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-graph-examples-") as tmp:
+            first = semantic_graph_example_exporter.write_examples(Path(tmp))
+            second = semantic_graph_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
+
+    def test_kernel_semantic_graph_api_empty_query_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_graph_neighbors_response()
+
+        self.assertEqual(payload["neighborCount"], 0)
+        self.assertEqual(payload["neighbors"], [])
+        self.assertEqual(payload["error"]["code"], "empty_semantic_graph_query")
+
+    def test_semantic_graph_traversal_helper_exists(self):
+        self.assertTrue(callable(getattr(semantic_graph, "traverse_graph", None)))
+
+    def test_kernel_semantic_traversal_api_helper_exists(self):
+        self.assertTrue(callable(getattr(kernel_api, "build_dhatu_semantic_traversal_response", None)))
+
+    def test_semantic_graph_traversal_motion_depth_two_returns_paths(self):
+        payload = semantic_graph.traverse_graph("motion", max_depth=2)
+
+        self.assertEqual(payload["traversalStatus"], "OK")
+        self.assertGreaterEqual(payload["pathCount"], 1)
+        self.assertEqual(payload["paths"][0]["pathId"], "path.semantic.0001")
+
+    def test_semantic_graph_traversal_gam_depth_two_reaches_motion(self):
+        payload = semantic_graph.traverse_graph("01.0005", max_depth=2)
+        terminal_ids = {path["terminalNodeId"] for path in payload["paths"]}
+
+        self.assertIn("motion", terminal_ids)
+
+    def test_semantic_graph_traversal_relation_filter_guides_works(self):
+        payload = semantic_graph.traverse_graph("guidance", max_depth=2, relation_type="guides")
+
+        self.assertEqual(payload["traversalStatus"], "OK")
+        self.assertEqual(payload["traversedEdgeIds"], ["edge.semantic.0006"])
+        self.assertEqual({path["relationTypes"][0] for path in payload["paths"]}, {"guides"})
+
+    def test_kernel_semantic_traversal_api_empty_query_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_traversal_response()
+
+        self.assertEqual(payload["traversalStatus"], "EMPTY_QUERY")
+        self.assertEqual(payload["errorCode"], "empty_semantic_traversal_query")
+        self.assertEqual(payload["paths"], [])
+
+    def test_kernel_semantic_traversal_api_unknown_node_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_traversal_response(nodeId="unknown-semantic-node")
+
+        self.assertEqual(payload["traversalStatus"], "NODE_NOT_FOUND")
+        self.assertEqual(payload["errorCode"], "semantic_graph_node_not_found")
+        self.assertEqual(payload["paths"], [])
+
+    def test_semantic_graph_traversal_output_is_json_serializable(self):
+        payload = semantic_graph.traverse_graph("01.0005", max_depth=2)
+
+        json.dumps(payload, sort_keys=True)
+
+    def test_semantic_graph_traversal_paths_are_cycle_safe(self):
+        payload = semantic_graph.traverse_graph("motion", max_depth=8)
+
+        for path in payload["paths"]:
+            node_ids = [node["nodeId"] for node in path["nodes"]]
+            self.assertEqual(len(node_ids), len(set(node_ids)))
+
+    def test_semantic_graph_traversal_edge_ids_are_deterministic(self):
+        first = semantic_graph.traverse_graph("01.0005", max_depth=2)
+        second = semantic_graph.traverse_graph("01.0005", max_depth=2)
+
+        self.assertEqual(first["traversedEdgeIds"], sorted(first["traversedEdgeIds"]))
+        self.assertEqual(first["traversedEdgeIds"], second["traversedEdgeIds"])
+        self.assertEqual(first["paths"], second["paths"])
+
+    def test_semantic_graph_traversal_path_dhatu_ids_are_canonical(self):
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        canonical_ids = set(registry["records"].keys())
+        payload = semantic_graph.traverse_graph("01.0005", max_depth=2)
+
+        for path in payload["paths"]:
+            for node in path["nodes"]:
+                if node["nodeType"] == "dhatu":
+                    self.assertIn(node["nodeId"], canonical_ids)
+
+    def test_semantic_graph_traversal_example_fixtures_exist(self):
+        expected = {
+            "traversal_motion_depth2.response.v1.json",
+            "traversal_01_0005_depth2.response.v1.json",
+            "traversal_guidance_guides.response.v1.json",
+            "traversal_empty_query.response.v1.json",
+            "traversal_unknown_node.response.v1.json",
+        }
+
+        self.assertTrue(expected.issubset({path.name for path in SEMANTIC_GRAPH_EXAMPLES_ROOT.glob("*.json")}))
+
+    def test_semantic_graph_traversal_example_fixtures_have_expected_results(self):
+        motion = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_motion_depth2.response.v1.json").read_text(encoding="utf-8"))
+        gam = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_01_0005_depth2.response.v1.json").read_text(encoding="utf-8"))
+        guides = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_guidance_guides.response.v1.json").read_text(encoding="utf-8"))
+        empty = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_empty_query.response.v1.json").read_text(encoding="utf-8"))
+        unknown = json.loads((SEMANTIC_GRAPH_EXAMPLES_ROOT / "traversal_unknown_node.response.v1.json").read_text(encoding="utf-8"))
+
+        self.assertGreaterEqual(motion["pathCount"], 1)
+        self.assertIn("motion", {path["terminalNodeId"] for path in gam["paths"]})
+        self.assertEqual(guides["traversedEdgeIds"], ["edge.semantic.0006"])
+        self.assertEqual(empty["errorCode"], "empty_semantic_traversal_query")
+        self.assertEqual(unknown["errorCode"], "semantic_graph_node_not_found")
+
+    def test_semantic_traversal_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-traversal-examples-") as tmp:
+            first = semantic_traversal_example_exporter.write_examples(Path(tmp))
+            second = semantic_traversal_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
+
+    def test_semantic_ui_example_fixtures_exist(self):
+        expected = {
+            "ui_semantic_search_panel.v1.json",
+            "ui_semantic_neighbor_panel.v1.json",
+            "ui_semantic_traversal_panel.v1.json",
+            "ui_semantic_combined_panel.v1.json",
+        }
+
+        self.assertTrue(SEMANTIC_UI_EXAMPLES_ROOT.exists())
+        self.assertTrue(expected.issubset({path.name for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json")}))
+
+    def test_semantic_ui_combined_panel_includes_expected_sections(self):
+        combined = json.loads((SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_combined_panel.v1.json").read_text(encoding="utf-8"))
+        sections = {card["metadata"]["section"] for card in combined["cards"]}
+        values = {card["value"] for card in combined["cards"]}
+
+        self.assertIn("Search Results", sections)
+        self.assertIn("Semantic Neighbors", sections)
+        self.assertIn("Traversal Paths", sections)
+        self.assertIn("gam / गम्", values)
+        self.assertIn("motion -> guidance", values)
+
+    def test_semantic_ui_cards_are_normalized_for_frontend(self):
+        required = {"cardId", "cardType", "label", "value", "metadata"}
+
+        for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json"):
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            for card in payload["cards"]:
+                self.assertTrue(required.issubset(card.keys()))
+                self.assertIsInstance(card["metadata"], dict)
+
+    def test_semantic_ui_safety_notes_avoid_exact_paninian_claims(self):
+        for path in SEMANTIC_UI_EXAMPLES_ROOT.glob("*.json"):
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertIn("no exact Pāṇinian derivation claim", payload["safetyNote"])
+
+    def test_semantic_ui_example_export_is_deterministic(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="semantic-ui-examples-") as tmp:
+            first = semantic_ui_example_exporter.write_examples(Path(tmp))
+            second = semantic_ui_example_exporter.write_examples(Path(tmp))
+
+            self.assertEqual(first, second)
+
+    def test_sanskrit_view_contains_semantic_dhatu_intelligence_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Semantic Dhātu Intelligence", view)
+        self.assertIn("semantic-dhatu-search-output", view)
+        self.assertIn("semantic-dhatu-neighbor-output", view)
+        self.assertIn("semantic-dhatu-traversal-output", view)
+        self.assertIn("semantic-dhatu-safety-output", view)
+
+    def test_sanskrit_view_contains_semantic_query_controls(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        for control_id in [
+            "semantic-dhatu-search-input",
+            "semantic-dhatu-cluster-filter",
+            "semantic-dhatu-action-filter",
+            "semantic-dhatu-gloss-filter",
+            "semantic-dhatu-depth-select",
+            "semantic-dhatu-relation-filter",
+            "semantic-dhatu-reset",
+        ]:
+            self.assertIn(control_id, view)
+        for option in ["motion", "guidance", "stability", "guides", "associated_with", "transitions_to", "grounds"]:
+            self.assertIn(option, view)
+
+    def test_sanskrit_view_contains_semantic_graph_view_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Semantic Graph View", view)
+        self.assertIn("semantic-graph-canvas", view)
+        self.assertIn("semantic-graph-summary", view)
+        self.assertIn("semantic-graph-edges", view)
+        self.assertIn("semantic-graph-safety", view)
+
+    def test_sanskrit_view_contains_derivation_intelligence_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Derivation Intelligence", view)
+        self.assertIn("semantic-derivation-summary-output", view)
+        self.assertIn("semantic-derivation-lineage-output", view)
+        self.assertIn("semantic-derivation-hints-output", view)
+        self.assertIn("semantic-derivation-relations-output", view)
+        self.assertIn("semantic-derivation-panini-output", view)
+        self.assertIn("semantic-derivation-safety", view)
+
+    def test_sanskrit_view_contains_derivation_filter_controls(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        for control_id in [
+            "semantic-derivation-family-filter",
+            "semantic-derivation-domain-filter",
+            "semantic-derivation-relation-filter",
+            "semantic-derivation-reset",
+        ]:
+            self.assertIn(control_id, view)
+        for option in ["family.semantic.motion-transition", "motion-guidance-adjacent", "stability-motion-contrast"]:
+            self.assertIn(option, view)
+
+    def test_sanskrit_view_contains_derivation_graph_intelligence_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Derivation Graph Intelligence", view)
+        self.assertIn("semantic-derivation-graph-canvas", view)
+        self.assertIn("semantic-derivation-graph-legend", view)
+        self.assertIn("semantic-derivation-graph-summary", view)
+        self.assertIn("semantic-derivation-graph-traversal", view)
+        self.assertIn("semantic-derivation-graph-safety", view)
+
+    def test_sanskrit_view_contains_derivation_graph_aria_labels(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('aria-labelledby="semantic-derivation-graph-title"', view)
+        self.assertIn('aria-label="Derivation graph nodes and traversal highlights"', view)
+        self.assertIn('aria-label="Derivation graph relation legend"', view)
+        self.assertIn('aria-live="polite"', view)
+
+    def test_sanskrit_view_has_semantic_graph_aria_labels(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('aria-labelledby="semantic-dhatu-title"', view)
+        self.assertIn('aria-labelledby="semantic-graph-title"', view)
+        self.assertIn('aria-label="Semantic graph nodes and traversal highlights"', view)
+        self.assertIn('aria-label="Semantic graph relation legend"', view)
+        self.assertIn('aria-live="polite"', view)
+
+    def test_sanskrit_controller_references_semantic_panel_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DHATU_PANEL_FIXTURE", controller)
+        self.assertIn("renderSemanticDhatuPanel", controller)
+        self.assertIn("loadSemanticDhatuPanel", controller)
+        self.assertIn("ui_semantic_combined_panel.v1.json", controller)
+        self.assertIn("gam /", controller)
+        self.assertIn("motion", controller)
+        self.assertIn("no exact Pāṇinian derivation claim", controller)
+
+    def test_sanskrit_controller_contains_semantic_query_state_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_QUERY_DEFAULTS", controller)
+        self.assertIn("SEMANTIC_DHATU_RECORDS", controller)
+        self.assertIn("readSemanticQueryState", controller)
+        self.assertIn("semanticRecordMatches", controller)
+        self.assertIn("renderSemanticQueryState", controller)
+
+    def test_sanskrit_controller_contains_semantic_reset_behavior(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("resetSemanticQueryControls", controller)
+        self.assertIn("semanticResetButton", controller)
+        self.assertIn('addEventListener("click", resetSemanticQueryControls)', controller)
+
+    def test_sanskrit_controller_contains_traversal_depth_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("semanticDepthSelect", controller)
+        self.assertIn("traversalDepth", controller)
+        self.assertIn("traversalPaths", controller)
+
+    def test_sanskrit_controller_contains_relation_filter_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("semanticRelationFilter", controller)
+        self.assertIn("relationMatches", controller)
+        for relation in ["guides", "associated_with", "transitions_to", "grounds"]:
+            self.assertIn(relation, controller)
+
+    def test_sanskrit_controller_contains_semantic_graph_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_GRAPH_FALLBACK", controller)
+        self.assertIn("renderSemanticGraphView", controller)
+        self.assertIn("renderSemanticGraphNode", controller)
+        self.assertIn("renderSemanticGraphEdge", controller)
+
+    def test_sanskrit_controller_contains_derivation_panel_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_DATA_FIXTURE", controller)
+        self.assertIn("SEMANTIC_DERIVATION_FALLBACK_DATA", controller)
+        self.assertIn("renderSemanticDerivationPanel", controller)
+        self.assertIn("renderSemanticDerivationCard", controller)
+        self.assertIn("protoDerivationRelations", controller)
+        self.assertIn("placeholderPaniniRelation", controller)
+
+    def test_sanskrit_controller_updates_derivation_panel_on_semantic_selection(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("focusSemanticGraphNode", controller)
+        self.assertIn("selectedSemanticGraphNodeId = nodeId", controller)
+        self.assertIn("renderSemanticDerivationPanel(record?.dhatuId || selectedSemanticGraphNodeId)", controller)
+        self.assertIn("loadSemanticDerivationData", controller)
+
+    def test_sanskrit_controller_contains_derivation_placeholder_warning(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_PLACEHOLDER_WARNING", controller)
+        self.assertIn("Placeholder-only: all derivation claims require future review", controller)
+        self.assertIn("No exact Paninian derivation claim is made", controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_GRAPH_PANEL_FIXTURE", controller)
+        self.assertIn("SEMANTIC_DERIVATION_GRAPH_FALLBACK_PANEL", controller)
+        self.assertIn("renderSemanticDerivationGraphPanel", controller)
+        self.assertIn("renderDerivationGraphNode", controller)
+        self.assertIn("renderDerivationGraphEdgeRow", controller)
+        self.assertIn("ui_semantic_derivation_graph_panel.v1.json", controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_focus_selection_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("focusDerivationGraphNode", controller)
+        self.assertIn("selectedDerivationGraphNodeId", controller)
+        self.assertIn('button.setAttribute("aria-pressed"', controller)
+        self.assertIn('addEventListener("click"', controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_filter_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("readSemanticDerivationGraphFilterState", controller)
+        self.assertIn("resetSemanticDerivationGraphFilters", controller)
+        self.assertIn("semanticDerivationGraphFamilyFilter", controller)
+        self.assertIn("semanticDerivationGraphDomainFilter", controller)
+        self.assertIn("semanticDerivationGraphRelationFilter", controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_keyboard_activation(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("handleDerivationGraphNodeKeydown", controller)
+        self.assertIn('event.key !== "Enter"', controller)
+        self.assertIn('event.key !== " "', controller)
+        self.assertIn('addEventListener("keydown"', controller)
+
+    def test_sanskrit_controller_contains_derivation_graph_placeholder_warning(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("SEMANTIC_DERIVATION_GRAPH_PLACEHOLDER_WARNING", controller)
+        self.assertIn("Placeholder-only derivation graph bridge", controller)
+        self.assertIn("exact sutra assertion", controller)
+        self.assertIn("grammatical correctness guarantee", controller)
+
+    def test_sanskrit_controller_contains_no_exact_sutra_authority_claim(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("exact sutra authority", controller.casefold())
+        self.assertNotIn("grammatical authority is guaranteed", controller.casefold())
+
+    def test_sanskrit_controller_contains_click_to_focus_semantic_node_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("focusSemanticGraphNode", controller)
+        self.assertIn("selectedSemanticGraphNodeId", controller)
+        self.assertIn('addEventListener("click"', controller)
+
+    def test_sanskrit_controller_contains_selected_node_summary_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("selectedSemanticNodeSummary", controller)
+        self.assertIn("semantic-graph-summary", controller)
+
+    def test_sanskrit_controller_assigns_focusable_semantic_graph_nodes(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('button.type = "button"', controller)
+        self.assertIn('button.setAttribute("aria-pressed"', controller)
+        self.assertIn('button.setAttribute("aria-label"', controller)
+
+    def test_sanskrit_controller_contains_keyboard_activation_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("handleSemanticGraphNodeKeydown", controller)
+        self.assertIn('event.key !== "Enter"', controller)
+        self.assertIn('event.key !== " "', controller)
+        self.assertIn('addEventListener("keydown"', controller)
+
+    def test_sanskrit_controller_contains_empty_graph_fallback_handling(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Semantic graph unavailable", controller)
+        self.assertIn("No semantic relation edges available", controller)
+        self.assertIn("No relation legend available", controller)
+
+    def test_sanskrit_controller_contains_relation_legend_rendering(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("renderSemanticGraphLegend", controller)
+        self.assertIn("SEMANTIC_GRAPH_RELATION_ORDER", controller)
+        self.assertIn("semantic-graph-legend", controller)
+
+    def test_sanskrit_controller_has_no_canonical_write_hooks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", controller)
+        self.assertNotIn("AIGAANE_ALLOW_TEST_CANONICAL_WRITE", controller)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", controller)
+
+    def test_sanskrit_style_contains_semantic_panel_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-dhatu-inspector",
+            ".semantic-dhatu-grid",
+            ".semantic-dhatu-panel",
+            ".semantic-dhatu-card",
+            ".semantic-dhatu-safety-note",
+            ".semantic-dhatu-controls",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_semantic_graph_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-graph-view",
+            ".semantic-graph-canvas",
+            ".semantic-graph-node",
+            ".semantic-graph-edge",
+            ".semantic-graph-node.selected",
+            ".semantic-graph-node.traversal-highlight",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_derivation_panel_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-derivation-inspector",
+            ".semantic-derivation-controls",
+            ".semantic-derivation-safety",
+            ".semantic-derivation-grid",
+            ".semantic-derivation-panel",
+            ".semantic-derivation-card",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_style_contains_derivation_graph_classes(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".semantic-derivation-graph-inspector",
+            ".semantic-derivation-graph-controls",
+            ".semantic-derivation-graph-canvas",
+            ".semantic-derivation-graph-node",
+            ".semantic-derivation-graph-edge",
+            ".semantic-derivation-graph-legend-item",
+            ".semantic-derivation-graph-safety",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_semantic_derivation_graph_ui_fixture_exists(self):
+        self.assertTrue((SEMANTIC_DERIVATION_GRAPH_EXAMPLES_ROOT / "ui_semantic_derivation_graph_panel.v1.json").exists())
+
+    def test_sanskrit_style_contains_responsive_semantic_graph_rules(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("@media (max-width: 900px)", style)
+        self.assertIn("@media (max-width: 560px)", style)
+        self.assertIn(".semantic-graph-layout", style)
+        self.assertIn(".semantic-graph-node:focus-visible", style)
+        self.assertIn(".semantic-graph-legend-item", style)
+
+    def test_semantic_graph_view_requires_no_dependency_file_changes(self):
+        changed_dependency_files = [
+            path
+            for path in ["package.json", "package-lock.json", "npm-shrinkwrap.json", "yarn.lock", "pnpm-lock.yaml"]
+            if (ROOT / path).exists()
+        ]
+
+        self.assertEqual(changed_dependency_files, [])
+
+    def test_semantic_ui_combined_fixture_still_exists(self):
+        self.assertTrue((SEMANTIC_UI_EXAMPLES_ROOT / "ui_semantic_combined_panel.v1.json").exists())
+
+    def test_semantic_graph_edge_ids_are_unique(self):
+        edges = json.loads(SEMANTIC_EDGES_PATH.read_text(encoding="utf-8"))
+        edge_ids = [edge["edgeId"] for edge in edges["edges"]]
+
+        self.assertEqual(len(edge_ids), len(set(edge_ids)))
+
+    def test_semantic_graph_validator_passes(self):
+        summary = semantic_graph.validate_graph()
+
+        self.assertEqual(summary["graphValidationStatus"], "PASS")
+        self.assertEqual(summary["edgeCount"], 7)
+        self.assertEqual(summary["duplicateEdgeIds"], [])
+        self.assertEqual(summary["traversalValidationSummary"]["traversalValidationStatus"], "PASS")
+
+    def test_semantic_graph_gam_has_motion_neighbor(self):
+        payload = semantic_graph.get_neighbors("01.0005")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("motion", neighbor_ids)
+
+    def test_semantic_graph_ni_has_guidance_neighbor(self):
+        payload = semantic_graph.get_neighbors("01.0008")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("guidance", neighbor_ids)
+
+    def test_semantic_graph_stha_has_stability_neighbor(self):
+        payload = semantic_graph.get_neighbors("01.0013")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("stability", neighbor_ids)
+
+    def test_semantic_graph_motion_depth_two_reaches_stability_or_guidance(self):
+        payload = semantic_graph.get_neighbors("motion", depth=2)
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertTrue({"stability", "guidance"}.issubset(neighbor_ids))
+
+    def test_semantic_graph_relation_filter_guides_works(self):
+        payload = semantic_graph.get_neighbors("guidance", relation_type="guides")
+        neighbor_ids = {neighbor["nodeId"] for neighbor in payload["neighbors"]}
+
+        self.assertIn("motion", neighbor_ids)
+        self.assertEqual(payload["traversedEdgeIds"], ["edge.semantic.0006"])
+
+    def test_semantic_graph_traversal_is_cycle_safe(self):
+        payload = semantic_graph.get_neighbors("motion", depth=8)
+        neighbor_ids = [neighbor["nodeId"] for neighbor in payload["neighbors"]]
+
+        self.assertEqual(len(neighbor_ids), len(set(neighbor_ids)))
+        self.assertLessEqual(payload["neighborCount"], 3)
+
+    def test_semantic_graph_dhatu_references_are_canonical(self):
+        summary = semantic_graph.validate_graph()
+
+        self.assertEqual(summary["noncanonicalDhatuReferences"], [])
+        self.assertTrue(summary["checks"]["dhatuReferencesAreCanonical"])
+
+    def test_semantic_graph_edges_make_no_exact_paninian_derivation_claims(self):
+        edges = json.loads(SEMANTIC_EDGES_PATH.read_text(encoding="utf-8"))
+
+        for edge in edges["edges"]:
+            self.assertIn("No exact grammatical or Paninian derivation claim is made.", edge["notes"])
+        self.assertEqual(semantic_graph.validate_graph()["derivationClaimEdges"], [])
+
+    def test_semantic_layer_validator_includes_graph_validation(self):
+        summary = semantic_validator.validate_semantic_layer()
+
+        self.assertEqual(summary["semanticValidationStatus"], "PASS")
+        self.assertTrue(summary["checks"]["semanticGraphValidationPasses"])
+        self.assertEqual(summary["semanticGraphTraversalSummary"]["traversalValidationStatus"], "PASS")
+
+    def test_semantic_graph_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        semantic_graph.validate_graph()
+        semantic_graph.get_neighbors("motion", depth=2)
+        semantic_graph.traverse_graph("motion", max_depth=2)
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_derivation_validator_passes(self):
+        summary = semantic_derivation.validate_derivations()
+
+        self.assertEqual(summary["derivationValidationStatus"], "PASS")
+        self.assertEqual(summary["derivationRecordCount"], 3)
+        self.assertEqual(summary["duplicateDerivationIds"], [])
+        self.assertEqual(summary["unresolvedRelationReferences"], [])
+
+    def test_semantic_derivation_api_returns_deterministic_results(self):
+        first = kernel_api.build_dhatu_semantic_derivations_response(domain="motion")
+        second = kernel_api.build_dhatu_semantic_derivations_response(domain="motion")
+
+        self.assertEqual(first, second)
+        self.assertEqual(first["generatedBy"], "api/kernel_api.py:/api/dhatu/semantic/derivations")
+        self.assertEqual([result["dhatuId"] for result in first["results"]], ["01.0008", "01.0005"])
+
+    def test_semantic_derivation_query_supports_filters(self):
+        by_family = semantic_derivation.query_derivations(family="stability-state")
+        by_domain = semantic_derivation.query_derivations(domain="motion")
+        by_relation = semantic_derivation.query_derivations(relation="motion-guidance-adjacent")
+        by_dhatu = semantic_derivation.query_derivations(dhatu_id="01.0005")
+
+        self.assertEqual([result["dhatuId"] for result in by_family], ["01.0013"])
+        self.assertEqual([result["dhatuId"] for result in by_domain], ["01.0008", "01.0005"])
+        self.assertEqual([result["dhatuId"] for result in by_relation], ["01.0005"])
+        self.assertEqual([result["dhatuId"] for result in by_dhatu], ["01.0005"])
+
+    def test_semantic_derivation_metadata_remains_placeholder_safe(self):
+        payload = json.loads(SEMANTIC_DERIVATION_PATH.read_text(encoding="utf-8"))
+
+        self.assertFalse(payload["policy"]["authoritativePaninianClaims"])
+        self.assertFalse(payload["policy"]["exactSutraAssertions"])
+        self.assertFalse(payload["policy"]["grammaticalCorrectnessGuarantee"])
+        for record in payload["records"]:
+            self.assertEqual(record["reviewStatus"], "placeholder-local-review-required")
+            self.assertEqual(record["placeholderPaniniRelation"]["reviewStatus"], "placeholder-local-review-required")
+            for relation in record["protoDerivationRelations"]:
+                self.assertEqual(relation["confidence"], "unreviewed")
+
+    def test_semantic_derivation_metadata_asserts_no_exact_sutra_ids(self):
+        payload = SEMANTIC_DERIVATION_PATH.read_text(encoding="utf-8")
+
+        for forbidden_key in ["sutraId", "sutraIds", "exactSutraId", "paniniSutraId"]:
+            self.assertNotIn(forbidden_key, payload)
+        self.assertFalse(semantic_derivation.validate_derivations()["exactSutraAssertionsPresent"])
+
+    def test_semantic_derivation_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        semantic_derivation.validate_derivations()
+        semantic_derivation.query_derivations(domain="motion")
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_derivation_graph_route_exists(self):
+        kernel_source = (ROOT / "api" / "kernel_api.py").read_text(encoding="utf-8")
+
+        self.assertIn('/api/dhatu/semantic/derivation-graph', kernel_source)
+        self.assertTrue(callable(getattr(kernel_api, "build_dhatu_semantic_derivation_graph_response", None)))
+
+    def test_semantic_derivation_graph_validator_passes(self):
+        summary = semantic_derivation_graph.validate_derivation_graph()
+
+        self.assertEqual(summary["derivationGraphValidationStatus"], "PASS")
+        self.assertEqual(summary["duplicateEdgeIds"], [])
+        self.assertEqual(summary["invalidReferences"], [])
+        self.assertEqual(summary["canonicalRegistryRecordCount"], 13)
+
+    def test_semantic_derivation_graph_traversal_is_deterministic(self):
+        first = semantic_derivation_graph.traverse_derivation_graph(domain="motion", max_depth=2)
+        second = semantic_derivation_graph.traverse_derivation_graph(domain="motion", max_depth=2)
+
+        self.assertEqual(first, second)
+        self.assertEqual(first["traversalStatus"], "OK")
+        self.assertIn("motion_transition_family", [node["graphNodeId"] for node in first["nodes"]])
+        self.assertIn("edge.derivation.semantic.0001", first["traversedEdgeIds"])
+
+    def test_semantic_derivation_graph_empty_query_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_derivation_graph_response()
+
+        self.assertEqual(payload["traversalStatus"], "EMPTY_QUERY")
+        self.assertEqual(payload["errorCode"], "empty_semantic_derivation_graph_query")
+        self.assertEqual(payload["nodeCount"], 0)
+        self.assertEqual(payload["generatedBy"], "api/kernel_api.py:/api/dhatu/semantic/derivation-graph")
+
+    def test_semantic_derivation_graph_unknown_node_is_safe(self):
+        payload = kernel_api.build_dhatu_semantic_derivation_graph_response(dhatuId="99.9999")
+
+        self.assertEqual(payload["traversalStatus"], "NODE_NOT_FOUND")
+        self.assertEqual(payload["errorCode"], "semantic_derivation_graph_node_not_found")
+        self.assertEqual(payload["pathCount"], 0)
+
+    def test_semantic_derivation_graph_placeholder_warning_exists(self):
+        payload = kernel_api.build_dhatu_semantic_derivation_graph_response(domain="motion")
+
+        self.assertIn("Placeholder-only derivation graph bridge", payload["safety"]["warning"])
+        self.assertFalse(payload["safety"]["exactSutraAssertions"])
+        self.assertFalse(payload["safety"]["grammaticalCorrectnessGuarantee"])
+        self.assertEqual(payload["safety"]["requiredReviewStatus"], "placeholder-local-review-required")
+        self.assertEqual(payload["safety"]["requiredConfidence"], "unreviewed")
+
+    def test_semantic_derivation_graph_edges_make_no_exact_sutra_authority_claims(self):
+        payload = SEMANTIC_DERIVATION_EDGES_PATH.read_text(encoding="utf-8")
+
+        for forbidden in ["sutraId", "exactSutraId", "paniniSutraId", "grammatical correctness is guaranteed"]:
+            self.assertNotIn(forbidden, payload)
+        self.assertFalse(semantic_derivation_graph.validate_derivation_graph()["exactSutraAssertionsPresent"])
+
+    def test_semantic_derivation_graph_has_no_canonical_writer_references(self):
+        combined = "\n".join([
+            SEMANTIC_DERIVATION_EDGES_PATH.read_text(encoding="utf-8"),
+            SEMANTIC_DERIVATION_GRAPH_API_PATH.read_text(encoding="utf-8"),
+            SEMANTIC_DERIVATION_GRAPH_VALIDATION_SCRIPT_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", combined)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", combined)
+        self.assertNotIn("canonical writer", combined.casefold())
+
+    def test_semantic_derivation_graph_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        semantic_derivation_graph.validate_derivation_graph()
+        semantic_derivation_graph.traverse_derivation_graph(domain="motion", max_depth=2)
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_platform_checkpoint_script_exists(self):
+        self.assertTrue(SEMANTIC_PLATFORM_CHECKPOINT_SCRIPT_PATH.exists())
+
+    def test_semantic_platform_checkpoint_files_exist(self):
+        self.assertTrue(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.exists())
+        self.assertTrue(SEMANTIC_PLATFORM_CHECKPOINT_MD_PATH.exists())
+
+    def test_semantic_platform_checkpoint_status_and_counts(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(checkpoint["platformStatus"], "READY")
+        self.assertEqual(checkpoint["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(checkpoint["semanticGraphEdgeCount"], 7)
+        self.assertEqual(checkpoint["derivationRecordCount"], 3)
+        self.assertEqual(checkpoint["derivationGraphEdgeCount"], 8)
+
+    def test_semantic_platform_checkpoint_includes_v53_through_v70_milestones(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+        nodes = {entry["node"] for entry in checkpoint["milestoneTags"]}
+
+        for node in ["v53", "v54", "v55", "v56", "v57", "v58", "v59", "v60", "v61", "v62", "v63", "v64", "v65", "v66", "v67", "v68", "v69", "v70"]:
+            self.assertIn(node, nodes)
+
+    def test_semantic_platform_checkpoint_safety_rejects_exact_sutra_claims(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+        safety = checkpoint["safetyPolicy"]
+
+        self.assertFalse(safety["exactPaninianDerivationClaimsAllowed"])
+        self.assertFalse(safety["exactSutraAssertionsAllowed"])
+        self.assertFalse(safety["grammaticalCorrectnessGuarantee"])
+        self.assertTrue(safety["noExactPaninianDerivationClaimsPresent"])
+        self.assertTrue(safety["allDerivationConfidenceValuesUnreviewed"])
+        self.assertTrue(safety["allDerivationReviewStatusesPlaceholder"])
+
+    def test_semantic_platform_checkpoint_validation_summary_reports_pass(self):
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(checkpoint["validationSummary"]["semanticLayer"], "PASS")
+        self.assertEqual(checkpoint["validationSummary"]["semanticGraph"], "PASS")
+        self.assertEqual(checkpoint["validationSummary"]["semanticDerivation"], "PASS")
+        self.assertEqual(checkpoint["validationSummary"]["semanticDerivationGraph"], "PASS")
+        self.assertEqual(checkpoint["blockingReasons"], [])
+
+    def test_semantic_platform_checkpoint_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        checkpoint = json.loads(SEMANTIC_PLATFORM_CHECKPOINT_JSON_PATH.read_text(encoding="utf-8"))
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(checkpoint["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_platform_index_helper_exists_and_is_json_serializable(self):
+        helper = getattr(kernel_api, "build_dhatu_semantic_platform_index_response", None)
+        self.assertTrue(callable(helper))
+        self.assertTrue(SEMANTIC_PLATFORM_INDEX_SMOKE_SCRIPT_PATH.exists())
+
+        payload = helper()
+        json.dumps(payload, sort_keys=True)
+
+        self.assertEqual(payload["generatedBy"], "api/kernel_api.py:/api/dhatu/semantic")
+        self.assertEqual(payload["platformStatus"], "READY")
+
+    def test_semantic_platform_index_lists_all_public_semantic_apis(self):
+        payload = kernel_api.build_dhatu_semantic_platform_index_response()
+        endpoint_paths = {entry["path"] for entry in payload["endpoints"]}
+
+        self.assertEqual(payload["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(payload["semanticRecordCount"], 3)
+        for endpoint in [
+            "/api/dhatu/semantic/search",
+            "/api/dhatu/semantic/neighbors",
+            "/api/dhatu/semantic/traverse",
+            "/api/dhatu/semantic/derivations",
+            "/api/dhatu/semantic/derivation-graph",
+        ]:
+            self.assertIn(endpoint, endpoint_paths)
+
+    def test_semantic_platform_index_safety_docs_and_checkpoint(self):
+        payload = kernel_api.build_dhatu_semantic_platform_index_response()
+        safety = payload["safetyPolicy"]
+
+        self.assertFalse(safety["exactPaninianDerivationClaimsAllowed"])
+        self.assertFalse(safety["exactSutraAssertionsAllowed"])
+        self.assertFalse(safety["grammaticalCorrectnessGuarantee"])
+        self.assertIn("data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md", payload["docs"])
+        self.assertTrue(SEMANTIC_PLATFORM_DOC_PATH.exists())
+        self.assertTrue((ROOT / payload["checkpoint"]["jsonPath"]).exists())
+
+    def test_semantic_platform_index_validators_report_pass_and_registry_stays_thirteen(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        payload = kernel_api.build_dhatu_semantic_platform_index_response()
+
+        self.assertEqual({entry["status"] for entry in payload["validators"]}, {"PASS"})
+        registry = json.loads(promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_platform_status_fixture_export_exists_and_json_valid(self):
+        self.assertTrue(SEMANTIC_PLATFORM_UI_EXAMPLE_EXPORT_SCRIPT_PATH.exists())
+        self.assertTrue(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.exists())
+
+        payload = json.loads(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.read_text(encoding="utf-8"))
+        json.dumps(payload, sort_keys=True)
+
+        self.assertEqual(payload["panelType"], "semanticPlatformStatus")
+        self.assertEqual(payload["platformStatus"], "READY")
+
+    def test_semantic_platform_status_fixture_milestones_endpoints_and_validators(self):
+        payload = json.loads(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.read_text(encoding="utf-8"))
+        nodes = {entry["node"] for entry in payload["milestoneTags"]}
+
+        self.assertEqual(payload["milestoneSpan"], "v53-v72")
+        self.assertIn("v53", nodes)
+        self.assertIn("v72", nodes)
+        self.assertGreaterEqual(len(payload["endpoints"]), 5)
+        self.assertGreaterEqual(len(payload["validators"]), 4)
+        self.assertEqual({entry["status"] for entry in payload["validators"]}, {"PASS"})
+
+    def test_semantic_platform_status_fixture_safety_visible_and_registry_count(self):
+        payload = json.loads(SEMANTIC_PLATFORM_STATUS_UI_FIXTURE_PATH.read_text(encoding="utf-8"))
+        safety = payload["safetyPolicy"]
+
+        self.assertEqual(payload["canonicalRegistryRecordCount"], 13)
+        self.assertIn("Placeholder-safe", payload["safetyNote"])
+        self.assertFalse(safety["exactSutraAssertionsAllowed"])
+        self.assertFalse(safety["exactPaninianDerivationClaimsAllowed"])
+        self.assertFalse(safety["grammaticalCorrectnessGuarantee"])
+        self.assertEqual(payload["uiReadiness"]["status"], "READY")
+
+    def test_semantic_platform_status_ui_has_no_canonical_write_hooks(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_STYLE_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Semantic Platform Status", combined)
+        self.assertIn("semantic-platform-status", combined)
+        self.assertIn("Placeholder-safe", combined)
+        try:
+            from api.sanskrit_ui_write_hook_scan import executable_canonical_write_bindings
+        except ImportError:
+            from sanskrit_ui_write_hook_scan import executable_canonical_write_bindings
+        bindings = executable_canonical_write_bindings(combined)
+        self.assertEqual(bindings, [])
+
+    def test_sanskrit_analysis_local_fallback_helper_exists(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("function buildLocalSanskritAnalysisFallback(inputText)", controller)
+        self.assertIn("input_text", controller)
+        self.assertIn("normalized_input", controller)
+        self.assertIn("pipelineStatus", controller)
+        self.assertIn("transliteration", controller)
+        self.assertIn("tokenization", controller)
+        self.assertIn("sandhi", controller)
+        self.assertIn("chandas", controller)
+        self.assertIn("vyakarana", controller)
+        self.assertIn("prakriya_graph", controller)
+        self.assertIn("safety_note", controller)
+
+    def test_sanskrit_analysis_falls_back_when_backend_analyze_fails(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        analyze_start = controller.index("async function analyzeCurrentInput()")
+        analyze_end = controller.index("async function runSandhi()", analyze_start)
+        analyze_body = controller[analyze_start:analyze_end]
+
+        self.assertTrue(
+            'fetchWithLocalBackendFallback("/api/v3/analyze"' in analyze_body
+            or 'fetch("/api/v3/analyze"' in analyze_body,
+            "analyzeCurrentInput must POST JSON to /api/v3/analyze via fetch or local-backend wrapper",
+        )
+        self.assertIn("throw new Error", analyze_body)
+        self.assertIn("buildLocalSanskritAnalysisFallback(inputText)", analyze_body)
+        self.assertIn("Analysis rendered with local fallback", analyze_body)
+        self.assertNotIn("setStatus(\"Analysis unavailable\"", analyze_body)
+
+    def test_sanskrit_analysis_fallback_identifies_rigveda_opening_sample(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Likely Rigveda 1.1.1 opening mantra transliteration-style input.", controller)
+        self.assertIn("latin/IAST-like fallback", controller)
+        for token in ["agnim", "ile", "purohitam", "yajnasya", "devam", "rtvijam", "hotaram", "ratnadhatamam"]:
+            self.assertIn(token, controller)
+
+    def test_sanskrit_analysis_fallback_has_no_authoritative_chandas_claim(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("not authoritatively determined in fallback mode", controller)
+        self.assertIn("exact_meter_claim: false", controller)
+        self.assertIn("No exact sandhi claim is made without backend analysis.", controller)
+        self.assertIn("no authoritative grammatical claim", controller)
+        self.assertNotIn("authoritatively determined in fallback mode\", exact_meter_claim: true", controller)
+
+    def test_sanskrit_analysis_fallback_controller_has_no_canonical_write_hooks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", controller)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", controller)
+
+    def test_sanskrit_analysis_fallback_ui_and_style_classes_exist(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("fallback-analysis-panel", view)
+        self.assertIn("fallback-analysis-badge", view)
+        self.assertIn("fallback-analysis-stages", view)
+        self.assertIn("fallback-analysis-tokens", view)
+        self.assertIn("fallback-analysis-safety", view)
+        for class_name in [
+            ".fallback-analysis-panel",
+            ".fallback-analysis-badge",
+            ".fallback-analysis-stages",
+            ".fallback-stage-card",
+            ".fallback-token",
+            ".fallback-analysis-safety",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_analysis_fallback_manifest_and_docs_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+
+        self.assertEqual(
+            self.payload["sanskritAnalysisLocalFallbackUiMode"],
+            "client-side-deterministic-no-backend-required",
+        )
+        self.assertEqual(self.payload["sanskritAnalysisLocalFallbackBackendRoute"], "/api/v3/analyze")
+        self.assertIn("Node 25C adds a deterministic client-side Sanskrit analysis fallback", readme)
+
+    def test_sanskrit_view_contains_local_static_diagnostics_section(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Local Static Diagnostics", view)
+        self.assertIn("local-static-diagnostics", view)
+        self.assertIn("local-diagnostics-status-badge", view)
+        self.assertIn("local-diagnostics-fixtures-output", view)
+        self.assertIn("local-diagnostics-safety-output", view)
+
+    def test_sanskrit_controller_contains_local_static_diagnostics_helpers(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("async function buildLocalStaticDiagnosticsReport()", controller)
+        self.assertIn("function renderLocalStaticDiagnostics(report)", controller)
+        self.assertIn("runLocalStaticDiagnostics()", controller)
+
+    def test_sanskrit_diagnostics_allow_backend_unavailable_in_static_mode(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("backendRequired: false", controller)
+        self.assertIn("Backend /api/v3/analyze unavailable; allowed for local static preview", controller)
+        self.assertIn("Unavailable is allowed in local static preview mode.", controller)
+        self.assertIn("READY_STATIC_PREVIEW", controller)
+        self.assertIn("DEGRADED_STATIC_PREVIEW", controller)
+        self.assertIn("BLOCKED", controller)
+
+    def test_sanskrit_diagnostics_mark_fallback_analysis_available(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('fallbackAnalysisAvailable = typeof buildLocalSanskritAnalysisFallback === "function"', controller)
+        self.assertIn("Fallback analysis", controller)
+        self.assertIn("Local fallback renderer is ready.", controller)
+
+    def test_sanskrit_diagnostics_include_fixture_checks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("fixtureChecks", controller)
+        self.assertIn("Semantic UI fixture", controller)
+        self.assertIn("Semantic graph fixture", controller)
+        self.assertIn("Derivation fixture", controller)
+        self.assertIn("Derivation graph fixture", controller)
+        self.assertIn("Platform status fixture", controller)
+
+    def test_sanskrit_diagnostics_controller_has_no_canonical_write_hooks(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", controller)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", controller)
+
+    def test_sanskrit_diagnostics_style_classes_exist(self):
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        for class_name in [
+            ".local-static-diagnostics",
+            ".local-static-diagnostics-header",
+            ".local-diagnostics-status-badge",
+            ".local-static-diagnostics-grid",
+            ".local-diagnostics-card",
+            ".local-diagnostics-row",
+            ".local-diagnostics-warning",
+        ]:
+            self.assertIn(class_name, style)
+
+    def test_sanskrit_diagnostics_manifest_and_docs_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+
+        self.assertEqual(
+            self.payload["sanskritLocalStaticDiagnosticsUiPanel"],
+            "Local Static Diagnostics",
+        )
+        self.assertEqual(
+            self.payload["sanskritLocalStaticDiagnosticsMode"],
+            "client-side-read-only-static-preview",
+        )
+        self.assertIn("local static preview support", readme)
+        self.assertIn("backend API may be unavailable", readme)
+        self.assertIn("fallback analysis path", readme)
+        self.assertIn("semantic fixtures are read-only", readme)
+        self.assertIn("canonical registry is not mutated", readme)
+
+    def test_sanskrit_static_preview_expected_api_miss_helpers_exist(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("function isExpectedStaticPreviewApiMiss(errorOrResponse)", controller)
+        self.assertIn("function renderStaticPreviewFallbackNotice(reason)", controller)
+        self.assertIn("static-preview-fallback-notice", SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"))
+
+    def test_sanskrit_analyze_treats_404_or_501_as_expected_fallback(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        analyze_start = controller.index("async function analyzeCurrentInput()")
+        analyze_end = controller.index("async function runSandhi()", analyze_start)
+        analyze_body = controller[analyze_start:analyze_end]
+
+        self.assertIn("isExpectedStaticPreviewApiMiss(response)", analyze_body)
+        self.assertIn("response.status", analyze_body)
+        self.assertIn("Backend unavailable; local fallback active", analyze_body)
+        self.assertIn("static_preview_backend_unavailable", analyze_body)
+        self.assertIn("renderStaticPreviewFallbackNotice", analyze_body)
+        self.assertNotIn("Analysis unavailable", analyze_body)
+
+    def test_sanskrit_expected_static_preview_misses_use_info_or_warn_not_error(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        helper_start = controller.index("function isExpectedStaticPreviewApiMiss")
+        analyze_end = controller.index("async function runSandhi()", helper_start)
+        static_preview_body = controller[helper_start:analyze_end]
+
+        self.assertIn("console.info", static_preview_body)
+        self.assertIn("console.warn", static_preview_body)
+        self.assertNotIn("console.error", static_preview_body)
+
+    def test_sanskrit_local_static_diagnostics_accept_backend_unavailable(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Unavailable in static preview", controller)
+        self.assertIn("backendAnalyzeUnavailableExpected", controller)
+        self.assertIn("READY_STATIC_PREVIEW", controller)
+        self.assertIn("Backend /api/v3/analyze unavailable; allowed for local static preview", controller)
+
+    def test_sanskrit_static_preview_fallback_status_text_exists(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_STYLE_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Backend API unavailable", combined)
+        self.assertIn("Local fallback rendered", combined)
+        self.assertIn("Static preview remains usable", combined)
+        self.assertIn("API endpoints require backend runtime", combined)
+        self.assertIn("Canonical registry not mutated", combined)
+        self.assertIn(".static-preview-fallback-notice", combined)
+
+    def test_sanskrit_static_preview_docs_mention_http_server_static_only_behavior(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+        semantic_platform = SEMANTIC_PLATFORM_DOC_PATH.read_text(encoding="utf-8")
+
+        for docs in [readme, semantic_platform]:
+            self.assertIn("python -m http.server 3000", docs)
+            self.assertIn("static-only", docs)
+            self.assertIn("/api/*", docs)
+            self.assertIn("404", docs)
+            self.assertIn("semantic", docs)
+            self.assertIn("analysis fallback", docs)
+            self.assertIn("no canonical mutation occurs", docs)
+        self.assertEqual(self.payload["sanskritStaticPreviewServerCommand"], "python -m http.server 3000")
+        self.assertEqual(
+            self.payload["sanskritStaticPreviewApiMissPolicy"],
+            "api-routes-may-return-404-or-501-without-backend-runtime",
+        )
+
+    def test_static_semantic_fixture_browser_hidden_during_backend_ready_mode(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('id="static-semantic-fixture-browser" class="static-semantic-fixture-browser hidden"', view)
+        self.assertIn("renderStaticPreviewFallbackNotice(null)", controller)
+        self.assertIn("renderStaticSemanticFixtureBrowser(Boolean(reason))", controller)
+
+    def test_static_semantic_fixture_browser_renders_during_static_fallback_mode(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Static Semantic Fixture Browser", combined)
+        self.assertIn("staticSemanticFixtureBrowserActive", combined)
+        self.assertIn("buildStaticSemanticFixtureBrowserPayload", combined)
+        self.assertIn("semanticRecordCount", combined)
+        self.assertIn("availableClusters", combined)
+        self.assertIn("derivationGraphFixtureAvailable", combined)
+
+    def test_static_semantic_fixture_browser_gracefully_reports_missing_sections(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Unavailable in static preview", combined)
+        self.assertIn("staticFixtureStatusLabel", combined)
+        self.assertIn("renderStaticFixtureList", combined)
+
+    def test_static_semantic_fixture_browser_json_preview_is_read_only_and_safe(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        browser_start = controller.index("function buildStaticSemanticFixtureBrowserPayload")
+        browser_end = controller.index("function handleStaticFixtureBrowserFilterChange", browser_start)
+        browser_body = controller[browser_start:browser_end]
+
+        self.assertIn("readOnly: true", browser_body)
+        self.assertIn("textContent-only; no eval; no mutation", browser_body)
+        self.assertIn("preview.textContent = JSON.stringify", browser_body)
+        self.assertNotIn(".innerHTML", browser_body)
+        self.assertNotIn("eval(", browser_body)
+
+    def test_static_semantic_fixture_browser_filters_are_present(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("static-fixture-cluster-filter", view)
+        self.assertIn("static-fixture-dhatu-filter", view)
+        self.assertIn("static-fixture-node-filter", view)
+        self.assertIn("filteredStaticSemanticRecords", controller)
+        self.assertIn("filteredStaticGraphNodes", controller)
+
+    def test_static_semantic_fixture_browser_docs_and_manifest_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+        semantic_platform = SEMANTIC_PLATFORM_DOC_PATH.read_text(encoding="utf-8")
+
+        self.assertEqual(
+            self.payload["sanskritStaticSemanticFixtureBrowserPanel"],
+            "Static Semantic Fixture Browser",
+        )
+        self.assertEqual(
+            self.payload["sanskritStaticSemanticFixtureBrowserJsonPolicy"],
+            "textContent-only-no-eval-no-mutation",
+        )
+        self.assertIn("Developers should use the browser panel", readme)
+        self.assertIn("Static Semantic Fixture Browser", semantic_platform)
+        self.assertIn("Direct `/api/*` URLs still return 404", readme)
+
+    def test_static_fixture_browser_deep_link_hash_helpers_exist(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("parseStaticFixtureBrowserHash", controller)
+        self.assertIn("applyStaticFixtureBrowserHashState", controller)
+        self.assertIn("restoreStaticFixtureBrowserHashState", controller)
+        self.assertIn("buildStaticFixtureBrowserHash", controller)
+        self.assertIn("updateStaticFixtureBrowserHash", controller)
+        self.assertIn("#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors", controller)
+
+    def test_static_fixture_browser_restores_valid_cluster_dhatu_and_node_from_hash(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('params.get("cluster")', controller)
+        self.assertIn('params.get("dhatuId")', controller)
+        self.assertIn('params.get("nodeId")', controller)
+        self.assertIn("validStaticFixtureClusters().has(cluster)", controller)
+        self.assertIn("validStaticFixtureDhatuIds().has(dhatuId)", controller)
+        self.assertIn("validStaticFixtureNodeIds().has(nodeId)", controller)
+
+    def test_static_fixture_browser_restores_preview_section_from_hash(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('params.get("section")', controller)
+        self.assertIn("validStaticFixtureSections().has(section)", controller)
+        self.assertIn("static-fixture-section-filter", view)
+        self.assertIn('value="neighbors"', view)
+        self.assertIn("updateStaticFixtureBrowserSection", controller)
+
+    def test_static_fixture_browser_invalid_hash_degrades_gracefully(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("safeDecodeStaticFixtureHashValue", controller)
+        self.assertIn("Ignoring malformed static fixture hash", controller)
+        self.assertIn("return {}", controller)
+        self.assertIn("catch (error)", controller)
+
+    def test_static_fixture_browser_unknown_values_are_ignored_gracefully(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('validStaticFixtureClusters().has(cluster) ? cluster : ""', controller)
+        self.assertIn('validStaticFixtureDhatuIds().has(dhatuId) ? dhatuId : ""', controller)
+        self.assertIn('validStaticFixtureNodeIds().has(nodeId) ? nodeId : ""', controller)
+        self.assertIn('validStaticFixtureSections().has(section) ? section : ""', controller)
+
+    def test_static_fixture_browser_filter_changes_update_hash_without_backend_calls(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        handler_start = controller.index("function handleStaticFixtureBrowserFilterChange")
+        handler_end = controller.index("function updateStaticFixtureBrowserSection", handler_start)
+        handler_body = controller[handler_start:handler_end]
+
+        self.assertIn("updateStaticFixtureBrowserHash()", handler_body)
+        self.assertIn("renderStaticSemanticFixtureBrowser()", handler_body)
+        self.assertNotIn("fetch(", handler_body)
+        self.assertIn("window.history.replaceState", controller)
+
+    def test_static_fixture_browser_copy_link_control_is_static_mode_only(self):
+        combined = "\n".join([
+            SANSKRIT_VIEW_PATH.read_text(encoding="utf-8"),
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+        ])
+
+        self.assertIn("Copy inspection link", combined)
+        self.assertIn("handleStaticFixtureCopyLink", combined)
+        self.assertIn("navigator.clipboard", combined)
+        self.assertIn("static-fixture-copy-fallback", combined)
+        self.assertIn("renderStaticSemanticFixtureBrowser(Boolean(reason))", combined)
+
+    def test_static_fixture_browser_normal_backend_ready_mode_remains_hidden(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("renderStaticPreviewFallbackNotice(null)", controller)
+        self.assertIn("panel.classList.toggle(\"hidden\", !staticSemanticFixtureBrowserActive)", controller)
+        self.assertIn("if (!staticSemanticFixtureBrowserActive) return", controller)
+
+    def test_static_fixture_browser_deep_link_docs_and_manifest_declared(self):
+        readme = (ROOT / "data" / "sanskrit" / "ingestion" / "README.md").read_text(encoding="utf-8")
+        semantic_platform = SEMANTIC_PLATFORM_DOC_PATH.read_text(encoding="utf-8")
+
+        expected_hash = "#sanskrit-static-fixtures?cluster=motion&dhatuId=01.0005&nodeId=motion&section=neighbors"
+        self.assertEqual(self.payload["sanskritStaticSemanticFixtureBrowserHashFormat"], expected_hash)
+        self.assertEqual(
+            self.payload["sanskritStaticSemanticFixtureBrowserDeepLinks"],
+            "static-preview-only-no-backend-api-calls",
+        )
+        self.assertIn(expected_hash, readme)
+        self.assertIn(expected_hash, semantic_platform)
+        self.assertIn("static-preview-only", semantic_platform)
+        self.assertIn("/api/*` still returns 404", semantic_platform)
+
+
+    def test_static_fixture_browser_export_controls_are_present(self):
+        view = SANSKRIT_VIEW_PATH.read_text(encoding="utf-8")
+        style = SANSKRIT_STYLE_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("static-fixture-export-json", view)
+        self.assertIn("static-fixture-export-markdown", view)
+        self.assertIn("static-fixture-export-text", view)
+        self.assertIn("static-fixture-export-status", view)
+        self.assertIn("static-fixture-browser-export-row", style)
+
+    def test_static_fixture_browser_export_snapshot_helpers_are_safe_and_read_only(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+        export_start = controller.index("function buildStaticFixtureExportSnapshot")
+        export_end = controller.index("function renderDiagnosticsStatusClass", export_start)
+        export_body = controller[export_start:export_end]
+
+        self.assertIn("aigaane.staticSemanticFixtureExportSnapshot.v1", export_body)
+        self.assertIn("readOnly: true", export_body)
+        self.assertIn("backendRequired: false", export_body)
+        self.assertIn("canonicalMutationAllowed: false", export_body)
+        self.assertIn("buildStaticSemanticFixtureBrowserPayload()", export_body)
+        self.assertIn("downloadStaticFixtureExport", export_body)
+        self.assertIn("URL.createObjectURL", export_body)
+        self.assertIn("status.textContent", export_body)
+        self.assertNotIn(".innerHTML", export_body)
+        self.assertNotIn("eval(", export_body)
+
+    def test_static_fixture_browser_export_buttons_are_wired_without_backend_calls(self):
+        controller = SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8")
+
+        self.assertIn('staticFixtureExportJsonButton = byId("static-fixture-export-json")', controller)
+        self.assertIn('staticFixtureExportMarkdownButton = byId("static-fixture-export-markdown")', controller)
+        self.assertIn('staticFixtureExportTextButton = byId("static-fixture-export-text")', controller)
+        self.assertIn('staticFixtureExportJsonButton?.addEventListener("click", handleStaticFixtureExportJson)', controller)
+        self.assertIn('staticFixtureExportMarkdownButton?.addEventListener("click", handleStaticFixtureExportMarkdown)', controller)
+        self.assertIn('staticFixtureExportTextButton?.addEventListener("click", handleStaticFixtureExportText)', controller)
+
+        export_start = controller.index("function buildStaticFixtureExportSnapshot")
+        export_end = controller.index("function renderDiagnosticsStatusClass", export_start)
+        export_body = controller[export_start:export_end]
+        self.assertNotIn("fetch(", export_body)
+        self.assertNotIn("XMLHttpRequest", export_body)
+
+    def test_sanskrit_analysis_fallback_semantic_validators_still_pass(self):
+        self.assertEqual(semantic_validator.validate_semantic_layer()["semanticValidationStatus"], "PASS")
+        self.assertEqual(semantic_graph.validate_graph()["graphValidationStatus"], "PASS")
+        self.assertEqual(semantic_derivation.validate_derivations()["derivationValidationStatus"], "PASS")
+        self.assertEqual(
+            semantic_derivation_graph.validate_derivation_graph()["derivationGraphValidationStatus"],
+            "PASS",
+        )
+
+    def test_sanskrit_analysis_fallback_keeps_canonical_registry_at_thirteen_records(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        registry = json.loads(before_registry)
+
+        self.assertEqual(len(registry["records"]), 13)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_controller_and_app_have_no_canonical_write_hooks(self):
+        combined = "\n".join([
+            SANSKRIT_CONTROLLER_PATH.read_text(encoding="utf-8"),
+            (ROOT / "app.js").read_text(encoding="utf-8"),
+        ])
+
+        self.assertNotIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", combined)
+        self.assertNotIn("AIGAANE_ALLOW_TEST_CANONICAL_WRITE", combined)
+        self.assertNotIn("promote_ready_dhatu_to_canonical", combined)
+
+    def test_first_bhvadi_batch_root_ids_are_unique(self):
+        records = validator.scan_raw_batch_directory("raw/dhatupatha_batches/01_bhvadi")
+
+        self.assertEqual(validator.detect_duplicate_ids(records), [])
+
+    def test_global_root_ids_are_unique_across_staged_batches(self):
+        batch_records = validator.scan_all_staged_batch_files(self.payload)
+
+        self.assertEqual(validator.detect_cross_batch_collisions(batch_records), {})
+
+    def test_first_bhvadi_batch_readiness_has_records(self):
+        readiness = validator.validate_batch_readiness(validator.find_gana_batch(self.payload, "01"))
+
+        self.assertEqual(readiness["recordCount"], 12)
+        self.assertEqual(readiness["errors"], [])
+
+    def test_validate_large_scale_manifest_passes(self):
+        validated = validator.validate_large_scale_manifest(copy.deepcopy(self.payload))
+
+        self.assertEqual(validated["manifestVersion"], "1.0.0")
+
+    def test_manifest_batch_file_count_mismatch_fails(self):
+        payload = copy.deepcopy(self.payload)
+        payload["batchFileCount"] = 2
+
+        with self.assertRaises(ValueError):
+            validator.validate_large_scale_manifest(payload)
+
+    def test_manifest_missing_discovered_batch_file_fails(self):
+        payload = copy.deepcopy(self.payload)
+        payload["ganaBatches"][0]["batchFiles"] = []
+        payload["batchFileCount"] = 0
+
+        with self.assertRaises(ValueError):
+            validator.validate_large_scale_manifest(payload)
+
+    def test_find_gana_batch_works_by_id(self):
+        batch = validator.find_gana_batch(self.payload, "01")
+
+        self.assertEqual(batch["slug"], "bhvadi")
+
+    def test_find_gana_batch_works_by_slug(self):
+        batch = validator.find_gana_batch(self.payload, "curadi")
+
+        self.assertEqual(batch["ganaId"], "10")
+
+    def test_readiness_report_returns_planned_batches(self):
+        report = validator.build_large_scale_readiness_report(self.payload)
+
+        self.assertEqual(report["reportVersion"], "1.0.0")
+        self.assertEqual(report["ganaCount"], 10)
+        self.assertEqual(report["plannedBatches"], 10)
+
+    def test_manifest_declares_promotion_preview_file(self):
+        self.assertEqual(
+            self.payload["promotionPreviewFile"],
+            "data/sanskrit/ingestion/promotion_preview.v1.json",
+        )
+
+    def test_manifest_declares_canonical_promotion_plan_file(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionPlanFile"],
+            "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
+        )
+
+    def test_manifest_declares_review_gate_files(self):
+        self.assertEqual(
+            self.payload["reviewDecisionsFile"],
+            "data/sanskrit/ingestion/review_decisions.v1.json",
+        )
+        self.assertEqual(
+            self.payload["reviewedCanonicalPromotionPlanFile"],
+            "data/sanskrit/ingestion/canonical_promotion_plan.reviewed.v1.json",
+        )
+
+    def test_manifest_declares_promotion_readiness_lock_file(self):
+        self.assertEqual(
+            self.payload["promotionReadinessLockFile"],
+            "data/sanskrit/ingestion/promotion_readiness_lock.v1.json",
+        )
+
+    def test_manifest_declares_canonical_promotion_audit_file(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionAuditFile"],
+            "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+        )
+
+    def test_manifest_declares_dhatu_promotion_evidence_report_file(self):
+        self.assertEqual(
+            self.payload["dhatuPromotionEvidenceReportFile"],
+            "data/sanskrit/ingestion/dhatu_promotion_evidence_report.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_authorization_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteAuthorizationFile"],
+            "data/sanskrit/ingestion/canonical_write_authorization.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_approval_and_command_files(self):
+        self.assertEqual(
+            self.payload["canonicalWriteApprovalFile"],
+            "data/sanskrit/ingestion/canonical_write_approval.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalWriteCommandManifestFile"],
+            "data/sanskrit/ingestion/canonical_write_command_manifest.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_approval_validation_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteApprovalValidationFile"],
+            "data/sanskrit/ingestion/canonical_write_approval_validation.v1.json",
+        )
+
+    def test_manifest_declares_simulated_canonical_write_approval_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteSimulatedApprovalFile"],
+            "data/sanskrit/ingestion/canonical_write_approval.simulated.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_dry_run_diff_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteDryRunDiffFile"],
+            "data/sanskrit/ingestion/canonical_write_dry_run_diff.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_release_checklist_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteReleaseChecklistFile"],
+            "data/sanskrit/ingestion/canonical_write_release_checklist.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_approval_package_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteApprovalPackageFile"],
+            "data/sanskrit/ingestion/canonical_write_approval_package.v1.md",
+        )
+
+    def test_manifest_declares_canonical_write_release_verification_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteReleaseVerificationFile"],
+            "data/sanskrit/ingestion/canonical_write_release_verification.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_preflight_snapshot_file(self):
+        self.assertEqual(
+            self.payload["canonicalWritePreflightSnapshotFile"],
+            "data/sanskrit/ingestion/canonical_write_preflight_snapshot.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_post_audit_verification_file(self):
+        self.assertEqual(
+            self.payload["canonicalWritePostAuditVerificationFile"],
+            "data/sanskrit/ingestion/canonical_write_post_audit_verification.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_runbook_file(self):
+        self.assertEqual(
+            self.payload["canonicalWriteRunbookFile"],
+            "data/sanskrit/ingestion/canonical_write_runbook.v1.md",
+        )
+
+    def test_manifest_declares_canonical_promotion_closeout_index_file(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionCloseoutIndexFile"],
+            "data/sanskrit/ingestion/canonical_promotion_closeout_index.v1.json",
+        )
+
+    def test_manifest_declares_canonical_write_fixture_roots(self):
+        self.assertEqual(
+            self.payload["canonicalWriteBaselineBlockedFixtureRoot"],
+            "data/sanskrit/ingestion/fixtures/baseline_blocked",
+        )
+        self.assertEqual(
+            self.payload["canonicalWriteExecutedFixtureRoot"],
+            "data/sanskrit/ingestion/fixtures/executed_write",
+        )
+
+    def test_manifest_declares_v50_release_archive_root(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionV50ReleaseArchiveRoot"],
+            "data/sanskrit/ingestion/releases/v50",
+        )
+
+    def test_manifest_declares_v50_merge_readiness_report(self):
+        self.assertEqual(
+            self.payload["canonicalPromotionV50MergeReadinessReportFile"],
+            "data/sanskrit/ingestion/releases/v50/merge_readiness_report.v50.json",
+        )
+
+    def test_manifest_declares_semantic_manifest_file(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticManifestFile"],
+            "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json",
+        )
+
+    def test_manifest_declares_semantic_api_docs_and_examples(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticApiDocsFile"],
+            "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticExamplesRoot"],
+            "data/sanskrit/dhatus/semantic/examples",
+        )
+
+    def test_manifest_declares_semantic_graph_artifacts(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticEdgesFile"],
+            "data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphValidatorScript"],
+            "scripts/validate_dhatu_semantic_graph.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticNeighborQueryScript"],
+            "scripts/query_dhatu_semantic_neighbors.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphApiSmokeScript"],
+            "scripts/smoke_dhatu_semantic_graph_api.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphExampleExportScript"],
+            "scripts/export_dhatu_semantic_graph_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphExamplesRoot"],
+            "data/sanskrit/dhatus/semantic/examples/graph",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticTraversalQueryScript"],
+            "scripts/query_dhatu_semantic_traversal.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticTraversalApiSmokeScript"],
+            "scripts/smoke_dhatu_semantic_traversal_api.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticTraversalExampleExportScript"],
+            "scripts/export_dhatu_semantic_traversal_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiDocsFile"],
+            "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiExamplesRoot"],
+            "data/sanskrit/dhatus/semantic/examples/ui",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiExampleExportScript"],
+            "scripts/export_dhatu_semantic_ui_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiIntegrationSurface"],
+            "ui/tabs/sanskrit",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticUiControlMode"],
+            "client-side-read-only",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphViewMode"],
+            "client-side-read-only-no-dependencies",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticGraphViewAccessibility"],
+            "keyboard-node-activation-relation-legend",
+        )
+
+    def test_manifest_declares_semantic_derivation_artifacts(self):
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationsRoot"],
+            "data/sanskrit/dhatus/semantic/derivations",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationsFile"],
+            "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationApiDocsFile"],
+            "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationValidatorScript"],
+            "scripts/validate_dhatu_semantic_derivations.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationQueryScript"],
+            "scripts/query_dhatu_semantic_derivations.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationExampleExportScript"],
+            "scripts/export_dhatu_semantic_derivation_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationEndpoint"],
+            "/api/dhatu/semantic/derivations",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationUiPanel"],
+            "Derivation Intelligence",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationUiMode"],
+            "client-side-read-only-placeholder-only",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationReviewStatus"],
+            "placeholder-local-review-required",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationConfidence"],
+            "unreviewed",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphEdgesFile"],
+            "data/sanskrit/dhatus/semantic/derivations/semantic_derivation_edges.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphApiFile"],
+            "api/dhatu_semantic_derivation_graph.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphEndpoint"],
+            "/api/dhatu/semantic/derivation-graph",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphValidatorScript"],
+            "scripts/validate_dhatu_semantic_derivation_graph.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphQueryScript"],
+            "scripts/query_dhatu_semantic_derivation_graph.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphSmokeScript"],
+            "scripts/smoke_dhatu_semantic_derivation_graph_api.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphExampleExportScript"],
+            "scripts/export_dhatu_semantic_derivation_graph_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphExamplesRoot"],
+            "data/sanskrit/dhatus/semantic/derivations/examples/graph",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphUiPanel"],
+            "Derivation Graph Intelligence",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticDerivationGraphUiMode"],
+            "client-side-read-only-placeholder-only",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformCheckpointScript"],
+            "scripts/build_dhatu_semantic_platform_checkpoint.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformCheckpointJsonFile"],
+            "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformCheckpointMarkdownFile"],
+            "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformIndexEndpoint"],
+            "/api/dhatu/semantic",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformIndexSmokeScript"],
+            "scripts/smoke_dhatu_semantic_platform_index.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformDocsFile"],
+            "data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformUiExampleExportScript"],
+            "scripts/export_dhatu_semantic_platform_ui_examples.py",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformStatusUiFixture"],
+            "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json",
+        )
+        self.assertEqual(
+            self.payload["canonicalDhatuSemanticPlatformStatusUiPanel"],
+            "Semantic Platform Status",
+        )
+
+    def test_canonical_write_runbook_contains_required_operational_guidance(self):
+        runbook = RUNBOOK_PATH.read_text(encoding="utf-8")
+
+        self.assertIn("Do not set `AIGAANE_ENABLE_CANONICAL_DHATU_WRITE`", runbook)
+        self.assertIn("approval validation", runbook)
+        self.assertIn("post-write audit verification", runbook)
+        self.assertIn("rollback reference", runbook)
+        self.assertIn("sanskrit-v43-post-canonical-write-audit-verification-stable", runbook)
+
+    def test_default_canonical_promotion_closeout_index_is_blocked(self):
+        index = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_promotion_closeout_index.v1.json")
+
+        self.assertEqual(index["schemaVersion"], "1.0.0")
+        self.assertEqual(index["closeoutStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
+        self.assertFalse(index["safetySummary"]["approvalValid"])
+        self.assertFalse(index["safetySummary"]["safeToProceed"])
+        self.assertIn("canonicalWriteRunbook", [entry["name"] for entry in index["artifactIndex"]])
+
+    def test_baseline_blocked_fixtures_preserve_blocked_gate_states(self):
+        approval = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_approval.v1.json")
+        validation = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_approval_validation.v1.json")
+        authorization = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_authorization.v1.json")
+        command = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
+        dry_run = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_dry_run_diff.v1.json")
+        checklist = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_checklist.v1.json")
+        verification = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_verification.v1.json")
+        preflight = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_preflight_snapshot.v1.json")
+        post_audit = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_post_audit_verification.v1.json")
+
+        self.assertEqual(approval["approvalStatus"], "NOT_APPROVED")
+        self.assertFalse(validation["approvalValid"])
+        self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+        self.assertEqual(command["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(dry_run["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(checklist["releaseStatus"], "BLOCKED")
+        self.assertEqual(verification["verificationStatus"], "BLOCKED")
+        self.assertEqual(preflight["snapshotStatus"], "BLOCKED_PREWRITE")
+        self.assertEqual(post_audit["verificationStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
+
+    def test_executed_write_fixtures_preserve_approved_ready_verified_states(self):
+        approval = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_approval.v1.json")
+        validation = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_approval_validation.v1.json")
+        authorization = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_authorization.v1.json")
+        command = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
+        checklist = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_release_checklist.v1.json")
+        verification = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_release_verification.v1.json")
+        post_audit = load_fixture_json(EXECUTED_WRITE_FIXTURE_ROOT, "canonical_write_post_audit_verification.v1.json")
+
+        self.assertEqual(approval["approvalStatus"], "APPROVED")
+        self.assertTrue(validation["approvalValid"])
+        self.assertEqual(authorization["authorizationStatus"], "AUTHORIZED_FOR_MANUAL_WRITE")
+        self.assertEqual(command["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+        self.assertEqual(checklist["releaseStatus"], "READY_FOR_MANUAL_PRODUCTION_WRITE")
+        self.assertEqual(verification["verificationStatus"], "READY")
+        self.assertEqual(post_audit["verificationStatus"], "VERIFIED_TEST_WRITE")
+        self.assertEqual(post_audit["promotedCount"], 3)
+
+    def test_release_archive_generation_writes_manifest_and_snapshots(self):
+        import tempfile
+
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory(prefix="release-archive-") as tmp:
+            manifest = release_archiver.archive_release_state(tmp)
+
+            self.assertEqual(manifest["schemaVersion"], "1.0.0")
+            self.assertEqual(manifest["releaseTag"], release_archiver.RELEASE_TAG)
+            self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
+            self.assertEqual(manifest["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+            self.assertTrue(manifest["productionWriteExecuted"])
+            self.assertEqual(manifest["postWriteVerificationStatus"], "VERIFIED_TEST_WRITE")
+            self.assertTrue((Path(tmp) / "release_archive_manifest.v50.json").exists())
+            for archive_name in release_archiver.ARCHIVE_SOURCES:
+                self.assertTrue((Path(tmp) / archive_name).exists())
+                self.assertIn(archive_name, manifest["artifactHashes"])
+                self.assertEqual(len(manifest["artifactHashes"][archive_name]), 64)
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_archive_refuses_overwrite_without_force(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-refuse-") as tmp:
+            release_archiver.archive_release_state(tmp)
+
+            with self.assertRaises(FileExistsError):
+                release_archiver.archive_release_state(tmp)
+
+    def test_release_archive_manifest_integrity_and_merge_readiness_metadata(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-integrity-") as tmp:
+            manifest = release_archiver.archive_release_state(tmp)
+            written = json.loads((Path(tmp) / "release_archive_manifest.v50.json").read_text(encoding="utf-8"))
+
+            self.assertEqual(written["releaseCommit"], manifest["releaseCommit"])
+            self.assertTrue(written["mergeReadinessChecks"]["v50TagExists"])
+            self.assertTrue(written["mergeReadinessChecks"]["canonicalRegistryCountIs13"])
+            self.assertTrue(written["mergeReadinessChecks"]["promotedCountIs3"])
+            self.assertTrue(written["mergeReadinessChecks"]["noDuplicateCanonicalIds"])
+            self.assertEqual(
+                written["mergeReadinessChecks"]["testSuitePassingExpectation"]["expectedPassingTests"],
+                712,
+            )
+
+    def test_release_archive_force_overwrites_existing_archive(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-archive-force-") as tmp:
+            release_archiver.archive_release_state(tmp)
+            manifest = release_archiver.archive_release_state(tmp, force=True)
+
+            self.assertEqual(manifest["canonicalRegistryRecordCount"], 13)
+
+    def test_merge_readiness_report_is_ready_to_open_pr(self):
+        report = merge_readiness_reporter.build_merge_readiness_report()
+
+        self.assertEqual(report["schemaVersion"], "1.0.0")
+        self.assertEqual(report["releaseBranch"], "release/dhatu-canonical-write-approval")
+        self.assertEqual(report["targetBranch"], "feature/dhatu-goldset")
+        self.assertEqual(report["releaseTag"], "sanskrit-v50-canonical-write-state-fixtures-stable")
+        self.assertEqual(report["archiveTag"], "sanskrit-v51-release-archive-stable")
+        self.assertEqual(report["mergeReadinessStatus"], "READY_TO_OPEN_PR")
+        self.assertEqual(report["canonicalRegistryRecordCount"], 13)
+        self.assertEqual(report["promotedRecordIds"], PROMOTED_SOURCE_IDS)
+        self.assertEqual(report["blockingReasons"], [])
+
+    def test_merge_readiness_report_contains_fixture_and_audit_integrity(self):
+        report = merge_readiness_reporter.build_merge_readiness_report()
+
+        self.assertTrue(report["fixtureIntegrity"]["baselineBlocked"]["complete"])
+        self.assertTrue(report["fixtureIntegrity"]["executedWrite"]["complete"])
+        self.assertEqual(report["postWriteAuditSummary"]["promotedCount"], 3)
+        self.assertEqual(report["postWriteAuditSummary"]["verificationStatus"], "VERIFIED_TEST_WRITE")
+        self.assertTrue(report["canonicalRegistryIntegrity"]["noDuplicateCanonicalIds"])
+        self.assertEqual(report["canonicalRegistryIntegrity"]["promotedRecordIdsPresentCount"], 3)
+
+    def test_merge_readiness_report_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="merge-readiness-") as tmp:
+            report = merge_readiness_reporter.build_merge_readiness_report()
+            path = merge_readiness_reporter.write_merge_readiness_report(
+                report,
+                Path(tmp) / "merge_readiness_report.v50.json",
+            )
+
+            self.assertTrue(path.exists())
+            written = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(written["generatedBy"], "scripts/report_dhatu_merge_readiness.py")
+
+    def test_closeout_index_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            index = closeout_indexer.build_closeout_index(MANIFEST_PATH)
+            path = closeout_indexer.write_closeout_index(
+                index,
+                Path(tmp) / "canonical_promotion_closeout_index.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            written = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(written["generatedBy"], "scripts/index_dhatu_canonical_promotion_closeout.py")
+
+    def test_promotion_preview_reports_staged_totals(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertEqual(preview["previewVersion"], "1.0.0")
+        self.assertEqual(preview["mode"], "dry-run-preview")
+        self.assertEqual(preview["totalStagedRecords"], 12)
+        self.assertEqual(preview["recordsByGana"], {"01": 12})
+        self.assertEqual(preview["recordsByPada"], {"atmanepada": 2, "parasmaipada": 10})
+
+    def test_promotion_preview_does_not_allow_mutation(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertFalse(preview["canonicalMutation"])
+        self.assertFalse(preview["goldsetMutation"])
+        self.assertFalse(preview["batchMutation"])
+
+    def test_promotion_preview_duplicate_candidates_are_empty_for_current_batch(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertEqual(preview["duplicateCanonicalCandidates"], [])
+
+    def test_duplicate_canonical_candidates_are_detected_in_fixture_data(self):
+        duplicates = previewer.detect_duplicate_canonical_candidates(
+            [
+                {"root_id": "A", "gana": "01", "devanagari": "गम्", "iast": "gam"},
+                {"root_id": "B", "gana": "01", "devanagari": "गम्", "iast": "gam"},
+                {"root_id": "C", "gana": "01", "devanagari": "स्था", "iast": "stha"},
+            ]
+        )
+
+        self.assertEqual(duplicates[0]["rootIds"], ["A", "B"])
+
+    def test_promotion_preview_reports_missing_optional_metadata(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+
+        self.assertEqual(len(preview["missingOptionalMetadata"]), 12)
+        self.assertIn("01.STAGED.0001", preview["missingOptionalMetadata"])
+        self.assertIn("upadesha", preview["missingOptionalMetadata"]["01.STAGED.0001"])
+
+    def test_preview_summary_contains_required_counts(self):
+        preview = previewer.build_promotion_preview(MANIFEST_PATH)
+        summary = previewer.build_summary(preview)
+
+        self.assertEqual(summary["totalStagedRecords"], 12)
+        self.assertEqual(summary["recordsByGana"], {"01": 12})
+        self.assertFalse(summary["canonicalMutation"])
+
+    def test_canonical_promotion_plan_reports_review_counts(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        self.assertEqual(plan["schemaVersion"], "1.0.0")
+        self.assertEqual(plan["totalRecords"], 12)
+        self.assertEqual(plan["readyCount"], 0)
+        self.assertEqual(plan["needsReviewCount"], 12)
+        self.assertEqual(plan["blockedCount"], 0)
+
+    def test_canonical_promotion_plan_assigns_deterministic_ids(self):
+        plan_one = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        plan_two = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        ids_one = [record["proposedCanonicalId"] for record in plan_one["plannedRecords"]]
+        ids_two = [record["proposedCanonicalId"] for record in plan_two["plannedRecords"]]
+
+        self.assertEqual(ids_one, ids_two)
+        self.assertEqual(ids_one, [f"01.{value:04d}" for value in range(3, 15)])
+
+    def test_canonical_promotion_plan_safety_checks_prevent_mutation(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        self.assertTrue(plan["safetyChecks"]["stagedValidationPassed"])
+        self.assertTrue(plan["safetyChecks"]["promotionPreviewRegenerated"])
+        self.assertFalse(plan["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertFalse(plan["safetyChecks"]["goldsetMutation"])
+        self.assertFalse(plan["safetyChecks"]["batchMutation"])
+
+    def test_canonical_promotion_plan_conflict_summary_is_empty_for_current_batch(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        self.assertEqual(plan["conflictSummary"]["totalConflicts"], 0)
+        self.assertEqual(plan["conflictSummary"]["blockedRootIds"], [])
+
+    def test_canonical_conflict_blocks_record_in_fixture_data(self):
+        canonical = {
+            "ids": {"01.0003"},
+            "rootsByGana": {"01": {"गम्"}},
+            "iastByGana": {"01": {"gam"}},
+        }
+        record = {
+            "root_id": "X",
+            "devanagari": "गम्",
+            "iast": "gam",
+            "gana": "01",
+        }
+        conflicts = planner.detect_record_conflicts(record, "01.0003", canonical, set())
+
+        self.assertEqual(planner.classify_record(conflicts, []), "blocked")
+        self.assertIn("proposedCanonicalId already exists", conflicts)
+        self.assertIn("canonical root already exists in gana", conflicts)
+        self.assertIn("canonical IAST root already exists in gana", conflicts)
+
+    def test_ready_classification_requires_no_conflicts_or_missing_optional_metadata(self):
+        self.assertEqual(planner.classify_record([], []), "ready")
+        self.assertEqual(planner.classify_record([], ["upadesha"]), "needs_review")
+        self.assertEqual(planner.classify_record(["canonical root already exists in gana"], []), "blocked")
+
+    def test_review_decisions_load_and_default_to_defer(self):
+        decisions = reviewer.load_review_decisions(REVIEW_DECISIONS_PATH)
+
+        self.assertEqual(decisions["policy"]["defaultDecision"], "defer")
+        self.assertEqual(len(decisions["decisions"]), 12)
+        self.assertEqual(
+            {
+                root_id
+                for root_id, decision in decisions["decisions"].items()
+                if decision["decision"] == "approve"
+            },
+            {"01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"},
+        )
+
+    def test_reviewed_plan_applies_seeded_approvals_and_defers_remainder(self):
+        reviewed = reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
+
+        self.assertEqual(reviewed["totalRecords"], 12)
+        self.assertEqual(reviewed["readyCount"], 3)
+        self.assertEqual(reviewed["needsReviewCount"], 9)
+        self.assertEqual(reviewed["blockedCount"], 0)
+        self.assertEqual(reviewer.decision_counts(reviewed["plannedRecords"]), {"approve": 3, "defer": 9})
+
+    def test_missing_review_decisions_still_default_to_defer_in_fixture_data(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        decisions = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {},
+        }
+        reviewed = reviewer.apply_review_decisions(plan, reviewer.validate_review_decisions(decisions))
+
+        self.assertEqual(reviewed["readyCount"], 0)
+        self.assertEqual(reviewed["needsReviewCount"], 12)
+        self.assertEqual(reviewer.decision_counts(reviewed["plannedRecords"]), {"defer": 12})
+
+    def test_review_approve_converts_needs_review_to_ready(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        decisions = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {
+                plan["plannedRecords"][0]["sourceRootId"]: {
+                    "decision": "approve",
+                    "reviewer": "unit-reviewer",
+                    "rationale": "Fixture approval",
+                }
+            },
+        }
+        reviewed = reviewer.apply_review_decisions(plan, reviewer.validate_review_decisions(decisions))
+
+        self.assertEqual(reviewed["readyCount"], 1)
+        self.assertEqual(reviewed["needsReviewCount"], 11)
+        self.assertEqual(reviewed["blockedCount"], 0)
+
+    def test_review_reject_converts_record_to_blocked(self):
+        plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+        decisions = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {
+                plan["plannedRecords"][0]["sourceRootId"]: {
+                    "decision": "reject",
+                    "reviewer": "unit-reviewer",
+                    "rationale": "Fixture rejection",
+                }
+            },
+        }
+        reviewed = reviewer.apply_review_decisions(plan, reviewer.validate_review_decisions(decisions))
+        record = reviewed["plannedRecords"][0]
+
+        self.assertEqual(reviewed["blockedCount"], 1)
+        self.assertEqual(record["classification"], "blocked")
+        self.assertIn("reviewer rejected", record["conflicts"])
+
+    def test_blocked_records_remain_blocked_after_approval(self):
+        record = {
+            "sourceRootId": "X",
+            "classification": "blocked",
+            "conflicts": ["canonical root already exists in gana"],
+        }
+        reviewed = reviewer.apply_decision_to_record(
+            record,
+            {"decision": "approve", "reviewer": "unit-reviewer", "rationale": "Fixture approval"},
+        )
+
+        self.assertEqual(reviewed["classification"], "blocked")
+
+    def test_ready_records_remain_ready_unless_rejected(self):
+        record = {
+            "sourceRootId": "X",
+            "classification": "ready",
+            "conflicts": [],
+        }
+        deferred = reviewer.apply_decision_to_record(
+            record,
+            {"decision": "defer", "reviewer": "unit-reviewer", "rationale": "Fixture defer"},
+        )
+        rejected = reviewer.apply_decision_to_record(
+            record,
+            {"decision": "reject", "reviewer": "unit-reviewer", "rationale": "Fixture rejection"},
+        )
+
+        self.assertEqual(deferred["classification"], "ready")
+        self.assertEqual(rejected["classification"], "blocked")
+
+    def test_invalid_review_decision_fails_validation(self):
+        payload = {
+            "schemaVersion": "1.0.0",
+            "policy": {
+                "defaultDecision": "defer",
+                "canonicalMutation": False,
+                "goldsetMutation": False,
+                "batchMutation": False,
+            },
+            "decisions": {
+                "X": {"decision": "maybe", "reviewer": "unit-reviewer", "rationale": "Invalid"}
+            },
+        }
+
+        with self.assertRaises(ValueError):
+            reviewer.validate_review_decisions(payload)
+
+    def test_promotion_readiness_lock_reports_seeded_ready_records(self):
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        self.assertEqual(lock["schemaVersion"], "1.0.0")
+        self.assertEqual(lock["totalRecords"], 12)
+        self.assertEqual(lock["readyCount"], 3)
+        self.assertEqual(lock["needsReviewCount"], 9)
+        self.assertEqual(lock["blockedCount"], 0)
+        self.assertEqual(
+            lock["readyRecordIds"],
+            ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"],
+        )
+        self.assertEqual(lock["blockedRecordIds"], [])
+        self.assertEqual(len(lock["deferredRecordIds"]), 9)
+
+    def test_promotion_readiness_lock_keeps_canonical_write_disabled(self):
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        self.assertFalse(lock["canonicalWriteEnabled"])
+        self.assertFalse(lock["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertFalse(lock["safetyChecks"]["goldsetMutation"])
+        self.assertFalse(lock["safetyChecks"]["batchMutation"])
+
+    def test_promotion_readiness_lock_is_deterministic(self):
+        lock_one = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+        lock_two = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        self.assertEqual(lock_one, lock_two)
+
+    def test_disabled_promotion_audit_refuses_canonical_write(self):
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+        audit = promoter.build_disabled_audit(lock)
+
+        self.assertFalse(audit["canonicalWriteAttempted"])
+        self.assertFalse(audit["canonicalWriteEnabled"])
+        self.assertEqual(audit["promotedCount"], 0)
+        self.assertEqual(audit["promotedRecordIds"], [])
+        self.assertEqual(len(audit["skippedRecordIds"]), 12)
+        self.assertIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", audit["refusalReason"])
+
+    def test_default_promotion_path_writes_disabled_audit_only(self):
+        import os
+        import tempfile
+
+        lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+        original = os.environ.pop(promoter.WRITE_FLAG, None)
+        try:
+            with tempfile.TemporaryDirectory(prefix="disabled-audit-") as tmp:
+                audit = promoter.build_disabled_audit(lock)
+                path = promoter.write_promotion_audit(
+                    audit,
+                    Path(tmp) / "canonical_promotion_audit.v1.json",
+                )
+
+                self.assertTrue(path.exists())
+                self.assertEqual(json.loads(path.read_text(encoding="utf-8")), audit)
+                self.assertFalse(audit["canonicalWriteEnabled"])
+        finally:
+            if original is not None:
+                os.environ[promoter.WRITE_FLAG] = original
+
+    def test_enabled_flag_alone_refuses_canonical_write(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            with tempfile.TemporaryDirectory(prefix="unsafe-promotion-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                shutil.copyfile(promoter.DEFAULT_CANONICAL_REGISTRY_PATH, registry_path)
+                before = registry_path.read_text(encoding="utf-8")
+
+                exit_code = promoter.main(
+                    [
+                        "--manifest",
+                        str(MANIFEST_PATH),
+                        "--audit",
+                        str(audit_path),
+                        "--canonical-registry",
+                        str(registry_path),
+                    ]
+                )
+                audit = json.loads(audit_path.read_text(encoding="utf-8"))
+
+                self.assertEqual(exit_code, 1)
+                self.assertTrue(audit["canonicalWriteAttempted"])
+                self.assertTrue(audit["canonicalWriteEnabled"])
+                self.assertFalse(audit["writeGuardSatisfied"])
+                self.assertTrue(audit["unsafeWriteRefused"])
+                self.assertEqual(audit["promotedCount"], 0)
+                self.assertEqual(before, registry_path.read_text(encoding="utf-8"))
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_guarded_test_write_promotes_only_ready_records_to_temp_registry(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ[promoter.TEST_WRITE_FLAG] = "1"
+            with tempfile.TemporaryDirectory(prefix="guarded-promotion-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                self._write_pre_promotion_registry_fixture(registry_path)
+                before = json.loads(registry_path.read_text(encoding="utf-8"))
+                lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=audit_path,
+                    canonical_registry_path=registry_path,
+                )
+                after = json.loads(registry_path.read_text(encoding="utf-8"))
+
+                self.assertTrue(audit["canonicalWriteAttempted"])
+                self.assertTrue(audit["canonicalWriteEnabled"])
+                self.assertTrue(audit["writeGuardSatisfied"])
+                self.assertFalse(audit["unsafeWriteRefused"])
+                self.assertEqual(audit["promotedCount"], len(lock["readyRecordIds"]))
+                self.assertEqual(sorted(audit["promotedRecordIds"]), sorted(lock["readyRecordIds"]))
+                self.assertEqual(
+                    audit["skippedRecordIds"],
+                    sorted(set(lock["deferredRecordIds"]) | set(lock["blockedRecordIds"])),
+                )
+                self.assertEqual(
+                    audit["canonicalRegistryAfterCount"],
+                    audit["canonicalRegistryBeforeCount"] + len(lock["readyRecordIds"]),
+                )
+                self.assertEqual(
+                    len(after["records"]),
+                    len(before["records"]) + len(lock["readyRecordIds"]),
+                )
+                self.assertTrue(audit["contractChecks"]["passed"])
+                for source_id in lock["readyRecordIds"]:
+                    self.assertIn(source_id, audit["promotedRecordIds"])
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_default_promotion_does_not_modify_original_canonical_registry(self):
+        import os
+        import tempfile
+
+        original_write = os.environ.pop(promoter.WRITE_FLAG, None)
+        original_guard = os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+        before = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        try:
+            with tempfile.TemporaryDirectory(prefix="default-promotion-audit-") as tmp:
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=Path(tmp) / "audit.json",
+                )
+
+                self.assertFalse(audit["canonicalWriteAttempted"])
+                self.assertFalse(audit["canonicalWriteEnabled"])
+                self.assertFalse(audit["writeGuardSatisfied"])
+                self.assertFalse(audit["unsafeWriteRefused"])
+                self.assertEqual(before, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        finally:
+            if original_write is not None:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is not None:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_evidence_report_default_release_gate_is_blocked(self):
+        report = evidence_reporter.build_evidence_report(MANIFEST_PATH)
+
+        self.assertEqual(report["schemaVersion"], "1.0.0")
+        self.assertEqual(report["releaseGateStatus"], "BLOCKED")
+        self.assertFalse(report["guardPolicy"]["canonicalWriteEnabled"])
+        self.assertFalse(report["guardPolicy"]["writeGuardSatisfied"])
+        self.assertEqual(
+            report["sourceFiles"]["canonicalPromotionAudit"],
+            "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+        )
+        self.assertEqual(report["counts"]["previewTotalStagedRecords"], 12)
+        self.assertEqual(report["readyRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+        self.assertEqual(len(report["skippedRecordIds"]), 12)
+        self.assertTrue(report["contractSummary"]["passed"])
+
+    def test_evidence_report_ready_only_when_both_write_guards_satisfied(self):
+        audit = {
+            "canonicalWriteEnabled": True,
+            "writeGuardSatisfied": True,
+        }
+
+        self.assertEqual(evidence_reporter.release_gate_status(audit), "READY_FOR_CONTROLLED_WRITE")
+        self.assertEqual(evidence_reporter.release_gate_status({"canonicalWriteEnabled": True}), "BLOCKED")
+        self.assertEqual(evidence_reporter.release_gate_status({"writeGuardSatisfied": True}), "BLOCKED")
+
+    def test_canonical_write_authorization_defaults_to_human_approval(self):
+        import os
+
+        before_write_flag = os.environ.get(promoter.WRITE_FLAG)
+        before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        authorization = authorizer.build_authorization(
+            approval_validation_path=BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_approval_validation.v1.json",
+        )
+
+        self.assertEqual(authorization["schemaVersion"], "1.0.0")
+        self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+        self.assertTrue(authorization["humanApprovalRequired"])
+        self.assertEqual(authorization["authorizedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+        self.assertEqual(len(authorization["blockedRecordIds"]), 9)
+        self.assertEqual(
+            set(authorization["requiredEnvironment"].keys()),
+            {promoter.WRITE_FLAG, promoter.TEST_WRITE_FLAG},
+        )
+        self.assertFalse(authorization["requiredEnvironment"][promoter.WRITE_FLAG]["currentlySatisfied"])
+        self.assertFalse(authorization["requiredEnvironment"][promoter.TEST_WRITE_FLAG]["currentlySatisfied"])
+        self.assertEqual(authorization["evidenceSummary"]["releaseGateStatus"], "BLOCKED")
+        self.assertIn("approvalValidationSummary", authorization)
+        self.assertFalse(authorization["safetyChecks"]["evidenceReleaseGateReady"])
+        self.assertFalse(authorization["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertTrue(authorization["safetyChecks"]["environmentFlagsUnchangedByAuthorization"])
+        self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
+        self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_canonical_write_authorization_transitions_when_approval_and_release_ready(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-ready-") as tmp:
+            readiness_lock = json.loads(READINESS_LOCK_PATH.read_text(encoding="utf-8"))
+            ready_ids = sorted(readiness_lock["readyRecordIds"])
+            evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+            evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+            evidence.setdefault("contractSummary", {})["passed"] = True
+            approval_validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+            approval_validation["approvalStatus"] = "APPROVED"
+            approval_validation["approvalValid"] = True
+            approval_validation["approvedRecordIds"] = ready_ids
+            approval_validation["missingAuthorizedRecordIds"] = []
+            approval_validation["unexpectedApprovedRecordIds"] = []
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_validation_path = Path(tmp) / "approval_validation.json"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            approval_validation_path.write_text(json.dumps(approval_validation), encoding="utf-8")
+
+            authorization = authorizer.build_authorization(
+                evidence_path=evidence_path,
+                approval_validation_path=approval_validation_path,
+            )
+
+            self.assertEqual(authorization["authorizationStatus"], "AUTHORIZED_FOR_MANUAL_WRITE")
+            self.assertTrue(authorization["approvalValidationSummary"]["approvalValid"])
+            self.assertTrue(authorization["approvalValidationSummary"]["approvedRecordIdsMatchAuthorizedRecordIds"])
+            self.assertTrue(authorization["safetyChecks"]["evidenceReleaseGateReady"])
+
+    def test_canonical_write_authorization_waits_when_approved_ids_do_not_match(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-mismatch-") as tmp:
+            evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+            evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+            evidence.setdefault("contractSummary", {})["passed"] = True
+            approval_validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+            approval_validation["approvalStatus"] = "APPROVED"
+            approval_validation["approvalValid"] = True
+            approval_validation["approvedRecordIds"] = ["01.STAGED.0001"]
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_validation_path = Path(tmp) / "approval_validation.json"
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            approval_validation_path.write_text(json.dumps(approval_validation), encoding="utf-8")
+
+            authorization = authorizer.build_authorization(
+                evidence_path=evidence_path,
+                approval_validation_path=approval_validation_path,
+            )
+
+            self.assertEqual(authorization["authorizationStatus"], "AWAITING_HUMAN_APPROVAL")
+            self.assertFalse(authorization["approvalValidationSummary"]["approvedRecordIdsMatchAuthorizedRecordIds"])
+
+    def test_canonical_write_authorization_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-authorization-") as tmp:
+            authorization = authorizer.build_authorization()
+            path = authorizer.write_authorization(
+                authorization,
+                Path(tmp) / "canonical_write_authorization.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), authorization)
+
+    def test_canonical_write_approval_defaults_to_not_approved(self):
+        approval = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_approval.v1.json")
+
+        self.assertEqual(approval["schemaVersion"], "1.0.0")
+        self.assertEqual(approval["approvalStatus"], "NOT_APPROVED")
+        self.assertIsNone(approval["approvedBy"])
+        self.assertIsNone(approval["approvedAt"])
+        self.assertEqual(approval["approvedRecordIds"], [])
+        self.assertTrue(approval["approvalNotes"])
+        self.assertTrue(approval["requiredBeforeWrite"])
+
+    def test_simulated_approval_is_test_only_and_does_not_overwrite_default(self):
+        import tempfile
+
+        before_default = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory(prefix="simulated-approval-") as tmp:
+            approval = approval_simulator.build_simulated_approval()
+            path = approval_simulator.write_simulated_approval(
+                approval,
+                Path(tmp) / "canonical_write_approval.simulated.v1.json",
+            )
+            simulated = json.loads(path.read_text(encoding="utf-8"))
+            after_default = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+
+            self.assertTrue(simulated["testOnly"])
+            self.assertEqual(simulated["approvalStatus"], "APPROVED")
+            self.assertEqual(simulated["approvedBy"], "test-fixture")
+            self.assertEqual(simulated["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+            self.assertEqual(after_default, before_default)
+
+    def test_simulated_approval_validates_as_valid(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="simulated-validation-") as tmp:
+            approval_path = Path(tmp) / "canonical_write_approval.simulated.v1.json"
+            approval_simulator.write_simulated_approval(
+                approval_simulator.build_simulated_approval(),
+                approval_path,
+            )
+            validation = approval_validator.build_approval_validation(approval_path)
+
+            self.assertEqual(validation["approvalStatus"], "APPROVED")
+            self.assertTrue(validation["approvalValid"])
+            self.assertEqual(validation["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+            self.assertEqual(validation["missingAuthorizedRecordIds"], [])
+            self.assertEqual(validation["unexpectedApprovedRecordIds"], [])
+            self.assertFalse(validation["safetyChecks"]["writerExecuted"])
+            self.assertFalse(validation["safetyChecks"]["canonicalRegistryMutation"])
+
+    def test_canonical_write_command_manifest_refuses_without_approval(self):
+        import os
+
+        before_write_flag = os.environ.get(promoter.WRITE_FLAG)
+        before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        manifest = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
+
+        self.assertEqual(manifest["schemaVersion"], "1.0.0")
+        self.assertEqual(manifest["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(manifest["approvedRecordIds"], [])
+        self.assertEqual(len(manifest["blockedRecordIds"]), 12)
+        self.assertFalse(manifest["safetyChecks"]["writerExecuted"])
+        self.assertFalse(manifest["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertFalse(manifest["safetyChecks"]["approvalTokenApproved"])
+        self.assertFalse(manifest["safetyChecks"]["approvalValidationValid"])
+        self.assertFalse(manifest["authorizationSummary"]["authorizationReady"])
+        self.assertFalse(manifest["approvalValidationSummary"]["approvalValid"])
+        self.assertIn("exactPowerShellCommand", manifest)
+        self.assertIn("exactCmdCommand", manifest)
+        self.assertIn("python", manifest["commandPreview"]["argv"])
+        self.assertIn("scripts/promote_ready_dhatu_to_canonical.py", manifest["commandPreview"]["argv"])
+        self.assertIn("Approval validation failed.", manifest["refusalReasons"])
+        self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
+        self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_default_command_manifest_remains_refused_after_simulated_validation(self):
+        manifest = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_command_manifest.v1.json")
+
+        self.assertEqual(manifest["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertFalse(manifest["approvalValidationSummary"]["approvalValid"])
+
+    def test_canonical_write_command_manifest_refuses_when_authorization_not_ready(self):
+        import tempfile
+
+        validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+        validation["approvalStatus"] = "APPROVED"
+        validation["approvalValid"] = True
+        validation["approvedRecordIds"] = ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"]
+        validation["missingAuthorizedRecordIds"] = []
+        validation["unexpectedApprovedRecordIds"] = []
+        validation["refusalReasons"] = []
+        with tempfile.TemporaryDirectory(prefix="command-auth-not-ready-") as tmp:
+            validation_path = Path(tmp) / "validation.json"
+            authorization_path = Path(tmp) / "authorization.json"
+            validation_path.write_text(json.dumps(validation), encoding="utf-8")
+            authorization_path.write_text(
+                (BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_authorization.v1.json").read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            manifest = command_preparer.build_command_manifest(
+                authorization_path=authorization_path,
+                approval_validation_path=validation_path,
+            )
+
+            self.assertEqual(manifest["commandStatus"], "REFUSED_AUTHORIZATION_NOT_READY")
+            self.assertTrue(manifest["approvalValidationSummary"]["approvalValid"])
+            self.assertFalse(manifest["authorizationSummary"]["authorizationReady"])
+            self.assertIn(
+                "Authorization packet is not marked AUTHORIZED_FOR_MANUAL_WRITE.",
+                manifest["refusalReasons"],
+            )
+
+    def test_simulated_validation_can_reach_ready_with_ready_authorization(self):
+        import tempfile
+
+        authorization = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        authorization["authorizationStatus"] = "AUTHORIZED_FOR_MANUAL_WRITE"
+        for requirement in authorization["requiredEnvironment"].values():
+            requirement["currentlySatisfied"] = True
+        evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+        evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+        with tempfile.TemporaryDirectory(prefix="simulated-ready-chain-") as tmp:
+            approval_path = Path(tmp) / "approval.simulated.json"
+            validation_path = Path(tmp) / "validation.json"
+            authorization_path = Path(tmp) / "authorization.json"
+            evidence_path = Path(tmp) / "evidence.json"
+            approval_simulator.write_simulated_approval(
+                approval_simulator.build_simulated_approval(),
+                approval_path,
+            )
+            validation = approval_validator.build_approval_validation(approval_path)
+            approval_validator.write_approval_validation(validation, validation_path)
+            authorization_path.write_text(json.dumps(authorization), encoding="utf-8")
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+
+            manifest = command_preparer.build_command_manifest(
+                authorization_path=authorization_path,
+                approval_path=approval_path,
+                approval_validation_path=validation_path,
+                evidence_path=evidence_path,
+            )
+
+            self.assertTrue(validation["approvalValid"])
+            self.assertEqual(manifest["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+            self.assertFalse(manifest["safetyChecks"]["writerExecuted"])
+            self.assertFalse(manifest["safetyChecks"]["canonicalRegistryMutation"])
+
+    def _build_ready_command_fixture(self, tmp):
+        authorization = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        authorization["authorizationStatus"] = "AUTHORIZED_FOR_MANUAL_WRITE"
+        for requirement in authorization["requiredEnvironment"].values():
+            requirement["currentlySatisfied"] = True
+        evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+        evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+        approval_path = Path(tmp) / "approval.simulated.json"
+        validation_path = Path(tmp) / "validation.json"
+        authorization_path = Path(tmp) / "authorization.json"
+        evidence_path = Path(tmp) / "evidence.json"
+        command_path = Path(tmp) / "command.json"
+        approval_simulator.write_simulated_approval(approval_simulator.build_simulated_approval(), approval_path)
+        validation = approval_validator.build_approval_validation(approval_path)
+        approval_validator.write_approval_validation(validation, validation_path)
+        authorization_path.write_text(json.dumps(authorization), encoding="utf-8")
+        evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+        command = command_preparer.build_command_manifest(
+            authorization_path=authorization_path,
+            approval_path=approval_path,
+            approval_validation_path=validation_path,
+            evidence_path=evidence_path,
+        )
+        command_preparer.write_command_manifest(command, command_path)
+        return command_path, validation_path
+
+    def test_default_canonical_write_dry_run_diff_is_refused(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        diff = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_dry_run_diff.v1.json")
+
+        self.assertTrue(diff["dryRunOnly"])
+        self.assertEqual(diff["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertEqual(diff["recordsToAdd"], [])
+        self.assertEqual(diff["beforeCount"], diff["afterCountIfApplied"])
+        self.assertIn("Command manifest is not READY_FOR_MANUAL_EXECUTION.", diff["refusalReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_simulated_ready_dry_run_diff_lists_records_to_add_against_temp_registry(self):
+        import shutil
+        import tempfile
+
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory(prefix="ready-dry-run-") as tmp:
+            registry_path = Path(tmp) / "index.json"
+            self._write_pre_promotion_registry_fixture(registry_path)
+            command_path, validation_path = self._build_ready_command_fixture(tmp)
+            diff = dry_run_differ.build_dry_run_diff(
+                command_manifest_path=command_path,
+                approval_validation_path=validation_path,
+                canonical_registry_path=registry_path,
+            )
+
+            self.assertTrue(diff["dryRunOnly"])
+            self.assertEqual(diff["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+            self.assertEqual(len(diff["recordsToAdd"]), 3)
+            self.assertEqual(diff["afterCountIfApplied"], diff["beforeCount"] + 3)
+            self.assertEqual([record["sourceRootId"] for record in diff["recordsToAdd"]], [
+                "01.STAGED.0001",
+                "01.STAGED.0002",
+                "01.STAGED.0003",
+            ])
+            self.assertEqual(diff["duplicateIds"], [])
+            self.assertEqual(diff["missingStagedRecords"], [])
+            self.assertTrue(diff["contractChecks"]["passed"])
+            self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_duplicate_ids_block_canonical_write_dry_run_diff(self):
+        import shutil
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="duplicate-dry-run-") as tmp:
+            registry_path = Path(tmp) / "index.json"
+            self._write_pre_promotion_registry_fixture(registry_path)
+            registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            registry["records"]["01.0005"] = {"root": "fixture duplicate"}
+            registry_path.write_text(json.dumps(registry), encoding="utf-8")
+            command_path, validation_path = self._build_ready_command_fixture(tmp)
+            diff = dry_run_differ.build_dry_run_diff(
+                command_manifest_path=command_path,
+                approval_validation_path=validation_path,
+                canonical_registry_path=registry_path,
+            )
+
+            self.assertEqual(diff["recordsToAdd"], [])
+            self.assertIn("01.0005", diff["duplicateIds"])
+            self.assertFalse(diff["contractChecks"]["passed"])
+            self.assertIn("Duplicate canonical ids would be created.", diff["refusalReasons"])
+
+    def test_default_release_checklist_is_blocked(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        checklist = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_checklist.v1.json")
+
+        self.assertEqual(checklist["schemaVersion"], "1.0.0")
+        self.assertEqual(checklist["releaseStatus"], "BLOCKED")
+        self.assertFalse(checklist["safeToWriteProduction"])
+        self.assertFalse(checklist["gateSummary"]["approvalValid"])
+        self.assertEqual(checklist["gateSummary"]["commandStatus"], "REFUSED_APPROVAL_INVALID")
+        self.assertTrue(checklist["gateSummary"]["dryRunOnly"])
+        self.assertIn("Approval validation is not valid.", checklist["blockingReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_checklist_safe_only_when_all_write_gates_are_green(self):
+        authorization = {"authorizationStatus": "AUTHORIZED_FOR_MANUAL_WRITE"}
+        approval_validation = {"approvalValid": True}
+        command_manifest = {"commandStatus": "READY_FOR_MANUAL_EXECUTION"}
+        dry_run_diff = {"dryRunOnly": True, "duplicateIds": [], "missingStagedRecords": []}
+
+        self.assertTrue(
+            release_checklister.safe_to_write(
+                authorization,
+                approval_validation,
+                command_manifest,
+                dry_run_diff,
+            )
+        )
+        self.assertFalse(
+            release_checklister.safe_to_write(
+                authorization,
+                approval_validation,
+                command_manifest,
+                {"dryRunOnly": True, "duplicateIds": ["01.0005"], "missingStagedRecords": []},
+            )
+        )
+        self.assertFalse(
+            release_checklister.safe_to_write(
+                authorization,
+                {"approvalValid": False},
+                command_manifest,
+                dry_run_diff,
+            )
+        )
+
+    def test_release_checklist_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-checklist-") as tmp:
+            checklist = release_checklister.build_release_checklist(MANIFEST_PATH)
+            path = release_checklister.write_release_checklist(
+                checklist,
+                Path(tmp) / "canonical_write_release_checklist.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), checklist)
+
+    def test_approval_package_contains_required_human_sections(self):
+        before_approval = APPROVAL_PATH.read_text(encoding="utf-8")
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        markdown = approval_packager.build_approval_package()
+
+        self.assertIn("# Canonical Write Approval Package", markdown)
+        self.assertIn("Release status:", markdown)
+        self.assertIn("Safe to write production:", markdown)
+        self.assertIn("## Authorized Record IDs", markdown)
+        self.assertIn("`01.STAGED.0001`", markdown)
+        self.assertIn("## Ready Record IDs", markdown)
+        self.assertIn("## Records That Would Be Added", markdown)
+        self.assertIn("## Records Blocked Or Skipped", markdown)
+        self.assertIn("## Exact Manual Approval Instructions", markdown)
+        self.assertIn("## Exact Command Sequence After Approval", markdown)
+        self.assertIn("No command should be run until human approval is edited, reviewed, and committed.", markdown)
+        self.assertIn("python scripts/validate_dhatu_canonical_write_approval.py", markdown)
+        self.assertEqual(before_approval, APPROVAL_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_approval_package_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="approval-package-") as tmp:
+            markdown = approval_packager.build_approval_package()
+            path = approval_packager.write_approval_package(
+                markdown,
+                Path(tmp) / "canonical_write_approval_package.v1.md",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(path.read_text(encoding="utf-8"), markdown)
+
+    def test_default_release_verification_is_blocked(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        verification = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_release_verification.v1.json")
+
+        self.assertEqual(verification["schemaVersion"], "1.0.0")
+        self.assertEqual(verification["verificationStatus"], "BLOCKED")
+        self.assertFalse(verification["safeToProceed"])
+        self.assertFalse(verification["consistencyChecks"]["checklistSafeToWriteProduction"])
+        self.assertFalse(verification["consistencyChecks"]["commandReadyForManualExecution"])
+        self.assertFalse(verification["consistencyChecks"]["approvalValidationValid"])
+        self.assertTrue(verification["consistencyChecks"]["dryRunHasNoDuplicateIds"])
+        self.assertTrue(verification["consistencyChecks"]["dryRunHasNoMissingStagedRecords"])
+        self.assertTrue(verification["consistencyChecks"]["approvalPackageIncludesManualWarning"])
+        self.assertIn("Release checklist is not safe for production write.", verification["blockingReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_release_verification_requires_approval_package_warning(self):
+        checks = release_verifier.build_consistency_checks(
+            {"authorizedRecordIds": ["A"]},
+            {"approvalValid": True, "approvedRecordIds": ["A"]},
+            {"commandStatus": "READY_FOR_MANUAL_EXECUTION", "approvedRecordIds": ["A"]},
+            {"dryRunOnly": True, "duplicateIds": [], "missingStagedRecords": []},
+            {"safeToWriteProduction": True},
+            "missing warning",
+            {"readyRecordIds": ["A"]},
+        )
+
+        self.assertFalse(checks["approvalPackageIncludesManualWarning"])
+        reasons = release_verifier.build_blocking_reasons(checks, [])
+        self.assertIn("Approval package is missing the manual warning text.", reasons)
+
+    def test_release_verification_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="release-verification-") as tmp:
+            verification = release_verifier.build_release_verification(MANIFEST_PATH)
+            path = release_verifier.write_release_verification(
+                verification,
+                Path(tmp) / "canonical_write_release_verification.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), verification)
+
+    def test_default_preflight_snapshot_is_blocked_and_hashes_registry(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        snapshot = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_preflight_snapshot.v1.json")
+
+        self.assertEqual(snapshot["schemaVersion"], "1.0.0")
+        self.assertEqual(snapshot["snapshotStatus"], "BLOCKED_PREWRITE")
+        self.assertFalse(snapshot["safeToProceed"])
+        self.assertTrue(snapshot["canonicalRegistrySha256"])
+        self.assertEqual(len(snapshot["canonicalRegistrySha256"]), 64)
+        self.assertTrue(snapshot["currentGitHead"])
+        self.assertTrue(snapshot["currentBranch"])
+        self.assertEqual(snapshot["canonicalRegistryRecordCount"], 10)
+        self.assertEqual(snapshot["rollbackReference"]["canonicalRegistrySha256"], snapshot["canonicalRegistrySha256"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_preflight_snapshot_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="preflight-snapshot-") as tmp:
+            snapshot = preflight_snapshooter.build_preflight_snapshot()
+            path = preflight_snapshooter.write_preflight_snapshot(
+                snapshot,
+                Path(tmp) / "canonical_write_preflight_snapshot.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), snapshot)
+
+    def test_default_post_audit_verification_blocks_no_production_write(self):
+        before_registry = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        verification = load_fixture_json(BASELINE_BLOCKED_FIXTURE_ROOT, "canonical_write_post_audit_verification.v1.json")
+
+        self.assertEqual(verification["schemaVersion"], "1.0.0")
+        self.assertEqual(verification["verificationStatus"], "BLOCKED_NO_PRODUCTION_WRITE")
+        self.assertFalse(verification["productionRegistryMutationDetected"])
+        self.assertFalse(verification["canonicalWriteAttempted"])
+        self.assertEqual(verification["promotedCount"], 0)
+        self.assertEqual(verification["beforeCount"], verification["afterCount"])
+        self.assertIn("Default state has no production canonical write to verify.", verification["blockingReasons"])
+        self.assertEqual(before_registry, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_temp_registry_write_post_audit_verifies_count_delta(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        before_production = promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8")
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ[promoter.TEST_WRITE_FLAG] = "1"
+            with tempfile.TemporaryDirectory(prefix="post-audit-temp-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                dry_run_path = Path(tmp) / "dry-run.json"
+                snapshot_path = Path(tmp) / "snapshot.json"
+                self._write_pre_promotion_registry_fixture(registry_path)
+                snapshot = preflight_snapshooter.build_preflight_snapshot(registry_path)
+                preflight_snapshooter.write_preflight_snapshot(snapshot, snapshot_path)
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=audit_path,
+                    canonical_registry_path=registry_path,
+                )
+                dry_run = {
+                    "recordsToAdd": [{"sourceRootId": source_id} for source_id in audit["promotedRecordIds"]],
+                    "duplicateIds": [],
+                    "missingStagedRecords": [],
+                }
+                dry_run_path.write_text(json.dumps(dry_run), encoding="utf-8")
+
+                verification = post_audit_verifier.build_post_audit_verification(
+                    preflight_snapshot_path=snapshot_path,
+                    audit_file_path=audit_path,
+                    dry_run_diff_path=dry_run_path,
+                    canonical_registry_path=registry_path,
+                )
+
+                self.assertEqual(verification["verificationStatus"], "VERIFIED_TEST_WRITE")
+                self.assertEqual(verification["promotedCount"], 3)
+                self.assertEqual(verification["afterCount"], verification["beforeCount"] + 3)
+                self.assertEqual(verification["expectedAfterCount"], verification["beforeCount"] + 3)
+                self.assertFalse(verification["productionRegistryMutationDetected"])
+                self.assertTrue(verification["consistencyChecks"]["promotedCountMatchesExpectedRecords"])
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+        self.assertEqual(before_production, promoter.DEFAULT_CANONICAL_REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_mismatched_promoted_count_blocks_post_audit_verification(self):
+        import os
+        import shutil
+        import tempfile
+
+        original_write = os.environ.get(promoter.WRITE_FLAG)
+        original_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        try:
+            os.environ[promoter.WRITE_FLAG] = "1"
+            os.environ[promoter.TEST_WRITE_FLAG] = "1"
+            with tempfile.TemporaryDirectory(prefix="post-audit-mismatch-") as tmp:
+                registry_path = Path(tmp) / "index.json"
+                audit_path = Path(tmp) / "audit.json"
+                dry_run_path = Path(tmp) / "dry-run.json"
+                snapshot_path = Path(tmp) / "snapshot.json"
+                self._write_pre_promotion_registry_fixture(registry_path)
+                preflight_snapshooter.write_preflight_snapshot(
+                    preflight_snapshooter.build_preflight_snapshot(registry_path),
+                    snapshot_path,
+                )
+                audit = promoter.promote_ready_dhatus(
+                    MANIFEST_PATH,
+                    audit_path=audit_path,
+                    canonical_registry_path=registry_path,
+                )
+                audit["promotedCount"] = audit["promotedCount"] + 1
+                audit_path.write_text(json.dumps(audit), encoding="utf-8")
+                dry_run_path.write_text(
+                    json.dumps({
+                        "recordsToAdd": [{"sourceRootId": source_id} for source_id in audit["promotedRecordIds"]],
+                        "duplicateIds": [],
+                        "missingStagedRecords": [],
+                    }),
+                    encoding="utf-8",
+                )
+
+                verification = post_audit_verifier.build_post_audit_verification(
+                    preflight_snapshot_path=snapshot_path,
+                    audit_file_path=audit_path,
+                    dry_run_diff_path=dry_run_path,
+                    canonical_registry_path=registry_path,
+                )
+
+                self.assertEqual(verification["verificationStatus"], "BLOCKED_AUDIT_MISMATCH")
+                self.assertFalse(verification["consistencyChecks"]["promotedCountMatchesExpectedRecords"])
+                self.assertIn(
+                    "Audit promoted count does not match expected records to add.",
+                    verification["blockingReasons"],
+                )
+        finally:
+            if original_write is None:
+                os.environ.pop(promoter.WRITE_FLAG, None)
+            else:
+                os.environ[promoter.WRITE_FLAG] = original_write
+            if original_guard is None:
+                os.environ.pop(promoter.TEST_WRITE_FLAG, None)
+            else:
+                os.environ[promoter.TEST_WRITE_FLAG] = original_guard
+
+    def test_post_audit_verification_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="post-audit-writer-") as tmp:
+            verification = post_audit_verifier.build_post_audit_verification()
+            path = post_audit_verifier.write_post_audit_verification(
+                verification,
+                Path(tmp) / "canonical_write_post_audit_verification.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), verification)
+
+    def test_canonical_write_command_manifest_ready_when_validation_and_authorization_ready(self):
+        import tempfile
+
+        authorization = json.loads(AUTHORIZATION_PATH.read_text(encoding="utf-8"))
+        authorization["authorizationStatus"] = "AUTHORIZED_FOR_MANUAL_WRITE"
+        for requirement in authorization["requiredEnvironment"].values():
+            requirement["currentlySatisfied"] = True
+        validation = json.loads(APPROVAL_VALIDATION_PATH.read_text(encoding="utf-8"))
+        validation["approvalStatus"] = "APPROVED"
+        validation["approvalValid"] = True
+        validation["approvedRecordIds"] = ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"]
+        validation["missingAuthorizedRecordIds"] = []
+        validation["unexpectedApprovedRecordIds"] = []
+        validation["refusalReasons"] = []
+        evidence = json.loads(EVIDENCE_REPORT_PATH.read_text(encoding="utf-8"))
+        evidence["releaseGateStatus"] = "READY_FOR_CONTROLLED_WRITE"
+        with tempfile.TemporaryDirectory(prefix="command-ready-") as tmp:
+            authorization_path = Path(tmp) / "authorization.json"
+            validation_path = Path(tmp) / "validation.json"
+            evidence_path = Path(tmp) / "evidence.json"
+            authorization_path.write_text(json.dumps(authorization), encoding="utf-8")
+            validation_path.write_text(json.dumps(validation), encoding="utf-8")
+            evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
+            manifest = command_preparer.build_command_manifest(
+                authorization_path=authorization_path,
+                approval_validation_path=validation_path,
+                evidence_path=evidence_path,
+            )
+
+            self.assertEqual(manifest["commandStatus"], "READY_FOR_MANUAL_EXECUTION")
+            self.assertEqual(manifest["approvedRecordIds"], ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"])
+            self.assertEqual(len(manifest["blockedRecordIds"]), 9)
+            self.assertEqual(manifest["refusalReasons"], [])
+            self.assertIn("AIGAANE_ENABLE_CANONICAL_DHATU_WRITE", manifest["exactPowerShellCommand"])
+            self.assertIn("set AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1", manifest["exactCmdCommand"])
+
+    def test_canonical_write_command_manifest_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-command-") as tmp:
+            manifest = command_preparer.build_command_manifest()
+            path = command_preparer.write_command_manifest(
+                manifest,
+                Path(tmp) / "canonical_write_command_manifest.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), manifest)
+
+    def test_canonical_write_approval_validation_default_is_invalid(self):
+        import os
+
+        before_write_flag = os.environ.get(promoter.WRITE_FLAG)
+        before_test_guard = os.environ.get(promoter.TEST_WRITE_FLAG)
+        validation = approval_validator.build_approval_validation(
+            BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_approval.v1.json",
+            authorization_path=BASELINE_BLOCKED_FIXTURE_ROOT / "canonical_write_authorization.v1.json",
+        )
+
+        self.assertEqual(validation["schemaVersion"], "1.0.0")
+        self.assertEqual(validation["approvalStatus"], "NOT_APPROVED")
+        self.assertFalse(validation["approvalValid"])
+        self.assertEqual(validation["approvedRecordIds"], [])
+        self.assertEqual(
+            validation["missingAuthorizedRecordIds"],
+            ["01.STAGED.0001", "01.STAGED.0002", "01.STAGED.0003"],
+        )
+        self.assertEqual(validation["unexpectedApprovedRecordIds"], [])
+        self.assertFalse(validation["safetyChecks"]["writerExecuted"])
+        self.assertFalse(validation["safetyChecks"]["canonicalRegistryMutation"])
+        self.assertTrue(validation["safetyChecks"]["approvedIdsSubsetOfAuthorization"])
+        self.assertIn("Approval status is not APPROVED.", validation["refusalReasons"])
+        self.assertEqual(os.environ.get(promoter.WRITE_FLAG), before_write_flag)
+        self.assertEqual(os.environ.get(promoter.TEST_WRITE_FLAG), before_test_guard)
+
+    def test_approved_empty_record_ids_fail_approval_validation(self):
+        import tempfile
+
+        approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        approval["approvalStatus"] = "APPROVED"
+        approval["approvedBy"] = "unit-reviewer"
+        approval["approvedAt"] = "2026-05-21T00:00:00Z"
+        approval["approvedRecordIds"] = []
+        with tempfile.TemporaryDirectory(prefix="empty-approval-") as tmp:
+            approval_path = Path(tmp) / "approval.json"
+            approval_path.write_text(json.dumps(approval), encoding="utf-8")
+            validation = approval_validator.build_approval_validation(approval_path)
+
+            self.assertFalse(validation["approvalValid"])
+            self.assertIn(
+                "Approved approval token must include at least one approvedRecordId.",
+                validation["refusalReasons"],
+            )
+
+    def test_unexpected_approved_ids_fail_approval_validation(self):
+        import tempfile
+
+        approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
+        approval["approvalStatus"] = "APPROVED"
+        approval["approvedBy"] = "unit-reviewer"
+        approval["approvedAt"] = "2026-05-21T00:00:00Z"
+        approval["approvedRecordIds"] = ["01.STAGED.0001", "01.STAGED.9999"]
+        with tempfile.TemporaryDirectory(prefix="unexpected-approval-") as tmp:
+            approval_path = Path(tmp) / "approval.json"
+            approval_path.write_text(json.dumps(approval), encoding="utf-8")
+            validation = approval_validator.build_approval_validation(approval_path)
+
+            self.assertFalse(validation["approvalValid"])
+            self.assertEqual(validation["unexpectedApprovedRecordIds"], ["01.STAGED.9999"])
+            self.assertFalse(validation["safetyChecks"]["approvedIdsSubsetOfAuthorization"])
+            self.assertIn("Approval includes ids outside canonical write authorization.", validation["refusalReasons"])
+
+    def test_canonical_write_approval_validation_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="approval-validation-") as tmp:
+            validation = approval_validator.build_approval_validation()
+            path = approval_validator.write_approval_validation(
+                validation,
+                Path(tmp) / "canonical_write_approval_validation.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), validation)
+
+    def test_duplicate_ids_are_detected_in_fixture_data(self):
+        records = [{"root_id": "01.0001"}, {"root_id": "01.0001"}, {"root_id": "01.0002"}]
+
+        self.assertEqual(validator.detect_duplicate_ids(records), ["01.0001"])
+
+    def test_cross_batch_collisions_are_detected_in_fixture_data(self):
+        collisions = validator.detect_cross_batch_collisions(
+            {
+                "01": [{"id": "X001"}, {"id": "X002"}],
+                "02": [{"id": "X001"}],
+                "03": [{"id": "X003"}],
+            }
+        )
+
+        self.assertEqual(collisions, {"X001": ["01", "02"]})
+
+    def test_empty_batch_file_fails_validation(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="empty-batch-") as tmp:
+            path = Path(tmp) / "empty.json"
+            path.write_text(json.dumps({"records": []}), encoding="utf-8")
+
+            with self.assertRaises(ValueError):
+                validator._validate_json_batch_file(path, validator.find_gana_batch(self.payload, "01"))
+
+    def test_validation_does_not_modify_canonical_or_goldset_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+
+        validator.build_large_scale_readiness_report(self.payload)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+
+    def test_preview_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        previewer.build_promotion_preview(MANIFEST_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
+    def test_planner_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        planner.build_canonical_promotion_plan(MANIFEST_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
+    def test_review_resolver_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
+    def test_readiness_lock_does_not_modify_canonical_goldset_or_batch_files(self):
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+
+        locker.build_promotion_readiness_lock(MANIFEST_PATH)
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+
+    def test_disabled_promoter_does_not_modify_protected_files(self):
+        import os
+
+        before_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        before_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        before_batch = BHVADI_BATCH.read_text(encoding="utf-8")
+        before_reviews = REVIEW_DECISIONS_PATH.read_text(encoding="utf-8")
+        before_lock = READINESS_LOCK_PATH.read_text(encoding="utf-8")
+        original = os.environ.pop(promoter.WRITE_FLAG, None)
+        try:
+            promoter.promote_ready_dhatus(MANIFEST_PATH)
+        finally:
+            if original is not None:
+                os.environ[promoter.WRITE_FLAG] = original
+
+        after_dhatus = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(DHATU_ROOT.glob("*.json"))
+        }
+        after_goldset = {
+            path.name: path.read_text(encoding="utf-8")
+            for path in sorted(GOLDSET_ROOT.glob("*.json"))
+        }
+        self.assertEqual(before_dhatus, after_dhatus)
+        self.assertEqual(before_goldset, after_goldset)
+        self.assertEqual(before_batch, BHVADI_BATCH.read_text(encoding="utf-8"))
+        self.assertEqual(before_reviews, REVIEW_DECISIONS_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(before_lock, READINESS_LOCK_PATH.read_text(encoding="utf-8"))
+
+    def test_validator_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_preview_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PREVIEW_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_plan_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PLAN_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_review_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in REVIEW_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_lock_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in LOCK_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_promote_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PROMOTE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_evidence_report_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in EVIDENCE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_authorization_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in AUTHORIZATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_command_manifest_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in COMMAND_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_approval_validation_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in APPROVAL_VALIDATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_simulated_approval_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in SIMULATE_APPROVAL_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_dry_run_diff_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in DRY_RUN_DIFF_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_release_checklist_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in RELEASE_CHECKLIST_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_approval_package_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in APPROVAL_PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_release_verification_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in RELEASE_VERIFICATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_preflight_snapshot_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in PREFLIGHT_SNAPSHOT_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_post_audit_verification_script_does_not_import_runtime_grammar_engines(self):
+        import_lines = [
+            line.strip()
+            for line in POST_AUDIT_VERIFICATION_SCRIPT_PATH.read_text(encoding="utf-8").splitlines()
+            if line.strip().startswith(("import ", "from "))
+        ]
+
+        for forbidden_import in FORBIDDEN_RUNTIME_IMPORTS:
+            self.assertFalse(any(forbidden_import in line for line in import_lines), forbidden_import)
+
+    def test_report_writer_uses_temp_report_directory(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="large-scale-report-") as tmp:
+            report = validator.build_large_scale_readiness_report(self.payload)
+            path = validator.write_large_scale_report(report, tmp)
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), report)
+
+    def test_preview_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="promotion-preview-") as tmp:
+            preview = previewer.build_promotion_preview(MANIFEST_PATH)
+            path = previewer.write_promotion_preview(preview, Path(tmp) / "promotion_preview.v1.json")
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), preview)
+
+    def test_plan_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="canonical-plan-") as tmp:
+            plan = planner.build_canonical_promotion_plan(MANIFEST_PATH)
+            path = planner.write_canonical_promotion_plan(plan, Path(tmp) / "canonical_promotion_plan.v1.json")
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), plan)
+
+    def test_reviewed_plan_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="reviewed-plan-") as tmp:
+            reviewed = reviewer.build_reviewed_promotion_plan(MANIFEST_PATH, REVIEW_DECISIONS_PATH)
+            path = reviewer.write_reviewed_promotion_plan(
+                reviewed,
+                Path(tmp) / "canonical_promotion_plan.reviewed.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), reviewed)
+
+    def test_readiness_lock_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="readiness-lock-") as tmp:
+            lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+            path = locker.write_promotion_readiness_lock(
+                lock,
+                Path(tmp) / "promotion_readiness_lock.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), lock)
+
+    def test_promotion_audit_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="promotion-audit-") as tmp:
+            lock = locker.build_promotion_readiness_lock(MANIFEST_PATH)
+            audit = promoter.build_disabled_audit(lock)
+            path = promoter.write_promotion_audit(
+                audit,
+                Path(tmp) / "canonical_promotion_audit.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), audit)
+
+    def test_evidence_report_writer_uses_requested_output_path(self):
+        import tempfile
+
+        with tempfile.TemporaryDirectory(prefix="promotion-evidence-") as tmp:
+            report = evidence_reporter.build_evidence_report(MANIFEST_PATH)
+            path = evidence_reporter.write_evidence_report(
+                report,
+                Path(tmp) / "dhatu_promotion_evidence_report.v1.json",
+            )
+
+            self.assertTrue(path.exists())
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), report)
+
+
+if __name__ == "__main__":
+    unittest.main()

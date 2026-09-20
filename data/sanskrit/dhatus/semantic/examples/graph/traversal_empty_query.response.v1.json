@@ -1,0 +1,18 @@
+{
+  "errorCode": "empty_semantic_traversal_query",
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/traverse",
+  "maxDepth": 2,
+  "nodeId": null,
+  "pathCount": 0,
+  "paths": [],
+  "query": {
+    "maxDepth": 2,
+    "nodeId": null,
+    "relationType": null
+  },
+  "relationType": null,
+  "schemaVersion": "1.0.0",
+  "traversalStatus": "EMPTY_QUERY",
+  "traversedEdgeIds": [],
+  "visitedNodeCount": 0
+}

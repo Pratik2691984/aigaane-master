@@ -1,0 +1,1129 @@
+{
+  "batchId": "DHATU_10_CURADI",
+  "ganaId": "10",
+  "slug": "curadi",
+  "corpusType": "dhatu",
+  "description": "Real corpus dhatu batch for curadi gana",
+  "records": [
+    {
+      "id": "10.0004",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0005",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0010",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0012",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0015",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0016",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0018",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0019",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0020",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0021",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0022",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0024",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0027",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0029",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0033",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0037",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0039",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0040",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0041",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0044",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0045",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0047",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0048",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0050",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0052",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0055",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0058",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0059",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0063",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0066",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0067",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0068",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0070",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0072",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0073",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0074",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0075",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0076",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0077",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0086",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0090",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0092",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0093",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0094",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0095",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0096",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0097",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0099",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0100",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0103",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0104",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0106",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0109",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0113",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0119",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0120",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0121",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0122",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0123",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0124",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0125",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0130",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0131",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0133",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0137",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0138",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0143",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0146",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0147",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0148",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0149",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0152",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0153",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0154",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0157",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0159",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0160",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0164",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0167",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0168",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0170",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0173",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0174",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0177",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0178",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0181",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0183",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0184",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0185",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0187",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0188",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0189",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0190",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0191",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0192",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0193",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0195",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0197",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0200",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0201",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0205",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0210",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0214",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0216",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0217",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0218",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0219",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0221",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0222",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0223",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0224",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0226",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0227",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0228",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0229",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0230",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0231",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0232",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0233",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0234",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0235",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0237",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0238",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0240",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0242",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0243",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0245",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0246",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0247",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0248",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0249",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0250",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0251",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0252",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0253",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0255",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0257",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0258",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0259",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "10.0260",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/10_curadi_batch.json",
+      "gana": "10",
+      "notes": "reserved placeholder"
+    }
+  ]
+}

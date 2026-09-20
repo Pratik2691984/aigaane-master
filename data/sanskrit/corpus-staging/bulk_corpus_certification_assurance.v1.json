@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-certification-assurance.v1",
+  "status": "assurance-ready",
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "assured": true,
+  "hardStop": true,
+  "authorization": {
+    "certificationIsAuthorization": false,
+    "canonicalWrite": false,
+    "promotion": false,
+    "import": false,
+    "execution": false
+  },
+  "checked": {
+    "acceptedRecords": 2000,
+    "rejectedRecords": 0,
+    "schemaVersion": "sanskrit-bulk-corpus-certification.v1",
+    "status": "certified-read-only"
+  },
+  "failures": [],
+  "nextGate": "MANUAL REVIEW / CERTIFIED",
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false,
+  "assuranceExecutionAllowed": false,
+  "certificationExecutionAllowed": false
+}

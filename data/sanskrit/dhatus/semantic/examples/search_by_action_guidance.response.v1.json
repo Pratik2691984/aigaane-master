@@ -1,0 +1,60 @@
+{
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/search",
+  "query": {
+    "action": "guidance",
+    "cluster": null,
+    "dhatuId": null,
+    "gloss": null,
+    "iast": null,
+    "root": null
+  },
+  "resultCount": 1,
+  "results": [
+    {
+      "actionVector": {
+        "facets": [
+          "guidance",
+          "leading",
+          "transport"
+        ],
+        "primary": "guidance"
+      },
+      "derivationLinks": [],
+      "dhatuId": "01.0008",
+      "gloss": "to lead",
+      "glossTaxonomy": [
+        {
+          "category": "agency",
+          "dhatuId": "01.0008",
+          "engineUse": "semantic search, action classification, derivation graph seeding",
+          "englishGloss": "to lead",
+          "id": "agency.to_lead"
+        }
+      ],
+      "iast": "n\u012b",
+      "matchReasons": [
+        "action"
+      ],
+      "paniniReferences": [
+        {
+          "confidence": "unreviewed",
+          "dhatuId": "01.0008",
+          "notes": "No exact sutra claim is made in this foundation layer.",
+          "relationType": "semantic-reference-placeholder",
+          "source": "placeholder-local-review-required",
+          "sutraId": null
+        }
+      ],
+      "rankScore": 70,
+      "root": "\u0928\u0940",
+      "semanticClusters": [
+        {
+          "description": "Leading, directing, bringing, or guided transport.",
+          "id": "guidance",
+          "label": "Guidance"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "1.0.0"
+}

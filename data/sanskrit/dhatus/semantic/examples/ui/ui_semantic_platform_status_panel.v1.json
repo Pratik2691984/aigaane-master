@@ -1,0 +1,269 @@
+{
+  "canonicalRegistryRecordCount": 13,
+  "cards": [
+    {
+      "cardId": "platform.status.01",
+      "cardType": "platformStatus",
+      "label": "Platform status",
+      "metadata": {
+        "milestoneSpan": "v53-v72",
+        "section": "Platform Overview",
+        "uiReadiness": "READY"
+      },
+      "value": "READY"
+    },
+    {
+      "cardId": "platform.registry.01",
+      "cardType": "registryCount",
+      "label": "Canonical registry count",
+      "metadata": {
+        "canonicalMutation": false,
+        "readOnly": true,
+        "section": "Platform Overview"
+      },
+      "value": 13
+    },
+    {
+      "cardId": "platform.endpoints.01",
+      "cardType": "endpointSummary",
+      "label": "Available APIs",
+      "metadata": {
+        "paths": [
+          "/api/dhatu/semantic/search",
+          "/api/dhatu/semantic/neighbors",
+          "/api/dhatu/semantic/traverse",
+          "/api/dhatu/semantic/derivations",
+          "/api/dhatu/semantic/derivation-graph"
+        ],
+        "section": "Available APIs"
+      },
+      "value": 5
+    },
+    {
+      "cardId": "platform.validators.01",
+      "cardType": "validatorSummary",
+      "label": "Validator summary",
+      "metadata": {
+        "section": "Validator Summary",
+        "validators": [
+          "semanticLayer",
+          "semanticGraph",
+          "semanticDerivation",
+          "semanticDerivationGraph"
+        ]
+      },
+      "value": "PASS"
+    }
+  ],
+  "checkpoint": {
+    "jsonPath": "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.json",
+    "markdownPath": "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.md",
+    "releaseCommit": "36949c3",
+    "releaseTag": "sanskrit-v70-semantic-derivation-graph-ui-stable"
+  },
+  "description": "UI-ready read-only status summary for the Sanskrit dhatu semantic platform.",
+  "docs": [
+    "data/sanskrit/dhatus/semantic/SEMANTIC_PLATFORM.md",
+    "data/sanskrit/dhatus/semantic/SEMANTIC_API.md",
+    "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
+    "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+    "data/sanskrit/ingestion/README.md"
+  ],
+  "endpoints": [
+    {
+      "description": "Search canonical dhatu semantic sidecar records.",
+      "label": "Semantic Search API",
+      "method": "GET",
+      "path": "/api/dhatu/semantic/search",
+      "readOnly": true
+    },
+    {
+      "description": "Return bounded semantic graph neighbors for a node.",
+      "label": "Semantic Neighbors API",
+      "method": "GET",
+      "path": "/api/dhatu/semantic/neighbors",
+      "readOnly": true
+    },
+    {
+      "description": "Return deterministic semantic graph traversal paths.",
+      "label": "Semantic Traversal API",
+      "method": "GET",
+      "path": "/api/dhatu/semantic/traverse",
+      "readOnly": true
+    },
+    {
+      "description": "Expose placeholder-only derivation metadata.",
+      "label": "Semantic Derivations API",
+      "method": "GET",
+      "path": "/api/dhatu/semantic/derivations",
+      "readOnly": true
+    },
+    {
+      "description": "Bridge semantic graph traversal to placeholder derivation families.",
+      "label": "Semantic Derivation Graph API",
+      "method": "GET",
+      "path": "/api/dhatu/semantic/derivation-graph",
+      "readOnly": true
+    }
+  ],
+  "examples": [
+    "data/sanskrit/dhatus/semantic/examples",
+    "data/sanskrit/dhatus/semantic/examples/graph",
+    "data/sanskrit/dhatus/semantic/examples/ui",
+    "data/sanskrit/dhatus/semantic/derivations/examples",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph",
+    "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_platform_status_panel.v1.json"
+  ],
+  "generatedBy": "scripts/export_dhatu_semantic_platform_ui_examples.py",
+  "milestoneSpan": "v53-v72",
+  "milestoneTags": [
+    {
+      "node": "v53",
+      "summary": "Semantic sidecar foundation",
+      "tag": "semantic-layer-foundation"
+    },
+    {
+      "node": "v54",
+      "summary": "Semantic query engine",
+      "tag": "semantic-query-engine"
+    },
+    {
+      "node": "v55",
+      "summary": "Semantic search API",
+      "tag": "semantic-search-api"
+    },
+    {
+      "node": "v56",
+      "summary": "Examples and documentation",
+      "tag": "semantic-api-examples-docs"
+    },
+    {
+      "node": "v57",
+      "summary": "Semantic graph neighbors",
+      "tag": "semantic-graph-neighbors"
+    },
+    {
+      "node": "v58",
+      "summary": "Semantic platform continuity checkpoint",
+      "tag": "semantic-platform-continuity"
+    },
+    {
+      "node": "v59",
+      "summary": "Semantic platform continuity checkpoint",
+      "tag": "semantic-platform-continuity"
+    },
+    {
+      "node": "v60",
+      "summary": "Graph API helper",
+      "tag": "semantic-graph-api-helper"
+    },
+    {
+      "node": "v61",
+      "summary": "Traversal API",
+      "tag": "semantic-traversal-api"
+    },
+    {
+      "node": "v62",
+      "summary": "UI-ready semantic fixtures",
+      "tag": "ui-ready-semantic-fixtures"
+    },
+    {
+      "node": "v63",
+      "summary": "Sanskrit semantic panels",
+      "tag": "sanskrit-semantic-panels"
+    },
+    {
+      "node": "v64",
+      "summary": "Interactive semantic controls",
+      "tag": "interactive-semantic-controls"
+    },
+    {
+      "node": "v65",
+      "summary": "Graph visualization",
+      "tag": "semantic-graph-visualization"
+    },
+    {
+      "node": "v66",
+      "summary": "Graph accessibility",
+      "tag": "semantic-graph-a11y"
+    },
+    {
+      "node": "v67",
+      "summary": "Semantic derivation placeholder layer",
+      "tag": "semantic-derivation-layer"
+    },
+    {
+      "node": "v68",
+      "summary": "Derivation Intelligence UI",
+      "tag": "semantic-derivation-ui"
+    },
+    {
+      "node": "v69",
+      "summary": "Derivation graph bridge",
+      "tag": "semantic-derivation-graph-bridge"
+    },
+    {
+      "node": "v70",
+      "summary": "Derivation Graph Intelligence UI",
+      "tag": "semantic-derivation-graph-ui"
+    },
+    {
+      "node": "v71",
+      "summary": "Public read-only semantic API index",
+      "tag": "semantic-api-index"
+    },
+    {
+      "node": "v72",
+      "summary": "Read-only Sanskrit tab semantic platform status panel",
+      "tag": "semantic-platform-status-ui"
+    }
+  ],
+  "panelType": "semanticPlatformStatus",
+  "platformStatus": "READY",
+  "safetyNote": "Semantic graph links are foundation-placeholder UI context only; no exact P\u0101\u1e47inian derivation claim is made. Placeholder-safe: no exact sutra guarantees, no authoritative grammatical claims, and no canonical write hooks.",
+  "safetyPolicy": {
+    "allDerivationConfidenceValuesUnreviewed": true,
+    "allDerivationReviewStatusesPlaceholder": true,
+    "canonicalRegistryMutation": false,
+    "canonicalWriteEnvironmentFlagsRequired": false,
+    "derivationConfidenceRequired": "unreviewed",
+    "derivationReviewStatusRequired": "placeholder-local-review-required",
+    "exactPaninianDerivationClaimsAllowed": false,
+    "exactSutraAssertionsAllowed": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "noExactPaninianDerivationClaimsPresent": true,
+    "readOnlySemanticArchitecture": true
+  },
+  "schemaVersion": "1.0.0",
+  "semanticRecordCount": 3,
+  "title": "Semantic Platform Status",
+  "uiReadiness": {
+    "backendFetchRequired": false,
+    "mode": "client-side-read-only",
+    "mutationHooksPresent": false,
+    "networkFetchRequired": false,
+    "status": "READY"
+  },
+  "validators": [
+    {
+      "command": "python scripts/validate_dhatu_semantic_layer.py",
+      "name": "semanticLayer",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/validate_dhatu_semantic_graph.py",
+      "name": "semanticGraph",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/validate_dhatu_semantic_derivations.py",
+      "name": "semanticDerivation",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/validate_dhatu_semantic_derivation_graph.py",
+      "name": "semanticDerivationGraph",
+      "status": "PASS"
+    }
+  ]
+}

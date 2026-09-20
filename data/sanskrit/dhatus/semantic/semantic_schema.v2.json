@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "2.0.0",
+  "description": "Sidecar schema for semantic dhatu records. This schema does not alter canonical dhatu registry records.",
+  "requiredSemanticDhatuRecordShape": {
+    "schemaVersion": "string",
+    "dhatuId": "string",
+    "root": "string",
+    "iast": "string",
+    "gloss": "string",
+    "semanticClusterIds": ["string"],
+    "actionVector": {
+      "primary": "string",
+      "facets": ["string"]
+    },
+    "paniniReferences": [
+      {
+        "sutraId": "string|null",
+        "source": "string",
+        "relationType": "string",
+        "confidence": "string",
+        "notes": "string"
+      }
+    ],
+    "derivationLinks": [
+      {
+        "targetNodeId": "string",
+        "relationType": "string",
+        "confidence": "string",
+        "notes": "string"
+      }
+    ],
+    "glossTaxonomyIds": ["string"],
+    "engineMetadata": {
+      "status": "string",
+      "sourceCanonicalRegistry": "string",
+      "canonicalMutation": false
+    }
+  }
+}

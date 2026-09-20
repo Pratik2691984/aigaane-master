@@ -1,0 +1,1129 @@
+{
+  "batchId": "DHATU_04_DIVADI",
+  "ganaId": "04",
+  "slug": "divadi",
+  "corpusType": "dhatu",
+  "description": "Real corpus dhatu batch for divadi gana",
+  "records": [
+    {
+      "id": "06.0094",
+      "type": "dhatu",
+      "text": "पुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to hug, to embrace"
+    },
+    {
+      "id": "06.0097",
+      "type": "dhatu",
+      "text": "गुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to protect, to create"
+    },
+    {
+      "id": "06.0099",
+      "type": "dhatu",
+      "text": "छुर्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cut,to engrave"
+    },
+    {
+      "id": "06.0102",
+      "type": "dhatu",
+      "text": "त्रुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cut,to break"
+    },
+    {
+      "id": "06.0103",
+      "type": "dhatu",
+      "text": "तुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to quarrel,to argue, to fight"
+    },
+    {
+      "id": "06.0104",
+      "type": "dhatu",
+      "text": "चुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cut, to pierce"
+    },
+    {
+      "id": "06.0105",
+      "type": "dhatu",
+      "text": "छुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cut, to pierce"
+    },
+    {
+      "id": "06.0107",
+      "type": "dhatu",
+      "text": "जुट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to join, to tie"
+    },
+    {
+      "id": "06.0112",
+      "type": "dhatu",
+      "text": "कृड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to thicken, to solidify"
+    },
+    {
+      "id": "06.0113",
+      "type": "dhatu",
+      "text": "कुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to act as a child,to kid, to heap, to collect"
+    },
+    {
+      "id": "06.0117",
+      "type": "dhatu",
+      "text": "थुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover"
+    },
+    {
+      "id": "06.0118",
+      "type": "dhatu",
+      "text": "स्थुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover"
+    },
+    {
+      "id": "06.0119",
+      "type": "dhatu",
+      "text": "खुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover"
+    },
+    {
+      "id": "06.0120",
+      "type": "dhatu",
+      "text": "छुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover"
+    },
+    {
+      "id": "06.0121",
+      "type": "dhatu",
+      "text": "स्फुर्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
+    },
+    {
+      "id": "06.0122",
+      "type": "dhatu",
+      "text": "स्फुल्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
+    },
+    {
+      "id": "06.0123",
+      "type": "dhatu",
+      "text": "स्फर्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
+    },
+    {
+      "id": "06.0124",
+      "type": "dhatu",
+      "text": "स्फल्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
+    },
+    {
+      "id": "06.0125",
+      "type": "dhatu",
+      "text": "स्फुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover, to conceal"
+    },
+    {
+      "id": "06.0126",
+      "type": "dhatu",
+      "text": "चुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover, to conceal"
+    },
+    {
+      "id": "06.0127",
+      "type": "dhatu",
+      "text": "व्रुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cover, to conceal"
+    },
+    {
+      "id": "06.0128",
+      "type": "dhatu",
+      "text": "क्रुड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to sink"
+    },
+    {
+      "id": "06.0129",
+      "type": "dhatu",
+      "text": "भृड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to sink"
+    },
+    {
+      "id": "06.0131",
+      "type": "dhatu",
+      "text": "गुर्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to try, to make effort"
+    },
+    {
+      "id": "06.0132",
+      "type": "dhatu",
+      "text": "नू",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to praise"
+    },
+    {
+      "id": "06.0137",
+      "type": "dhatu",
+      "text": "कू",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to hum,to moan,to speak inarticulately, to sound"
+    },
+    {
+      "id": "06.0139",
+      "type": "dhatu",
+      "text": "मृ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to die"
+    },
+    {
+      "id": "06.0141",
+      "type": "dhatu",
+      "text": "पि",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to go"
+    },
+    {
+      "id": "06.0142",
+      "type": "dhatu",
+      "text": "धि",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to hold,to possess, to become"
+    },
+    {
+      "id": "06.0145",
+      "type": "dhatu",
+      "text": "कॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to discard, to throw away"
+    },
+    {
+      "id": "06.0146",
+      "type": "dhatu",
+      "text": "गॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to eat, to swallow"
+    },
+    {
+      "id": "06.0149",
+      "type": "dhatu",
+      "text": "प्रच्छ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to ask, to seek, to question"
+    },
+    {
+      "id": "06.0151",
+      "type": "dhatu",
+      "text": "मज्ज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to bathe, to submerge"
+    },
+    {
+      "id": "06.0152",
+      "type": "dhatu",
+      "text": "रुज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to have pain, to be ill, to bend, to break"
+    },
+    {
+      "id": "06.0153",
+      "type": "dhatu",
+      "text": "भुज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to bend,to curve,to be crooked"
+    },
+    {
+      "id": "06.0154",
+      "type": "dhatu",
+      "text": "छुप्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to touch"
+    },
+    {
+      "id": "06.0155",
+      "type": "dhatu",
+      "text": "रुश्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to kill, to destroy"
+    },
+    {
+      "id": "06.0156",
+      "type": "dhatu",
+      "text": "रिश्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to kill, to destroy"
+    },
+    {
+      "id": "06.0158",
+      "type": "dhatu",
+      "text": "स्पृश्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to touch"
+    },
+    {
+      "id": "06.0159",
+      "type": "dhatu",
+      "text": "विच्छ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to go"
+    },
+    {
+      "id": "06.0160",
+      "type": "dhatu",
+      "text": "विश्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to enter"
+    },
+    {
+      "id": "06.0161",
+      "type": "dhatu",
+      "text": "मृश्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to touch"
+    },
+    {
+      "id": "06.0166",
+      "type": "dhatu",
+      "text": "मुच्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to free,to liberate,to leave, to release,to loosen,to abandon"
+    },
+    {
+      "id": "06.0169",
+      "type": "dhatu",
+      "text": "लिप्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to anoint,to besmear,to cover,to spread over,to stain"
+    },
+    {
+      "id": "06.0170",
+      "type": "dhatu",
+      "text": "सिच्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to sprinkle,to moisten"
+    },
+    {
+      "id": "06.0171",
+      "type": "dhatu",
+      "text": "कृत्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to cut, to break, to slice"
+    },
+    {
+      "id": "06.0174",
+      "type": "dhatu",
+      "text": "फुल्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "06",
+      "notes": "to throb, to pulse, to move, to palpitate"
+    },
+    {
+      "id": "07.0002",
+      "type": "dhatu",
+      "text": "भिद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to cut, to break, to divide"
+    },
+    {
+      "id": "07.0003",
+      "type": "dhatu",
+      "text": "छिद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to cut,to grind, to truncate, to incise"
+    },
+    {
+      "id": "07.0004",
+      "type": "dhatu",
+      "text": "रिच्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to separate, to abort, to purify the body, to sweep, to cleanse the body"
+    },
+    {
+      "id": "07.0005",
+      "type": "dhatu",
+      "text": "विच्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to divide,to separate,to remove from"
+    },
+    {
+      "id": "07.0006",
+      "type": "dhatu",
+      "text": "क्षुद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to crush, to grind, to powder"
+    },
+    {
+      "id": "07.0008",
+      "type": "dhatu",
+      "text": "छृद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to glow, to shine,to play"
+    },
+    {
+      "id": "07.0009",
+      "type": "dhatu",
+      "text": "तृद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to kill,to destroy, to disregard, to insult"
+    },
+    {
+      "id": "07.0011",
+      "type": "dhatu",
+      "text": "इन्ध्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to shine, to glow"
+    },
+    {
+      "id": "07.0015",
+      "type": "dhatu",
+      "text": "पिष्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to grind,to powder,to crush, to kill, to destroy"
+    },
+    {
+      "id": "07.0016",
+      "type": "dhatu",
+      "text": "भञ्ज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to destroy"
+    },
+    {
+      "id": "07.0019",
+      "type": "dhatu",
+      "text": "हिंस्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to kill to destroy, to give pain"
+    },
+    {
+      "id": "07.0020",
+      "type": "dhatu",
+      "text": "उन्द्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to moisten, to be wet"
+    },
+    {
+      "id": "07.0021",
+      "type": "dhatu",
+      "text": "अञ्ज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "07",
+      "notes": "to anoint, to polish, to smear"
+    },
+    {
+      "id": "08.0001",
+      "type": "dhatu",
+      "text": "तन्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "08",
+      "notes": "to spread, to stretch, to expand, to increase"
+    },
+    {
+      "id": "08.0003",
+      "type": "dhatu",
+      "text": "क्षण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "08",
+      "notes": "to kill, to destroy, to irritate, to cause pain, to hurt, to break"
+    },
+    {
+      "id": "08.0004",
+      "type": "dhatu",
+      "text": "क्षिण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "08",
+      "notes": "to kill, to destroy, to irritate, to cause pain, to hurt, to break"
+    },
+    {
+      "id": "08.0005",
+      "type": "dhatu",
+      "text": "ऋण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "08",
+      "notes": "to go"
+    },
+    {
+      "id": "08.0006",
+      "type": "dhatu",
+      "text": "तृण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "08",
+      "notes": "to eat,to graze"
+    },
+    {
+      "id": "08.0007",
+      "type": "dhatu",
+      "text": "घृण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "08",
+      "notes": "to shine,to glow"
+    },
+    {
+      "id": "09.0001",
+      "type": "dhatu",
+      "text": "क्री",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to buy, to purchase"
+    },
+    {
+      "id": "09.0003",
+      "type": "dhatu",
+      "text": "श्री",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to cook"
+    },
+    {
+      "id": "09.0006",
+      "type": "dhatu",
+      "text": "स्कु",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to jump, to leap, to make something fly, to pull up, to cover"
+    },
+    {
+      "id": "09.0008",
+      "type": "dhatu",
+      "text": "स्तुम्भ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to stop,to hinder,to become stiff, to obstruct"
+    },
+    {
+      "id": "09.0010",
+      "type": "dhatu",
+      "text": "स्कुम्भ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to stop,to hinder,to become stiff, to obstruct"
+    },
+    {
+      "id": "09.0012",
+      "type": "dhatu",
+      "text": "क्नू",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to sound"
+    },
+    {
+      "id": "09.0013",
+      "type": "dhatu",
+      "text": "द्रू",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to kill, to destroy"
+    },
+    {
+      "id": "09.0015",
+      "type": "dhatu",
+      "text": "शॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to kill, to destroy"
+    },
+    {
+      "id": "09.0016",
+      "type": "dhatu",
+      "text": "लू",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to cut, to pluck, to destroy, to dissolve"
+    },
+    {
+      "id": "09.0017",
+      "type": "dhatu",
+      "text": "स्तॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to wrap, to cover, to clothe"
+    },
+    {
+      "id": "09.0019",
+      "type": "dhatu",
+      "text": "वॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to marry, to accept, to own, to choose"
+    },
+    {
+      "id": "09.0024",
+      "type": "dhatu",
+      "text": "भॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to hate, to insult"
+    },
+    {
+      "id": "09.0025",
+      "type": "dhatu",
+      "text": "मॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to kill, to destroy, to hurt"
+    },
+    {
+      "id": "09.0029",
+      "type": "dhatu",
+      "text": "धॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "वयोहानौ"
+    },
+    {
+      "id": "09.0032",
+      "type": "dhatu",
+      "text": "ॠ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to go"
+    },
+    {
+      "id": "09.0034",
+      "type": "dhatu",
+      "text": "ज्या",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to become old,to decay"
+    },
+    {
+      "id": "09.0037",
+      "type": "dhatu",
+      "text": "व्ली",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to choose,to select,to find, to marry, to cover, to glean"
+    },
+    {
+      "id": "09.0038",
+      "type": "dhatu",
+      "text": "ब्ली",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to choose,to select,to find, to marry, to cover, to glean"
+    },
+    {
+      "id": "09.0039",
+      "type": "dhatu",
+      "text": "प्ली",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to go"
+    },
+    {
+      "id": "09.0041",
+      "type": "dhatu",
+      "text": "भ्री",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to fear,to support, to wear, to obey"
+    },
+    {
+      "id": "09.0042",
+      "type": "dhatu",
+      "text": "क्षी",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to kill, to destroy, to cause pain, to hurt"
+    },
+    {
+      "id": "09.0044",
+      "type": "dhatu",
+      "text": "बन्ध्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to tie, to bind"
+    },
+    {
+      "id": "09.0051",
+      "type": "dhatu",
+      "text": "मृद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to powder, to cut, to grind"
+    },
+    {
+      "id": "09.0054",
+      "type": "dhatu",
+      "text": "कुष्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to take out, to extract, to examine a metal, to investigate purity of a metal"
+    },
+    {
+      "id": "09.0060",
+      "type": "dhatu",
+      "text": "ध्रस्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to gather, to pick, to glean"
+    },
+    {
+      "id": "09.0067",
+      "type": "dhatu",
+      "text": "खच्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to occur in abundance"
+    },
+    {
+      "id": "09.0068",
+      "type": "dhatu",
+      "text": "खव्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to occur in abundance"
+    },
+    {
+      "id": "09.0070",
+      "type": "dhatu",
+      "text": "स्वॄ",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to marry, to accept, to own, to choose"
+    },
+    {
+      "id": "09.0071",
+      "type": "dhatu",
+      "text": "ग्रह्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "09",
+      "notes": "to take, to accept, to obtain"
+    },
+    {
+      "id": "10.0001",
+      "type": "dhatu",
+      "text": "चुर्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to steal"
+    },
+    {
+      "id": "10.0002",
+      "type": "dhatu",
+      "text": "चिन्त्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to contemplate,to think,to discuss,to remember, to worry"
+    },
+    {
+      "id": "10.0003",
+      "type": "dhatu",
+      "text": "यन्त्र्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to restrain,to shy"
+    },
+    {
+      "id": "10.0006",
+      "type": "dhatu",
+      "text": "लक्ष्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to observe,to see,to look, to mark, to point, to deliberate"
+    },
+    {
+      "id": "10.0007",
+      "type": "dhatu",
+      "text": "कुन्द्र्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to tell a lie"
+    },
+    {
+      "id": "10.0008",
+      "type": "dhatu",
+      "text": "कुद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to tell a lie"
+    },
+    {
+      "id": "10.0009",
+      "type": "dhatu",
+      "text": "स्पुण्ड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to make fun of, to laugh at, to joke"
+    },
+    {
+      "id": "10.0011",
+      "type": "dhatu",
+      "text": "मिन्द्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to soften, to melt, to become greasy, to love"
+    },
+    {
+      "id": "10.0013",
+      "type": "dhatu",
+      "text": "लण्ड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to throw up"
+    },
+    {
+      "id": "10.0014",
+      "type": "dhatu",
+      "text": "ओलण्ड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to throw up"
+    },
+    {
+      "id": "10.0017",
+      "type": "dhatu",
+      "text": "पीड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to harass,to annoy,to irritate,to give pain"
+    },
+    {
+      "id": "10.0023",
+      "type": "dhatu",
+      "text": "ऊर्ज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to be strong,to live with energy, to win"
+    },
+    {
+      "id": "10.0025",
+      "type": "dhatu",
+      "text": "वर्ण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to order, to motivate, to inspire, to paint, to color"
+    },
+    {
+      "id": "10.0026",
+      "type": "dhatu",
+      "text": "चूर्ण्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to order, to motivate, to inspire, to paint, to color, to pull"
+    },
+    {
+      "id": "10.0028",
+      "type": "dhatu",
+      "text": "पृथ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to throw,to send,to direct, to inspire"
+    },
+    {
+      "id": "10.0030",
+      "type": "dhatu",
+      "text": "सम्ब्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to join, to articulate"
+    },
+    {
+      "id": "10.0031",
+      "type": "dhatu",
+      "text": "शम्ब्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to join, to articulate"
+    },
+    {
+      "id": "10.0032",
+      "type": "dhatu",
+      "text": "साम्ब्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to join, to articulate"
+    },
+    {
+      "id": "10.0034",
+      "type": "dhatu",
+      "text": "कुट्ट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to cut, to criticise, to blame"
+    },
+    {
+      "id": "10.0035",
+      "type": "dhatu",
+      "text": "पुट्ट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to decrease,to diminish, to reduce, to shrink"
+    },
+    {
+      "id": "10.0036",
+      "type": "dhatu",
+      "text": "चुट्ट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to decrease,to diminish, to reduce, to shrink"
+    },
+    {
+      "id": "10.0038",
+      "type": "dhatu",
+      "text": "सुट्ट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to insult, to dishonor, to disrespect"
+    },
+    {
+      "id": "10.0042",
+      "type": "dhatu",
+      "text": "श्वठ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to cheat,to fraud, to leave unfinished, to leave unattended, to ill-behave"
+    },
+    {
+      "id": "10.0043",
+      "type": "dhatu",
+      "text": "श्वण्ठ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to cheat,to fraud, to leave unfinished, to leave unattended, to ill-behave"
+    },
+    {
+      "id": "10.0046",
+      "type": "dhatu",
+      "text": "पिज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt, to injure, to become powerful, to take, to dwell, to stay"
+    },
+    {
+      "id": "10.0049",
+      "type": "dhatu",
+      "text": "लुञ्ज्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt, to injure, to become powerful, to take, to dwell, to stay"
+    },
+    {
+      "id": "10.0051",
+      "type": "dhatu",
+      "text": "सान्त्व्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to pacify, to appease, to console"
+    },
+    {
+      "id": "10.0053",
+      "type": "dhatu",
+      "text": "श्वल्क्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to speak, to tell, to narrate"
+    },
+    {
+      "id": "10.0054",
+      "type": "dhatu",
+      "text": "वल्क्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to speak, to tell, to narrate, to see"
+    },
+    {
+      "id": "10.0056",
+      "type": "dhatu",
+      "text": "स्फिट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to kill, to destroy"
+    },
+    {
+      "id": "10.0057",
+      "type": "dhatu",
+      "text": "स्मिट्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to insult, to disrespect, to dishonor"
+    },
+    {
+      "id": "10.0060",
+      "type": "dhatu",
+      "text": "पन्थ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to go"
+    },
+    {
+      "id": "10.0061",
+      "type": "dhatu",
+      "text": "पिच्छ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to cut, to split, to tamp, to slice, to torture"
+    },
+    {
+      "id": "10.0062",
+      "type": "dhatu",
+      "text": "छन्द्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to cover"
+    },
+    {
+      "id": "10.0064",
+      "type": "dhatu",
+      "text": "तड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to strike,to beat, to hit"
+    },
+    {
+      "id": "10.0065",
+      "type": "dhatu",
+      "text": "खड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to break"
+    },
+    {
+      "id": "10.0069",
+      "type": "dhatu",
+      "text": "गुण्ड्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to enclose,to cover,to envelope, to protect, to powder"
+    },
+    {
+      "id": "10.0071",
+      "type": "dhatu",
+      "text": "गुण्ठ्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to protect"
+    },
+    {
+      "id": "10.0078",
+      "type": "dhatu",
+      "text": "छर्द्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to vomit"
+    },
+    {
+      "id": "10.0079",
+      "type": "dhatu",
+      "text": "पुस्त्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to honour,to dishonour,to respect,to disrespect"
+    },
+    {
+      "id": "10.0080",
+      "type": "dhatu",
+      "text": "बुस्त्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to honour,to dishonour,to respect,to disrespect"
+    },
+    {
+      "id": "10.0081",
+      "type": "dhatu",
+      "text": "चुद्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to inspire, to question, to ask, to request"
+    },
+    {
+      "id": "10.0082",
+      "type": "dhatu",
+      "text": "नक्क्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to kill, to destroy, to uproot"
+    },
+    {
+      "id": "10.0083",
+      "type": "dhatu",
+      "text": "धक्क्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to kill, to destroy, to uproot"
+    },
+    {
+      "id": "10.0084",
+      "type": "dhatu",
+      "text": "चक्क्",
+      "source": "raw/sanskrit/dhatu/04_divadi_batch.json",
+      "gana": "10",
+      "notes": "to suffer,to give pain"
+    }
+  ]
+}

@@ -1,0 +1,1129 @@
+{
+  "batchId": "DHATU_04_DIVADI",
+  "ganaId": "04",
+  "slug": "divadi",
+  "corpusType": "dhatu",
+  "description": "Real corpus dhatu batch for divadi gana",
+  "records": [
+    {
+      "id": "04.0001",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/dhatupatha.csv",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0002",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0003",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0004",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0005",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0006",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0007",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0008",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0009",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0010",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0011",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0012",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0013",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0014",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0015",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0016",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0017",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0018",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0019",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0020",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0021",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0022",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0023",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0024",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0025",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0026",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0027",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0028",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0029",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0030",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0031",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0032",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0033",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0034",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0035",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0036",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0037",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0038",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0039",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0040",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0041",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0042",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0043",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0044",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0045",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0046",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0047",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0048",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0049",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0050",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0051",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0052",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0053",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0054",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0055",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0056",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0057",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0058",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0059",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0060",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0061",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0062",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0063",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0064",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0065",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0066",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0067",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0068",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0069",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0070",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0071",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0072",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0073",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0074",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0075",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0076",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0077",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0078",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0079",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0080",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0081",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0082",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0083",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0084",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0085",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0086",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0087",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0088",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0089",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0090",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0091",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0092",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0093",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0094",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0095",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0096",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0097",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0098",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0099",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0100",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0101",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0102",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0103",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0104",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0105",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0106",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0107",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0108",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0109",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0110",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0111",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0112",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0113",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0114",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0115",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0116",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0117",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0118",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0119",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0120",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0121",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0122",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0123",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0124",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0125",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0126",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0127",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0128",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0129",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0130",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0131",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0132",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0133",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0134",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0135",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0136",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0137",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0138",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0139",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    },
+    {
+      "id": "04.GEN.0140",
+      "type": "dhatu",
+      "text": "????",
+      "source": "raw/corpus/dhatu/04_divadi_batch.json",
+      "gana": "04",
+      "notes": "[\"to play\", \"to sport\"]"
+    }
+  ]
+}

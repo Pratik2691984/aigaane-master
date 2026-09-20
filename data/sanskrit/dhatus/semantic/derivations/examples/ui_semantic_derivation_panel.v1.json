@@ -1,0 +1,53 @@
+{
+  "cards": [
+    {
+      "cardId": "semantic.derivation.01",
+      "cardType": "semanticDerivationPlaceholder",
+      "label": "family.semantic.guidance-transfer",
+      "metadata": {
+        "derivationId": "derivation.semantic.01.0008",
+        "relationTypes": [
+          "guidance-motion-adjacent"
+        ],
+        "reviewStatus": "placeholder-local-review-required",
+        "usageDomains": [
+          "guidance",
+          "motion",
+          "agency"
+        ]
+      },
+      "value": "01.0008"
+    },
+    {
+      "cardId": "semantic.derivation.02",
+      "cardType": "semanticDerivationPlaceholder",
+      "label": "family.semantic.motion-transition",
+      "metadata": {
+        "derivationId": "derivation.semantic.01.0005",
+        "relationTypes": [
+          "motion-guidance-adjacent",
+          "motion-stability-contrast"
+        ],
+        "reviewStatus": "placeholder-local-review-required",
+        "usageDomains": [
+          "motion",
+          "journey",
+          "transition"
+        ]
+      },
+      "value": "01.0005"
+    }
+  ],
+  "generatedBy": "scripts/export_dhatu_semantic_derivation_examples.py",
+  "links": [
+    {
+      "href": "/api/dhatu/semantic/derivations",
+      "label": "Semantic derivations API",
+      "linkType": "api"
+    }
+  ],
+  "panelType": "semanticDerivationPlaceholder",
+  "safetyNote": "Derivation metadata is placeholder-only and requires local review before any grammatical use.",
+  "schemaVersion": "1.0.0",
+  "title": "Semantic Derivation Placeholder Panel"
+}

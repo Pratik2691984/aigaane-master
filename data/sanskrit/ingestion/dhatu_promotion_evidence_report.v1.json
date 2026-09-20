@@ -1,0 +1,77 @@
+{
+  "contractSummary": {
+    "checks": {
+      "noDuplicateDhatuIds": true,
+      "noUnsafeCanonicalOverwrite": true,
+      "promotedRecordsApprovedByReviewDecision": true,
+      "promotedRecordsExistInStagedBatch": true,
+      "promotedRecordsInReadinessLock": true
+    },
+    "passed": true,
+    "violations": {
+      "duplicateDhatuIds": [],
+      "missingFromReviewedPlan": [],
+      "missingFromStagedBatch": [],
+      "notApprovedByReviewDecision": [],
+      "notInReadinessLock": [],
+      "unsafeCanonicalOverwrites": []
+    }
+  },
+  "counts": {
+    "auditPromotedCount": 0,
+    "auditSkippedCount": 12,
+    "canonicalRegistryAfterCount": 10,
+    "canonicalRegistryBeforeCount": 10,
+    "manifestBatchFileCount": 1,
+    "previewTotalStagedRecords": 12,
+    "promotionPlanBlockedCount": 0,
+    "promotionPlanNeedsReviewCount": 12,
+    "promotionPlanReadyCount": 0,
+    "promotionPlanTotalRecords": 12,
+    "readinessBlockedCount": 0,
+    "readinessDeferredCount": 9,
+    "readinessReadyCount": 3,
+    "reviewApprovedCount": 3,
+    "reviewDecisionCount": 12
+  },
+  "generatedBy": "scripts/report_dhatu_promotion_evidence.py",
+  "guardPolicy": {
+    "allowDirectCanonicalWrite": false,
+    "canonicalWriteEnabled": false,
+    "canonicalWriteFlag": "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE",
+    "defaultOperation": "dry-run",
+    "testCanonicalWriteGuard": "AIGAANE_ALLOW_TEST_CANONICAL_WRITE",
+    "unsafeWriteRefused": false,
+    "writeGuardSatisfied": false
+  },
+  "readyRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "recommendedNextAction": "Keep production canonical writes disabled; resolve guard policy and review evidence before promotion.",
+  "releaseGateStatus": "BLOCKED",
+  "schemaVersion": "1.0.0",
+  "skippedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003",
+    "01.STAGED.0004",
+    "01.STAGED.0005",
+    "01.STAGED.0006",
+    "01.STAGED.0007",
+    "01.STAGED.0008",
+    "01.STAGED.0009",
+    "01.STAGED.0010",
+    "01.STAGED.0011",
+    "01.STAGED.0012"
+  ],
+  "sourceFiles": {
+    "canonicalPromotionAudit": "data/sanskrit/ingestion/canonical_promotion_audit.v1.json",
+    "dhatuBatchPromotionPreview": "data/sanskrit/ingestion/promotion_preview.v1.json",
+    "dhatuCanonicalPromotionPlan": "data/sanskrit/ingestion/canonical_promotion_plan.v1.json",
+    "dhatuReviewDecisions": "data/sanskrit/ingestion/review_decisions.v1.json",
+    "largeScaleManifest": "data/sanskrit/ingestion/large_scale_manifest.v1.json",
+    "promotionReadinessLock": "data/sanskrit/ingestion/promotion_readiness_lock.v1.json"
+  }
+}

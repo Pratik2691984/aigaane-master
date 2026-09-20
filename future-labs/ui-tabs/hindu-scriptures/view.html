@@ -1,0 +1,39 @@
+<section class="scriptures-tab" data-scriptures-tab>
+  <header class="scriptures-header">
+    <div>
+      <p class="scriptures-kicker">Śāstra Taxonomy Explorer</p>
+      <h1>📜 Hindu Scriptures</h1>
+      <p>Śruti • Smṛti • Vedāṅga • Darśana • Purāṇa • Tantra</p>
+    </div>
+  </header>
+
+  <div class="scriptures-controls">
+    <label class="scriptures-search" for="scripture-search">
+      <span>Search scripture hierarchy</span>
+      <input id="scripture-search" type="search" placeholder="Search Veda, Upaniṣad, Purāṇa, Darśana, Śaṅkara..." autocomplete="off">
+    </label>
+
+    <div class="scriptures-filters" aria-label="Scripture filters">
+      <button class="scriptures-filter active" type="button" data-scripture-filter="all">All</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="sruti">Śruti</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="smriti">Smṛti</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="secular">Secular</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="veda">Vedas</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="purana">Purāṇas</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="darshana">Darśanas</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="agama">Āgamas</button>
+      <button class="scriptures-filter" type="button" data-scripture-filter="aigaane-link">Aigaane Links</button>
+    </div>
+  </div>
+
+  <div id="scripture-breadcrumb" class="scriptures-breadcrumb"></div>
+
+  <div class="scriptures-layout">
+    <aside class="scriptures-sidebar">
+      <div id="scripture-tree"></div>
+      <div id="scripture-empty" class="scriptures-empty hidden">No scripture nodes match this search and filter.</div>
+    </aside>
+
+    <section id="scripture-details" class="scriptures-details"></section>
+  </div>
+</section>

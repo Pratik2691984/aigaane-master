@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "sanskrit-bulk-corpus-authorization-gate.v1",
+  "status": "authorization-blocked",
+  "mode": "preview-only",
+  "previewOnly": true,
+  "readOnly": true,
+  "authorized": false,
+  "authorization": false,
+  "hardStop": true,
+  "sourceGovernance": {
+    "status": "governance-decision-pending",
+    "decision": null
+  },
+  "sourceHold": {
+    "status": "hold-waiting-attestation"
+  },
+  "failures": [
+    "governance-pending"
+  ],
+  "nextGate": "38H PROMOTION PREFLIGHT",
+  "canonicalWriteAllowed": false,
+  "promotionAllowed": false,
+  "importAllowed": false,
+  "executionAllowed": false,
+  "authorizationExecutionAllowed": false,
+  "authorizationIsWrite": false,
+  "authorizationIsImport": false,
+  "authorizationIsPromotion": false,
+  "authorizationIsExecution": false
+}

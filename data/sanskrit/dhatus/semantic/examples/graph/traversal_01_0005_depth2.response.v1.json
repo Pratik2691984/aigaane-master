@@ -1,0 +1,98 @@
+{
+  "errorCode": null,
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/traverse",
+  "maxDepth": 2,
+  "nodeId": "01.0005",
+  "pathCount": 3,
+  "paths": [
+    {
+      "depth": 1,
+      "edges": [
+        "edge.semantic.0001"
+      ],
+      "nodes": [
+        {
+          "nodeId": "01.0005",
+          "nodeType": "dhatu"
+        },
+        {
+          "nodeId": "motion",
+          "nodeType": "semantic_cluster"
+        }
+      ],
+      "pathId": "path.semantic.0001",
+      "relationTypes": [
+        "associated_with"
+      ],
+      "terminalNodeId": "motion"
+    },
+    {
+      "depth": 2,
+      "edges": [
+        "edge.semantic.0001",
+        "edge.semantic.0004"
+      ],
+      "nodes": [
+        {
+          "nodeId": "01.0005",
+          "nodeType": "dhatu"
+        },
+        {
+          "nodeId": "motion",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "guidance",
+          "nodeType": "semantic_cluster"
+        }
+      ],
+      "pathId": "path.semantic.0002",
+      "relationTypes": [
+        "associated_with",
+        "associated_with"
+      ],
+      "terminalNodeId": "guidance"
+    },
+    {
+      "depth": 2,
+      "edges": [
+        "edge.semantic.0001",
+        "edge.semantic.0005"
+      ],
+      "nodes": [
+        {
+          "nodeId": "01.0005",
+          "nodeType": "dhatu"
+        },
+        {
+          "nodeId": "motion",
+          "nodeType": "semantic_cluster"
+        },
+        {
+          "nodeId": "stability",
+          "nodeType": "semantic_cluster"
+        }
+      ],
+      "pathId": "path.semantic.0003",
+      "relationTypes": [
+        "associated_with",
+        "transitions_to"
+      ],
+      "terminalNodeId": "stability"
+    }
+  ],
+  "query": {
+    "maxDepth": 2,
+    "nodeId": "01.0005",
+    "relationType": null
+  },
+  "relationType": null,
+  "schemaVersion": "1.0.0",
+  "traversalStatus": "OK",
+  "traversedEdgeIds": [
+    "edge.semantic.0001",
+    "edge.semantic.0004",
+    "edge.semantic.0005"
+  ],
+  "visitedNodeCount": 4
+}

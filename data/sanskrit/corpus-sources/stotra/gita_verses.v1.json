@@ -1,0 +1,1207 @@
+{
+  "schemaVersion": "sanskrit-corpus-stotra-source.v1",
+  "sourceId": "gita-dharmicdata-v1",
+  "recordCount": 200,
+  "records": [
+    {
+      "id": "gita-1.1",
+      "text": "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।",
+      "title": "Bhagavad Gita 1.1",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.2",
+      "text": "दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा।",
+      "title": "Bhagavad Gita 1.2",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.3",
+      "text": "पश्यैतां पाण्डुपुत्राणामाचार्य महतीं चमूम्।",
+      "title": "Bhagavad Gita 1.3",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.4",
+      "text": "अत्र शूरा महेष्वासा भीमार्जुनसमा युधि।",
+      "title": "Bhagavad Gita 1.4",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.5",
+      "text": "धृष्टकेतुश्चेकितानः काशिराजश्च वीर्यवान्।",
+      "title": "Bhagavad Gita 1.5",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.6",
+      "text": "युधामन्युश्च विक्रान्त उत्तमौजाश्च वीर्यवान्।",
+      "title": "Bhagavad Gita 1.6",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.7",
+      "text": "अस्माकं तु विशिष्टा ये तान्निबोध द्विजोत्तम।",
+      "title": "Bhagavad Gita 1.7",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.8",
+      "text": "भवान्भीष्मश्च कर्णश्च कृपश्च समितिञ्जयः।",
+      "title": "Bhagavad Gita 1.8",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.9",
+      "text": "अन्ये च बहवः शूरा मदर्थे त्यक्तजीविताः।",
+      "title": "Bhagavad Gita 1.9",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.10",
+      "text": "अपर्याप्तं तदस्माकं बलं भीष्माभिरक्षितम्।",
+      "title": "Bhagavad Gita 1.10",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.11",
+      "text": "अयनेषु च सर्वेषु यथाभागमवस्थिताः।",
+      "title": "Bhagavad Gita 1.11",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.12",
+      "text": "तस्य संजनयन्हर्षं कुरुवृद्धः पितामहः।",
+      "title": "Bhagavad Gita 1.12",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.13",
+      "text": "ततः शङ्खाश्च भेर्यश्च पणवानकगोमुखाः।",
+      "title": "Bhagavad Gita 1.13",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.14",
+      "text": "ततः श्वेतैर्हयैर्युक्ते महति स्यन्दने स्थितौ।",
+      "title": "Bhagavad Gita 1.14",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.15",
+      "text": "पाञ्चजन्यं हृषीकेशो देवदत्तं धनंजयः।",
+      "title": "Bhagavad Gita 1.15",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.16",
+      "text": "अनन्तविजयं राजा कुन्तीपुत्रो युधिष्ठिरः।",
+      "title": "Bhagavad Gita 1.16",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.17",
+      "text": "काश्यश्च परमेष्वासः शिखण्डी च महारथः।",
+      "title": "Bhagavad Gita 1.17",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.18",
+      "text": "द्रुपदो द्रौपदेयाश्च सर्वशः पृथिवीपते।",
+      "title": "Bhagavad Gita 1.18",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.19",
+      "text": "स घोषो धार्तराष्ट्राणां हृदयानि व्यदारयत्।",
+      "title": "Bhagavad Gita 1.19",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.20",
+      "text": "अथ व्यवस्थितान् दृष्ट्वा धार्तराष्ट्रान्कपिध्वजः।",
+      "title": "Bhagavad Gita 1.20",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.21",
+      "text": "हृषीकेशं तदा वाक्यमिदमाह महीपते।",
+      "title": "Bhagavad Gita 1.21",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.22",
+      "text": "यावदेतान्निरीक्षेऽहं योद्धुकामानवस्थितान्।",
+      "title": "Bhagavad Gita 1.22",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.23",
+      "text": "योत्स्यमानानवेक्षेऽहं य एतेऽत्र समागताः।",
+      "title": "Bhagavad Gita 1.23",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.24",
+      "text": "एवमुक्तो हृषीकेशो गुडाकेशेन भारत।",
+      "title": "Bhagavad Gita 1.24",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.25",
+      "text": "भीष्मद्रोणप्रमुखतः सर्वेषां च महीक्षिताम्।",
+      "title": "Bhagavad Gita 1.25",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.26",
+      "text": "तत्रापश्यत्स्थितान्पार्थः पितृ़नथ पितामहान्।",
+      "title": "Bhagavad Gita 1.26",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.27",
+      "text": "श्वशुरान्सुहृदश्चैव सेनयोरुभयोरपि।",
+      "title": "Bhagavad Gita 1.27",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.28",
+      "text": "कृपया परयाऽऽविष्टो विषीदन्निदमब्रवीत्।",
+      "title": "Bhagavad Gita 1.28",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.29",
+      "text": "सीदन्ति मम गात्राणि मुखं च परिशुष्यति।",
+      "title": "Bhagavad Gita 1.29",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.30",
+      "text": "गाण्डीवं स्रंसते हस्तात्त्वक्चैव परिदह्यते।",
+      "title": "Bhagavad Gita 1.30",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.31",
+      "text": "निमित्तानि च पश्यामि विपरीतानि केशव।",
+      "title": "Bhagavad Gita 1.31",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.32",
+      "text": "न काङ्क्षे विजयं कृष्ण न च राज्यं सुखानि च।",
+      "title": "Bhagavad Gita 1.32",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.33",
+      "text": "येषामर्थे काङ्क्षितं नो राज्यं भोगाः सुखानि च।",
+      "title": "Bhagavad Gita 1.33",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.34",
+      "text": "आचार्याः पितरः पुत्रास्तथैव च पितामहाः।",
+      "title": "Bhagavad Gita 1.34",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.35",
+      "text": "एतान्न हन्तुमिच्छामि घ्नतोऽपि मधुसूदन।",
+      "title": "Bhagavad Gita 1.35",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.36",
+      "text": "निहत्य धार्तराष्ट्रान्नः का प्रीतिः स्याज्जनार्दन।",
+      "title": "Bhagavad Gita 1.36",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.37",
+      "text": "तस्मान्नार्हा वयं हन्तुं धार्तराष्ट्रान्स्वबान्धवान्।",
+      "title": "Bhagavad Gita 1.37",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.38",
+      "text": "यद्यप्येते न पश्यन्ति लोभोपहतचेतसः।",
+      "title": "Bhagavad Gita 1.38",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.39",
+      "text": "कथं न ज्ञेयमस्माभिः पापादस्मान्निवर्तितुम्।",
+      "title": "Bhagavad Gita 1.39",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.40",
+      "text": "कुलक्षये प्रणश्यन्ति कुलधर्माः सनातनाः।",
+      "title": "Bhagavad Gita 1.40",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.41",
+      "text": "अधर्माभिभवात्कृष्ण प्रदुष्यन्ति कुलस्त्रियः।",
+      "title": "Bhagavad Gita 1.41",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.42",
+      "text": "सङ्करो नरकायैव कुलघ्नानां कुलस्य च।",
+      "title": "Bhagavad Gita 1.42",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.43",
+      "text": "दोषैरेतैः कुलघ्नानां वर्णसङ्करकारकैः।",
+      "title": "Bhagavad Gita 1.43",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.44",
+      "text": "उत्सन्नकुलधर्माणां मनुष्याणां जनार्दन।",
+      "title": "Bhagavad Gita 1.44",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.45",
+      "text": "अहो बत महत्पापं कर्तुं व्यवसिता वयम्।",
+      "title": "Bhagavad Gita 1.45",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.46",
+      "text": "यदि मामप्रतीकारमशस्त्रं शस्त्रपाणयः।",
+      "title": "Bhagavad Gita 1.46",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-1.47",
+      "text": "एवमुक्त्वाऽर्जुनः संख्ये रथोपस्थ उपाविशत्।",
+      "title": "Bhagavad Gita 1.47",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.1",
+      "text": "तं तथा कृपयाऽविष्टमश्रुपूर्णाकुलेक्षणम्।",
+      "title": "Bhagavad Gita 2.1",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.2",
+      "text": "श्री भगवानुवाच",
+      "title": "Bhagavad Gita 2.2",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.3",
+      "text": "क्लैब्यं मा स्म गमः पार्थ नैतत्त्वय्युपपद्यते।",
+      "title": "Bhagavad Gita 2.3",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.4",
+      "text": "कथं भीष्ममहं संख्ये द्रोणं च मधुसूदन।",
+      "title": "Bhagavad Gita 2.4",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.5",
+      "text": "गुरूनहत्वा हि महानुभावान्",
+      "title": "Bhagavad Gita 2.5",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.6",
+      "text": "न चैतद्विद्मः कतरन्नो गरीयो",
+      "title": "Bhagavad Gita 2.6",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.7",
+      "text": "कार्पण्यदोषोपहतस्वभावः",
+      "title": "Bhagavad Gita 2.7",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.8",
+      "text": "न हि प्रपश्यामि ममापनुद्या",
+      "title": "Bhagavad Gita 2.8",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.9",
+      "text": "एवमुक्त्वा हृषीकेशं गुडाकेशः परन्तप।",
+      "title": "Bhagavad Gita 2.9",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.10",
+      "text": "तमुवाच हृषीकेशः प्रहसन्निव भारत।",
+      "title": "Bhagavad Gita 2.10",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.12",
+      "text": "न त्वेवाहं जातु नासं न त्वं नेमे जनाधिपाः।",
+      "title": "Bhagavad Gita 2.12",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.13",
+      "text": "देहिनोऽस्मिन्यथा देहे कौमारं यौवनं जरा।",
+      "title": "Bhagavad Gita 2.13",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.14",
+      "text": "मात्रास्पर्शास्तु कौन्तेय शीतोष्णसुखदुःखदाः।",
+      "title": "Bhagavad Gita 2.14",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.15",
+      "text": "यं हि न व्यथयन्त्येते पुरुषं पुरुषर्षभ।",
+      "title": "Bhagavad Gita 2.15",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.16",
+      "text": "नासतो विद्यते भावो नाभावो विद्यते सतः।",
+      "title": "Bhagavad Gita 2.16",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.17",
+      "text": "अविनाशि तु तद्विद्धि येन सर्वमिदं ततम्।",
+      "title": "Bhagavad Gita 2.17",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.18",
+      "text": "अन्तवन्त इमे देहा नित्यस्योक्ताः शरीरिणः।",
+      "title": "Bhagavad Gita 2.18",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.19",
+      "text": "य एनं वेत्ति हन्तारं यश्चैनं मन्यते हतम्।",
+      "title": "Bhagavad Gita 2.19",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.20",
+      "text": "न जायते म्रियते वा कदाचि",
+      "title": "Bhagavad Gita 2.20",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.21",
+      "text": "वेदाविनाशिनं नित्यं य एनमजमव्ययम्।",
+      "title": "Bhagavad Gita 2.21",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.22",
+      "text": "वासांसि जीर्णानि यथा विहाय",
+      "title": "Bhagavad Gita 2.22",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.23",
+      "text": "नैनं छिन्दन्ति शस्त्राणि नैनं दहति पावकः।",
+      "title": "Bhagavad Gita 2.23",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.24",
+      "text": "अच्छेद्योऽयमदाह्योऽयमक्लेद्योऽशोष्य एव च।",
+      "title": "Bhagavad Gita 2.24",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.25",
+      "text": "अव्यक्तोऽयमचिन्त्योऽयमविकार्योऽयमुच्यते।",
+      "title": "Bhagavad Gita 2.25",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.26",
+      "text": "अथ चैनं नित्यजातं नित्यं वा मन्यसे मृतम्।",
+      "title": "Bhagavad Gita 2.26",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.27",
+      "text": "जातस्य हि ध्रुवो मृत्युर्ध्रुवं जन्म मृतस्य च।",
+      "title": "Bhagavad Gita 2.27",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.28",
+      "text": "अव्यक्तादीनि भूतानि व्यक्तमध्यानि भारत।",
+      "title": "Bhagavad Gita 2.28",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.29",
+      "text": "आश्चर्यवत्पश्यति कश्चिदेन",
+      "title": "Bhagavad Gita 2.29",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.30",
+      "text": "देही नित्यमवध्योऽयं देहे सर्वस्य भारत।",
+      "title": "Bhagavad Gita 2.30",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.31",
+      "text": "स्वधर्ममपि चावेक्ष्य न विकम्पितुमर्हसि।",
+      "title": "Bhagavad Gita 2.31",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.32",
+      "text": "यदृच्छया चोपपन्नं स्वर्गद्वारमपावृतम्।",
+      "title": "Bhagavad Gita 2.32",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.33",
+      "text": "अथ चैत्त्वमिमं धर्म्यं संग्रामं न करिष्यसि।",
+      "title": "Bhagavad Gita 2.33",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.34",
+      "text": "अकीर्तिं चापि भूतानि कथयिष्यन्ति तेऽव्ययाम्।",
+      "title": "Bhagavad Gita 2.34",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.35",
+      "text": "भयाद्रणादुपरतं मंस्यन्ते त्वां महारथाः।",
+      "title": "Bhagavad Gita 2.35",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.36",
+      "text": "अवाच्यवादांश्च बहून् वदिष्यन्ति तवाहिताः।",
+      "title": "Bhagavad Gita 2.36",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.37",
+      "text": "हतो वा प्राप्स्यसि स्वर्गं जित्वा वा भोक्ष्यसे महीम्।",
+      "title": "Bhagavad Gita 2.37",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.38",
+      "text": "सुखदुःखे समे कृत्वा लाभालाभौ जयाजयौ।",
+      "title": "Bhagavad Gita 2.38",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.39",
+      "text": "एषा तेऽभिहिता सांख्ये बुद्धिर्योगे त्विमां शृणु।",
+      "title": "Bhagavad Gita 2.39",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.40",
+      "text": "नेहाभिक्रमनाशोऽस्ति प्रत्यवायो न विद्यते।",
+      "title": "Bhagavad Gita 2.40",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.41",
+      "text": "व्यवसायात्मिका बुद्धिरेकेह कुरुनन्दन।",
+      "title": "Bhagavad Gita 2.41",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.42",
+      "text": "यामिमां पुष्पितां वाचं प्रवदन्त्यविपश्चितः।",
+      "title": "Bhagavad Gita 2.42",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.43",
+      "text": "कामात्मानः स्वर्गपरा जन्मकर्मफलप्रदाम्।",
+      "title": "Bhagavad Gita 2.43",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.44",
+      "text": "भोगैश्वर्यप्रसक्तानां तयापहृतचेतसाम्।",
+      "title": "Bhagavad Gita 2.44",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.45",
+      "text": "त्रैगुण्यविषया वेदा निस्त्रैगुण्यो भवार्जुन।",
+      "title": "Bhagavad Gita 2.45",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.46",
+      "text": "यावानर्थ उदपाने सर्वतः संप्लुतोदके।",
+      "title": "Bhagavad Gita 2.46",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.47",
+      "text": "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।",
+      "title": "Bhagavad Gita 2.47",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.48",
+      "text": "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।",
+      "title": "Bhagavad Gita 2.48",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.49",
+      "text": "दूरेण ह्यवरं कर्म बुद्धियोगाद्धनञ्जय।",
+      "title": "Bhagavad Gita 2.49",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.50",
+      "text": "बुद्धियुक्तो जहातीह उभे सुकृतदुष्कृते।",
+      "title": "Bhagavad Gita 2.50",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.51",
+      "text": "कर्मजं बुद्धियुक्ता हि फलं त्यक्त्वा मनीषिणः।",
+      "title": "Bhagavad Gita 2.51",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.52",
+      "text": "यदा ते मोहकलिलं बुद्धिर्व्यतितरिष्यति।",
+      "title": "Bhagavad Gita 2.52",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.53",
+      "text": "श्रुतिविप्रतिपन्ना ते यदा स्थास्यति निश्चला।",
+      "title": "Bhagavad Gita 2.53",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.54",
+      "text": "स्थितप्रज्ञस्य का भाषा समाधिस्थस्य केशव।",
+      "title": "Bhagavad Gita 2.54",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.56",
+      "text": "दुःखेष्वनुद्विग्नमनाः सुखेषु विगतस्पृहः।",
+      "title": "Bhagavad Gita 2.56",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.57",
+      "text": "यः सर्वत्रानभिस्नेहस्तत्तत्प्राप्य शुभाशुभम्।",
+      "title": "Bhagavad Gita 2.57",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.58",
+      "text": "यदा संहरते चायं कूर्मोऽङ्गानीव सर्वशः।",
+      "title": "Bhagavad Gita 2.58",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.59",
+      "text": "विषया विनिवर्तन्ते निराहारस्य देहिनः।",
+      "title": "Bhagavad Gita 2.59",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.60",
+      "text": "यततो ह्यपि कौन्तेय पुरुषस्य विपश्चितः।",
+      "title": "Bhagavad Gita 2.60",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.61",
+      "text": "तानि सर्वाणि संयम्य युक्त आसीत मत्परः।",
+      "title": "Bhagavad Gita 2.61",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.62",
+      "text": "ध्यायतो विषयान्पुंसः सङ्गस्तेषूपजायते।",
+      "title": "Bhagavad Gita 2.62",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.63",
+      "text": "क्रोधाद्भवति संमोहः संमोहात्स्मृतिविभ्रमः।",
+      "title": "Bhagavad Gita 2.63",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.64",
+      "text": "रागद्वेषवियुक्तैस्तु विषयानिन्द्रियैश्चरन्।",
+      "title": "Bhagavad Gita 2.64",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.65",
+      "text": "प्रसादे सर्वदुःखानां हानिरस्योपजायते।",
+      "title": "Bhagavad Gita 2.65",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.66",
+      "text": "नास्ति बुद्धिरयुक्तस्य न चायुक्तस्य भावना।",
+      "title": "Bhagavad Gita 2.66",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.67",
+      "text": "इन्द्रियाणां हि चरतां यन्मनोऽनुविधीयते।",
+      "title": "Bhagavad Gita 2.67",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.68",
+      "text": "तस्माद्यस्य महाबाहो निगृहीतानि सर्वशः।",
+      "title": "Bhagavad Gita 2.68",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.69",
+      "text": "या निशा सर्वभूतानां तस्यां जागर्ति संयमी।",
+      "title": "Bhagavad Gita 2.69",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.70",
+      "text": "आपूर्यमाणमचलप्रतिष्ठं",
+      "title": "Bhagavad Gita 2.70",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.71",
+      "text": "विहाय कामान्यः सर्वान्पुमांश्चरति निःस्पृहः।",
+      "title": "Bhagavad Gita 2.71",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-2.72",
+      "text": "एषा ब्राह्मी स्थितिः पार्थ नैनां प्राप्य विमुह्यति।",
+      "title": "Bhagavad Gita 2.72",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.1",
+      "text": "ज्यायसी चेत्कर्मणस्ते मता बुद्धिर्जनार्दन।",
+      "title": "Bhagavad Gita 3.1",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.2",
+      "text": "व्यामिश्रेणेव वाक्येन बुद्धिं मोहयसीव मे।",
+      "title": "Bhagavad Gita 3.2",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.4",
+      "text": "न कर्मणामनारम्भान्नैष्कर्म्यं पुरुषोऽश्नुते।",
+      "title": "Bhagavad Gita 3.4",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.5",
+      "text": "न हि कश्िचत्क्षणमपि जातु तिष्ठत्यकर्मकृत्।",
+      "title": "Bhagavad Gita 3.5",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.6",
+      "text": "कर्मेन्द्रियाणि संयम्य य आस्ते मनसा स्मरन्।",
+      "title": "Bhagavad Gita 3.6",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.7",
+      "text": "यस्त्विन्द्रियाणि मनसा नियम्यारभतेऽर्जुन।",
+      "title": "Bhagavad Gita 3.7",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.8",
+      "text": "नियतं कुरु कर्म त्वं कर्म ज्यायो ह्यकर्मणः।",
+      "title": "Bhagavad Gita 3.8",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.9",
+      "text": "यज्ञार्थात्कर्मणोऽन्यत्र लोकोऽयं कर्मबन्धनः।",
+      "title": "Bhagavad Gita 3.9",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.10",
+      "text": "सहयज्ञाः प्रजाः सृष्ट्वा पुरोवाच प्रजापतिः।",
+      "title": "Bhagavad Gita 3.10",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.11",
+      "text": "देवान्भावयतानेन ते देवा भावयन्तु वः।",
+      "title": "Bhagavad Gita 3.11",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.12",
+      "text": "इष्टान्भोगान्हि वो देवा दास्यन्ते यज्ञभाविताः।",
+      "title": "Bhagavad Gita 3.12",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.13",
+      "text": "यज्ञशिष्टाशिनः सन्तो मुच्यन्ते सर्वकिल्बिषैः।",
+      "title": "Bhagavad Gita 3.13",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.14",
+      "text": "अन्नाद्भवन्ति भूतानि पर्जन्यादन्नसम्भवः।",
+      "title": "Bhagavad Gita 3.14",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.15",
+      "text": "कर्म ब्रह्मोद्भवं विद्धि ब्रह्माक्षरसमुद्भवम्।",
+      "title": "Bhagavad Gita 3.15",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.16",
+      "text": "एवं प्रवर्तितं चक्रं नानुवर्तयतीह यः।",
+      "title": "Bhagavad Gita 3.16",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.17",
+      "text": "यस्त्वात्मरतिरेव स्यादात्मतृप्तश्च मानवः।",
+      "title": "Bhagavad Gita 3.17",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.18",
+      "text": "नैव तस्य कृतेनार्थो नाकृतेनेह कश्चन।",
+      "title": "Bhagavad Gita 3.18",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.19",
+      "text": "तस्मादसक्तः सततं कार्यं कर्म समाचर।",
+      "title": "Bhagavad Gita 3.19",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.20",
+      "text": "कर्मणैव हि संसिद्धिमास्थिता जनकादयः।",
+      "title": "Bhagavad Gita 3.20",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.21",
+      "text": "यद्यदाचरति श्रेष्ठस्तत्तदेवेतरो जनः।",
+      "title": "Bhagavad Gita 3.21",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.22",
+      "text": "न मे पार्थास्ति कर्तव्यं त्रिषु लोकेषु किञ्चन।",
+      "title": "Bhagavad Gita 3.22",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.23",
+      "text": "यदि ह्यहं न वर्तेयं जातु कर्मण्यतन्द्रितः।",
+      "title": "Bhagavad Gita 3.23",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.24",
+      "text": "उत्सीदेयुरिमे लोका न कुर्यां कर्म चेदहम्।",
+      "title": "Bhagavad Gita 3.24",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.25",
+      "text": "सक्ताः कर्मण्यविद्वांसो यथा कुर्वन्ति भारत।",
+      "title": "Bhagavad Gita 3.25",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.26",
+      "text": "न बुद्धिभेदं जनयेदज्ञानां कर्मसङ्गिनाम्।",
+      "title": "Bhagavad Gita 3.26",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.27",
+      "text": "प्रकृतेः क्रियमाणानि गुणैः कर्माणि सर्वशः।",
+      "title": "Bhagavad Gita 3.27",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.28",
+      "text": "तत्त्ववित्तु महाबाहो गुणकर्मविभागयोः।",
+      "title": "Bhagavad Gita 3.28",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.29",
+      "text": "प्रकृतेर्गुणसम्मूढाः सज्जन्ते गुणकर्मसु।",
+      "title": "Bhagavad Gita 3.29",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.30",
+      "text": "मयि सर्वाणि कर्माणि संन्यस्याध्यात्मचेतसा।",
+      "title": "Bhagavad Gita 3.30",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.31",
+      "text": "ये मे मतमिदं नित्यमनुतिष्ठन्ति मानवाः।",
+      "title": "Bhagavad Gita 3.31",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.32",
+      "text": "ये त्वेतदभ्यसूयन्तो नानुतिष्ठन्ति मे मतम्।",
+      "title": "Bhagavad Gita 3.32",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.33",
+      "text": "सदृशं चेष्टते स्वस्याः प्रकृतेर्ज्ञानवानपि।",
+      "title": "Bhagavad Gita 3.33",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.34",
+      "text": "इन्द्रियस्येन्द्रियस्यार्थे रागद्वेषौ व्यवस्थितौ।",
+      "title": "Bhagavad Gita 3.34",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.35",
+      "text": "श्रेयान्स्वधर्मो विगुणः परधर्मात्स्वनुष्ठितात्।",
+      "title": "Bhagavad Gita 3.35",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.36",
+      "text": "अथ केन प्रयुक्तोऽयं पापं चरति पूरुषः।",
+      "title": "Bhagavad Gita 3.36",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.38",
+      "text": "धूमेनाव्रियते वह्निर्यथाऽऽदर्शो मलेन च।",
+      "title": "Bhagavad Gita 3.38",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.39",
+      "text": "आवृतं ज्ञानमेतेन ज्ञानिनो नित्यवैरिणा।",
+      "title": "Bhagavad Gita 3.39",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.40",
+      "text": "इन्द्रियाणि मनो बुद्धिरस्याधिष्ठानमुच्यते।",
+      "title": "Bhagavad Gita 3.40",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.41",
+      "text": "तस्मात्त्वमिन्द्रियाण्यादौ नियम्य भरतर्षभ।",
+      "title": "Bhagavad Gita 3.41",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.42",
+      "text": "इन्द्रियाणि पराण्याहुरिन्द्रियेभ्यः परं मनः।",
+      "title": "Bhagavad Gita 3.42",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-3.43",
+      "text": "एवं बुद्धेः परं बुद्ध्वा संस्तभ्यात्मानमात्मना।",
+      "title": "Bhagavad Gita 3.43",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.2",
+      "text": "एवं परम्पराप्राप्तमिमं राजर्षयो विदुः।",
+      "title": "Bhagavad Gita 4.2",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.3",
+      "text": "स एवायं मया तेऽद्य योगः प्रोक्तः पुरातनः।",
+      "title": "Bhagavad Gita 4.3",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.4",
+      "text": "अपरं भवतो जन्म परं जन्म विवस्वतः।",
+      "title": "Bhagavad Gita 4.4",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.6",
+      "text": "अजोऽपि सन्नव्ययात्मा भूतानामीश्वरोऽपि सन्।",
+      "title": "Bhagavad Gita 4.6",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.7",
+      "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।",
+      "title": "Bhagavad Gita 4.7",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.8",
+      "text": "परित्राणाय साधूनां विनाशाय च दुष्कृताम्।",
+      "title": "Bhagavad Gita 4.8",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.9",
+      "text": "जन्म कर्म च मे दिव्यमेवं यो वेत्ति तत्त्वतः।",
+      "title": "Bhagavad Gita 4.9",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.10",
+      "text": "वीतरागभयक्रोधा मन्मया मामुपाश्रिताः।",
+      "title": "Bhagavad Gita 4.10",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.11",
+      "text": "ये यथा मां प्रपद्यन्ते तांस्तथैव भजाम्यहम्।",
+      "title": "Bhagavad Gita 4.11",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.12",
+      "text": "काङ्क्षन्तः कर्मणां सिद्धिं यजन्त इह देवताः।",
+      "title": "Bhagavad Gita 4.12",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.13",
+      "text": "चातुर्वर्ण्यं मया सृष्टं गुणकर्मविभागशः।",
+      "title": "Bhagavad Gita 4.13",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.14",
+      "text": "न मां कर्माणि लिम्पन्ति न मे कर्मफले स्पृहा।",
+      "title": "Bhagavad Gita 4.14",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.15",
+      "text": "एवं ज्ञात्वा कृतं कर्म पूर्वैरपि मुमुक्षुभिः।",
+      "title": "Bhagavad Gita 4.15",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.16",
+      "text": "किं कर्म किमकर्मेति कवयोऽप्यत्र मोहिताः।",
+      "title": "Bhagavad Gita 4.16",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.17",
+      "text": "कर्मणो ह्यपि बोद्धव्यं बोद्धव्यं च विकर्मणः।",
+      "title": "Bhagavad Gita 4.17",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.18",
+      "text": "कर्मण्यकर्म यः पश्येदकर्मणि च कर्म यः।",
+      "title": "Bhagavad Gita 4.18",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.19",
+      "text": "यस्य सर्वे समारम्भाः कामसङ्कल्पवर्जिताः।",
+      "title": "Bhagavad Gita 4.19",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.20",
+      "text": "त्यक्त्वा कर्मफलासङ्गं नित्यतृप्तो निराश्रयः।",
+      "title": "Bhagavad Gita 4.20",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.21",
+      "text": "निराशीर्यतचित्तात्मा त्यक्तसर्वपरिग्रहः।",
+      "title": "Bhagavad Gita 4.21",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.22",
+      "text": "यदृच्छालाभसन्तुष्टो द्वन्द्वातीतो विमत्सरः।",
+      "title": "Bhagavad Gita 4.22",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.23",
+      "text": "गतसङ्गस्य मुक्तस्य ज्ञानावस्थितचेतसः।",
+      "title": "Bhagavad Gita 4.23",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.24",
+      "text": "ब्रह्मार्पणं ब्रह्महविर्ब्रह्माग्नौ ब्रह्मणा हुतम्।",
+      "title": "Bhagavad Gita 4.24",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.25",
+      "text": "दैवमेवापरे यज्ञं योगिनः पर्युपासते।",
+      "title": "Bhagavad Gita 4.25",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.26",
+      "text": "श्रोत्रादीनीन्द्रियाण्यन्ये संयमाग्निषु जुह्वति।",
+      "title": "Bhagavad Gita 4.26",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.27",
+      "text": "सर्वाणीन्द्रियकर्माणि प्राणकर्माणि चापरे।",
+      "title": "Bhagavad Gita 4.27",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.28",
+      "text": "द्रव्ययज्ञास्तपोयज्ञा योगयज्ञास्तथापरे।",
+      "title": "Bhagavad Gita 4.28",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.29",
+      "text": "अपाने जुह्वति प्राण प्राणेऽपानं तथाऽपरे।",
+      "title": "Bhagavad Gita 4.29",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.30",
+      "text": "अपरे नियताहाराः प्राणान्प्राणेषु जुह्वति।",
+      "title": "Bhagavad Gita 4.30",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.31",
+      "text": "यज्ञशिष्टामृतभुजो यान्ति ब्रह्म सनातनम्।",
+      "title": "Bhagavad Gita 4.31",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.32",
+      "text": "एवं बहुविधा यज्ञा वितता ब्रह्मणो मुखे।",
+      "title": "Bhagavad Gita 4.32",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.33",
+      "text": "श्रेयान्द्रव्यमयाद्यज्ञाज्ज्ञानयज्ञः परन्तप।",
+      "title": "Bhagavad Gita 4.33",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.34",
+      "text": "तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया।",
+      "title": "Bhagavad Gita 4.34",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.35",
+      "text": "यज्ज्ञात्वा न पुनर्मोहमेवं यास्यसि पाण्डव।",
+      "title": "Bhagavad Gita 4.35",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.36",
+      "text": "अपि चेदसि पापेभ्यः सर्वेभ्यः पापकृत्तमः।",
+      "title": "Bhagavad Gita 4.36",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.37",
+      "text": "यथैधांसि समिद्धोऽग्निर्भस्मसात्कुरुतेऽर्जुन।",
+      "title": "Bhagavad Gita 4.37",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.38",
+      "text": "न हि ज्ञानेन सदृशं पवित्रमिह विद्यते।",
+      "title": "Bhagavad Gita 4.38",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.39",
+      "text": "श्रद्धावाँल्लभते ज्ञानं तत्परः संयतेन्द्रियः।",
+      "title": "Bhagavad Gita 4.39",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.40",
+      "text": "अज्ञश्चाश्रद्दधानश्च संशयात्मा विनश्यति।",
+      "title": "Bhagavad Gita 4.40",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.41",
+      "text": "योगसंन्यस्तकर्माणं ज्ञानसंछिन्नसंशयम्।",
+      "title": "Bhagavad Gita 4.41",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-4.42",
+      "text": "तस्मादज्ञानसंभूतं हृत्स्थं ज्ञानासिनाऽऽत्मनः।",
+      "title": "Bhagavad Gita 4.42",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-5.1",
+      "text": "संन्यासं कर्मणां कृष्ण पुनर्योगं च शंससि।",
+      "title": "Bhagavad Gita 5.1",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "id": "gita-5.3",
+      "text": "ज्ञेयः स नित्यसंन्यासी यो न द्वेष्टि न काङ्क्षति।",
+      "title": "Bhagavad Gita 5.3",
+      "source": "DharmicData/SrimadBhagvadGita"
+    }
+  ]
+}

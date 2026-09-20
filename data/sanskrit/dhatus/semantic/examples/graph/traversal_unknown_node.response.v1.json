@@ -1,0 +1,18 @@
+{
+  "errorCode": "semantic_graph_node_not_found",
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/traverse",
+  "maxDepth": 2,
+  "nodeId": "unknown-semantic-node",
+  "pathCount": 0,
+  "paths": [],
+  "query": {
+    "maxDepth": 2,
+    "nodeId": "unknown-semantic-node",
+    "relationType": null
+  },
+  "relationType": null,
+  "schemaVersion": "1.0.0",
+  "traversalStatus": "NODE_NOT_FOUND",
+  "traversedEdgeIds": [],
+  "visitedNodeCount": 0
+}

@@ -1,0 +1,18 @@
+{
+  "error": {
+    "code": "empty_semantic_query",
+    "message": "Provide at least one semantic query parameter."
+  },
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/search",
+  "query": {
+    "action": null,
+    "cluster": null,
+    "dhatuId": null,
+    "gloss": null,
+    "iast": null,
+    "root": null
+  },
+  "resultCount": 0,
+  "results": [],
+  "schemaVersion": "1.0.0"
+}

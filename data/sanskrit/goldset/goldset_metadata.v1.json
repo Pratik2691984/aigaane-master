@@ -1,0 +1,18 @@
+{
+  "goldsetVersion": "1.0.0",
+  "schemaVersion": "dhatu.schema.v2",
+  "description": "Canonical dhatu regression goldset",
+  "recordCount": 10,
+  "records": [
+    "01.0001",
+    "01.0002",
+    "02.0001",
+    "03.0001",
+    "04.0001",
+    "06.0001",
+    "07.0001",
+    "08.0001",
+    "09.0001",
+    "10.0001"
+  ]
+}

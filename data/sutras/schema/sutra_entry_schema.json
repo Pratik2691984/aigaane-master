@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aigaane Canonical Sutra Registry Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sutra_id",
+    "sutra_text_devanagari",
+    "sutra_text_iast",
+    "chapter",
+    "pada",
+    "sutra_number",
+    "domain",
+    "source",
+    "source_type",
+    "status",
+    "provenance",
+    "notes"
+  ],
+  "properties": {
+    "sutra_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sutra_text_devanagari": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sutra_text_iast": {
+      "type": "string",
+      "minLength": 1
+    },
+    "chapter": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8
+    },
+    "pada": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4
+    },
+    "sutra_number": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "vowel_sandhi",
+        "visarga_sandhi",
+        "consonant_sandhi",
+        "morphology",
+        "governance",
+        "orchestration"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["ashtadhyayi", "commentary", "internal_registry"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["canonical", "provisional", "deprecated"]
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

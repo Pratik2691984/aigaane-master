@@ -1,0 +1,1129 @@
+{
+  "batchId": "DHATU_06_TUDADI",
+  "ganaId": "06",
+  "slug": "tudadi",
+  "corpusType": "dhatu",
+  "description": "Real corpus dhatu batch for tudadi gana",
+  "records": [
+    {
+      "id": "10.0433",
+      "type": "dhatu",
+      "text": "सङ्केत",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to invite, to call, to sign"
+    },
+    {
+      "id": "10.0434",
+      "type": "dhatu",
+      "text": "ग्राम",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to invite, to call, to sign, to speak intelligently"
+    },
+    {
+      "id": "10.0435",
+      "type": "dhatu",
+      "text": "कुण",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to invite, to call, to sign,  to speak intelligently"
+    },
+    {
+      "id": "10.0436",
+      "type": "dhatu",
+      "text": "गुण",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to invite, to call, to sign,  to speak intelligently"
+    },
+    {
+      "id": "10.0437",
+      "type": "dhatu",
+      "text": "केत",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to call, to invite, to hear"
+    },
+    {
+      "id": "10.0439",
+      "type": "dhatu",
+      "text": "स्तेन",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to steal"
+    },
+    {
+      "id": "10.0440",
+      "type": "dhatu",
+      "text": "पद",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to go, to change places"
+    },
+    {
+      "id": "10.0441",
+      "type": "dhatu",
+      "text": "गृह",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to take, to accept"
+    },
+    {
+      "id": "10.0442",
+      "type": "dhatu",
+      "text": "मृग",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to investigate, to search, to prey, to kill an animal"
+    },
+    {
+      "id": "10.0443",
+      "type": "dhatu",
+      "text": "कुह",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to show miracle"
+    },
+    {
+      "id": "10.0444",
+      "type": "dhatu",
+      "text": "शूर",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to be powerful, to be courageous, to be brave, to have victory"
+    },
+    {
+      "id": "10.0445",
+      "type": "dhatu",
+      "text": "वीर",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to be powerful, to be courageous, to be brave, to have victory"
+    },
+    {
+      "id": "10.0446",
+      "type": "dhatu",
+      "text": "स्थूल",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to become fat, to become obese, to gain weight, to be healthy"
+    },
+    {
+      "id": "10.0447",
+      "type": "dhatu",
+      "text": "अर्थ",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to beg, to request"
+    },
+    {
+      "id": "10.0448",
+      "type": "dhatu",
+      "text": "सत्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to spread, to extend, to contact, to be connected"
+    },
+    {
+      "id": "10.0449",
+      "type": "dhatu",
+      "text": "गर्व",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to boast, to be egoistic, to be proud"
+    },
+    {
+      "id": "10.0450",
+      "type": "dhatu",
+      "text": "सूत्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to put in thread, to cover with thread"
+    },
+    {
+      "id": "10.0451",
+      "type": "dhatu",
+      "text": "मूत्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to urinate"
+    },
+    {
+      "id": "10.0452",
+      "type": "dhatu",
+      "text": "रूक्ष",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to become hard, to become dry, to speak harshly, to be dull"
+    },
+    {
+      "id": "10.0453",
+      "type": "dhatu",
+      "text": "पार",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to end, to complete"
+    },
+    {
+      "id": "10.0454",
+      "type": "dhatu",
+      "text": "तीर",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to end, to complete"
+    },
+    {
+      "id": "10.0455",
+      "type": "dhatu",
+      "text": "पुट",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to come in contact, to embrace, to hug, to join, to lock in"
+    },
+    {
+      "id": "10.0456",
+      "type": "dhatu",
+      "text": "कत्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to loosen, to leave, to abandon"
+    },
+    {
+      "id": "10.0457",
+      "type": "dhatu",
+      "text": "कर्त्",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to loosen, to leave, to abandon"
+    },
+    {
+      "id": "10.0458",
+      "type": "dhatu",
+      "text": "वल्क",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to see"
+    },
+    {
+      "id": "10.0459",
+      "type": "dhatu",
+      "text": "चित्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to paint, to draw, to create a portrait"
+    },
+    {
+      "id": "10.0460",
+      "type": "dhatu",
+      "text": "अंस",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to kill, to destroy, to hurt"
+    },
+    {
+      "id": "10.0461",
+      "type": "dhatu",
+      "text": "वट",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to divide, to separate, to split, to isolate, to partition"
+    },
+    {
+      "id": "10.0463",
+      "type": "dhatu",
+      "text": "लज",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to appear, to be clear"
+    },
+    {
+      "id": "10.0466",
+      "type": "dhatu",
+      "text": "मिश्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to mix, to add together, to combine"
+    },
+    {
+      "id": "10.0467",
+      "type": "dhatu",
+      "text": "सङ्ग्राम",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to have war, to fight"
+    },
+    {
+      "id": "10.0468",
+      "type": "dhatu",
+      "text": "स्तोम",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to praise, to boast, to cheer"
+    },
+    {
+      "id": "10.0469",
+      "type": "dhatu",
+      "text": "छिद्र",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to pierce ears"
+    },
+    {
+      "id": "10.0470",
+      "type": "dhatu",
+      "text": "कर्ण",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to pierce ears"
+    },
+    {
+      "id": "10.0471",
+      "type": "dhatu",
+      "text": "अन्ध",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to be blind, to lose vision"
+    },
+    {
+      "id": "10.0472",
+      "type": "dhatu",
+      "text": "दण्ड",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to punish, to fine"
+    },
+    {
+      "id": "10.0473",
+      "type": "dhatu",
+      "text": "अङ्क",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to mark, to count, to roam around, to limp, to take in lap"
+    },
+    {
+      "id": "10.0474",
+      "type": "dhatu",
+      "text": "अङ्ग",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to mark, to count, to roam around, to limp, to take in lap"
+    },
+    {
+      "id": "10.0475",
+      "type": "dhatu",
+      "text": "सुख",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to make happy, to be happy"
+    },
+    {
+      "id": "10.0476",
+      "type": "dhatu",
+      "text": "दुःख",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to make sad, to be sad"
+    },
+    {
+      "id": "10.0477",
+      "type": "dhatu",
+      "text": "रस",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to tastem to love, to have affection"
+    },
+    {
+      "id": "10.0478",
+      "type": "dhatu",
+      "text": "व्यय",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to spend, to expense"
+    },
+    {
+      "id": "10.0479",
+      "type": "dhatu",
+      "text": "रूप",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to create a shape, to formulate, to create a mental picture"
+    },
+    {
+      "id": "10.0480",
+      "type": "dhatu",
+      "text": "छेद",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to cut"
+    },
+    {
+      "id": "10.0481",
+      "type": "dhatu",
+      "text": "छद",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to remove, to hide, to conceal"
+    },
+    {
+      "id": "10.0482",
+      "type": "dhatu",
+      "text": "लाभ",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to inspire"
+    },
+    {
+      "id": "10.0483",
+      "type": "dhatu",
+      "text": "व्रण",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to attack, to hurt, to damage someone, to wound"
+    },
+    {
+      "id": "10.0484",
+      "type": "dhatu",
+      "text": "वर्ण",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to explain, to elaborate, to spread, to praise, to glow, to shine"
+    },
+    {
+      "id": "10.0485",
+      "type": "dhatu",
+      "text": "पर्ण",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to become green, to color green"
+    },
+    {
+      "id": "10.0486",
+      "type": "dhatu",
+      "text": "विष्क",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to see"
+    },
+    {
+      "id": "10.0487",
+      "type": "dhatu",
+      "text": "क्षिप",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to inspire"
+    },
+    {
+      "id": "10.0488",
+      "type": "dhatu",
+      "text": "वस",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to live, to dwell, to stay"
+    },
+    {
+      "id": "10.0489",
+      "type": "dhatu",
+      "text": "तुत्थ",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to cover"
+    },
+    {
+      "id": "10.0490",
+      "type": "dhatu",
+      "text": "पल्यूल",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to cut, to purify, to cleanse, to drop"
+    },
+    {
+      "id": "10.0492",
+      "type": "dhatu",
+      "text": "धेक",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "10",
+      "notes": "to see"
+    },
+    {
+      "id": "06.0064",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0065",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0073",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0074",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0075",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0077",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0078",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0079",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0081",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0083",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0095",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0096",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0098",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0100",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0101",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0106",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0108",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0109",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0110",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0111",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0114",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0115",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0116",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0130",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0133",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0134",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0135",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0136",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0138",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0140",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0143",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0144",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0147",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0148",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0150",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0157",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0162",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0163",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0164",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0165",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0167",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0168",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0172",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0173",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0175",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0176",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0177",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0178",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0179",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0180",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0181",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0182",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0183",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0184",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0185",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0186",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0187",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0188",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0189",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0190",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0191",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0192",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0193",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0194",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0195",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0196",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0197",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0198",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0199",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0200",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0201",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0202",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0203",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0204",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0205",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0206",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0207",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0208",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0209",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0210",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0211",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0212",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0213",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0214",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    },
+    {
+      "id": "06.0215",
+      "type": "dhatu",
+      "text": "भू",
+      "source": "raw/sanskrit/dhatu/06_tudadi_batch.json",
+      "gana": "06",
+      "notes": "reserved placeholder"
+    }
+  ]
+}

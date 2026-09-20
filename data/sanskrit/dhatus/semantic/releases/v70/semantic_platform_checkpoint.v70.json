@@ -1,0 +1,436 @@
+{
+  "blockingReasons": [],
+  "canonicalRegistryRecordCount": 13,
+  "coveredDhatuIds": [
+    "01.0005",
+    "01.0008",
+    "01.0013"
+  ],
+  "derivationGraphEdgeCount": 8,
+  "derivationRecordCount": 3,
+  "generatedArtifacts": [
+    "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.json",
+    "data/sanskrit/dhatus/semantic/releases/v70/semantic_platform_checkpoint.v70.md",
+    "data/sanskrit/dhatus/semantic/semantic_manifest.v1.json",
+    "data/sanskrit/dhatus/semantic/semantic_clusters.v1.json",
+    "data/sanskrit/dhatus/semantic/action_vectors.v1.json",
+    "data/sanskrit/dhatus/semantic/edges/semantic_edges.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/semantic_derivations.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/semantic_derivation_edges.v1.json",
+    "data/sanskrit/dhatus/semantic/UI_INTEGRATION.md",
+    "data/sanskrit/dhatus/semantic/DERIVATION_API.md",
+    "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_combined_panel.v1.json",
+    "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_neighbor_panel.v1.json",
+    "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_search_panel.v1.json",
+    "data/sanskrit/dhatus/semantic/examples/ui/ui_semantic_traversal_panel.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/derivation_graph_dhatu_01_0005.response.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/derivation_graph_domain_motion.response.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/derivation_graph_empty_query.response.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/derivation_graph_family_guidance.response.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/derivation_graph_relation_semantic_family_bridge.response.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/derivation_graph_unknown_node.response.v1.json",
+    "data/sanskrit/dhatus/semantic/derivations/examples/graph/ui_semantic_derivation_graph_panel.v1.json"
+  ],
+  "generatedBy": "scripts/build_dhatu_semantic_platform_checkpoint.py",
+  "milestoneTags": [
+    {
+      "node": "v53",
+      "summary": "Semantic sidecar foundation",
+      "tag": "semantic-layer-foundation"
+    },
+    {
+      "node": "v54",
+      "summary": "Semantic query engine",
+      "tag": "semantic-query-engine"
+    },
+    {
+      "node": "v55",
+      "summary": "Semantic search API",
+      "tag": "semantic-search-api"
+    },
+    {
+      "node": "v56",
+      "summary": "Examples and documentation",
+      "tag": "semantic-api-examples-docs"
+    },
+    {
+      "node": "v57",
+      "summary": "Semantic graph neighbors",
+      "tag": "semantic-graph-neighbors"
+    },
+    {
+      "node": "v58",
+      "summary": "Semantic platform continuity checkpoint",
+      "tag": "semantic-platform-continuity"
+    },
+    {
+      "node": "v59",
+      "summary": "Semantic platform continuity checkpoint",
+      "tag": "semantic-platform-continuity"
+    },
+    {
+      "node": "v60",
+      "summary": "Graph API helper",
+      "tag": "semantic-graph-api-helper"
+    },
+    {
+      "node": "v61",
+      "summary": "Traversal API",
+      "tag": "semantic-traversal-api"
+    },
+    {
+      "node": "v62",
+      "summary": "UI-ready semantic fixtures",
+      "tag": "ui-ready-semantic-fixtures"
+    },
+    {
+      "node": "v63",
+      "summary": "Sanskrit semantic panels",
+      "tag": "sanskrit-semantic-panels"
+    },
+    {
+      "node": "v64",
+      "summary": "Interactive semantic controls",
+      "tag": "interactive-semantic-controls"
+    },
+    {
+      "node": "v65",
+      "summary": "Graph visualization",
+      "tag": "semantic-graph-visualization"
+    },
+    {
+      "node": "v66",
+      "summary": "Graph accessibility",
+      "tag": "semantic-graph-a11y"
+    },
+    {
+      "node": "v67",
+      "summary": "Semantic derivation placeholder layer",
+      "tag": "semantic-derivation-layer"
+    },
+    {
+      "node": "v68",
+      "summary": "Derivation Intelligence UI",
+      "tag": "semantic-derivation-ui"
+    },
+    {
+      "node": "v69",
+      "summary": "Derivation graph bridge",
+      "tag": "semantic-derivation-graph-bridge"
+    },
+    {
+      "node": "v70",
+      "summary": "Derivation Graph Intelligence UI",
+      "tag": "semantic-derivation-graph-ui"
+    }
+  ],
+  "platformStatus": "READY",
+  "releaseCommit": "75e1f95",
+  "releaseTag": "sanskrit-v70-semantic-derivation-graph-ui-stable",
+  "safetyPolicy": {
+    "allDerivationConfidenceValuesUnreviewed": true,
+    "allDerivationReviewStatusesPlaceholder": true,
+    "canonicalRegistryMutation": false,
+    "canonicalWriteEnvironmentFlagsRequired": false,
+    "derivationConfidenceRequired": "unreviewed",
+    "derivationReviewStatusRequired": "placeholder-local-review-required",
+    "exactPaninianDerivationClaimsAllowed": false,
+    "exactSutraAssertionsAllowed": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "noExactPaninianDerivationClaimsPresent": true,
+    "readOnlySemanticArchitecture": true
+  },
+  "schemaVersion": "1.0.0",
+  "semanticClusterCount": 10,
+  "semanticGraphEdgeCount": 7,
+  "semanticRecordCount": 3,
+  "uiPanelCount": 11,
+  "validationDetails": {
+    "semanticDerivation": {
+      "canonicalRegistryRecordCount": 13,
+      "checks": {
+        "canonicalDhatuIdsExist": true,
+        "canonicalRegistryRecordCountIs13": true,
+        "canonicalRegistryUnchanged": true,
+        "confidenceValuesRemainUnreviewed": true,
+        "derivationDirectoryPresent": true,
+        "derivationIdsUnique": true,
+        "noAuthoritativePaninianClaims": true,
+        "noExactSutraAssertions": true,
+        "noGrammaticalCorrectnessGuarantee": true,
+        "placeholderSourcesOnly": true,
+        "relationReferencesResolve": true,
+        "reviewStatusPlaceholderOnly": true
+      },
+      "derivationRecordCount": 3,
+      "derivationValidationStatus": "PASS",
+      "duplicateDerivationIds": [],
+      "exactSutraAssertionsPresent": false,
+      "generatedBy": "api/dhatu_semantic_derivation.py",
+      "invalidConfidenceValues": [],
+      "nonPlaceholderReviewRecords": [],
+      "nonPlaceholderSources": [],
+      "noncanonicalDhatuIds": [],
+      "relationCount": 4,
+      "schemaVersion": "1.0.0",
+      "unresolvedRelationReferences": []
+    },
+    "semanticDerivationGraph": {
+      "canonicalRegistryRecordCount": 13,
+      "checks": {
+        "canonicalDhatuIdsExist": true,
+        "canonicalRegistryRecordCountIs13": true,
+        "canonicalRegistryUnchanged": true,
+        "confidenceValuesRemainUnreviewed": true,
+        "domainMotionTraversalWorks": true,
+        "edgeIdsUnique": true,
+        "emptyQuerySafe": true,
+        "noExactSutraAssertions": true,
+        "nodeTypesAllowed": true,
+        "referencesResolve": true,
+        "relationTypesAllowed": true,
+        "reviewStatusPlaceholderOnly": true,
+        "unknownNodeSafe": true
+      },
+      "derivationGraphValidationStatus": "PASS",
+      "duplicateEdgeIds": [],
+      "edgeCount": 8,
+      "exactSutraAssertionsPresent": false,
+      "familyNodeCount": 3,
+      "generatedBy": "api/dhatu_semantic_derivation_graph.py",
+      "invalidConfidenceEdges": [],
+      "invalidFamilyReviewNodes": [],
+      "invalidNodeTypes": [],
+      "invalidReferences": [],
+      "invalidRelationTypes": [],
+      "invalidReviewEdges": [],
+      "noncanonicalDhatuIds": [],
+      "schemaVersion": "1.0.0"
+    },
+    "semanticGraph": {
+      "checks": {
+        "confidenceValuesAreFoundationPlaceholder": true,
+        "dhatuReferencesAreCanonical": true,
+        "edgeIdsUnique": true,
+        "noExactGrammaticalDerivationClaims": true,
+        "relationTypesAllowed": true,
+        "semanticTraversalValidationPasses": true,
+        "sourceAndTargetReferencesExist": true,
+        "sourceAndTargetTypesAllowed": true
+      },
+      "derivationClaimEdges": [],
+      "duplicateEdgeIds": [],
+      "edgeCount": 7,
+      "generatedBy": "api/dhatu_semantic_graph.py",
+      "graphValidationStatus": "PASS",
+      "invalidConfidenceEdges": [],
+      "invalidNodeTypes": [],
+      "invalidReferences": [],
+      "invalidRelationTypes": [],
+      "noncanonicalDhatuReferences": [],
+      "schemaVersion": "1.0.0",
+      "traversalValidationSummary": {
+        "checks": {
+          "emptyNodeSafe": true,
+          "gamDepthTwoReachesMotion": true,
+          "guidanceGuidesTraversalWorks": true,
+          "motionDepthTwoCycleSafe": true,
+          "pathDhatuIdsCanonical": true,
+          "unknownNodeSafe": true
+        },
+        "duplicatePathNodes": [],
+        "emptyNodeStatus": "EMPTY_QUERY",
+        "gamTerminalNodeIds": [
+          "guidance",
+          "motion",
+          "stability"
+        ],
+        "guidesTerminalNodeIds": [
+          "motion"
+        ],
+        "motionPathCount": 2,
+        "noncanonicalPathDhatuIds": [],
+        "traversalValidationStatus": "PASS",
+        "unknownNodeStatus": "NODE_NOT_FOUND"
+      }
+    },
+    "semanticLayer": {
+      "canonicalRegistryRecordCount": 13,
+      "checks": {
+        "actionVectorsReferenceValidClusters": true,
+        "canonicalRegistryRecordCountIs13": true,
+        "canonicalRegistryUnchanged": true,
+        "guidanceActionQueryReturnsNi": true,
+        "manifestCountMatchesSemanticEntries": true,
+        "manifestCoverageMatchesSemanticEntries": true,
+        "motionClusterQueryReturnsGam": true,
+        "noDuplicateSemanticDhatuIds": true,
+        "promotedRootsCovered": true,
+        "queryableSemanticRecordsMatchManifestCoverage": true,
+        "semanticDerivationGraphValidationPasses": true,
+        "semanticDerivationValidationPasses": true,
+        "semanticDirectoryPresent": true,
+        "semanticGraphValidationPasses": true,
+        "semanticIdsExistInCanonicalRegistry": true,
+        "semanticQueryResultsPointToCanonicalRegistry": true,
+        "standGlossQueryReturnsStha": true
+      },
+      "coveredDhatuIds": [
+        "01.0005",
+        "01.0008",
+        "01.0013"
+      ],
+      "duplicateSemanticDhatuIds": [],
+      "generatedBy": "scripts/validate_dhatu_semantic_layer.py",
+      "invalidSemanticClusterIds": [],
+      "missingPromotedDhatuIds": [],
+      "noncanonicalSemanticDhatuIds": [],
+      "queryableDhatuIds": [
+        "01.0005",
+        "01.0008",
+        "01.0013"
+      ],
+      "schemaVersion": "1.0.0",
+      "semanticDerivationGraphSummary": {
+        "canonicalRegistryRecordCount": 13,
+        "checks": {
+          "canonicalDhatuIdsExist": true,
+          "canonicalRegistryRecordCountIs13": true,
+          "canonicalRegistryUnchanged": true,
+          "confidenceValuesRemainUnreviewed": true,
+          "domainMotionTraversalWorks": true,
+          "edgeIdsUnique": true,
+          "emptyQuerySafe": true,
+          "noExactSutraAssertions": true,
+          "nodeTypesAllowed": true,
+          "referencesResolve": true,
+          "relationTypesAllowed": true,
+          "reviewStatusPlaceholderOnly": true,
+          "unknownNodeSafe": true
+        },
+        "derivationGraphValidationStatus": "PASS",
+        "duplicateEdgeIds": [],
+        "edgeCount": 8,
+        "exactSutraAssertionsPresent": false,
+        "familyNodeCount": 3,
+        "generatedBy": "api/dhatu_semantic_derivation_graph.py",
+        "invalidConfidenceEdges": [],
+        "invalidFamilyReviewNodes": [],
+        "invalidNodeTypes": [],
+        "invalidReferences": [],
+        "invalidRelationTypes": [],
+        "invalidReviewEdges": [],
+        "noncanonicalDhatuIds": [],
+        "schemaVersion": "1.0.0"
+      },
+      "semanticDerivationSummary": {
+        "canonicalRegistryRecordCount": 13,
+        "checks": {
+          "canonicalDhatuIdsExist": true,
+          "canonicalRegistryRecordCountIs13": true,
+          "canonicalRegistryUnchanged": true,
+          "confidenceValuesRemainUnreviewed": true,
+          "derivationDirectoryPresent": true,
+          "derivationIdsUnique": true,
+          "noAuthoritativePaninianClaims": true,
+          "noExactSutraAssertions": true,
+          "noGrammaticalCorrectnessGuarantee": true,
+          "placeholderSourcesOnly": true,
+          "relationReferencesResolve": true,
+          "reviewStatusPlaceholderOnly": true
+        },
+        "derivationRecordCount": 3,
+        "derivationValidationStatus": "PASS",
+        "duplicateDerivationIds": [],
+        "exactSutraAssertionsPresent": false,
+        "generatedBy": "api/dhatu_semantic_derivation.py",
+        "invalidConfidenceValues": [],
+        "nonPlaceholderReviewRecords": [],
+        "nonPlaceholderSources": [],
+        "noncanonicalDhatuIds": [],
+        "relationCount": 4,
+        "schemaVersion": "1.0.0",
+        "unresolvedRelationReferences": []
+      },
+      "semanticGraphSummary": {
+        "checks": {
+          "confidenceValuesAreFoundationPlaceholder": true,
+          "dhatuReferencesAreCanonical": true,
+          "edgeIdsUnique": true,
+          "noExactGrammaticalDerivationClaims": true,
+          "relationTypesAllowed": true,
+          "semanticTraversalValidationPasses": true,
+          "sourceAndTargetReferencesExist": true,
+          "sourceAndTargetTypesAllowed": true
+        },
+        "derivationClaimEdges": [],
+        "duplicateEdgeIds": [],
+        "edgeCount": 7,
+        "generatedBy": "api/dhatu_semantic_graph.py",
+        "graphValidationStatus": "PASS",
+        "invalidConfidenceEdges": [],
+        "invalidNodeTypes": [],
+        "invalidReferences": [],
+        "invalidRelationTypes": [],
+        "noncanonicalDhatuReferences": [],
+        "schemaVersion": "1.0.0",
+        "traversalValidationSummary": {
+          "checks": {
+            "emptyNodeSafe": true,
+            "gamDepthTwoReachesMotion": true,
+            "guidanceGuidesTraversalWorks": true,
+            "motionDepthTwoCycleSafe": true,
+            "pathDhatuIdsCanonical": true,
+            "unknownNodeSafe": true
+          },
+          "duplicatePathNodes": [],
+          "emptyNodeStatus": "EMPTY_QUERY",
+          "gamTerminalNodeIds": [
+            "guidance",
+            "motion",
+            "stability"
+          ],
+          "guidesTerminalNodeIds": [
+            "motion"
+          ],
+          "motionPathCount": 2,
+          "noncanonicalPathDhatuIds": [],
+          "traversalValidationStatus": "PASS",
+          "unknownNodeStatus": "NODE_NOT_FOUND"
+        }
+      },
+      "semanticGraphTraversalSummary": {
+        "checks": {
+          "emptyNodeSafe": true,
+          "gamDepthTwoReachesMotion": true,
+          "guidanceGuidesTraversalWorks": true,
+          "motionDepthTwoCycleSafe": true,
+          "pathDhatuIdsCanonical": true,
+          "unknownNodeSafe": true
+        },
+        "duplicatePathNodes": [],
+        "emptyNodeStatus": "EMPTY_QUERY",
+        "gamTerminalNodeIds": [
+          "guidance",
+          "motion",
+          "stability"
+        ],
+        "guidesTerminalNodeIds": [
+          "motion"
+        ],
+        "motionPathCount": 2,
+        "noncanonicalPathDhatuIds": [],
+        "traversalValidationStatus": "PASS",
+        "unknownNodeStatus": "NODE_NOT_FOUND"
+      },
+      "semanticRecordCount": 3,
+      "semanticValidationStatus": "PASS"
+    }
+  },
+  "validationSummary": {
+    "semanticDerivation": "PASS",
+    "semanticDerivationGraph": "PASS",
+    "semanticGraph": "PASS",
+    "semanticLayer": "PASS"
+  }
+}

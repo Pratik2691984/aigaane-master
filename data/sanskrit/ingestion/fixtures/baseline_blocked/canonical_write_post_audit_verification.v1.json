@@ -1,0 +1,34 @@
+{
+  "afterCount": 10,
+  "beforeCount": 10,
+  "blockingReasons": [
+    "Canonical write was not attempted.",
+    "Canonical write was not enabled.",
+    "Default state has no production canonical write to verify."
+  ],
+  "canonicalWriteAttempted": false,
+  "canonicalWriteEnabled": false,
+  "consistencyChecks": {
+    "afterCountMatchesExpectedAfterCount": true,
+    "auditWriteAttempted": false,
+    "auditWriteEnabled": false,
+    "dryRunHadNoDuplicateIds": true,
+    "dryRunHadNoMissingStagedRecords": true,
+    "preflightBeforeCountMatchesRegistryBefore": true,
+    "preflightSnapshotPresent": true,
+    "promotedCountMatchesExpectedRecords": true,
+    "promotedCountMatchesRecordIds": true,
+    "registryShaChangedOnlyWhenPromoted": true
+  },
+  "expectedAfterCount": 10,
+  "expectedRecordsToAdd": [],
+  "generatedBy": "scripts/verify_dhatu_post_canonical_write_audit.py",
+  "preflightSnapshotStatus": "BLOCKED_PREWRITE",
+  "productionRegistryMutationDetected": false,
+  "promotedCount": 0,
+  "promotedRecordIds": [],
+  "registrySha256After": "9c7faa2d69235b26e31a122e7069ef62c9b6b555566123e5cb3429a85cfe5801",
+  "registrySha256Before": "9c7faa2d69235b26e31a122e7069ef62c9b6b555566123e5cb3429a85cfe5801",
+  "schemaVersion": "1.0.0",
+  "verificationStatus": "BLOCKED_NO_PRODUCTION_WRITE"
+}

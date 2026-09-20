@@ -1,0 +1,18 @@
+{
+  "approvalNotes": "Test-only approval fixture for validating the approval chain without production writes.",
+  "approvalStatus": "APPROVED",
+  "approvedAt": "2026-05-21T05:02:36Z",
+  "approvedBy": "test-fixture",
+  "approvedRecordIds": [
+    "01.STAGED.0001",
+    "01.STAGED.0002",
+    "01.STAGED.0003"
+  ],
+  "requiredBeforeWrite": [
+    "This simulated approval must never replace canonical_write_approval.v1.json.",
+    "Use only with explicit test validation and command-manifest paths.",
+    "Production canonical writes still require human approval and manual environment guards."
+  ],
+  "schemaVersion": "1.0.0",
+  "testOnly": true
+}

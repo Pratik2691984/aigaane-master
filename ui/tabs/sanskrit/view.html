@@ -1,10 +1,11 @@
 <div class="tab-container sanskrit-tab">
-    <header class="varga-header">
-        <h2>Mātṛkā Phonetic Engine</h2>
-        <p id="active-varga-name">All Vargas</p>
+    <header class="sanskrit-header">
+    <h2>Sanskrit Computational Engine</h2>
+    <p>Input -> transliteration -> sandhi -> chandas -> vyakarana -> prakriya graph</p>
+    <span id="semantic-runtime-status" class="semantic-runtime-status" data-runtime-mode="checking">Checking Runtime...</span>
     </header>
 
-    <div class="sanskrit-layout">
+<div class="sanskrit-layout">
         <div class="akshara-grid" id="matrikaGrid"></div>
 
         <aside class="phoneme-info">
@@ -25,11 +26,282 @@
                     <span>Phoneme ID</span>
                     <strong id="phonemeIdValue">0</strong>
                 </div>
+
+<section class="analysis-panel">
+        <label for="sanskrit-input">Sanskrit input</label>
+        <textarea id="sanskrit-input" rows="4" spellcheck="false">agnim ile purohitam yajnasya devam rtvijam hotaram ratnadhatamam</textarea>
+        <div class="analysis-actions">
+            <button id="analyze-sanskrit" type="button">Analyze</button>
+            <span id="sanskrit-status" role="status" aria-live="polite">Ready</span>
+        </div>
+
+    <section class="inspection-card">
+         <h3>Śikṣā Character Analysis</h3>
+         <div id="shiksha-analysis-panel" class="inspection-list">
+         <div class="inspection-row">Run analysis to classify phonetic characters.</div>
+         </div>
+    </section>
+
+    <section class="inspection-card">
+  <h3>Pratyāhāra Structural Demo</h3>
+  <div id="pratyahara-analysis-panel" class="inspection-list">
+    <div class="inspection-row">Loading deterministic pratyāhāra examples.</div>
+  </div>
+</section>
+    <section class="inspection-card">
+      <h3>Sandhi Execution Core</h3>
+      <section id="sandhi-execution-panel" class="sandhi-panel" data-legacy-panel="sandhi-transition-panel">
+        <div class="sandhi-unmatched">Run analysis to execute deterministic sandhi boundaries.</div>
+      </section>
+    </section>
+    <section id="subanta-generator-panel" class="subanta-panel"></section>
+    <section id="tinanta-generator-panel" class="tinanta-panel"></section>
+    <section id="prakriya-composition-panel" class="prakriya-panel"></section>
+    <section id="prakriya-trace-graph-panel" class="prakriya-graph-panel"></section>
+    <section id="rulefire-panel" class="rulefire-panel"></section>
+    <section id="sutra-dependency-panel" class="sutra-dependency-panel"></section>
+    <section id="nirukta-etymology-panel" class="nirukta-panel"></section>
+    <section id="tinanta-paradigm-panel" class="tinanta-panel"></section>
+    <section class="inspection-card">
+      <h3>Transliteration + IPA Inspector</h3>
+      <div id="transliteration-analysis-panel" class="inspection-list">
+        <div class="inspection-row">Run analysis to inspect deterministic IAST and IPA output.</div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Paninian Symbolic Compression</h3>
+      <div id="symbolic-compression-panel" class="inspection-list">
+        <div class="inspection-row">Loading deterministic symbolic classes.</div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Phonetic Topology</h3>
+      <div id="phonetic-topology-panel" class="inspection-list">
+        <div class="inspection-row">Run analysis to inspect deterministic phonetic topology.</div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Derivation Graph Overlay</h3>
+      <div id="derivation-graph-panel" class="inspection-list">
+        <div class="inspection-row">
+          Run analysis to inspect deterministic derivation overlays.
+        </div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Dhātu Semantic Graph</h3>
+      <div id="dhatu-semantic-panel" class="inspection-list">
+        <div class="inspection-row">
+          Run analysis to inspect deterministic dhātu semantic graph.
+        </div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Sūtra Reference Overlay</h3>
+      <div id="sutra-reference-panel" class="inspection-list">
+        <div class="inspection-row">
+          Run analysis to inspect deterministic sūtra reference overlays.
+        </div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Paninian Rule Trace</h3>
+      <div id="rule-trace-panel" class="inspection-list">
+        <div class="inspection-row">
+          Run analysis to inspect deterministic rule trace overlays.
+        </div>
+      </div>
+    </section>
+    <section class="inspection-card">
+      <h3>Morphology Transition Layer</h3>
+      <div id="morphology-transition-panel" class="inspection-list">
+        <div class="inspection-row">
+          Run analysis to inspect deterministic morphology transitions.
+        </div>
+      </div>
+    </section>
+    <section id="karaka-overlay-panel" class="karaka-panel"></section>
+    <section id="vakya-dependency-panel" class="vakya-panel"></section>
+    <section id="sandarbha-context-panel" class="sandarbha-panel"></section>
+    <section id="chandas-prosody-panel" class="chandas-panel"></section>
+        <section id="fallback-analysis-panel" class="fallback-analysis-panel hidden" aria-live="polite" aria-label="Local fallback analysis">
+            <header class="fallback-analysis-header">
+                <span id="fallback-analysis-badge" class="fallback-analysis-badge">Local fallback</span>
+                <p id="fallback-analysis-explanation">Backend analysis unavailable; Local fallback rendered.</p>
+            </header>
+            <div id="fallback-analysis-stages" class="fallback-analysis-stages" aria-label="Fallback pipeline stages"></div>
+            <div>
+                <h3>Fallback Tokens</h3>
+                <div id="fallback-analysis-tokens" class="fallback-analysis-tokens"></div>
             </div>
+            <div id="fallback-analysis-safety" class="fallback-analysis-safety" role="note"></div>
+        </section>
+        <aside id="static-preview-fallback-notice" class="static-preview-fallback-notice hidden" aria-live="polite">
+            <strong>Static preview fallback</strong>
+            <p id="static-preview-fallback-reason">Backend API unavailable; Local fallback rendered.</p>
+            <ul id="static-preview-fallback-details" class="static-preview-fallback-details"></ul>
         </aside>
+    </section>
+
+    <section class="local-static-diagnostics" aria-labelledby="local-static-diagnostics-title" aria-describedby="local-static-diagnostics-description">
+        <header class="local-static-diagnostics-header">
+            <div>
+                <h3 id="local-static-diagnostics-title">Local Static Diagnostics</h3>
+                <p id="local-static-diagnostics-description">Browser-visible module health for static preview without backend APIs.</p>
+            </div>
+            <span id="local-diagnostics-status-badge" class="local-diagnostics-status-badge">CHECKING</span>
+        </header>
+
+        <div class="local-static-diagnostics-grid">
+            <section class="local-diagnostics-card">
+                <h4>Backend Status</h4>
+                <div id="local-diagnostics-backend-output" class="local-diagnostics-list">Checking backend status</div>
+            </section>
+
+            <section class="local-diagnostics-card">
+                <h4>Fallback Status</h4>
+                <div id="local-diagnostics-fallback-output" class="local-diagnostics-list">Checking fallback status</div>
+            </section>
+
+            <section class="local-diagnostics-card local-diagnostics-fixtures-card">
+                <h4>Fixture Checklist</h4>
+                <div id="local-diagnostics-fixtures-output" class="local-diagnostics-list">Checking read-only fixtures</div>
+            </section>
+
+            <section class="local-diagnostics-card local-diagnostics-safety-card">
+                <h4>Safety Policy</h4>
+                <div id="local-diagnostics-safety-output" class="local-diagnostics-list">Checking safety policy</div>
+            </section>
+
+            <section class="local-diagnostics-card local-diagnostics-warnings-card">
+                <h4>Warnings</h4>
+                <div id="local-diagnostics-warnings-output" class="local-diagnostics-list">No warnings</div>
+            </section>
+        </div>
+    </section>
+
+    <section id="static-semantic-fixture-browser" class="static-semantic-fixture-browser hidden" aria-labelledby="static-fixture-browser-title" aria-describedby="static-fixture-browser-description">
+        <header class="static-semantic-fixture-browser-header">
+            <div>
+                <h3 id="static-fixture-browser-title">Static Semantic Fixture Browser</h3>
+                <p id="static-fixture-browser-description">Read-only inspection of local semantic fixtures during static preview fallback mode.</p>
+            </div>
+            <span class="static-fixture-browser-badge">Read-only</span>
+        </header>
+
+        <div class="static-fixture-browser-controls" aria-label="Static semantic fixture filters">
+            <label for="static-fixture-cluster-filter">Cluster</label>
+            <select id="static-fixture-cluster-filter">
+                <option value="">Any cluster</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+            </select>
+
+            <label for="static-fixture-dhatu-filter">Dhatu id</label>
+            <input id="static-fixture-dhatu-filter" type="text" spellcheck="false" placeholder="01.0005">
+
+            <label for="static-fixture-node-filter">Node id</label>
+            <input id="static-fixture-node-filter" type="text" spellcheck="false" placeholder="motion">
+
+            <label for="static-fixture-section-filter">Preview section</label>
+            <select id="static-fixture-section-filter">
+                <option value="records">records</option>
+                <option value="clusters">clusters</option>
+                <option value="graph">graph</option>
+                <option value="neighbors">neighbors</option>
+                <option value="json">json</option>
+            </select>
+        </div>
+
+        <div class="static-fixture-browser-link-row">
+    <button id="static-fixture-copy-link" type="button">
+        Copy inspection link
+    </button>
+
+    <span
+        id="static-fixture-copy-status"
+        class="static-fixture-copy-status"
+        role="status"
+        aria-live="polite"
+    ></span>
+
+    <input
+        id="static-fixture-copy-fallback"
+        class="static-fixture-copy-fallback hidden"
+        type="text"
+        readonly
+        aria-label="Static fixture inspection link"
+    >
+</div>
+
+<div
+    class="static-fixture-browser-export-row"
+    aria-label="Static semantic fixture export controls"
+>
+    <button id="static-fixture-export-json" type="button">
+        Export JSON Snapshot
+    </button>
+
+    <button id="static-fixture-export-markdown" type="button">
+        Export Markdown Report
+    </button>
+
+    <button id="static-fixture-export-text" type="button">
+        Export Text Summary
+    </button>
+
+    <span
+        id="static-fixture-export-status"
+        class="static-fixture-export-status"
+        role="status"
+        aria-live="polite"
+    ></span>
+</div>
+
+<div class="static-fixture-browser-import-row">
+    <button id="static-fixture-import-snapshot" type="button">
+        Import Snapshot
+    </button>
+
+    <input
+        id="static-fixture-import-file"
+        class="hidden"
+        type="file"
+        accept="application/json,.json"
+    >
+
+    <button
+        id="static-fixture-reset-import"
+        type="button"
+        disabled
+    >
+        Reset Imported Snapshot
+    </button>
+
+    <span
+        id="static-fixture-import-status"
+        class="static-fixture-import-status"
+        role="status"
+        aria-live="polite"
+    ></span>
+</div>
+
+<section
+    id="static-fixture-comparison-summary"
+    class="static-fixture-comparison-summary hidden"
+    aria-label="Imported static fixture snapshot comparison"
+>
+    <h4>Imported Snapshot Comparison</h4>
+
+    <div
+        id="static-fixture-imported-metadata"
+        class="static-fixture-browser-list"
+    >
+        No imported snapshot
     </div>
 
-    <section class="corpus-browser" id="corpusBrowser" data-readonly="true">
+<section class="corpus-browser" id="corpusBrowser" data-readonly="true">
         <div class="corpus-banner" id="corpusBanner">[PREVIEW MODE — 45 / 2000 RECORDS LOADED — READ ONLY]</div>
         <nav class="corpus-subnav" aria-label="Corpus browser">
             <button type="button" class="corpus-tab active" data-corpus-view="dhatu">Dhātu</button>
@@ -45,4 +317,771 @@
         </div>
         <div id="corpusPanel" class="corpus-panel"></div>
     </section>
+
+<div
+        id="static-fixture-comparison-results"
+        class="static-fixture-browser-list"
+    >
+        No comparison available
+    </div>
+</section>
+
+        <div class="static-fixture-browser-grid">
+            <section class="static-fixture-browser-card" data-static-fixture-section="availability">
+                <h4>Fixture Availability</h4>
+                <div id="static-fixture-browser-availability" class="static-fixture-browser-list">Unavailable in static preview</div>
+                <div id="static-fixture-browser-derivation-graph-status" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card" data-static-fixture-section="clusters">
+                <h4>Available Clusters</h4>
+                <div id="static-fixture-browser-clusters" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card" data-static-fixture-section="records">
+                <h4>Semantic Records</h4>
+                <div id="static-fixture-browser-records" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card" data-static-fixture-section="graph">
+                <h4>Graph Nodes</h4>
+                <div id="static-fixture-browser-graph" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card" data-static-fixture-section="neighbors">
+                <h4>Graph Neighbors</h4>
+                <div id="static-fixture-browser-neighbors" class="static-fixture-browser-list">Unavailable in static preview</div>
+            </section>
+
+            <section class="static-fixture-browser-card static-fixture-browser-json-card" data-static-fixture-section="json">
+                <h4>Safe JSON Preview</h4>
+                <pre id="static-fixture-browser-json-preview" class="static-fixture-browser-json" aria-label="Read-only JSON fixture preview">Unavailable in static preview</pre>
+            </section>
+        </div>
+    </section>
+
+    <section class="execution-grid" aria-label="Sanskrit execution panels">
+        <div class="analysis-panel execution-panel">
+            <h3>Sandhi Execution</h3>
+            <div class="field-grid">
+                <label for="sandhi-word1">Word 1</label>
+                <input id="sandhi-word1" type="text" spellcheck="false" value="राम">
+                <label for="sandhi-word2">Word 2</label>
+                <input id="sandhi-word2" type="text" spellcheck="false" value="अस्ति">
+            </div>
+            <div class="analysis-actions">
+                <button id="run-sandhi" type="button">Run Sandhi</button>
+            </div>
+        </div>
+
+        <div class="analysis-panel execution-panel">
+            <h3>Morphology Execution</h3>
+            <div class="mode-row" role="group" aria-label="Morphology mode">
+                <label><input type="radio" name="morphology-mode" value="noun" checked> Noun</label>
+                <label><input type="radio" name="morphology-mode" value="verb"> Verb</label>
+            </div>
+            <div class="field-grid" data-morphology-fields="noun">
+                <label for="morphology-stem">Stem</label>
+                <input id="morphology-stem" type="text" spellcheck="false" value="राम">
+                <label for="morphology-case">Case</label>
+                <input id="morphology-case" type="text" spellcheck="false" value="nominative">
+                <label for="morphology-number">Number</label>
+                <input id="morphology-number" type="text" spellcheck="false" value="singular">
+            </div>
+            <div class="field-grid hidden" data-morphology-fields="verb">
+                <label for="morphology-dhatu">Dhatu</label>
+                <input id="morphology-dhatu" type="text" spellcheck="false" value="भू">
+                <label for="morphology-lakara">Lakara</label>
+                <input id="morphology-lakara" type="text" spellcheck="false" value="lat">
+                <label for="morphology-person">Person</label>
+                <input id="morphology-person" type="text" spellcheck="false" value="3">
+                <label for="morphology-verb-number">Number</label>
+                <input id="morphology-verb-number" type="text" spellcheck="false" value="1">
+            </div>
+            <div class="analysis-actions">
+                <button id="run-morphology" type="button">Run Morphology</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="debug-inspector" aria-label="Debug derivation session inspector">
+        <header class="debug-inspector-header">
+            <h3>Debug Derivation Session Inspector</h3>
+            <p>Debug sandbox for serialized derivation sessions and ambiguity payloads.</p>
+        </header>
+
+        <div class="debug-controls">
+            <div class="field-grid">
+                <label for="debug-session-input">Session input</label>
+                <input id="debug-session-input" type="text" spellcheck="false" value="&#2352;&#2366;&#2350;&#2307; &#2327;&#2330;&#2381;&#2331;&#2340;&#2367;">
+            </div>
+            <div class="analysis-actions">
+                <button id="debug-create-session" type="button">Create Debug Session</button>
+                <button id="debug-append-step" type="button">Append Debug Step</button>
+                <button id="debug-load-ambiguity" type="button">Load Ambiguity Demo</button>
+                <button id="debug-run-pipeline" type="button">Run &#2352;&#2366;&#2350; &#8594; &#2352;&#2366;&#2350;&#2307; &#8594; &#2352;&#2366;&#2350;&#2379;&#2365;&#2360;&#2381;&#2340;&#2367; Pipeline</button>
+            </div>
+            <p class="debug-action-note">Runs Morphology &#8594; Sandhi through the debug session pipeline endpoint.</p>
+        </div>
+
+        <section class="debug-storage-panel" aria-label="Persistent debug session storage">
+            <header class="debug-storage-header">
+                <h4>Persistent Debug Session Storage</h4>
+                <p>Filesystem-backed debug-only derivation sessions.</p>
+            </header>
+            <div class="analysis-actions">
+                <button id="debug-save-session" type="button">Save Current Session</button>
+                <button id="debug-refresh-sessions" type="button">Refresh Saved Sessions</button>
+                <span id="debug-storage-status" class="debug-storage-status" role="status" aria-live="polite">Storage idle</span>
+            </div>
+            <div id="debug-storage-list" class="debug-storage-list">No saved sessions loaded</div>
+        </section>
+
+        <div class="debug-grid">
+            <section class="debug-card">
+                <h4>Session</h4>
+                <div id="debug-session-output" class="inspection-panel">No debug session</div>
+            </section>
+
+            <section class="debug-card">
+                <h4>Step Timeline</h4>
+                <ol id="debug-session-steps-output" class="timeline-list"></ol>
+            </section>
+
+            <section class="debug-card">
+                <h4>Ambiguity Demo</h4>
+                <div id="debug-ambiguity-output" class="inspection-panel">No ambiguity demo loaded</div>
+            </section>
+
+            <section class="debug-card">
+                <h4>Pipeline Result</h4>
+                <div id="debug-pipeline-output" class="inspection-panel">No pipeline run</div>
+            </section>
+
+            <section class="debug-card debug-error-card" aria-live="polite">
+                <h4>Debug Error</h4>
+                <div id="debug-session-error-output" class="inspection-panel">No debug error</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="lexicon-inspector" aria-label="Lexical governance inspector">
+        <header class="lexicon-inspector-header">
+            <h3>Lexical Governance Inspector</h3>
+            <p>Read-only governed lexical registry inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="lexicon-load-samples" type="button">Load Sample Entries</button>
+            <button id="lexicon-load-sources" type="button">Load Registry Sources</button>
+            <button id="lexicon-validate-registry" type="button">Validate Registry</button>
+            <span id="lexicon-status" class="lexicon-status" role="status" aria-live="polite">Lexicon idle</span>
+        </div>
+
+        <div class="lexicon-grid">
+            <section class="lexicon-card">
+                <h4>Sample Lexical Entries</h4>
+                <div id="lexicon-samples-output" class="lexicon-list">No sample entries loaded</div>
+            </section>
+
+            <section class="lexicon-card">
+                <h4>Registry Sources</h4>
+                <div id="lexicon-sources-output" class="lexicon-list">No registry sources loaded</div>
+            </section>
+
+            <section class="lexicon-card">
+                <h4>Validation Summary</h4>
+                <div id="lexicon-validation-output" class="lexicon-list">No validation run</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="sutra-inspector" aria-label="Canonical sutra governance inspector">
+        <header class="sutra-inspector-header">
+            <h3>Canonical Sutra Governance Inspector</h3>
+            <p>Read-only canonical Paninian sutra inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="sutra-load-samples" type="button">Load Sutra Registry</button>
+            <button id="sutra-load-sources" type="button">Load Sutra Sources</button>
+            <button id="sutra-validate-registry" type="button">Validate Sutra Registry</button>
+            <span id="sutra-status" class="sutra-status" role="status" aria-live="polite">Sutra registry idle</span>
+        </div>
+
+        <div class="sutra-grid">
+            <section class="sutra-card">
+                <h4>Operational Sutras</h4>
+                <div id="sutra-samples-output" class="sutra-list">No sutras loaded</div>
+            </section>
+
+            <section class="sutra-card">
+                <h4>Sutra Sources</h4>
+                <div id="sutra-sources-output" class="sutra-list">No sutra sources loaded</div>
+            </section>
+
+            <section class="sutra-card">
+                <h4>Validation Summary</h4>
+                <div id="sutra-validation-output" class="sutra-list">No validation run</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="semantic-trace-inspector" aria-label="Semantic trace inspector">
+        <header class="semantic-trace-inspector-header">
+            <h3>Semantic Trace Inspector</h3>
+            <p>Read-only semantically enriched derivation trace inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="semantic-trace-load-demo" type="button">Load Demo Semantic Trace</button>
+            <button id="semantic-trace-link-custom" type="button">Link Custom Trace</button>
+            <span id="semantic-trace-status" class="semantic-trace-status" role="status" aria-live="polite">Semantic trace idle</span>
+        </div>
+
+        <div class="semantic-trace-grid">
+            <section class="semantic-trace-card">
+                <h4>Demo Semantic Trace</h4>
+                <div id="semantic-trace-demo-output" class="semantic-trace-list">No demo trace loaded</div>
+            </section>
+
+            <section class="semantic-trace-card">
+                <h4>Linked Trace Output</h4>
+                <div id="semantic-trace-linked-output" class="semantic-trace-list">No linked trace loaded</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="semantic-dhatu-inspector" aria-labelledby="semantic-dhatu-title" aria-describedby="semantic-dhatu-description">
+        <header class="semantic-dhatu-header">
+            <h3 id="semantic-dhatu-title">Semantic Dhātu Intelligence</h3>
+            <p id="semantic-dhatu-description">Read-only dhātu semantic search, neighbor, and traversal panels.</p>
+        </header>
+
+        <div class="semantic-dhatu-controls" aria-label="Semantic dhatu query controls">
+            <label for="semantic-dhatu-search-input">Search</label>
+            <input id="semantic-dhatu-search-input" type="text" spellcheck="false" placeholder="gam, nī, sthā, गम्">
+
+            <label for="semantic-dhatu-cluster-filter">Cluster</label>
+            <select id="semantic-dhatu-cluster-filter">
+                <option value="">Any cluster</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+            </select>
+
+            <label for="semantic-dhatu-action-filter">Action</label>
+            <select id="semantic-dhatu-action-filter">
+                <option value="">Any action</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+            </select>
+
+            <label for="semantic-dhatu-gloss-filter">Gloss</label>
+            <select id="semantic-dhatu-gloss-filter">
+                <option value="">Any gloss</option>
+                <option value="go">go</option>
+                <option value="lead">lead</option>
+                <option value="stand">stand</option>
+            </select>
+
+            <label for="semantic-dhatu-depth-select">Traversal depth</label>
+            <select id="semantic-dhatu-depth-select">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+            </select>
+
+            <label for="semantic-dhatu-relation-filter">Relation</label>
+            <select id="semantic-dhatu-relation-filter">
+                <option value="">Any relation</option>
+                <option value="guides">guides</option>
+                <option value="associated_with">associated_with</option>
+                <option value="transitions_to">transitions_to</option>
+                <option value="grounds">grounds</option>
+            </select>
+
+            <button id="semantic-dhatu-reset" type="button">Reset</button>
+        </div>
+
+        <div class="semantic-dhatu-grid">
+            <section class="semantic-dhatu-panel">
+                <h4>Search Results</h4>
+                <div id="semantic-dhatu-search-output" class="semantic-dhatu-list">No semantic search panel loaded</div>
+            </section>
+
+            <section class="semantic-dhatu-panel">
+                <h4>Semantic Neighbors</h4>
+                <div id="semantic-dhatu-neighbor-output" class="semantic-dhatu-list">No semantic neighbor panel loaded</div>
+            </section>
+
+            <section class="semantic-dhatu-panel">
+                <h4>Traversal Paths</h4>
+                <div id="semantic-dhatu-traversal-output" class="semantic-dhatu-list">No semantic traversal panel loaded</div>
+            </section>
+
+            <section class="semantic-dhatu-panel semantic-dhatu-safety-panel">
+                <h4>Safety Notes</h4>
+                <div id="semantic-dhatu-safety-output" class="semantic-dhatu-list">No semantic safety note loaded</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="semantic-derivation-inspector" aria-labelledby="semantic-derivation-title" aria-describedby="semantic-derivation-description">
+        <header class="semantic-derivation-header">
+            <h3 id="semantic-derivation-title">Derivation Intelligence</h3>
+            <p id="semantic-derivation-description">Read-only semantic derivation placeholders for selected dhatu context.</p>
+        </header>
+
+        <div class="semantic-derivation-controls" aria-label="Derivation placeholder filters">
+            <label for="semantic-derivation-family-filter">Family</label>
+            <select id="semantic-derivation-family-filter">
+                <option value="">Any family</option>
+                <option value="family.semantic.motion-transition">family.semantic.motion-transition</option>
+                <option value="family.semantic.guidance-transfer">family.semantic.guidance-transfer</option>
+                <option value="family.semantic.stability-state">family.semantic.stability-state</option>
+            </select>
+
+            <label for="semantic-derivation-domain-filter">Usage domain</label>
+            <select id="semantic-derivation-domain-filter">
+                <option value="">Any domain</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+                <option value="journey">journey</option>
+                <option value="agency">agency</option>
+                <option value="posture">posture</option>
+                <option value="state">state</option>
+                <option value="transition">transition</option>
+            </select>
+
+            <label for="semantic-derivation-relation-filter">Relation</label>
+            <select id="semantic-derivation-relation-filter">
+                <option value="">Any relation</option>
+                <option value="motion-guidance-adjacent">motion-guidance-adjacent</option>
+                <option value="motion-stability-contrast">motion-stability-contrast</option>
+                <option value="guidance-motion-adjacent">guidance-motion-adjacent</option>
+                <option value="stability-motion-contrast">stability-motion-contrast</option>
+            </select>
+
+            <button id="semantic-derivation-reset" type="button">Reset derivation filters</button>
+        </div>
+
+        <div id="semantic-derivation-safety" class="semantic-derivation-safety" role="note">
+            Placeholder-only: all derivation claims require future review. No exact Paninian derivation claim is made.
+        </div>
+
+        <div class="semantic-derivation-grid">
+            <section class="semantic-derivation-panel semantic-derivation-summary-panel">
+                <h4>Selected Dhatu</h4>
+                <div id="semantic-derivation-summary-output" class="semantic-derivation-list">No derivation selected</div>
+            </section>
+
+            <section class="semantic-derivation-panel">
+                <h4>Semantic Lineage</h4>
+                <div id="semantic-derivation-lineage-output" class="semantic-derivation-list">No semantic lineage loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel">
+                <h4>Conceptual Affix Hints</h4>
+                <div id="semantic-derivation-hints-output" class="semantic-derivation-list">No conceptual hints loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel">
+                <h4>Proto Derivation Relations</h4>
+                <div id="semantic-derivation-relations-output" class="semantic-derivation-list">No proto relations loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel semantic-derivation-notes-panel">
+                <h4>Transformation Notes</h4>
+                <div id="semantic-derivation-notes-output" class="semantic-derivation-list">No transformation notes loaded</div>
+            </section>
+
+            <section class="semantic-derivation-panel semantic-derivation-panini-panel">
+                <h4>Placeholder Panini Relation</h4>
+                <div id="semantic-derivation-panini-output" class="semantic-derivation-list">No placeholder relation loaded</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="semantic-derivation-graph-inspector" aria-labelledby="semantic-derivation-graph-title" aria-describedby="semantic-derivation-graph-description">
+        <header class="semantic-derivation-graph-header">
+            <h3 id="semantic-derivation-graph-title">Derivation Graph Intelligence</h3>
+            <p id="semantic-derivation-graph-description">Read-only placeholder graph bridge between semantic clusters, derivation families, and derivation records.</p>
+        </header>
+
+        <div class="semantic-derivation-graph-controls" aria-label="Derivation graph filters">
+            <label for="semantic-derivation-graph-family-filter">Family</label>
+            <select id="semantic-derivation-graph-family-filter">
+                <option value="">Any family</option>
+                <option value="family.semantic.motion-transition">family.semantic.motion-transition</option>
+                <option value="family.semantic.guidance-transfer">family.semantic.guidance-transfer</option>
+                <option value="family.semantic.stability-state">family.semantic.stability-state</option>
+            </select>
+
+            <label for="semantic-derivation-graph-domain-filter">Domain</label>
+            <select id="semantic-derivation-graph-domain-filter">
+                <option value="">Any domain</option>
+                <option value="motion">motion</option>
+                <option value="guidance">guidance</option>
+                <option value="stability">stability</option>
+                <option value="transition">transition</option>
+                <option value="transfer">transfer</option>
+                <option value="persistence">persistence</option>
+            </select>
+
+            <label for="semantic-derivation-graph-relation-filter">Relation</label>
+            <select id="semantic-derivation-graph-relation-filter">
+                <option value="">Any relation</option>
+                <option value="semantic_family_bridge">semantic_family_bridge</option>
+                <option value="family_record_placeholder">family_record_placeholder</option>
+                <option value="motion_guidance_placeholder">motion_guidance_placeholder</option>
+                <option value="motion_stability_placeholder">motion_stability_placeholder</option>
+            </select>
+
+            <button id="semantic-derivation-graph-reset" type="button">Reset graph filters</button>
+        </div>
+
+        <div class="semantic-derivation-graph-safety" role="note">
+            Placeholder-only derivation graph bridge. No exact Paninian derivation claim, exact sutra assertion, or grammatical correctness guarantee is made.
+        </div>
+
+        <div class="semantic-derivation-graph-layout">
+            <div id="semantic-derivation-graph-canvas" class="semantic-derivation-graph-canvas" role="group" aria-label="Derivation graph nodes and traversal highlights">No derivation graph loaded</div>
+            <aside class="semantic-derivation-graph-side-panel">
+                <h4>Selected Derivation</h4>
+                <div id="semantic-derivation-graph-summary" class="semantic-derivation-graph-summary" aria-live="polite">No derivation graph node selected</div>
+                <h4>Relation Legend</h4>
+                <div id="semantic-derivation-graph-legend" class="semantic-derivation-graph-legend" role="list" aria-label="Derivation graph relation legend">No derivation relation legend loaded</div>
+                <h4>Traversal Explanation</h4>
+                <div id="semantic-derivation-graph-traversal" class="semantic-derivation-graph-traversal">Highlighted bridge paths follow the active derivation graph filters.</div>
+                <h4>Relation Edges</h4>
+                <div id="semantic-derivation-graph-edges" class="semantic-derivation-graph-edges">No derivation graph edges loaded</div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="corpus-browser-inspector" id="corpus-browser-panel-host" aria-labelledby="corpus-browser-title" aria-describedby="corpus-browser-description">
+        <header class="corpus-browser-header">
+            <div>
+                <h3 id="corpus-browser-title">Sanskrit Corpus Browser</h3>
+                <p id="corpus-browser-description">Phase 11 read-only corpus: Dhātu, Sūtra, Stotra, Search, Trace, and Preview over ~2000 canonical records.</p>
+            </div>
+            <span id="corpus-browser-status-badge" class="corpus-browser-badge" data-status="loading">Loading</span>
+        </header>
+
+        <div id="corpus-browser-stats" class="corpus-browser-stats-grid" aria-label="Corpus index statistics">
+            <article class="corpus-browser-stat">
+                <span class="corpus-browser-stat-label">Indexed records</span>
+                <strong class="corpus-browser-stat-value">—</strong>
+            </article>
+            <article class="corpus-browser-stat">
+                <span class="corpus-browser-stat-label">Active section</span>
+                <strong class="corpus-browser-stat-value">Preview</strong>
+            </article>
+            <article class="corpus-browser-stat">
+                <span class="corpus-browser-stat-label">Matches</span>
+                <strong class="corpus-browser-stat-value">0</strong>
+            </article>
+            <article class="corpus-browser-stat corpus-browser-stat-status">
+                <span class="corpus-browser-stat-label">Status</span>
+                <strong class="corpus-browser-stat-value">Checking</strong>
+            </article>
+        </div>
+
+        <nav id="corpus-browser-nav" class="corpus-browser-nav" aria-label="Corpus browser sections">
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="dhatu" aria-pressed="false">Dhatu</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="sutra" aria-pressed="false">Sutra</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="stotra" aria-pressed="false">Stotra</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="search" aria-pressed="false">Search</button>
+            <button type="button" class="corpus-browser-nav-btn" data-corpus-section="trace" aria-pressed="false">Trace</button>
+            <button type="button" class="corpus-browser-nav-btn is-active" data-corpus-section="preview" aria-pressed="true">Preview</button>
+        </nav>
+
+        <div class="corpus-browser-controls" aria-label="Corpus search controls">
+            <label for="corpus-browser-search-input">Search query</label>
+            <input id="corpus-browser-search-input" type="search" spellcheck="false" placeholder="भू, वृद्धि, धर्मक्षेत्रे…" autocomplete="off">
+
+            <label for="corpus-browser-type-filter">Corpus type</label>
+            <select id="corpus-browser-type-filter">
+                <option value="">Any type</option>
+                <option value="dhatu">Dhatu</option>
+                <option value="sutra">Sutra</option>
+                <option value="stotra">Stotra</option>
+            </select>
+
+            <button id="corpus-browser-search-btn" type="button">Search corpus</button>
+            <span id="corpus-browser-search-status" class="corpus-browser-search-status" role="status" aria-live="polite">Idle</span>
+        </div>
+
+        <div class="corpus-browser-layout">
+            <section class="corpus-browser-results-panel" aria-labelledby="corpus-browser-results-title">
+                <h4 id="corpus-browser-results-title">Preview results</h4>
+                <div id="corpus-browser-results" class="corpus-browser-results-list">
+                    <div class="corpus-browser-empty">Loading corpus records…</div>
+                </div>
+            </section>
+
+            <aside class="corpus-browser-trace-panel" aria-labelledby="corpus-browser-trace-title">
+                <h4 id="corpus-browser-trace-title">Trace / Preview</h4>
+                <div id="corpus-browser-trace" class="corpus-browser-trace-list">
+                    <div class="corpus-browser-trace-line">Awaiting corpus index…</div>
+                </div>
+                <div id="corpus-browser-meta" class="corpus-browser-meta" role="note">
+                    Read-only preview. Canonical writes require <code>AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=1</code>.
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="semantic-platform-status" aria-labelledby="semantic-platform-status-title" aria-describedby="semantic-platform-status-description">
+        <header class="semantic-platform-status-header">
+            <h3 id="semantic-platform-status-title">Semantic Platform Status</h3>
+            <p id="semantic-platform-status-description">Read-only platform checkpoint summary for semantic APIs, validators, fixtures, and UI readiness.</p>
+        </header>
+
+        <div class="semantic-platform-status-safety" role="note">
+            Placeholder-safe: no exact sutra guarantees, no authoritative grammatical claims, and no canonical write hooks.
+        </div>
+
+        <div class="semantic-platform-status-layout">
+            <section class="semantic-platform-status-panel" aria-labelledby="semantic-platform-overview-title" tabindex="0">
+                <h4 id="semantic-platform-overview-title">Platform Overview</h4>
+                <div id="semantic-platform-overview-output" class="semantic-platform-status-list">No platform status loaded</div>
+            </section>
+
+            <section class="semantic-platform-status-panel" aria-labelledby="semantic-platform-validators-title" tabindex="0">
+                <h4 id="semantic-platform-validators-title">Validator Summary</h4>
+                <div id="semantic-platform-validators-output" class="semantic-platform-status-list">No validators loaded</div>
+            </section>
+
+            <section class="semantic-platform-status-panel" aria-labelledby="semantic-platform-endpoints-title" tabindex="0">
+                <h4 id="semantic-platform-endpoints-title">Available APIs</h4>
+                <div id="semantic-platform-endpoints-output" class="semantic-platform-status-list">No endpoints loaded</div>
+            </section>
+
+            <section class="semantic-platform-status-panel" aria-labelledby="semantic-platform-docs-title" tabindex="0">
+                <h4 id="semantic-platform-docs-title">Docs & Examples</h4>
+                <div id="semantic-platform-docs-output" class="semantic-platform-status-list">No documentation references loaded</div>
+            </section>
+
+            <section class="semantic-platform-status-panel" aria-labelledby="semantic-platform-checkpoint-title" tabindex="0">
+                <h4 id="semantic-platform-checkpoint-title">Checkpoint</h4>
+                <div id="semantic-platform-checkpoint-output" class="semantic-platform-status-list">No checkpoint reference loaded</div>
+            </section>
+
+            <section class="semantic-platform-status-panel semantic-platform-safety-panel" aria-labelledby="semantic-platform-safety-title" tabindex="0">
+                <h4 id="semantic-platform-safety-title">Safety Policy</h4>
+                <div id="semantic-platform-safety-output" class="semantic-platform-status-list">No safety policy loaded</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="sanskrit-panel vedanga-pipeline-panel">
+  <div class="section-heading">
+    <h3>Vedāṅga Pipeline Overview</h3>
+    <p>Six auxiliary disciplines mapped as a future Sanskrit processing sequence.</p>
+  </div>
+
+  <div id="vedanga-pipeline-grid" class="vedanga-pipeline-grid" aria-label="Vedanga pipeline overview">
+    <article class="vedanga-card">
+      <strong>Śikṣā</strong>
+      <span>Phonetics</span>
+      <small>Validates sound, articulation, accent, and oral fidelity.</small>
+    </article>
+
+    <article class="vedanga-card">
+      <strong>Chandas</strong>
+      <span>Meter</span>
+      <small>Checks syllable weight, rhythm, pāda structure, and meter class.</small>
+    </article>
+
+    <article class="vedanga-card active-vedanga">
+      <strong>Vyākaraṇa</strong>
+      <span>Grammar</span>
+      <small>Current active engine: sandhi, morphology, dhātu, derivation, and semantic graph.</small>
+    </article>
+
+    <article class="vedanga-card">
+      <strong>Nirukta</strong>
+      <span>Etymology</span>
+      <small>Explains archaic words through roots, semantic lineage, and context.</small>
+    </article>
+
+    <article class="vedanga-card">
+      <strong>Jyotiṣa</strong>
+      <span>Timing</span>
+      <small>Future ritual timing context, calendar alignment, and muhūrta metadata.</small>
+    </article>
+
+    <article class="vedanga-card">
+      <strong>Kalpa</strong>
+      <span>Procedure</span>
+      <small>Future ritual procedure layer for action sequence and rule context.</small>
+    </article>
+  </div>
+</section>
+
+    <section class="semantic-graph-view" aria-labelledby="semantic-graph-title" aria-describedby="semantic-graph-description">
+        <header class="semantic-graph-header">
+            <h3 id="semantic-graph-title">Semantic Graph View</h3>
+            <p id="semantic-graph-description">Lightweight read-only semantic graph visualization for dhātu nodes, relation edges, and traversal paths.</p>
+        </header>
+
+        <div class="semantic-graph-layout">
+            <canvas id="semantic-graph-canvas" class="semantic-graph-canvas" aria-label="Semantic graph nodes and traversal highlights"></canvas>
+            <aside class="semantic-graph-side-panel">
+                <h4>Selected Node</h4>
+                <div id="semantic-graph-summary" class="semantic-graph-summary" aria-live="polite">No semantic node selected</div>
+                <h4>Relation Legend</h4>
+                <div id="semantic-graph-legend" class="semantic-graph-legend" role="list" aria-label="Semantic graph relation legend">No relation legend loaded</div>
+                <h4>Replay</h4>
+<div id="semantic-graph-replay" class="semantic-graph-replay" aria-live="polite">No graph expansion history recorded</div>
+                <div id="semantic-graph-edges" class="semantic-graph-edges">No semantic edges loaded</div>
+                <h4>Traversal Highlight</h4>
+                <div id="semantic-graph-highlight-note" class="semantic-graph-highlight-note">Highlighted nodes and edges follow the active traversal filters.</div>
+                <h4>Safety Note</h4>
+                <div id="semantic-graph-safety" class="semantic-graph-safety">No semantic safety note loaded</div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="graph-inspector" aria-label="Derivation graph inspector">
+        <header class="graph-inspector-header">
+            <h3>Derivation Graph Inspector</h3>
+            <p>Read-only portable derivation graph inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="graph-load-demo" type="button">Load Demo Graph</button>
+            <button id="graph-export-session" type="button">Export Current Session Graph</button>
+            <span id="graph-status" class="graph-status" role="status" aria-live="polite">Graph inspector idle</span>
+        </div>
+
+        <div class="graph-grid">
+            <section class="graph-card">
+                <h4>Demo Graph Export</h4>
+                <div id="graph-demo-output" class="graph-list">No demo graph loaded</div>
+            </section>
+
+            <section class="graph-card">
+                <h4>Exported Session Graph</h4>
+                <div id="graph-session-output" class="graph-list">No session graph exported</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="replay-inspector" aria-label="Replay timeline inspector">
+        <header class="replay-inspector-header">
+            <h3>Replay Timeline Inspector</h3>
+            <p>Read-only deterministic derivation replay inspection.</p>
+        </header>
+
+        <div class="analysis-actions">
+            <button id="replay-load-demo" type="button">Load Demo Replay</button>
+            <button id="replay-export-session" type="button">Export Current Session Replay</button>
+            <span id="replay-status" class="replay-status" role="status" aria-live="polite">Replay inspector idle</span>
+        </div>
+
+        <div class="replay-grid">
+            <section class="replay-card">
+                <h4>Demo Replay Timeline</h4>
+                <div id="replay-demo-output" class="replay-list">No demo replay loaded</div>
+            </section>
+
+            <section class="replay-card">
+                <h4>Exported Session Replay</h4>
+                <div id="replay-session-output" class="replay-list">No session replay exported</div>
+            </section>
+        </div>
+    </section>
+
+    <section class="summary-grid" aria-label="Analysis summary">
+        <div class="summary-item">
+            <span>Overall stanza meter</span>
+            <strong id="overall-stanza-meter">-</strong>
+        </div>
+        <div class="summary-item">
+            <span>Total mātrā count</span>
+            <strong id="total-matra-count">0</strong>
+        </div>
+        <div class="summary-item">
+            <span>Parser diagnostics</span>
+            <strong id="diagnostic-count">0</strong>
+        </div>
+    </section>
+
+    <div class="sanskrit-results">
+        <section class="result-section">
+            <h3>Sandhi Result</h3>
+            <div id="sandhi-result-output" class="inspection-panel">No sandhi result</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Morphology Result</h3>
+            <div id="morphology-result-output" class="inspection-panel">No morphology result</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Governance Metadata</h3>
+            <div id="governance-output" class="inspection-panel">No governance metadata</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Derivation Timeline</h3>
+            <ol id="derivation-timeline-output" class="timeline-list"></ol>
+        </section>
+
+        <section class="result-section">
+            <h3>Ambiguity</h3>
+            <div id="ambiguity-output" class="inspection-panel">No ambiguity payload</div>
+        </section>
+
+        <section class="result-section error-section" aria-live="polite">
+            <h3>API Error</h3>
+            <div id="api-error-output" class="inspection-panel">No API error</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Transliteration</h3>
+            <div id="transliteration-output" class="result-text">-</div>
+        </section>
+
+        <section class="result-section">
+            <h3>Sandhi</h3>
+            <ol id="sandhi-output" class="compact-list"></ol>
+        </section>
+
+        <section class="result-section">
+            <h3>Chandas / Guru-Laghu</h3>
+            <div id="padas-output" class="pada-list"></div>
+            <div id="phonological-syllables-output" class="syllable-list"></div>
+        </section>
+
+        <section class="result-section">
+            <h3>Vyākaraṇa / Derivation Trace</h3>
+            <ol id="derivation-history-output" class="compact-list"></ol>
+        </section>
+
+        <section class="result-section">
+            <h3>Prakriyā Graph</h3>
+            <div id="prakriya-graph-output" class="graph-list"></div>
+        </section>
+
+        <section class="result-section">
+            <h3>Lexical Lookup</h3>
+            <div id="lexical-output" class="lexical-list"></div>
+        </section>
+
+        <section class="result-section">
+            <h3>Parser Diagnostics</h3>
+            <ol id="parser-diagnostics-output" class="compact-list"></ol>
+        </section>
+
+        <section class="result-section experimental-panel" aria-label="Experimental symbolic panel">
+            <h3>Experimental Symbolic Structural Projection Field Map</h3>
+            <p class="experimental-note">Symbolic visualization only; not acoustic, audio, or DSP output.</p>
+            <div id="experimental-payload-output" class="symbolic-grid"></div>
+        </section>
+    </div>
 </div>

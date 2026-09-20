@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "taxonomy": [
+    {
+      "id": "movement.to_go",
+      "englishGloss": "to go",
+      "dhatuId": "01.0005",
+      "category": "movement",
+      "engineUse": "semantic search, action classification, derivation graph seeding"
+    },
+    {
+      "id": "posture.to_stand",
+      "englishGloss": "to stand",
+      "dhatuId": "01.0013",
+      "category": "posture",
+      "engineUse": "semantic search, action classification, derivation graph seeding"
+    },
+    {
+      "id": "agency.to_lead",
+      "englishGloss": "to lead",
+      "dhatuId": "01.0008",
+      "category": "agency",
+      "engineUse": "semantic search, action classification, derivation graph seeding"
+    }
+  ]
+}

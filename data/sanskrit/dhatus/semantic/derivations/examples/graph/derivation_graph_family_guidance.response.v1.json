@@ -1,0 +1,143 @@
+{
+  "edgeCount": 2,
+  "edges": [
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0002",
+      "notes": "Placeholder semantic-family bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "guidance -> directional_guidance_family",
+      "relationType": "semantic_family_bridge",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "guidance",
+      "sourceType": "semantic_cluster",
+      "targetId": "directional_guidance_family",
+      "targetType": "derivation_family"
+    },
+    {
+      "confidence": "unreviewed",
+      "depthPolicy": "bounded-read-only-traversal",
+      "edgeId": "edge.derivation.semantic.0005",
+      "notes": "Placeholder family-record bridge only; no exact Paninian derivation claim is made.",
+      "relationLabel": "directional_guidance_family -> ni placeholder record",
+      "relationType": "family_record_placeholder",
+      "reviewStatus": "placeholder-local-review-required",
+      "sourceId": "directional_guidance_family",
+      "sourceType": "derivation_family",
+      "targetId": "derivation.semantic.01.0008",
+      "targetType": "derivation_record"
+    }
+  ],
+  "errorCode": null,
+  "generatedBy": "api/kernel_api.py:/api/dhatu/semantic/derivation-graph",
+  "nodeCount": 3,
+  "nodes": [
+    {
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "graphNodeId": "directional_guidance_family",
+      "label": "directional guidance family",
+      "nodeType": "derivation_family",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "guidance",
+        "leading",
+        "transfer"
+      ],
+      "transformationHints": [
+        "guidance-and-transfer exploration"
+      ]
+    },
+    {
+      "derivationFamilyId": "family.semantic.guidance-transfer",
+      "dhatuId": "01.0008",
+      "graphNodeId": "derivation.semantic.01.0008",
+      "label": "ni",
+      "nodeType": "derivation_record",
+      "reviewStatus": "placeholder-local-review-required",
+      "semanticLineage": [
+        "guidance",
+        "leading",
+        "transfer"
+      ],
+      "transformationHints": [
+        "Local placeholder for future guidance-and-transfer semantic exploration.",
+        "No grammatical correctness guarantee is provided."
+      ]
+    },
+    {
+      "graphNodeId": "guidance",
+      "label": "guidance",
+      "nodeType": "semantic_cluster",
+      "reviewStatus": "placeholder-local-review-required"
+    }
+  ],
+  "pathCount": 2,
+  "paths": [
+    {
+      "depth": 1,
+      "edges": [
+        "edge.derivation.semantic.0005"
+      ],
+      "nodes": [
+        {
+          "nodeId": "directional_guidance_family",
+          "nodeType": "derivation_family"
+        },
+        {
+          "nodeId": "derivation.semantic.01.0008",
+          "nodeType": "derivation_record"
+        }
+      ],
+      "pathId": "path.derivation.semantic.0001",
+      "relationLabels": [
+        "directional_guidance_family -> ni placeholder record"
+      ],
+      "terminalNodeId": "derivation.semantic.01.0008"
+    },
+    {
+      "depth": 1,
+      "edges": [
+        "edge.derivation.semantic.0002"
+      ],
+      "nodes": [
+        {
+          "nodeId": "directional_guidance_family",
+          "nodeType": "derivation_family"
+        },
+        {
+          "nodeId": "guidance",
+          "nodeType": "semantic_cluster"
+        }
+      ],
+      "pathId": "path.derivation.semantic.0002",
+      "relationLabels": [
+        "guidance -> directional_guidance_family"
+      ],
+      "terminalNodeId": "guidance"
+    }
+  ],
+  "query": {
+    "dhatuId": null,
+    "domain": null,
+    "family": "guidance-transfer",
+    "maxDepth": 2,
+    "relation": null,
+    "relationType": null
+  },
+  "safety": {
+    "authoritativePaninianClaims": false,
+    "automatedDerivationGeneration": false,
+    "canonicalRegistryMutation": false,
+    "exactSutraAssertions": false,
+    "grammaticalCorrectnessGuarantee": false,
+    "requiredConfidence": "unreviewed",
+    "requiredReviewStatus": "placeholder-local-review-required",
+    "warning": "Placeholder-only derivation graph bridge; no exact Paninian derivation claim is made."
+  },
+  "schemaVersion": "1.0.0",
+  "traversalStatus": "OK",
+  "traversedEdgeIds": [
+    "edge.derivation.semantic.0002",
+    "edge.derivation.semantic.0005"
+  ]
+}

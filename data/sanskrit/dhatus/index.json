@@ -1,0 +1,121 @@
+{
+  "records": {
+    "01.0001": {
+      "canonicalForm": "भवति",
+      "gana": {
+        "slug": "bhvadi"
+      },
+      "root": "भू"
+    },
+    "01.0002": {
+      "canonicalForm": "एधते",
+      "gana": {
+        "slug": "bhvadi"
+      },
+      "root": "एध्"
+    },
+    "01.0005": {
+      "canonicalForm": "गम्",
+      "gana": {
+        "id": "01"
+      },
+      "gloss": "to go",
+      "promotion": {
+        "reviewDecision": "approve",
+        "source": "local-staged-bhvadi-batch-001",
+        "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+        "sourceRootId": "01.STAGED.0001"
+      },
+      "root": "गम्",
+      "rootIast": "gam"
+    },
+    "01.0008": {
+      "canonicalForm": "नी",
+      "gana": {
+        "id": "01"
+      },
+      "gloss": "to lead",
+      "promotion": {
+        "reviewDecision": "approve",
+        "source": "local-staged-bhvadi-batch-001",
+        "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+        "sourceRootId": "01.STAGED.0003"
+      },
+      "root": "नी",
+      "rootIast": "nī"
+    },
+    "01.0013": {
+      "canonicalForm": "स्था",
+      "gana": {
+        "id": "01"
+      },
+      "gloss": "to stand",
+      "promotion": {
+        "reviewDecision": "approve",
+        "source": "local-staged-bhvadi-batch-001",
+        "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+        "sourceRootId": "01.STAGED.0002"
+      },
+      "root": "स्था",
+      "rootIast": "sthā"
+    },
+    "02.0001": {
+      "canonicalForm": "?????",
+      "gana": {
+        "slug": "adadi"
+      },
+      "root": "???"
+    },
+    "03.0001": {
+      "canonicalForm": "जुहोति",
+      "gana": {
+        "slug": "juhotyadi"
+      },
+      "root": "हु"
+    },
+    "04.0001": {
+      "canonicalForm": "दीव्यति",
+      "gana": {
+        "slug": "divadi"
+      },
+      "root": "दिव्"
+    },
+    "06.0001": {
+      "canonicalForm": "तुदति",
+      "gana": {
+        "slug": "tudadi"
+      },
+      "root": "तुद्"
+    },
+    "07.0001": {
+      "canonicalForm": "रुणद्धि",
+      "gana": {
+        "slug": "rudhadi"
+      },
+      "root": "रुध्"
+    },
+    "08.0001": {
+      "canonicalForm": "तनोति",
+      "gana": {
+        "slug": "tanadi"
+      },
+      "root": "तनु"
+    },
+    "09.0001": {
+      "canonicalForm": "क्रीणाति",
+      "gana": {
+        "slug": "kryadi"
+      },
+      "root": "क्री"
+    },
+    "10.0001": {
+      "canonicalForm": "चोरयति",
+      "gana": {
+        "slug": "curadi"
+      },
+      "root": "चुर्"
+    }
+  },
+  "schema": "aigaane.dhatu_index.v1",
+  "version": "20B.import.1"
+}

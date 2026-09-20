@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "RV_01_001_01",
+      "name": "Rigveda 1.1.1",
+      "meter": "G\u0101yatr\u012b",
+      "input_text": "\u0905\u0917\u094d\u0928\u093f\u092e\u0940\u0933\u0947 \u092a\u0941\u0930\u094b\u0939\u093f\u0924\u0902 | \u092f\u091c\u094d\u091e\u0938\u094d\u092f \u0926\u0947\u0935\u0902 \u090b\u0924\u094d\u0935\u093f\u091c\u092e\u094d | \u0939\u094b\u0924\u093e\u0930\u0902 \u0930\u0924\u094d\u0928\u0927\u093e\u0924\u092e\u092e\u094d ||",
+      "expected": {
+        "meter_substring": "G\u0101yatr\u012b",
+        "pada_count": 3,
+        "dimensions": [
+          8,
+          8,
+          8
+        ],
+        "weight_strings": [
+          "GLGGLGLG",
+          "GGLGGGLG",
+          "GGGGLGLG"
+        ],
+        "pada_matra_totals": [
+          13,
+          14,
+          14
+        ],
+        "total_matra_count": 41
+      }
+    },
+    {
+      "id": "BG_01_001_01",
+      "name": "Bhagavad G\u012bt\u0101 1.1",
+      "meter": "Anu\u1e63\u1e6dubh",
+      "input_text": "\u0927\u0930\u094d\u092e\u0915\u094d\u0937\u0947\u0924\u094d\u0930\u0947 \u0915\u0941\u0930\u0941\u0915\u094d\u0937\u0947\u0924\u094d\u0930\u0947 \u0938\u092e\u0935\u0947\u0924\u093e \u092f\u0941\u092f\u0941\u0924\u094d\u0938\u0935\u0903 | \u092e\u093e\u092e\u0915\u093e\u0903 \u092a\u093e\u0923\u094d\u0921\u0935\u093e\u0936\u094d\u091a\u0948\u0935 \u0915\u093f\u092e\u0915\u0941\u0930\u094d\u0935\u0924 \u0938\u091e\u094d\u091c\u092f ||",
+      "expected": {
+        "meter_substring": "Anu\u1e63\u1e6dubh",
+        "pada_count": 4,
+        "dimensions": [
+          8,
+          8,
+          8,
+          8
+        ],
+        "weight_strings": [
+          "GGGGLGGG",
+          "LLGGLGLG",
+          "GLGGLGGL",
+          "LLGLLGLL"
+        ],
+        "pada_matra_totals": [
+          15,
+          12,
+          13,
+          10
+        ],
+        "total_matra_count": 50
+      }
+    }
+  ]
+}

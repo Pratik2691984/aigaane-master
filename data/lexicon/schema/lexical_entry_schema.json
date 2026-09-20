@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aigaane Lexical Registry Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lexical_id",
+    "lemma_devanagari",
+    "lemma_iast",
+    "category",
+    "gender",
+    "stem_class",
+    "dhatu_class",
+    "meaning",
+    "source",
+    "normalization",
+    "status"
+  ],
+  "properties": {
+    "lexical_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lemma_devanagari": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lemma_iast": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": ["noun", "verb", "indeclinable", "unknown"]
+    },
+    "gender": {
+      "type": ["string", "null"],
+      "enum": ["masculine", "feminine", "neuter", null]
+    },
+    "stem_class": {
+      "type": ["string", "null"]
+    },
+    "dhatu_class": {
+      "type": ["string", "null"]
+    },
+    "meaning": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "citation", "license", "verified"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["manual", "dictionary", "corpus", "app", "scholarly"]
+        },
+        "citation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "normalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unicode", "script_policy"],
+      "properties": {
+        "unicode": {
+          "const": "NFC"
+        },
+        "script_policy": {
+          "const": "devanagari_primary"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["validated", "draft", "rejected"]
+    }
+  }
+}

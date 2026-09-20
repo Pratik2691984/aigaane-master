@@ -1,0 +1,30 @@
+{
+  "version": "node3c_morphology_phase1",
+  "declension": "feminine_ii",
+  "paradigm": "nadi_feminine",
+  "gender": "feminine",
+  "stem_class": "feminine_ii",
+  "ending": "ī",
+  "forms": {
+    "nominative": {
+      "singular": "नदी",
+      "plural": "नद्यः"
+    },
+    "accusative": {
+      "singular": "नदीम्",
+      "plural": "नदीः"
+    },
+    "instrumental": {
+      "singular": "नद्या"
+    },
+    "dative": {
+      "singular": "नद्यै"
+    },
+    "genitive": {
+      "singular": "नद्याः"
+    },
+    "locative": {
+      "singular": "नद्याम्"
+    }
+  }
+}
