@@ -2,9 +2,11 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 import re
 import unicodedata
-
-from engines.trace_graph import DerivationStep, DerivationTraceGraph
-
+try:
+    from api.engines.trace_graph import DerivationStep, DerivationTraceGraph
+except ModuleNotFoundError:
+    from engines.trace_graph import DerivationStep, DerivationTraceGraph
+from engine.phonology.pratyahara import is_member, sthane_antaratamah, PHONETIC_COORDS
 
 INDEPENDENT_VOWELS = {
     "\u0905": "a",
@@ -15,6 +17,7 @@ INDEPENDENT_VOWELS = {
     "\u090a": "\u016b",
     "\u090b": "\u1e5b",
     "\u0960": "\u1e5d",
+    "\u090c": "\u1e37",
     "\u090f": "e",
     "\u0910": "ai",
     "\u0913": "o",
@@ -29,6 +32,7 @@ VOWEL_SIGNS = {
     "\u0942": "\u016b",
     "\u0943": "\u1e5b",
     "\u0944": "\u1e5d",
+    "\u0962": "\u1e37",
     "\u0947": "e",
     "\u0948": "ai",
     "\u094b": "o",
@@ -43,10 +47,41 @@ VOWEL_TO_SIGN = {
     "\u016b": "\u0942",
     "\u1e5b": "\u0943",
     "\u1e5d": "\u0944",
+    "\u1e37": "\u0962",
     "e": "\u0947",
     "ai": "\u0948",
     "o": "\u094b",
     "au": "\u094c",
+}
+
+# Mapping between IAST and Devanagari phonemes for Pratyahara engine
+IAST_TO_DEVA = {
+    "a": "अ", "\u0101": "आ",
+    "i": "इ", "\u012b": "ई",
+    "u": "उ", "\u016b": "ऊ",
+    "\u1e5b": "ऋ", "\u1e5d": "ॠ",
+    "\u1e37": "ऌ",
+    "e": "ए", "ai": "ऐ",
+    "o": "ओ", "au": "औ"
+}
+
+DEVA_TO_IAST = {v: k for k, v in IAST_TO_DEVA.items()}
+
+# 1.1.50 savarna dirgha mapping
+DIRGHA_MAP = {
+    "अ": "आ", "आ": "आ",
+    "इ": "ई", "ई": "ई",
+    "उ": "ऊ", "ऊ": "ऊ",
+    "ऋ": "ॠ", "ॠ": "ॠ",
+    "ऌ": "ऌ"
+}
+
+# Guna map for 6.1.87
+GUNA_MAP = {
+    "इ": "ए", "ई": "ए",
+    "उ": "ओ", "ऊ": "ओ",
+    "ऋ": "अर्", "ॠ": "अर्",
+    "ऌ": "अल्"
 }
 
 CONSONANT_RE = re.compile(r"[\u0915-\u0939]")
@@ -172,6 +207,32 @@ def derivation_path(
     ).to_list()
 
 
+def is_savarna(v1: str, v2: str) -> bool:
+    """1.1.9 tulyāsya-prayatnaṁ savarṇam (matches sthāna & ābhyantara-prayatna)"""
+    if v1 not in PHONETIC_COORDS or v2 not in PHONETIC_COORDS:
+        return False
+    # Check sthāna (index 0) and prayatna (index 1)
+    return PHONETIC_COORDS[v1][:2] == PHONETIC_COORDS[v2][:2]
+
+
+def is_ak(v: str) -> bool:
+    """Extension of 'अक्' pratyāhāra to include short and dīrgha forms."""
+    base_deva = {"आ": "अ", "ई": "इ", "ऊ": "उ", "ॠ": "ऋ"}.get(v, v)
+    return is_member(base_deva, "अक्")
+
+
+def is_ik(v: str) -> bool:
+    """Extension of 'इक्' pratyāhāra (इ, उ, ऋ, ऌ and their dīrgha variants)."""
+    base_deva = {"ई": "इ", "ऊ": "उ", "ॠ": "ऋ"}.get(v, v)
+    return is_member(base_deva, "इक्")
+
+
+def is_ac(v: str) -> bool:
+    """Extension of 'अच्' pratyāhāra (all vowels short and long)."""
+    base_deva = {"आ": "अ", "ई": "इ", "ऊ": "उ", "ॠ": "ऋ"}.get(v, v)
+    return is_member(base_deva, "अच्")
+
+
 def analyze_vowel_sandhi(word1: str, word2: str) -> Dict[str, Any]:
     left_word = normalize_word(word1, "word1")
     right_word = normalize_word(word2, "word2")
@@ -186,23 +247,17 @@ def analyze_vowel_sandhi(word1: str, word2: str) -> Dict[str, Any]:
     remainder = remove_initial_vowel(right_word, right)
     base = remove_final_vowel(left_word, left)
 
-    savarna_dirgha = {
-        ("a", "a"): "\u0101",
-        ("a", "\u0101"): "\u0101",
-        ("\u0101", "a"): "\u0101",
-        ("\u0101", "\u0101"): "\u0101",
-        ("i", "i"): "\u012b",
-        ("i", "\u012b"): "\u012b",
-        ("\u012b", "i"): "\u012b",
-        ("\u012b", "\u012b"): "\u012b",
-        ("u", "u"): "\u016b",
-        ("u", "\u016b"): "\u016b",
-        ("\u016b", "u"): "\u016b",
-        ("\u016b", "\u016b"): "\u016b",
-    }
-    long_vowel = savarna_dirgha.get((left.vowel, right.vowel))
-    if long_vowel:
-        merged = add_vowel_to_final_carrier(base, left, long_vowel) + remainder
+    v1_deva = IAST_TO_DEVA.get(left.vowel)
+    v2_deva = IAST_TO_DEVA.get(right.vowel)
+
+    if not v1_deva or not v2_deva:
+        raise SandhiException("Unrecognized vowel phonemes.")
+
+    # Rule 1: Sūtra 6.1.101 akaḥ savarṇe dīrghaḥ
+    if is_ak(v1_deva) and is_savarna(v1_deva, v2_deva):
+        long_vowel_deva = DIRGHA_MAP.get(v1_deva, v1_deva)
+        long_vowel_iast = DEVA_TO_IAST[long_vowel_deva]
+        merged = add_vowel_to_final_carrier(base, left, long_vowel_iast) + remainder
         sutra_name = "\u0905\u0915\u0903 \u0938\u0935\u0930\u094d\u0923\u0947 \u0926\u0940\u0930\u094d\u0918\u0903"
         return {
             "merged": merged,
@@ -213,8 +268,11 @@ def analyze_vowel_sandhi(word1: str, word2: str) -> Dict[str, Any]:
             "derivation_path": derivation_path("6.1.101", sutra_name, "savarna_dirgha_substitution", left_word, right_word, merged),
         }
 
-    if left.vowel in {"a", "\u0101"} and right.vowel in {"i", "\u012b"}:
-        merged = add_vowel_to_final_carrier(base, left, "e") + remainder
+    # Rule 2: Sūtra 6.1.87 ād guṇaḥ
+    if v1_deva in {"अ", "आ"} and v2_deva in GUNA_MAP:
+        guna_char = GUNA_MAP[v2_deva]
+        guna_iast = DEVA_TO_IAST.get(guna_char, "e")
+        merged = add_vowel_to_final_carrier(base, left, guna_iast) + remainder
         sutra_name = "\u0906\u0926\u094d \u0917\u0941\u0923\u0903"
         return {
             "merged": merged,
@@ -225,8 +283,12 @@ def analyze_vowel_sandhi(word1: str, word2: str) -> Dict[str, Any]:
             "derivation_path": derivation_path("6.1.87", sutra_name, "guna_substitution", left_word, right_word, merged),
         }
 
-    if left.vowel in {"i", "\u012b"} and right.vowel in {"a", "\u0101", "i", "\u012b", "u", "\u016b", "e", "o", "ai", "au"}:
-        merged = compose_yan(base, left, "\u092f", right.vowel, remainder)
+    # Rule 3: Sūtra 6.1.77 iko yaṇ aci
+    if is_ik(v1_deva) and is_ac(v2_deva) and not is_savarna(v1_deva, v2_deva):
+        # Dynamically determine semivowel using 1.1.50 sthāne'ntaratamaḥ
+        yan_candidates = ["य", "व", "र", "ल"]
+        glide = sthane_antaratamah(v1_deva, yan_candidates)
+        merged = compose_yan(base, left, glide, right.vowel, remainder)
         sutra_name = "\u0907\u0915\u094b \u092f\u0923\u091a\u093f"
         return {
             "merged": merged,

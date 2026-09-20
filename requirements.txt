@@ -3,3 +3,5 @@ mangum==0.17.0
 pydantic==2.8.2
 python-multipart==0.0.9
 
+httpx
+uvicorn
