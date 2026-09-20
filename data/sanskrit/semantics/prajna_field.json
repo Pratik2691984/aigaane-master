@@ -1,0 +1,69 @@
+{
+  "lemma": "प्रज्ञा",
+  "gloss": "transcendent discernment, supreme wisdom, intuitive intellect",
+  "edges": [
+    {
+      "source": "प्रज्ञा",
+      "target": "विद्या",
+      "relation": "synonym",
+      "source_ref": "Amarakośa Nānārthavarga",
+      "weight": 0.95
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "धी",
+      "relation": "synonym",
+      "source_ref": "Amarakośa Nānārthavarga",
+      "weight": 0.9
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "बोध",
+      "relation": "synonym",
+      "source_ref": "Amarakośa Nānārthavarga",
+      "weight": 0.85
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "अविद्या",
+      "relation": "antonym",
+      "source_ref": "Traditional Epistemology",
+      "weight": 1.0
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "मोह",
+      "relation": "antonym",
+      "source_ref": "Traditional Epistemology",
+      "weight": 0.9
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "दीप",
+      "relation": "imagery",
+      "source_ref": "Vedic Metaphor Corpus",
+      "weight": 0.8
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "प्रकाश",
+      "relation": "imagery",
+      "source_ref": "Vedic Metaphor Corpus",
+      "weight": 0.85
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "प्रकाशयति",
+      "relation": "verbal",
+      "source_ref": "Dhātupāṭha (10th conjugation)",
+      "weight": 0.9
+    },
+    {
+      "source": "प्रज्ञा",
+      "target": "हन्ति",
+      "relation": "verbal",
+      "source_ref": "Dhātupāṭha (2nd conjugation - destroys darkness)",
+      "weight": 0.75
+    }
+  ]
+}

@@ -105,8 +105,36 @@ def safe_send(chat, message, retries=3, delay=3):
                 raise
     raise TimeoutError("Exceeded safe retry limit for chat message.")
 
+
+import json
+from pathlib import Path
+
+def load_semantic_context(topic: str) -> str:
+    """Loads localized semantic profile if available, structuring vocabulary for the LLM."""
+    clean_topic = topic.split()[0].strip("()[]{}")
+    fixture_path = Path(f"data/sanskrit/semantics/{clean_topic}_field.json")
+    
+    if not fixture_path.exists():
+        fixture_path = Path("data/sanskrit/semantics/prajna_field.json")
+
+    if fixture_path.exists():
+        try:
+            data = json.loads(fixture_path.read_text(encoding="utf-8"))
+            synonyms = [e["target"] for e in data["edges"] if e["relation"] == "synonym"]
+            imagery = [e["target"] for e in data["edges"] if e["relation"] == "imagery"]
+            verbs = [e["target"] for e in data["edges"] if e["relation"] == "verbal"]
+            antonyms = [e["target"] for e in data["edges"] if e["relation"] == "antonym"]
+
+            return f"""\nSEMANTIC VOCABULARY CONSTRAINTS FOR CONCEPT [{data['lemma']} ({data['gloss']})]:\n- Preferred Synonyms (Paryāya): {', '.join(synonyms)}\n- Traditional Imagery & Metaphors: {', '.join(imagery)}\n- Associated Action Verbs: {', '.join(verbs)}\n- Contrasting Concepts (Antonyms to overcome): {', '.join(antonyms)}\nUse these specific lexical elements where appropriate to elevate classical poetic depth.\n"""
+        except Exception as e:
+            print(f"[Warning] Failed to load semantic profile: {e}")
+            
+    return ""
+
 def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations: int = 5):
     system_prompt = SYSTEM_INSTRUCTION_UPAJATI if meter.lower() in ["upajati", "indravajra"] else SYSTEM_INSTRUCTION_ANUSTUBH
+    base_prompt = SYSTEM_INSTRUCTION_UPAJATI if meter.lower() in ["upajati", "indravajra"] else SYSTEM_INSTRUCTION_ANUSTUBH
+    system_prompt = base_prompt + load_semantic_context(topic)
     target_meter = "upajati" if meter.lower() in ["upajati", "indravajra"] else "anustubh"
 
     client = genai.Client(api_key=GEMINI_API_KEY)
