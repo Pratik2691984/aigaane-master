@@ -27,6 +27,13 @@ class RepairLoopExhausted(RuntimeError):
         self.iterations = iterations
         self.last_diagnostics = last_diagnostics
 
+class RepairLoopTransportError(RuntimeError):
+    """Raised when the transport layer fails mid-loop or during initialization after safe_send exhausts retries."""
+    def __init__(self, iterations: int, cause: Exception):
+        super().__init__(f"Transport failure at iteration {iterations}: {cause}")
+        self.iterations = iterations
+        self.cause = cause
+
 def verify_prosody_tool(text: str, chandas: str = "anustubh", padanta_guru: bool = True) -> dict:
     payload = {
         "text": text,
@@ -121,12 +128,12 @@ def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations:
             response = safe_send(chat, f"Compose a 4-pada Sanskrit sloka in {target_meter} meter on the topic: {topic}")
             print(f"[Composer] Active session established on: {model_name}")
             break
-        except Exception as e:
+        except (ServerError, ClientError, TimeoutError, Exception) as e:
             print(f"[Composer] {model_name} unavailable ({e}). Trying next model...")
             continue
 
     if not response:
-        raise RuntimeError("All models exhausted or currently rate-limited.")
+        raise RepairLoopTransportError(iterations=0, cause=RuntimeError("All candidate models exhausted or rate-limited."))
 
     last_diags = []
 
@@ -187,10 +194,13 @@ def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations:
         for d in last_diags:
             print(f"   - Pada {d.get('pada')}, Syl {d.get('syllable')}: {d.get('message')}")
 
-        response = safe_send(
-            chat,
-            types.Part.from_function_response(name=fn_name, response={"result": result})
-        )
+        try:
+            response = safe_send(
+                chat,
+                types.Part.from_function_response(name=fn_name, response={"result": result})
+            )
+        except (TimeoutError, ServerError, ClientError) as e:
+            raise RepairLoopTransportError(iterations=step, cause=e) from e
 
     raise RepairLoopExhausted(iterations=max_iterations, last_diagnostics=last_diags)
 
