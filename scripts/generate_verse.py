@@ -11,10 +11,18 @@ import json
 import httpx
 from google import genai
 from google.genai import types
-from google.genai.errors import ServerError
+from google.genai.errors import ServerError, ClientError
 
 API_URL = os.getenv("PROSODY_API_URL", "https://aigaane.in/api/v3/prosody/scan")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
+
+# Active models with independent quota pools
+CANDIDATE_MODELS = [
+    "gemini-3.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-3.6-flash"
+]
 
 def verify_prosody_tool(text: str, chandas: str = "anustubh", padanta_guru: bool = True) -> dict:
     payload = {
@@ -73,34 +81,52 @@ Rules:
 Call verify_prosody(text, chandas='upajati'). If defects are returned, adjust words to fix the syllable weights and call again.
 """
 
-def safe_send(chat, message, retries=5, delay=4):
+def safe_send(chat, message, retries=3, delay=3):
     for attempt in range(1, retries + 1):
         try:
             return chat.send_message(message)
-        except ServerError as e:
-            if "503" in str(e) and attempt < retries:
-                print(f"[Notice] 503 Server Busy. Retrying in {delay}s (Attempt {attempt}/{retries})...")
-                time.sleep(delay)
-                delay *= 2
+        except (ServerError, ClientError) as e:
+            err_str = str(e)
+            if "429" in err_str or "503" in err_str:
+                wait_time = delay * attempt
+                print(f"[Notice] Rate limit / Server busy: waiting {wait_time}s (Attempt {attempt}/{retries})...")
+                time.sleep(wait_time)
             else:
                 raise
+    raise TimeoutError("Exceeded safe retry limit for chat message.")
 
 def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations: int = 5):
     system_prompt = SYSTEM_INSTRUCTION_UPAJATI if meter.lower() in ["upajati", "indravajra"] else SYSTEM_INSTRUCTION_ANUSTUBH
     target_meter = "upajati" if meter.lower() in ["upajati", "indravajra"] else "anustubh"
 
     client = genai.Client(api_key=GEMINI_API_KEY)
-    chat = client.chats.create(
-        model="gemini-3.6-flash",
-        config=types.GenerateContentConfig(
-            system_instruction=system_prompt,
-            temperature=0.3,
-            tools=[types.Tool(function_declarations=[prosody_tool_declaration])]
-        )
-    )
+    
+    chat = None
+    response = None
+    selected_model = None
 
-    print(f"\n[Composer] Requesting '{target_meter}' verse on: '{topic}'")
-    response = safe_send(chat, f"Compose a 4-pada Sanskrit sloka in {target_meter} meter on the topic: {topic}")
+    for model_name in CANDIDATE_MODELS:
+        try:
+            print(f"[Composer] Connecting to model: {model_name}...")
+            chat = client.chats.create(
+                model=model_name,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_prompt,
+                    temperature=0.2,
+                    tools=[types.Tool(function_declarations=[prosody_tool_declaration])]
+                )
+            )
+            response = safe_send(chat, f"Compose a 4-pada Sanskrit sloka in {target_meter} meter on the topic: {topic}")
+            selected_model = model_name
+            print(f"[Composer] Active session established on: {selected_model}")
+            break
+        except Exception as e:
+            print(f"[Composer] {model_name} unavailable ({e}). Trying next model...")
+            continue
+
+    if not response:
+        print("[Composer] All models exhausted or currently rate-limited.")
+        return
 
     for step in range(1, max_iterations + 1):
         tool_calls = [
@@ -111,7 +137,7 @@ def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations:
         ]
 
         if not tool_calls:
-            print("\n[Final Text Output]:\n", response.text)
+            print("\n[Final Output]:\n", response.text)
             return
 
         for call in tool_calls:
