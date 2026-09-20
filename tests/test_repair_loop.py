@@ -1,10 +1,11 @@
-﻿"""
+"""
 tests/test_repair_loop.py
-Automated Unit Test for Closed-Loop Agentic Verse Repair
-Mock-drives the generation cycle to assert convergence without hitting live API quotas.
+Automated Unit Tests for Closed-Loop Agentic Verse Repair and Exhaustion Limits
+Exercises the real generate_verified_verse driver function using mocked LLM transport and verifier.
 """
 import pytest
 from unittest.mock import MagicMock, patch
+from scripts.generate_verse import generate_verified_verse, RepairLoopExhausted
 
 class MockPart:
     def __init__(self, text=None, function_call=None):
@@ -16,57 +17,70 @@ class MockCandidate:
         self.content = MagicMock(parts=parts)
 
 class MockResponse:
-    def __init__(self, candidates):
+    def __init__(self, candidates, text=""):
         self.candidates = candidates
-        self.text = "Mock final output"
+        self.text = text
 
 class MockFunctionCall:
     def __init__(self, name, args):
         self.name = name
         self.args = args
 
-def test_repair_loop_convergence():
-    """
-    Asserts that the closed loop handles an invalid initial verse,
-    parses the diagnostic feedback, and successfully terminates on a valid verse.
-    """
-    from scripts.generate_verse import verify_prosody_tool
-    
-    # Simulate first turn: model emits a verse with an akṣara count defect
+@patch("scripts.generate_verse.verify_prosody_tool")
+@patch("scripts.generate_verse.genai.Client")
+def test_repair_loop_real_convergence(mock_genai_client, mock_verify):
     broken_verse = "प्रज्ञा प्रदीपेन तमोविनाशम्\nमोहान्धकारं सहसा निहन्ति।\nकरोति चेतः सुविशुद्धमेव\nसत्यं परं दर्शयति प्रकामम्॥"
-    # Simulate second turn: model fixes it
-    fixed_verse = "प्रज्ञा तमोघ्नी च तमोनुती च\nदीप्तेव शुद्धा मनसोऽभिवृत्तिः ।\nसंसारसिन्धोस्तरणीयशेषा\nविज्ञानदृष्टिः परमा हि विद्या ॥"
+    valid_verse = "प्रज्ञा तमोघ्नी च तमोनुती च\nदीप्तेव शुद्धा मनसोऽभिवृत्तिः ।\nसंसारसिन्धोस्तरणीयशेषा\nविज्ञानदृष्टिः परमा हि विद्या ॥"
 
-    call_count = 0
-
-    def mock_send_message(message, **kwargs):
-        nonlocal call_count
-        call_count += 1
-        if call_count == 1:
-            # Return function call requesting verification of the broken verse
-            fc = MockFunctionCall("verify_prosody", {"text": broken_verse, "chandas": "upajati", "padanta_guru": True})
-            return MockResponse([MockCandidate([MockPart(function_call=fc)])])
-        else:
-            # After receiving defects, return text response or verified state
-            return MockResponse([MockCandidate([MockPart(text=fixed_verse)])])
+    fc = MockFunctionCall("verify_prosody", {"text": broken_verse, "chandas": "upajati", "padanta_guru": True})
+    resp1 = MockResponse([MockCandidate([MockPart(function_call=fc)])])
+    resp2 = MockResponse([], text=valid_verse)
 
     mock_chat = MagicMock()
-    mock_chat.send_message.side_effect = mock_send_message
+    mock_chat.send_message.side_effect = [resp1, resp2]
+    mock_genai_client.return_value.chats.create.return_value = mock_chat
 
-    # Run a simulated mini loop mirroring generate_verified_verse logic
-    response = mock_chat.send_message("Compose upajati")
-    
-    # Iteration 1: Catch tool call, verify against real endpoint logic or mock
-    tool_calls = [p.function_call for c in response.candidates for p in c.content.parts if p.function_call]
-    assert len(tool_calls) == 1
-    
-    call = tool_calls[0]
-    assert call.name == "verify_prosody"
-    
-    # Send feedback back to chat
-    response2 = mock_chat.send_message("Feedback response")
-    terminal_tool_calls = [p.function_call for c in response2.candidates for p in c.content.parts if p.function_call]
-    
-    # Assert convergence (no further tool calls required once fixed text is output)
-    assert len(terminal_tool_calls) == 0
-    assert call_count == 2
+    mock_verify.side_effect = [
+        {
+            "valid": False,
+            "chandas": "indravajrā",
+            "diagnostics": [{"pada": 1, "syllable": 9, "message": "Pāda 1 has 9 akṣaras, expected 11."}]
+        },
+        {
+            "valid": True,
+            "chandas": "indravajrā",
+            "variant": "śuddha",
+            "padas": [{"pada_number": 1, "text": valid_verse.splitlines()[0], "weight_pattern": "GGLGGLLGLGG", "total_syllables": 11}]
+        }
+    ]
+
+    result = generate_verified_verse(topic="प्रज्ञा", meter="upajati", max_iterations=3)
+
+    assert mock_verify.call_count == 2
+    assert mock_chat.send_message.call_count == 2
+    assert result["valid"] is True
+    assert result["iterations"] == 2
+
+@patch("scripts.generate_verse.verify_prosody_tool")
+@patch("scripts.generate_verse.genai.Client")
+def test_repair_loop_terminates_on_exhaustion(mock_genai_client, mock_verify):
+    broken_verse = "प्रज्ञा प्रदीपेन तमोविनाशम्..."
+    fc = MockFunctionCall("verify_prosody", {"text": broken_verse, "chandas": "anustubh"})
+    resp = MockResponse([MockCandidate([MockPart(function_call=fc)])])
+
+    mock_chat = MagicMock()
+    mock_chat.send_message.return_value = resp
+    mock_genai_client.return_value.chats.create.return_value = mock_chat
+
+    mock_verify.return_value = {
+        "valid": False,
+        "chandas": "anuṣṭubh",
+        "diagnostics": [{"pada": 1, "syllable": 5, "message": "Expected Laghu."}]
+    }
+
+    with pytest.raises(RepairLoopExhausted) as exc_info:
+        generate_verified_verse(topic="प्रज्ञा", meter="anustubh", max_iterations=2)
+
+    assert exc_info.value.iterations == 2
+    assert len(exc_info.value.last_diagnostics) == 1
+    assert mock_verify.call_count == 2

@@ -1,4 +1,4 @@
-﻿"""
+"""
 scripts/generate_verse.py
 Multi-Meter Closed-Loop Sanskrit Verse Generator & Repair Engine
 Supports: Anuṣṭubh (Pathyā) & Upajāti (Indravajrā / Upendravajrā)
@@ -13,16 +13,19 @@ from google import genai
 from google.genai import types
 from google.genai.errors import ServerError, ClientError
 
+# Import authoritative model registry
+from engine.llm.models import get_model_names
+CANDIDATE_MODELS = get_model_names()
+
 API_URL = os.getenv("PROSODY_API_URL", "https://aigaane.in/api/v3/prosody/scan")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 
-# Active models with independent quota pools
-CANDIDATE_MODELS = [
-    "gemini-3.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-3.6-flash"
-]
+class RepairLoopExhausted(RuntimeError):
+    """Raised when the agentic repair loop reaches max iterations without converging on a valid verse."""
+    def __init__(self, iterations: int, last_diagnostics: list):
+        super().__init__(f"Repair loop exhausted after {iterations} iterations without converging.")
+        self.iterations = iterations
+        self.last_diagnostics = last_diagnostics
 
 def verify_prosody_tool(text: str, chandas: str = "anustubh", padanta_guru: bool = True) -> dict:
     payload = {
@@ -103,7 +106,6 @@ def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations:
     
     chat = None
     response = None
-    selected_model = None
 
     for model_name in CANDIDATE_MODELS:
         try:
@@ -117,16 +119,16 @@ def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations:
                 )
             )
             response = safe_send(chat, f"Compose a 4-pada Sanskrit sloka in {target_meter} meter on the topic: {topic}")
-            selected_model = model_name
-            print(f"[Composer] Active session established on: {selected_model}")
+            print(f"[Composer] Active session established on: {model_name}")
             break
         except Exception as e:
             print(f"[Composer] {model_name} unavailable ({e}). Trying next model...")
             continue
 
     if not response:
-        print("[Composer] All models exhausted or currently rate-limited.")
-        return
+        raise RuntimeError("All models exhausted or currently rate-limited.")
+
+    last_diags = []
 
     for step in range(1, max_iterations + 1):
         tool_calls = [
@@ -136,47 +138,61 @@ def generate_verified_verse(topic: str, meter: str = "anustubh", max_iterations:
             if part.function_call
         ]
 
-        if not tool_calls:
-            print("\n[Final Output]:\n", response.text)
-            return
-
-        for call in tool_calls:
+        candidate_text = ""
+        fn_name = "verify_prosody"
+        if tool_calls:
+            call = tool_calls[0]
             fn_name = call.name
-            args = dict(call.args)
-            candidate_text = args.get("text", "")
-            scanned_chandas = args.get("chandas", target_meter)
-            print(f"\n[Iteration {step}] Candidate Verse:\n{candidate_text}")
+            args = dict(call.args) if call.args else {}
+            candidate_text = str(args.get("text", ""))
+            scanned_chandas = str(args.get("chandas", target_meter))
+        elif response.text:
+            candidate_text = response.text.strip()
+            scanned_chandas = target_meter
 
-            result = verify_prosody_tool(
-                text=candidate_text,
-                chandas=scanned_chandas,
-                padanta_guru=args.get("padanta_guru", True)
-            )
+        if not candidate_text:
+            raise RuntimeError("Model returned empty candidate text.")
 
-            is_valid = result.get("valid", False)
-            print(f">> Result: Valid={is_valid} | Chandas={result.get('chandas')} | Variant={result.get('variant')}")
+        print(f"\n[Iteration {step}] Candidate Verse:\n{candidate_text}")
 
-            if is_valid:
-                print("\n" + "="*54)
-                print(f"✨ VERIFIED AUTHENTIC {result.get('chandas', target_meter).upper()} VERSE ✨")
-                print("="*54)
-                print(candidate_text.strip())
-                print("-" * 54)
-                for p in result.get("padas", []):
-                    print(f"Pāda {p['pada_number']}: {p['text']} -> {p['weight_pattern']} ({p['total_syllables']} akṣaras)")
-                print(f"Authority: Piṅgala Chhandaḥśāstra | Status: Verified")
-                print("="*54 + "\n")
-                return
+        result = verify_prosody_tool(
+            text=candidate_text,
+            chandas=scanned_chandas,
+            padanta_guru=True
+        )
 
-            diags = result.get("diagnostics", [])
-            print(f">> Defects caught: {len(diags)}")
-            for d in diags:
-                print(f"   - Pada {d.get('pada')}, Syl {d.get('syllable')}: {d.get('message')}")
+        is_valid = result.get("valid", False)
+        print(f">> Result: Valid={is_valid} | Chandas={result.get('chandas')} | Variant={result.get('variant')}")
 
-            response = safe_send(
-                chat,
-                types.Part.from_function_response(name=fn_name, response={"result": result})
-            )
+        if is_valid:
+            print("\n" + "="*54)
+            print(f"✨ VERIFIED AUTHENTIC {result.get('chandas', target_meter).upper()} VERSE ✨")
+            print("="*54)
+            print(candidate_text.strip())
+            print("-" * 54)
+            for p in result.get("padas", []):
+                print(f"Pāda {p['pada_number']}: {p['text']} -> {p['weight_pattern']} ({p['total_syllables']} akṣaras)")
+            print(f"Authority: Piṅgala Chhandaḥśāstra | Status: Verified")
+            print("="*54 + "\n")
+            return {
+                "valid": True,
+                "iterations": step,
+                "verse": candidate_text.strip(),
+                "chandas": result.get("chandas"),
+                "padas": result.get("padas")
+            }
+
+        last_diags = result.get("diagnostics", [])
+        print(f">> Defects caught: {len(last_diags)}")
+        for d in last_diags:
+            print(f"   - Pada {d.get('pada')}, Syl {d.get('syllable')}: {d.get('message')}")
+
+        response = safe_send(
+            chat,
+            types.Part.from_function_response(name=fn_name, response={"result": result})
+        )
+
+    raise RepairLoopExhausted(iterations=max_iterations, last_diagnostics=last_diags)
 
 if __name__ == "__main__":
     theme = sys.argv[1] if len(sys.argv) > 1 else "विद्या (Knowledge and Illumination)"
