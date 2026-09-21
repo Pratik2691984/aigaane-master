@@ -464,9 +464,10 @@
      PROMPT BUILDERS
      ═══════════════════════════════════════════════════════════════════════ */
   function buildCompactPrompt(state) {
-    var raga = RAGAS.find(function (r) { return r.id === state.ragaId; });
-    var tala = TALAS.find(function (t) { return t.id === state.talaId; });
-    var mood = MOODS.find(function (m) { return m.id === state.moodId; });
+        var raga = RAGAS.find(function (r) { return r.id === state.ragaId; }) || RAGAS[0];
+    var tala = TALAS.find(function (t) { return t.id === state.talaId; }) || TALAS[0];
+    var mood = MOODS.find(function (m) { return m.id === state.moodId; }) || MOODS[0];
+    if (!raga || !tala || !mood) return '';
     if (!raga || !tala || !mood) return '';
     return [
       'Raga ' + raga.name + ' (' + raga.thaat + ' thaat), ' + raga.time + '.',
@@ -480,10 +481,11 @@
   }
 
   function buildCinematicPrompt(state) {
-    var raga = RAGAS.find(function (r) { return r.id === state.ragaId; });
-    var tala = TALAS.find(function (t) { return t.id === state.talaId; });
-    var mood = MOODS.find(function (m) { return m.id === state.moodId; });
+        var raga = RAGAS.find(function (r) { return r.id === state.ragaId; }) || RAGAS[0];
+    var tala = TALAS.find(function (t) { return t.id === state.talaId; }) || TALAS[0];
+    var mood = MOODS.find(function (m) { return m.id === state.moodId; }) || MOODS[0];
     if (!raga || !tala || !mood) return '';
+    
     return [
       '=== CINEMATIC PROMPT — Gāndharvaveda Studio ===',
       '',
@@ -530,7 +532,7 @@
   /* ═══════════════════════════════════════════════════════════════════════
      SESSION VAULT
      ═══════════════════════════════════════════════════════════════════════ */
-  var VAULT_KEY = 'gandharvaveda.vault.v1';
+    var VAULT_KEY = 'gandharvaveda.vault.v2';
 
   function loadVault() {
     try {
@@ -594,8 +596,8 @@
   }
 
   function StudioTab(state, dispatch, audio) {
-    var raga = RAGAS.find(function (r) { return r.id === state.ragaId; });
-    var tala = TALAS.find(function (t) { return t.id === state.talaId; });
+        var raga = RAGAS.find(function (r) { return r.id === state.ragaId; }) || RAGAS[0];
+    var tala = TALAS.find(function (t) { return t.id === state.talaId; }) || TALAS[0];
 
     return h('div', null,
       h('div', { className: 'vv-panel' },
@@ -809,7 +811,7 @@
           h('button', {
             className: 'vv-btn vv-btn-green',
             onClick: function () {
-              var tala = TALAS.find(function (t) { return t.id === state.talaId; });
+                            var tala = TALAS.find(function (t) { return t.id === state.talaId; }) || TALAS[0];
               var bytes = buildMIDI(tala, state.tempo);
               downloadBlob(new Blob([bytes], { type: 'audio/midi' }), 'gandharvaveda-' + tala.id + '.mid');
             }
@@ -894,8 +896,8 @@
       return function () { audio.stopDrone(); };
     }, []);
 
-    var raga = RAGAS.find(function (r) { return r.id === state.ragaId; });
-    var tala = TALAS.find(function (t) { return t.id === state.talaId; });
+        var raga = RAGAS.find(function (r) { return r.id === state.ragaId; }) || RAGAS[0];
+    var tala = TALAS.find(function (t) { return t.id === state.talaId; }) || TALAS[0];
 
     return h('div', null,
       h('a', { className: 'vv-external-link', href: '/' }, '← Aigaane'),
