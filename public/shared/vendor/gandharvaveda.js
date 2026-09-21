@@ -554,15 +554,29 @@
   /* ═══════════════════════════════════════════════════════════════════════
      REDUCER
      ═══════════════════════════════════════════════════════════════════════ */
+  var DEFAULTS = {
+    ragaId: 'yaman',
+    talaId: 'teentaal',
+    moodId: 'devotional',
+    tempo: 72,
+    laya: 'madhya',
+    text: 'अथातो ब्रह्मजिज्ञासा ।\nॐ भूर्भुवः स्वः ।\nवागर्थाविव संपृक्तौ वागर्थप्रतिपत्तये ।',
+  };
+
+  function safeNum(v, fallback) {
+    var n = parseInt(v, 10);
+    return Number.isFinite(n) && n >= 40 && n <= 180 ? n : fallback;
+  }
+
   var initial = (function () {
-    var v = loadVault();
+    var v = loadVault() || {};
     return {
-      ragaId: v && v.ragaId ? v.ragaId : 'yaman',
-      talaId: v && v.talaId ? v.talaId : 'teentaal',
-      moodId: v && v.moodId ? v.moodId : 'devotional',
-      tempo:  v && v.tempo  ? v.tempo  : 72,
-      laya:   v && v.laya   ? v.laya   : 'madhya',
-      text:   v && v.text   ? v.text   : 'अथातो ब्रह्मजिज्ञासा ।\nॐ भूर्भुवः स्वः ।\nवागर्थाविव संपृक्तौ वागर्थप्रतिपत्तये ।',
+      ragaId: RAGAS.some(function (r) { return r.id === v.ragaId; })  ? v.ragaId : DEFAULTS.ragaId,
+      talaId: TALAS.some(function (t) { return t.id === v.talaId; })  ? v.talaId : DEFAULTS.talaId,
+      moodId: MOODS.some(function (m) { return m.id === v.moodId; })  ? v.moodId : DEFAULTS.moodId,
+      tempo:  safeNum(v.tempo, DEFAULTS.tempo),
+      laya:   (v.laya === 'vilambit' || v.laya === 'madhya' || v.laya === 'drut') ? v.laya : DEFAULTS.laya,
+      text:   typeof v.text === 'string' && v.text.length > 0 ? v.text : DEFAULTS.text,
       tab: 'studio',
     };
   })();
