@@ -43,8 +43,3 @@ async def noun_inflect(request: Request):
 @router.api_route("/api/v3/prakriya", methods=["GET", "POST"])
 async def prakriya(request: Request):
     return envelope("prakriya", extra={"query": _payload(request), "note": "Prakriya kernel not mounted"})
-
-
-@router.api_route("/api/v3/chandas", methods=["GET", "POST"])
-async def chandas(request: Request):
-    return envelope("chandas", extra={"query": _payload(request), "note": "Chandas kernel not mounted"})
