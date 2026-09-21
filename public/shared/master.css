@@ -979,3 +979,184 @@ textarea:focus-visible {
   font-size: 1.125rem;
   margin: 0 0 0.5rem;
 }
+
+/* ════════════════════════════════════════════════════════════
+   Week 2 additions: Morphology + Corpus views
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Paradigm table ── */
+
+.paradigm-header {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.paradigm-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0d1322;
+  border: 1px solid #232c44;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9375rem;
+}
+
+.paradigm-table thead {
+  background: #1e293b;
+}
+
+.paradigm-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  color: #97a1bd;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #232c44;
+}
+
+.paradigm-table td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #1a2138;
+  vertical-align: top;
+}
+
+.paradigm-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.paradigm-table tr:hover td {
+  background: #121828;
+}
+
+.vibhakti-cell {
+  color: #d4a24c;
+  font-family: Charter, Cambria, Georgia, serif;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.form-cell {
+  color: #e6eaf3;
+  font-family: Charter, Cambria, Georgia, serif;
+  font-size: 1.0625rem;
+}
+
+/* ── Corpus results ── */
+
+.corpus-results {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.corpus-card {
+  background: #121828;
+  border: 1px solid #232c44;
+  border-left: 3px solid #d4a24c;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  transition: border-color 150ms, transform 150ms;
+}
+
+.corpus-card:hover {
+  border-color: #3a4664;
+  border-left-color: #e8b960;
+  transform: translateY(-1px);
+}
+
+.corpus-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.corpus-location {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #d4a24c;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.corpus-source {
+  font-size: 0.75rem;
+  color: #6b7694;
+  padding: 0.15rem 0.5rem;
+  background: #0d1322;
+  border: 1px solid #232c44;
+  border-radius: 999px;
+}
+
+.corpus-iast {
+  font-family: Charter, Cambria, Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #e6eaf3;
+  margin: 0.5rem 0;
+}
+
+.corpus-gloss {
+  font-size: 0.875rem;
+  color: #97a1bd;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.corpus-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgba(35, 44, 68, 0.6);
+}
+
+.corpus-meter {
+  font-size: 0.6875rem;
+  color: #97a1bd;
+  padding: 0.15rem 0.5rem;
+  background: #0d1322;
+  border: 1px solid #232c44;
+  border-radius: 999px;
+  font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.theme-chip {
+  font-size: 0.6875rem;
+  color: #4ade80;
+  padding: 0.15rem 0.5rem;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 999px;
+}
+
+.corpus-score {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  color: #6b7694;
+  font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+}
+
+/* ── Mobile: table scrolls horizontally ── */
+
+@media (max-width: 640px) {
+  .paradigm-table {
+    font-size: 0.875rem;
+  }
+  .paradigm-table th,
+  .paradigm-table td {
+    padding: 0.5rem 0.6rem;
+  }
+  .form-cell {
+    font-size: 0.9375rem;
+  }
+}
