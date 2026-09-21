@@ -194,3 +194,107 @@ def test_router_jagati_short(client):
     body = r.json()
     assert body["is_valid"] is False
     assert "Expected 48 syllables" in body["errors"][0]
+
+
+
+# ─── Subanta (Week 2) ───
+
+def test_subanta_a_masc():
+    from engines.morphology.subanta import inflect
+    forms = inflect("deva", "a-masc")
+    assert len(forms) == 24
+    prathamā_eka = [f for f in forms if f.vibhakti == "prathamā" and f.vacana == "ekavacana"][0]
+    assert "deva" in prathamā_eka.form
+
+
+def test_subanta_ā_fem():
+    from engines.morphology.subanta import inflect
+    forms = inflect("senā", "ā-fem")
+    assert len(forms) == 24
+    prathamā_eka = [f for f in forms if f.vibhakti == "prathamā" and f.vacana == "ekavacana"][0]
+    assert "senā" in prathamā_eka.form
+
+
+def test_subanta_all_stems():
+    from engines.morphology.subanta import inflect
+    for stem_class, lemma in [
+        ("a-masc", "deva"),
+        ("a-neut", "phala"),
+        ("ā-fem", "senā"),
+        ("i-masc", "agni"),
+        ("i-fem", "mati"),
+        ("u-masc", "viṣṇu"),
+        ("ū-fem", "bhū"),
+    ]:
+        forms = inflect(lemma, stem_class)
+        assert len(forms) == 24, f"{stem_class} produced {len(forms)} forms"
+
+
+def test_router_inflect(client):
+    r = client.post("/api/v3/morphology/noun/inflect",
+                    json={"lemma": "deva", "stem_class": "a-masc"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["lemma"] == "deva"
+    assert body["count"] == 24
+
+
+def test_router_stem_classes(client):
+    r = client.get("/api/v3/morphology/noun/stem-classes")
+    assert r.status_code == 200
+    body = r.json()
+    assert len(body["stem_classes"]) == 7
+
+
+def test_router_single_form(client):
+    r = client.post("/api/v3/morphology/noun/form",
+                    json={"lemma": "deva", "stem_class": "a-masc",
+                          "vibhakti": "prathamā", "vacana": "ekavacana"})
+    assert r.status_code == 200
+    body = r.json()
+    assert "deva" in body["form"]
+
+
+# ─── Corpus (Week 2) ───
+
+def test_corpus_loads():
+    from engines.corpus.loader import Corpus
+    corpus = Corpus()
+    assert len(corpus.verses) > 0
+
+
+def test_corpus_stats():
+    from engines.corpus.loader import Corpus
+    corpus = Corpus()
+    stats = corpus.stats()
+    assert stats["total_verses"] > 0
+    assert "Rāmāyaṇa" in stats["sources"]
+
+
+def test_corpus_search():
+    from engines.corpus.loader import Corpus
+    corpus = Corpus()
+    results = corpus.search("rāma")
+    assert len(results) > 0
+
+
+def test_router_corpus_stats(client):
+    r = client.get("/api/v3/corpus/stats")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["total_verses"] > 0
+
+
+def test_router_corpus_search(client):
+    r = client.post("/api/v3/corpus/search",
+                    json={"query": "rāma", "limit": 5})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["total_returned"] > 0
+
+
+def test_router_corpus_sources(client):
+    r = client.get("/api/v3/corpus/sources")
+    assert r.status_code == 200
+    body = r.json()
+    assert "Rāmāyaṇa" in body["sources"]
