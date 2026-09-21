@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "site": "aigaane-sanctuary",
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "run": {
+          "serviceId": "aigaane-engine",
+          "region": "asia-south1"
+        }
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

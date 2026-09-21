@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aigaane — Pāṇinian Sanskrit sandhi and chandas engine. Live deterministic analysis of Sanskrit phonology and prosody.">
+<meta name="theme-color" content="#0f172a">
+
+<!-- Content Security Policy: no inline scripts, only same-origin resources -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://aigaane.in https://aigaane-engine-977695793163.asia-south1.run.app; font-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+
+<title>Aigaane · Sanskrit Sandhi & Chandas Engine</title>
+
+<link rel="stylesheet" href="css/app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#" aria-label="Aigaane home">
+      <span class="brand-mark" aria-hidden="true">ॐ</span>
+      <span class="brand-name">Aigaane</span>
+      <span class="brand-tag">Sandhi · Chandas</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#sandhi">Sandhi</a>
+      <a href="#chandas">Chandas</a>
+      <a href="#anustubh">Anuṣṭubh</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="site-main">
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <section class="hero">
+    <div class="container">
+      <h1>Deterministic Pāṇinian Sanskrit</h1>
+      <p class="hero-sub">
+        Live phonology and prosody tools built on the Aṣṭādhyāyī.
+        Every derivation cites the governing sūtra.
+        No guesswork, no LLM hallucination.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#sandhi">Try Sandhi</a>
+        <a class="btn btn-ghost" href="#chandas">Scan a Verse</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── SANDHI ─────────────── -->
+  <section id="sandhi" class="panel" aria-labelledby="sandhi-title">
+    <div class="container">
+      <header class="panel-head">
+        <h2 id="sandhi-title">Sandhi Combiner</h2>
+        <p class="panel-sub">
+          Combine two phonemes per Aṣṭādhyāyī 6.1 and 8.4.
+          Svara, Hal, and Visarga sandhi supported.
+        </p>
+      </header>
+
+      <form id="sandhi-form" class="form" autocomplete="off">
+        <div class="form-row">
+          <label>
+            <span class="label">First phoneme / word-final</span>
+            <input id="sandhi-p1" name="p1" type="text" required maxlength="8"
+                   placeholder="a  or  aḥ" value="a"
+                   aria-describedby="sandhi-p1-hint" spellcheck="false">
+            <small id="sandhi-p1-hint" class="hint">IAST input — e.g., <code>a</code>, <code>aḥ</code>, <code>t</code></small>
+          </label>
+
+          <label>
+            <span class="label">Second phoneme / word-initial</span>
+            <input id="sandhi-p2" name="p2" type="text" required maxlength="8"
+                   placeholder="i  or  iti" value="i"
+                   aria-describedby="sandhi-p2-hint" spellcheck="false">
+            <small id="sandhi-p2-hint" class="hint">IAST input — e.g., <code>i</code>, <code>iti</code>, <code>c</code></small>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Combine</button>
+          <button type="button" id="sandhi-swap" class="btn btn-ghost">Swap</button>
+          <button type="button" id="sandhi-clear" class="btn btn-ghost">Clear</button>
+        </div>
+      </form>
+
+      <div id="sandhi-output" class="output" role="region" aria-live="polite" aria-label="Sandhi result">
+        <p class="placeholder">Result will appear here.</p>
+      </div>
+
+      <div class="presets">
+        <span class="presets-label">Quick examples:</span>
+        <button class="chip" data-sandhi-p1="a" data-sandhi-p2="i">a + i → e (6.1.87)</button>
+        <button class="chip" data-sandhi-p1="a" data-sandhi-p2="a">a + a → ā (6.1.101)</button>
+        <button class="chip" data-sandhi-p1="a" data-sandhi-p2="e">a + e → ai (6.1.88)</button>
+        <button class="chip" data-sandhi-p1="i" data-sandhi-p2="a">i + a → ya (6.1.77)</button>
+        <button class="chip" data-sandhi-p1="t" data-sandhi-p2="c">t + c → c (8.4.40)</button>
+        <button class="chip" data-sandhi-p1="aḥ" data-sandhi-p2="a">aḥ + a → o' (6.1.109)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── CHANDAS ─────────────── -->
+  <section id="chandas" class="panel" aria-labelledby="chandas-title">
+    <div class="container">
+      <header class="panel-head">
+        <h2 id="chandas-title">Chandas Scanner</h2>
+        <p class="panel-sub">
+          Scan IAST Sanskrit into syllables with Laghu (⏑) / Guru (−) weights,
+          per Piṅgala's Chandasūtra.
+        </p>
+      </header>
+
+      <form id="chandas-form" class="form" autocomplete="off">
+        <label class="form-full">
+          <span class="label">Sanskrit text (IAST)</span>
+          <textarea id="chandas-text" name="text" rows="3" required maxlength="2000"
+                    placeholder="rāmo gacchati"
+                    aria-describedby="chandas-hint" spellcheck="false">rāmo gacchati</textarea>
+          <small id="chandas-hint" class="hint">IAST diacritics — e.g., <code>rāmaḥ</code>, <code>agni</code>, <code>tapaḥsvādhyāyanirataṃ</code></small>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Scan</button>
+          <button type="button" id="chandas-clear" class="btn btn-ghost">Clear</button>
+        </div>
+      </form>
+
+      <div id="chandas-output" class="output" role="region" aria-live="polite" aria-label="Scansion result">
+        <p class="placeholder">Scansion will appear here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── ANUSTUBH ─────────────── -->
+  <section id="anustubh" class="panel" aria-labelledby="anustubh-title">
+    <div class="container">
+      <header class="panel-head">
+        <h2 id="anustubh-title">Anuṣṭubh Validator</h2>
+        <p class="panel-sub">
+          Validate a verse as classical Anuṣṭubh. Pathyā and five Vipulā variations supported.
+          Even pādas must be pathyā. Odd pādas may vary.
+        </p>
+      </header>
+
+      <form id="anustubh-form" class="form" autocomplete="off">
+        <label class="form-full">
+          <span class="label">Verse text (IAST, 32 syllables)</span>
+          <textarea id="anustubh-text" name="text" rows="4" required maxlength="2000"
+                    placeholder="tapaḥsvādhyāyanirataṃ tapasvī vāgvidāṃ varam"
+                    spellcheck="false">tapaḥsvādhyāyanirataṃ tapasvī vāgvidāṃ varam</textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Validate</button>
+          <button type="button" id="anustubh-clear" class="btn btn-ghost">Clear</button>
+        </div>
+      </form>
+
+      <div id="anustubh-output" class="output" role="region" aria-live="polite" aria-label="Anuṣṭubh validation result">
+        <p class="placeholder">Validation will appear here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── ABOUT ─────────────── -->
+  <section id="about" class="panel panel-about" aria-labelledby="about-title">
+    <div class="container">
+      <h2 id="about-title">About</h2>
+      <div class="about-grid">
+        <div>
+          <h3>Deterministic Engine</h3>
+          <p>
+            Every derivation is governed by a named sūtra from the Aṣṭādhyāyī.
+            No stochastic inference, no LLM self-scanning.
+            Given the same input, the engine always returns the same output.
+          </p>
+        </div>
+        <div>
+          <h3>Live Endpoints</h3>
+          <ul class="endpoint-list">
+            <li><code>POST /api/v4/sandhi</code> — svara, hal, visarga</li>
+            <li><code>POST /api/v3/chandas/scan</code> — laghu/guru scanner</li>
+            <li><code>POST /api/v3/chandas/anustubh</code> — pathyā + 5 vipulā</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What's Next</h3>
+          <p>
+            Track A adds an agentic RAG layer for metrically-grounded verse generation,
+            with all scansion delegated to this deterministic backend.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>
+      © <span id="year"></span> Aigaane.
+      Built on the Aṣṭādhyāyī. Deterministic Sanskrit phonology.
+    </p>
+    <p class="footer-meta">
+      <span id="status-dot" class="dot" aria-hidden="true"></span>
+      <span id="status-text">Checking API…</span>
+    </p>
+  </div>
+</footer>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>

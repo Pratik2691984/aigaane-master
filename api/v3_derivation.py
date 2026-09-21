@@ -29,10 +29,6 @@ def _payload(request: Request):
     return q
 
 
-@router.api_route("/api/v3/sandhi", methods=["GET", "POST"])
-async def sandhi(request: Request):
-    return envelope("sandhi", extra={"query": _payload(request), "note": "Sandhi kernel not mounted"})
-
 
 @router.api_route("/api/v3/morphology/verb/conjugate", methods=["GET", "POST"])
 async def verb_conjugate(request: Request):

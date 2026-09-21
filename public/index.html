@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aigaane Sanskrit Engine — deterministic sandhi, chandas, and Pāṇinian phonological analysis.">
+  <meta name="theme-color" content="#0f172a">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+  <title>Aigaane Sanskrit Engine | Digital Sanctuary</title>
+  <link rel="stylesheet" href="/shared/master.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
+</head>
+<body>
+  <div id="app-shell">
+    <nav aria-label="Primary">
+      <span class="brand">ॐ Aigaane</span>
+      <button class="nav-btn active" data-tab="sanskrit" aria-current="page">Sanskrit</button>
+    </nav>
+
+    <main id="viewport" role="main" aria-live="polite">
+      <div class="loader">Loading Sanskrit Engine…</div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Aigaane · Deterministic Pāṇinian engine</span>
+        <span class="footer-status">
+          <span id="status-dot" class="dot" aria-hidden="true"></span>
+          <span id="status-text">Checking API…</span>
+        </span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

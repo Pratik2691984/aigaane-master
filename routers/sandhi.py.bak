@@ -1,0 +1,81 @@
+﻿"""
+routers/sandhi.py
+POST /api/v3/sandhi — Pāṇinian sandhi endpoint.
+"""
+
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel, Field
+
+from engines.phonology.sandhi import SandhiEngine, _HAŚ, _ŚAR, _KHAR
+
+router = APIRouter(prefix="/api/v3", tags=["Sandhi Engine"])
+sandhi_engine = SandhiEngine()
+
+
+class SandhiRequest(BaseModel):
+    p1: str = Field(..., min_length=1, max_length=8,
+                    description="First phoneme or word-final segment",
+                    examples=["a", "aḥ"])
+    p2: str = Field(..., min_length=1, max_length=8,
+                    description="Second phoneme or word-initial segment",
+                    examples=["i", "iti"])
+
+
+class SandhiResponse(BaseModel):
+    p1: str
+    p2: str
+    result: str
+    rule_applied: str | None = None
+
+
+def _detect_svara_sutra(p1: str, p2: str, result: str) -> str | None:
+    if sandhi_engine.siksha.are_savarṇa(p1, p2) and result in {"ā", "ī", "ū", "ṝ", "ḹ"}:
+        return "6.1.101"
+    if p1 in {"a", "ā"} and p2 in {"i", "ī", "u", "ū", "ṛ", "ṝ", "ḷ", "ḹ"}:
+        if result in {"e", "o", "ar", "al"}:
+            return "6.1.87"
+    if p1 in {"a", "ā"} and p2 in {"e", "ai", "o", "au"}:
+        if result in {"ai", "au"}:
+            return "6.1.88"
+    if p1 in {"i", "ī", "u", "ū", "ṛ", "ṝ", "ḷ", "ḹ"}:
+        return "6.1.77"
+    return None
+
+
+def _detect_hal_sutra(p2: str) -> str | None:
+    if p2 in {"c", "ch", "j", "jh", "ñ", "ś"}:
+        return "8.4.40"
+    if p2 in {"ṭ", "ṭh", "ḍ", "ḍh", "ṇ", "ṣ"}:
+        return "8.4.41"
+    return None
+
+
+@router.post("/sandhi", response_model=SandhiResponse, status_code=status.HTTP_200_OK)
+def compute_sandhi(payload: SandhiRequest) -> SandhiResponse:
+    try:
+        svara = sandhi_engine.combine_svara(payload.p1, payload.p2)
+        if svara is not None:
+            return SandhiResponse(
+                p1=payload.p1, p2=payload.p2, result=svara,
+                rule_applied=_detect_svara_sutra(payload.p1, payload.p2, svara),
+            )
+        hal = sandhi_engine.combine_hal(payload.p1, payload.p2)
+        if hal is not None:
+            return SandhiResponse(
+                p1=payload.p1, p2=payload.p2, result=hal,
+                rule_applied=_detect_hal_sutra(payload.p2),
+            )
+        visarga_pair = sandhi_engine.combine_visarga_with_context(payload.p1, payload.p2)
+        if visarga_pair is not None:
+            result, sutra = visarga_pair
+            return SandhiResponse(
+                p1=payload.p1, p2=payload.p2, result=result,
+                rule_applied=sutra,
+            )
+        return SandhiResponse(
+            p1=payload.p1, p2=payload.p2,
+            result=payload.p1 + payload.p2,
+            rule_applied="none",
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=f"Invalid phoneme: {e}")
