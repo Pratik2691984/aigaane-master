@@ -983,8 +983,8 @@
           parts: [{ name: 'Sāttvika', meta: 'Viṣṇu, Bhāgavata, Nārada, Garuḍa, Padma, Varāha' }, { name: 'Rājasika', meta: 'Brahmā, Brahmāṇḍa, Brahmavaivarta, Mārkaṇḍeya, Bhaviṣya, Vāmana' }, { name: 'Tāmasika', meta: 'Śiva, Liṅga, Skanda, Agni, Matsya, Kūrma' }, { name: 'Upapurāṇas', meta: '18 secondary texts' }] },
         { name: 'Dharmaśāstras', subtitle: 'Social ethics & civil law', status: 'metadata',
           parts: [{ name: 'Dharma Sūtras', meta: 'Āpastamba, Gautama, Baudhāyana' }, { name: 'Dharma Smṛtis', meta: 'Manusmṛti, Yājñavalkya, Nārada' }] },
-        { name: 'Upavedas', subtitle: 'Four classical applied sciences', status: 'metadata',
-          parts: [{ name: 'Āyurveda', meta: 'Medicine' }, { name: 'Dhanurveda', meta: 'Warfare' }, { name: 'Gāndharvaveda', meta: 'Music & drama' }, { name: 'Sthāpatyaveda', meta: 'Architecture' }] },
+                { name: 'Upavedas', subtitle: 'Four classical applied sciences', status: 'partial',
+          parts: [{ name: 'Āyurveda', meta: 'Medicine' }, { name: 'Dhanurveda', meta: 'Warfare' }, { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html' }, { name: 'Sthāpatyaveda', meta: 'Architecture' }] },
         { name: 'Āgamas & Tantras', subtitle: 'Initiatory practice, iconography', status: 'metadata',
           parts: [{ name: 'Śaiva Āgamas', meta: '28 Siddhānta + Trika' }, { name: 'Vaiṣṇava Āgamas', meta: 'Pāñcarātra, Vaikhānasa' }, { name: 'Śākta Tantras', meta: '64 Tantras' }] },
         { name: 'Bhakti Sādhana', subtitle: 'Devotional classics & poetics', status: 'metadata',
@@ -1048,11 +1048,22 @@
         }
         if (category.parts && category.parts.length) {
           const partList = el('ul', { class: 'sastra-parts' });
-          for (let p = 0; p < category.parts.length; p++) {
+                    for (let p = 0; p < category.parts.length; p++) {
             const part = category.parts[p];
-            const li = el('li', { class: 'sastra-part' }, [
-              el('span', { class: 'sastra-part-name', text: part.name }),
-            ]);
+            const li = el('li', { class: 'sastra-part' });
+
+            if (part.external && part.link) {
+              li.appendChild(el('a', {
+                class: 'sastra-part-name sastra-part-link',
+                text: part.name + ' ↗',
+                href: part.link,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              }));
+            } else {
+              li.appendChild(el('span', { class: 'sastra-part-name', text: part.name }));
+            }
+
             if (part.meta) {
               li.appendChild(el('span', { class: 'sastra-part-meta', text: part.meta }));
             }

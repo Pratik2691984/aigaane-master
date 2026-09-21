@@ -1,6 +1,28 @@
 {
   "releases": [
     {
+      "version": "0.5.5",
+      "date": "2026-09-22",
+      "name": "Gāndharvaveda Studio",
+      "status": "live",
+      "changes": {
+        "added": [
+          "Gāndharvaveda Studio (standalone page at /gandharvaveda.html)",
+          "23 rāgas with thaat/time/notes/aroha/avaroha/vadi/samvadi metadata",
+          "9 tālas with bols/matrix/sam/khali/tali metadata",
+          "Pingal mātrā scanner with Guru/Laghu detection",
+          "Live tanpura drone with LFO vibrato",
+          "MIDI export (2-cycle theka loop)",
+          "AI prompt generator (compact + cinematic)",
+          "Session vault (localStorage v2)"
+        ],
+        "linked": [
+          "Gāndharvaveda node in Śāstra tab taxonomy",
+          "External link marked Live in Upavedas category"
+        ]
+      }
+    },
+    {
       "version": "0.5.3",
       "date": "2026-09-21",
       "name": "Week 2 — Frontend",

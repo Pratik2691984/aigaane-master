@@ -1222,3 +1222,20 @@ textarea:focus-visible {
   border-radius: 4px;
 }
 
+
+
+/* ════════════════════════════════════════════════════════════
+   External studio link (Gāndharvaveda)
+   ════════════════════════════════════════════════════════════ */
+
+.sastra-part-link {
+  color: #d4a24c;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 150ms;
+}
+
+.sastra-part-link:hover {
+  color: #e8b960;
+  text-decoration: underline;
+}
