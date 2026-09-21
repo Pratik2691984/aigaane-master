@@ -25,21 +25,19 @@ from typing import Optional
 
 @dataclass(frozen=True)
 class Inflected:
-    """A single inflected form."""
-    vibhakti: str          # e.g., "prathamā"
-    vibhakti_num: int      # 1–8
-    vacana: str            # "ekavacana", "dvivacana", "bahuvacana"
-    vacana_num: int        # 1–3
-    form: str              # the surface form
-    rule: str              # the Aṣṭādhyāyī sūtra reference
+    vibhakti: str
+    vibhakti_num: int
+    vacana: str
+    vacana_num: int
+    form: str
+    rule: str
 
 
 @dataclass(frozen=True)
 class Stem:
-    """A nominal stem definition."""
     lemma: str
-    gender: str            # "puṃ" | "strī" | "napuṃsaka"
-    stem_class: str        # "a-masc", "a-neut", "ā-fem", "i-masc", "i-fem", "u-masc", "ū-fem"
+    gender: str
+    stem_class: str
 
 
 # ─────────────────────── Constants ───────────────────────
@@ -62,93 +60,94 @@ VACANAS = [
 ]
 
 
-# ─────────────────────── Stem endings ───────────────────────
-# Each stem class has a 8×3 table of endings.
-# The "stem" is formed by removing the final vowel/character from the lemma.
+# ─────────────────────── Stem ending tables ───────────────────────
+# These are the endings as they appear AFTER the stem-final vowel.
+# For a-stems, the stem-final 'a' is preserved in the stem, and the
+# ending is applied with sandhi.
 
 STEM_SUFFIXES = {
     # ── a-stem masculine (deva) ──
     "a-masc": {
-        ("prathamā", "ekavacana"):    "aḥ",
+        ("prathamā", "ekavacana"):    "ḥ",
         ("prathamā", "dvivacana"):    "au",
         ("prathamā", "bahuvacana"):   "āḥ",
-        ("dvitīyā", "ekavacana"):     "am",
+        ("dvitīyā", "ekavacana"):     "m",
         ("dvitīyā", "dvivacana"):     "au",
-        ("dvitīyā", "bahuvacana"):    "ān",
+        ("dvitīyā", "bahuvacana"):    "n",
         ("tṛtīyā", "ekavacana"):      "ena",
-        ("tṛtīyā", "dvivacana"):      "ābhyām",
-        ("tṛtīyā", "bahuvacana"):     "aiḥ",
-        ("caturthī", "ekavacana"):    "āya",
-        ("caturthī", "dvivacana"):    "ābhyām",
-        ("caturthī", "bahuvacana"):   "ebhyaḥ",
-        ("pañcamī", "ekavacana"):     "āt",
-        ("pañcamī", "dvivacana"):     "ābhyām",
-        ("pañcamī", "bahuvacana"):    "ebhyaḥ",
-        ("ṣaṣṭhī", "ekavacana"):      "asya",
-        ("ṣaṣṭhī", "dvivacana"):      "ayoḥ",
-        ("ṣaṣṭhī", "bahuvacana"):     "ānām",
+        ("tṛtīyā", "dvivacana"):      "bhyām",
+        ("tṛtīyā", "bahuvacana"):     "iḥ",
+        ("caturthī", "ekavacana"):    "ya",
+        ("caturthī", "dvivacana"):    "bhyām",
+        ("caturthī", "bahuvacana"):   "bhyaḥ",
+        ("pañcamī", "ekavacana"):     "t",
+        ("pañcamī", "dvivacana"):     "bhyām",
+        ("pañcamī", "bahuvacana"):    "bhyaḥ",
+        ("ṣaṣṭhī", "ekavacana"):      "sya",
+        ("ṣaṣṭhī", "dvivacana"):      "yoḥ",
+        ("ṣaṣṭhī", "bahuvacana"):     "nām",
         ("saptamī", "ekavacana"):     "e",
-        ("saptamī", "dvivacana"):     "ayoḥ",
-        ("saptamī", "bahuvacana"):    "eṣu",
-        ("sambodhana", "ekavacana"):  "",      # stem alone
+        ("saptamī", "dvivacana"):     "yoḥ",
+        ("saptamī", "bahuvacana"):    "ṣu",
+        ("sambodhana", "ekavacana"):  "",
         ("sambodhana", "dvivacana"):  "au",
         ("sambodhana", "bahuvacana"): "āḥ",
     },
 
     # ── a-stem neuter (phala) ──
     "a-neut": {
-        ("prathamā", "ekavacana"):    "am",
+        ("prathamā", "ekavacana"):    "m",
         ("prathamā", "dvivacana"):    "e",
         ("prathamā", "bahuvacana"):   "āni",
-        ("dvitīyā", "ekavacana"):     "am",
+        ("dvitīyā", "ekavacana"):     "m",
         ("dvitīyā", "dvivacana"):     "e",
         ("dvitīyā", "bahuvacana"):    "āni",
         ("tṛtīyā", "ekavacana"):      "ena",
-        ("tṛtīyā", "dvivacana"):      "ābhyām",
-        ("tṛtīyā", "bahuvacana"):     "aiḥ",
-        ("caturthī", "ekavacana"):    "āya",
-        ("caturthī", "dvivacana"):    "ābhyām",
-        ("caturthī", "bahuvacana"):   "ebhyaḥ",
-        ("pañcamī", "ekavacana"):     "āt",
-        ("pañcamī", "dvivacana"):     "ābhyām",
-        ("pañcamī", "bahuvacana"):    "ebhyaḥ",
-        ("ṣaṣṭhī", "ekavacana"):      "asya",
-        ("ṣaṣṭhī", "dvivacana"):      "ayoḥ",
-        ("ṣaṣṭhī", "bahuvacana"):     "ānām",
+        ("tṛtīyā", "dvivacana"):      "bhyām",
+        ("tṛtīyā", "bahuvacana"):     "iḥ",
+        ("caturthī", "ekavacana"):    "ya",
+        ("caturthī", "dvivacana"):    "bhyām",
+        ("caturthī", "bahuvacana"):   "bhyaḥ",
+        ("pañcamī", "ekavacana"):     "t",
+        ("pañcamī", "dvivacana"):     "bhyām",
+        ("pañcamī", "bahuvacana"):    "bhyaḥ",
+        ("ṣaṣṭhī", "ekavacana"):      "sya",
+        ("ṣaṣṭhī", "dvivacana"):      "yoḥ",
+        ("ṣaṣṭhī", "bahuvacana"):     "nām",
         ("saptamī", "ekavacana"):     "e",
-        ("saptamī", "dvivacana"):     "ayoḥ",
-        ("saptamī", "bahuvacana"):    "eṣu",
-        ("sambodhana", "ekavacana"):  "a",
+        ("saptamī", "dvivacana"):     "yoḥ",
+        ("saptamī", "bahuvacana"):    "ṣu",
+        ("sambodhana", "ekavacana"):  "",
         ("sambodhana", "dvivacana"):  "e",
         ("sambodhana", "bahuvacana"): "āni",
     },
 
     # ── ā-stem feminine (senā) ──
     "ā-fem": {
-        ("prathamā", "ekavacana"):    "ā",
+        ("prathamā", "ekavacana"):    "",
         ("prathamā", "dvivacana"):    "e",
-        ("prathamā", "bahuvacana"):   "āḥ",
-        ("dvitīyā", "ekavacana"):     "ām",
+        ("prathamā", "bahuvacana"):   "ḥ",
+        ("dvitīyā", "ekavacana"):     "m",
         ("dvitīyā", "dvivacana"):     "e",
-        ("dvitīyā", "bahuvacana"):    "āḥ",
-        ("tṛtīyā", "ekavacana"):      "ayā",
-        ("tṛtīyā", "dvivacana"):      "ābhyām",
-        ("tṛtīyā", "bahuvacana"):     "ābhiḥ",
-        ("caturthī", "ekavacana"):    "āyai",
-        ("caturthī", "dvivacana"):    "ābhyām",
-        ("caturthī", "bahuvacana"):   "ābhyaḥ",
-        ("pañcamī", "ekavacana"):     "āyāḥ",
-        ("pañcamī", "dvivacana"):     "ābhyām",
-        ("pañcamī", "bahuvacana"):    "ābhyaḥ",
-        ("ṣaṣṭhī", "ekavacana"):      "āyāḥ",
-        ("ṣaṣṭhī", "dvivacana"):      "ayoḥ",
-        ("ṣaṣṭhī", "bahuvacana"):     "ānām",
-        ("saptamī", "ekavacana"):     "āyām",
-        ("saptamī", "dvivacana"):     "ayoḥ",
-        ("saptamī", "bahuvacana"):    "āsu",
+        ("dvitīyā", "bahuvacana"):    "ḥ",
+        ("tṛtīyā", "ekavacana"):      "yā",
+        ("tṛtīyā", "dvivacana"):      "bhyām",
+        ("tṛtīyā", "bahuvacana"):     "bhiḥ",
+        ("caturthī", "ekavacana"):    "yai",
+        ("caturthī", "dvivacana"):    "bhyām",
+        ("caturthī", "bahuvacana"):   "bhyāḥ",
+        ("pañcamī", "ekavacana"):     "yāḥ",
+        ("pañcamī", "dvivacana"):     "bhyām",
+        ("pañcamī", "bahuvacana"):    "bhyāḥ",
+        ("ṣaṣṭhī", "ekavacana"):      "yāḥ",
+        ("ṣaṣṭhī", "dvivacana"):      "yoḥ",
+        ("ṣaṣṭhī", "bahuvacana"):     "nām",
+        ("saptamī", "ekavacana"):     "yām",
+        ("saptamī", "dvivacana"):     "yoḥ",
+        ("saptamī", "bahuvacana"):    "su",
         ("sambodhana", "ekavacana"):  "e",
         ("sambodhana", "dvivacana"):  "e",
-        ("sambodhana", "bahuvacana"): "āḥ",
+        ("sambodhana", "bahuvacana"): "ḥ",
     },
 
     # ── i-stem masculine (agni) ──
@@ -265,44 +264,72 @@ STEM_SUFFIXES = {
 }
 
 
-# ─────────────────────── Stem stripping rules ───────────────────────
+# ─────────────────────── Sandhi helper ───────────────────────
+
+def _sandhi_combine(stem_final: str, ending: str) -> str:
+    """
+    Apply vowel sandhi between the stem-final vowel and the ending's initial vowel.
+    Handles the common a/ā + vowel combinations.
+    """
+    if not ending:
+        return stem_final
+
+    # If ending starts with a consonant, no sandhi needed
+    if ending[0] not in "aāiīuūṛṝḷḹeo":
+        return stem_final + ending
+
+    # a-stem sandhi (stem-final 'a')
+    if stem_final == "a":
+        first = ending[0]
+        rest = ending[1:]
+        if first in ("a", "ā"):
+            return "ā" + rest
+        if first in ("i", "ī"):
+            return "e" + rest
+        if first in ("u", "ū"):
+            return "o" + rest
+        if first in ("e", "ai"):
+            return "ai" + rest
+        if first in ("o", "au"):
+            return "au" + rest
+        if first in ("ṛ", "ṝ"):
+            return "ar" + rest
+        return stem_final + ending
+
+    # ā-stem sandhi (stem-final 'ā')
+    if stem_final == "ā":
+        first = ending[0]
+        rest = ending[1:]
+        if first in ("a", "ā"):
+            return "ā" + rest
+        if first in ("i", "ī"):
+            return "e" + rest
+        if first in ("u", "ū"):
+            return "o" + rest
+        if first in ("e", "ai"):
+            return "ai" + rest
+        if first in ("o", "au"):
+            return "au" + rest
+        return stem_final + ending
+
+    return stem_final + ending
+
+
+# ─────────────────────── Stem stripping ───────────────────────
 
 def _strip_stem(lemma: str, stem_class: str) -> str:
-    """
-    Remove the final vowel/marker from the lemma to get the bare stem.
-    Also applies guṇa/vṛddhi strengthening where required by Pāṇini.
-    """
-    if stem_class == "a-masc" or stem_class == "a-neut":
-        # deva → dev
+    """Remove the final vowel/marker from the lemma to get the bare stem."""
+    if stem_class in ("a-masc", "a-neut"):
         return lemma[:-1] if lemma.endswith("a") else lemma
     if stem_class == "ā-fem":
-        # senā → sen
         return lemma[:-1] if lemma.endswith("ā") else lemma
-    if stem_class == "i-masc" or stem_class == "i-fem":
-        # agni → agn (the i is dropped in most forms; retained as 'i' base)
+    if stem_class in ("i-masc", "i-fem"):
         return lemma[:-1] if lemma.endswith("i") else lemma
     if stem_class == "u-masc":
-        # viṣṇu → viṣṇ
         return lemma[:-1] if lemma.endswith("u") else lemma
     if stem_class == "ū-fem":
-        # bhū → bh (but most ū-stems keep the ū and add uv-)
         return lemma[:-1] if lemma.endswith("ū") else lemma
     return lemma
-
-
-def _apply_guṇa(stem: str) -> str:
-    """
-    Apply guṇa strengthening to the final vowel of the stem.
-    a → ā, i → e, u → o, ṛ → ar.
-    Used for certain case forms.
-    """
-    if not stem:
-        return stem
-    last = stem[-1]
-    guṇa_map = {"a": "ā", "i": "e", "u": "o", "ṛ": "ar"}
-    if last in guṇa_map:
-        return stem[:-1] + guṇa_map[last]
-    return stem
 
 
 # ─────────────────────── Inflection ───────────────────────
@@ -331,39 +358,34 @@ def inflect(lemma: str, stem_class: str) -> list[Inflected]:
         for vacana_name, vacana_num in VACANAS:
             ending = suffixes.get((vibhakti_name, vacana_name), "")
 
-            # Handle stem-final vowel behavior per stem class
-            if stem_class.startswith("i-"):
-                # i-stems: use the i-base for some forms, drop for others
-                if vibhakti_name in ("prathamā", "dvitīyā", "tṛtīyā") and vacana_name == "ekavacana":
-                    form = stem + "i" + ending if ending.startswith("i") else stem + ending
-                elif vibhakti_name in ("caturthī", "sambodhana") and vacana_name == "ekavacana":
-                    form = stem + ending  # e.g., agnaye, agne
+            if stem_class in ("a-masc", "a-neut"):
+                # stem ends in consonant after stripping; add "a" back
+                form = _sandhi_combine("a", ending)
+                form = stem + form
+            elif stem_class == "ā-fem":
+                # stem ends in consonant after stripping; add "ā" back
+                form = _sandhi_combine("ā", ending)
+                form = stem + form
+            elif stem_class in ("i-masc", "i-fem"):
+                # stem ends in consonant; add "i" back
+                if ending.startswith("i") or ending.startswith("ī"):
+                    form = stem + ending
+                elif ending.startswith(("ay", "y")):
+                    form = stem + ending
                 else:
-                    # Apply guṇa for these cases
-                    strengthened = _apply_guṇa(stem + "i")
-                    form = strengthened + ending if not ending.startswith(("i", "y")) else stem + ending
-                    if vibhakti_name in ("saptamī", "ṣaṣṭhī") and ending in ("au", "yoḥ", "iṣu"):
-                        form = stem + ending
+                    form = stem + "i" + ending
             elif stem_class == "u-masc":
-                if vibhakti_name in ("prathamā", "dvitīyā", "tṛtīyā") and vacana_name == "ekavacana":
-                    form = stem + "u" + ending
-                elif ending.startswith("av") or ending.startswith("o"):
-                    strengthened = _apply_guṇa(stem + "u")
-                    form = strengthened + ending
+                if ending.startswith(("u", "ū", "av", "o")):
+                    form = stem + ending
                 else:
                     form = stem + "u" + ending
             elif stem_class == "ū-fem":
-                if ending.startswith("uv") or ending.startswith("u"):
-                    form = stem + "u" + ending
-                else:
+                if ending.startswith(("uv", "u", "ū")):
                     form = stem + ending
+                else:
+                    form = stem + "ū" + ending
             else:
-                # a-, ā-stems
                 form = stem + ending
-
-            # Cleanup: handle stem + a-stem endings
-            if stem_class == "a-masc" or stem_class == "a-neut":
-                form = stem + "a" + ending.lstrip("a") if ending.startswith("a") else stem + "a" + ending
 
             results.append(Inflected(
                 vibhakti=vibhakti_name,
@@ -380,18 +402,41 @@ def inflect(lemma: str, stem_class: str) -> list[Inflected]:
 # ─────────────────────── Self-test ───────────────────────
 
 if __name__ == "__main__":
-    # deva — a-stem masculine
     forms = inflect("deva", "a-masc")
     assert len(forms) == 24
-    print("deva (a-masc) first 6 forms:")
-    for f in forms[:6]:
-        print(f"  {f.vibhakti:12s} {f.vacana:12s} → {f.form}")
 
-    # senā — ā-stem feminine
+    # Key checks
+    checks = {
+        ("prathamā", "ekavacana"): "devaḥ",
+        ("prathamā", "dvivacana"): "devau",
+        ("prathamā", "bahuvacana"): "devāḥ",
+        ("dvitīyā", "bahuvacana"): "devān",
+        ("tṛtīyā", "ekavacana"): "devena",
+        ("tṛtīyā", "dvivacana"): "devābhyām",
+        ("caturthī", "ekavacana"): "devāya",
+        ("pañcamī", "ekavacana"): "devāt",
+        ("ṣaṣṭhī", "ekavacana"): "devasya",
+        ("saptamī", "ekavacana"): "deve",
+        ("saptamī", "bahuvacana"): "deveṣu",
+    }
+
+    print("deva (a-masc) forms:")
+    for f in forms:
+        key = (f.vibhakti, f.vacana)
+        expected = checks.get(key)
+        mark = "✓" if expected and f.form == expected else ("✗ (expected " + expected + ")" if expected else "")
+        print(f"  {f.vibhakti:12s} {f.vacana:12s} → {f.form:20s} {mark}")
+
+    # Check i-stem
+    forms = inflect("agni", "i-masc")
+    tṛtīyā_eka = [f for f in forms if f.vibhakti == "tṛtīyā" and f.vacana == "ekavacana"][0]
+    assert tṛtīyā_eka.form == "agninā", f"Expected agninā, got {tṛtīyā_eka.form}"
+    print(f"\nagni (i-masc) tṛtīyā ekavacana → {tṛtīyā_eka.form} ✓")
+
+    # Check ā-stem
     forms = inflect("senā", "ā-fem")
-    assert len(forms) == 24
-    print("\nsenā (ā-fem) first 6 forms:")
-    for f in forms[:6]:
-        print(f"  {f.vibhakti:12s} {f.vacana:12s} → {f.form}")
+    prathamā_eka = [f for f in forms if f.vibhakti == "prathamā" and f.vacana == "ekavacana"][0]
+    assert prathamā_eka.form == "senā", f"Expected senā, got {prathamā_eka.form}"
+    print(f"senā (ā-fem) prathamā ekavacana → {prathamā_eka.form} ✓")
 
     print("\nsubanta.py OK")
