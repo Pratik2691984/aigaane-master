@@ -950,6 +950,62 @@
 
   // ─── Śāstra view ───
 
+  const SASTRA_TREE = {
+    sruti: {
+      label: 'Śruti — Axiomatic Core',
+      subtitle: 'That which is heard (revealed, authorless)',
+      children: [
+        { name: 'Ṛgveda', subtitle: 'Hymns of cosmic order', status: 'metadata', meta: 'Saṃhitā: 10 Maṇḍalas · 1,028 Sūktas · 10,552+ verses',
+          parts: [{ name: 'Saṃhitā' }, { name: 'Brāhmaṇas', meta: 'Aitareya, Kauṣītaki / Śāṅkhāyana' }, { name: 'Āraṇyakas', meta: 'Aitareya, Kauṣītaki' }, { name: 'Upaniṣads', meta: 'Aitareya, Kauṣītaki' }] },
+        { name: 'Śukla Yajurveda', subtitle: 'White Yajurveda', status: 'metadata', meta: 'Vājasaneyi Saṃhitā',
+          parts: [{ name: 'Śatapatha Brāhmaṇa', meta: '100 Adhyāyas' }, { name: 'Āraṇyaka', meta: 'Embedded in 14th Kāṇḍa' }, { name: 'Upaniṣads', meta: 'Īśā, Bṛhadāraṇyaka' }] },
+        { name: 'Kṛṣṇa Yajurveda', subtitle: 'Black Yajurveda', status: 'metadata', meta: 'Taittirīya, Maitrāyaṇī, Kaṭha, Kapiṣṭhala',
+          parts: [{ name: 'Taittirīya Brāhmaṇa' }, { name: 'Taittirīya Āraṇyaka' }, { name: 'Upaniṣads', meta: 'Taittirīya, Kaṭha, Śvetāśvatara, Maitrāyaṇī' }] },
+        { name: 'Sāmaveda', subtitle: 'Musical & melodic chants', status: 'metadata', meta: '1,875 verses (derived from Ṛgveda)',
+          parts: [{ name: 'Brāhmaṇas', meta: 'Pañcaviṃśa, Ṣaḍviṃśa, Jaiminīya' }, { name: 'Upaniṣads', meta: 'Chāndogya, Kena' }] },
+        { name: 'Atharvaveda', subtitle: 'Daily life, healing, protection', status: 'metadata', meta: '20 Kāṇḍas · 730 hymns',
+          parts: [{ name: 'Gopatha Brāhmaṇa' }, { name: 'Upaniṣads', meta: 'Praśna, Muṇḍaka, Māṇḍūkya' }] },
+        { name: 'Muktikā Canon', subtitle: '108 Upaniṣads by Vedic Śākhā', status: 'metadata',
+          parts: [{ name: 'Ṛgveda', meta: '10 Upaniṣads' }, { name: 'Śukla Yajurveda', meta: '19 Upaniṣads' }, { name: 'Kṛṣṇa Yajurveda', meta: '32 Upaniṣads' }, { name: 'Sāmaveda', meta: '16 Upaniṣads' }, { name: 'Atharvaveda', meta: '31 Upaniṣads' }] },
+      ],
+    },
+    smrti: {
+      label: 'Smṛti — Hermeneutic Closure',
+      subtitle: 'That which is remembered (tradition-anchored)',
+      children: [
+        { name: 'Vedāṅgas', subtitle: 'Six structural auxiliary disciplines', status: 'partial',
+          parts: [{ name: 'Śikṣā', meta: 'Phonetics & phonology', status: 'live' }, { name: 'Vyākaraṇa', meta: 'Grammar — sandhi + subanta', status: 'partial' }, { name: 'Chandas', meta: 'Prosody — 3 meters', status: 'partial' }, { name: 'Nirukta', meta: 'Etymology', status: 'coming' }, { name: 'Kalpa', meta: 'Ritual mechanics', status: 'coming' }, { name: 'Jyotiṣa', meta: 'Astronomy', status: 'coming' }] },
+        { name: 'Ṣaḍ Darśanas', subtitle: 'Six classical philosophical systems', status: 'metadata',
+          parts: [{ name: 'Nyāya', meta: 'Logic — Akṣapāda Gautama' }, { name: 'Vaiśeṣika', meta: 'Atomism — Kaṇāda' }, { name: 'Sāṅkhya', meta: 'Puruṣa & Prakṛti — Kapila' }, { name: 'Yoga', meta: 'Meditation — Patañjali' }, { name: 'Pūrva Mīmāṃsā', meta: 'Hermeneutics — Jaimini' }, { name: 'Uttara Mīmāṃsā', meta: 'Vedānta — Bādarāyaṇa' }] },
+        { name: 'Itihāsas', subtitle: 'Epic historical narratives', status: 'partial',
+          parts: [{ name: 'Rāmāyaṇa', meta: 'Vālmīki — 7 Kāṇḍas', status: 'partial' }, { name: 'Mahābhārata', meta: 'Vyāsa — 18 Parvas', status: 'partial' }] },
+        { name: 'Purāṇas', subtitle: 'Cyclic cosmogony & universal history', status: 'metadata',
+          parts: [{ name: 'Sāttvika', meta: 'Viṣṇu, Bhāgavata, Nārada, Garuḍa, Padma, Varāha' }, { name: 'Rājasika', meta: 'Brahmā, Brahmāṇḍa, Brahmavaivarta, Mārkaṇḍeya, Bhaviṣya, Vāmana' }, { name: 'Tāmasika', meta: 'Śiva, Liṅga, Skanda, Agni, Matsya, Kūrma' }, { name: 'Upapurāṇas', meta: '18 secondary texts' }] },
+        { name: 'Dharmaśāstras', subtitle: 'Social ethics & civil law', status: 'metadata',
+          parts: [{ name: 'Dharma Sūtras', meta: 'Āpastamba, Gautama, Baudhāyana' }, { name: 'Dharma Smṛtis', meta: 'Manusmṛti, Yājñavalkya, Nārada' }] },
+        { name: 'Upavedas', subtitle: 'Four classical applied sciences', status: 'metadata',
+          parts: [{ name: 'Āyurveda', meta: 'Medicine' }, { name: 'Dhanurveda', meta: 'Warfare' }, { name: 'Gāndharvaveda', meta: 'Music & drama' }, { name: 'Sthāpatyaveda', meta: 'Architecture' }] },
+        { name: 'Āgamas & Tantras', subtitle: 'Initiatory practice, iconography', status: 'metadata',
+          parts: [{ name: 'Śaiva Āgamas', meta: '28 Siddhānta + Trika' }, { name: 'Vaiṣṇava Āgamas', meta: 'Pāñcarātra, Vaikhānasa' }, { name: 'Śākta Tantras', meta: '64 Tantras' }] },
+        { name: 'Bhakti Sādhana', subtitle: 'Devotional classics & poetics', status: 'metadata',
+          parts: [{ name: 'Bhakti Sūtras', meta: 'Nārada, Śāṇḍilya' }, { name: 'Dravidian Canons', meta: 'Divya Prabandham, Tevāram' }, { name: 'Regional Classics', meta: 'Rāmacaritamānasa, Gītagovinda' }] },
+        { name: 'Prakaraṇa Granthas', subtitle: 'Independent philosophical treatises', status: 'metadata',
+          parts: [{ name: 'Advaita', meta: 'Vivekacūḍāmaṇi, Pañcadaśī' }, { name: 'Non-dualism', meta: 'Aṣṭāvakra Gītā, Yoga Vāsiṣṭha' }] },
+      ],
+    },
+    purusartha: {
+      label: 'Puruṣārtha — Applied Objectives',
+      subtitle: 'Secular & supporting texts',
+      children: [
+        { name: 'Arthaśāstra', subtitle: 'Political economy & statecraft', status: 'metadata', meta: 'Kauṭilya' },
+        { name: 'Nāṭyaśāstra', subtitle: 'Dramaturgy & aesthetics', status: 'metadata', meta: 'Bharata Muni' },
+        { name: 'Kāma Sūtra', subtitle: 'Social dynamics & erotics', status: 'metadata', meta: 'Vātsyāyana' },
+        { name: 'Bṛhat Saṃhitā', subtitle: 'Physical sciences & divination', status: 'metadata', meta: 'Varāhamihira' },
+        { name: 'Nīti Literature', subtitle: 'Strategic pedagogy', status: 'metadata', meta: 'Pañcatantra, Hitopadeśa' },
+      ],
+    },
+  };
+
   function buildSastraView() {
     const fragment = document.createDocumentFragment();
 
@@ -960,10 +1016,79 @@
       ]),
     ]));
 
+    const branchKeys = ['sruti', 'smrti', 'purusartha'];
+    for (let b = 0; b < branchKeys.length; b++) {
+      const branch = SASTRA_TREE[branchKeys[b]];
+      const section = el('section', { class: 'panel sastra-branch' }, [
+        el('header', { class: 'panel-head' }, [
+          el('h2', { text: branch.label }),
+          el('p', { class: 'panel-sub', text: branch.subtitle }),
+        ]),
+      ]);
+      const grid = el('div', { class: 'sastra-grid' });
+      for (let c = 0; c < branch.children.length; c++) {
+        const category = branch.children[c];
+        const card = el('div', { class: 'sastra-card sastra-status-' + category.status });
+        const cardHead = el('div', { class: 'sastra-card-head' }, [
+          el('h3', { text: category.name }),
+        ]);
+        if (category.status === 'live') {
+          cardHead.appendChild(el('span', { class: 'status-badge status-live', text: 'Live' }));
+        } else if (category.status === 'partial') {
+          cardHead.appendChild(el('span', { class: 'status-badge status-partial', text: 'Partial' }));
+        } else {
+          cardHead.appendChild(el('span', { class: 'status-badge status-meta', text: 'Documented' }));
+        }
+        card.appendChild(cardHead);
+        if (category.subtitle) {
+          card.appendChild(el('p', { class: 'sastra-subtitle', text: category.subtitle }));
+        }
+        if (category.meta) {
+          card.appendChild(el('p', { class: 'sastra-meta', text: category.meta }));
+        }
+        if (category.parts && category.parts.length) {
+          const partList = el('ul', { class: 'sastra-parts' });
+          for (let p = 0; p < category.parts.length; p++) {
+            const part = category.parts[p];
+            const li = el('li', { class: 'sastra-part' }, [
+              el('span', { class: 'sastra-part-name', text: part.name }),
+            ]);
+            if (part.meta) {
+              li.appendChild(el('span', { class: 'sastra-part-meta', text: part.meta }));
+            }
+            if (part.status) {
+              const tagText = part.status === 'live' ? 'Live'
+                            : part.status === 'partial' ? 'Partial'
+                            : part.status === 'coming' ? 'Soon' : 'Docs';
+              li.appendChild(el('span', { class: 'sastra-part-tag status-' + part.status, text: tagText }));
+            }
+            partList.appendChild(li);
+          }
+          card.appendChild(partList);
+        }
+        grid.appendChild(card);
+      }
+      section.appendChild(grid);
+      fragment.appendChild(section);
+    }
     return fragment;
   }
 
   // ─── Coming Soon view ───
+
+  const COMING_SOON = [
+    { title: 'Tiṅanta — Verbal Conjugation', desc: 'All 10 gaṇas × 10 lakāras, active and middle voice.', effort: '4–6 weeks' },
+    { title: 'Samāsa — Compound Formation', desc: 'Six compound types (Tatpuruṣa, Bahuvrīhi, Dvandva, etc.) with vigraha splitting.', effort: '2–3 weeks' },
+    { title: 'Nirukta Engine', desc: 'Etymological analysis using Yāska\'s principles.', effort: '2–3 weeks' },
+    { title: 'Kalpa — Ritual Sequence', desc: 'Śrauta, Gṛhya, and Dharma Sūtra ritual validation.', effort: '3–4 weeks' },
+    { title: 'Jyotiṣa — Calendar Engine', desc: 'Pañcāṅga computation and astronomical timekeeping.', effort: '4–6 weeks' },
+    { title: 'Purāṇa Corpus', desc: '18 Mahāpurāṇas + 18 Upapurāṇas as searchable text.', effort: '3–4 weeks' },
+    { title: 'Bhakti Corpus', desc: 'Divya Prabandham, Tirumurai, and vernacular devotional classics.', effort: '2 weeks' },
+    { title: 'Brahma Sūtra Concordance', desc: 'Commentarial matrix across 7 Vedāntic schools (Saṅkara, Rāmānuja, Madhva, etc.).', effort: '2–3 months' },
+    { title: 'Arthaśāstra Engine', desc: 'Kauṭilyan policy reasoning and statecraft analysis.', effort: '2–3 months' },
+    { title: 'Nāṭyaśāstra Rasa Analysis', desc: 'Aesthetic experience and performance grammar.', effort: '2–3 months' },
+    { title: 'Āgamic & Tantric Systems', desc: 'Śaiva Siddhānta, Vaiṣṇava Pāñcarātra, Śākta Śrī Vidyā.', effort: '6–12 months' },
+  ];
 
   function buildComingSoonView() {
     const fragment = document.createDocumentFragment();
@@ -971,9 +1096,22 @@
     fragment.appendChild(el('section', { class: 'panel' }, [
       el('header', { class: 'panel-head' }, [
         el('h2', { text: 'Coming Soon' }),
-        el('p', { class: 'panel-sub', text: 'Planned extensions with effort estimates.' }),
+        el('p', { class: 'panel-sub', text: 'Planned extensions and capabilities. Each has an effort estimate. Order is by priority.' }),
       ]),
     ]));
+
+    const grid = el('div', { class: 'soon-grid' });
+    for (let i = 0; i < COMING_SOON.length; i++) {
+      const item = COMING_SOON[i];
+      grid.appendChild(el('div', { class: 'soon-card' }, [
+        el('div', { class: 'soon-card-head' }, [
+          el('h3', { text: item.title }),
+          el('span', { class: 'soon-badge', text: item.effort }),
+        ]),
+        el('p', { class: 'soon-desc', text: item.desc }),
+      ]));
+    }
+    fragment.appendChild(grid);
 
     return fragment;
   }
@@ -1056,6 +1194,50 @@
       ]),
     ]));
 
+    const grid = el('div', { class: 'about-grid' });
+
+    grid.appendChild(el('div', { class: 'about-card' }, [
+      el('h3', { text: 'Architecture' }),
+      el('p', { text: 'Two-track design. Track B is a deterministic Pāṇinian compiler — no LLM, no stochastic behavior. Track A is an agentic RAG layer that generates content but delegates every verification to Track B.' }),
+    ]));
+
+    const endpointsCard = el('div', { class: 'about-card' }, [
+      el('h3', { text: 'Live Endpoints' }),
+    ]);
+    const endpointList = el('ul', { class: 'about-endpoints' });
+    const endpoints = [
+      { path: 'POST /api/v3/sandhi', note: 'Public · Sandhi engine' },
+      { path: 'POST /api/v3/chandas/scan', note: 'Public · Laghu/Guru scansion' },
+      { path: 'POST /api/v3/chandas/anustubh', note: 'Public · Anuṣṭubh validator' },
+      { path: 'POST /api/v3/chandas/trishtubh', note: 'Public · Triṣṭubh validator' },
+      { path: 'POST /api/v3/chandas/jagati', note: 'Public · Jagatī validator' },
+      { path: 'POST /api/v3/morphology/noun/inflect', note: 'Public · Subanta paradigm' },
+      { path: 'POST /api/v3/corpus/search', note: 'Public · Itihāsa search' },
+      { path: 'POST /api/v3/export/pdf', note: 'Public · PDF export' },
+      { path: 'POST /api/v3/agent/lyric', note: 'X-API-Key · Agentic generation' },
+      { path: 'POST /api/v3/agent/refine', note: 'X-API-Key · Multi-turn refinement' },
+      { path: 'GET /api/v3/changelog', note: 'Public · Release history' },
+    ];
+    for (let i = 0; i < endpoints.length; i++) {
+      endpointList.appendChild(el('li', {}, [
+        el('code', { text: endpoints[i].path }),
+        el('span', { text: ' · ' + endpoints[i].note }),
+      ]));
+    }
+    endpointsCard.appendChild(endpointList);
+    grid.appendChild(endpointsCard);
+
+    grid.appendChild(el('div', { class: 'about-card' }, [
+      el('h3', { text: 'Philological Foundation' }),
+      el('p', { text: 'Grounded in the complete Hindu Śāstra taxonomy. Every sūtra cited. Every category documented. Six Vedāṅgas mapped; three implemented computationally.' }),
+    ]));
+
+    grid.appendChild(el('div', { class: 'about-card' }, [
+      el('h3', { text: 'Deterministic Guarantee' }),
+      el('p', { text: 'Given the same input, the engine always returns the same output. No LLM self-scanning. No hallucination in phonology, scansion, or meter validation.' }),
+    ]));
+
+    fragment.appendChild(grid);
     return fragment;
   }
 
