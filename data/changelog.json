@@ -1,0 +1,76 @@
+{
+  "releases": [
+    {
+      "version": "0.5.3",
+      "date": "2026-09-21",
+      "name": "Week 2 — Frontend",
+      "status": "verified",
+      "verification": "Gemini browser QA — 47 checks, 0 bugs",
+      "changes": {
+        "added": [
+          "Morphology tab (Subanta paradigm viewer)",
+          "Corpus tab (Itihāsa search UI)",
+          "7-tab navigation"
+        ],
+        "fixed": [
+          "app.js bracket mismatch (SyntaxError)"
+        ]
+      }
+    },
+    {
+      "version": "0.5.2",
+      "date": "2026-09-21",
+      "name": "Week 2 — Backend",
+      "status": "verified",
+      "changes": {
+        "added": [
+          "Subanta engine — 7 stem classes × 24 forms = 168 total",
+          "Itihāsa corpus — 10 verses (Rāmāyaṇa + Mahābhārata)",
+          "Corpus search with keyword scoring and filters",
+          "6 API endpoints",
+          "12 new tests (33 → 45)"
+        ],
+        "fixed": [
+          "Subanta sandhi recombination producing devaāḥ, devaina, devae",
+          "Subanta i-stem duplicate vowel producing agniinā",
+          "kernel_api.py duplicate imports and missing router mounts"
+        ]
+      }
+    },
+    {
+      "version": "0.5.0",
+      "date": "2026-09-21",
+      "name": "Week 1",
+      "status": "verified",
+      "changes": {
+        "added": [
+          "Triṣṭubh validator (44 syllables)",
+          "Jagatī validator (48 syllables)",
+          "PDF export endpoint",
+          "Multi-turn refinement endpoint",
+          "Meter selector in Agent tab",
+          "PDF download button",
+          "Refine panel",
+          "6 new tests (27 → 33)"
+        ]
+      }
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-09-21",
+      "name": "Track B Complete",
+      "status": "verified",
+      "changes": {
+        "added": [
+          "Sandhi engine (11 Aṣṭādhyāyī sūtras)",
+          "Chandas scanner (Laghu/Guru)",
+          "Anuṣṭubh validator (pathyā + 5 vipulās)",
+          "Śikṣā articulation tensor",
+          "Pratyāhāra engine (14 Śiva Sūtras)",
+          "27 tests",
+          "First Cloud Run deployment"
+        ]
+      }
+    }
+  ]
+}

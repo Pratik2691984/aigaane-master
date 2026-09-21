@@ -23,6 +23,7 @@
     CORPUS_SEARCH:   '/api/v3/corpus/search',
     CORPUS_STATS:    '/api/v3/corpus/stats',
     CORPUS_SOURCES:  '/api/v3/corpus/sources',
+    CHANGELOG:       '/api/v3/changelog',
   });
 
   const LIMITS = Object.freeze({
@@ -973,6 +974,72 @@
         el('p', { class: 'panel-sub', text: 'Planned extensions with effort estimates.' }),
       ]),
     ]));
+
+    return fragment;
+  }
+  // ─── Changelog view ───
+
+  function buildChangelogView() {
+    const fragment = document.createDocumentFragment();
+
+    fragment.appendChild(el('section', { class: 'panel' }, [
+      el('header', { class: 'panel-head' }, [
+        el('h2', { text: 'Changelog' }),
+        el('p', { class: 'panel-sub', text: 'Release history. Machine-readable at /api/v3/changelog.' }),
+      ]),
+    ]));
+
+    const output = el('div', { class: 'changelog-list' }, [
+      el('p', { class: 'placeholder', text: 'Loading releases…' }),
+    ]);
+    fragment.appendChild(output);
+
+    getJSON(API.CHANGELOG)
+      .then(function (data) {
+        const releases = (data && data.releases) || [];
+        if (releases.length === 0) {
+          output.replaceChildren(el('p', { class: 'placeholder', text: 'No releases yet.' }));
+          return;
+        }
+
+        const cards = [];
+        for (let i = 0; i < releases.length; i++) {
+          const r = releases[i];
+          const changes = r.changes || {};
+          const body = [];
+
+          if (changes.added && changes.added.length) {
+            body.push(el('h3', { text: 'Added' }));
+            const ul = el('ul');
+            for (let j = 0; j < changes.added.length; j++) {
+              ul.appendChild(el('li', { text: changes.added[j] }));
+            }
+            body.push(ul);
+          }
+          if (changes.fixed && changes.fixed.length) {
+            body.push(el('h3', { text: 'Fixed' }));
+            const ul2 = el('ul');
+            for (let k = 0; k < changes.fixed.length; k++) {
+              ul2.appendChild(el('li', { text: changes.fixed[k] }));
+            }
+            body.push(ul2);
+          }
+
+          cards.push(el('article', { class: 'panel changelog-entry' }, [
+            el('header', { class: 'panel-head' }, [
+              el('h3', { text: 'v' + r.version + ' — ' + r.name }),
+              el('p', { class: 'panel-sub', text: r.date }),
+            ]),
+          ].concat(body)));
+        }
+
+        output.replaceChildren(...cards);
+      })
+      .catch(function (err) {
+        output.replaceChildren(
+          el('p', { class: 'placeholder', text: 'Could not load changelog: ' + err.message })
+        );
+      });
 
     return fragment;
   }

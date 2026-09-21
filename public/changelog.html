@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aigaane — Release history and changelog">
+  <meta name="theme-color" content="#0f172a">
+  <title>Aigaane — Changelog</title>
+  <link rel="stylesheet" href="/shared/master.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
+</head>
+<body>
+  <div id="app-shell">
+    <nav aria-label="Primary">
+      <span class="brand">ॐ Aigaane</span>
+      <a href="/" class="nav-btn">← Back to App</a>
+    </nav>
+
+    <main id="viewport" role="main">
+      <div class="container" style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+        <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Changelog</h1>
+        <p class="panel-sub" style="margin-bottom: 2rem;">
+          Release history for the Aigaane Sanskrit Engine.
+          Machine-readable at <code>/api/v3/changelog</code>.
+        </p>
+
+        <div id="releases">Loading releases…</div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> Aigaane · Deterministic Pāṇinian engine</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      function el(tag, opts, children) {
+        opts = opts || {};
+        children = children || [];
+        var node = document.createElement(tag);
+        if (opts.class) node.className = opts.class;
+        if (opts.text != null) node.textContent = String(opts.text);
+        if (opts.attrs) {
+          for (var k in opts.attrs) {
+            if (Object.prototype.hasOwnProperty.call(opts.attrs, k)) {
+              node.setAttribute(k, opts.attrs[k]);
+            }
+          }
+        }
+        for (var i = 0; i < children.length; i++) {
+          if (children[i] == null) continue;
+          node.appendChild(typeof children[i] === 'string'
+            ? document.createTextNode(children[i])
+            : children[i]);
+        }
+        return node;
+      }
+
+      function renderReleases(data) {
+        var container = document.getElementById('releases');
+        container.replaceChildren();
+
+        var releases = data.releases || [];
+        if (releases.length === 0) {
+          container.appendChild(el('p', { text: 'No releases yet.' }));
+          return;
+        }
+
+        for (var i = 0; i < releases.length; i++) {
+          var r = releases[i];
+          var changes = r.changes || {};
+
+          var header = el('header', { class: 'panel-head' }, [
+            el('h2', { text: 'v' + r.version + ' — ' + r.name }),
+            el('p', { class: 'panel-sub', text: r.date }),
+          ]);
+
+          var body = [];
+          if (changes.added && changes.added.length) {
+            body.push(el('h3', { text: 'Added' }));
+            var ul = el('ul');
+            for (var j = 0; j < changes.added.length; j++) {
+              ul.appendChild(el('li', { text: changes.added[j] }));
+            }
+            body.push(ul);
+          }
+          if (changes.fixed && changes.fixed.length) {
+            body.push(el('h3', { text: 'Fixed' }));
+            var ul2 = el('ul');
+            for (var k = 0; k < changes.fixed.length; k++) {
+              ul2.appendChild(el('li', { text: changes.fixed[k] }));
+            }
+            body.push(ul2);
+          }
+
+          var article = el('article', { class: 'panel' }, [header].concat(body));
+          container.appendChild(article);
+        }
+      }
+
+      function showError(msg) {
+        var container = document.getElementById('releases');
+        container.replaceChildren(el('p', { class: 'placeholder', text: 'Error: ' + msg }));
+      }
+
+      var yearNode = document.getElementById('year');
+      if (yearNode) yearNode.textContent = String(new Date().getFullYear());
+
+      fetch('/api/v3/changelog')
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(renderReleases)
+        .catch(function (err) { showError(err.message); });
+    })();
+  </script>
+</body>
+</html>

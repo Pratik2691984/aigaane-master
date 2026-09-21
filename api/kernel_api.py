@@ -21,6 +21,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+
 try:
     from mangum import Mangum
 except ImportError:
@@ -51,7 +52,7 @@ from routers.export import router as export_router
 # Week 2 routers (Subanta + corpus)
 from routers.morphology import router as morphology_router
 from routers.corpus import router as corpus_router
-
+from routers.changelog import router as changelog_router
 
 # ────────────────────────────────────────────────────────────────
 # Lifespan context — replaces deprecated @app.on_event("startup")
@@ -156,7 +157,8 @@ app.include_router(export_router)
 # Week 2 mounts
 app.include_router(morphology_router)
 app.include_router(corpus_router)
-
+# Changelog mount
+app.include_router(changelog_router)
 
 # ════════════════════════════════════════════════════════════════
 # 49D KERNEL MODELS & ENDPOINTS
