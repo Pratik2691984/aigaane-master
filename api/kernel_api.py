@@ -6,6 +6,8 @@ Includes:
   - 49D Kernel, Atma Friction & V3 Derivation Routes
   - Track B Phonology (sandhi) and Chandas scanners
   - Track A Agentic RAG (agent lyric generation, X-API-Key required)
+  - Week 1: Triṣṭubh / Jagatī meters, PDF export, multi-turn refinement
+  - Week 2: Subanta (nominal declension), Itihāsa corpus search
   - Vercel ASGI Handler (Mangum)
 """
 import os
@@ -14,7 +16,7 @@ import json
 from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import List, Optional, Dict, Any
-from routers.export import router as export_router
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -42,6 +44,13 @@ from routers.chandas import router as chandas_router
 
 # Track A router (agentic RAG, requires X-API-Key)
 from routers.agent import router as agent_router
+
+# Week 1 routers (PDF export)
+from routers.export import router as export_router
+
+# Week 2 routers (Subanta + corpus)
+from routers.morphology import router as morphology_router
+from routers.corpus import router as corpus_router
 
 
 # ────────────────────────────────────────────────────────────────
@@ -140,7 +149,14 @@ app.include_router(chandas_router)
 
 # Track A mount
 app.include_router(agent_router)
+
+# Week 1 mounts
 app.include_router(export_router)
+
+# Week 2 mounts
+app.include_router(morphology_router)
+app.include_router(corpus_router)
+
 
 # ════════════════════════════════════════════════════════════════
 # 49D KERNEL MODELS & ENDPOINTS
