@@ -48,6 +48,8 @@ from v3_derivation import router as v3_router
 # Track B routers (corrected Pāṇinian phonology & chandas)
 from routers.sandhi import router as sandhi_router
 from routers.chandas import router as chandas_router
+# Track A router (agentic RAG, requires X-API-Key)
+from routers.agent import router as agent_router
 
 # Prosody Engine imports
 from api.schemas.prosody import (
@@ -159,6 +161,8 @@ app.include_router(v3_router)
 # Track B mounts
 app.include_router(sandhi_router)
 app.include_router(chandas_router)
+# Track A mount
+app.include_router(agent_router)
 
 
 # ════════════════════════════════════════════════════════════════

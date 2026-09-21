@@ -79,3 +79,14 @@ __pycache__/
 # Dhatu import transient logs
 data/sanskrit/dhatus/import.log
 data/sanskrit/dhatus/import_errors.jsonl
+
+*.bak
+*.bak2
+*.bak3
+*.bak5
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.env.local
+scan_body.json
