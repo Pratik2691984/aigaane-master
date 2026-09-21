@@ -703,7 +703,9 @@
     );
   }
 
-  function ScansionTab(state, dispatch, audio) {
+  function ScansionTab(props) {
+    var state = props.state;
+    var dispatch = props.dispatch;
     var scan = useMemo(function () { return scanPingal(state.text); }, [state.text]);
     var notation = useMemo(function () { return pingalNotation(scan.syllables); }, [scan]);
 
@@ -766,7 +768,9 @@
     );
   }
 
-  function PromptTab(state, dispatch) {
+  function PromptTab(props) {
+    var state = props.state;
+    var dispatch = props.dispatch;
     var compact = useMemo(function () { return buildCompactPrompt(state); }, [state]);
     var cinematic = useMemo(function () { return buildCinematicPrompt(state); }, [state]);
     var [copied, setCopied] = useState('');
@@ -917,10 +921,10 @@
           h(MoodBadge, { id: state.moodId })
         ),
 
-        state.tab === 'studio'   ? StudioTab(state, dispatch, audio) :
-        state.tab === 'scansion' ? ScansionTab(state, dispatch, audio) :
-        state.tab === 'prompt'   ? PromptTab(state, dispatch) :
-        AboutTab()
+      state.tab === 'studio'   ? h(StudioTab,   { state: state, dispatch: dispatch, audio: audio }) :
+        state.tab === 'scansion' ? h(ScansionTab, { state: state, dispatch: dispatch, audio: audio }) :
+        state.tab === 'prompt'   ? h(PromptTab,   { state: state, dispatch: dispatch }) :
+        h(AboutTab)
       ),
 
       h('footer', { className: 'vv-footer-fixed' },
