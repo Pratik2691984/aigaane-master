@@ -4,11 +4,10 @@ Unified FastAPI Application for Aigaane Engine
 
 Includes:
   - 49D Kernel, Atma Friction & V3 Derivation Routes
-  - Classical Sanskrit Prosody Scansion Engine (Piṅgala Chhandaḥśāstra)
   - Track B Phonology (sandhi) and Chandas scanners
+  - Track A Agentic RAG (agent lyric generation, X-API-Key required)
   - Vercel ASGI Handler (Mangum)
 """
-import re
 import os
 import sys
 import json
@@ -34,37 +33,15 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))       # repo root (f
 # ────────────────────────────────────────────────────────────────
 # Local imports
 # ────────────────────────────────────────────────────────────────
-# calculate_friction lives in api/engines/anumana.py — import by absolute path
-try:
-    from api.engines.anumana import calculate_friction
-except ImportError:
-    try:
-        from engines.anumana import calculate_friction
-    except ImportError:
-        def calculate_friction(*args, **kwargs):
-            return {"error": "calculate_friction not available"}
+from engines.anumana import calculate_friction
 from v3_derivation import router as v3_router
 
 # Track B routers (corrected Pāṇinian phonology & chandas)
 from routers.sandhi import router as sandhi_router
 from routers.chandas import router as chandas_router
+
 # Track A router (agentic RAG, requires X-API-Key)
 from routers.agent import router as agent_router
-
-# Prosody Engine imports
-from api.schemas.prosody import (
-    ProsodyScanRequest,
-    ProsodyScanResponse,
-    PadaScanResult,
-    ProsodyDiagnostic,
-    ProsodyTraceStep,
-)
-from engines.prosody.chandas import (
-    scan_anustubh,
-    scan_upajati,
-    scan_varnavrtta_pada,
-    METER_SCHEMAS,
-)
 
 
 # ────────────────────────────────────────────────────────────────
@@ -75,8 +52,8 @@ async def lifespan(app: FastAPI):
     """
     Application lifespan handler.
 
-    Runs startup logic (load golden build from disk) before yielding,
-    then yields to serve requests, then runs shutdown cleanup.
+    Loads the golden build from disk before yielding, then yields to serve
+    requests, then runs shutdown cleanup.
     """
     # ── Startup ──
     golden_build_path = os.path.join(
@@ -96,7 +73,6 @@ async def lifespan(app: FastAPI):
                 direction=golden_data.get("direction", "→ Forward"),
                 phase_lock=golden_data.get("phase_lock", "LOCKED"),
             )
-            # Persist to the module-level registry
             global current_golden_build, golden_builds
             build_dict = build_data.model_dump()
             build_id = f"gb_{len(golden_builds) + 1:04d}"
@@ -161,6 +137,7 @@ app.include_router(v3_router)
 # Track B mounts
 app.include_router(sandhi_router)
 app.include_router(chandas_router)
+
 # Track A mount
 app.include_router(agent_router)
 
@@ -390,101 +367,6 @@ async def calculate_atma_friction(payload: AtmaFrictionRequest):
 @app.post("/api/atma/calculate-friction")
 async def calculate_atma_friction_alias(payload: AtmaFrictionRequest):
     return await calculate_atma_friction(payload)
-
-
-# ════════════════════════════════════════════════════════════════
-# CLASSICAL PROSODY SCANSION ENDPOINTS
-# ════════════════════════════════════════════════════════════════
-@app.post("/api/v3/prosody/scan", response_model=ProsodyScanResponse)
-def scan_prosody_endpoint(req: ProsodyScanRequest):
-    chandas_clean = (req.chandas or "anustubh").strip().lower()
-
-    if chandas_clean == "anustubh":
-        report = scan_anustubh(req.text, padanta_guru=req.padanta_guru)
-        return ProsodyScanResponse(
-            valid=report["valid"],
-            chandas=report["chandas"],
-            variant=report.get("variant"),
-            padas=report["padas"],
-            diagnostics=report["diagnostics"],
-            trace=report["trace"],
-            governance=report["governance"],
-        )
-
-    elif chandas_clean in ["upajati", "indravajra", "upendravajra"]:
-        report = scan_upajati(req.text, padanta_guru=req.padanta_guru)
-        trace_steps = [
-            ProsodyTraceStep(
-                rule="upajati-line-match",
-                pada=p["pada_number"],
-                syllable=p["total_syllables"],
-                found=p["weights"][-1] if p["weights"] else "L",
-                ok=p["valid"],
-            )
-            for p in report["padas"]
-        ]
-        return ProsodyScanResponse(
-            valid=report["valid"],
-            chandas=report["chandas"],
-            variant=report.get("variant"),
-            padas=report["padas"],
-            diagnostics=report["diagnostics"],
-            trace=trace_steps,
-            governance=report["governance"],
-        )
-
-    elif chandas_clean in METER_SCHEMAS:
-        # Split on newlines and danda (।) / double-danda (॥)
-        split_pat = chr(13) + chr(10) + "/|।॥"
-        lines = [
-            ln.strip() for ln in re.split(f"[{split_pat}]+", req.text) if ln.strip()
-        ]
-        padas = []
-        all_diags = []
-        all_valid = True
-
-        for idx, line in enumerate(lines[:4], 1):
-            pada_res, pada_diags = scan_varnavrtta_pada(
-                line, idx, chandas_clean, req.padanta_guru
-            )
-            padas.append(pada_res)
-            if not pada_res["valid"]:
-                all_valid = False
-            all_diags.extend(pada_diags)
-
-        trace_steps = [
-            ProsodyTraceStep(
-                rule=f"{chandas_clean}-scan",
-                pada=p["pada_number"],
-                syllable=p["total_syllables"],
-                found=p["weights"][-1] if p["weights"] else "L",
-                ok=p["valid"],
-            )
-            for p in padas
-        ]
-
-        return ProsodyScanResponse(
-            valid=all_valid and len(padas) > 0,
-            chandas=chandas_clean,
-            variant="samavṛtta",
-            padas=padas,
-            diagnostics=all_diags,
-            trace=trace_steps,
-            governance={
-                "engine": "engines.prosody.chandas",
-                "authority": "Piṅgala Chhandaḥśāstra",
-            },
-        )
-
-    else:
-        raise HTTPException(
-            status_code=400,
-            detail=(
-                f"Unsupported meter '{req.chandas}'. "
-                "Supported: anustubh, upajati, indravajra, upendravajra, "
-                "shardulavikridita"
-            ),
-        )
 
 
 # ────────────────────────────────────────────────────────────────
