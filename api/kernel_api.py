@@ -14,7 +14,7 @@ import json
 from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import List, Optional, Dict, Any
-
+from routers.export import router as export_router
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -140,7 +140,7 @@ app.include_router(chandas_router)
 
 # Track A mount
 app.include_router(agent_router)
-
+app.include_router(export_router)
 
 # ════════════════════════════════════════════════════════════════
 # 49D KERNEL MODELS & ENDPOINTS

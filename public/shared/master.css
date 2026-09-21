@@ -632,4 +632,350 @@ textarea:focus-visible {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+
+/* ════════════════════════════════════════════════════════════
+   Śāstra taxonomy view
+   ════════════════════════════════════════════════════════════ */
+
+.sastra-branch {
+  border-left: 3px solid rgba(212, 162, 76, 0.3);
+  padding-left: 1.5rem;
+  margin-left: 0;
+}
+
+.sastra-branch .panel-head {
+  margin-bottom: 1.5rem;
+}
+
+.sastra-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.sastra-card {
+  background: #121828;
+  border: 1px solid #232c44;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  transition: border-color 150ms, transform 150ms;
+}
+
+.sastra-card:hover {
+  border-color: #3a4664;
+  transform: translateY(-2px);
+}
+
+.sastra-card.sastra-status-live {
+  border-left: 3px solid #4ade80;
+}
+
+.sastra-card.sastra-status-partial {
+  border-left: 3px solid #d4a24c;
+}
+
+.sastra-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.sastra-card h3 {
+  margin: 0;
+  font-size: 1.0625rem;
+  color: #e6eaf3;
+}
+
+.sastra-subtitle {
+  color: #97a1bd;
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem;
+  font-style: italic;
+}
+
+.sastra-meta {
+  color: #6b7694;
+  font-size: 0.8125rem;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.sastra-parts {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  border-top: 1px solid #232c44;
+  padding-top: 0.75rem;
+}
+
+.sastra-part {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  font-size: 0.875rem;
+  border-bottom: 1px dashed rgba(35, 44, 68, 0.5);
+}
+
+.sastra-part:last-child {
+  border-bottom: 0;
+}
+
+.sastra-part-name {
+  color: #e6eaf3;
+  font-weight: 500;
+}
+
+.sastra-part-meta {
+  color: #6b7694;
+  font-size: 0.8125rem;
+}
+
+.sastra-part-tag {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sastra-part-tag.status-live {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.sastra-part-tag.status-partial {
+  background: rgba(212, 162, 76, 0.15);
+  color: #d4a24c;
+  border: 1px solid rgba(212, 162, 76, 0.3);
+}
+
+.sastra-part-tag.status-coming {
+  background: rgba(107, 118, 148, 0.15);
+  color: #97a1bd;
+  border: 1px solid rgba(107, 118, 148, 0.3);
+}
+
+.status-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.status-badge.status-live {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.status-badge.status-partial {
+  background: rgba(212, 162, 76, 0.15);
+  color: #d4a24c;
+  border: 1px solid rgba(212, 162, 76, 0.3);
+}
+
+.status-badge.status-meta {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.25);
+}
+
+.status-badge.status-coming {
+  background: rgba(107, 118, 148, 0.12);
+  color: #97a1bd;
+  border: 1px solid rgba(107, 118, 148, 0.25);
+}
+
+/* ════════════════════════════════════════════════════════════
+   Coming Soon view
+   ════════════════════════════════════════════════════════════ */
+
+.soon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.soon-card {
+  background: #121828;
+  border: 1px solid #232c44;
+  border-left: 3px solid #6b7694;
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: border-color 150ms, transform 150ms;
+}
+
+.soon-card:hover {
+  border-color: #3a4664;
+  border-left-color: #97a1bd;
+  transform: translateY(-2px);
+}
+
+.soon-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.soon-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #e6eaf3;
+}
+
+.soon-badge {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(212, 162, 76, 0.12);
+  color: #d4a24c;
+  border: 1px solid rgba(212, 162, 76, 0.25);
+  white-space: nowrap;
+  font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.soon-desc {
+  color: #97a1bd;
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════════════════════════════════
+   About view
+   ════════════════════════════════════════════════════════════ */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.about-card {
+  background: #121828;
+  border: 1px solid #232c44;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.about-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: #d4a24c;
+  letter-spacing: 0.01em;
+}
+
+.about-card p {
+  margin: 0;
+  color: #97a1bd;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.about-endpoints {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-endpoints li {
+  padding: 0.4rem 0;
+  font-size: 0.8125rem;
+  color: #97a1bd;
+  border-bottom: 1px dashed rgba(35, 44, 68, 0.5);
+}
+
+.about-endpoints li:last-child {
+  border-bottom: 0;
+}
+
+.about-endpoints code {
+  display: inline-block;
+  font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.75rem;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  margin-right: 0.4rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Mobile adjustments
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  #app-shell nav {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.6rem 0.9rem;
+  }
+  .nav-btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8125rem;
+  }
+  nav .brand {
+    width: 100%;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+  .sastra-branch {
+    padding-left: 0.75rem;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   Week 1 additions: meter selector + refine panel
+   ════════════════════════════════════════════════════════════ */
+
+.meter-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #0d1322;
+  border: 1px solid #232c44;
+  border-radius: 8px;
+  color: #e6eaf3;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: border-color 120ms, box-shadow 120ms;
+}
+
+.meter-select:focus-visible {
+  outline: none;
+  border-color: #d4a24c;
+  box-shadow: 0 0 0 3px rgba(212, 162, 76, 0.15);
+}
+
+.meter-select option {
+  background: #0d1322;
+  color: #e6eaf3;
+}
+
+.refine-panel {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #232c44;
+}
+
+.refine-panel .panel-head h3 {
+  font-size: 1.125rem;
+  margin: 0 0 0.5rem;
 }

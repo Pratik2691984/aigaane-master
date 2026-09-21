@@ -10,12 +10,7 @@ ARCHITECTURAL RULES:
   3. No decorator on `generate_verse` — it is an async generator and
      cannot be wrapped by `canonical_read_only`.
 
-STRATEGY:
-  - Low temperature on first attempt (0.5) for stability.
-  - Progressive lowering on retries (0.5 → 0.4 → 0.3) to force precision.
-  - Few-shot exemplar of a valid Anuṣṭubh verse in the system prompt.
-  - Pāda-4-first composition to combat the "short last line" bias.
-  - Per-pāda surgical feedback on retries.
+WEEK 1: Supports Anuṣṭubh, Triṣṭubh, and Jagatī meters.
 """
 
 from __future__ import annotations
@@ -26,6 +21,8 @@ from typing import AsyncIterator
 from agent.quanta_ledger import QuantaExceeded, QuantaLedger
 from engines.chandas.anustubh import validate_anustubh
 from engines.chandas.scansion import scan
+from engines.chandas.trishtubh import validate_trishtubh
+from engines.chandas.jagati import validate_jagati
 from engines.gemini_client import GeminiClient, GeminiClientError
 
 
@@ -33,35 +30,48 @@ logger = logging.getLogger(__name__)
 
 
 # ────────────────────────────────────────────────────────────────
+# Meter-specific syllable targets
+# ────────────────────────────────────────────────────────────────
+
+_METER_TARGETS = {
+    "anuṣṭubh": "4 pādas of EXACTLY 8 syllables each (32 total)",
+    "anustubh": "4 pādas of EXACTLY 8 syllables each (32 total)",
+    "triṣṭubh": "4 pādas of EXACTLY 11 syllables each (44 total)",
+    "trishtubh": "4 pādas of EXACTLY 11 syllables each (44 total)",
+    "jagatī": "4 pādas of EXACTLY 12 syllables each (48 total)",
+    "jagati": "4 pādas of EXACTLY 12 syllables each (48 total)",
+}
+
+
+# ────────────────────────────────────────────────────────────────
 # System prompt
 # ────────────────────────────────────────────────────────────────
 
-SYSTEM_INSTRUCTION = """You are a classical Sanskrit lyricist composing STRICTLY in Anuṣṭubh meter.
+SYSTEM_INSTRUCTION = """You are a classical Sanskrit lyricist composing STRICTLY in the requested meter.
 
 ═══════════════════════════════════════════════════════════════════
-CRITICAL METER REQUIREMENT — ANUṢṬUBH
+CRITICAL METER REQUIREMENT
 ═══════════════════════════════════════════════════════════════════
-Anuṣṭubh has EXACTLY 32 syllables: 4 pādas × 8 syllables each.
+Every verse has EXACTLY 4 pādas. Each pāda MUST have the EXACT syllable count specified.
 
-EACH pāda MUST have EXACTLY 8 syllables. Not 7. Not 9. EXACTLY 8.
+EACH pāda must have EXACTLY the target syllable count. Not one less. Not one more.
 
 How to count syllables (akṣaras):
   - Each vowel = 1 syllable
   - Long vowels (ā, ī, ū) = 1 syllable
   - Diphthongs (ai, au, e, o) = 1 syllable
   - Anusvāra (ṃ), visarga (ḥ), and trailing consonants attach to the preceding vowel
-  Example: rā-mo-'ga-ccha-ti = 5 syllables
 
 ═══════════════════════════════════════════════════════════════════
 COMPOSITION ORDER — FOLLOW EXACTLY
 ═══════════════════════════════════════════════════════════════════
-STEP 1: Compose PĀDA 4 FIRST with EXACTLY 8 syllables.
-STEP 2: Then compose PĀDA 3 with EXACTLY 8 syllables.
-STEP 3: Then compose PĀDA 2 with EXACTLY 8 syllables.
-STEP 4: Then compose PĀDA 1 with EXACTLY 8 syllables.
+STEP 1: Compose PĀDA 4 FIRST with EXACTLY the target syllables.
+STEP 2: Then compose PĀDA 3 with EXACTLY the target syllables.
+STEP 3: Then compose PĀDA 2 with EXACTLY the target syllables.
+STEP 4: Then compose PĀDA 1 with EXACTLY the target syllables.
 
-WHY: Pāda 4 is the most common failure point. By composing it first,
-you anchor the verse and prevent the "short last line" problem.
+WHY: Pāda 4 is the most common failure point. Composing it first anchors
+the verse and prevents the "short last line" problem.
 
 ═══════════════════════════════════════════════════════════════════
 OUTPUT FORMAT — STRICTLY ENFORCED
@@ -76,21 +86,10 @@ Return ONLY the verse in this exact format:
 Rules:
 - ONE pāda per line
 - EXACTLY 4 lines
-- EXACTLY one newline between pādas
 - NO blank lines
 - NO title, commentary, translation, or scansion notation
 - IAST transliteration only (not Devanagari)
 - NO punctuation (no danda, no comma, no period)
-
-═══════════════════════════════════════════════════════════════════
-EXAMPLE OF A VALID ANUṢṬUBH VERSE
-═══════════════════════════════════════════════════════════════════
-tapaḥsvādhyāyanirataṃ
-tapasvī vāgvidāṃ varam
-nāradaṃ paripapraccha
-vālmīkir munisattamam
-
-Verify: 8 + 8 + 8 + 8 = 32 syllables. ✓
 
 ═══════════════════════════════════════════════════════════════════
 YOU MUST NOT
@@ -112,6 +111,8 @@ IAST diacritics: ā ī ū ṛ ṝ ḷ ḹ e ai o au ṃ ḥ ṅ ñ ṭ ḍ ṇ �
 class Orchestrator:
     """
     Track A orchestrator: generation → scan → validate → regenerate loop.
+
+    Supports: Anuṣṭubh, Triṣṭubh, Jagatī.
     """
 
     _TEMPERATURE_SCHEDULE = (0.3, 0.25, 0.2, 0.15, 0.1)
@@ -138,7 +139,6 @@ class Orchestrator:
         }
 
     async def _validate_anustubh(self, text: str) -> dict:
-        """Execute Anuṣṭubh validation in-process."""
         result = validate_anustubh(text)
         return {
             "input": result.input,
@@ -166,7 +166,6 @@ class Orchestrator:
             return [scan(text).length]
         if len(lines) == 4:
             return [scan(ln).length for ln in lines]
-        # If not 4 lines, report total only
         return [scan(text).length]
 
     @staticmethod
@@ -175,15 +174,11 @@ class Orchestrator:
         total: int,
         target_per_pada: int = 8,
     ) -> str:
-        """
-        Build an explicit, per-pāda failure report for the model.
-        Returns a short string naming which pādas need fixing.
-        """
+        """Build per-pāda failure report."""
         if len(per_pada_counts) != 4:
             return (
-                f"Output has {total} syllables total (need 32). "
-                f"Ensure EXACTLY 4 pādas, one per line. "
-                f"Each pāda must have EXACTLY 8 syllables."
+                f"Output has {total} syllables total (need 4 pādas × "
+                f"{target_per_pada}). Ensure EXACTLY 4 pādas, one per line."
             )
 
         correct = []
@@ -220,8 +215,32 @@ class Orchestrator:
     ) -> AsyncIterator[dict]:
         """
         Async generator yielding SSE-ready events.
+
+        Stages:
+          - retrieving
+          - drafting      {attempt, temperature}
+          - scanning
+          - validating
+          - regenerating  {reason, per_pada_counts}
+          - complete      {verse, pattern, padas, quanta, prompt}
+          - error         {message}
         """
         ledger = QuantaLedger(ceiling=ledger_ceiling)
+        meter_key = meter.lower()
+
+        # Determine target syllables for feedback
+        if meter_key in ("anuṣṭubh", "anustubh"):
+            target_per_pada = 8
+            total_target = 32
+        elif meter_key in ("triṣṭubh", "trishtubh"):
+            target_per_pada = 11
+            total_target = 44
+        elif meter_key in ("jagatī", "jagati"):
+            target_per_pada = 12
+            total_target = 48
+        else:
+            target_per_pada = 8
+            total_target = 32
 
         try:
             # ── 1. Retrieval ──
@@ -240,7 +259,10 @@ class Orchestrator:
                     f"- {a}" for a in anchors
                 )
             system_prompt += f"\n\nREQUESTED METER: {meter}"
-            system_prompt += "\nTARGET: 4 pādas, EXACTLY 8 syllables each = 32 total."
+            target_line = _METER_TARGETS.get(
+                meter_key, f"4 pādas of EXACTLY {target_per_pada} syllables each"
+            )
+            system_prompt += f"\nTARGET: {target_line}."
 
             # ── 3. Generation + validation loop ──
             last_pattern = ""
@@ -258,7 +280,6 @@ class Orchestrator:
                     "temperature": temperature,
                 }
 
-                # Build user prompt with surgical retry feedback
                 user_prompt = prompt
                 if last_feedback:
                     user_prompt += (
@@ -269,9 +290,9 @@ class Orchestrator:
                         f"Full scansion pattern: {last_pattern}\n"
                         f"Total syllables: {sum(last_pada_counts) if last_pada_counts else 'N/A'}\n\n"
                         f"INSTRUCTIONS FOR NEXT ATTEMPT:\n"
-                        f"1. Compose PĀDA 4 first, EXACTLY 8 syllables.\n"
+                        f"1. Compose PĀDA 4 first, EXACTLY {target_per_pada} syllables.\n"
                         f"2. Then compose pādas 3, 2, 1 in that order.\n"
-                        f"3. Every pāda must have EXACTLY 8 syllables.\n"
+                        f"3. Every pāda must have EXACTLY {target_per_pada} syllables.\n"
                         f"4. Output EXACTLY 4 lines (one pāda per line)."
                     )
 
@@ -305,45 +326,66 @@ class Orchestrator:
                     }
                     return
 
-                # ── 5. Validate ──
+                # ── 5. Validate meter ──
                 yield {"stage": "validating"}
 
-                if meter.lower() in ("anuṣṭubh", "anustubh"):
+                is_valid_meter = False
+                pada_results = []
+                error_message = ""
+
+                if meter_key in ("anuṣṭubh", "anustubh"):
                     try:
                         anu_result = await self._validate_anustubh(draft)
+                        is_valid_meter = anu_result.get("is_valid", False)
+                        pada_results = anu_result.get("padas", [])
+                        if not is_valid_meter:
+                            error_message = "; ".join(anu_result.get("errors", []))
                     except Exception as e:
                         yield {"stage": "error", "message": f"Validate failed: {e}"}
                         return
 
-                    if anu_result.get("is_valid"):
-                        yield {
-                            "stage": "complete",
-                            "prompt": prompt,
-                            "verse": draft,
-                            "pattern": scan_result.get("pattern"),
-                            "length": scan_result.get("length"),
-                            "padas": anu_result.get("padas", []),
-                            "quanta": ledger.snapshot(),
-                            "attempts_used": attempt,
-                        }
+                elif meter_key in ("triṣṭubh", "trishtubh"):
+                    try:
+                        tri_result = validate_trishtubh(draft)
+                        is_valid_meter = tri_result.is_valid
+                        pada_results = [
+                            {
+                                "index": p.index,
+                                "text_pattern": p.text_pattern,
+                                "variety": p.variety,
+                                "is_valid": p.is_valid,
+                                "reason": p.reason,
+                            }
+                            for p in tri_result.padas
+                        ]
+                        if not is_valid_meter:
+                            error_message = "; ".join(tri_result.errors)
+                    except Exception as e:
+                        yield {"stage": "error", "message": f"Validate failed: {e}"}
                         return
 
-                    # Capture failure info
-                    last_pattern = scan_result.get("pattern", "")
-                    last_error = "; ".join(anu_result.get("errors", []))
-                    last_pada_counts = self._split_pada_counts(draft)
-                    last_feedback = self._build_surgical_feedback(
-                        last_pada_counts, syllable_count
-                    )
+                elif meter_key in ("jagatī", "jagati"):
+                    try:
+                        jag_result = validate_jagati(draft)
+                        is_valid_meter = jag_result.is_valid
+                        pada_results = [
+                            {
+                                "index": p.index,
+                                "text_pattern": p.text_pattern,
+                                "variety": p.variety,
+                                "is_valid": p.is_valid,
+                                "reason": p.reason,
+                            }
+                            for p in jag_result.padas
+                        ]
+                        if not is_valid_meter:
+                            error_message = "; ".join(jag_result.errors)
+                    except Exception as e:
+                        yield {"stage": "error", "message": f"Validate failed: {e}"}
+                        return
 
-                    yield {
-                        "stage": "regenerating",
-                        "reason": last_error,
-                        "per_pada_counts": last_pada_counts,
-                        "total_syllables": syllable_count,
-                        "feedback": last_feedback,
-                    }
                 else:
+                    # Unknown meter: accept after scan
                     yield {
                         "stage": "complete",
                         "prompt": prompt,
@@ -354,6 +396,34 @@ class Orchestrator:
                         "attempts_used": attempt,
                     }
                     return
+
+                if is_valid_meter:
+                    yield {
+                        "stage": "complete",
+                        "prompt": prompt,
+                        "verse": draft,
+                        "pattern": scan_result.get("pattern"),
+                        "length": scan_result.get("length"),
+                        "padas": pada_results,
+                        "quanta": ledger.snapshot(),
+                        "attempts_used": attempt,
+                    }
+                    return
+
+                # Failed — build feedback for next attempt
+                last_pattern = scan_result.get("pattern", "")
+                last_error = error_message
+                last_pada_counts = self._split_pada_counts(draft)
+                last_feedback = self._build_surgical_feedback(
+                    last_pada_counts, syllable_count, target_per_pada=target_per_pada
+                )
+                yield {
+                    "stage": "regenerating",
+                    "reason": last_error,
+                    "per_pada_counts": last_pada_counts,
+                    "total_syllables": syllable_count,
+                    "feedback": last_feedback,
+                }
 
             # ── 6. Max attempts exceeded ──
             yield {

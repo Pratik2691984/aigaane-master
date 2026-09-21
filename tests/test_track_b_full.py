@@ -145,3 +145,52 @@ def test_router_anustubh_short(client):
     assert r.status_code == 200
     body = r.json()
     assert body["is_valid"] is False
+
+# ─── Triṣṭubh ───
+
+def test_trishtubh_imports():
+    from engines.chandas.trishtubh import validate_trishtubh
+    r = validate_trishtubh("short")
+    assert r.is_valid is False
+    assert "Expected 44 syllables" in r.errors[0]
+
+
+def test_trishtubh_short_input():
+    from engines.chandas.trishtubh import validate_trishtubh
+    r = validate_trishtubh("rāma")
+    assert r.is_valid is False
+    assert r.padas == []
+
+
+# ─── Jagatī ───
+
+def test_jagati_imports():
+    from engines.chandas.jagati import validate_jagati
+    r = validate_jagati("short")
+    assert r.is_valid is False
+    assert "Expected 48 syllables" in r.errors[0]
+
+
+def test_jagati_short_input():
+    from engines.chandas.jagati import validate_jagati
+    r = validate_jagati("rāma")
+    assert r.is_valid is False
+    assert r.padas == []
+
+
+# ─── Router endpoints ───
+
+def test_router_trishtubh_short(client):
+    r = client.post("/api/v3/chandas/trishtubh", json={"text": "rāma"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["is_valid"] is False
+    assert "Expected 44 syllables" in body["errors"][0]
+
+
+def test_router_jagati_short(client):
+    r = client.post("/api/v3/chandas/jagati", json={"text": "rāma"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["is_valid"] is False
+    assert "Expected 48 syllables" in body["errors"][0]

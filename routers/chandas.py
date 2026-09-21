@@ -2,7 +2,8 @@
 routers/chandas.py
 POST /api/v3/chandas/scan and /api/v3/chandas/anustubh
 """
-
+from engines.chandas.trishtubh import validate_trishtubh
+from engines.chandas.jagati import validate_jagati
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -72,5 +73,53 @@ def anustubh_endpoint(payload: AnustubhRequest) -> AnustubhResponse:
         padas=[PadaModel(index=p.index, text_pattern=p.text_pattern,
                          variety=p.variety, is_valid=p.is_valid, reason=p.reason)
                for p in result.padas],
+        errors=result.errors,
+    )
+@router.post(
+    "/trishtubh",
+    response_model=AnustubhResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Validate a verse as classical Triṣṭubh",
+)
+def trishtubh_endpoint(payload: AnustubhRequest) -> AnustubhResponse:
+    result = validate_trishtubh(payload.text)
+    return AnustubhResponse(
+        input=result.input,
+        is_valid=result.is_valid,
+        padas=[
+            PadaModel(
+                index=p.index,
+                text_pattern=p.text_pattern,
+                variety=p.variety,
+                is_valid=p.is_valid,
+                reason=p.reason,
+            )
+            for p in result.padas
+        ],
+        errors=result.errors,
+    )
+
+
+@router.post(
+    "/jagati",
+    response_model=AnustubhResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Validate a verse as classical Jagatī",
+)
+def jagati_endpoint(payload: AnustubhRequest) -> AnustubhResponse:
+    result = validate_jagati(payload.text)
+    return AnustubhResponse(
+        input=result.input,
+        is_valid=result.is_valid,
+        padas=[
+            PadaModel(
+                index=p.index,
+                text_pattern=p.text_pattern,
+                variety=p.variety,
+                is_valid=p.is_valid,
+                reason=p.reason,
+            )
+            for p in result.padas
+        ],
         errors=result.errors,
     )

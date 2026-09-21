@@ -6,6 +6,4 @@ httpx>=0.27.0
 google-genai>=0.3.0
 python-dotenv>=1.0.0
 mangum>=0.17.0
-httpx
-uvicorn
-reportlab>=4.0.0reportlab>=4.0.0
+reportlab>=4.0.0
