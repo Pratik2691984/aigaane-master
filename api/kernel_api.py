@@ -471,7 +471,7 @@ def scan_prosody_endpoint(req: ProsodyScanRequest):
             diagnostics=all_diags,
             trace=trace_steps,
             governance={
-                "engine": "engine.prosody.chandas",
+                "engine": "engines.prosody.chandas",
                 "authority": "Piṅgala Chhandaḥśāstra",
             },
         )
