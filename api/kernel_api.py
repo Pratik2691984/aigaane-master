@@ -59,7 +59,7 @@ from api.schemas.prosody import (
     ProsodyDiagnostic,
     ProsodyTraceStep,
 )
-from engine.prosody.chandas import (
+from engines.prosody.chandas import (
     scan_anustubh,
     scan_upajati,
     scan_varnavrtta_pada,
