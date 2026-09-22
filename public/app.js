@@ -1052,13 +1052,15 @@
             const part = category.parts[p];
             const li = el('li', { class: 'sastra-part' });
 
-            if (part.external && part.link) {
+                    if (part.external && part.link) {
               li.appendChild(el('a', {
                 class: 'sastra-part-name sastra-part-link',
                 text: part.name + ' ↗',
-                href: part.link,
-                target: '_blank',
-                rel: 'noopener noreferrer',
+                attrs: {
+                  href: part.link,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                },
               }));
             } else {
               li.appendChild(el('span', { class: 'sastra-part-name', text: part.name }));
