@@ -1266,3 +1266,129 @@ textarea:focus-visible {
     padding: 6px 10px;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   Śāstra taxonomy — category, parts, badges, external link
+   ════════════════════════════════════════════════════════════ */
+
+.sastra-category,
+.sastra-node {
+  margin-bottom: 1.5rem;
+}
+
+.sastra-category-name,
+.sastra-node-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f0e6d2;
+  margin: 0 0 0.35rem;
+}
+
+.sastra-category-status,
+.sastra-node-status {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c9a227;
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 999px;
+  padding: 2px 10px;
+  margin-bottom: 0.4rem;
+}
+
+.sastra-category-sub,
+.sastra-node-sub {
+  font-size: 0.85rem;
+  color: #b8a888;
+  margin: 0 0 0.65rem;
+}
+
+.sastra-parts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sastra-part {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.sastra-part:last-child {
+  border-bottom: none;
+}
+
+.sastra-part::before {
+  content: '·';
+  color: #c9a227;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.sastra-part-name {
+  font-weight: 600;
+  color: #e8ddc8;
+}
+
+a.sastra-part-link {
+  color: #d4a24c !important;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 150ms;
+}
+
+a.sastra-part-link:hover {
+  color: #f0c870 !important;
+  text-decoration: underline;
+}
+
+.sastra-part-meta {
+  font-size: 0.78rem;
+  color: #9a8a70;
+  font-weight: 400;
+}
+
+.sastra-part-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 2px 9px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.sastra-part-tag.status-live {
+  color: #0f1f12;
+  background: #3d7a4a;
+  border: 1px solid #4a8f58;
+}
+
+.sastra-part-tag.status-partial {
+  color: #1a1208;
+  background: #c9a227;
+  border: 1px solid #d8b43a;
+}
+
+.sastra-part-tag.status-coming,
+.sastra-part-tag.status-soon {
+  color: #2a1a08;
+  background: #a67a20;
+  border: 1px solid #b88a30;
+}
+
+.sastra-part-tag.status-metadata,
+.sastra-part-tag.status-docs {
+  color: #c8bda0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
