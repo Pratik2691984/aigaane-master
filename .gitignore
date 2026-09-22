@@ -106,3 +106,7 @@ dist/
 .idea/
 
 .env.local
+
+# Firebase CLI cache
+.firebase/*.cache
+.firebase/hosting.*.cache
