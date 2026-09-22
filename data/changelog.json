@@ -1,5 +1,28 @@
 {
   "releases": [    
+    {
+      "version": "0.5.7",
+      "date": "2026-09-22",
+      "name": "Sthāpatyaveda Studio",
+      "status": "live",
+      "changes": {
+        "added": [
+          "Sthāpatyaveda Studio (standalone page at /sthapatyaveda.html)",
+          "Interactive 9×9 Vāstu Puruṣa Maṇḍala with 81 padas",
+          "Three overlay modes: House, Temple, Cosmic",
+          "9-direction Vāstu Compass with home-facing selector",
+          "Māna converter: aṅgula, hasta, daṇḍa, yojana",
+          "Temple proportions across four scales",
+          "Three regional styles: Nāgara, Drāviḍa, Vesara",
+          "12 classical verses from Mānasāra, Māyamatam, Bṛhat Saṃhitā",
+          "Session vault (localStorage persistence)"
+        ],
+        "linked": [
+          "Sthāpatyaveda node in Śāstra tab taxonomy (status: live)",
+          "Third entry in the Upaveda Studios sidebar group"
+        ]
+      }
+    },
 {
       "version": "0.5.6",
       "date": "2026-09-22",
