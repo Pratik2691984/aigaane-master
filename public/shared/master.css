@@ -1611,3 +1611,29 @@ main#viewport {
     padding-top: 4rem;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   Sidebar — group label for Upaveda studios
+   ════════════════════════════════════════════════════════════ */
+
+.sidebar-group-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sidebar-fg-muted);
+  padding: 0.9rem 0.85rem 0.35rem;
+  border-top: 1px solid var(--sidebar-border);
+  margin-top: 0.6rem;
+}
+
+/* Slightly tighten the multiple studio links */
+.sidebar-studio + .sidebar-studio {
+  border-top: none;
+  padding-top: 0.55rem;
+  margin-top: 0;
+}
+
+.sidebar-studio:first-of-type {
+  border-top: none;
+  padding-top: 0.55rem;
+}

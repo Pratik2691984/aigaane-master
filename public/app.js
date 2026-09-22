@@ -984,7 +984,7 @@
         { name: 'Dharmaśāstras', subtitle: 'Social ethics & civil law', status: 'metadata',
           parts: [{ name: 'Dharma Sūtras', meta: 'Āpastamba, Gautama, Baudhāyana' }, { name: 'Dharma Smṛtis', meta: 'Manusmṛti, Yājñavalkya, Nārada' }] },
                 { name: 'Upavedas', subtitle: 'Four classical applied sciences', status: 'partial',
-          parts: [{ name: 'Āyurveda', meta: 'Medicine' }, { name: 'Dhanurveda', meta: 'Warfare' }, { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html' }, { name: 'Sthāpatyaveda', meta: 'Architecture' }] },
+  parts: [{ name: 'Āyurveda', meta: 'Medicine', status: 'live', external: true, link: '/ayurveda.html' }, { name: 'Dhanurveda', meta: 'Warfare' }, { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html' }, { name: 'Sthāpatyaveda', meta: 'Architecture' }] },
         { name: 'Āgamas & Tantras', subtitle: 'Initiatory practice, iconography', status: 'metadata',
           parts: [{ name: 'Śaiva Āgamas', meta: '28 Siddhānta + Trika' }, { name: 'Vaiṣṇava Āgamas', meta: 'Pāñcarātra, Vaikhānasa' }, { name: 'Śākta Tantras', meta: '64 Tantras' }] },
         { name: 'Bhakti Sādhana', subtitle: 'Devotional classics & poetics', status: 'metadata',

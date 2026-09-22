@@ -1,5 +1,26 @@
 {
-  "releases": [
+  "releases": [    
+{
+      "version": "0.5.6",
+      "date": "2026-09-22",
+      "name": "Āyurveda Studio",
+      "status": "live",
+      "changes": {
+        "added": [
+          "Āyurveda Studio (standalone page at /ayurveda.html)",
+          "20-question Prakṛti assessment with weighted scoring",
+          "Primary + secondary doṣa detection with ranked bar chart",
+          "20 classical Guṇas (10 pairs) with rasa, foods, herbs, and doṣa effects",
+          "Dinacaryā routines for Vāta, Pitta, and Kapha",
+          "6 rasas reference and 6 classical Sanskrit verses",
+          "Session vault (localStorage persistence)"
+        ],
+        "linked": [
+          "Āyurveda node in Śāstra tab taxonomy (status: live)",
+          "Upaveda Studios group in the sidebar"
+        ]
+      }
+    },
     {
       "version": "0.5.5",
       "date": "2026-09-22",
