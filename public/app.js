@@ -1336,7 +1336,27 @@
     probeHealth();
   }
 
-  if (document.readyState === 'loading') {
+  if (document.readyState === 'loading') {    // Mobile sidebar drawer
+    (function setupSidebar() {
+      const shell = document.getElementById('app-shell');
+      const toggle = shell && shell.querySelector('.sidebar-toggle');
+      const backdrop = shell && shell.querySelector('.sidebar-backdrop');
+      if (!shell || !toggle) return;
+
+      function open()  { shell.classList.add('nav-open');    toggle.setAttribute('aria-expanded', 'true');  }
+      function close() { shell.classList.remove('nav-open'); toggle.setAttribute('aria-expanded', 'false'); }
+
+      toggle.addEventListener('click', function () {
+        shell.classList.contains('nav-open') ? close() : open();
+      });
+
+      if (backdrop) backdrop.addEventListener('click', close);
+
+      // Auto-close when a tab is selected
+      shell.querySelectorAll('.sidebar-nav .nav-btn').forEach(function (btn) {
+        btn.addEventListener('click', close);
+      });
+    })();
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
