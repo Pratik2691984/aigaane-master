@@ -1,0 +1,375 @@
+/* ════════════════════════════════════════════════════════════
+   Upaveda Cabinet — Stylesheet (graphite / ink palette)
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  --uv-bg-deep:    #0d1016;
+  --uv-bg-card:    #161a22;
+  --uv-bg-panel:   #1e2430;
+  --uv-border:     #2f3644;
+  --uv-border-hi:  #4a5566;
+  --uv-text:       #e0e6ec;
+  --uv-text-muted: #8a94a4;
+  --uv-accent:     #b8c8dc;
+  --uv-accent-hi:  #d8e2ee;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  background: var(--uv-bg-deep);
+  color: var(--uv-text);
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-x: hidden;
+  padding-bottom: 100px;
+}
+
+.font-mono { font-family: 'JetBrains Mono', 'Cascadia Code', monospace; }
+.indic { font-family: 'Noto Sans Devanagari', 'Noto Serif', serif; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--uv-bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--uv-border); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--uv-accent); }
+
+.uv-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+
+/* ─── Header ──────────────────────────────────────────────── */
+
+.uv-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--uv-border);
+  padding: 0.6rem 1rem;
+  background: rgba(13, 16, 22, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.uv-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.uv-brand {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--uv-accent);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.uv-back {
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--uv-bg-panel);
+  border: 1px solid var(--uv-border);
+  color: var(--uv-accent-hi);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.uv-back:hover { border-color: var(--uv-accent); color: var(--uv-accent); }
+
+/* ─── Hero ────────────────────────────────────────────────── */
+
+.uv-hero {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.uv-hero-dev {
+  font-family: 'Noto Sans Devanagari', serif;
+  font-size: 1.8rem;
+  color: var(--uv-accent-hi);
+  margin-bottom: 0.25rem;
+}
+
+.uv-hero-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.uv-hero-iast {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--uv-text-muted);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.uv-hero-sub {
+  font-size: 0.9rem;
+  color: var(--uv-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+}
+
+.uv-hero-body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--uv-text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ─── Filter row ──────────────────────────────────────────── */
+
+.uv-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 1rem 0 0.5rem;
+}
+
+.uv-filter-btn {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--uv-border);
+  background: var(--uv-bg-panel);
+  color: var(--uv-text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.uv-filter-btn:hover {
+  border-color: var(--uv-accent);
+  color: var(--uv-text);
+}
+
+.uv-filter-btn.active {
+  background: var(--uv-accent);
+  border-color: var(--uv-accent);
+  color: var(--uv-bg-deep);
+  font-weight: 600;
+}
+
+/* ─── Studio cards ────────────────────────────────────────── */
+
+.uv-studio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  transition: opacity 200ms ease;
+}
+
+.uv-studio-card {
+  background: var(--uv-bg-card);
+  border: 2px solid var(--uv-border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.uv-studio-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--uv-card-accent, var(--uv-accent));
+}
+
+.uv-studio-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--uv-card-accent, var(--uv-accent));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.uv-studio-card.dimmed {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.uv-card-head {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.uv-card-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--uv-card-accent-hi, var(--uv-accent-hi));
+}
+
+.uv-card-dev {
+  font-family: 'Noto Sans Devanagari', serif;
+  font-size: 1.15rem;
+  color: var(--uv-card-accent, var(--uv-accent));
+}
+
+.uv-card-iast {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--uv-text-muted);
+  font-style: italic;
+}
+
+.uv-card-en {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--uv-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.uv-card-tagline {
+  font-size: 0.88rem;
+  color: var(--uv-card-accent, var(--uv-accent));
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  line-height: 1.45;
+}
+
+.uv-card-desc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--uv-text);
+  margin-bottom: 1rem;
+}
+
+.uv-card-features {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.uv-card-features li {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--uv-text-muted);
+  padding: 0.3rem 0 0.3rem 1.2rem;
+  position: relative;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+}
+
+.uv-card-features li:last-child { border-bottom: none; }
+
+.uv-card-features li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--uv-card-accent, var(--uv-accent));
+  font-weight: 700;
+}
+
+.uv-card-source {
+  font-size: 0.68rem;
+  color: var(--uv-text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--uv-border);
+  margin-bottom: 0.75rem;
+}
+
+.uv-card-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--uv-card-accent, var(--uv-accent));
+  color: var(--uv-bg-deep);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.uv-card-action:hover {
+  background: var(--uv-card-accent-hi, var(--uv-accent-hi));
+  transform: translateY(-1px);
+}
+
+.uv-card-status {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.uv-card-status.live {
+  background: rgba(90, 143, 106, 0.2);
+  color: #7ac090;
+  border: 1px solid rgba(90, 143, 106, 0.5);
+}
+
+/* ─── Footer strip ────────────────────────────────────────── */
+
+.uv-footer-strip {
+  margin-top: 3rem;
+  padding: 1.5rem 1rem;
+  border-top: 1px solid var(--uv-border);
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.uv-footer-link {
+  font-size: 0.8rem;
+  color: var(--uv-text-muted);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.uv-footer-link:hover {
+  color: var(--uv-accent-hi);
+  background: var(--uv-bg-panel);
+}
+
+/* ─── Empty state ─────────────────────────────────────────── */
+
+.uv-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--uv-text-muted);
+  font-size: 0.9rem;
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .uv-hero-title { font-size: 1.6rem; }
+  .uv-hero-dev { font-size: 1.4rem; }
+  .uv-studio-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .uv-footer-strip { gap: 0.5rem; }
+  body { padding-bottom: 60px; }
+}
