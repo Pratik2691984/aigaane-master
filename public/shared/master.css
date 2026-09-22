@@ -1657,3 +1657,23 @@ main#viewport {
 .sidebar-studio.sidebar-cabinet:hover {
   color: #f0f4f8;
 }
+
+/* ════════════════════════════════════════════════════════════
+   Sidebar — Upaveda Cabinet link
+   ════════════════════════════════════════════════════════════ */
+
+.sidebar-studio.sidebar-cabinet {
+  font-weight: 700;
+  color: #d8e2ee;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-studio.sidebar-cabinet::before {
+  content: '◇ ';
+  color: var(--sidebar-accent, #c9a227);
+  font-weight: 700;
+}
+
+.sidebar-studio.sidebar-cabinet:hover {
+  color: #f0f4f8;
+}
