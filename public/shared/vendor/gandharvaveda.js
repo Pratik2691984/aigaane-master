@@ -609,8 +609,11 @@
     return h('span', { className: 'vv-mood-badge ' + mood.id }, mood.label);
   }
 
-  function StudioTab(state, dispatch, audio) {
-        var raga = RAGAS.find(function (r) { return r.id === state.ragaId; }) || RAGAS[0];
+function StudioTab(props) {
+    var state = props.state;
+    var dispatch = props.dispatch;
+    var audio = props.audio;
+    var raga = RAGAS.find(function (r) { return r.id === state.ragaId; }) || RAGAS[0];
     var tala = TALAS.find(function (t) { return t.id === state.talaId; }) || TALAS[0];
 
     return h('div', null,
