@@ -1,0 +1,541 @@
+/* ════════════════════════════════════════════════════════════
+   Āyurveda Studio — Stylesheet
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  --ay-green: #7a9a5a;
+  --ay-green-hi: #a8c890;
+  --ay-gold: #d4a24c;
+  --ay-bg-deep: #0f1a10;
+  --ay-bg-card: #16241a;
+  --ay-bg-panel: #1e3324;
+  --ay-border: #2f4a35;
+  --ay-border-bright: #4a6a50;
+  --ay-text: #e8f0e0;
+  --ay-text-muted: #a8b8a0;
+  --ay-vata: #7a9bb8;
+  --ay-pitta: #c96a3a;
+  --ay-kapha: #8fa876;
+  --ay-ok: #4a8f58;
+  --ay-danger: #c0604a;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  background: var(--ay-bg-deep);
+  color: var(--ay-text);
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+.font-mono { font-family: 'JetBrains Mono', 'Cascadia Code', monospace; }
+.indic { font-family: 'Noto Sans Devanagari', 'Noto Serif', serif; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--ay-bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--ay-border); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ay-green); }
+
+.glass {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(15, 26, 16, 0.92);
+}
+
+.ay-container { max-width: 1280px; margin: 0 auto; padding: 1rem; }
+
+.ay-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--ay-border);
+  padding: 0.6rem 1rem;
+}
+
+.ay-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.ay-brand {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--ay-green-hi);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ay-nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.ay-nav-btn {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.72rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--ay-bg-panel);
+  color: var(--ay-green-hi);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.ay-nav-btn:hover { background: #2a4630; }
+
+.ay-nav-btn.active {
+  background: var(--ay-green);
+  color: #0f1a10;
+  font-weight: 600;
+}
+
+.ay-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--ay-border);
+  background: var(--ay-bg-panel);
+  color: var(--ay-text);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.ay-btn:hover { border-color: var(--ay-green); background: #2a4630; }
+.ay-btn:active { transform: scale(0.97); }
+.ay-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.ay-btn-primary {
+  background: var(--ay-green);
+  color: #0f1a10;
+  border-color: var(--ay-green);
+}
+.ay-btn-primary:hover { background: #8fb06a; }
+
+.ay-btn-gold {
+  background: var(--ay-gold);
+  color: #2a1a08;
+  border-color: var(--ay-gold);
+}
+.ay-btn-gold:hover { background: #e0b060; }
+
+.ay-panel {
+  background: var(--ay-bg-panel);
+  border: 1px solid var(--ay-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ay-panel-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ay-green-hi);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+/* ─── Quiz ─────────────────────────────────────────────────── */
+
+.ay-quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.78rem;
+  color: var(--ay-text-muted);
+}
+
+.ay-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--ay-bg-deep);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--ay-border);
+}
+
+.ay-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ay-green), var(--ay-green-hi));
+  transition: width 300ms ease;
+}
+
+.ay-question {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.4;
+}
+
+.ay-question-domain {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ay-gold);
+  margin-bottom: 0.4rem;
+}
+
+.ay-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--ay-border);
+  background: var(--ay-bg-card);
+  color: var(--ay-text);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+
+.ay-option:hover {
+  border-color: var(--ay-green);
+  background: #1e3324;
+}
+
+.ay-option.selected {
+  border-color: var(--ay-green);
+  background: #2a4630;
+  font-weight: 600;
+}
+
+.ay-quiz-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ─── Result ───────────────────────────────────────────────── */
+
+.ay-result-primary {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(180deg, var(--ay-bg-panel), var(--ay-bg-card));
+  border-radius: 12px;
+  border: 1px solid var(--ay-green);
+  margin-bottom: 1rem;
+}
+
+.ay-result-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ay-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.ay-result-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.ay-result-sub {
+  font-size: 0.88rem;
+  color: var(--ay-text-muted);
+}
+
+.ay-bars { margin-top: 1rem; }
+
+.ay-bar-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 60px;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.ay-bar-name { font-weight: 600; }
+
+.ay-bar-track {
+  height: 20px;
+  background: var(--ay-bg-deep);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--ay-border);
+}
+
+.ay-bar-fill {
+  height: 100%;
+  transition: width 500ms ease;
+}
+
+.ay-bar-fill.vata { background: linear-gradient(90deg, #5a7d99, var(--ay-vata)); }
+.ay-bar-fill.pitta { background: linear-gradient(90deg, #a04a2a, var(--ay-pitta)); }
+.ay-bar-fill.kapha { background: linear-gradient(90deg, #6a8a56, var(--ay-kapha)); }
+
+.ay-bar-pct { font-family: 'JetBrains Mono', monospace; text-align: right; }
+
+/* ─── Guṇa grid ────────────────────────────────────────────── */
+
+.ay-guna-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.ay-guna-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.ay-guna-card {
+  background: var(--ay-bg-card);
+  border: 1px solid var(--ay-border);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: all 0.15s ease;
+}
+
+.ay-guna-card:hover {
+  border-color: var(--ay-green);
+  transform: translateY(-2px);
+}
+
+.ay-guna-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.ay-guna-name { font-weight: 700; font-size: 1rem; }
+.ay-guna-dev { font-size: 0.9rem; color: var(--ay-green-hi); }
+
+.ay-guna-en {
+  font-size: 0.72rem;
+  color: var(--ay-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.ay-guna-desc {
+  font-size: 0.82rem;
+  color: var(--ay-text);
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+
+.ay-guna-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.ay-tag {
+  display: inline-block;
+  padding: 2px 9px;
+  font-size: 0.62rem;
+  border-radius: 999px;
+  border: 1px solid;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+.ay-tag-pacifies { background: rgba(122,154,90,0.15); border-color: rgba(122,154,90,0.5); color: var(--ay-green-hi); }
+.ay-tag-aggravates { background: rgba(192,96,74,0.15); border-color: rgba(192,96,74,0.5); color: #e08060; }
+.ay-tag-rasa { background: rgba(212,162,76,0.13); border-color: rgba(212,162,76,0.5); color: var(--ay-gold); }
+
+.ay-guna-sub {
+  font-size: 0.72rem;
+  color: var(--ay-text-muted);
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--ay-border);
+  line-height: 1.5;
+}
+
+.ay-guna-sub strong { color: var(--ay-text); }
+
+/* ─── Dinacaryā cards ──────────────────────────────────────── */
+
+.ay-dina-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.ay-dina-card {
+  background: var(--ay-bg-card);
+  border: 1px solid var(--ay-border);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.15s ease;
+}
+
+.ay-dina-card.dominant {
+  border-color: var(--ay-green);
+  box-shadow: 0 0 20px rgba(122,154,90,0.2);
+}
+
+.ay-dina-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--ay-border);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.ay-dina-name { font-size: 1.15rem; font-weight: 700; }
+.ay-dina-dev { font-size: 0.95rem; color: var(--ay-green-hi); }
+
+.ay-dina-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  font-size: 0.82rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  line-height: 1.5;
+}
+
+.ay-dina-row:last-child { border-bottom: none; }
+
+.ay-dina-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ay-text-muted);
+  padding-top: 2px;
+}
+
+/* ─── About ────────────────────────────────────────────────── */
+
+.ay-verses { display: grid; gap: 0.75rem; }
+
+.ay-verse {
+  background: var(--ay-bg-card);
+  border-left: 3px solid var(--ay-gold);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+}
+
+.ay-verse-dev {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 0.4rem;
+}
+
+.ay-verse-iast {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ay-green-hi);
+  font-style: italic;
+  margin-bottom: 0.4rem;
+}
+
+.ay-verse-trans {
+  font-size: 0.85rem;
+  color: var(--ay-text);
+  line-height: 1.55;
+}
+
+.ay-verse-source {
+  font-size: 0.68rem;
+  color: var(--ay-text-muted);
+  margin-top: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.ay-about-text { line-height: 1.7; }
+.ay-about-text p { margin: 0.5rem 0; }
+.ay-about-text ul { line-height: 1.8; padding-left: 1.4rem; }
+.ay-about-text strong { color: var(--ay-green-hi); }
+
+/* ─── External link / footer ───────────────────────────────── */
+
+.ay-external-link {
+  position: fixed;
+  top: 0.6rem;
+  right: 1rem;
+  z-index: 25;
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--ay-bg-panel);
+  border: 1px solid var(--ay-border);
+  color: var(--ay-green-hi);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.ay-external-link:hover { border-color: var(--ay-green); color: var(--ay-green); }
+
+.ay-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 26, 16, 0.94);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--ay-border);
+  padding: 0.6rem 1rem;
+  z-index: 30;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: var(--ay-text-muted);
+}
+
+.ay-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 0.62rem;
+  border-radius: 999px;
+  background: rgba(122, 154, 90, 0.15);
+  border: 1px solid rgba(122, 154, 90, 0.5);
+  color: var(--ay-green-hi);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.ay-loader {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(180deg, #1e3324, #0f1a10 75%);
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .ay-nav { flex-wrap: wrap; }
+  .ay-raga-grid,
+  .ay-guna-grid,
+  .ay-dina-grid { grid-template-columns: 1fr; }
+  body { padding-bottom: 140px; }
+  .ay-bar-row { grid-template-columns: 70px 1fr 55px; font-size: 0.78rem; }
+  .ay-dina-row { grid-template-columns: 75px 1fr; font-size: 0.78rem; }
+}
