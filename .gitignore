@@ -91,3 +91,16 @@ __pycache__/
 .env.local
 scan_body.json
 *.bak*
+
+# aigaane.in — additional ignores
+.env
+.env.*
+*.key
+*.pem
+node_modules/
+dist/
+.output/
+.gcloud/
+*.log
+.vscode/
+.idea/
