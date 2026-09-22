@@ -1,0 +1,606 @@
+/* ════════════════════════════════════════════════════════════
+   Dhanurveda Studio — Stylesheet (steel/iron palette)
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  --dv-accent: #8a9bb0;
+  --dv-accent-hi: #b8c8dc;
+  --dv-bg-deep: #0a0d14;
+  --dv-bg-card: #131820;
+  --dv-bg-panel: #1c2430;
+  --dv-border: #2f3a48;
+  --dv-border-bright: #4a5a6e;
+  --dv-text: #dce4ec;
+  --dv-text-muted: #8a96a6;
+  --dv-blood: #a04430;
+  --dv-gold: #c9a04c;
+  --dv-ok: #5a8f6a;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  background: var(--dv-bg-deep);
+  color: var(--dv-text);
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+.font-mono { font-family: 'JetBrains Mono', 'Cascadia Code', monospace; }
+.indic { font-family: 'Noto Sans Devanagari', 'Noto Serif', serif; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--dv-bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--dv-border); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--dv-accent); }
+
+.glass {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(10, 13, 20, 0.92);
+}
+
+.dv-container { max-width: 1280px; margin: 0 auto; padding: 1rem; }
+
+.dv-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--dv-border);
+  padding: 0.6rem 1rem;
+}
+
+.dv-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dv-brand {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--dv-accent-hi);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.dv-nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.dv-nav-btn {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.72rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--dv-bg-panel);
+  color: var(--dv-accent-hi);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.dv-nav-btn:hover { background: #2a3648; }
+
+.dv-nav-btn.active {
+  background: var(--dv-accent);
+  color: #0a0d14;
+  font-weight: 600;
+}
+
+.dv-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--dv-border);
+  background: var(--dv-bg-panel);
+  color: var(--dv-text);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.dv-btn:hover { border-color: var(--dv-accent); background: #2a3648; }
+.dv-btn:active { transform: scale(0.97); }
+
+.dv-btn-primary {
+  background: var(--dv-accent);
+  color: #0a0d14;
+  border-color: var(--dv-accent);
+}
+.dv-btn-primary:hover { background: #a0b0c4; }
+
+.dv-panel {
+  background: var(--dv-bg-panel);
+  border: 1px solid var(--dv-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dv-panel-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--dv-accent-hi);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.dv-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 0.62rem;
+  border-radius: 999px;
+  background: rgba(138, 155, 176, 0.15);
+  border: 1px solid rgba(138, 155, 176, 0.5);
+  color: var(--dv-accent-hi);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.dv-badge-astra {
+  background: rgba(201, 160, 76, 0.15);
+  border-color: rgba(201, 160, 76, 0.5);
+  color: var(--dv-gold);
+}
+
+.dv-badge-shastra {
+  background: rgba(160, 68, 48, 0.15);
+  border-color: rgba(160, 68, 48, 0.5);
+  color: #c0604a;
+}
+
+/* ─── Catur-aṅginī army grid ──────────────────────────────── */
+
+.dv-army-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.dv-army-card {
+  background: var(--dv-bg-card);
+  border: 2px solid var(--dv-border);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dv-army-card:hover {
+  border-color: var(--dv-accent);
+  transform: translateY(-2px);
+}
+
+.dv-army-card.selected {
+  border-color: var(--dv-accent);
+  box-shadow: 0 0 20px rgba(138, 155, 176, 0.3);
+}
+
+.dv-army-head {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.dv-army-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.dv-army-dev {
+  font-size: 1.05rem;
+  color: var(--dv-accent-hi);
+}
+
+.dv-army-iast {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--dv-text-muted);
+  font-style: italic;
+}
+
+.dv-army-en {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dv-text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.dv-army-role {
+  font-size: 0.82rem;
+  color: var(--dv-accent-hi);
+  margin-bottom: 0.6rem;
+  line-height: 1.45;
+}
+
+.dv-army-terrain {
+  font-size: 0.75rem;
+  color: var(--dv-text-muted);
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--dv-border);
+  margin-top: 0.5rem;
+}
+
+.dv-army-detail {
+  background: var(--dv-bg-card);
+  border: 2px solid var(--dv-accent);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.dv-army-detail h4 {
+  margin: 0.75rem 0 0.4rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dv-accent-hi);
+}
+
+.dv-army-detail ul {
+  margin: 0;
+  padding-left: 1.4rem;
+  line-height: 1.7;
+  font-size: 0.85rem;
+}
+
+.dv-army-detail ul li {
+  margin-bottom: 0.15rem;
+}
+
+.dv-tag-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.dv-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid;
+}
+
+.dv-tag-weapon {
+  background: rgba(138, 155, 176, 0.1);
+  border-color: rgba(138, 155, 176, 0.4);
+  color: var(--dv-accent-hi);
+}
+
+.dv-tag-counter {
+  background: rgba(160, 68, 48, 0.1);
+  border-color: rgba(160, 68, 48, 0.4);
+  color: #c0604a;
+}
+
+/* Counter matrix */
+.dv-counter-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  margin-top: 0.75rem;
+}
+
+.dv-counter-matrix th,
+.dv-counter-matrix td {
+  padding: 0.5rem 0.65rem;
+  text-align: center;
+  border: 1px solid var(--dv-border);
+}
+
+.dv-counter-matrix th {
+  background: var(--dv-bg-card);
+  color: var(--dv-accent-hi);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.dv-counter-matrix td.strong { color: #c0604a; font-weight: 700; }
+.dv-counter-matrix td.weak   { color: #5a8f6a; font-weight: 700; }
+.dv-counter-matrix td.neutral { color: var(--dv-text-muted); }
+
+/* ─── Weapons grid ─────────────────────────────────────────── */
+
+.dv-weapon-filters {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.dv-weapon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.dv-weapon-card {
+  background: var(--dv-bg-card);
+  border: 1px solid var(--dv-border);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dv-weapon-card:hover {
+  border-color: var(--dv-accent);
+  transform: translateY(-2px);
+}
+
+.dv-weapon-card.selected {
+  border-color: var(--dv-accent);
+  box-shadow: 0 0 20px rgba(138, 155, 176, 0.3);
+}
+
+.dv-weapon-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.dv-weapon-name {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dv-weapon-dev {
+  font-size: 0.9rem;
+  color: var(--dv-accent-hi);
+}
+
+.dv-weapon-wielder {
+  font-size: 0.75rem;
+  color: var(--dv-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.dv-weapon-nature {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--dv-text);
+}
+
+.dv-weapon-detail {
+  background: var(--dv-bg-card);
+  border: 2px solid var(--dv-accent);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.dv-weapon-detail-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.dv-weapon-detail-row:last-child { border-bottom: none; }
+
+.dv-weapon-detail-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dv-text-muted);
+  padding-top: 3px;
+  font-weight: 600;
+}
+
+/* ─── Vyūha formations ────────────────────────────────────── */
+
+.dv-vyuha-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.dv-vyuha-card {
+  background: var(--dv-bg-card);
+  border: 1px solid var(--dv-border);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dv-vyuha-card:hover {
+  border-color: var(--dv-accent);
+  transform: translateY(-2px);
+}
+
+.dv-vyuha-card.selected {
+  border-color: var(--dv-accent);
+  box-shadow: 0 0 20px rgba(138, 155, 176, 0.3);
+}
+
+.dv-vyuha-head {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.dv-vyuha-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.dv-vyuha-dev {
+  font-size: 0.9rem;
+  color: var(--dv-accent-hi);
+}
+
+.dv-vyuha-shape {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dv-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.dv-vyuha-deployer {
+  font-size: 0.78rem;
+  color: var(--dv-text);
+  margin-bottom: 0.3rem;
+}
+
+.dv-vyuha-side {
+  display: inline-block;
+  font-size: 0.62rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.dv-vyuha-side.pandava { background: rgba(201, 160, 76, 0.2); color: var(--dv-gold); border: 1px solid var(--dv-gold); }
+.dv-vyuha-side.kaurava { background: rgba(160, 68, 48, 0.2); color: #c0604a; border: 1px solid #a04430; }
+
+.dv-vyuha-detail {
+  background: var(--dv-bg-card);
+  border: 2px solid var(--dv-accent);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.dv-vyuha-detail-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.dv-vyuha-detail-row:last-child { border-bottom: none; }
+
+.dv-vyuha-detail-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dv-text-muted);
+  padding-top: 3px;
+  font-weight: 600;
+}
+
+/* ─── About / verses ──────────────────────────────────────── */
+
+.dv-about-text { line-height: 1.7; font-size: 0.88rem; }
+.dv-about-text p { margin: 0.5rem 0; }
+.dv-about-text ul { line-height: 1.8; padding-left: 1.4rem; }
+.dv-about-text strong { color: var(--dv-accent-hi); }
+
+.dv-verses { display: grid; gap: 0.75rem; }
+
+.dv-verse {
+  background: var(--dv-bg-card);
+  border-left: 3px solid var(--dv-blood);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+}
+
+.dv-verse-dev {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 0.4rem;
+  white-space: pre-line;
+}
+
+.dv-verse-iast {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--dv-accent-hi);
+  font-style: italic;
+  margin-bottom: 0.4rem;
+  white-space: pre-line;
+}
+
+.dv-verse-trans {
+  font-size: 0.85rem;
+  color: var(--dv-text);
+  line-height: 1.55;
+}
+
+.dv-verse-source {
+  font-size: 0.68rem;
+  color: var(--dv-text-muted);
+  margin-top: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── External link + footer ──────────────────────────────── */
+
+.dv-external-link {
+  position: fixed;
+  top: 0.6rem;
+  right: 1rem;
+  z-index: 25;
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--dv-bg-panel);
+  border: 1px solid var(--dv-border);
+  color: var(--dv-accent-hi);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.dv-external-link:hover { border-color: var(--dv-accent); color: var(--dv-accent); }
+
+.dv-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 13, 20, 0.94);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--dv-border);
+  padding: 0.6rem 1rem;
+  z-index: 30;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: var(--dv-text-muted);
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .dv-nav { flex-wrap: wrap; }
+  .dv-army-grid,
+  .dv-weapon-grid,
+  .dv-vyuha-grid { grid-template-columns: 1fr; }
+  body { padding-bottom: 140px; }
+  .dv-weapon-detail-row,
+  .dv-vyuha-detail-row { grid-template-columns: 90px 1fr; font-size: 0.8rem; }
+  .dv-counter-matrix { font-size: 0.7rem; }
+  .dv-counter-matrix th,
+  .dv-counter-matrix td { padding: 0.35rem 0.3rem; }
+}

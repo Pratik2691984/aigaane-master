@@ -1,5 +1,29 @@
 {
-  "releases": [    
+  "releases": [   
+    {
+      "version": "0.5.8",
+      "date": "2026-09-23",
+      "name": "Dhanurveda Studio — Upaveda canon complete",
+      "status": "live",
+      "changes": {
+        "added": [
+          "Dhanurveda Studio (standalone page at /dhanurveda.html)",
+          "Catur-aṅginī: 4 classical army divisions with counter matrix",
+          "Āyudha Kośa: 20 weapons (11 astras + 9 śastras) with wielder, effect, counter",
+          "Vyūha explorer: 10 battle formations from the Mahābhārata",
+          "12 classical verses from Agni Purāṇa, Vasiṣṭha Dhanurveda, Mahābhārata",
+          "Session vault (localStorage persistence)"
+        ],
+        "changed": [
+          "Upavedas taxonomy section status: partial → live",
+          "All four Upavedas now shipped as interactive studios"
+        ],
+        "linked": [
+          "Dhanurveda node in Śāstra tab taxonomy (status: live)",
+          "Fourth entry in the Upaveda Studios sidebar group"
+        ]
+      }
+    }, 
     {
       "version": "0.5.7",
       "date": "2026-09-22",
