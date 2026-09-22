@@ -531,9 +531,9 @@
 
   /* ═══════════════════════════════════════════════════════════════════════
      SESSION VAULT
-     ═══════════════════════════════════════════════════════════════════════ */
-    var VAULT_KEY = 'gandharvaveda.vault.v2';
+     ═══════════════════════════════════════════════════════════════════════ */  
 
+	var VAULT_KEY = 'gandharvaveda.vault.v3';
   function loadVault() {
     try {
       var raw = localStorage.getItem(VAULT_KEY);
@@ -586,7 +586,7 @@
       case 'setRaga':  return Object.assign({}, state, { ragaId: action.id });
       case 'setTala':  return Object.assign({}, state, { talaId: action.id });
       case 'setMood':  return Object.assign({}, state, { moodId: action.id });
-      case 'setTempo': return Object.assign({}, state, { tempo: action.value });
+      case 'setTempo': return Object.assign({}, state, { tempo: Number(action.value) || 72 });
       case 'setLaya':  return Object.assign({}, state, { laya: action.value });
       case 'setText':  return Object.assign({}, state, { text: action.value });
       case 'setTab':   return Object.assign({}, state, { tab: action.value });
@@ -674,11 +674,11 @@
         h('div', { style: { display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' } },
           h('label', { style: { fontSize: '0.78rem' } }, 'Tempo'),
           h('input', {
-            type: 'range', min: 40, max: 180, value: state.tempo,
+                        type: 'range', min: 40, max: 180, value: (Number(state.tempo) || 72),
             onChange: function (e) { dispatch({ type: 'setTempo', value: parseInt(e.target.value, 10) }); },
             style: { flex: 1, minWidth: '180px' }
           }),
-          h('span', { className: 'font-mono', style: { color: '#c9a227' } }, state.tempo + ' BPM'),
+          h('span', { className: 'font-mono', style: { color: '#c9a227' } }, (Number(state.tempo) || 72) + ' BPM'),
           h('select', {
             className: 'vv-select', value: state.laya,
             onChange: function (e) { dispatch({ type: 'setLaya', value: e.target.value }); },
