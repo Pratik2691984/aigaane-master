@@ -389,19 +389,112 @@
     return fragment;
   }
 
-  // ─── Sub-view 4: Derivations ───
+    // ─── Sub-view 4: Derivations ───
 
   function buildDerivationSubView() {
     const frag = document.createDocumentFragment();
+    const data = window.SANSKRIT_DERIVATIONS || [];
+
+    const searchInput = el('input', {
+      attrs: { type: 'text', placeholder: 'Search word, root, or meaning…', autocomplete: 'off', spellcheck: 'false' }
+    });
+
+    const categorySelect = el('select', { class: 'meter-select' }, [
+      el('option', { text: 'All categories', attrs: { value: 'all' } }),
+      el('option', { text: 'Nouns only', attrs: { value: 'noun' } }),
+      el('option', { text: 'Verbs only', attrs: { value: 'verb' } }),
+      el('option', { text: 'Pronouns & indeclinables', attrs: { value: 'other' } }),
+    ]);
+
+    const resultsContainer = el('div', { class: 'derivations-results-list' });
+
+    function classify(item) {
+      const c = (item.category || '').toLowerCase();
+      if (c.indexOf('noun') === 0) return 'noun';
+      if (c.indexOf('verb') === 0) return 'verb';
+      return 'other';
+    }
+
+    function renderList() {
+      resultsContainer.replaceChildren();
+      const query = searchInput.value.toLowerCase().trim();
+      const cat = categorySelect.value;
+
+      const filtered = data.filter(function (item) {
+        if (cat !== 'all' && classify(item) !== cat) return false;
+        if (!query) return true;
+        return item.word.toLowerCase().indexOf(query) !== -1
+            || item.dev.indexOf(query) !== -1
+            || item.root.toLowerCase().indexOf(query) !== -1
+            || item.meaning.toLowerCase().indexOf(query) !== -1;
+      });
+
+      if (filtered.length === 0) {
+        resultsContainer.appendChild(el('p', { class: 'placeholder', text: 'No matching derivations found.' }));
+        return;
+      }
+
+      resultsContainer.appendChild(el('div', { class: 'paradigm-header' }, [
+        el('span', { class: 'rule-tag', text: filtered.length + ' of ' + data.length + ' derivations' }),
+      ]));
+
+      filtered.forEach(function (item) {
+        const card = el('div', { class: 'derivation-card' }, [
+          el('div', { class: 'derivation-card-header' }, [
+            el('div', { class: 'derivation-card-title' }, [
+              el('span', { class: 'derivation-dev indic', text: item.dev }),
+              el('span', { class: 'derivation-word', text: item.word }),
+              el('span', { class: 'badge badge-category', text: item.category }),
+            ]),
+            el('div', { class: 'derivation-card-meta' }, [
+              el('span', { class: 'derivation-meaning', text: item.meaning }),
+              el('span', { class: 'derivation-root', text: item.root }),
+            ]),
+          ]),
+          el('div', { class: 'derivation-steps' },
+            item.steps.map(function (s) {
+              return el('div', { class: 'derivation-step-item' }, [
+                el('span', { class: 'step-num', text: '#' + s.step }),
+                el('div', { class: 'step-body' }, [
+                  el('div', { class: 'step-head' }, [
+                    el('strong', { text: s.operation }),
+                    s.rule && s.rule !== '—'
+                      ? el('span', { class: 'sutra-ref', text: ' [' + s.rule + ']' })
+                      : null,
+                  ]),
+                  el('p', { class: 'step-desc', text: s.desc }),
+                ]),
+              ]);
+            })
+          ),
+        ]);
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', renderList);
+    categorySelect.addEventListener('change', renderList);
+
     frag.appendChild(el('section', { class: 'panel' }, [
       el('header', { class: 'panel-head' }, [
         el('h2', { text: 'Padavyutpatti & Sūtra Derivations' }),
-        el('p', { class: 'panel-sub', text: 'Step-by-step Pāṇinian derivational chains from dhātu to pada. Coming in the next release.' }),
+        el('p', { class: 'panel-sub', text: 'Step-by-step Pāṇinian derivational chains from dhātu to pada, with sūtra citations.' }),
       ]),
-      el('div', { class: 'output' }, [
-        el('p', { class: 'placeholder', text: 'Derivation rule trees will appear here in a future update.' }),
+      el('div', { class: 'form' }, [
+        el('label', {}, [
+          el('span', { class: 'label', text: 'Search' }),
+          searchInput,
+          el('small', { class: 'hint', text: 'Type a word, root, or meaning — e.g. gacchati, rāma, bhū' }),
+        ]),
+        el('label', {}, [
+          el('span', { class: 'label', text: 'Category' }),
+          categorySelect,
+        ]),
       ]),
+      resultsContainer,
     ]));
+
+    renderList();
     return frag;
   }
 
