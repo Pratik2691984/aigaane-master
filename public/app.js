@@ -6,6 +6,21 @@
 (() => {
   'use strict';
 
+  /**
+   * Fold IAST diacritics to ASCII so search input like "bhu" or "rama"
+   * matches data stored as "bhū" / "rāmaḥ".
+   */
+  function foldDiacritics(str) {
+    if (!str) return '';
+    return String(str)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[ḥṃṇṛṝḷḹśṣṭḍṅñ]/g, function (ch) {
+        return ({ 'ḥ':'h','ṃ':'m','ṇ':'n','ṛ':'r','ṝ':'r','ḷ':'l','ḹ':'l',
+                  'ś':'s','ṣ':'s','ṭ':'t','ḍ':'d','ṅ':'n','ñ':'n' })[ch] || ch;
+      });
+  }
+
   const API = Object.freeze({
     INFO:            '/api/info',
     HEALTH:          '/api/health',
@@ -417,16 +432,16 @@
 
     function renderList() {
       resultsContainer.replaceChildren();
-      const query = searchInput.value.toLowerCase().trim();
+      const query = foldDiacritics(searchInput.value).toLowerCase().trim();
       const cat = categorySelect.value;
 
       const filtered = data.filter(function (item) {
         if (cat !== 'all' && classify(item) !== cat) return false;
         if (!query) return true;
-        return item.word.toLowerCase().indexOf(query) !== -1
+        return foldDiacritics(item.word).indexOf(query) !== -1
             || item.dev.indexOf(query) !== -1
-            || item.root.toLowerCase().indexOf(query) !== -1
-            || item.meaning.toLowerCase().indexOf(query) !== -1;
+            || foldDiacritics(item.root).indexOf(query) !== -1
+            || foldDiacritics(item.meaning).indexOf(query) !== -1;
       });
 
       if (filtered.length === 0) {
