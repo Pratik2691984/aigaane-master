@@ -632,6 +632,7 @@ textarea:focus-visible {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
 
 /* ════════════════════════════════════════════════════════════
    Śāstra taxonomy view
@@ -917,31 +918,6 @@ textarea:focus-visible {
 }
 
 /* ════════════════════════════════════════════════════════════
-   Mobile adjustments
-   ════════════════════════════════════════════════════════════ */
-
-@media (max-width: 640px) {
-  #app-shell nav {
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.6rem 0.9rem;
-  }
-  .nav-btn {
-    padding: 0.35rem 0.7rem;
-    font-size: 0.8125rem;
-  }
-  nav .brand {
-    width: 100%;
-    margin-bottom: 0.25rem;
-    font-size: 1rem;
-  }
-  .sastra-branch {
-    padding-left: 0.75rem;
-  }
-}
-
-
-/* ════════════════════════════════════════════════════════════
    Week 1 additions: meter selector + refine panel
    ════════════════════════════════════════════════════════════ */
 
@@ -983,8 +959,6 @@ textarea:focus-visible {
 /* ════════════════════════════════════════════════════════════
    Week 2 additions: Morphology + Corpus views
    ════════════════════════════════════════════════════════════ */
-
-/* ── Paradigm table ── */
 
 .paradigm-header {
   display: flex;
@@ -1044,8 +1018,6 @@ textarea:focus-visible {
   font-family: Charter, Cambria, Georgia, serif;
   font-size: 1.0625rem;
 }
-
-/* ── Corpus results ── */
 
 .corpus-results {
   display: grid;
@@ -1146,23 +1118,7 @@ textarea:focus-visible {
   font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
 }
 
-/* ── Mobile: table scrolls horizontally ── */
-
-@media (max-width: 640px) {
-  .paradigm-table {
-    font-size: 0.875rem;
-  }
-  .paradigm-table th,
-  .paradigm-table td {
-    padding: 0.5rem 0.6rem;
-  }
-  .form-cell {
-    font-size: 0.9375rem;
-  }
-
-/* ════════════════════════════════════════════════════════════
-   Changelog styles
-   ════════════════════════════════════════════════════════════ */
+/* ── Changelog styles ── */
 
 .changelog-list {
   display: grid;
@@ -1221,7 +1177,6 @@ textarea:focus-visible {
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
 }
-
 
 /* ════════════════════════════════════════════════════════════
    Gāndharvaveda Studio — Primary nav CTA
@@ -1306,35 +1261,11 @@ textarea:focus-visible {
   margin: 0 0 0.65rem;
 }
 
-.sastra-parts {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sastra-part {
-  display: flex;
-  align-items: baseline;
-  gap: 0.55rem;
-  flex-wrap: wrap;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.sastra-part:last-child {
-  border-bottom: none;
-}
-
 .sastra-part::before {
   content: '·';
   color: #c9a227;
   font-weight: 700;
   flex: 0 0 auto;
-}
-
-.sastra-part-name {
-  font-weight: 600;
-  color: #e8ddc8;
 }
 
 a.sastra-part-link {
@@ -1347,24 +1278,6 @@ a.sastra-part-link {
 a.sastra-part-link:hover {
   color: #f0c870 !important;
   text-decoration: underline;
-}
-
-.sastra-part-meta {
-  font-size: 0.78rem;
-  color: #9a8a70;
-  font-weight: 400;
-}
-
-.sastra-part-tag {
-  display: inline-block;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  padding: 2px 9px;
-  margin-left: auto;
-  white-space: nowrap;
 }
 
 .sastra-part-tag.status-live {
@@ -1409,7 +1322,6 @@ a.sastra-part-link:hover {
   --sidebar-hover: rgba(255, 255, 255, 0.05);
 }
 
-/* Layout shell */
 #app-shell {
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
@@ -1421,7 +1333,6 @@ a.sastra-part-link:hover {
   margin: 0;
 }
 
-/* Sidebar column */
 .sidebar {
   grid-area: sidebar;
   position: sticky;
@@ -1455,7 +1366,6 @@ a.sastra-part-link:hover {
   flex: 1;
 }
 
-/* Tab buttons (existing .nav-btn reused) */
 .sidebar-nav .nav-btn {
   display: block;
   width: 100%;
@@ -1484,7 +1394,6 @@ a.sastra-part-link:hover {
   padding-left: calc(0.85rem - 3px);
 }
 
-/* Pinned studio link at bottom */
 .sidebar-studio {
   display: block;
   margin-top: 0.75rem;
@@ -1504,7 +1413,6 @@ a.sastra-part-link:hover {
   color: #e8d5a3;
 }
 
-/* Main + footer flow into the right column */
 main#viewport {
   grid-area: main;
   padding: 1.25rem 1.5rem;
@@ -1520,7 +1428,6 @@ main#viewport {
   color: var(--sidebar-fg-muted);
 }
 
-/* Mobile hamburger button */
 .sidebar-toggle {
   display: none;
   position: fixed;
@@ -1557,7 +1464,6 @@ main#viewport {
   pointer-events: none;
 }
 
-/* Tablet */
 @media (max-width: 1023px) and (min-width: 768px) {
   #app-shell {
     grid-template-columns: var(--sidebar-w-tablet) 1fr;
@@ -1571,7 +1477,6 @@ main#viewport {
   }
 }
 
-/* Mobile — sidebar becomes overlay drawer */
 @media (max-width: 767px) {
   #app-shell {
     grid-template-columns: 1fr;
@@ -1606,7 +1511,6 @@ main#viewport {
     pointer-events: auto;
   }
 
-  /* Push content down so hamburger doesn't overlap */
   main#viewport {
     padding-top: 4rem;
   }
@@ -1626,7 +1530,6 @@ main#viewport {
   margin-top: 0.6rem;
 }
 
-/* Slightly tighten the multiple studio links */
 .sidebar-studio + .sidebar-studio {
   border-top: none;
   padding-top: 0.55rem;
@@ -1636,26 +1539,6 @@ main#viewport {
 .sidebar-studio:first-of-type {
   border-top: none;
   padding-top: 0.55rem;
-}
-
-/* ════════════════════════════════════════════════════════════
-   Sidebar — Upaveda Cabinet (top of the studio group)
-   ════════════════════════════════════════════════════════════ */
-
-.sidebar-studio.sidebar-cabinet {
-  font-weight: 700;
-  color: #d8e2ee;
-  letter-spacing: 0.02em;
-}
-
-.sidebar-studio.sidebar-cabinet::before {
-  content: '◇ ';
-  color: var(--sidebar-accent, #c9a227);
-  font-weight: 700;
-}
-
-.sidebar-studio.sidebar-cabinet:hover {
-  color: #f0f4f8;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1676,4 +1559,97 @@ main#viewport {
 
 .sidebar-studio.sidebar-cabinet:hover {
   color: #f0f4f8;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Sanskrit Tab Nested Sub-Navigation & Studios Grid
+   ════════════════════════════════════════════════════════════ */
+
+.sanskrit-subnav-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--sidebar-border, rgba(255, 255, 255, 0.06));
+}
+
+.sanskrit-subnav-bar .nav-btn {
+  background: var(--sidebar-bg, #0b1220);
+  border: 1px solid var(--sidebar-border, rgba(255, 255, 255, 0.06));
+  color: var(--sidebar-fg-muted, #7a869a);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.sanskrit-subnav-bar .nav-btn:hover {
+  background: var(--sidebar-hover, rgba(255, 255, 255, 0.05));
+  color: var(--sidebar-fg, #c8d0e0);
+}
+
+.sanskrit-subnav-bar .nav-btn.active {
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.2), rgba(138, 106, 26, 0.15));
+  color: var(--sidebar-accent, #c9a227);
+  border-color: var(--sidebar-accent, #c9a227);
+  font-weight: 600;
+}
+
+.studios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.studio-card {
+  background: var(--sidebar-bg, #0b1220);
+  border: 1px solid var(--sidebar-border, rgba(255, 255, 255, 0.06));
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 150ms ease;
+}
+
+.studio-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════════════════════════════════════
+   Mobile adjustments
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  #app-shell nav {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.6rem 0.9rem;
+  }
+  .nav-btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8125rem;
+  }
+  nav .brand {
+    width: 100%;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+  .sastra-branch {
+    padding-left: 0.75rem;
+  }
+  .paradigm-table {
+    font-size: 0.875rem;
+  }
+  .paradigm-table th,
+  .paradigm-table td {
+    padding: 0.5rem 0.6rem;
+  }
+  .form-cell {
+    font-size: 0.9375rem;
+  }
 }

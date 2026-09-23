@@ -125,34 +125,81 @@
     node.classList.remove('has-error', 'has-success');
   }
 
-  // ─── Sandhi view ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // SANSKRIT TAB — nested sub-navigation
+  // ═══════════════════════════════════════════════════════════════════════
 
-  function renderSandhiResult(node, data) {
-    const wrapper = el('div', { class: 'output-result' }, [
-      el('div', { class: 'output-eq' }, [
-        el('span', { class: 'in', text: data.p1 }),
-        el('span', { class: 'arrow', text: ' + ' }),
-        el('span', { class: 'in', text: data.p2 }),
-        el('span', { class: 'arrow', text: ' → ' }),
-        el('span', { class: 'out', text: data.result }),
-      ]),
-      data.rule_applied && data.rule_applied !== 'none'
-        ? el('span', { class: 'rule-tag', text: 'Sūtra ' + data.rule_applied })
-        : el('span', { class: 'rule-tag rule-none', text: 'No rule — literal' }),
-    ]);
-    node.replaceChildren(wrapper);
-    node.classList.add('has-success');
-    node.classList.remove('has-error');
-  }
+  let currentSanskritSubView = 'engine';
+  let cachedEngineInfo = null;
+  let cachedEngineHealth = null;
 
-  function buildSandhiView(info, health) {
+  function buildSanskritTab(info, health) {
+    if (info) cachedEngineInfo = info;
+    if (health) cachedEngineHealth = health;
+
     const fragment = document.createDocumentFragment();
 
-    fragment.appendChild(
+    const subNavContainer = el('div', { class: 'sanskrit-subnav-bar' }, [
+      createSubNavTab('Engine', 'engine', currentSanskritSubView),
+      createSubNavTab('Sandhi', 'sandhi', currentSanskritSubView),
+      createSubNavTab('Scansion', 'scansion', currentSanskritSubView),
+      createSubNavTab('Derivations', 'derivation', currentSanskritSubView),
+      createSubNavTab('Upaveda Studios', 'studios', currentSanskritSubView),
+    ]);
+    fragment.appendChild(subNavContainer);
+
+    const contentArea = el('div', { class: 'sanskrit-subview-content', id: 'sanskrit-content-area' });
+    fragment.appendChild(contentArea);
+
+    renderActiveSubView(contentArea, currentSanskritSubView);
+
+    return fragment;
+  }
+
+  function createSubNavTab(label, key, activeKey) {
+    const isActive = key === activeKey;
+    const btn = el('button', {
+      class: 'nav-btn' + (isActive ? ' active' : ''),
+      text: label,
+      attrs: { type: 'button', 'data-subview': key },
+    });
+    btn.addEventListener('click', () => {
+      currentSanskritSubView = key;
+      const bar = btn.closest('.sanskrit-subnav-bar');
+      if (bar) {
+        $$('button', bar).forEach((b) => {
+          const match = b.getAttribute('data-subview') === currentSanskritSubView;
+          if (match) b.classList.add('active');
+          else b.classList.remove('active');
+        });
+      }
+      const area = document.getElementById('sanskrit-content-area');
+      if (area) renderActiveSubView(area, currentSanskritSubView);
+    });
+    return btn;
+  }
+
+  function renderActiveSubView(container, viewKey) {
+    container.replaceChildren();
+    switch (viewKey) {
+      case 'engine':     container.appendChild(buildEngineSubView(cachedEngineInfo, cachedEngineHealth)); break;
+      case 'sandhi':     container.appendChild(buildSandhiSubView()); break;
+      case 'scansion':   container.appendChild(buildScansionSubView()); break;
+      case 'derivation': container.appendChild(buildDerivationSubView()); break;
+      case 'studios':    container.appendChild(buildStudiosSubView()); break;
+      default:           container.appendChild(buildEngineSubView(cachedEngineInfo, cachedEngineHealth));
+    }
+  }
+
+  // ─── Sub-view 1: Engine kernel ───
+
+  function buildEngineSubView(info, health) {
+    const frag = document.createDocumentFragment();
+    frag.appendChild(
       el('section', { class: 'panel' }, [
         el('header', { class: 'panel-head' }, [
           el('h2', { text: info && info.name ? info.name : 'Aigaane Sanskrit Engine' }),
-          el('p', { class: 'panel-sub', text: 'Deterministic Pāṇinian sandhi. Every derivation cites the governing sūtra.' }),
+          el('p', { class: 'panel-sub', text: 'Deterministic Pāṇinian engine kernel. Every derivation cites the governing sūtra.' }),
         ]),
         el('div', { class: 'status-line' }, [
           el('span', { class: 'dot online', attrs: { 'aria-hidden': 'true' } }),
@@ -162,6 +209,13 @@
         ]),
       ])
     );
+    return frag;
+  }
+
+  // ─── Sub-view 2: Sandhi combiner ───
+
+  function buildSandhiSubView() {
+    const fragment = document.createDocumentFragment();
 
     const p1 = el('input', { attrs: { type: 'text', id: 'sandhi-p1', maxlength: '8',
       placeholder: 'a or aḥ', value: 'a', spellcheck: 'false', autocomplete: 'off' } });
@@ -223,7 +277,10 @@
       const a = p1.value; p1.value = p2.value; p2.value = a; p1.focus();
     });
     clearBtn.addEventListener('click', () => {
-      p1.value = ''; p2.value = ''; output.replaceChildren(el('p', { class: 'placeholder', text: 'Result will appear here.' })); output.classList.remove('has-error', 'has-success'); p1.focus();
+      p1.value = ''; p2.value = '';
+      output.replaceChildren(el('p', { class: 'placeholder', text: 'Result will appear here.' }));
+      output.classList.remove('has-error', 'has-success');
+      p1.focus();
     });
 
     $$('.chip[data-p1]', sectionSandhi).forEach((chip) => {
@@ -237,69 +294,9 @@
     return fragment;
   }
 
-  // ─── Chandas view ───
+  // ─── Sub-view 3: Scansion & metres ───
 
-  function renderScansion(node, data) {
-    const syllables = Array.isArray(data.syllables) ? data.syllables : [];
-    const nodes = [];
-    nodes.push(el('p', { class: 'pattern-line', text: data.pattern || '' }));
-
-    const grid = el('div', { class: 'pattern' });
-    for (const s of syllables) {
-      const weight = s.weight === 'G' ? 'Guru −' : 'Laghu ⏑';
-      grid.appendChild(el('div', {
-        class: 'syllable',
-        attrs: { 'aria-label': s.text + ' ' + weight },
-      }, [
-        el('span', { class: 'glyph', text: s.text }),
-        el('span', { class: 'weight ' + s.weight, text: s.weight }),
-      ]));
-    }
-    nodes.push(grid);
-    nodes.push(el('div', { class: 'output-result' }, [
-      el('span', { class: 'rule-tag', text: data.length + ' syllables' }),
-    ]));
-
-    node.replaceChildren(...nodes);
-    node.classList.add('has-success');
-    node.classList.remove('has-error');
-  }
-
-  function renderMeterValidation(node, data, meterName) {
-    const nodes = [];
-    nodes.push(el('div', {
-      class: 'validation-summary ' + (data.is_valid ? 'valid' : 'invalid'),
-    }, [
-      el('span', { class: 'label', text: data.is_valid ? '✓ Valid ' + meterName : '✗ Not a valid ' + meterName }),
-    ]));
-
-    if (Array.isArray(data.padas) && data.padas.length) {
-      const list = el('div', { class: 'pada-list' });
-      for (const p of data.padas) {
-        const row = el('div', {
-          class: 'pada ' + (p.is_valid ? 'is-valid' : 'is-invalid'),
-        }, [
-          el('span', { class: 'pada-num', text: 'Pāda ' + p.index }),
-          el('span', { class: 'pada-pattern', text: p.text_pattern || '—' }),
-          el('span', { class: 'pada-variety', text: p.variety || '—' }),
-        ]);
-        if (p.reason) row.appendChild(el('span', { class: 'pada-reason', text: p.reason }));
-        list.appendChild(row);
-      }
-      nodes.push(list);
-    }
-
-    if (Array.isArray(data.errors) && data.errors.length) {
-      const ul = el('ul', { class: 'error-list' });
-      for (const err of data.errors) ul.appendChild(el('li', { text: err }));
-      nodes.push(ul);
-    }
-
-    node.replaceChildren(...nodes);
-    node.classList.add(data.is_valid ? 'has-success' : 'has-error');
-  }
-
-  function buildChandasView() {
+  function buildScansionSubView() {
     const fragment = document.createDocumentFragment();
 
     const scanText = el('textarea', { attrs: { rows: '3', maxlength: '2000',
@@ -392,7 +389,139 @@
     return fragment;
   }
 
-  // ─── Agent view ───
+  // ─── Sub-view 4: Derivations ───
+
+  function buildDerivationSubView() {
+    const frag = document.createDocumentFragment();
+    frag.appendChild(el('section', { class: 'panel' }, [
+      el('header', { class: 'panel-head' }, [
+        el('h2', { text: 'Padavyutpatti & Sūtra Derivations' }),
+        el('p', { class: 'panel-sub', text: 'Step-by-step Pāṇinian derivational chains from dhātu to pada. Coming in the next release.' }),
+      ]),
+      el('div', { class: 'output' }, [
+        el('p', { class: 'placeholder', text: 'Derivation rule trees will appear here in a future update.' }),
+      ]),
+    ]));
+    return frag;
+  }
+
+  // ─── Sub-view 5: Upaveda Studios ───
+
+  function buildStudiosSubView() {
+    const frag = document.createDocumentFragment();
+    const grid = el('div', { class: 'studios-grid' });
+
+    const studios = [
+      { title: 'Gāndharvaveda Studio', desc: 'Music, rāga matrices, tālas, Pingal scansion engine, and AI prompt generation.', href: '/gandharvaveda.html', color: '#c9a227' },
+      { title: 'Āyurveda Studio',      desc: '20-question Prakṛti constitution analyzer, 20 guṇas, and dinacaryā routines.',   href: '/ayurveda.html',      color: '#7a9a5a' },
+      { title: 'Sthāpatyaveda Studio', desc: '81-pada Vāstu Puruṣa Maṇḍala, directional compass, and classical māna converter.', href: '/sthapatyaveda.html', color: '#c9a06a' },
+      { title: 'Dhanurveda Studio',    desc: 'Army divisions, weapons compendium, and battle formations from the classical texts.', href: '/dhanurveda.html',   color: '#8a9bb0' },
+    ];
+
+    studios.forEach((s) => {
+      const card = el('div', { class: 'studio-card', style: 'border-left: 4px solid ' + s.color + ';' }, [
+        el('h3', { style: 'color: ' + s.color + '; margin-bottom: 0.5rem;', text: s.title }),
+        el('p', { style: 'color: var(--sidebar-fg, #c8d0e0); font-size: 0.9rem; margin-bottom: 1.25rem;', text: s.desc }),
+        el('a', { class: 'nav-btn active', href: s.href, style: 'display: inline-block; text-decoration: none;', text: 'Launch Studio ↗' }),
+      ]);
+      grid.appendChild(card);
+    });
+
+    frag.appendChild(el('section', { class: 'panel' }, [
+      el('header', { class: 'panel-head' }, [
+        el('h2', { text: 'Upaveda Interactive Studios' }),
+        el('p', { class: 'panel-sub', text: 'Explore all four computational Upaveda studios integrated into the platform.' }),
+      ]),
+      grid,
+    ]));
+    return frag;
+  }
+
+  // ─── Sandhi result renderer ───
+
+  function renderSandhiResult(node, data) {
+    const wrapper = el('div', { class: 'output-result' }, [
+      el('div', { class: 'output-eq' }, [
+        el('span', { class: 'in', text: data.p1 }),
+        el('span', { class: 'arrow', text: ' + ' }),
+        el('span', { class: 'in', text: data.p2 }),
+        el('span', { class: 'arrow', text: ' → ' }),
+        el('span', { class: 'out', text: data.result }),
+      ]),
+      data.rule_applied && data.rule_applied !== 'none'
+        ? el('span', { class: 'rule-tag', text: 'Sūtra ' + data.rule_applied })
+        : el('span', { class: 'rule-tag rule-none', text: 'No rule — literal' }),
+    ]);
+    node.replaceChildren(wrapper);
+    node.classList.add('has-success');
+    node.classList.remove('has-error');
+  }
+
+  // ─── Scansion renderers ───
+
+  function renderScansion(node, data) {
+    const syllables = Array.isArray(data.syllables) ? data.syllables : [];
+    const nodes = [];
+    nodes.push(el('p', { class: 'pattern-line', text: data.pattern || '' }));
+
+    const grid = el('div', { class: 'pattern' });
+    for (const s of syllables) {
+      const weight = s.weight === 'G' ? 'Guru −' : 'Laghu ⏑';
+      grid.appendChild(el('div', {
+        class: 'syllable',
+        attrs: { 'aria-label': s.text + ' ' + weight },
+      }, [
+        el('span', { class: 'glyph', text: s.text }),
+        el('span', { class: 'weight ' + s.weight, text: s.weight }),
+      ]));
+    }
+    nodes.push(grid);
+    nodes.push(el('div', { class: 'output-result' }, [
+      el('span', { class: 'rule-tag', text: data.length + ' syllables' }),
+    ]));
+
+    node.replaceChildren(...nodes);
+    node.classList.add('has-success');
+    node.classList.remove('has-error');
+  }
+
+  function renderMeterValidation(node, data, meterName) {
+    const nodes = [];
+    nodes.push(el('div', {
+      class: 'validation-summary ' + (data.is_valid ? 'valid' : 'invalid'),
+    }, [
+      el('span', { class: 'label', text: data.is_valid ? '✓ Valid ' + meterName : '✗ Not a valid ' + meterName }),
+    ]));
+
+    if (Array.isArray(data.padas) && data.padas.length) {
+      const list = el('div', { class: 'pada-list' });
+      for (const p of data.padas) {
+        const row = el('div', {
+          class: 'pada ' + (p.is_valid ? 'is-valid' : 'is-invalid'),
+        }, [
+          el('span', { class: 'pada-num', text: 'Pāda ' + p.index }),
+          el('span', { class: 'pada-pattern', text: p.text_pattern || '—' }),
+          el('span', { class: 'pada-variety', text: p.variety || '—' }),
+        ]);
+        if (p.reason) row.appendChild(el('span', { class: 'pada-reason', text: p.reason }));
+        list.appendChild(row);
+      }
+      nodes.push(list);
+    }
+
+    if (Array.isArray(data.errors) && data.errors.length) {
+      const ul = el('ul', { class: 'error-list' });
+      for (const err of data.errors) ul.appendChild(el('li', { text: err }));
+      nodes.push(ul);
+    }
+
+    node.replaceChildren(...nodes);
+    node.classList.add(data.is_valid ? 'has-success' : 'has-error');
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // AGENT VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   function buildAgentView() {
     const fragment = document.createDocumentFragment();
@@ -663,7 +792,9 @@
     return fragment;
   }
 
-  // ─── Morphology view ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // MORPHOLOGY VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   const STEM_CLASS_OPTIONS = [
     { value: 'a-masc', label: 'a-stem masculine — deva (god)' },
@@ -806,7 +937,9 @@
     return fragment;
   }
 
-  // ─── Corpus view ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // CORPUS VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   function renderCorpusResults(node, data) {
     if (!data || !Array.isArray(data.results)) {
@@ -948,7 +1081,9 @@
     return fragment;
   }
 
-  // ─── Śāstra view ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // ŚĀSTRA VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   const SASTRA_TREE = {
     sruti: {
@@ -983,8 +1118,13 @@
           parts: [{ name: 'Sāttvika', meta: 'Viṣṇu, Bhāgavata, Nārada, Garuḍa, Padma, Varāha' }, { name: 'Rājasika', meta: 'Brahmā, Brahmāṇḍa, Brahmavaivarta, Mārkaṇḍeya, Bhaviṣya, Vāmana' }, { name: 'Tāmasika', meta: 'Śiva, Liṅga, Skanda, Agni, Matsya, Kūrma' }, { name: 'Upapurāṇas', meta: '18 secondary texts' }] },
         { name: 'Dharmaśāstras', subtitle: 'Social ethics & civil law', status: 'metadata',
           parts: [{ name: 'Dharma Sūtras', meta: 'Āpastamba, Gautama, Baudhāyana' }, { name: 'Dharma Smṛtis', meta: 'Manusmṛti, Yājñavalkya, Nārada' }] },
-{ name: 'Upavedas', subtitle: 'Four classical applied sciences', status: 'live',
-  parts: [{ name: 'Āyurveda', meta: 'Medicine', status: 'live', external: true, link: '/ayurveda.html' }, { name: 'Dhanurveda', meta: 'Warfare', status: 'live', external: true, link: '/dhanurveda.html' }, { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html' }, { name: 'Sthāpatyaveda', meta: 'Architecture', status: 'live', external: true, link: '/sthapatyaveda.html' }] },
+        { name: 'Upavedas', subtitle: 'Four classical applied sciences', status: 'live',
+          parts: [
+            { name: 'Āyurveda', meta: 'Medicine', status: 'live', external: true, link: '/ayurveda.html' },
+            { name: 'Dhanurveda', meta: 'Warfare', status: 'live', external: true, link: '/dhanurveda.html' },
+            { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html' },
+            { name: 'Sthāpatyaveda', meta: 'Architecture', status: 'live', external: true, link: '/sthapatyaveda.html' },
+          ] },
         { name: 'Āgamas & Tantras', subtitle: 'Initiatory practice, iconography', status: 'metadata',
           parts: [{ name: 'Śaiva Āgamas', meta: '28 Siddhānta + Trika' }, { name: 'Vaiṣṇava Āgamas', meta: 'Pāñcarātra, Vaikhānasa' }, { name: 'Śākta Tantras', meta: '64 Tantras' }] },
         { name: 'Bhakti Sādhana', subtitle: 'Devotional classics & poetics', status: 'metadata',
@@ -1048,11 +1188,11 @@
         }
         if (category.parts && category.parts.length) {
           const partList = el('ul', { class: 'sastra-parts' });
-                    for (let p = 0; p < category.parts.length; p++) {
+          for (let p = 0; p < category.parts.length; p++) {
             const part = category.parts[p];
             const li = el('li', { class: 'sastra-part' });
 
-                    if (part.external && part.link) {
+            if (part.external && part.link) {
               li.appendChild(el('a', {
                 class: 'sastra-part-name sastra-part-link',
                 text: part.name + ' ↗',
@@ -1087,7 +1227,9 @@
     return fragment;
   }
 
-  // ─── Coming Soon view ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // COMING SOON VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   const COMING_SOON = [
     { title: 'Tiṅanta — Verbal Conjugation', desc: 'All 10 gaṇas × 10 lakāras, active and middle voice.', effort: '4–6 weeks' },
@@ -1128,7 +1270,10 @@
 
     return fragment;
   }
-  // ─── Changelog view ───
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // CHANGELOG VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   function buildChangelogView() {
     const fragment = document.createDocumentFragment();
@@ -1195,7 +1340,9 @@
     return fragment;
   }
 
-  // ─── About view ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // ABOUT VIEW
+  // ═══════════════════════════════════════════════════════════════════════
 
   function buildAboutView() {
     const fragment = document.createDocumentFragment();
@@ -1254,7 +1401,9 @@
     return fragment;
   }
 
-  // ─── Tabs ───
+  // ═══════════════════════════════════════════════════════════════════════
+  // TABS
+  // ═══════════════════════════════════════════════════════════════════════
 
   function mountTab(tabName) {
     const viewport = $('#viewport');
@@ -1267,8 +1416,7 @@
           getJSON(API.INFO).catch(function () { return null; }),
           getJSON(API.HEALTH).catch(function () { return null; }),
         ]).then(function (results) {
-          viewport.replaceChildren(buildSandhiView(results[0], results[1]));
-          viewport.appendChild(buildChandasView());
+          viewport.replaceChildren(buildSanskritTab(results[0], results[1]));
         });
         break;
       case 'agent':
@@ -1290,8 +1438,7 @@
         viewport.replaceChildren(buildAboutView());
         break;
       default:
-        viewport.replaceChildren(buildSandhiView(null, null));
-        viewport.appendChild(buildChandasView());
+        viewport.replaceChildren(buildSanskritTab(null, null));
     }
 
     $$('.nav-btn').forEach(function (btn) {
@@ -1320,6 +1467,28 @@
     }
   }
 
+  // ─── Mobile sidebar drawer ───
+
+  function setupSidebar() {
+    const shell = document.getElementById('app-shell');
+    const toggle = shell && shell.querySelector('.sidebar-toggle');
+    const backdrop = shell && shell.querySelector('.sidebar-backdrop');
+    if (!shell || !toggle) return;
+
+    function open()  { shell.classList.add('nav-open');    toggle.setAttribute('aria-expanded', 'true');  }
+    function close() { shell.classList.remove('nav-open'); toggle.setAttribute('aria-expanded', 'false'); }
+
+    toggle.addEventListener('click', function () {
+      shell.classList.contains('nav-open') ? close() : open();
+    });
+
+    if (backdrop) backdrop.addEventListener('click', close);
+
+    shell.querySelectorAll('.sidebar-nav .nav-btn').forEach(function (btn) {
+      btn.addEventListener('click', close);
+    });
+  }
+
   // ─── Bootstrap ───
 
   function init() {
@@ -1332,31 +1501,12 @@
       });
     });
 
+    setupSidebar();
     mountTab('sanskrit');
     probeHealth();
   }
 
-  if (document.readyState === 'loading') {    // Mobile sidebar drawer
-    (function setupSidebar() {
-      const shell = document.getElementById('app-shell');
-      const toggle = shell && shell.querySelector('.sidebar-toggle');
-      const backdrop = shell && shell.querySelector('.sidebar-backdrop');
-      if (!shell || !toggle) return;
-
-      function open()  { shell.classList.add('nav-open');    toggle.setAttribute('aria-expanded', 'true');  }
-      function close() { shell.classList.remove('nav-open'); toggle.setAttribute('aria-expanded', 'false'); }
-
-      toggle.addEventListener('click', function () {
-        shell.classList.contains('nav-open') ? close() : open();
-      });
-
-      if (backdrop) backdrop.addEventListener('click', close);
-
-      // Auto-close when a tab is selected
-      shell.querySelectorAll('.sidebar-nav .nav-btn').forEach(function (btn) {
-        btn.addEventListener('click', close);
-      });
-    })();
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
