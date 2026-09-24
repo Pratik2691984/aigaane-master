@@ -1803,3 +1803,110 @@ main#viewport {
     padding: 1rem;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   Sandhi chain — full-sentence junction visualizer
+   ════════════════════════════════════════════════════════════ */
+
+.sandhi-junctions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.sandhi-junction {
+  background: #0d1322;
+  border: 1px solid #232c44;
+  border-left: 3px solid #232c44;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+}
+
+.sandhi-junction.sj-resolved {
+  border-left-color: #4ade80;
+}
+
+.sandhi-junction.sj-unchanged {
+  border-left-color: #6b7694;
+}
+
+.sandhi-junction.sj-unresolved {
+  border-left-color: #f87171;
+}
+
+.sj-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sj-num {
+  color: #d4a24c;
+  font-weight: 600;
+}
+
+.sj-status {
+  font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.68rem;
+  color: #97a1bd;
+}
+
+.sj-resolved .sj-status { color: #4ade80; }
+.sj-unchanged .sj-status { color: #97a1bd; }
+.sj-unresolved .sj-status { color: #f87171; }
+
+.sj-equation {
+  font-family: Charter, Cambria, Georgia, serif;
+  font-size: 1.0625rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.sj-before { color: #97a1bd; }
+.sj-arrow { color: #6b7694; margin: 0 0.4rem; }
+.sj-after { color: #d4a24c; font-weight: 600; }
+
+.sj-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(212, 162, 76, 0.06);
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+}
+
+.sj-chain-label {
+  color: #6b7694;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: 0.3rem;
+}
+
+.sj-sutra {
+  font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+  color: #d4a24c;
+  background: transparent;
+  padding: 0;
+  font-size: 0.78rem;
+}
+
+.sj-chain-sep {
+  color: #6b7694;
+  font-size: 0.7rem;
+}
+
+.sj-name {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #8ab8d8;
+  line-height: 1.4;
+}

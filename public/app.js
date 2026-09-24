@@ -305,7 +305,9 @@
         sandhiForm.requestSubmit();
       });
     });
-
+    if (window.SANDHI_UI && window.SANDHI_UI.appendChainForm) {
+      window.SANDHI_UI.appendChainForm(fragment, el, renderError);
+    }
     return fragment;
   }
 
