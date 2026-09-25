@@ -1,0 +1,332 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 13",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 35,
+    "generated_at": "2026-09-25T08:57:31.155688+00:00",
+    "last_updated": "2026-09-25T08:57:31.155696+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-13.001",
+      "text": "प्रकृतिं पुरुषं चैव क्षेत्रं क्षेत्रज्ञमेव च।\nएतद्वेदितुमिच्छामि ज्ञानं ज्ञेयं च केशव",
+      "iast": "arjuna uvācha\nprakṛitiṁ puruṣhaṁ chaiva kṣhetraṁ kṣhetra-jñam eva cha\netad veditum ichchhāmi jñānaṁ jñeyaṁ cha keśhava",
+      "chapter": 13,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.002",
+      "text": "श्री भगवानुवाचइदं शरीरं कौन्तेय क्षेत्रमित्यभिधीयते।एतद्यो वेत्ति तं प्राहुः क्षेत्रज्ञ इति तद्विदः",
+      "iast": "śhrī-bhagavān uvācha\nidaṁ śharīraṁ kaunteya kṣhetram ity abhidhīyate\netad yo vetti taṁ prāhuḥ kṣhetra-jña iti tad-vidaḥ",
+      "chapter": 13,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.003",
+      "text": "क्षेत्रज्ञं चापि मां विद्धि सर्वक्षेत्रेषु भारत।\nक्षेत्रक्षेत्रज्ञयोर्ज्ञानं यत्तज्ज्ञानं मतं मम",
+      "iast": "kṣhetra-jñaṁ chāpi māṁ viddhi sarva-kṣhetreṣhu bhārata\nkṣhetra-kṣhetrajñayor jñānaṁ yat taj jñānaṁ mataṁ mama",
+      "chapter": 13,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.004",
+      "text": "तत्क्षेत्रं यच्च यादृक् च यद्विकारि यतश्च यत्।स च यो यत्प्रभावश्च तत्समासेन मे श्रृणु",
+      "iast": "tat kṣhetraṁ yach cha yādṛik cha yad-vikāri yataśh cha yat\nsa cha yo yat-prabhāvaśh cha tat samāsena me śhṛiṇu",
+      "chapter": 13,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.005",
+      "text": "ऋषिभिर्बहुधा गीतं छन्दोभिर्विविधैः पृथक्।ब्रह्मसूत्रपदैश्चैव हेतुमद्भिर्विनिश्िचतैः",
+      "iast": "ṛiṣhibhir bahudhā gītaṁ chhandobhir vividhaiḥ pṛithak\nbrahma-sūtra-padaiśh chaiva hetumadbhir viniśhchitaiḥ",
+      "chapter": 13,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.006",
+      "text": "महाभूतान्यहङ्कारो बुद्धिरव्यक्तमेव च।इन्द्रियाणि दशैकं च पञ्च चेन्द्रियगोचराः",
+      "iast": "mahā-bhūtāny ahankāro buddhir avyaktam eva cha\nindriyāṇi daśhaikaṁ cha pañcha chendriya-gocharāḥ",
+      "chapter": 13,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.007",
+      "text": "इच्छा द्वेषः सुखं दुःखं सङ्घातश्चेतनाधृतिः।एतत्क्षेत्रं समासेन सविकारमुदाहृतम्",
+      "iast": "ichchhā dveṣhaḥ sukhaṁ duḥkhaṁ saṅghātaśh chetanā dhṛitiḥ\netat kṣhetraṁ samāsena sa-vikāram udāhṛitam",
+      "chapter": 13,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.008",
+      "text": "अमानित्वमदम्भित्वमहिंसा क्षान्तिरार्जवम्।आचार्योपासनं शौचं स्थैर्यमात्मविनिग्रहः",
+      "iast": "amānitvam adambhitvam ahinsā kṣhāntir ārjavam\nāchāryopāsanaṁ śhauchaṁ sthairyam ātma-vinigrahaḥ",
+      "chapter": 13,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.009",
+      "text": "इन्द्रियार्थेषु वैराग्यमनहङ्कार एव च।जन्ममृत्युजराव्याधिदुःखदोषानुदर्शनम्",
+      "iast": "indriyārtheṣhu vairāgyam anahankāra eva cha\njanma-mṛityu-jarā-vyādhi-duḥkha-doṣhānudarśhanam",
+      "chapter": 13,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.010",
+      "text": "असक्ितरनभिष्वङ्गः पुत्रदारगृहादिषु।नित्यं च समचित्तत्वमिष्टानिष्टोपपत्तिषु",
+      "iast": "asaktir anabhiṣhvaṅgaḥ putra-dāra-gṛihādiṣhu\nnityaṁ cha sama-chittatvam iṣhṭāniṣhṭopapattiṣhu",
+      "chapter": 13,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.011",
+      "text": "मयि चानन्ययोगेन भक्ितरव्यभिचारिणी।विविक्तदेशसेवित्वमरतिर्जनसंसदि",
+      "iast": "mayi chānanya-yogena bhaktir avyabhichāriṇī\nvivikta-deśha-sevitvam aratir jana-sansadi",
+      "chapter": 13,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.012",
+      "text": "अध्यात्मज्ञाननित्यत्वं तत्त्वज्ञानार्थदर्शनम्।एतज्ज्ञानमिति प्रोक्तमज्ञानं यदतोन्यथा",
+      "iast": "adhyātma-jñāna-nityatvaṁ tattva-jñānārtha-darśhanam\netaj jñānam iti proktam ajñānaṁ yad ato ’nyathā",
+      "chapter": 13,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.013",
+      "text": "ज्ञेयं यत्तत्प्रवक्ष्यामि यज्ज्ञात्वाऽमृतमश्नुते।अनादिमत्परं ब्रह्म न सत्तन्नासदुच्यते",
+      "iast": "jñeyaṁ yat tat pravakṣhyāmi yaj jñātvāmṛitam aśhnute\nanādi mat-paraṁ brahma na sat tan nāsad uchyate",
+      "chapter": 13,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.014",
+      "text": "सर्वतः पाणिपादं तत्सर्वतोऽक्षिशिरोमुखम्।सर्वतः श्रुतिमल्लोके सर्वमावृत्य तिष्ठति",
+      "iast": "sarvataḥ pāṇi-pādaṁ tat sarvato ’kṣhi-śhiro-mukham\nsarvataḥ śhrutimal loke sarvam āvṛitya tiṣhṭhati",
+      "chapter": 13,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.015",
+      "text": "सर्वेन्द्रियगुणाभासं सर्वेन्द्रियविवर्जितम्।असक्तं सर्वभृच्चैव निर्गुणं गुणभोक्तृ च",
+      "iast": "sarvendriya-guṇābhāsaṁ sarvendriya-vivarjitam\nasaktaṁ sarva-bhṛich chaiva nirguṇaṁ guṇa-bhoktṛi cha",
+      "chapter": 13,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.016",
+      "text": "बहिरन्तश्च भूतानामचरं चरमेव च।सूक्ष्मत्वात्तदविज्ञेयं दूरस्थं चान्तिके च तत्",
+      "iast": "bahir antaśh cha bhūtānām acharaṁ charam eva cha\nsūkṣhmatvāt tad avijñeyaṁ dūra-sthaṁ chāntike cha tat",
+      "chapter": 13,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.017",
+      "text": "अविभक्तं च भूतेषु विभक्तमिव च स्थितम्।भूतभर्तृ च तज्ज्ञेयं ग्रसिष्णु प्रभविष्णु च",
+      "iast": "avibhaktaṁ cha bhūteṣhu vibhaktam iva cha sthitam\nbhūta-bhartṛi cha taj jñeyaṁ grasiṣhṇu prabhaviṣhṇu cha",
+      "chapter": 13,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.018",
+      "text": "ज्योतिषामपि तज्ज्योतिस्तमसः परमुच्यते।ज्ञानं ज्ञेयं ज्ञानगम्यं हृदि सर्वस्य विष्ठितम्",
+      "iast": "jyotiṣhām api taj jyotis tamasaḥ param uchyate\njñānaṁ jñeyaṁ jñāna-gamyaṁ hṛidi sarvasya viṣhṭhitam",
+      "chapter": 13,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.019",
+      "text": "इति क्षेत्रं तथा ज्ञानं ज्ञेयं चोक्तं समासतः।मद्भक्त एतद्विज्ञाय मद्भावायोपपद्यते",
+      "iast": "iti kṣhetraṁ tathā jñānaṁ jñeyaṁ choktaṁ samāsataḥ\nmad-bhakta etad vijñāya mad-bhāvāyopapadyate",
+      "chapter": 13,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.020",
+      "text": "प्रकृतिं पुरुषं चैव विद्ध्यनादी उभावपि।विकारांश्च गुणांश्चैव विद्धि प्रकृतिसंभवान्",
+      "iast": "prakṛitiṁ puruṣhaṁ chaiva viddhy anādī ubhāv api\nvikārānśh cha guṇānśh chaiva viddhi prakṛiti-sambhavān",
+      "chapter": 13,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.021",
+      "text": "कार्यकारणकर्तृत्वे हेतुः प्रकृतिरुच्यते।पुरुषः सुखदुःखानां भोक्तृत्वे हेतुरुच्यते",
+      "iast": "kārya-kāraṇa-kartṛitve hetuḥ prakṛitir uchyate\npuruṣhaḥ sukha-duḥkhānāṁ bhoktṛitve hetur uchyate",
+      "chapter": 13,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.022",
+      "text": "पुरुषः प्रकृतिस्थो हि भुङ्क्ते प्रकृतिजान्गुणान्।कारणं गुणसङ्गोऽस्य सदसद्योनिजन्मसु",
+      "iast": "puruṣhaḥ prakṛiti-stho hi bhuṅkte prakṛiti-jān guṇān\nkāraṇaṁ guṇa-saṅgo ’sya sad-asad-yoni-janmasu",
+      "chapter": 13,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.023",
+      "text": "उपद्रष्टाऽनुमन्ता च भर्ता भोक्ता महेश्वरः।परमात्मेति चाप्युक्तो देहेऽस्मिन्पुरुषः परः",
+      "iast": "upadraṣhṭānumantā cha bhartā bhoktā maheśhvaraḥ\nparamātmeti chāpy ukto dehe ’smin puruṣhaḥ paraḥ",
+      "chapter": 13,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.024",
+      "text": "य एवं वेत्ति पुरुषं प्रकृतिं च गुणैःसह।सर्वथा वर्तमानोऽपि न स भूयोऽभिजायते",
+      "iast": "ya evaṁ vetti puruṣhaṁ prakṛitiṁ cha guṇaiḥ saha\nsarvathā vartamāno ’pi na sa bhūyo ’bhijāyate",
+      "chapter": 13,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.025",
+      "text": "ध्यानेनात्मनि पश्यन्ति केचिदात्मानमात्मना।अन्ये सांख्येन योगेन कर्मयोगेन चापरे",
+      "iast": "dhyānenātmani paśhyanti kechid ātmānam ātmanā\nanye sānkhyena yogena karma-yogena chāpare",
+      "chapter": 13,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.026",
+      "text": "अन्ये त्वेवमजानन्तः श्रुत्वाऽन्येभ्य उपासते।तेऽपि चातितरन्त्येव मृत्युं श्रुतिपरायणाः",
+      "iast": "anye tv evam ajānantaḥ śhrutvānyebhya upāsate\nte ’pi chātitaranty eva mṛityuṁ śhruti-parāyaṇāḥ",
+      "chapter": 13,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.027",
+      "text": "यावत्सञ्जायते किञ्चित्सत्त्वं स्थावरजङ्गमम्।क्षेत्रक्षेत्रज्ञसंयोगात्तद्विद्धि भरतर्षभ",
+      "iast": "yāvat sañjāyate kiñchit sattvaṁ sthāvara-jaṅgamam\nkṣhetra-kṣhetrajña-sanyogāt tad viddhi bharatarṣhabha",
+      "chapter": 13,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.028",
+      "text": "समं सर्वेषु भूतेषु तिष्ठन्तं परमेश्वरम्।विनश्यत्स्वविनश्यन्तं यः पश्यति स पश्यति",
+      "iast": "samaṁ sarveṣhu bhūteṣhu tiṣhṭhantaṁ parameśhvaram\nvinaśhyatsv avinaśhyantaṁ yaḥ paśhyati sa paśhyati",
+      "chapter": 13,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.029",
+      "text": "समं पश्यन्हि सर्वत्र समवस्थितमीश्वरम्।न हिनस्त्यात्मनाऽऽत्मानं ततो याति परां गतिम्",
+      "iast": "samaṁ paśhyan hi sarvatra samavasthitam īśhvaram\nna hinasty ātmanātmānaṁ tato yāti parāṁ gatim",
+      "chapter": 13,
+      "verse": 29,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.030",
+      "text": "प्रकृत्यैव च कर्माणि क्रियमाणानि सर्वशः।यः पश्यति तथाऽऽत्मानमकर्तारं स पश्यति",
+      "iast": "prakṛityaiva cha karmāṇi kriyamāṇāni sarvaśhaḥ\nyaḥ paśhyati tathātmānam akartāraṁ sa paśhyati",
+      "chapter": 13,
+      "verse": 30,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.031",
+      "text": "यदा भूतपृथग्भावमेकस्थमनुपश्यति।तत एव च विस्तारं ब्रह्म सम्पद्यते तदा",
+      "iast": "yadā bhūta-pṛithag-bhāvam eka-stham anupaśhyati\ntata eva cha vistāraṁ brahma sampadyate tadā",
+      "chapter": 13,
+      "verse": 31,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.032",
+      "text": "अनादित्वान्निर्गुणत्वात्परमात्मायमव्ययः।शरीरस्थोऽपि कौन्तेय न करोति न लिप्यते",
+      "iast": "anāditvān nirguṇatvāt paramātmāyam avyayaḥ\nśharīra-stho ’pi kaunteya na karoti na lipyate",
+      "chapter": 13,
+      "verse": 32,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.033",
+      "text": "यथा सर्वगतं सौक्ष्म्यादाकाशं नोपलिप्यते।सर्वत्रावस्थितो देहे तथाऽऽत्मा नोपलिप्यते",
+      "iast": "yathā sarva-gataṁ saukṣhmyād ākāśhaṁ nopalipyate\nsarvatrāvasthito dehe tathātmā nopalipyate",
+      "chapter": 13,
+      "verse": 33,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.034",
+      "text": "यथा प्रकाशयत्येकः कृत्स्नं लोकमिमं रविः।क्षेत्रं क्षेत्री तथा कृत्स्नं प्रकाशयति भारत",
+      "iast": "yathā prakāśhayaty ekaḥ kṛitsnaṁ lokam imaṁ raviḥ\nkṣhetraṁ kṣhetrī tathā kṛitsnaṁ prakāśhayati bhārata",
+      "chapter": 13,
+      "verse": 34,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-13.035",
+      "text": "क्षेत्रक्षेत्रज्ञयोरेवमन्तरं ज्ञानचक्षुषा।भूतप्रकृतिमोक्षं च ये विदुर्यान्ति ते परम्",
+      "iast": "kṣhetra-kṣhetrajñayor evam antaraṁ jñāna-chakṣhuṣhā\nbhūta-prakṛiti-mokṣhaṁ cha ye vidur yānti te param",
+      "chapter": 13,
+      "verse": 35,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}

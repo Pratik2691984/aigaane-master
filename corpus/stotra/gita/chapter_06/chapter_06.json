@@ -1,0 +1,441 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 6",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 47,
+    "generated_at": "2026-09-25T08:57:31.144593+00:00",
+    "last_updated": "2026-09-25T08:57:31.144613+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-06.001",
+      "text": "श्री भगवानुवाच\nअनाश्रितः कर्मफलं कार्यं कर्म करोति यः।\nस संन्यासी च योगी च न निरग्निर्न चाक्रियः",
+      "iast": "śhrī bhagavān uvācha\nanāśhritaḥ karma-phalaṁ kāryaṁ karma karoti yaḥ\nsa sannyāsī cha yogī cha na niragnir na chākriyaḥ",
+      "chapter": 6,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.002",
+      "text": "यं संन्यासमिति प्राहुर्योगं तं विद्धि पाण्डव।\nन ह्यसंन्यस्तसङ्कल्पो योगी भवति कश्चन",
+      "iast": "yaṁ sannyāsam iti prāhur yogaṁ taṁ viddhi pāṇḍava\nna hyasannyasta-saṅkalpo yogī bhavati kaśhchana",
+      "chapter": 6,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.003",
+      "text": "आरुरुक्षोर्मुनेर्योगं कर्म कारणमुच्यते।\nयोगारूढस्य तस्यैव शमः कारणमुच्यते",
+      "iast": "ārurukṣhor muner yogaṁ karma kāraṇam uchyate\nyogārūḍhasya tasyaiva śhamaḥ kāraṇam uchyate",
+      "chapter": 6,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.004",
+      "text": "यदा हि नेन्द्रियार्थेषु न कर्मस्वनुषज्जते।\nसर्वसङ्कल्पसंन्यासी योगारूढस्तदोच्यते",
+      "iast": "yadā hi nendriyārtheṣhu na karmasv-anuṣhajjate\nsarva-saṅkalpa-sannyāsī yogārūḍhas tadochyate",
+      "chapter": 6,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.005",
+      "text": "उद्धरेदात्मनाऽऽत्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः",
+      "iast": "uddhared ātmanātmānaṁ nātmānam avasādayet\nātmaiva hyātmano bandhur ātmaiva ripur ātmanaḥ",
+      "chapter": 6,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.006",
+      "text": "बन्धुरात्माऽऽत्मनस्तस्य येनात्मैवात्मना जितः।\nअनात्मनस्तु शत्रुत्वे वर्तेतात्मैव शत्रुवत्",
+      "iast": "bandhur ātmātmanas tasya yenātmaivātmanā jitaḥ\nanātmanas tu śhatrutve vartetātmaiva śhatru-vat",
+      "chapter": 6,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.007",
+      "text": "जितात्मनः प्रशान्तस्य परमात्मा समाहितः।\nशीतोष्णसुखदुःखेषु तथा मानापमानयोः",
+      "iast": "jitātmanaḥ praśhāntasya paramātmā samāhitaḥ\nśhītoṣhṇa-sukha-duḥkheṣhu tathā mānāpamānayoḥ",
+      "chapter": 6,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.008",
+      "text": "ज्ञानविज्ञानतृप्तात्मा कूटस्थो विजितेन्द्रियः।\nयुक्त इत्युच्यते योगी समलोष्टाश्मकाञ्चनः",
+      "iast": "jñāna-vijñāna-tṛiptātmā kūṭa-stho vijitendriyaḥ\nyukta ityuchyate yogī sama-loṣhṭāśhma-kāñchanaḥ",
+      "chapter": 6,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.009",
+      "text": "सुहृन्मित्रार्युदासीनमध्यस्थद्वेष्यबन्धुषु।\nसाधुष्वपि च पापेषु समबुद्धिर्विशिष्यते",
+      "iast": "suhṛin-mitrāryudāsīna-madhyastha-dveṣhya-bandhuṣhu\nsādhuṣhvapi cha pāpeṣhu sama-buddhir viśhiṣhyate",
+      "chapter": 6,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.010",
+      "text": "योगी युञ्जीत सततमात्मानं रहसि स्थितः।\nएकाकी यतचित्तात्मा निराशीरपरिग्रहः",
+      "iast": "yogī yuñjīta satatam ātmānaṁ rahasi sthitaḥ\nekākī yata-chittātmā nirāśhīr aparigrahaḥ",
+      "chapter": 6,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.011",
+      "text": "शुचौ देशे प्रतिष्ठाप्य स्थिरमासनमात्मनः।\nनात्युच्छ्रितं नातिनीचं चैलाजिनकुशोत्तरम्",
+      "iast": "śhuchau deśhe pratiṣhṭhāpya sthiram āsanam ātmanaḥ\nnātyuchchhritaṁ nāti-nīchaṁ chailājina-kuśhottaram",
+      "chapter": 6,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.012",
+      "text": "तत्रैकाग्रं मनः कृत्वा यतचित्तेन्द्रियक्रियः।\nउपविश्यासने युञ्ज्याद्योगमात्मविशुद्धये",
+      "iast": "tatraikāgraṁ manaḥ kṛitvā yata-chittendriya-kriyaḥ\nupaviśhyāsane yuñjyād yogam ātma-viśhuddhaye",
+      "chapter": 6,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.013",
+      "text": "समं कायशिरोग्रीवं धारयन्नचलं स्थिरः।\nसंप्रेक्ष्य नासिकाग्रं स्वं दिशश्चानवलोकयन्",
+      "iast": "samaṁ kāya-śhiro-grīvaṁ dhārayann achalaṁ sthiraḥ\nsamprekṣhya nāsikāgraṁ svaṁ diśhaśh chānavalokayan",
+      "chapter": 6,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.014",
+      "text": "प्रशान्तात्मा विगतभीर्ब्रह्मचारिव्रते स्थितः।\nमनः संयम्य मच्चित्तो युक्त आसीत मत्परः",
+      "iast": "praśhāntātmā vigata-bhīr brahmachāri-vrate sthitaḥ\nmanaḥ sanyamya mach-chitto yukta āsīta mat-paraḥ",
+      "chapter": 6,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.015",
+      "text": "युञ्जन्नेवं सदाऽऽत्मानं योगी नियतमानसः।\nशान्तिं निर्वाणपरमां मत्संस्थामधिगच्छति",
+      "iast": "yuñjann evaṁ sadātmānaṁ yogī niyata-mānasaḥ\nśhantiṁ nirvāṇa-paramāṁ mat-sansthām adhigachchhati",
+      "chapter": 6,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.016",
+      "text": "नात्यश्नतस्तु योगोऽस्ति न चैकान्तमनश्नतः।\nन चातिस्वप्नशीलस्य जाग्रतो नैव चार्जुन",
+      "iast": "nātyaśhnatastu yogo ’sti na chaikāntam anaśhnataḥ\nna chāti-svapna-śhīlasya jāgrato naiva chārjuna",
+      "chapter": 6,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.017",
+      "text": "युक्ताहारविहारस्य युक्तचेष्टस्य कर्मसु।\nयुक्तस्वप्नावबोधस्य योगो भवति दुःखहा",
+      "iast": "yuktāhāra-vihārasya yukta-cheṣhṭasya karmasu\nyukta-svapnāvabodhasya yogo bhavati duḥkha-hā",
+      "chapter": 6,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.018",
+      "text": "यदा विनियतं चित्तमात्मन्येवावतिष्ठते।\nनिःस्पृहः सर्वकामेभ्यो युक्त इत्युच्यते तदा",
+      "iast": "yadā viniyataṁ chittam ātmanyevāvatiṣhṭhate\nniḥspṛihaḥ sarva-kāmebhyo yukta ityuchyate tadā",
+      "chapter": 6,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.019",
+      "text": "यथा दीपो निवातस्थो नेङ्गते सोपमा स्मृता।\nयोगिनो यतचित्तस्य युञ्जतो योगमात्मनः",
+      "iast": "yathā dīpo nivāta-stho neṅgate sopamā smṛitā\nyogino yata-chittasya yuñjato yogam ātmanaḥ",
+      "chapter": 6,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.020",
+      "text": "यत्रोपरमते चित्तं निरुद्धं योगसेवया।\nयत्र चैवात्मनाऽऽत्मानं पश्यन्नात्मनि तुष्यति",
+      "iast": "yatroparamate chittaṁ niruddhaṁ yoga-sevayā\nyatra chaivātmanātmānaṁ paśhyann ātmani tuṣhyati",
+      "chapter": 6,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.021",
+      "text": "सुखमात्यन्तिकं यत्तद्बुद्धिग्राह्यमतीन्द्रियम्।\nवेत्ति यत्र न चैवायं स्थितश्चलति तत्त्वतः",
+      "iast": "sukham ātyantikaṁ yat tad buddhi-grāhyam atīndriyam\nvetti yatra na chaivāyaṁ sthitaśh chalati tattvataḥ",
+      "chapter": 6,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.022",
+      "text": "यं लब्ध्वा चापरं लाभं मन्यते नाधिकं ततः।\nयस्मिन्स्थितो न दुःखेन गुरुणापि विचाल्यते",
+      "iast": "yaṁ labdhvā chāparaṁ lābhaṁ manyate nādhikaṁ tataḥ\nyasmin sthito na duḥkhena guruṇāpi vichālyate",
+      "chapter": 6,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.023",
+      "text": "तं विद्याद् दुःखसंयोगवियोगं योगसंज्ञितम्।\nस निश्चयेन योक्तव्यो योगोऽनिर्विण्णचेतसा",
+      "iast": "taṁ vidyād duḥkha-sanyoga-viyogaṁ yogasaṅjñitam\nsa niśhchayena yoktavyo yogo ’nirviṇṇa-chetasā",
+      "chapter": 6,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.024",
+      "text": "सङ्कल्पप्रभवान्कामांस्त्यक्त्वा सर्वानशेषतः।\nमनसैवेन्द्रियग्रामं विनियम्य समन्ततः",
+      "iast": "saṅkalpa-prabhavān kāmāns tyaktvā sarvān aśheṣhataḥ\nmanasaivendriya-grāmaṁ viniyamya samantataḥ",
+      "chapter": 6,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.025",
+      "text": "शनैः शनैरुपरमेद् बुद्ध्या धृतिगृहीतया।\nआत्मसंस्थं मनः कृत्वा न किञ्चिदपि चिन्तयेत्",
+      "iast": "śhanaiḥ śhanair uparamed buddhyā dhṛiti-gṛihītayā\nātma-sansthaṁ manaḥ kṛitvā na kiñchid api chintayet",
+      "chapter": 6,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.026",
+      "text": "यतो यतो निश्चरति मनश्चञ्चलमस्थिरम्।\nततस्ततो नियम्यैतदात्मन्येव वशं नयेत्",
+      "iast": "yato yato niśhcharati manaśh chañchalam asthiram\ntatas tato niyamyaitad ātmanyeva vaśhaṁ nayet",
+      "chapter": 6,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.027",
+      "text": "प्रशान्तमनसं ह्येनं योगिनं सुखमुत्तमम्।\nउपैति शान्तरजसं ब्रह्मभूतमकल्मषम्",
+      "iast": "praśhānta-manasaṁ hyenaṁ yoginaṁ sukham uttamam\nupaiti śhānta-rajasaṁ brahma-bhūtam akalmaṣham",
+      "chapter": 6,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.028",
+      "text": "युञ्जन्नेवं सदाऽऽत्मानं योगी विगतकल्मषः।\nसुखेन ब्रह्मसंस्पर्शमत्यन्तं सुखमश्नुते",
+      "iast": "yuñjann evaṁ sadātmānaṁ yogī vigata-kalmaṣhaḥ\nsukhena brahma-sansparśham atyantaṁ sukham aśhnute",
+      "chapter": 6,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.029",
+      "text": "सर्वभूतस्थमात्मानं सर्वभूतानि चात्मनि।\nईक्षते योगयुक्तात्मा सर्वत्र समदर्शनः",
+      "iast": "sarva-bhūta-stham ātmānaṁ sarva-bhūtāni chātmani\nīkṣhate yoga-yuktātmā sarvatra sama-darśhanaḥ",
+      "chapter": 6,
+      "verse": 29,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.030",
+      "text": "यो मां पश्यति सर्वत्र सर्वं च मयि पश्यति।\nतस्याहं न प्रणश्यामि स च मे न प्रणश्यति",
+      "iast": "yo māṁ paśhyati sarvatra sarvaṁ cha mayi paśhyati\ntasyāhaṁ na praṇaśhyāmi sa cha me na praṇaśhyati",
+      "chapter": 6,
+      "verse": 30,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.031",
+      "text": "सर्वभूतस्थितं यो मां भजत्येकत्वमास्थितः।\nसर्वथा वर्तमानोऽपि स योगी मयि वर्तते",
+      "iast": "sarva-bhūta-sthitaṁ yo māṁ bhajatyekatvam āsthitaḥ\nsarvathā vartamāno ’pi sa yogī mayi vartate",
+      "chapter": 6,
+      "verse": 31,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.032",
+      "text": "आत्मौपम्येन सर्वत्र समं पश्यति योऽर्जुन।\nसुखं वा यदि वा दुःखं सः योगी परमो मतः",
+      "iast": "ātmaupamyena sarvatra samaṁ paśhyati yo ’rjuna\nsukhaṁ vā yadi vā duḥkhaṁ sa yogī paramo mataḥ",
+      "chapter": 6,
+      "verse": 32,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.033",
+      "text": "योऽयं योगस्त्वया प्रोक्तः साम्येन मधुसूदन।\nएतस्याहं न पश्यामि चञ्चलत्वात् स्थितिं स्थिराम्",
+      "iast": "arjuna uvācha\nyo ’yaṁ yogas tvayā proktaḥ sāmyena madhusūdana\netasyāhaṁ na paśhyāmi chañchalatvāt sthitiṁ sthirām",
+      "chapter": 6,
+      "verse": 33,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.034",
+      "text": "चञ्चलं हि मनः कृष्ण प्रमाथि बलवद्दृढम्।\nतस्याहं निग्रहं मन्ये वायोरिव सुदुष्करम्",
+      "iast": "chañchalaṁ hi manaḥ kṛiṣhṇa pramāthi balavad dṛiḍham\ntasyāhaṁ nigrahaṁ manye vāyor iva su-duṣhkaram",
+      "chapter": 6,
+      "verse": 34,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.035",
+      "text": "श्री भगवानुवाच\nअसंशयं महाबाहो मनो दुर्निग्रहं चलं।\nअभ्यासेन तु कौन्तेय वैराग्येण च गृह्यते",
+      "iast": "śhrī bhagavān uvācha\nasanśhayaṁ mahā-bāho mano durnigrahaṁ chalam\nabhyāsena tu kaunteya vairāgyeṇa cha gṛihyate",
+      "chapter": 6,
+      "verse": 35,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.036",
+      "text": "असंयतात्मना योगो दुष्प्राप इति मे मतिः।\nवश्यात्मना तु यतता शक्योऽवाप्तुमुपायतः",
+      "iast": "asaṅyatātmanā yogo duṣhprāpa iti me matiḥ\nvaśhyātmanā tu yatatā śhakyo ’vāptum upāyataḥ",
+      "chapter": 6,
+      "verse": 36,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.037",
+      "text": "अयतिः श्रद्धयोपेतो योगाच्चलितमानसः।\nअप्राप्य योगसंसिद्धिं कां गतिं कृष्ण गच्छति",
+      "iast": "arjuna uvācha\nayatiḥ śhraddhayopeto yogāch chalita-mānasaḥ\naprāpya yoga-sansiddhiṁ kāṅ gatiṁ kṛiṣhṇa gachchhati",
+      "chapter": 6,
+      "verse": 37,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.038",
+      "text": "कच्चिन्नोभयविभ्रष्टश्छिन्नाभ्रमिव नश्यति।\nअप्रतिष्ठो महाबाहो विमूढो ब्रह्मणः पथि",
+      "iast": "kachchin nobhaya-vibhraṣhṭaśh chhinnābhram iva naśhyati\napratiṣhṭho mahā-bāho vimūḍho brahmaṇaḥ pathi",
+      "chapter": 6,
+      "verse": 38,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.039",
+      "text": "एतन्मे संशयं कृष्ण छेत्तुमर्हस्यशेषतः।\nत्वदन्यः संशयस्यास्य छेत्ता न ह्युपपद्यते",
+      "iast": "etan me sanśhayaṁ kṛiṣhṇa chhettum arhasyaśheṣhataḥ\ntvad-anyaḥ sanśhayasyāsya chhettā na hyupapadyate",
+      "chapter": 6,
+      "verse": 39,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.040",
+      "text": "श्री भगवानुवाच\nपार्थ नैवेह नामुत्र विनाशस्तस्य विद्यते।\nनहि कल्याणकृत्कश्िचद्दुर्गतिं तात गच्छति",
+      "iast": "śhrī bhagavān uvācha\npārtha naiveha nāmutra vināśhas tasya vidyate\nna hi kalyāṇa-kṛit kaśhchid durgatiṁ tāta gachchhati",
+      "chapter": 6,
+      "verse": 40,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.041",
+      "text": "प्राप्य पुण्यकृतां लोकानुषित्वा शाश्वतीः समाः।\nशुचीनां श्रीमतां गेहे योगभ्रष्टोऽभिजायते",
+      "iast": "prāpya puṇya-kṛitāṁ lokān uṣhitvā śhāśhvatīḥ samāḥ\nśhuchīnāṁ śhrīmatāṁ gehe yoga-bhraṣhṭo’bhijāyate",
+      "chapter": 6,
+      "verse": 41,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.042",
+      "text": "अथवा योगिनामेव कुले भवति धीमताम्।\nएतद्धि दुर्लभतरं लोके जन्म यदीदृशम्",
+      "iast": "atha vā yoginām eva kule bhavati dhīmatām\netad dhi durlabhataraṁ loke janma yad īdṛiśham",
+      "chapter": 6,
+      "verse": 42,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.043",
+      "text": "तत्र तं बुद्धिसंयोगं लभते पौर्वदेहिकम्।\nयतते च ततो भूयः संसिद्धौ कुरुनन्दन",
+      "iast": "tatra taṁ buddhi-sanyogaṁ labhate paurva-dehikam\nyatate cha tato bhūyaḥ sansiddhau kuru-nandana",
+      "chapter": 6,
+      "verse": 43,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.044",
+      "text": "पूर्वाभ्यासेन तेनैव ह्रियते ह्यवशोऽपि सः।\nजिज्ञासुरपि योगस्य शब्दब्रह्मातिवर्तते",
+      "iast": "pūrvābhyāsena tenaiva hriyate hyavaśho ’pi saḥ\njijñāsur api yogasya śhabda-brahmātivartate",
+      "chapter": 6,
+      "verse": 44,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.045",
+      "text": "प्रयत्नाद्यतमानस्तु योगी संशुद्धकिल्बिषः।\nअनेकजन्मसंसिद्धस्ततो याति परां गतिम्",
+      "iast": "prayatnād yatamānas tu yogī sanśhuddha-kilbiṣhaḥ\naneka-janma-sansiddhas tato yāti parāṁ gatim",
+      "chapter": 6,
+      "verse": 45,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.046",
+      "text": "तपस्विभ्योऽधिको योगी ज्ञानिभ्योऽपि मतोऽधिकः।\nकर्मिभ्यश्चाधिको योगी तस्माद्योगी भवार्जुन",
+      "iast": "tapasvibhyo ’dhiko yogī\njñānibhyo ’pi mato ’dhikaḥ\nkarmibhyaśh chādhiko yogī\ntasmād yogī bhavārjuna",
+      "chapter": 6,
+      "verse": 46,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-06.047",
+      "text": "योगिनामपि सर्वेषां मद्गतेनान्तरात्मना।\nश्रद्धावान्भजते यो मां स मे युक्ततमो मतः",
+      "iast": "yoginām api sarveṣhāṁ mad-gatenāntar-ātmanā\nśhraddhāvān bhajate yo māṁ sa me yuktatamo mataḥ",
+      "chapter": 6,
+      "verse": 47,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}

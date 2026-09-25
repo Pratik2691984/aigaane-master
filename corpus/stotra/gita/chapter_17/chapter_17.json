@@ -1,0 +1,269 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 17",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 28,
+    "generated_at": "2026-09-25T08:57:31.160780+00:00",
+    "last_updated": "2026-09-25T08:57:31.160787+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-17.001",
+      "text": "",
+      "iast": "arjuna uvācha\nye śhāstra-vidhim utsṛijya yajante śhraddhayānvitāḥ\nteṣhāṁ niṣhṭhā tu kā kṛiṣhṇa sattvam āho rajas tamaḥ",
+      "chapter": 17,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.002",
+      "text": "श्री भगवानुवाचत्रिविधा भवति श्रद्धा देहिनां सा स्वभावजा।सात्त्विकी राजसी चैव तामसी चेति तां श्रृणु",
+      "iast": "śhrī-bhagavān uvācha\ntri-vidhā bhavati śhraddhā dehināṁ sā svabhāva-jā\nsāttvikī rājasī chaiva tāmasī cheti tāṁ śhṛiṇu",
+      "chapter": 17,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.003",
+      "text": "सत्त्वानुरूपा सर्वस्य श्रद्धा भवति भारत।श्रद्धामयोऽयं पुरुषो यो यच्छ्रद्धः स एव सः",
+      "iast": "sattvānurūpā sarvasya śhraddhā bhavati bhārata\nśhraddhā-mayo ‘yaṁ puruṣho yo yach-chhraddhaḥ sa eva saḥ",
+      "chapter": 17,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.004",
+      "text": "यजन्ते सात्त्विका देवान्यक्षरक्षांसि राजसाः।प्रेतान्भूतगणांश्चान्ये यजन्ते तामसा जनाः",
+      "iast": "yajante sāttvikā devān yakṣha-rakṣhānsi rājasāḥ\npretān bhūta-gaṇānśh chānye yajante tāmasā janāḥ",
+      "chapter": 17,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.005",
+      "text": "अशास्त्रविहितं घोरं तप्यन्ते ये तपो जनाः।दम्भाहङ्कारसंयुक्ताः कामरागबलान्विताः",
+      "iast": "aśhāstra-vihitaṁ ghoraṁ tapyante ye tapo janāḥ\ndambhāhankāra-sanyuktāḥ kāma-rāga-balānvitāḥ",
+      "chapter": 17,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.006",
+      "text": "कर्षयन्तः शरीरस्थं भूतग्राममचेतसः।मां चैवान्तःशरीरस्थं तान्विद्ध्यासुरनिश्चयान्",
+      "iast": "karṣhayantaḥ śharīra-sthaṁ bhūta-grāmam achetasaḥ\nmāṁ chaivāntaḥ śharīra-sthaṁ tān viddhy āsura-niśhchayān",
+      "chapter": 17,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.007",
+      "text": "आहारस्त्वपि सर्वस्य त्रिविधो भवति प्रियः।यज्ञस्तपस्तथा दानं तेषां भेदमिमं श्रृणु",
+      "iast": "āhāras tv api sarvasya tri-vidho bhavati priyaḥ\nyajñas tapas tathā dānaṁ teṣhāṁ bhedam imaṁ śhṛiṇu",
+      "chapter": 17,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.008",
+      "text": "आयुःसत्त्वबलारोग्यसुखप्रीतिविवर्धनाः।रस्याः स्निग्धाः स्थिरा हृद्या आहाराः सात्त्विकप्रियाः",
+      "iast": "āyuḥ-sattva-balārogya-sukha-prīti-vivardhanāḥ\nrasyāḥ snigdhāḥ sthirā hṛidyā āhārāḥ sāttvika-priyāḥ",
+      "chapter": 17,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.009",
+      "text": "कट्वम्ललवणात्युष्णतीक्ष्णरूक्षविदाहिनः।आहारा राजसस्येष्टा दुःखशोकामयप्रदाः",
+      "iast": "kaṭv-amla-lavaṇāty-uṣhṇa- tīkṣhṇa-rūkṣha-vidāhinaḥ\nāhārā rājasasyeṣhṭā duḥkha-śhokāmaya-pradāḥ",
+      "chapter": 17,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.010",
+      "text": "यातयामं गतरसं पूति पर्युषितं च यत्।उच्छिष्टमपि चामेध्यं भोजनं तामसप्रियम्",
+      "iast": "yāta-yāmaṁ gata-rasaṁ pūti paryuṣhitaṁ cha yat\nuchchhiṣhṭam api chāmedhyaṁ bhojanaṁ tāmasa-priyam",
+      "chapter": 17,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.011",
+      "text": "अफलाकाङ्क्षिभिर्यज्ञो विधिदृष्टो य इज्यते।यष्टव्यमेवेति मनः समाधाय स सात्त्विकः",
+      "iast": "aphalākāṅkṣhibhir yajño vidhi-driṣhṭo ya ijyate\nyaṣhṭavyam eveti manaḥ samādhāya sa sāttvikaḥ",
+      "chapter": 17,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.012",
+      "text": "अभिसंधाय तु फलं दम्भार्थमपि चैव यत्।इज्यते भरतश्रेष्ठ तं यज्ञं विद्धि राजसम्",
+      "iast": "abhisandhāya tu phalaṁ dambhārtham api chaiva yat\nijyate bharata-śhreṣhṭha taṁ yajñaṁ viddhi rājasam",
+      "chapter": 17,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.013",
+      "text": "विधिहीनमसृष्टान्नं मन्त्रहीनमदक्षिणम्।श्रद्धाविरहितं यज्ञं तामसं परिचक्षते",
+      "iast": "vidhi-hīnam asṛiṣhṭānnaṁ mantra-hīnam adakṣhiṇam\nśhraddhā-virahitaṁ yajñaṁ tāmasaṁ parichakṣhate",
+      "chapter": 17,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.014",
+      "text": "देवद्विजगुरुप्राज्ञपूजनं शौचमार्जवम्।ब्रह्मचर्यमहिंसा च शारीरं तप उच्यते",
+      "iast": "deva-dwija-guru-prājña- pūjanaṁ śhaucham ārjavam\nbrahmacharyam ahinsā cha śhārīraṁ tapa uchyate",
+      "chapter": 17,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.015",
+      "text": "अनुद्वेगकरं वाक्यं सत्यं प्रियहितं च यत्।स्वाध्यायाभ्यसनं चैव वाङ्मयं तप उच्यते",
+      "iast": "anudvega-karaṁ vākyaṁ satyaṁ priya-hitaṁ cha yat\nsvādhyāyābhyasanaṁ chaiva vāṅ-mayaṁ tapa uchyate",
+      "chapter": 17,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.016",
+      "text": "मनःप्रसादः सौम्यत्वं मौनमात्मविनिग्रहः।भावसंशुद्धिरित्येतत्तपो मानसमुच्यते",
+      "iast": "manaḥ-prasādaḥ saumyatvaṁ maunam ātma-vinigrahaḥ\nbhāva-sanśhuddhir ity etat tapo mānasam uchyate",
+      "chapter": 17,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.017",
+      "text": "श्रद्धया परया तप्तं तपस्तत्ित्रविधं नरैः।अफलाकाङ्क्षिभिर्युक्तैः सात्त्विकं परिचक्षते",
+      "iast": "śhraddhayā parayā taptaṁ tapas tat tri-vidhaṁ naraiḥ\naphalākāṅkṣhibhir yuktaiḥ sāttvikaṁ parichakṣhate",
+      "chapter": 17,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.018",
+      "text": "सत्कारमानपूजार्थं तपो दम्भेन चैव यत्।क्रियते तदिह प्रोक्तं राजसं चलमध्रुवम्",
+      "iast": "satkāra-māna-pūjārthaṁ tapo dambhena chaiva yat\nkriyate tad iha proktaṁ rājasaṁ chalam adhruvam",
+      "chapter": 17,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.019",
+      "text": "मूढग्राहेणात्मनो यत्पीडया क्रियते तपः।परस्योत्सादनार्थं वा तत्तामसमुदाहृतम्",
+      "iast": "mūḍha-grāheṇātmano yat pīḍayā kriyate tapaḥ\nparasyotsādanārthaṁ vā tat tāmasam udāhṛitam",
+      "chapter": 17,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.020",
+      "text": "दातव्यमिति यद्दानं दीयतेऽनुपकारिणे।देशे काले च पात्रे च तद्दानं सात्त्विकं स्मृतम्",
+      "iast": "dātavyam iti yad dānaṁ dīyate ‘nupakāriṇe\ndeśhe kāle cha pātre cha tad dānaṁ sāttvikaṁ smṛitam",
+      "chapter": 17,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.021",
+      "text": "यत्तु प्रत्युपकारार्थं फलमुद्दिश्य वा पुनः।दीयते च परिक्लिष्टं तद्दानं राजसं स्मृतम्",
+      "iast": "yat tu pratyupakārārthaṁ phalam uddiśhya vā punaḥ\ndīyate cha parikliṣhṭaṁ tad dānaṁ rājasaṁ smṛitam",
+      "chapter": 17,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.022",
+      "text": "अदेशकाले यद्दानमपात्रेभ्यश्च दीयते।असत्कृतमवज्ञातं तत्तामसमुदाहृतम्",
+      "iast": "adeśha-kāle yad dānam apātrebhyaśh cha dīyate\nasat-kṛitam avajñātaṁ tat tāmasam udāhṛitam",
+      "chapter": 17,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.023",
+      "text": "तत्सदिति निर्देशो ब्रह्मणस्त्रिविधः स्मृतः।ब्राह्मणास्तेन वेदाश्च यज्ञाश्च विहिताः पुरा",
+      "iast": "oṁ tat sad iti nirdeśho brahmaṇas tri-vidhaḥ smṛitaḥ\nbrāhmaṇās tena vedāśh cha yajñāśh cha vihitāḥ purā",
+      "chapter": 17,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.024",
+      "text": "तस्मादोमित्युदाहृत्य यज्ञदानतपःक्रियाः।प्रवर्तन्ते विधानोक्ताः सततं ब्रह्मवादिनाम्",
+      "iast": "tasmād oṁ ity udāhṛitya yajña-dāna-tapaḥ-kriyāḥ\npravartante vidhānoktāḥ satataṁ brahma-vādinām",
+      "chapter": 17,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.025",
+      "text": "तदित्यनभिसन्धाय फलं यज्ञतपःक्रियाः।दानक्रियाश्च विविधाः क्रियन्ते मोक्षकाङ्क्षि",
+      "iast": "tad ity anabhisandhāya phalaṁ yajña-tapaḥ-kriyāḥ\ndāna-kriyāśh cha vividhāḥ kriyante mokṣha-kāṅkṣhibhiḥ",
+      "chapter": 17,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.026",
+      "text": "सद्भावे साधुभावे च सदित्येतत्प्रयुज्यते।प्रशस्ते कर्मणि तथा सच्छब्दः पार्थ युज्यते",
+      "iast": "sad-bhāve sādhu-bhāve cha sad ity etat prayujyate\npraśhaste karmaṇi tathā sach-chhabdaḥ pārtha yujyate",
+      "chapter": 17,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.027",
+      "text": "यज्ञे तपसि दाने च स्थितिः सदिति चोच्यते।कर्म चैव तदर्थीयं सदित्येवाभिधीयते",
+      "iast": "yajñe tapasi dāne cha sthitiḥ sad iti chochyate\nkarma chaiva tad-arthīyaṁ sad ity evābhidhīyate",
+      "chapter": 17,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-17.028",
+      "text": "अश्रद्धया हुतं दत्तं तपस्तप्तं कृतं च यत्।असदित्युच्यते पार्थ न च तत्प्रेत्य नो इह",
+      "iast": "aśhraddhayā hutaṁ dattaṁ tapas taptaṁ kṛitaṁ cha yat\nasad ity uchyate pārtha na cha tat pretya no iha",
+      "chapter": 17,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}

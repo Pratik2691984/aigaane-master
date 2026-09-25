@@ -1,0 +1,721 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 18",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 78,
+    "generated_at": "2026-09-25T08:57:31.162208+00:00",
+    "last_updated": "2026-09-25T08:57:31.162215+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-18.001",
+      "text": "संन्यासस्य महाबाहो तत्त्वमिच्छामि वेदितुम्।\nत्यागस्य च हृषीकेश पृथक्केशिनिषूदन",
+      "iast": "arjuna uvācha\nsannyāsasya mahā-bāho tattvam ichchhāmi veditum\ntyāgasya cha hṛiṣhīkeśha pṛithak keśhi-niṣhūdana",
+      "chapter": 18,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.002",
+      "text": "श्री भगवानुवाच\nकाम्यानां कर्मणां न्यासं संन्यासं कवयो विदुः।\nसर्वकर्मफलत्यागं प्राहुस्त्यागं विचक्षणाः",
+      "iast": "śhrī-bhagavān uvācha\nkāmyānāṁ karmaṇāṁ nyāsaṁ sannyāsaṁ kavayo viduḥ\nsarva-karma-phala-tyāgaṁ prāhus tyāgaṁ vichakṣhaṇāḥ",
+      "chapter": 18,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.003",
+      "text": "त्याज्यं दोषवदित्येके कर्म प्राहुर्मनीषिणः।\nयज्ञदानतपःकर्म न त्याज्यमिति चापरे",
+      "iast": "tyājyaṁ doṣha-vad ity eke karma prāhur manīṣhiṇaḥ\nyajña-dāna-tapaḥ-karma na tyājyam iti chāpare",
+      "chapter": 18,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.004",
+      "text": "निश्चयं श्रृणु मे तत्र त्यागे भरतसत्तम।त्यागो हि पुरुषव्याघ्र त्रिविधः संप्रकीर्तितः",
+      "iast": "niśhchayaṁ śhṛiṇu me tatra tyāge bharata-sattama\ntyāgo hi puruṣha-vyāghra tri-vidhaḥ samprakīrtitaḥ",
+      "chapter": 18,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.005",
+      "text": "यज्ञदानतपःकर्म न त्याज्यं कार्यमेव तत्।यज्ञो दानं तपश्चैव पावनानि मनीषिणाम्",
+      "iast": "yajña-dāna-tapaḥ-karma na tyājyaṁ kāryam eva tat\nyajño dānaṁ tapaśh chaiva pāvanāni manīṣhiṇām",
+      "chapter": 18,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.006",
+      "text": "एतान्यपि तु कर्माणि सङ्गं त्यक्त्वा फलानि च।कर्तव्यानीति मे पार्थ निश्िचतं मतमुत्तमम्",
+      "iast": "etāny api tu karmāṇi saṅgaṁ tyaktvā phalāni cha\nkartavyānīti me pārtha niśhchitaṁ matam uttamam",
+      "chapter": 18,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.007",
+      "text": "नियतस्य तु संन्यासः कर्मणो नोपपद्यते।मोहात्तस्य परित्यागस्तामसः परिकीर्तितः",
+      "iast": "niyatasya tu sannyāsaḥ karmaṇo nopapadyate\nmohāt tasya parityāgas tāmasaḥ parikīrtitaḥ",
+      "chapter": 18,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.008",
+      "text": "दुःखमित्येव यत्कर्म कायक्लेशभयात्त्यजेत्।स कृत्वा राजसं त्यागं नैव त्यागफलं लभेत्",
+      "iast": "duḥkham ity eva yat karma kāya-kleśha-bhayāt tyajet\nsa kṛitvā rājasaṁ tyāgaṁ naiva tyāga-phalaṁ labhet",
+      "chapter": 18,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.009",
+      "text": "कार्यमित्येव यत्कर्म नियतं क्रियतेऽर्जुन।सङ्गं त्यक्त्वा फलं चैव स त्यागः सात्त्विको मतः",
+      "iast": "kāryam ity eva yat karma niyataṁ kriyate ‘rjuna\nsaṅgaṁ tyaktvā phalaṁ chaiva sa tyāgaḥ sāttviko mataḥ",
+      "chapter": 18,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.010",
+      "text": "न द्वेष्ट्यकुशलं कर्म कुशले नानुषज्जते।त्यागी सत्त्वसमाविष्टो मेधावी छिन्नसंशयः",
+      "iast": "na dveṣhṭy akuśhalaṁ karma kuśhale nānuṣhajjate\ntyāgī sattva-samāviṣhṭo medhāvī chhinna-sanśhayaḥ",
+      "chapter": 18,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.011",
+      "text": "न हि देहभृता शक्यं त्यक्तुं कर्माण्यशेषतः।यस्तु कर्मफलत्यागी स त्यागीत्यभिधीयते",
+      "iast": "na hi deha-bhṛitā śhakyaṁ tyaktuṁ karmāṇy aśheṣhataḥ\nyas tu karma-phala-tyāgī sa tyāgīty abhidhīyate",
+      "chapter": 18,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.012",
+      "text": "अनिष्टमिष्टं मिश्रं च त्रिविधं कर्मणः फलम्।भवत्यत्यागिनां प्रेत्य न तु संन्यासिनां क्वचित्",
+      "iast": "aniṣhṭam iṣhṭaṁ miśhraṁ cha tri-vidhaṁ karmaṇaḥ phalam\nbhavaty atyāgināṁ pretya na tu sannyāsināṁ kvachit",
+      "chapter": 18,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.013",
+      "text": "पञ्चैतानि महाबाहो कारणानि निबोध मे।सांख्ये कृतान्ते प्रोक्तानि सिद्धये सर्वकर्मणाम्",
+      "iast": "pañchaitāni mahā-bāho kāraṇāni nibodha me\nsānkhye kṛitānte proktāni siddhaye sarva-karmaṇām",
+      "chapter": 18,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.014",
+      "text": "अधिष्ठानं तथा कर्ता करणं च पृथग्विधम्।विविधाश्च पृथक्चेष्टा दैवं चैवात्र पञ्चमम्",
+      "iast": "adhiṣhṭhānaṁ tathā kartā karaṇaṁ cha pṛithag-vidham\nvividhāśh cha pṛithak cheṣhṭā daivaṁ chaivātra pañchamam",
+      "chapter": 18,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.015",
+      "text": "शरीरवाङ्मनोभिर्यत्कर्म प्रारभते नरः।न्याय्यं वा विपरीतं वा पञ्चैते तस्य हेतवः",
+      "iast": "śharīra-vāṅ-manobhir yat karma prārabhate naraḥ\nnyāyyaṁ vā viparītaṁ vā pañchaite tasya hetavaḥ",
+      "chapter": 18,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.016",
+      "text": "तत्रैवं सति कर्तारमात्मानं केवलं तु यः।पश्यत्यकृतबुद्धित्वान्न स पश्यति दुर्मतिः",
+      "iast": "tatraivaṁ sati kartāram ātmānaṁ kevalaṁ tu yaḥ\npaśhyaty akṛita-buddhitvān na sa paśhyati durmatiḥ",
+      "chapter": 18,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.017",
+      "text": "यस्य नाहंकृतो भावो बुद्धिर्यस्य न लिप्यते।हत्वापि स इमाँल्लोकान्न हन्ति न निबध्यते",
+      "iast": "yasya nāhankṛito bhāvo buddhir yasya na lipyate\nhatvā ‘pi sa imāl lokān na hanti na nibadhyate",
+      "chapter": 18,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.018",
+      "text": "ज्ञानं ज्ञेयं परिज्ञाता त्रिविधा कर्मचोदना।करणं कर्म कर्तेति त्रिविधः कर्मसंग्रहः",
+      "iast": "jñānaṁ jñeyaṁ parijñātā tri-vidhā karma-chodanā\nkaraṇaṁ karma karteti tri-vidhaḥ karma-saṅgrahaḥ",
+      "chapter": 18,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.019",
+      "text": "ज्ञानं कर्म च कर्ता च त्रिधैव गुणभेदतः।प्रोच्यते गुणसंख्याने यथावच्छृणु तान्यपि",
+      "iast": "jñānaṁ karma cha kartā cha tridhaiva guṇa-bhedataḥ\nprochyate guṇa-saṅkhyāne yathāvach chhṛiṇu tāny api",
+      "chapter": 18,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.020",
+      "text": "सर्वभूतेषु येनैकं भावमव्ययमीक्षते।अविभक्तं विभक्तेषु तज्ज्ञानं विद्धि सात्त्विकम्",
+      "iast": "sarva-bhūteṣhu yenaikaṁ bhāvam avyayam īkṣhate\navibhaktaṁ vibhakteṣhu taj jñānaṁ viddhi sāttvikam",
+      "chapter": 18,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.021",
+      "text": "पृथक्त्वेन तु यज्ज्ञानं नानाभावान्पृथग्विधान्।वेत्ति सर्वेषु भूतेषु तज्ज्ञानं विद्धि राजसम्",
+      "iast": "pṛithaktvena tu yaj jñānaṁ nānā-bhāvān pṛithag-vidhān\nvetti sarveṣhu bhūteṣhu taj jñānaṁ viddhi rājasam",
+      "chapter": 18,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.022",
+      "text": "यत्तु कृत्स्नवदेकस्मिन्कार्ये सक्तमहैतुकम्।अतत्त्वार्थवदल्पं च तत्तामसमुदाहृतम्",
+      "iast": "yat tu kṛitsna-vad ekasmin kārye saktam ahaitukam\natattvārtha-vad alpaṁ cha tat tāmasam udāhṛitam",
+      "chapter": 18,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.023",
+      "text": "नियतं सङ्गरहितमरागद्वेषतः कृतम्।अफलप्रेप्सुना कर्म यत्तत्सात्त्विकमुच्यते",
+      "iast": "niyataṁ saṅga-rahitam arāga-dveṣhataḥ kṛitam\naphala-prepsunā karma yat tat sāttvikam uchyate",
+      "chapter": 18,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.024",
+      "text": "यत्तु कामेप्सुना कर्म साहङ्कारेण वा पुनः।क्रियते बहुलायासं तद्राजसमुदाहृतम्",
+      "iast": "yat tu kāmepsunā karma sāhankāreṇa vā punaḥ\nkriyate bahulāyāsaṁ tad rājasam udāhṛitam",
+      "chapter": 18,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.025",
+      "text": "अनुबन्धं क्षयं हिंसामनपेक्ष्य च पौरुषम्।मोहादारभ्यते कर्म यत्तत्तामसमुच्यते",
+      "iast": "anubandhaṁ kṣhayaṁ hinsām anapekṣhya cha pauruṣham\nmohād ārabhyate karma yat tat tāmasam uchyate",
+      "chapter": 18,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.026",
+      "text": "मुक्तसङ्गोऽनहंवादी धृत्युत्साहसमन्वितः।सिद्ध्यसिद्ध्योर्निर्विकारः कर्ता सात्त्विक उच्यते",
+      "iast": "mukta-saṅgo ‘nahaṁ-vādī dhṛity-utsāha-samanvitaḥ\nsiddhy-asiddhyor nirvikāraḥ kartā sāttvika uchyate",
+      "chapter": 18,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.027",
+      "text": "रागी कर्मफलप्रेप्सुर्लुब्धो हिंसात्मकोऽशुचिः।हर्षशोकान्वितः कर्ता राजसः परिकीर्तितः",
+      "iast": "rāgī karma-phala-prepsur lubdho hinsātmako ‘śhuchiḥ\nharṣha-śhokānvitaḥ kartā rājasaḥ parikīrtitaḥ",
+      "chapter": 18,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.028",
+      "text": "अयुक्तः प्राकृतः स्तब्धः शठो नैष्कृतिकोऽलसः।विषादी दीर्घसूत्री च कर्ता तामस उच्यते",
+      "iast": "ayuktaḥ prākṛitaḥ stabdhaḥ śhaṭho naiṣhkṛitiko ‘lasaḥ\nviṣhādī dīrgha-sūtrī cha kartā tāmasa uchyate",
+      "chapter": 18,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.029",
+      "text": "बुद्धेर्भेदं धृतेश्चैव गुणतस्त्रिविधं श्रृणु।प्रोच्यमानमशेषेण पृथक्त्वेन धनञ्जय",
+      "iast": "buddher bhedaṁ dhṛiteśh chaiva guṇatas tri-vidhaṁ śhṛiṇu\nprochyamānam aśheṣheṇa pṛithaktvena dhanañjaya",
+      "chapter": 18,
+      "verse": 29,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.030",
+      "text": "प्रवृत्तिं च निवृत्तिं च कार्याकार्ये भयाभये।बन्धं मोक्षं च या वेत्ति बुद्धिः सा पार्थ सात्त्विकी",
+      "iast": "pravṛittiṁ cha nivṛittiṁ cha kāryākārye bhayābhaye\nbandhaṁ mokṣhaṁ cha yā vetti buddhiḥ sā pārtha sāttvikī",
+      "chapter": 18,
+      "verse": 30,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.031",
+      "text": "यया धर्ममधर्मं च कार्यं चाकार्यमेव च।अयथावत्प्रजानाति बुद्धिः सा पार्थ राजसी",
+      "iast": "yayā dharmam adharmaṁ cha kāryaṁ chākāryam eva cha\nayathāvat prajānāti buddhiḥ sā pārtha rājasī",
+      "chapter": 18,
+      "verse": 31,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.032",
+      "text": "अधर्मं धर्ममिति या मन्यते तमसाऽऽवृता।सर्वार्थान्विपरीतांश्च बुद्धिः सा पार्थ तामसी",
+      "iast": "adharmaṁ dharmam iti yā manyate tamasāvṛitā\nsarvārthān viparītānśh cha buddhiḥ sā pārtha tāmasī",
+      "chapter": 18,
+      "verse": 32,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.033",
+      "text": "धृत्या यया धारयते मनःप्राणेन्द्रियक्रियाः।योगेनाव्यभिचारिण्या धृतिः सा पार्थ सात्त्विकी",
+      "iast": "dhṛityā yayā dhārayate manaḥ-prāṇendriya-kriyāḥ\nyogenāvyabhichāriṇyā dhṛitiḥ sā pārtha sāttvikī",
+      "chapter": 18,
+      "verse": 33,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.034",
+      "text": "यया तु धर्मकामार्थान् धृत्या धारयतेऽर्जुन।प्रसङ्गेन फलाकाङ्क्षी धृतिः सा पार्थ राजसी",
+      "iast": "yayā tu dharma-kāmārthān dhṛityā dhārayate ‘rjuna\nprasaṅgena phalākāṅkṣhī dhṛitiḥ sā pārtha rājasī",
+      "chapter": 18,
+      "verse": 34,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.035",
+      "text": "यया स्वप्नं भयं शोकं विषादं मदमेव च।न विमुञ्चति दुर्मेधा धृतिः सा पार्थ तामसी",
+      "iast": "yayā svapnaṁ bhayaṁ śhokaṁ viṣhādaṁ madam eva cha\nna vimuñchati durmedhā dhṛitiḥ sā pārtha tāmasī",
+      "chapter": 18,
+      "verse": 35,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.036",
+      "text": "सुखं त्विदानीं त्रिविधं श्रृणु मे भरतर्षभ।अभ्यासाद्रमते यत्र दुःखान्तं च निगच्छति",
+      "iast": "sukhaṁ tv idānīṁ tri-vidhaṁ śhṛiṇu me bharatarṣhabha\nabhyāsād ramate yatra duḥkhāntaṁ cha nigachchhati\nyat tad agre viṣham iva pariṇāme ‘mṛitopamam\ntat sukhaṁ sāttvikaṁ proktam ātma-buddhi-prasāda-jam",
+      "chapter": 18,
+      "verse": 36,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.037",
+      "text": "यत्तदग्रे विषमिव परिणामेऽमृतोपमम्।तत्सुखं सात्त्विकं प्रोक्तमात्मबुद्धिप्रसादजम्",
+      "iast": "yat  tad agre    viṣam   iva pariṇāme    'mṛtopamam  tat sukhaṁ  sāttvikaṁ   proktam ātma-buddhi-prasāda-jam",
+      "chapter": 18,
+      "verse": 37,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.038",
+      "text": "विषयेन्द्रियसंयोगाद्यत्तदग्रेऽमृतोपमम्।परिणामे विषमिव तत्सुखं राजसं स्मृतम्",
+      "iast": "viṣhayendriya-sanyogād yat tad agre ’mṛitopamam\npariṇāme viṣham iva tat sukhaṁ rājasaṁ smṛitam",
+      "chapter": 18,
+      "verse": 38,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.039",
+      "text": "यदग्रे चानुबन्धे च सुखं मोहनमात्मनः।निद्रालस्यप्रमादोत्थं तत्तामसमुदाहृतम्",
+      "iast": "yad agre chānubandhe cha sukhaṁ mohanam ātmanaḥ\nnidrālasya-pramādotthaṁ tat tāmasam udāhṛitam",
+      "chapter": 18,
+      "verse": 39,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.040",
+      "text": "न तदस्ति पृथिव्यां वा दिवि देवेषु वा पुनः।सत्त्वं प्रकृतिजैर्मुक्तं यदेभिः स्यात्ित्रभिर्गुणैः",
+      "iast": "na tad asti pṛithivyāṁ vā divi deveṣhu vā punaḥ\nsattvaṁ prakṛiti-jair muktaṁ yad ebhiḥ syāt tribhir guṇaiḥ",
+      "chapter": 18,
+      "verse": 40,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.041",
+      "text": "ब्राह्मणक्षत्रियविशां शूद्राणां च परंतप।कर्माणि प्रविभक्तानि स्वभावप्रभवैर्गुणैः",
+      "iast": "brāhmaṇa-kṣhatriya-viśhāṁ śhūdrāṇāṁ cha parantapa\nkarmāṇi pravibhaktāni svabhāva-prabhavair guṇaiḥ",
+      "chapter": 18,
+      "verse": 41,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.042",
+      "text": "शमो दमस्तपः शौचं क्षान्तिरार्जवमेव च।ज्ञानं विज्ञानमास्तिक्यं ब्रह्मकर्म स्वभावजम्",
+      "iast": "śhamo damas tapaḥ śhauchaṁ kṣhāntir ārjavam eva cha\njñānaṁ vijñānam āstikyaṁ brahma-karma svabhāva-jam",
+      "chapter": 18,
+      "verse": 42,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.043",
+      "text": "शौर्यं तेजो धृतिर्दाक्ष्यं युद्धे चाप्यपलायनम्।दानमीश्वरभावश्च क्षात्रं कर्म स्वभावजम्",
+      "iast": "śhauryaṁ tejo dhṛitir dākṣhyaṁ yuddhe chāpy apalāyanam\ndānam īśhvara-bhāvaśh cha kṣhātraṁ karma svabhāva-jam",
+      "chapter": 18,
+      "verse": 43,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.044",
+      "text": "कृषिगौरक्ष्यवाणिज्यं वैश्यकर्म स्वभावजम्।परिचर्यात्मकं कर्म शूद्रस्यापि स्वभावजम्",
+      "iast": "kṛiṣhi-gau-rakṣhya-vāṇijyaṁ vaiśhya-karma svabhāva-jam\nparicharyātmakaṁ karma śhūdrasyāpi svabhāva-jam",
+      "chapter": 18,
+      "verse": 44,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.045",
+      "text": "स्वे स्वे कर्मण्यभिरतः संसिद्धिं लभते नरः।स्वकर्मनिरतः सिद्धिं यथा विन्दति तच्छृणु",
+      "iast": "sve sve karmaṇy abhirataḥ sansiddhiṁ labhate naraḥ\nsva-karma-nirataḥ siddhiṁ yathā vindati tach chhṛiṇu",
+      "chapter": 18,
+      "verse": 45,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.046",
+      "text": "यतः प्रवृत्तिर्भूतानां येन सर्वमिदं ततम्।स्वकर्मणा तमभ्यर्च्य सिद्धिं विन्दति मानवः",
+      "iast": "yataḥ pravṛittir bhūtānāṁ yena sarvam idaṁ tatam\nsva-karmaṇā tam abhyarchya siddhiṁ vindati mānavaḥ",
+      "chapter": 18,
+      "verse": 46,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.047",
+      "text": "श्रेयान्स्वधर्मो विगुणः परधर्मात्स्वनुष्ठितात्।स्वभावनियतं कर्म कुर्वन्नाप्नोति किल्बिषम्",
+      "iast": "śhreyān swa-dharmo viguṇaḥ para-dharmāt sv-anuṣhṭhitāt\nsvabhāva-niyataṁ karma kurvan nāpnoti kilbiṣham",
+      "chapter": 18,
+      "verse": 47,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.048",
+      "text": "सहजं कर्म कौन्तेय सदोषमपि न त्यजेत्।सर्वारम्भा हि दोषेण धूमेनाग्निरिवावृताः",
+      "iast": "saha-jaṁ karma kaunteya sa-doṣham api na tyajet\nsarvārambhā hi doṣheṇa dhūmenāgnir ivāvṛitāḥ",
+      "chapter": 18,
+      "verse": 48,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.049",
+      "text": "असक्तबुद्धिः सर्वत्र जितात्मा विगतस्पृहः।नैष्कर्म्यसिद्धिं परमां संन्यासेनाधिगच्छति",
+      "iast": "asakta-buddhiḥ sarvatra jitātmā vigata-spṛihaḥ\nnaiṣhkarmya-siddhiṁ paramāṁ sannyāsenādhigachchhati",
+      "chapter": 18,
+      "verse": 49,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.050",
+      "text": "सिद्धिं प्राप्तो यथा ब्रह्म तथाप्नोति निबोध मे।समासेनैव कौन्तेय निष्ठा ज्ञानस्य या परा",
+      "iast": "siddhiṁ prāpto yathā brahma tathāpnoti nibodha me\nsamāsenaiva kaunteya niṣhṭhā jñānasya yā parā",
+      "chapter": 18,
+      "verse": 50,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.051",
+      "text": "बुद्ध्या विशुद्धया युक्तो धृत्याऽऽत्मानं नियम्य च।शब्दादीन् विषयांस्त्यक्त्वा रागद्वेषौ व्युदस्य च",
+      "iast": "buddhyā viśhuddhayā yukto dhṛityātmānaṁ niyamya cha\nśhabdādīn viṣhayāns tyaktvā rāga-dveṣhau vyudasya cha",
+      "chapter": 18,
+      "verse": 51,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.052",
+      "text": "विविक्तसेवी लघ्वाशी यतवाक्कायमानसः।ध्यानयोगपरो नित्यं वैराग्यं समुपाश्रितः",
+      "iast": "vivikta-sevī laghv-āśhī yata-vāk-kāya-mānasaḥ\ndhyāna-yoga-paro nityaṁ vairāgyaṁ samupāśhritaḥ",
+      "chapter": 18,
+      "verse": 52,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.053",
+      "text": "अहङ्कारं बलं दर्पं कामं क्रोधं परिग्रहम्।विमुच्य निर्ममः शान्तो ब्रह्मभूयाय कल्पते",
+      "iast": "ahankāraṁ balaṁ darpaṁ kāmaṁ krodhaṁ parigraham\nvimuchya nirmamaḥ śhānto brahma-bhūyāya kalpate",
+      "chapter": 18,
+      "verse": 53,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.054",
+      "text": "ब्रह्मभूतः प्रसन्नात्मा न शोचति न काङ्क्षति।समः सर्वेषु भूतेषु मद्भक्तिं लभते पराम्",
+      "iast": "brahma-bhūtaḥ prasannātmā na śhochati na kāṅkṣhati\nsamaḥ sarveṣhu bhūteṣhu mad-bhaktiṁ labhate parām",
+      "chapter": 18,
+      "verse": 54,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.055",
+      "text": "भक्त्या मामभिजानाति यावान्यश्चास्मि तत्त्वतः।ततो मां तत्त्वतो ज्ञात्वा विशते तदनन्तरम्",
+      "iast": "bhaktyā mām abhijānāti yāvān yaśh chāsmi tattvataḥ\ntato māṁ tattvato jñātvā viśhate tad-anantaram",
+      "chapter": 18,
+      "verse": 55,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.056",
+      "text": "सर्वकर्माण्यपि सदा कुर्वाणो मद्व्यपाश्रयः।मत्प्रसादादवाप्नोति शाश्वतं पदमव्ययम्",
+      "iast": "sarva-karmāṇy api sadā kurvāṇo mad-vyapāśhrayaḥ\nmat-prasādād avāpnoti śhāśhvataṁ padam avyayam",
+      "chapter": 18,
+      "verse": 56,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.057",
+      "text": "चेतसा सर्वकर्माणि मयि संन्यस्य मत्परः।बुद्धियोगमुपाश्रित्य मच्चित्तः सततं भव",
+      "iast": "chetasā sarva-karmāṇi mayi sannyasya mat-paraḥ\nbuddhi-yogam upāśhritya mach-chittaḥ satataṁ bhava",
+      "chapter": 18,
+      "verse": 57,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.058",
+      "text": "मच्चित्तः सर्वदुर्गाणि मत्प्रसादात्तरिष्यसि।अथ चेत्त्वमहङ्कारान्न श्रोष्यसि विनङ्क्ष्यसि",
+      "iast": "mach-chittaḥ sarva-durgāṇi mat-prasādāt tariṣhyasi\natha chet tvam ahankārān na śhroṣhyasi vinaṅkṣhyasi",
+      "chapter": 18,
+      "verse": 58,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.059",
+      "text": "यदहङ्कारमाश्रित्य न योत्स्य इति मन्यसे।मिथ्यैष व्यवसायस्ते प्रकृतिस्त्वां नियोक्ष्यति",
+      "iast": "yad ahankāram āśhritya na yotsya iti manyase\nmithyaiṣha vyavasāyas te prakṛitis tvāṁ niyokṣhyati",
+      "chapter": 18,
+      "verse": 59,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.060",
+      "text": "स्वभावजेन कौन्तेय निबद्धः स्वेन कर्मणा।कर्तुं नेच्छसि यन्मोहात्करिष्यस्यवशोऽपि तत्",
+      "iast": "swbhāva-jena kaunteya nibaddhaḥ svena karmaṇā\nkartuṁ nechchhasi yan mohāt kariṣhyasy avaśho ’pi tat",
+      "chapter": 18,
+      "verse": 60,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.061",
+      "text": "ईश्वरः सर्वभूतानां हृद्देशेऽर्जुन तिष्ठति।भ्रामयन्सर्वभूतानि यन्त्रारूढानि मायया",
+      "iast": "īśhvaraḥ sarva-bhūtānāṁ hṛid-deśhe ‘rjuna tiṣhṭhati\nbhrāmayan sarva-bhūtāni yantrārūḍhāni māyayā",
+      "chapter": 18,
+      "verse": 61,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.062",
+      "text": "तमेव शरणं गच्छ सर्वभावेन भारत।तत्प्रसादात्परां शान्तिं स्थानं प्राप्स्यसि शाश्वतम्",
+      "iast": "tam eva śharaṇaṁ gachchha sarva-bhāvena bhārata\ntat-prasādāt parāṁ śhāntiṁ sthānaṁ prāpsyasi śhāśhvatam",
+      "chapter": 18,
+      "verse": 62,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.063",
+      "text": "इति ते ज्ञानमाख्यातं गुह्याद्गुह्यतरं मया।विमृश्यैतदशेषेण यथेच्छसि तथा कुरु",
+      "iast": "iti te jñānam ākhyātaṁ guhyād guhyataraṁ mayā\nvimṛiśhyaitad aśheṣheṇa yathechchhasi tathā kuru",
+      "chapter": 18,
+      "verse": 63,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.064",
+      "text": "सर्वगुह्यतमं भूयः श्रृणु मे परमं वचः।इष्टोऽसि मे दृढमिति ततो वक्ष्यामि ते हितम्",
+      "iast": "sarva-guhyatamaṁ bhūyaḥ śhṛiṇu me paramaṁ vachaḥ\niṣhṭo ‘si me dṛiḍham iti tato vakṣhyāmi te hitam",
+      "chapter": 18,
+      "verse": 64,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.065",
+      "text": "मन्मना भव मद्भक्तो मद्याजी मां नमस्कुरु।मामेवैष्यसि सत्यं ते प्रतिजाने प्रियोऽसि मे",
+      "iast": "man-manā bhava mad-bhakto mad-yājī māṁ namaskuru\nmām evaiṣhyasi satyaṁ te pratijāne priyo ‘si me",
+      "chapter": 18,
+      "verse": 65,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.066",
+      "text": "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः",
+      "iast": "sarva-dharmān parityajya mām ekaṁ śharaṇaṁ vraja\nahaṁ tvāṁ sarva-pāpebhyo mokṣhayiṣhyāmi mā śhuchaḥ",
+      "chapter": 18,
+      "verse": 66,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.067",
+      "text": "इदं ते नातपस्काय नाभक्ताय कदाचन।न चाशुश्रूषवे वाच्यं न च मां योऽभ्यसूयति",
+      "iast": "idaṁ te nātapaskyāya nābhaktāya kadāchana\nna chāśhuśhruṣhave vāchyaṁ na cha māṁ yo ‘bhyasūtayi",
+      "chapter": 18,
+      "verse": 67,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.068",
+      "text": "य इमं परमं गुह्यं मद्भक्तेष्वभिधास्यति।भक्ितं मयि परां कृत्वा मामेवैष्यत्यसंशयः",
+      "iast": "ya idaṁ paramaṁ guhyaṁ mad-bhakteṣhv abhidhāsyati\nbhaktiṁ mayi parāṁ kṛitvā mām evaiṣhyaty asanśhayaḥ",
+      "chapter": 18,
+      "verse": 68,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.069",
+      "text": "न च तस्मान्मनुष्येषु कश्िचन्मे प्रियकृत्तमः।भविता न च मे तस्मादन्यः प्रियतरो भुवि",
+      "iast": "na cha tasmān manuṣhyeṣhu kaśhchin me priya-kṛittamaḥ\nbhavitā na cha me tasmād anyaḥ priyataro bhuvi",
+      "chapter": 18,
+      "verse": 69,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.070",
+      "text": "अध्येष्यते च य इमं धर्म्यं संवादमावयोः।ज्ञानयज्ञेन तेनाहमिष्टः स्यामिति मे मतिः",
+      "iast": "adhyeṣhyate cha ya imaṁ dharmyaṁ saṁvādam āvayoḥ\njñāna-yajñena tenāham iṣhṭaḥ syām iti me matiḥ",
+      "chapter": 18,
+      "verse": 70,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.071",
+      "text": "श्रद्धावाननसूयश्च श्रृणुयादपि यो नरः।सोऽपि मुक्तः शुभाँल्लोकान्प्राप्नुयात्पुण्यकर्मणाम्",
+      "iast": "śhraddhāvān anasūyaśh cha śhṛiṇuyād api yo naraḥ\nso ‘pi muktaḥ śhubhāl lokān prāpnuyāt puṇya-karmaṇām",
+      "chapter": 18,
+      "verse": 71,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.072",
+      "text": "कच्चिदेतच्छ्रुतं पार्थ त्वयैकाग्रेण चेतसा।कच्चिदज्ञानसंमोहः प्रनष्टस्ते धनञ्जय",
+      "iast": "kachchid etach chhrutaṁ pārtha tvayaikāgreṇa chetasā\nkachchid ajñāna-sammohaḥ pranaṣhṭas te dhanañjaya",
+      "chapter": 18,
+      "verse": 72,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.073",
+      "text": "",
+      "iast": "arjuna uvācha\nnaṣhṭo mohaḥ smṛitir labdhā tvat-prasādān mayāchyuta\nsthito ‘smi gata-sandehaḥ kariṣhye vachanaṁ tava",
+      "chapter": 18,
+      "verse": 73,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.074",
+      "text": "",
+      "iast": "sañjaya uvācha\nity ahaṁ vāsudevasya pārthasya cha mahātmanaḥ\nsaṁvādam imam aśhrauṣham adbhutaṁ roma-harṣhaṇam",
+      "chapter": 18,
+      "verse": 74,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "sanjaya"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.075",
+      "text": "व्यासप्रसादाच्छ्रुतवानेतद्गुह्यमहं परम्।योगं योगेश्वरात्कृष्णात्साक्षात्कथयतः स्वयम्",
+      "iast": "vyāsa-prasādāch chhrutavān etad guhyam ahaṁ param\nyogaṁ yogeśhvarāt kṛiṣhṇāt sākṣhāt kathayataḥ svayam",
+      "chapter": 18,
+      "verse": 75,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.076",
+      "text": "राजन्संस्मृत्य संस्मृत्य संवादमिममद्भुतम्।केशवार्जुनयोः पुण्यं हृष्यामि च मुहुर्मुहुः",
+      "iast": "rājan sansmṛitya sansmṛitya saṁvādam imam adbhutam\nkeśhavārjunayoḥ puṇyaṁ hṛiṣhyāmi cha muhur muhuḥ",
+      "chapter": 18,
+      "verse": 76,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.077",
+      "text": "तच्च संस्मृत्य संस्मृत्य रूपमत्यद्भुतं हरेः।\nविस्मयो मे महान् राजन् हृष्यामि च पुनः पुनः",
+      "iast": "tach cha sansmṛitya saṁsmṛitya rūpam aty-adbhutaṁ hareḥ\nvismayo ye mahān rājan hṛiṣhyāmi cha punaḥ punaḥ",
+      "chapter": 18,
+      "verse": 77,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-18.078",
+      "text": "यत्र योगेश्वरः कृष्णो यत्र पार्थो धनुर्धरः।\nतत्र श्रीर्विजयो भूतिर्ध्रुवा नीतिर्मतिर्मम।।18.78।",
+      "iast": "yatra yogeśhvaraḥ kṛiṣhṇo yatra pārtho dhanur-dharaḥ\ntatra śhrīr vijayo bhūtir dhruvā nītir matir mama",
+      "chapter": 18,
+      "verse": 78,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}

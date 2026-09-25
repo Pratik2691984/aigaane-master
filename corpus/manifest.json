@@ -28,7 +28,8 @@
     "Bhagavad Gītā": {
       "cabinet": "CABINET_SMRITI_ITIHASA",
       "room": "MAHABHARATA_GITA",
-      "total_verses": 200,
+      "total_verses": 701,
+      "total_chapters": 18,
       "chapters": [
         {
           "chapter": 1,
@@ -38,25 +39,90 @@
         {
           "chapter": 2,
           "path": "corpus/stotra/gita/chapter_02/chapter_02.json",
-          "verse_count": 70
+          "verse_count": 72
         },
         {
           "chapter": 3,
           "path": "corpus/stotra/gita/chapter_03/chapter_03.json",
-          "verse_count": 41
+          "verse_count": 43
         },
         {
           "chapter": 4,
           "path": "corpus/stotra/gita/chapter_04/chapter_04.json",
-          "verse_count": 40
+          "verse_count": 42
         },
         {
           "chapter": 5,
           "path": "corpus/stotra/gita/chapter_05/chapter_05.json",
-          "verse_count": 2
+          "verse_count": 29
+        },
+        {
+          "chapter": 6,
+          "path": "corpus/stotra/gita/chapter_06/chapter_06.json",
+          "verse_count": 47
+        },
+        {
+          "chapter": 7,
+          "path": "corpus/stotra/gita/chapter_07/chapter_07.json",
+          "verse_count": 30
+        },
+        {
+          "chapter": 8,
+          "path": "corpus/stotra/gita/chapter_08/chapter_08.json",
+          "verse_count": 28
+        },
+        {
+          "chapter": 9,
+          "path": "corpus/stotra/gita/chapter_09/chapter_09.json",
+          "verse_count": 34
+        },
+        {
+          "chapter": 10,
+          "path": "corpus/stotra/gita/chapter_10/chapter_10.json",
+          "verse_count": 42
+        },
+        {
+          "chapter": 11,
+          "path": "corpus/stotra/gita/chapter_11/chapter_11.json",
+          "verse_count": 55
+        },
+        {
+          "chapter": 12,
+          "path": "corpus/stotra/gita/chapter_12/chapter_12.json",
+          "verse_count": 20
+        },
+        {
+          "chapter": 13,
+          "path": "corpus/stotra/gita/chapter_13/chapter_13.json",
+          "verse_count": 35
+        },
+        {
+          "chapter": 14,
+          "path": "corpus/stotra/gita/chapter_14/chapter_14.json",
+          "verse_count": 27
+        },
+        {
+          "chapter": 15,
+          "path": "corpus/stotra/gita/chapter_15/chapter_15.json",
+          "verse_count": 20
+        },
+        {
+          "chapter": 16,
+          "path": "corpus/stotra/gita/chapter_16/chapter_16.json",
+          "verse_count": 24
+        },
+        {
+          "chapter": 17,
+          "path": "corpus/stotra/gita/chapter_17/chapter_17.json",
+          "verse_count": 28
+        },
+        {
+          "chapter": 18,
+          "path": "corpus/stotra/gita/chapter_18/chapter_18.json",
+          "verse_count": 78
         }
       ],
-      "last_updated": "2026-09-25T08:43:56.892548+00:00"
+      "last_updated": "2026-09-25T08:57:31.168963+00:00"
     }
   }
 }

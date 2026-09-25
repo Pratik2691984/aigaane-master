@@ -6,434 +6,440 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 47,
-    "generated_at": "2026-09-25T08:43:56.881095+00:00",
-    "last_updated": "2026-09-25T08:43:56.881109+00:00",
+    "generated_at": "2026-09-25T08:57:31.136398+00:00",
+    "last_updated": "2026-09-25T08:57:31.136411+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
   "records": [
     {
       "record_id": "AIGAANE-BGM-01.001",
-      "text": "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।",
-      "iast": "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ।",
+      "text": "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय",
+      "iast": "dhṛitarāśhtra uvācha\ndharma-kṣhetre kuru-kṣhetre samavetā yuyutsavaḥ\nmāmakāḥ pāṇḍavāśhchaiva kimakurvata sañjaya",
       "chapter": 1,
       "verse": 1,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "dhritarashtra"
     },
     {
       "record_id": "AIGAANE-BGM-01.002",
-      "text": "दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा।",
-      "iast": "dṛṣṭvā tu pāṇḍavānīkaṃ vyūḍhaṃ duryodhanastadā।",
+      "text": "दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा।\nआचार्यमुपसङ्गम्य राजा वचनमब्रवीत्",
+      "iast": "sañjaya uvācha\ndṛiṣhṭvā tu pāṇḍavānīkaṁ vyūḍhaṁ duryodhanastadā\nāchāryamupasaṅgamya rājā vachanamabravīt",
       "chapter": 1,
       "verse": 2,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "sanjaya"
     },
     {
       "record_id": "AIGAANE-BGM-01.003",
-      "text": "पश्यैतां पाण्डुपुत्राणामाचार्य महतीं चमूम्।",
-      "iast": "paśyitāṃ pāṇḍuputrāṇāmācārya mahatīṃ camūm।",
+      "text": "पश्यैतां पाण्डुपुत्राणामाचार्य महतीं चमूम्।\nव्यूढां द्रुपदपुत्रेण तव शिष्येण धीमता",
+      "iast": "paśhyaitāṁ pāṇḍu-putrāṇām āchārya mahatīṁ chamūm\nvyūḍhāṁ drupada-putreṇa tava śhiṣhyeṇa dhīmatā",
       "chapter": 1,
       "verse": 3,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.004",
-      "text": "अत्र शूरा महेष्वासा भीमार्जुनसमा युधि।",
-      "iast": "atra śūrā maheṣvāsā bhīmārjunasamā yudhi।",
+      "text": "अत्र शूरा महेष्वासा भीमार्जुनसमा युधि।\nयुयुधानो विराटश्च द्रुपदश्च महारथः",
+      "iast": "atra śhūrā maheṣhvāsā bhīmārjuna-samā yudhi\nyuyudhāno virāṭaśhcha drupadaśhcha mahā-rathaḥ",
       "chapter": 1,
       "verse": 4,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.005",
-      "text": "धृष्टकेतुश्चेकितानः काशिराजश्च वीर्यवान्।",
-      "iast": "dhṛṣṭaketuścekitānaḥ kāśirājaśca vīryavān।",
+      "text": "धृष्टकेतुश्चेकितानः काशिराजश्च वीर्यवान्।\nपुरुजित्कुन्तिभोजश्च शैब्यश्च नरपुङ्गवः",
+      "iast": "dhṛiṣhṭaketuśhchekitānaḥ kāśhirājaśhcha vīryavān\npurujit kuntibhojaśhcha śhaibyaśhcha nara-puṅgavaḥ\nyudhāmanyuśhcha vikrānta uttamaujāśhcha vīryavān",
       "chapter": 1,
       "verse": 5,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.006",
-      "text": "युधामन्युश्च विक्रान्त उत्तमौजाश्च वीर्यवान्।",
-      "iast": "yudhāmanyuśca vikrānta uttamujāśca vīryavān।",
+      "text": "युधामन्युश्च विक्रान्त उत्तमौजाश्च वीर्यवान्।\nसौभद्रो द्रौपदेयाश्च सर्व एव महारथाः",
+      "iast": "saubhadro draupadeyāśhcha sarva eva mahā-rathāḥ",
       "chapter": 1,
       "verse": 6,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.007",
-      "text": "अस्माकं तु विशिष्टा ये तान्निबोध द्विजोत्तम।",
-      "iast": "asmākaṃ tu viśiṣṭā ye tānnibodha dvijottama।",
+      "text": "अस्माकं तु विशिष्टा ये तान्निबोध द्विजोत्तम।\nनायका मम सैन्यस्य संज्ञार्थं तान्ब्रवीमि ते",
+      "iast": "asmākaṁ tu viśhiṣhṭā ye tānnibodha dwijottama\nnāyakā mama sainyasya sanjñārthaṁ tānbravīmi te",
       "chapter": 1,
       "verse": 7,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.008",
-      "text": "भवान्भीष्मश्च कर्णश्च कृपश्च समितिञ्जयः।",
-      "iast": "bhavānbhīṣmaśca karṇaśca kṛpaśca samitiñjayaḥ।",
+      "text": "भवान्भीष्मश्च कर्णश्च कृपश्च समितिञ्जयः।\nअश्वत्थामा विकर्णश्च सौमदत्तिस्तथैव च",
+      "iast": "bhavānbhīṣhmaśhcha karṇaśhcha kṛipaśhcha samitiñjayaḥ\naśhvatthāmā vikarṇaśhcha saumadattis tathaiva cha",
       "chapter": 1,
       "verse": 8,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.009",
-      "text": "अन्ये च बहवः शूरा मदर्थे त्यक्तजीविताः।",
-      "iast": "anye ca bahavaḥ śūrā madarthe tyaktajīvitāḥ।",
+      "text": "अन्ये च बहवः शूरा मदर्थे त्यक्तजीविताः।\nनानाशस्त्रप्रहरणाः सर्वे युद्धविशारदाः",
+      "iast": "anye cha bahavaḥ śhūrā madarthe tyaktajīvitāḥ\nnānā-śhastra-praharaṇāḥ sarve yuddha-viśhāradāḥ",
       "chapter": 1,
       "verse": 9,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.010",
-      "text": "अपर्याप्तं तदस्माकं बलं भीष्माभिरक्षितम्।",
-      "iast": "aparyāptaṃ tadasmākaṃ balaṃ bhīṣmābhirakṣitam।",
+      "text": "अपर्याप्तं तदस्माकं बलं भीष्माभिरक्षितम्।\nपर्याप्तं त्विदमेतेषां बलं भीमाभिरक्षितम्",
+      "iast": "aparyāptaṁ tadasmākaṁ balaṁ bhīṣhmābhirakṣhitam\nparyāptaṁ tvidameteṣhāṁ balaṁ bhīmābhirakṣhitam",
       "chapter": 1,
       "verse": 10,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.011",
-      "text": "अयनेषु च सर्वेषु यथाभागमवस्थिताः।",
-      "iast": "ayaneṣu ca sarveṣu yathābhāgamavasthitāḥ।",
+      "text": "अयनेषु च सर्वेषु यथाभागमवस्थिताः।\nभीष्ममेवाभिरक्षन्तु भवन्तः सर्व एव हि",
+      "iast": "ayaneṣhu cha sarveṣhu yathā-bhāgamavasthitāḥ\nbhīṣhmamevābhirakṣhantu bhavantaḥ sarva eva hi",
       "chapter": 1,
       "verse": 11,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.012",
-      "text": "तस्य संजनयन्हर्षं कुरुवृद्धः पितामहः।",
-      "iast": "tasya saṃjanayanharṣaṃ kuruvṛddhaḥ pitāmahaḥ।",
+      "text": "तस्य संजनयन्हर्षं कुरुवृद्धः पितामहः।\nसिंहनादं विनद्योच्चैः शङ्खं दध्मौ प्रतापवान्",
+      "iast": "tasya sañjanayan harṣhaṁ kuru-vṛiddhaḥ pitāmahaḥ\nsiṁha-nādaṁ vinadyochchaiḥ śhaṅkhaṁ dadhmau pratāpavān",
       "chapter": 1,
       "verse": 12,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.013",
-      "text": "ततः शङ्खाश्च भेर्यश्च पणवानकगोमुखाः।",
-      "iast": "tataḥ śaṅkhāśca bheryaśca paṇavānakagomukhāḥ।",
+      "text": "ततः शङ्खाश्च भेर्यश्च पणवानकगोमुखाः।\nसहसैवाभ्यहन्यन्त स शब्दस्तुमुलोऽभवत्",
+      "iast": "tataḥ śhaṅkhāśhcha bheryaśhcha paṇavānaka-gomukhāḥ\nsahasaivābhyahanyanta sa śhabdastumulo ’bhavat",
       "chapter": 1,
       "verse": 13,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.014",
-      "text": "ततः श्वेतैर्हयैर्युक्ते महति स्यन्दने स्थितौ।",
-      "iast": "tataḥ śvetirhayiryukte mahati syandane sthitu।",
+      "text": "ततः श्वेतैर्हयैर्युक्ते महति स्यन्दने स्थितौ।\nमाधवः पाण्डवश्चैव दिव्यौ शङ्खौ प्रदध्मतुः",
+      "iast": "tataḥ śhvetairhayairyukte mahati syandane sthitau\nmādhavaḥ pāṇḍavaśhchaiva divyau śhaṅkhau pradadhmatuḥ",
       "chapter": 1,
       "verse": 14,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.015",
-      "text": "पाञ्चजन्यं हृषीकेशो देवदत्तं धनंजयः।",
-      "iast": "pāñcajanyaṃ hṛṣīkeśo devadattaṃ dhanaṃjayaḥ।",
+      "text": "पाञ्चजन्यं हृषीकेशो देवदत्तं धनंजयः।\nपौण्ड्रं दध्मौ महाशङ्खं भीमकर्मा वृकोदरः",
+      "iast": "pāñchajanyaṁ hṛiṣhīkeśho devadattaṁ dhanañjayaḥ\npauṇḍraṁ dadhmau mahā-śhaṅkhaṁ bhīma-karmā vṛikodaraḥ",
       "chapter": 1,
       "verse": 15,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.016",
-      "text": "अनन्तविजयं राजा कुन्तीपुत्रो युधिष्ठिरः।",
-      "iast": "anantavijayaṃ rājā kuntīputro yudhiṣṭhiraḥ।",
+      "text": "अनन्तविजयं राजा कुन्तीपुत्रो युधिष्ठिरः।\nनकुलः सहदेवश्च सुघोषमणिपुष्पकौ",
+      "iast": "anantavijayaṁ rājā kuntī-putro yudhiṣhṭhiraḥ\nnakulaḥ sahadevaśhcha sughoṣha-maṇipuṣhpakau",
       "chapter": 1,
       "verse": 16,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.017",
-      "text": "काश्यश्च परमेष्वासः शिखण्डी च महारथः।",
-      "iast": "kāśyaśca parameṣvāsaḥ śikhaṇḍī ca mahārathaḥ।",
+      "text": "काश्यश्च परमेष्वासः शिखण्डी च महारथः।\nधृष्टद्युम्नो विराटश्च सात्यकिश्चापराजितः",
+      "iast": "kāśhyaśhcha parameṣhvāsaḥ śhikhaṇḍī cha mahā-rathaḥ\ndhṛiṣhṭadyumno virāṭaśhcha sātyakiśh chāparājitaḥ",
       "chapter": 1,
       "verse": 17,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.018",
-      "text": "द्रुपदो द्रौपदेयाश्च सर्वशः पृथिवीपते।",
-      "iast": "drupado drupadeyāśca sarvaśaḥ pṛthivīpate।",
+      "text": "द्रुपदो द्रौपदेयाश्च सर्वशः पृथिवीपते।\nसौभद्रश्च महाबाहुः शङ्खान्दध्मुः पृथक्पृथक्",
+      "iast": "drupado draupadeyāśhcha sarvaśhaḥ pṛithivī-pate\nsaubhadraśhcha mahā-bāhuḥ śhaṅkhāndadhmuḥ pṛithak pṛithak",
       "chapter": 1,
       "verse": 18,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.019",
-      "text": "स घोषो धार्तराष्ट्राणां हृदयानि व्यदारयत्।",
-      "iast": "sa ghoṣo dhārtarāṣṭrāṇāṃ hṛdayāni vyadārayat।",
+      "text": "स घोषो धार्तराष्ट्राणां हृदयानि व्यदारयत्।\nनभश्च पृथिवीं चैव तुमुलो व्यनुनादयन्",
+      "iast": "sa ghoṣho dhārtarāṣhṭrāṇāṁ hṛidayāni vyadārayat\nnabhaśhcha pṛithivīṁ chaiva tumulo nunādayan",
       "chapter": 1,
       "verse": 19,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.020",
-      "text": "अथ व्यवस्थितान् दृष्ट्वा धार्तराष्ट्रान्कपिध्वजः।",
-      "iast": "atha vyavasthitān dṛṣṭvā dhārtarāṣṭrānkapidhvajaḥ।",
+      "text": "अथ व्यवस्थितान् दृष्ट्वा धार्तराष्ट्रान्कपिध्वजः।\nप्रवृत्ते शस्त्रसंपाते धनुरुद्यम्य पाण्डवः",
+      "iast": "atha vyavasthitān dṛiṣhṭvā dhārtarāṣhṭrān kapi-dhwajaḥ\npravṛitte śhastra-sampāte dhanurudyamya pāṇḍavaḥ\nhṛiṣhīkeśhaṁ tadā vākyam idam āha mahī-pate",
       "chapter": 1,
       "verse": 20,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.021",
-      "text": "हृषीकेशं तदा वाक्यमिदमाह महीपते।",
-      "iast": "hṛṣīkeśaṃ tadā vākyamidamāha mahīpate।",
+      "text": "हृषीकेशं तदा वाक्यमिदमाह महीपते।\nसेनयोरुभयोर्मध्ये रथं स्थापय मेऽच्युत",
+      "iast": "arjuna uvācha\nsenayor ubhayor madhye rathaṁ sthāpaya me ’chyuta",
       "chapter": 1,
       "verse": 21,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
     },
     {
       "record_id": "AIGAANE-BGM-01.022",
-      "text": "यावदेतान्निरीक्षेऽहं योद्धुकामानवस्थितान्।",
-      "iast": "yāvadetānnirīkṣe'haṃ yoddhukāmānavasthitān।",
+      "text": "यावदेतान्निरीक्षेऽहं योद्धुकामानवस्थितान्।\nकैर्मया सह योद्धव्यमस्मिन्रणसमुद्यमे",
+      "iast": "yāvadetān nirīkṣhe ’haṁ yoddhu-kāmān avasthitān\nkairmayā saha yoddhavyam asmin raṇa-samudyame",
       "chapter": 1,
       "verse": 22,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.023",
-      "text": "योत्स्यमानानवेक्षेऽहं य एतेऽत्र समागताः।",
-      "iast": "yotsyamānānavekṣe'haṃ ya ete'tra samāgatāḥ।",
+      "text": "योत्स्यमानानवेक्षेऽहं य एतेऽत्र समागताः।\nधार्तराष्ट्रस्य दुर्बुद्धेर्युद्धे प्रियचिकीर्षवः",
+      "iast": "yotsyamānān avekṣhe ’haṁ ya ete ’tra samāgatāḥ\ndhārtarāṣhṭrasya durbuddher yuddhe priya-chikīrṣhavaḥ",
       "chapter": 1,
       "verse": 23,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.024",
-      "text": "एवमुक्तो हृषीकेशो गुडाकेशेन भारत।",
-      "iast": "evamukto hṛṣīkeśo guḍākeśena bhārata।",
+      "text": "एवमुक्तो हृषीकेशो गुडाकेशेन भारत।\nसेनयोरुभयोर्मध्ये स्थापयित्वा रथोत्तमम्",
+      "iast": "sañjaya uvācha\nevam ukto hṛiṣhīkeśho guḍākeśhena bhārata\nsenayor ubhayor madhye sthāpayitvā rathottamam",
       "chapter": 1,
       "verse": 24,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "sanjaya"
     },
     {
       "record_id": "AIGAANE-BGM-01.025",
-      "text": "भीष्मद्रोणप्रमुखतः सर्वेषां च महीक्षिताम्।",
-      "iast": "bhīṣmadroṇapramukhataḥ sarveṣāṃ ca mahīkṣitām।",
+      "text": "भीष्मद्रोणप्रमुखतः सर्वेषां च महीक्षिताम्।\nउवाच पार्थ पश्यैतान्समवेतान्कुरूनिति",
+      "iast": "bhīṣhma-droṇa-pramukhataḥ sarveṣhāṁ cha mahī-kṣhitām\nuvācha pārtha paśhyaitān samavetān kurūn iti",
       "chapter": 1,
       "verse": 25,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.026",
-      "text": "तत्रापश्यत्स्थितान्पार्थः पितृ़नथ पितामहान्।",
-      "iast": "tatrāpaśyatsthitānpārthaḥ pitṛnatha pitāmahān।",
+      "text": "तत्रापश्यत्स्थितान्पार्थः पितृ़नथ पितामहान्।\nआचार्यान्मातुलान्भ्रातृ़न्पुत्रान्पौत्रान्सखींस्तथा",
+      "iast": "tatrāpaśhyat sthitān pārthaḥ pitṝīn atha pitāmahān\nāchāryān mātulān bhrātṝīn putrān pautrān sakhīṁs tathā\nśhvaśhurān suhṛidaśh chaiva senayor ubhayor api",
       "chapter": 1,
       "verse": 26,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.027",
-      "text": "श्वशुरान्सुहृदश्चैव सेनयोरुभयोरपि।",
-      "iast": "śvaśurānsuhṛdaściva senayorubhayorapi।",
+      "text": "श्वशुरान्सुहृदश्चैव सेनयोरुभयोरपि।\nतान्समीक्ष्य स कौन्तेयः सर्वान्बन्धूनवस्थितान्",
+      "iast": "tān samīkṣhya sa kaunteyaḥ sarvān bandhūn avasthitān\nkṛipayā parayāviṣhṭo viṣhīdann idam abravīt",
       "chapter": 1,
       "verse": 27,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.028",
-      "text": "कृपया परयाऽऽविष्टो विषीदन्निदमब्रवीत्।",
-      "iast": "kṛpayā parayā''viṣṭo viṣīdannidamabravīt।",
+      "text": "कृपया परयाऽऽविष्टो विषीदन्निदमब्रवीत्।\nदृष्ट्वेमं स्वजनं कृष्ण युयुत्सुं समुपस्थितम्",
+      "iast": "arjuna uvācha\ndṛiṣhṭvemaṁ sva-janaṁ kṛiṣhṇa yuyutsuṁ samupasthitam",
       "chapter": 1,
       "verse": 28,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
     },
     {
       "record_id": "AIGAANE-BGM-01.029",
-      "text": "सीदन्ति मम गात्राणि मुखं च परिशुष्यति।",
-      "iast": "sīdanti mama gātrāṇi mukhaṃ ca pariśuṣyati।",
+      "text": "सीदन्ति मम गात्राणि मुखं च परिशुष्यति।\nवेपथुश्च शरीरे मे रोमहर्षश्च जायते",
+      "iast": "sīdanti mama gātrāṇi mukhaṁ cha pariśhuṣhyati\nvepathuśh cha śharīre me roma-harṣhaśh cha jāyate",
       "chapter": 1,
       "verse": 29,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.030",
-      "text": "गाण्डीवं स्रंसते हस्तात्त्वक्चैव परिदह्यते।",
-      "iast": "gāṇḍīvaṃ sraṃsate hastāttvakciva paridahyate।",
+      "text": "गाण्डीवं स्रंसते हस्तात्त्वक्चैव परिदह्यते।\nन च शक्नोम्यवस्थातुं भ्रमतीव च मे मनः",
+      "iast": "gāṇḍīvaṁ sraṁsate hastāt tvak chaiva paridahyate\nna cha śhaknomy avasthātuṁ bhramatīva cha me manaḥ",
       "chapter": 1,
       "verse": 30,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.031",
-      "text": "निमित्तानि च पश्यामि विपरीतानि केशव।",
-      "iast": "nimittāni ca paśyāmi viparītāni keśava।",
+      "text": "निमित्तानि च पश्यामि विपरीतानि केशव।\nन च श्रेयोऽनुपश्यामि हत्वा स्वजनमाहवे",
+      "iast": "nimittāni cha paśhyāmi viparītāni keśhava\nna cha śhreyo ’nupaśhyāmi hatvā sva-janam āhave",
       "chapter": 1,
       "verse": 31,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.032",
-      "text": "न काङ्क्षे विजयं कृष्ण न च राज्यं सुखानि च।",
-      "iast": "na kāṅkṣe vijayaṃ kṛṣṇa na ca rājyaṃ sukhāni ca।",
+      "text": "न काङ्क्षे विजयं कृष्ण न च राज्यं सुखानि च।\nकिं नो राज्येन गोविन्द किं भोगैर्जीवितेन वा",
+      "iast": "na kāṅkṣhe vijayaṁ kṛiṣhṇa na cha rājyaṁ sukhāni cha\nkiṁ no rājyena govinda kiṁ bhogair jīvitena vā",
       "chapter": 1,
       "verse": 32,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.033",
-      "text": "येषामर्थे काङ्क्षितं नो राज्यं भोगाः सुखानि च।",
-      "iast": "yeṣāmarthe kāṅkṣitaṃ no rājyaṃ bhogāḥ sukhāni ca।",
+      "text": "येषामर्थे काङ्क्षितं नो राज्यं भोगाः सुखानि च।\nत इमेऽवस्थिता युद्धे प्राणांस्त्यक्त्वा धनानि च",
+      "iast": "yeṣhām arthe kāṅkṣhitaṁ no rājyaṁ bhogāḥ sukhāni cha\nta ime ’vasthitā yuddhe prāṇāṁs tyaktvā dhanāni cha",
       "chapter": 1,
       "verse": 33,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.034",
-      "text": "आचार्याः पितरः पुत्रास्तथैव च पितामहाः।",
-      "iast": "ācāryāḥ pitaraḥ putrāstathiva ca pitāmahāḥ।",
+      "text": "आचार्याः पितरः पुत्रास्तथैव च पितामहाः।\nमातुलाः श्चशुराः पौत्राः श्यालाः सम्बन्धिनस्तथा",
+      "iast": "āchāryāḥ pitaraḥ putrās tathaiva cha pitāmahāḥ\nmātulāḥ śhvaśhurāḥ pautrāḥ śhyālāḥ sambandhinas tathā",
       "chapter": 1,
       "verse": 34,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.035",
-      "text": "एतान्न हन्तुमिच्छामि घ्नतोऽपि मधुसूदन।",
-      "iast": "etānna hantumicchāmi ghnato'pi madhusūdana।",
+      "text": "एतान्न हन्तुमिच्छामि घ्नतोऽपि मधुसूदन।\nअपि त्रैलोक्यराज्यस्य हेतोः किं नु महीकृते",
+      "iast": "etān na hantum ichchhāmi ghnato ’pi madhusūdana\napi trailokya-rājyasya hetoḥ kiṁ nu mahī-kṛite",
       "chapter": 1,
       "verse": 35,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.036",
-      "text": "निहत्य धार्तराष्ट्रान्नः का प्रीतिः स्याज्जनार्दन।",
-      "iast": "nihatya dhārtarāṣṭrānnaḥ kā prītiḥ syājjanārdana।",
+      "text": "निहत्य धार्तराष्ट्रान्नः का प्रीतिः स्याज्जनार्दन।\nपापमेवाश्रयेदस्मान्हत्वैतानाततायिनः",
+      "iast": "nihatya dhārtarāṣhṭrān naḥ kā prītiḥ syāj janārdana\npāpam evāśhrayed asmān hatvaitān ātatāyinaḥ",
       "chapter": 1,
       "verse": 36,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.037",
-      "text": "तस्मान्नार्हा वयं हन्तुं धार्तराष्ट्रान्स्वबान्धवान्।",
-      "iast": "tasmānnārhā vayaṃ hantuṃ dhārtarāṣṭrānsvabāndhavān।",
+      "text": "तस्मान्नार्हा वयं हन्तुं धार्तराष्ट्रान्स्वबान्धवान्।\nस्वजनं हि कथं हत्वा सुखिनः स्याम माधव",
+      "iast": "tasmān nārhā vayaṁ hantuṁ dhārtarāṣhṭrān sa-bāndhavān\nsva-janaṁ hi kathaṁ hatvā sukhinaḥ syāma mādhava",
       "chapter": 1,
       "verse": 37,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.038",
-      "text": "यद्यप्येते न पश्यन्ति लोभोपहतचेतसः।",
-      "iast": "yadyapyete na paśyanti lobhopahatacetasaḥ।",
+      "text": "यद्यप्येते न पश्यन्ति लोभोपहतचेतसः।\nकुलक्षयकृतं दोषं मित्रद्रोहे च पातकम्",
+      "iast": "yady apy ete na paśhyanti lobhopahata-chetasaḥ\nkula-kṣhaya-kṛitaṁ doṣhaṁ mitra-drohe cha pātakam",
       "chapter": 1,
       "verse": 38,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.039",
-      "text": "कथं न ज्ञेयमस्माभिः पापादस्मान्निवर्तितुम्।",
-      "iast": "kathaṃ na jñeyamasmābhiḥ pāpādasmānnivartitum।",
+      "text": "कथं न ज्ञेयमस्माभिः पापादस्मान्निवर्तितुम्।\nकुलक्षयकृतं दोषं प्रपश्यद्भिर्जनार्दन",
+      "iast": "kathaṁ na jñeyam asmābhiḥ pāpād asmān nivartitum\nkula-kṣhaya-kṛitaṁ doṣhaṁ prapaśhyadbhir janārdana",
       "chapter": 1,
       "verse": 39,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.040",
-      "text": "कुलक्षये प्रणश्यन्ति कुलधर्माः सनातनाः।",
-      "iast": "kulakṣaye praṇaśyanti kuladharmāḥ sanātanāḥ।",
+      "text": "कुलक्षये प्रणश्यन्ति कुलधर्माः सनातनाः।\nधर्मे नष्टे कुलं कृत्स्नमधर्मोऽभिभवत्युत",
+      "iast": "kula-kṣhaye praṇaśhyanti kula-dharmāḥ sanātanāḥ\ndharme naṣhṭe kulaṁ kṛitsnam adharmo ’bhibhavaty uta",
       "chapter": 1,
       "verse": 40,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.041",
-      "text": "अधर्माभिभवात्कृष्ण प्रदुष्यन्ति कुलस्त्रियः।",
-      "iast": "adharmābhibhavātkṛṣṇa praduṣyanti kulastriyaḥ।",
+      "text": "अधर्माभिभवात्कृष्ण प्रदुष्यन्ति कुलस्त्रियः।\nस्त्रीषु दुष्टासु वार्ष्णेय जायते वर्णसङ्करः",
+      "iast": "adharmābhibhavāt kṛiṣhṇa praduṣhyanti kula-striyaḥ\nstrīṣhu duṣhṭāsu vārṣhṇeya jāyate varṇa-saṅkaraḥ",
       "chapter": 1,
       "verse": 41,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.042",
-      "text": "सङ्करो नरकायैव कुलघ्नानां कुलस्य च।",
-      "iast": "saṅkaro narakāyiva kulaghnānāṃ kulasya ca।",
+      "text": "सङ्करो नरकायैव कुलघ्नानां कुलस्य च।\nपतन्ति पितरो ह्येषां लुप्तपिण्डोदकक्रियाः",
+      "iast": "saṅkaro narakāyaiva kula-ghnānāṁ kulasya cha\npatanti pitaro hy eṣhāṁ lupta-piṇḍodaka-kriyāḥ",
       "chapter": 1,
       "verse": 42,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.043",
-      "text": "दोषैरेतैः कुलघ्नानां वर्णसङ्करकारकैः।",
-      "iast": "doṣiretiḥ kulaghnānāṃ varṇasaṅkarakārakiḥ।",
+      "text": "दोषैरेतैः कुलघ्नानां वर्णसङ्करकारकैः।\nउत्साद्यन्ते जातिधर्माः कुलधर्माश्च शाश्वताः",
+      "iast": "doṣhair etaiḥ kula-ghnānāṁ varṇa-saṅkara-kārakaiḥ\nutsādyante jāti-dharmāḥ kula-dharmāśh cha śhāśhvatāḥ",
       "chapter": 1,
       "verse": 43,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.044",
-      "text": "उत्सन्नकुलधर्माणां मनुष्याणां जनार्दन।",
-      "iast": "utsannakuladharmāṇāṃ manuṣyāṇāṃ janārdana।",
+      "text": "उत्सन्नकुलधर्माणां मनुष्याणां जनार्दन।\nनरकेऽनियतं वासो भवतीत्यनुशुश्रुम",
+      "iast": "utsanna-kula-dharmāṇāṁ manuṣhyāṇāṁ janārdana\nnarake ‘niyataṁ vāso bhavatītyanuśhuśhruma",
       "chapter": 1,
       "verse": 44,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.045",
-      "text": "अहो बत महत्पापं कर्तुं व्यवसिता वयम्।",
-      "iast": "aho bata mahatpāpaṃ kartuṃ vyavasitā vayam।",
+      "text": "अहो बत महत्पापं कर्तुं व्यवसिता वयम्।\nयद्राज्यसुखलोभेन हन्तुं स्वजनमुद्यताः",
+      "iast": "aho bata mahat pāpaṁ kartuṁ vyavasitā vayam\nyad rājya-sukha-lobhena hantuṁ sva-janam udyatāḥ",
       "chapter": 1,
       "verse": 45,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.046",
-      "text": "यदि मामप्रतीकारमशस्त्रं शस्त्रपाणयः।",
-      "iast": "yadi māmapratīkāramaśastraṃ śastrapāṇayaḥ।",
+      "text": "यदि मामप्रतीकारमशस्त्रं शस्त्रपाणयः।\nधार्तराष्ट्रा रणे हन्युस्तन्मे क्षेमतरं भवेत्",
+      "iast": "yadi mām apratīkāram aśhastraṁ śhastra-pāṇayaḥ\ndhārtarāṣhṭrā raṇe hanyus tan me kṣhemataraṁ bhavet",
       "chapter": 1,
       "verse": 46,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-01.047",
-      "text": "एवमुक्त्वाऽर्जुनः संख्ये रथोपस्थ उपाविशत्।",
-      "iast": "evamuktvā'rjunaḥ saṃkhye rathopastha upāviśat।",
+      "text": "एवमुक्त्वाऽर्जुनः संख्ये रथोपस्थ उपाविशत्।\nविसृज्य सशरं चापं शोकसंविग्नमानसः",
+      "iast": "sañjaya uvācha\nevam uktvārjunaḥ saṅkhye rathopastha upāviśhat\nvisṛijya sa-śharaṁ chāpaṁ śhoka-saṁvigna-mānasaḥ",
       "chapter": 1,
       "verse": 47,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "sanjaya"
     }
   ]
 }

@@ -5,372 +5,391 @@
     "section": "Chapter 4",
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
-    "record_count": 40,
-    "generated_at": "2026-09-25T08:43:56.884711+00:00",
-    "last_updated": "2026-09-25T08:43:56.884718+00:00",
+    "record_count": 42,
+    "generated_at": "2026-09-25T08:57:31.141739+00:00",
+    "last_updated": "2026-09-25T08:57:31.141748+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
   "records": [
     {
+      "record_id": "AIGAANE-BGM-04.001",
+      "text": "श्री भगवानुवाच\nइमं विवस्वते योगं प्रोक्तवानहमव्ययम्।\nविवस्वान् मनवे प्राह मनुरिक्ष्वाकवेऽब्रवीत्",
+      "iast": "śhrī bhagavān uvācha\nimaṁ vivasvate yogaṁ proktavān aham avyayam\nvivasvān manave prāha manur ikṣhvākave ’bravīt",
+      "chapter": 4,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
       "record_id": "AIGAANE-BGM-04.002",
-      "text": "एवं परम्पराप्राप्तमिमं राजर्षयो विदुः।",
-      "iast": "evaṃ paramparāprāptamimaṃ rājarṣayo viduḥ।",
+      "text": "एवं परम्पराप्राप्तमिमं राजर्षयो विदुः।\nस कालेनेह महता योगो नष्टः परन्तप",
+      "iast": "evaṁ paramparā-prāptam imaṁ rājarṣhayo viduḥ\nsa kāleneha mahatā yogo naṣhṭaḥ parantapa",
       "chapter": 4,
       "verse": 2,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.003",
-      "text": "स एवायं मया तेऽद्य योगः प्रोक्तः पुरातनः।",
-      "iast": "sa evāyaṃ mayā te'dya yogaḥ proktaḥ purātanaḥ।",
+      "text": "स एवायं मया तेऽद्य योगः प्रोक्तः पुरातनः।\nभक्तोऽसि मे सखा चेति रहस्यं ह्येतदुत्तमम्",
+      "iast": "sa evāyaṁ mayā te ’dya yogaḥ proktaḥ purātanaḥ\nbhakto ’si me sakhā cheti rahasyaṁ hyetad uttamam",
       "chapter": 4,
       "verse": 3,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.004",
-      "text": "अपरं भवतो जन्म परं जन्म विवस्वतः।",
-      "iast": "aparaṃ bhavato janma paraṃ janma vivasvataḥ।",
+      "text": "अपरं भवतो जन्म परं जन्म विवस्वतः।\nकथमेतद्विजानीयां त्वमादौ प्रोक्तवानिति",
+      "iast": "arjuna uvācha\naparaṁ bhavato janma paraṁ janma vivasvataḥ\nkatham etad vijānīyāṁ tvam ādau proktavān iti",
       "chapter": 4,
       "verse": 4,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-04.005",
+      "text": "श्री भगवानुवाच\nबहूनि मे व्यतीतानि जन्मानि तव चार्जुन।\nतान्यहं वेद सर्वाणि न त्वं वेत्थ परन्तप",
+      "iast": "śhrī bhagavān uvācha\nbahūni me vyatītāni janmāni tava chārjuna\ntānyahaṁ veda sarvāṇi na tvaṁ vettha parantapa",
+      "chapter": 4,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.006",
-      "text": "अजोऽपि सन्नव्ययात्मा भूतानामीश्वरोऽपि सन्।",
-      "iast": "ajo'pi sannavyayātmā bhūtānāmīśvaro'pi san।",
+      "text": "अजोऽपि सन्नव्ययात्मा भूतानामीश्वरोऽपि सन्।\nप्रकृतिं स्वामधिष्ठाय संभवाम्यात्ममायया",
+      "iast": "ajo ’pi sannavyayātmā bhūtānām īśhvaro ’pi san\nprakṛitiṁ svām adhiṣhṭhāya sambhavāmyātma-māyayā",
       "chapter": 4,
       "verse": 6,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.007",
-      "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।",
-      "iast": "yadā yadā hi dharmasya glānirbhavati bhārata।",
+      "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदाऽऽत्मानं सृजाम्यहम्",
+      "iast": "yadā yadā hi dharmasya glānir bhavati bhārata\nabhyutthānam adharmasya tadātmānaṁ sṛijāmyaham",
       "chapter": 4,
       "verse": 7,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.008",
-      "text": "परित्राणाय साधूनां विनाशाय च दुष्कृताम्।",
-      "iast": "paritrāṇāya sādhūnāṃ vināśāya ca duṣkṛtām।",
+      "text": "परित्राणाय साधूनां विनाशाय च दुष्कृताम्।\nधर्मसंस्थापनार्थाय संभवामि युगे युगे",
+      "iast": "paritrāṇāya sādhūnāṁ vināśhāya cha duṣhkṛitām\ndharma-sansthāpanārthāya sambhavāmi yuge yuge",
       "chapter": 4,
       "verse": 8,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.009",
-      "text": "जन्म कर्म च मे दिव्यमेवं यो वेत्ति तत्त्वतः।",
-      "iast": "janma karma ca me divyamevaṃ yo vetti tattvataḥ।",
+      "text": "जन्म कर्म च मे दिव्यमेवं यो वेत्ति तत्त्वतः।\nत्यक्त्वा देहं पुनर्जन्म नैति मामेति सोऽर्जुन",
+      "iast": "janma karma cha me divyam evaṁ yo vetti tattvataḥ\ntyaktvā dehaṁ punar janma naiti mām eti so ’rjuna",
       "chapter": 4,
       "verse": 9,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.010",
-      "text": "वीतरागभयक्रोधा मन्मया मामुपाश्रिताः।",
-      "iast": "vītarāgabhayakrodhā manmayā māmupāśritāḥ।",
+      "text": "वीतरागभयक्रोधा मन्मया मामुपाश्रिताः।\nबहवो ज्ञानतपसा पूता मद्भावमागताः",
+      "iast": "vīta-rāga-bhaya-krodhā man-mayā mām upāśhritāḥ\nbahavo jñāna-tapasā pūtā mad-bhāvam āgatāḥ",
       "chapter": 4,
       "verse": 10,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.011",
-      "text": "ये यथा मां प्रपद्यन्ते तांस्तथैव भजाम्यहम्।",
-      "iast": "ye yathā māṃ prapadyante tāṃstathiva bhajāmyaham।",
+      "text": "ये यथा मां प्रपद्यन्ते तांस्तथैव भजाम्यहम्।\nमम वर्त्मानुवर्तन्ते मनुष्याः पार्थ सर्वशः",
+      "iast": "ye yathā māṁ prapadyante tāns tathaiva bhajāmyaham\nmama vartmānuvartante manuṣhyāḥ pārtha sarvaśhaḥ",
       "chapter": 4,
       "verse": 11,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.012",
-      "text": "काङ्क्षन्तः कर्मणां सिद्धिं यजन्त इह देवताः।",
-      "iast": "kāṅkṣantaḥ karmaṇāṃ siddhiṃ yajanta iha devatāḥ।",
+      "text": "काङ्क्षन्तः कर्मणां सिद्धिं यजन्त इह देवताः।\nक्षिप्रं हि मानुषे लोके सिद्धिर्भवति कर्मजा",
+      "iast": "kāṅkṣhantaḥ karmaṇāṁ siddhiṁ yajanta iha devatāḥ\nkṣhipraṁ hi mānuṣhe loke siddhir bhavati karmajā",
       "chapter": 4,
       "verse": 12,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.013",
-      "text": "चातुर्वर्ण्यं मया सृष्टं गुणकर्मविभागशः।",
-      "iast": "cāturvarṇyaṃ mayā sṛṣṭaṃ guṇakarmavibhāgaśaḥ।",
+      "text": "चातुर्वर्ण्यं मया सृष्टं गुणकर्मविभागशः।\nतस्य कर्तारमपि मां विद्ध्यकर्तारमव्ययम्",
+      "iast": "chātur-varṇyaṁ mayā sṛiṣhṭaṁ guṇa-karma-vibhāgaśhaḥ\ntasya kartāram api māṁ viddhyakartāram avyayam",
       "chapter": 4,
       "verse": 13,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.014",
-      "text": "न मां कर्माणि लिम्पन्ति न मे कर्मफले स्पृहा।",
-      "iast": "na māṃ karmāṇi limpanti na me karmaphale spṛhā।",
+      "text": "न मां कर्माणि लिम्पन्ति न मे कर्मफले स्पृहा।\nइति मां योऽभिजानाति कर्मभिर्न स बध्यते",
+      "iast": "na māṁ karmāṇi limpanti na me karma-phale spṛihā\niti māṁ yo ’bhijānāti karmabhir na sa badhyate",
       "chapter": 4,
       "verse": 14,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.015",
-      "text": "एवं ज्ञात्वा कृतं कर्म पूर्वैरपि मुमुक्षुभिः।",
-      "iast": "evaṃ jñātvā kṛtaṃ karma pūrvirapi mumukṣubhiḥ।",
+      "text": "एवं ज्ञात्वा कृतं कर्म पूर्वैरपि मुमुक्षुभिः।\nकुरु कर्मैव तस्मात्त्वं पूर्वैः पूर्वतरं कृतम्",
+      "iast": "evaṁ jñātvā kṛitaṁ karma pūrvair api mumukṣhubhiḥ\nkuru karmaiva tasmāttvaṁ pūrvaiḥ pūrvataraṁ kṛitam",
       "chapter": 4,
       "verse": 15,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.016",
-      "text": "किं कर्म किमकर्मेति कवयोऽप्यत्र मोहिताः।",
-      "iast": "kiṃ karma kimakarmeti kavayo'pyatra mohitāḥ।",
+      "text": "किं कर्म किमकर्मेति कवयोऽप्यत्र मोहिताः।\nतत्ते कर्म प्रवक्ष्यामि यज्ज्ञात्वा मोक्ष्यसेऽशुभात्",
+      "iast": "kiṁ karma kim akarmeti kavayo ’pyatra mohitāḥ\ntat te karma pravakṣhyāmi yaj jñātvā mokṣhyase ’śhubhāt",
       "chapter": 4,
       "verse": 16,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.017",
-      "text": "कर्मणो ह्यपि बोद्धव्यं बोद्धव्यं च विकर्मणः।",
-      "iast": "karmaṇo hyapi boddhavyaṃ boddhavyaṃ ca vikarmaṇaḥ।",
+      "text": "कर्मणो ह्यपि बोद्धव्यं बोद्धव्यं च विकर्मणः।\nअकर्मणश्च बोद्धव्यं गहना कर्मणो गतिः",
+      "iast": "karmaṇo hyapi boddhavyaṁ boddhavyaṁ cha vikarmaṇaḥ\nakarmaṇaśh cha boddhavyaṁ gahanā karmaṇo gatiḥ",
       "chapter": 4,
       "verse": 17,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.018",
-      "text": "कर्मण्यकर्म यः पश्येदकर्मणि च कर्म यः।",
-      "iast": "karmaṇyakarma yaḥ paśyedakarmaṇi ca karma yaḥ।",
+      "text": "कर्मण्यकर्म यः पश्येदकर्मणि च कर्म यः।\nस बुद्धिमान् मनुष्येषु स युक्तः कृत्स्नकर्मकृत्",
+      "iast": "karmaṇyakarma yaḥ paśhyed akarmaṇi cha karma yaḥ\nsa buddhimān manuṣhyeṣhu sa yuktaḥ kṛitsna-karma-kṛit",
       "chapter": 4,
       "verse": 18,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.019",
-      "text": "यस्य सर्वे समारम्भाः कामसङ्कल्पवर्जिताः।",
-      "iast": "yasya sarve samārambhāḥ kāmasaṅkalpavarjitāḥ।",
+      "text": "यस्य सर्वे समारम्भाः कामसङ्कल्पवर्जिताः।\nज्ञानाग्निदग्धकर्माणं तमाहुः पण्डितं बुधाः",
+      "iast": "yasya sarve samārambhāḥ kāma-saṅkalpa-varjitāḥ\njñānāgni-dagdha-karmāṇaṁ tam āhuḥ paṇḍitaṁ budhāḥ",
       "chapter": 4,
       "verse": 19,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.020",
-      "text": "त्यक्त्वा कर्मफलासङ्गं नित्यतृप्तो निराश्रयः।",
-      "iast": "tyaktvā karmaphalāsaṅgaṃ nityatṛpto nirāśrayaḥ।",
+      "text": "त्यक्त्वा कर्मफलासङ्गं नित्यतृप्तो निराश्रयः।\nकर्मण्यभिप्रवृत्तोऽपि नैव किञ्चित्करोति सः",
+      "iast": "tyaktvā karma-phalāsaṅgaṁ nitya-tṛipto nirāśhrayaḥ\nkarmaṇyabhipravṛitto ’pi naiva kiñchit karoti saḥ",
       "chapter": 4,
       "verse": 20,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.021",
-      "text": "निराशीर्यतचित्तात्मा त्यक्तसर्वपरिग्रहः।",
-      "iast": "nirāśīryatacittātmā tyaktasarvaparigrahaḥ।",
+      "text": "निराशीर्यतचित्तात्मा त्यक्तसर्वपरिग्रहः।\nशारीरं केवलं कर्म कुर्वन्नाप्नोति किल्बिषम्",
+      "iast": "nirāśhīr yata-chittātmā tyakta-sarva-parigrahaḥ\nśhārīraṁ kevalaṁ karma kurvan nāpnoti kilbiṣham",
       "chapter": 4,
       "verse": 21,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.022",
-      "text": "यदृच्छालाभसन्तुष्टो द्वन्द्वातीतो विमत्सरः।",
-      "iast": "yadṛcchālābhasantuṣṭo dvandvātīto vimatsaraḥ।",
+      "text": "यदृच्छालाभसन्तुष्टो द्वन्द्वातीतो विमत्सरः।\nसमः सिद्धावसिद्धौ च कृत्वापि न निबध्यते",
+      "iast": "yadṛichchhā-lābha-santuṣhṭo dvandvātīto vimatsaraḥ\nsamaḥ siddhāvasiddhau cha kṛitvāpi na nibadhyate",
       "chapter": 4,
       "verse": 22,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.023",
-      "text": "गतसङ्गस्य मुक्तस्य ज्ञानावस्थितचेतसः।",
-      "iast": "gatasaṅgasya muktasya jñānāvasthitacetasaḥ।",
+      "text": "गतसङ्गस्य मुक्तस्य ज्ञानावस्थितचेतसः।\nयज्ञायाचरतः कर्म समग्रं प्रविलीयते",
+      "iast": "gata-saṅgasya muktasya jñānāvasthita-chetasaḥ\nyajñāyācharataḥ karma samagraṁ pravilīyate",
       "chapter": 4,
       "verse": 23,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.024",
-      "text": "ब्रह्मार्पणं ब्रह्महविर्ब्रह्माग्नौ ब्रह्मणा हुतम्।",
-      "iast": "brahmārpaṇaṃ brahmahavirbrahmāgnu brahmaṇā hutam।",
+      "text": "ब्रह्मार्पणं ब्रह्महविर्ब्रह्माग्नौ ब्रह्मणा हुतम्।\nब्रह्मैव तेन गन्तव्यं ब्रह्मकर्मसमाधिना",
+      "iast": "brahmārpaṇaṁ brahma havir brahmāgnau brahmaṇā hutam\nbrahmaiva tena gantavyaṁ brahma-karma-samādhinā",
       "chapter": 4,
       "verse": 24,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.025",
-      "text": "दैवमेवापरे यज्ञं योगिनः पर्युपासते।",
-      "iast": "divamevāpare yajñaṃ yoginaḥ paryupāsate।",
+      "text": "दैवमेवापरे यज्ञं योगिनः पर्युपासते।\nब्रह्माग्नावपरे यज्ञं यज्ञेनैवोपजुह्वति",
+      "iast": "daivam evāpare yajñaṁ yoginaḥ paryupāsate\nbrahmāgnāvapare yajñaṁ yajñenaivopajuhvati",
       "chapter": 4,
       "verse": 25,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.026",
-      "text": "श्रोत्रादीनीन्द्रियाण्यन्ये संयमाग्निषु जुह्वति।",
-      "iast": "śrotrādīnīndriyāṇyanye saṃyamāgniṣu juhvati।",
+      "text": "श्रोत्रादीनीन्द्रियाण्यन्ये संयमाग्निषु जुह्वति।\nशब्दादीन्विषयानन्य इन्द्रियाग्निषु जुह्वति",
+      "iast": "śhrotrādīnīndriyāṇyanye sanyamāgniṣhu juhvati\nśhabdādīn viṣhayānanya indriyāgniṣhu juhvati",
       "chapter": 4,
       "verse": 26,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.027",
-      "text": "सर्वाणीन्द्रियकर्माणि प्राणकर्माणि चापरे।",
-      "iast": "sarvāṇīndriyakarmāṇi prāṇakarmāṇi cāpare।",
+      "text": "सर्वाणीन्द्रियकर्माणि प्राणकर्माणि चापरे।\nआत्मसंयमयोगाग्नौ जुह्वति ज्ञानदीपिते",
+      "iast": "sarvāṇīndriya-karmāṇi prāṇa-karmāṇi chāpare\nātma-sanyama-yogāgnau juhvati jñāna-dīpite",
       "chapter": 4,
       "verse": 27,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.028",
-      "text": "द्रव्ययज्ञास्तपोयज्ञा योगयज्ञास्तथापरे।",
-      "iast": "dravyayajñāstapoyajñā yogayajñāstathāpare।",
+      "text": "द्रव्ययज्ञास्तपोयज्ञा योगयज्ञास्तथापरे।\nस्वाध्यायज्ञानयज्ञाश्च यतयः संशितव्रताः",
+      "iast": "dravya-yajñās tapo-yajñā yoga-yajñās tathāpare\nswādhyāya-jñāna-yajñāśh cha yatayaḥ sanśhita-vratāḥ",
       "chapter": 4,
       "verse": 28,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.029",
-      "text": "अपाने जुह्वति प्राण प्राणेऽपानं तथाऽपरे।",
-      "iast": "apāne juhvati prāṇa prāṇe'pānaṃ tathā'pare।",
+      "text": "अपाने जुह्वति प्राण प्राणेऽपानं तथाऽपरे।\nप्राणापानगती रुद्ध्वा प्राणायामपरायणाः",
+      "iast": "apāne juhvati prāṇaṁ prāṇe ’pānaṁ tathāpare\nprāṇāpāna-gatī ruddhvā prāṇāyāma-parāyaṇāḥ\napare niyatāhārāḥ prāṇān prāṇeṣhu juhvati\nsarve ’pyete yajña-vido yajña-kṣhapita-kalmaṣhāḥ",
       "chapter": 4,
       "verse": 29,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.030",
-      "text": "अपरे नियताहाराः प्राणान्प्राणेषु जुह्वति।",
-      "iast": "apare niyatāhārāḥ prāṇānprāṇeṣu juhvati।",
+      "text": "अपरे नियताहाराः प्राणान्प्राणेषु जुह्वति।\nसर्वेऽप्येते यज्ञविदो यज्ञक्षपितकल्मषाः",
+      "iast": "apare niyatāhārāḥ prāṇān  prāṇeṣu juhvati\nsarve py 'ete yajña-vido yajña-kṣapita-kalmaṣāḥ",
       "chapter": 4,
       "verse": 30,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.031",
-      "text": "यज्ञशिष्टामृतभुजो यान्ति ब्रह्म सनातनम्।",
-      "iast": "yajñaśiṣṭāmṛtabhujo yānti brahma sanātanam।",
+      "text": "यज्ञशिष्टामृतभुजो यान्ति ब्रह्म सनातनम्।\nनायं लोकोऽस्त्ययज्ञस्य कुतो़ऽन्यः कुरुसत्तम",
+      "iast": "yajña-śhiṣhṭāmṛita-bhujo yānti brahma sanātanam\nnāyaṁ loko ’styayajñasya kuto ’nyaḥ kuru-sattama",
       "chapter": 4,
       "verse": 31,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.032",
-      "text": "एवं बहुविधा यज्ञा वितता ब्रह्मणो मुखे।",
-      "iast": "evaṃ bahuvidhā yajñā vitatā brahmaṇo mukhe।",
+      "text": "एवं बहुविधा यज्ञा वितता ब्रह्मणो मुखे।\nकर्मजान्विद्धि तान्सर्वानेवं ज्ञात्वा विमोक्ष्यसे",
+      "iast": "evaṁ bahu-vidhā yajñā vitatā brahmaṇo mukhe\nkarma-jān viddhi tān sarvān evaṁ jñātvā vimokṣhyase",
       "chapter": 4,
       "verse": 32,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.033",
-      "text": "श्रेयान्द्रव्यमयाद्यज्ञाज्ज्ञानयज्ञः परन्तप।",
-      "iast": "śreyāndravyamayādyajñājjñānayajñaḥ parantapa।",
+      "text": "श्रेयान्द्रव्यमयाद्यज्ञाज्ज्ञानयज्ञः परन्तप।\nसर्वं कर्माखिलं पार्थ ज्ञाने परिसमाप्यते",
+      "iast": "śhreyān dravya-mayād yajñāj jñāna-yajñaḥ parantapa\nsarvaṁ karmākhilaṁ pārtha jñāne parisamāpyate",
       "chapter": 4,
       "verse": 33,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.034",
-      "text": "तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया।",
-      "iast": "tadviddhi praṇipātena paripraśnena sevayā।",
+      "text": "तद्विद्धि प्रणिपातेन परिप्रश्नेन सेवया।\nउपदेक्ष्यन्ति ते ज्ञानं ज्ञानिनस्तत्त्वदर्शिनः",
+      "iast": "tad viddhi praṇipātena paripraśhnena sevayā\nupadekṣhyanti te jñānaṁ jñāninas tattva-darśhinaḥ",
       "chapter": 4,
       "verse": 34,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.035",
-      "text": "यज्ज्ञात्वा न पुनर्मोहमेवं यास्यसि पाण्डव।",
-      "iast": "yajjñātvā na punarmohamevaṃ yāsyasi pāṇḍava।",
+      "text": "यज्ज्ञात्वा न पुनर्मोहमेवं यास्यसि पाण्डव।\nयेन भूतान्यशेषेण द्रक्ष्यस्यात्मन्यथो मयि",
+      "iast": "yaj jñātvā na punar moham evaṁ yāsyasi pāṇḍava\nyena bhūtānyaśheṣheṇa drakṣhyasyātmanyatho mayi",
       "chapter": 4,
       "verse": 35,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.036",
-      "text": "अपि चेदसि पापेभ्यः सर्वेभ्यः पापकृत्तमः।",
-      "iast": "api cedasi pāpebhyaḥ sarvebhyaḥ pāpakṛttamaḥ।",
+      "text": "अपि चेदसि पापेभ्यः सर्वेभ्यः पापकृत्तमः।\nसर्वं ज्ञानप्लवेनैव वृजिनं सन्तरिष्यसि",
+      "iast": "api ched asi pāpebhyaḥ sarvebhyaḥ pāpa-kṛit-tamaḥ\nsarvaṁ jñāna-plavenaiva vṛijinaṁ santariṣhyasi",
       "chapter": 4,
       "verse": 36,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.037",
-      "text": "यथैधांसि समिद्धोऽग्निर्भस्मसात्कुरुतेऽर्जुन।",
-      "iast": "yathidhāṃsi samiddho'gnirbhasmasātkurute'rjuna।",
+      "text": "यथैधांसि समिद्धोऽग्निर्भस्मसात्कुरुतेऽर्जुन।\nज्ञानाग्निः सर्वकर्माणि भस्मसात्कुरुते तथा",
+      "iast": "yathaidhānsi samiddho ’gnir bhasma-sāt kurute ’rjuna\njñānāgniḥ sarva-karmāṇi bhasma-sāt kurute tathā",
       "chapter": 4,
       "verse": 37,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.038",
-      "text": "न हि ज्ञानेन सदृशं पवित्रमिह विद्यते।",
-      "iast": "na hi jñānena sadṛśaṃ pavitramiha vidyate।",
+      "text": "न हि ज्ञानेन सदृशं पवित्रमिह विद्यते।\nतत्स्वयं योगसंसिद्धः कालेनात्मनि विन्दति",
+      "iast": "na hi jñānena sadṛiśhaṁ pavitramiha vidyate\ntatsvayaṁ yogasansiddhaḥ kālenātmani vindati",
       "chapter": 4,
       "verse": 38,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.039",
-      "text": "श्रद्धावाँल्लभते ज्ञानं तत्परः संयतेन्द्रियः।",
-      "iast": "śraddhāvām̐llabhate jñānaṃ tatparaḥ saṃyatendriyaḥ।",
+      "text": "श्रद्धावाँल्लभते ज्ञानं तत्परः संयतेन्द्रियः।\nज्ञानं लब्ध्वा परां शान्तिमचिरेणाधिगच्छति",
+      "iast": "śhraddhāvān labhate jñānaṁ tat-paraḥ sanyatendriyaḥ\njñānaṁ labdhvā parāṁ śhāntim achireṇādhigachchhati",
       "chapter": 4,
       "verse": 39,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.040",
-      "text": "अज्ञश्चाश्रद्दधानश्च संशयात्मा विनश्यति।",
-      "iast": "ajñaścāśraddadhānaśca saṃśayātmā vinaśyati।",
+      "text": "अज्ञश्चाश्रद्दधानश्च संशयात्मा विनश्यति।\nनायं लोकोऽस्ति न परो न सुखं संशयात्मनः",
+      "iast": "ajñaśh chāśhraddadhānaśh cha sanśhayātmā vinaśhyati\nnāyaṁ loko ’sti na paro na sukhaṁ sanśhayātmanaḥ",
       "chapter": 4,
       "verse": 40,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.041",
-      "text": "योगसंन्यस्तकर्माणं ज्ञानसंछिन्नसंशयम्।",
-      "iast": "yogasaṃnyastakarmāṇaṃ jñānasaṃchinnasaṃśayam।",
+      "text": "योगसंन्यस्तकर्माणं ज्ञानसंछिन्नसंशयम्।\nआत्मवन्तं न कर्माणि निबध्नन्ति धनञ्जय",
+      "iast": "yoga-sannyasta-karmāṇaṁ jñāna-sañchhinna-sanśhayam\nātmavantaṁ na karmāṇi nibadhnanti dhanañjaya",
       "chapter": 4,
       "verse": 41,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     },
     {
       "record_id": "AIGAANE-BGM-04.042",
-      "text": "तस्मादज्ञानसंभूतं हृत्स्थं ज्ञानासिनाऽऽत्मनः।",
-      "iast": "tasmādajñānasaṃbhūtaṃ hṛtsthaṃ jñānāsinā''tmanaḥ।",
+      "text": "तस्मादज्ञानसंभूतं हृत्स्थं ज्ञानासिनाऽऽत्मनः।\nछित्त्वैनं संशयं योगमातिष्ठोत्तिष्ठ भारत",
+      "iast": "tasmād ajñāna-sambhūtaṁ hṛit-sthaṁ jñānāsinātmanaḥ\nchhittvainaṁ sanśhayaṁ yogam ātiṣhṭhottiṣhṭha bhārata",
       "chapter": 4,
       "verse": 42,
       "meter": "Anuṣṭubh",
-      "source": "DharmicData/SrimadBhagvadGita"
+      "source": "github.com/gita/gita"
     }
   ]
 }

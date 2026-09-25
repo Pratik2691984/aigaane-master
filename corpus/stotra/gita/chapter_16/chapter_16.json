@@ -1,0 +1,232 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 16",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 24,
+    "generated_at": "2026-09-25T08:57:31.159547+00:00",
+    "last_updated": "2026-09-25T08:57:31.159554+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-16.001",
+      "text": "श्री भगवानुवाच\nअभयं सत्त्वसंशुद्धिः ज्ञानयोगव्यवस्थितिः।\nदानं दमश्च यज्ञश्च स्वाध्यायस्तप आर्जवम्",
+      "iast": "śhrī-bhagavān uvācha\nabhayaṁ sattva-sanśhuddhir jñāna-yoga-vyavasthitiḥ\ndānaṁ damaśh cha yajñaśh cha svādhyāyas tapa ārjavam",
+      "chapter": 16,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.002",
+      "text": "अहिंसा सत्यमक्रोधस्त्यागः शान्तिरपैशुनम्।दया भूतेष्वलोलुप्त्वं मार्दवं ह्रीरचापलम्",
+      "iast": "ahinsā satyam akrodhas tyāgaḥ śhāntir apaiśhunam\ndayā bhūteṣhv aloluptvaṁ mārdavaṁ hrīr achāpalam",
+      "chapter": 16,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.003",
+      "text": "तेजः क्षमा धृतिः शौचमद्रोहो नातिमानिता।\nभवन्ति सम्पदं दैवीमभिजातस्य भारत",
+      "iast": "tejaḥ kṣhamā dhṛitiḥ śhaucham adroho nāti-mānitā\nbhavanti sampadaṁ daivīm abhijātasya bhārata",
+      "chapter": 16,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.004",
+      "text": "दम्भो दर्पोऽभिमानश्च क्रोधः पारुष्यमेव च।अज्ञानं चाभिजातस्य पार्थ सम्पदमासुरीम्",
+      "iast": "dambho darpo ’bhimānaśh cha krodhaḥ pāruṣhyam eva cha\najñānaṁ chābhijātasya pārtha sampadam āsurīm",
+      "chapter": 16,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.005",
+      "text": "दैवी सम्पद्विमोक्षाय निबन्धायासुरी मता।मा शुचः सम्पदं दैवीमभिजातोऽसि पाण्डव",
+      "iast": "daivī sampad vimokṣhāya nibandhāyāsurī matā\nmā śhuchaḥ sampadaṁ daivīm abhijāto ’si pāṇḍava",
+      "chapter": 16,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.006",
+      "text": "द्वौ भूतसर्गौ लोकेऽस्मिन् दैव आसुर एव च।दैवो विस्तरशः प्रोक्त आसुरं पार्थ मे श्रृणु",
+      "iast": "dvau bhūta-sargau loke ’smin daiva āsura eva cha\ndaivo vistaraśhaḥ prokta āsuraṁ pārtha me śhṛiṇu",
+      "chapter": 16,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.007",
+      "text": "प्रवृत्तिं च निवृत्तिं च जना न विदुरासुराः।न शौचं नापि चाचारो न सत्यं तेषु विद्यते",
+      "iast": "pravṛittiṁ cha nivṛittiṁ cha janā na vidur āsurāḥ\nna śhauchaṁ nāpi chāchāro na satyaṁ teṣhu vidyate",
+      "chapter": 16,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.008",
+      "text": "असत्यमप्रतिष्ठं ते जगदाहुरनीश्वरम्।अपरस्परसम्भूतं किमन्यत्कामहैतुकम्",
+      "iast": "asatyam apratiṣhṭhaṁ te jagad āhur anīśhvaram\naparaspara-sambhūtaṁ kim anyat kāma-haitukam",
+      "chapter": 16,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.009",
+      "text": "एतां दृष्टिमवष्टभ्य नष्टात्मानोऽल्पबुद्धयः।प्रभवन्त्युग्रकर्माणः क्षयाय जगतोऽहिताः",
+      "iast": "etāṁ dṛiṣhṭim avaṣhṭabhya naṣhṭātmāno ’lpa-buddhayaḥ\nprabhavanty ugra-karmāṇaḥ kṣhayāya jagato ’hitāḥ",
+      "chapter": 16,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.010",
+      "text": "काममाश्रित्य दुष्पूरं दम्भमानमदान्विताः।मोहाद्गृहीत्वासद्ग्राहान्प्रवर्तन्तेऽशुचिव्रताः",
+      "iast": "kāmam āśhritya duṣhpūraṁ dambha-māna-madānvitāḥ\nmohād gṛihītvāsad-grāhān pravartante ’śhuchi-vratāḥ",
+      "chapter": 16,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.011",
+      "text": "चिन्तामपरिमेयां च प्रलयान्तामुपाश्रिताः।कामोपभोगपरमा एतावदिति निश्िचताः",
+      "iast": "chintām aparimeyāṁ cha pralayāntām upāśhritāḥ\nkāmopabhoga-paramā etāvad iti niśhchitāḥ",
+      "chapter": 16,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.012",
+      "text": "आशापाशशतैर्बद्धाः कामक्रोधपरायणाः।ईहन्ते कामभोगार्थमन्यायेनार्थसञ्चयान्",
+      "iast": "āśhā-pāśha-śhatair baddhāḥ kāma-krodha-parāyaṇāḥ\nīhante kāma-bhogārtham anyāyenārtha-sañchayān",
+      "chapter": 16,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.013",
+      "text": "इदमद्य मया लब्धमिमं प्राप्स्ये मनोरथम्।इदमस्तीदमपि मे भविष्यति पुनर्धनम्",
+      "iast": "idam adya mayā labdham imaṁ prāpsye manoratham\nidam astīdam api me bhaviṣhyati punar dhanam",
+      "chapter": 16,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.014",
+      "text": "असौ मया हतः शत्रुर्हनिष्ये चापरानपि।ईश्वरोऽहमहं भोगी सिद्धोऽहं बलवान्सुखी",
+      "iast": "asau mayā hataḥ śhatrur haniṣhye chāparān api\nīśhvaro ’ham ahaṁ bhogī siddho ’haṁ balavān sukhī",
+      "chapter": 16,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.015",
+      "text": "आढ्योऽभिजनवानस्मि कोऽन्योऽस्ति सदृशो मया।यक्ष्ये दास्यामि मोदिष्य इत्यज्ञानविमोहिताः",
+      "iast": "āḍhyo ’bhijanavān asmi ko ’nyo ’sti sadṛiśho mayā\nyakṣhye dāsyāmi modiṣhya ity ajñāna-vimohitāḥ\naneka-chitta-vibhrāntā moha-jāla-samāvṛitāḥ\nprasaktāḥ kāma-bhogeṣhu patanti narake ’śhuchau",
+      "chapter": 16,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.016",
+      "text": "अनेकचित्तविभ्रान्ता मोहजालसमावृताः।प्रसक्ताः कामभोगेषु पतन्ति नरकेऽशुचौ",
+      "iast": "aneka-citta-vibhrāntā    moha-jāla-samāvṛtāḥ prasaktāḥ   kāma-bhogeṣu    patanti narake  'śucau",
+      "chapter": 16,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.017",
+      "text": "आत्मसम्भाविताः स्तब्धा धनमानमदान्विताः।यजन्ते नामयज्ञैस्ते दम्भेनाविधिपूर्वकम्",
+      "iast": "ātma-sambhāvitāḥ stabdhā dhana-māna-madānvitāḥ\nyajante nāma-yajñais te dambhenāvidhi-pūrvakam",
+      "chapter": 16,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.018",
+      "text": "अहङ्कारं बलं दर्पं कामं क्रोधं च संश्रिताः।मामात्मपरदेहेषु प्रद्विषन्तोऽभ्यसूयकाः",
+      "iast": "ahankāraṁ balaṁ darpaṁ kāmaṁ krodhaṁ cha sanśhritāḥ\nmām ātma-para-deheṣhu pradviṣhanto ’bhyasūyakāḥ",
+      "chapter": 16,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.019",
+      "text": "तानहं द्विषतः क्रूरान्संसारेषु नराधमान्।क्षिपाम्यजस्रमशुभानासुरीष्वेव योनिषु",
+      "iast": "tān ahaṁ dviṣhataḥ krūrān sansāreṣhu narādhamān\nkṣhipāmy ajasram aśhubhān āsurīṣhv eva yoniṣhu",
+      "chapter": 16,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.020",
+      "text": "असुरीं योनिमापन्ना मूढा जन्मनि जन्मनि।मामप्राप्यैव कौन्तेय ततो यान्त्यधमां गतिम्",
+      "iast": "āsurīṁ yonim āpannā mūḍhā janmani janmani\nmām aprāpyaiva kaunteya tato yānty adhamāṁ gatim",
+      "chapter": 16,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.021",
+      "text": "त्रिविधं नरकस्येदं द्वारं नाशनमात्मनः।कामः क्रोधस्तथा लोभस्तस्मादेतत्त्रयं त्यजेत्",
+      "iast": "tri-vidhaṁ narakasyedaṁ dvāraṁ nāśhanam ātmanaḥ\nkāmaḥ krodhas tathā lobhas tasmād etat trayaṁ tyajet",
+      "chapter": 16,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.022",
+      "text": "एतैर्विमुक्तः कौन्तेय तमोद्वारैस्त्रिभिर्नरः।आचरत्यात्मनः श्रेयस्ततो याति परां गतिम्",
+      "iast": "etair vimuktaḥ kaunteya tamo-dvārais tribhir naraḥ\nācharaty ātmanaḥ śhreyas tato yāti parāṁ gatim",
+      "chapter": 16,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.023",
+      "text": "यः शास्त्रविधिमुत्सृज्य वर्तते कामकारतः।न स सिद्धिमवाप्नोति न सुखं न परां गतिम्",
+      "iast": "yaḥ śhāstra-vidhim utsṛijya vartate kāma-kārataḥ\nna sa siddhim avāpnoti na sukhaṁ na parāṁ gatim",
+      "chapter": 16,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-16.024",
+      "text": "तस्माच्छास्त्रं प्रमाणं ते कार्याकार्यव्यवस्थितौ।ज्ञात्वा शास्त्रविधानोक्तं कर्म कर्तुमिहार्हसि",
+      "iast": "tasmāch chhāstraṁ pramāṇaṁ te kāryākārya-vyavasthitau\njñātvā śhāstra-vidhānoktaṁ karma kartum ihārhasi",
+      "chapter": 16,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}

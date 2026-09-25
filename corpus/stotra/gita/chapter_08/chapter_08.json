@@ -1,0 +1,269 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 8",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 28,
+    "generated_at": "2026-09-25T08:57:31.148128+00:00",
+    "last_updated": "2026-09-25T08:57:31.148137+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-08.001",
+      "text": "किं तद्ब्रह्म किमध्यात्मं किं कर्म पुरुषोत्तम।\nअधिभूतं च किं प्रोक्तमधिदैवं किमुच्यते",
+      "iast": "arjuna uvācha\nkiṁ tad brahma kim adhyātmaṁ kiṁ karma puruṣhottama\nadhibhūtaṁ cha kiṁ proktam adhidaivaṁ kim uchyate",
+      "chapter": 8,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita",
+      "speaker": "arjuna"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.002",
+      "text": "अधियज्ञः कथं कोऽत्र देहेऽस्मिन्मधुसूदन।\nप्रयाणकाले च कथं ज्ञेयोऽसि नियतात्मभिः",
+      "iast": "adhiyajñaḥ kathaṁ ko ’tra dehe ’smin madhusūdana\nprayāṇa-kāle cha kathaṁ jñeyo ’si niyatātmabhiḥ",
+      "chapter": 8,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.003",
+      "text": "श्री भगवानुवाच\nअक्षरं ब्रह्म परमं स्वभावोऽध्यात्ममुच्यते।\nभूतभावोद्भवकरो विसर्गः कर्मसंज्ञितः",
+      "iast": "śhrī bhagavān uvācha\nakṣharaṁ brahma paramaṁ svabhāvo ’dhyātmam uchyate\nbhūta-bhāvodbhava-karo visargaḥ karma-sanjñitaḥ",
+      "chapter": 8,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.004",
+      "text": "अधिभूतं क्षरो भावः पुरुषश्चाधिदैवतम्।\nअधियज्ञोऽहमेवात्र देहे देहभृतां वर",
+      "iast": "adhibhūtaṁ kṣharo bhāvaḥ puruṣhaśh chādhidaivatam\nadhiyajño ’ham evātra dehe deha-bhṛitāṁ vara",
+      "chapter": 8,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.005",
+      "text": "अन्तकाले च मामेव स्मरन्मुक्त्वा कलेवरम्।\nयः प्रयाति स मद्भावं याति नास्त्यत्र संशयः",
+      "iast": "anta-kāle cha mām eva smaran muktvā kalevaram\nyaḥ prayāti sa mad-bhāvaṁ yāti nāstyatra sanśhayaḥ",
+      "chapter": 8,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.006",
+      "text": "यं यं वापि स्मरन्भावं त्यजत्यन्ते कलेवरम्।\nतं तमेवैति कौन्तेय सदा तद्भावभावितः",
+      "iast": "yaṁ yaṁ vāpi smaran bhāvaṁ tyajatyante kalevaram\ntaṁ tam evaiti kaunteya sadā tad-bhāva-bhāvitaḥ",
+      "chapter": 8,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.007",
+      "text": "तस्मात्सर्वेषु कालेषु मामनुस्मर युध्य च।\nमय्यर्पितमनोबुद्धिर्मामेवैष्यस्यसंशयम्",
+      "iast": "tasmāt sarveṣhu kāleṣhu mām anusmara yudhya cha\nmayyarpita-mano-buddhir mām evaiṣhyasyasanśhayam",
+      "chapter": 8,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.008",
+      "text": "अभ्यासयोगयुक्तेन चेतसा नान्यगामिना।\nपरमं पुरुषं दिव्यं याति पार्थानुचिन्तयन्",
+      "iast": "abhyāsa-yoga-yuktena chetasā nānya-gāminā\nparamaṁ puruṣhaṁ divyaṁ yāti pārthānuchintayan",
+      "chapter": 8,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.009",
+      "text": "कविं पुराणमनुशासितार\nमणोरणीयांसमनुस्मरेद्यः।\nसर्वस्य धातारमचिन्त्यरूप\nमादित्यवर्णं तमसः परस्तात्",
+      "iast": "kaviṁ purāṇam anuśhāsitāram\naṇor aṇīyānsam anusmared yaḥ\nsarvasya dhātāram achintya-rūpam\nāditya-varṇaṁ tamasaḥ parastāt",
+      "chapter": 8,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.010",
+      "text": "प्रयाणकाले मनसाऽचलेन\nभक्त्या युक्तो योगबलेन चैव।\nभ्रुवोर्मध्ये प्राणमावेश्य सम्यक्\nस तं परं पुरुषमुपैति दिव्यम्",
+      "iast": "prayāṇa-kāle manasāchalena\nbhaktyā yukto yoga-balena chaiva\nbhruvor madhye prāṇam āveśhya samyak\nsa taṁ paraṁ puruṣham upaiti divyam",
+      "chapter": 8,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.011",
+      "text": "यदक्षरं वेदविदो वदन्ति\nविशन्ति यद्यतयो वीतरागाः।\nयदिच्छन्तो ब्रह्मचर्यं चरन्ति\nतत्ते पदं संग्रहेण प्रवक्ष्ये",
+      "iast": "yad akṣharaṁ veda-vido vadanti\nviśhanti yad yatayo vīta-rāgāḥ\nyad ichchhanto brahmacharyaṁ charanti\ntat te padaṁ saṅgraheṇa pravakṣhye",
+      "chapter": 8,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.012",
+      "text": "सर्वद्वाराणि संयम्य मनो हृदि निरुध्य च।\nमूर्ध्न्याधायात्मनः प्राणमास्थितो योगधारणाम्",
+      "iast": "sarva-dvārāṇi sanyamya mano hṛidi nirudhya cha\nmūrdhnyādhāyātmanaḥ prāṇam āsthito yoga-dhāraṇām",
+      "chapter": 8,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.013",
+      "text": "ओमित्येकाक्षरं ब्रह्म व्याहरन्मामनुस्मरन्।\nयः प्रयाति त्यजन्देहं स याति परमां गतिम्",
+      "iast": "oṁ ityekākṣharaṁ brahma vyāharan mām anusmaran\nyaḥ prayāti tyajan dehaṁ sa yāti paramāṁ gatim",
+      "chapter": 8,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.014",
+      "text": "अनन्यचेताः सततं यो मां स्मरति नित्यशः।\nतस्याहं सुलभः पार्थ नित्ययुक्तस्य योगिनः",
+      "iast": "ananya-chetāḥ satataṁ yo māṁ smarati nityaśhaḥ\ntasyāhaṁ sulabhaḥ pārtha nitya-yuktasya yoginaḥ",
+      "chapter": 8,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.015",
+      "text": "मामुपेत्य पुनर्जन्म दुःखालयमशाश्वतम्।\nनाप्नुवन्ति महात्मानः संसिद्धिं परमां गताः",
+      "iast": "mām upetya punar janma duḥkhālayam aśhāśhvatam\nnāpnuvanti mahātmānaḥ sansiddhiṁ paramāṁ gatāḥ",
+      "chapter": 8,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.016",
+      "text": "आब्रह्मभुवनाल्लोकाः पुनरावर्तिनोऽर्जुन।\nमामुपेत्य तु कौन्तेय पुनर्जन्म न विद्यते",
+      "iast": "ā-brahma-bhuvanāl lokāḥ punar āvartino ’rjuna\nmām upetya tu kaunteya punar janma na vidyate",
+      "chapter": 8,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.017",
+      "text": "सहस्रयुगपर्यन्तमहर्यद्ब्रह्मणो विदुः।\nरात्रिं युगसहस्रान्तां तेऽहोरात्रविदो जनाः",
+      "iast": "sahasra-yuga-paryantam ahar yad brahmaṇo viduḥ\nrātriṁ yuga-sahasrāntāṁ te ’ho-rātra-vido janāḥ",
+      "chapter": 8,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.018",
+      "text": "अव्यक्ताद्व्यक्तयः सर्वाः प्रभवन्त्यहरागमे।\nरात्र्यागमे प्रलीयन्ते तत्रैवाव्यक्तसंज्ञके",
+      "iast": "avyaktād vyaktayaḥ sarvāḥ prabhavantyahar-āgame\nrātryāgame pralīyante tatraivāvyakta-sanjñake",
+      "chapter": 8,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.019",
+      "text": "भूतग्रामः स एवायं भूत्वा भूत्वा प्रलीयते।\nरात्र्यागमेऽवशः पार्थ प्रभवत्यहरागमे",
+      "iast": "bhūta-grāmaḥ sa evāyaṁ bhūtvā bhūtvā pralīyate\nrātryāgame ’vaśhaḥ pārtha prabhavatyahar-āgame",
+      "chapter": 8,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.020",
+      "text": "परस्तस्मात्तु भावोऽन्योऽव्यक्तोऽव्यक्तात्सनातनः।\nयः स सर्वेषु भूतेषु नश्यत्सु न विनश्यति",
+      "iast": "paras tasmāt tu bhāvo ’nyo ’vyakto ’vyaktāt sanātanaḥ\nyaḥ sa sarveṣhu bhūteṣhu naśhyatsu na vinaśhyati",
+      "chapter": 8,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.021",
+      "text": "अव्यक्तोऽक्षर इत्युक्तस्तमाहुः परमां गतिम्।\nयं प्राप्य न निवर्तन्ते तद्धाम परमं मम",
+      "iast": "avyakto ’kṣhara ityuktas tam āhuḥ paramāṁ gatim\nyaṁ prāpya na nivartante tad dhāma paramaṁ mama",
+      "chapter": 8,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.022",
+      "text": "पुरुषः स परः पार्थ भक्त्या लभ्यस्त्वनन्यया।\nयस्यान्तःस्थानि भूतानि येन सर्वमिदं ततम्",
+      "iast": "puruṣhaḥ sa paraḥ pārtha bhaktyā labhyas tvananyayā\nyasyāntaḥ-sthāni bhūtāni yena sarvam idaṁ tatam",
+      "chapter": 8,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.023",
+      "text": "यत्र काले त्वनावृत्तिमावृत्तिं चैव योगिनः।\nप्रयाता यान्ति तं कालं वक्ष्यामि भरतर्षभ",
+      "iast": "yatra kāle tvanāvṛittim āvṛittiṁ chaiva yoginaḥ\nprayātā yānti taṁ kālaṁ vakṣhyāmi bharatarṣhabha",
+      "chapter": 8,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.024",
+      "text": "अग्निर्ज्योतिरहः शुक्लः षण्मासा उत्तरायणम्।\nतत्र प्रयाता गच्छन्ति ब्रह्म ब्रह्मविदो जनाः",
+      "iast": "agnir jyotir ahaḥ śhuklaḥ ṣhaṇ-māsā uttarāyaṇam\ntatra prayātā gachchhanti brahma brahma-vido janāḥ",
+      "chapter": 8,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.025",
+      "text": "धूमो रात्रिस्तथा कृष्णः षण्मासा दक्षिणायनम्।\nतत्र चान्द्रमसं ज्योतिर्योगी प्राप्य निवर्तते",
+      "iast": "dhūmo rātris tathā kṛiṣhṇaḥ ṣhaṇ-māsā dakṣhiṇāyanam\ntatra chāndramasaṁ jyotir yogī prāpya nivartate",
+      "chapter": 8,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.026",
+      "text": "शुक्लकृष्णे गती ह्येते जगतः शाश्वते मते।\nएकया यात्यनावृत्तिमन्ययाऽऽवर्तते पुनः",
+      "iast": "śhukla-kṛiṣhṇe gatī hyete jagataḥ śhāśhvate mate\nekayā yātyanāvṛittim anyayāvartate punaḥ",
+      "chapter": 8,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.027",
+      "text": "नैते सृती पार्थ जानन्योगी मुह्यति कश्चन।\nतस्मात्सर्वेषु कालेषु योगयुक्तो भवार्जुन",
+      "iast": "naite sṛitī pārtha jānan yogī muhyati kaśhchana\ntasmāt sarveṣhu kāleṣhu yoga-yukto bhavārjuna",
+      "chapter": 8,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-08.028",
+      "text": "वेदेषु यज्ञेषु तपःसु चैव\nदानेषु यत्पुण्यफलं प्रदिष्टम्।\nअत्येति तत्सर्वमिदं विदित्वा\nयोगी परं स्थानमुपैति चाद्यम्",
+      "iast": "vedeṣhu yajñeṣhu tapaḥsu chaiva\ndāneṣhu yat puṇya-phalaṁ pradiṣhṭam\natyeti tat sarvam idaṁ viditvā\nyogī paraṁ sthānam upaiti chādyam",
+      "chapter": 8,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}

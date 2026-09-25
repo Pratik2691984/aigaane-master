@@ -1,0 +1,286 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 7",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 30,
+    "generated_at": "2026-09-25T08:57:31.146049+00:00",
+    "last_updated": "2026-09-25T08:57:31.146057+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-07.001",
+      "text": "श्री भगवानुवाच\nमय्यासक्तमनाः पार्थ योगं युञ्जन्मदाश्रयः।\nअसंशयं समग्रं मां यथा ज्ञास्यसि तच्छृणु",
+      "iast": "śhrī bhagavān uvācha\nmayyāsakta-manāḥ pārtha yogaṁ yuñjan mad-āśhrayaḥ\nasanśhayaṁ samagraṁ māṁ yathā jñāsyasi tach chhṛiṇu",
+      "chapter": 7,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.002",
+      "text": "ज्ञानं तेऽहं सविज्ञानमिदं वक्ष्याम्यशेषतः।\nयज्ज्ञात्वा नेह भूयोऽन्यज्ज्ञातव्यमवशिष्यते",
+      "iast": "jñānaṁ te ’haṁ sa-vijñānam idaṁ vakṣhyāmyaśheṣhataḥ\nyaj jñātvā neha bhūyo ’nyaj jñātavyam-avaśhiṣhyate",
+      "chapter": 7,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.003",
+      "text": "मनुष्याणां सहस्रेषु कश्िचद्यतति सिद्धये।\nयततामपि सिद्धानां कश्िचन्मां वेत्ति तत्त्वतः",
+      "iast": "manuṣhyāṇāṁ sahasreṣhu kaśhchid yatati siddhaye\nyatatām api siddhānāṁ kaśhchin māṁ vetti tattvataḥ",
+      "chapter": 7,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.004",
+      "text": "भूमिरापोऽनलो वायुः खं मनो बुद्धिरेव च।\nअहङ्कार इतीयं मे भिन्ना प्रकृतिरष्टधा",
+      "iast": "bhūmir-āpo ’nalo vāyuḥ khaṁ mano buddhir eva cha\nahankāra itīyaṁ me bhinnā prakṛitir aṣhṭadhā",
+      "chapter": 7,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.005",
+      "text": "अपरेयमितस्त्वन्यां प्रकृतिं विद्धि मे पराम्।\nजीवभूतां महाबाहो ययेदं धार्यते जगत्",
+      "iast": "apareyam itas tvanyāṁ prakṛitiṁ viddhi me parām\njīva-bhūtāṁ mahā-bāho yayedaṁ dhāryate jagat",
+      "chapter": 7,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.006",
+      "text": "एतद्योनीनि भूतानि सर्वाणीत्युपधारय।\nअहं कृत्स्नस्य जगतः प्रभवः प्रलयस्तथा",
+      "iast": "etad-yonīni bhūtāni sarvāṇītyupadhāraya\nahaṁ kṛitsnasya jagataḥ prabhavaḥ pralayas tathā",
+      "chapter": 7,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.007",
+      "text": "मत्तः परतरं नान्यत्किञ्चिदस्ति धनञ्जय।\nमयि सर्वमिदं प्रोतं सूत्रे मणिगणा इव",
+      "iast": "mattaḥ parataraṁ nānyat kiñchid asti dhanañjaya\nmayi sarvam idaṁ protaṁ sūtre maṇi-gaṇā iva",
+      "chapter": 7,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.008",
+      "text": "रसोऽहमप्सु कौन्तेय प्रभास्मि शशिसूर्ययोः।\nप्रणवः सर्ववेदेषु शब्दः खे पौरुषं नृषु",
+      "iast": "raso ’ham apsu kaunteya prabhāsmi śhaśhi-sūryayoḥ\npraṇavaḥ sarva-vedeṣhu śhabdaḥ khe pauruṣhaṁ nṛiṣhu",
+      "chapter": 7,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.009",
+      "text": "पुण्यो गन्धः पृथिव्यां च तेजश्चास्मि विभावसौ।\nजीवनं सर्वभूतेषु तपश्चास्मि तपस्विषु",
+      "iast": "puṇyo gandhaḥ pṛithivyāṁ cha tejaśh chāsmi vibhāvasau\njīvanaṁ sarva-bhūteṣhu tapaśh chāsmi tapasviṣhu",
+      "chapter": 7,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.010",
+      "text": "बीजं मां सर्वभूतानां विद्धि पार्थ सनातनम्।\nबुद्धिर्बुद्धिमतामस्मि तेजस्तेजस्विनामहम्",
+      "iast": "bījaṁ māṁ sarva-bhūtānāṁ viddhi pārtha sanātanam\nbuddhir buddhimatām asmi tejas tejasvinām aham",
+      "chapter": 7,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.011",
+      "text": "बलं बलवतां चाहं कामरागविवर्जितम्।\nधर्माविरुद्धो भूतेषु कामोऽस्मि भरतर्षभ",
+      "iast": "balaṁ balavatāṁ chāhaṁ kāma-rāga-vivarjitam\ndharmāviruddho bhūteṣhu kāmo ’smi bharatarṣhabha",
+      "chapter": 7,
+      "verse": 11,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.012",
+      "text": "ये चैव सात्त्विका भावा राजसास्तामसाश्च ये।\nमत्त एवेति तान्विद्धि नत्वहं तेषु ते मयि",
+      "iast": "ye chaiva sāttvikā bhāvā rājasās tāmasāśh cha ye\nmatta eveti tān viddhi na tvahaṁ teṣhu te mayi",
+      "chapter": 7,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.013",
+      "text": "त्रिभिर्गुणमयैर्भावैरेभिः सर्वमिदं जगत्।\nमोहितं नाभिजानाति मामेभ्यः परमव्ययम्",
+      "iast": "tribhir guṇa-mayair bhāvair ebhiḥ sarvam idaṁ jagat\nmohitaṁ nābhijānāti māmebhyaḥ param avyayam",
+      "chapter": 7,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.014",
+      "text": "दैवी ह्येषा गुणमयी मम माया दुरत्यया।\nमामेव ये प्रपद्यन्ते मायामेतां तरन्ति ते",
+      "iast": "daivī hyeṣhā guṇa-mayī mama māyā duratyayā\nmām eva ye prapadyante māyām etāṁ taranti te",
+      "chapter": 7,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.015",
+      "text": "न मां दुष्कृतिनो मूढाः प्रपद्यन्ते नराधमाः।\nमाययापहृतज्ञाना आसुरं भावमाश्रिताः",
+      "iast": "na māṁ duṣhkṛitino mūḍhāḥ prapadyante narādhamāḥ\nmāyayāpahṛita-jñānā āsuraṁ bhāvam āśhritāḥ",
+      "chapter": 7,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.016",
+      "text": "चतुर्विधा भजन्ते मां जनाः सुकृतिनोऽर्जुन।\nआर्तो जिज्ञासुरर्थार्थी ज्ञानी च भरतर्षभ",
+      "iast": "chatur-vidhā bhajante māṁ janāḥ sukṛitino ’rjuna\nārto jijñāsur arthārthī jñānī cha bharatarṣhabha",
+      "chapter": 7,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.017",
+      "text": "तेषां ज्ञानी नित्ययुक्त एकभक्ितर्विशिष्यते।\nप्रियो हि ज्ञानिनोऽत्यर्थमहं स च मम प्रियः",
+      "iast": "teṣhāṁ jñānī nitya-yukta eka-bhaktir viśhiṣhyate\npriyo hi jñānino ’tyartham ahaṁ sa cha mama priyaḥ",
+      "chapter": 7,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.018",
+      "text": "उदाराः सर्व एवैते ज्ञानी त्वात्मैव मे मतम्।\nआस्थितः स हि युक्तात्मा मामेवानुत्तमां गतिम्",
+      "iast": "udārāḥ sarva evaite jñānī tvātmaiva me matam\nāsthitaḥ sa hi yuktātmā mām evānuttamāṁ gatim",
+      "chapter": 7,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.019",
+      "text": "बहूनां जन्मनामन्ते ज्ञानवान्मां प्रपद्यते।\nवासुदेवः सर्वमिति स महात्मा सुदुर्लभः",
+      "iast": "bahūnāṁ janmanām ante jñānavān māṁ prapadyate\nvāsudevaḥ sarvam iti sa mahātmā su-durlabhaḥ",
+      "chapter": 7,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.020",
+      "text": "कामैस्तैस्तैर्हृतज्ञानाः प्रपद्यन्तेऽन्यदेवताः।\nतं तं नियममास्थाय प्रकृत्या नियताः स्वया",
+      "iast": "kāmais tais tair hṛita-jñānāḥ prapadyante ’nya-devatāḥ\ntaṁ taṁ niyamam āsthāya prakṛityā niyatāḥ svayā",
+      "chapter": 7,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.021",
+      "text": "यो यो यां यां तनुं भक्तः श्रद्धयार्चितुमिच्छति।\nतस्य तस्याचलां श्रद्धां तामेव विदधाम्यहम्",
+      "iast": "yo yo yāṁ yāṁ tanuṁ bhaktaḥ śhraddhayārchitum ichchhati\ntasya tasyāchalāṁ śhraddhāṁ tām eva vidadhāmyaham",
+      "chapter": 7,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.022",
+      "text": "स तया श्रद्धया युक्तस्तस्याराधनमीहते।\nलभते च ततः कामान्मयैव विहितान् हि तान्",
+      "iast": "sa tayā śhraddhayā yuktas tasyārādhanam īhate\nlabhate cha tataḥ kāmān mayaiva vihitān hi tān",
+      "chapter": 7,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.023",
+      "text": "अन्तवत्तु फलं तेषां तद्भवत्यल्पमेधसाम्।\nदेवान्देवयजो यान्ति मद्भक्ता यान्ति मामपि",
+      "iast": "antavat tu phalaṁ teṣhāṁ tad bhavatyalpa-medhasām\ndevān deva-yajo yānti mad-bhaktā yānti mām api",
+      "chapter": 7,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.024",
+      "text": "अव्यक्तं व्यक्ितमापन्नं मन्यन्ते मामबुद्धयः।\nपरं भावमजानन्तो ममाव्ययमनुत्तमम्",
+      "iast": "avyaktaṁ vyaktim āpannaṁ manyante mām abuddhayaḥ\nparaṁ bhāvam ajānanto mamāvyayam anuttamam",
+      "chapter": 7,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.025",
+      "text": "नाहं प्रकाशः सर्वस्य योगमायासमावृतः।\nमूढोऽयं नाभिजानाति लोको मामजमव्ययम्",
+      "iast": "nāhaṁ prakāśhaḥ sarvasya yoga-māyā-samāvṛitaḥ\nmūḍho ’yaṁ nābhijānāti loko mām ajam avyayam",
+      "chapter": 7,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.026",
+      "text": "वेदाहं समतीतानि वर्तमानानि चार्जुन।\nभविष्याणि च भूतानि मां तु वेद न कश्चन",
+      "iast": "vedāhaṁ samatītāni vartamānāni chārjuna\nbhaviṣhyāṇi cha bhūtāni māṁ tu veda na kaśhchana",
+      "chapter": 7,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.027",
+      "text": "इच्छाद्वेषसमुत्थेन द्वन्द्वमोहेन भारत।\nसर्वभूतानि संमोहं सर्गे यान्ति परन्तप",
+      "iast": "ichchhā-dveṣha-samutthena dvandva-mohena bhārata\nsarva-bhūtāni sammohaṁ sarge yānti parantapa",
+      "chapter": 7,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.028",
+      "text": "येषां त्वन्तगतं पापं जनानां पुण्यकर्मणाम्।\nते द्वन्द्वमोहनिर्मुक्ता भजन्ते मां दृढव्रताः",
+      "iast": "yeṣhāṁ tvanta-gataṁ pāpaṁ janānāṁ puṇya-karmaṇām\nte dvandva-moha-nirmuktā bhajante māṁ dṛiḍha-vratāḥ",
+      "chapter": 7,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.029",
+      "text": "जरामरणमोक्षाय मामाश्रित्य यतन्ति ये।\nते ब्रह्म तद्विदुः कृत्स्नमध्यात्मं कर्म चाखिलम्",
+      "iast": "jarā-maraṇa-mokṣhāya mām āśhritya yatanti ye\nte brahma tadviduḥ kṛitsnam adhyātmaṁ karma chākhilam",
+      "chapter": 7,
+      "verse": 29,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-07.030",
+      "text": "साधिभूताधिदैवं मां साधियज्ञं च ये विदुः।\nप्रयाणकालेऽपि च मां ते विदुर्युक्तचेतसः",
+      "iast": "sādhibhūtādhidaivaṁ māṁ sādhiyajñaṁ cha ye viduḥ\nprayāṇa-kāle ’pi cha māṁ te vidur yukta-chetasaḥ",
+      "chapter": 7,
+      "verse": 30,
+      "meter": "Anuṣṭubh",
+      "source": "github.com/gita/gita"
+    }
+  ]
+}
