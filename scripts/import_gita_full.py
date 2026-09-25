@@ -106,11 +106,19 @@ def main():
 
         raw_text = v.get('text', '') or ''
         iast_raw = v.get('transliteration', '') or ''
-
         verse_deva, speaker = split_speaker_and_verse(raw_text)
-        iast_clean, _ = split_speaker_and_verse(iast_raw)
 
-        # If speaker didn't get split (e.g. single-line verse), try IAST speaker strip
+        # For IAST, strip the speaker line independently
+        iast_clean = iast_raw
+        for iast_speaker_pattern in [
+            r'^dh[ṛr]itar[āa]ṣ[hṭ]?ra\s+uv[āa]cha\s*\n+',
+            r'^sa[ṃñ]jaya\s+uv[āa]cha\s*\n+',
+            r'^śr[īi]\s*bhagav[āa]n\s+uv[āa]cha\s*\n+',
+            r'^arjuna\s+uv[āa]cha\s*\n+',
+        ]:
+            iast_clean = re.sub(iast_speaker_pattern, '', iast_clean, flags=re.IGNORECASE)
+        iast_clean = strip_danda(iast_clean.strip())
+
         if not speaker:
             _, speaker = split_speaker_and_verse(iast_raw)
 

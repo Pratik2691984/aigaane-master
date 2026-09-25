@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 47,
-    "generated_at": "2026-09-25T08:57:31.144593+00:00",
-    "last_updated": "2026-09-25T08:57:31.144613+00:00",
+    "generated_at": "2026-09-25T08:59:43.494166+00:00",
+    "last_updated": "2026-09-25T08:59:43.494178+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -303,7 +303,7 @@
     {
       "record_id": "AIGAANE-BGM-06.033",
       "text": "योऽयं योगस्त्वया प्रोक्तः साम्येन मधुसूदन।\nएतस्याहं न पश्यामि चञ्चलत्वात् स्थितिं स्थिराम्",
-      "iast": "arjuna uvācha\nyo ’yaṁ yogas tvayā proktaḥ sāmyena madhusūdana\netasyāhaṁ na paśhyāmi chañchalatvāt sthitiṁ sthirām",
+      "iast": "yo ’yaṁ yogas tvayā proktaḥ sāmyena madhusūdana\netasyāhaṁ na paśhyāmi chañchalatvāt sthitiṁ sthirām",
       "chapter": 6,
       "verse": 33,
       "meter": "Anuṣṭubh",
@@ -340,7 +340,7 @@
     {
       "record_id": "AIGAANE-BGM-06.037",
       "text": "अयतिः श्रद्धयोपेतो योगाच्चलितमानसः।\nअप्राप्य योगसंसिद्धिं कां गतिं कृष्ण गच्छति",
-      "iast": "arjuna uvācha\nayatiḥ śhraddhayopeto yogāch chalita-mānasaḥ\naprāpya yoga-sansiddhiṁ kāṅ gatiṁ kṛiṣhṇa gachchhati",
+      "iast": "ayatiḥ śhraddhayopeto yogāch chalita-mānasaḥ\naprāpya yoga-sansiddhiṁ kāṅ gatiṁ kṛiṣhṇa gachchhati",
       "chapter": 6,
       "verse": 37,
       "meter": "Anuṣṭubh",

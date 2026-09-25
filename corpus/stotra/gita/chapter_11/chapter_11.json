@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 55,
-    "generated_at": "2026-09-25T08:57:31.152315+00:00",
-    "last_updated": "2026-09-25T08:57:31.152323+00:00",
+    "generated_at": "2026-09-25T08:59:43.500042+00:00",
+    "last_updated": "2026-09-25T08:59:43.500062+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-11.001",
       "text": "मदनुग्रहाय परमं गुह्यमध्यात्मसंज्ञितम्।\nयत्त्वयोक्तं वचस्तेन मोहोऽयं विगतो मम",
-      "iast": "arjuna uvācha\nmad-anugrahāya paramaṁ guhyam adhyātma-sanjñitam\nyat tvayoktaṁ vachas tena moho ’yaṁ vigato mama",
+      "iast": "mad-anugrahāya paramaṁ guhyam adhyātma-sanjñitam\nyat tvayoktaṁ vachas tena moho ’yaṁ vigato mama",
       "chapter": 11,
       "verse": 1,
       "meter": "Anuṣṭubh",
@@ -88,7 +88,7 @@
     {
       "record_id": "AIGAANE-BGM-11.009",
       "text": "एवमुक्त्वा ततो राजन्महायोगेश्वरो हरिः।\nदर्शयामास पार्थाय परमं रूपमैश्वरम्",
-      "iast": "sañjaya uvācha\nevam uktvā tato rājan mahā-yogeśhvaro hariḥ\ndarśhayām āsa pārthāya paramaṁ rūpam aiśhwaram",
+      "iast": "evam uktvā tato rājan mahā-yogeśhvaro hariḥ\ndarśhayām āsa pārthāya paramaṁ rūpam aiśhwaram",
       "chapter": 11,
       "verse": 9,
       "meter": "Anuṣṭubh",
@@ -143,7 +143,7 @@
     {
       "record_id": "AIGAANE-BGM-11.015",
       "text": "पश्यामि देवांस्तव देव देहे\nसर्वांस्तथा भूतविशेषसङ्घान्।\nब्रह्माणमीशं कमलासनस्थ\nमृषींश्च सर्वानुरगांश्च दिव्यान्",
-      "iast": "arjuna uvācha\npaśhyāmi devāns tava deva dehe\nsarvāns tathā bhūta-viśheṣha-saṅghān\nbrahmāṇam īśhaṁ kamalāsana-stham\nṛiṣhīnśh cha sarvān uragānśh cha divyān",
+      "iast": "paśhyāmi devāns tava deva dehe\nsarvāns tathā bhūta-viśheṣha-saṅghān\nbrahmāṇam īśhaṁ kamalāsana-stham\nṛiṣhīnśh cha sarvān uragānśh cha divyān",
       "chapter": 11,
       "verse": 15,
       "meter": "Anuṣṭubh",
@@ -243,7 +243,7 @@
     {
       "record_id": "AIGAANE-BGM-11.026",
       "text": "अमी च त्वां धृतराष्ट्रस्य पुत्राः\nसर्वे सहैवावनिपालसङ्घैः।\nभीष्मो द्रोणः सूतपुत्रस्तथाऽसौ\nसहास्मदीयैरपि योधमुख्यैः",
-      "iast": "amī cha tvāṁ dhṛitarāśhtrasya putrāḥ\nsarve sahaivāvani-pāla-saṅghaiḥ\nbhīṣhmo droṇaḥ sūta-putras tathāsau\nsahāsmadīyair api yodha-mukhyaiḥ\nvaktrāṇi te tvaramāṇā viśhanti\ndanṣhṭrā-karālāni bhayānakāni\nkechid vilagnā daśhanāntareṣhu\nsandṛiśhyante chūrṇitair uttamāṅgaiḥ",
+      "iast": "amī cha tvāṁ dhṛitarāśhtrasya putrāḥ\nsarve sahaivāvani-pāla-saṅghaiḥ\nbhīṣhmo droṇaḥ sūta-putras tathāsau\nsahāsmadīyair api yodha-mukhyaiḥ\n vaktrāṇi te tvaramāṇā viśhanti\ndanṣhṭrā-karālāni bhayānakāni\nkechid vilagnā daśhanāntareṣhu\nsandṛiśhyante chūrṇitair uttamāṅgaiḥ",
       "chapter": 11,
       "verse": 26,
       "meter": "Anuṣṭubh",
@@ -324,7 +324,7 @@
     {
       "record_id": "AIGAANE-BGM-11.035",
       "text": "एतच्छ्रुत्वा वचनं केशवस्य\nकृताञ्जलिर्वेपमानः किरीटी।\nनमस्कृत्वा भूय एवाह कृष्णं\nसगद्गदं भीतभीतः प्रणम्य",
-      "iast": "sañjaya uvācha\netach chhrutvā vachanaṁ keśhavasya\nkṛitāñjalir vepamānaḥ kirīṭī\nnamaskṛitvā bhūya evāha kṛiṣhṇaṁ\nsa-gadgadaṁ bhīta-bhītaḥ praṇamya",
+      "iast": "etach chhrutvā vachanaṁ keśhavasya\nkṛitāñjalir vepamānaḥ kirīṭī\nnamaskṛitvā bhūya evāha kṛiṣhṇaṁ\nsa-gadgadaṁ bhīta-bhītaḥ praṇamya",
       "chapter": 11,
       "verse": 35,
       "meter": "Anuṣṭubh",
@@ -334,7 +334,7 @@
     {
       "record_id": "AIGAANE-BGM-11.036",
       "text": "स्थाने हृषीकेश तव प्रकीर्त्या\nजगत् प्रहृष्यत्यनुरज्यते च।\nरक्षांसि भीतानि दिशो द्रवन्ति\nसर्वे नमस्यन्ति च सिद्धसङ्घाः",
-      "iast": "arjuna uvācha\nsthāne hṛiṣhīkeśha tava prakīrtyā\njagat prahṛiṣhyaty anurajyate cha\nrakṣhānsi bhītāni diśho dravanti\nsarve namasyanti cha siddha-saṅghāḥ",
+      "iast": "sthāne hṛiṣhīkeśha tava prakīrtyā\njagat prahṛiṣhyaty anurajyate cha\nrakṣhānsi bhītāni diśho dravanti\nsarve namasyanti cha siddha-saṅghāḥ",
       "chapter": 11,
       "verse": 36,
       "meter": "Anuṣṭubh",
@@ -461,7 +461,7 @@
     {
       "record_id": "AIGAANE-BGM-11.050",
       "text": "इत्यर्जुनं वासुदेवस्तथोक्त्वा\nस्वकं रूपं दर्शयामास भूयः।\nआश्वासयामास च भीतमेनं\nभूत्वा पुनः सौम्यवपुर्महात्मा",
-      "iast": "sañjaya uvācha\nity arjunaṁ vāsudevas tathoktvā\nsvakaṁ rūpaṁ darśhayām āsa bhūyaḥ\nāśhvāsayām āsa cha bhītam enaṁ\nbhūtvā punaḥ saumya-vapur mahātmā",
+      "iast": "ity arjunaṁ vāsudevas tathoktvā\nsvakaṁ rūpaṁ darśhayām āsa bhūyaḥ\nāśhvāsayām āsa cha bhītam enaṁ\nbhūtvā punaḥ saumya-vapur mahātmā",
       "chapter": 11,
       "verse": 50,
       "meter": "Anuṣṭubh",
@@ -471,7 +471,7 @@
     {
       "record_id": "AIGAANE-BGM-11.051",
       "text": "दृष्ट्वेदं मानुषं रूपं तवसौम्यं जनार्दन।\nइदानीमस्मि संवृत्तः सचेताः प्रकृतिं गतः",
-      "iast": "arjuna uvācha\ndṛiṣhṭvedaṁ mānuṣhaṁ rūpaṁ tava saumyaṁ janārdana\nidānīm asmi saṁvṛittaḥ sa-chetāḥ prakṛitiṁ gataḥ",
+      "iast": "dṛiṣhṭvedaṁ mānuṣhaṁ rūpaṁ tava saumyaṁ janārdana\nidānīm asmi saṁvṛittaḥ sa-chetāḥ prakṛitiṁ gataḥ",
       "chapter": 11,
       "verse": 51,
       "meter": "Anuṣṭubh",

@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 27,
-    "generated_at": "2026-09-25T08:57:31.157173+00:00",
-    "last_updated": "2026-09-25T08:57:31.157180+00:00",
+    "generated_at": "2026-09-25T08:59:43.503666+00:00",
+    "last_updated": "2026-09-25T08:59:43.503674+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -195,7 +195,7 @@
     {
       "record_id": "AIGAANE-BGM-14.021",
       "text": "",
-      "iast": "arjuna uvācha\nkair liṅgais trīn guṇān etān atīto bhavati prabho\nkim āchāraḥ kathaṁ chaitāns trīn guṇān ativartate",
+      "iast": "kair liṅgais trīn guṇān etān atīto bhavati prabho\nkim āchāraḥ kathaṁ chaitāns trīn guṇān ativartate",
       "chapter": 14,
       "verse": 21,
       "meter": "Anuṣṭubh",

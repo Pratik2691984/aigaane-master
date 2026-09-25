@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 28,
-    "generated_at": "2026-09-25T08:57:31.160780+00:00",
-    "last_updated": "2026-09-25T08:57:31.160787+00:00",
+    "generated_at": "2026-09-25T08:59:43.507077+00:00",
+    "last_updated": "2026-09-25T08:59:43.507086+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-17.001",
       "text": "",
-      "iast": "arjuna uvācha\nye śhāstra-vidhim utsṛijya yajante śhraddhayānvitāḥ\nteṣhāṁ niṣhṭhā tu kā kṛiṣhṇa sattvam āho rajas tamaḥ",
+      "iast": "ye śhāstra-vidhim utsṛijya yajante śhraddhayānvitāḥ\nteṣhāṁ niṣhṭhā tu kā kṛiṣhṇa sattvam āho rajas tamaḥ",
       "chapter": 17,
       "verse": 1,
       "meter": "Anuṣṭubh",

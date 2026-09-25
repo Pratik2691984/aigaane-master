@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 35,
-    "generated_at": "2026-09-25T08:57:31.155688+00:00",
-    "last_updated": "2026-09-25T08:57:31.155696+00:00",
+    "generated_at": "2026-09-25T08:59:43.502482+00:00",
+    "last_updated": "2026-09-25T08:59:43.502502+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-13.001",
       "text": "प्रकृतिं पुरुषं चैव क्षेत्रं क्षेत्रज्ञमेव च।\nएतद्वेदितुमिच्छामि ज्ञानं ज्ञेयं च केशव",
-      "iast": "arjuna uvācha\nprakṛitiṁ puruṣhaṁ chaiva kṣhetraṁ kṣhetra-jñam eva cha\netad veditum ichchhāmi jñānaṁ jñeyaṁ cha keśhava",
+      "iast": "prakṛitiṁ puruṣhaṁ chaiva kṣhetraṁ kṣhetra-jñam eva cha\netad veditum ichchhāmi jñānaṁ jñeyaṁ cha keśhava",
       "chapter": 13,
       "verse": 1,
       "meter": "Anuṣṭubh",

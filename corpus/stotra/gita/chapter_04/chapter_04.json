@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 42,
-    "generated_at": "2026-09-25T08:57:31.141739+00:00",
-    "last_updated": "2026-09-25T08:57:31.141748+00:00",
+    "generated_at": "2026-09-25T08:59:43.490483+00:00",
+    "last_updated": "2026-09-25T08:59:43.490490+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -42,7 +42,7 @@
     {
       "record_id": "AIGAANE-BGM-04.004",
       "text": "अपरं भवतो जन्म परं जन्म विवस्वतः।\nकथमेतद्विजानीयां त्वमादौ प्रोक्तवानिति",
-      "iast": "arjuna uvācha\naparaṁ bhavato janma paraṁ janma vivasvataḥ\nkatham etad vijānīyāṁ tvam ādau proktavān iti",
+      "iast": "aparaṁ bhavato janma paraṁ janma vivasvataḥ\nkatham etad vijānīyāṁ tvam ādau proktavān iti",
       "chapter": 4,
       "verse": 4,
       "meter": "Anuṣṭubh",
@@ -268,7 +268,7 @@
     {
       "record_id": "AIGAANE-BGM-04.029",
       "text": "अपाने जुह्वति प्राण प्राणेऽपानं तथाऽपरे।\nप्राणापानगती रुद्ध्वा प्राणायामपरायणाः",
-      "iast": "apāne juhvati prāṇaṁ prāṇe ’pānaṁ tathāpare\nprāṇāpāna-gatī ruddhvā prāṇāyāma-parāyaṇāḥ\napare niyatāhārāḥ prāṇān prāṇeṣhu juhvati\nsarve ’pyete yajña-vido yajña-kṣhapita-kalmaṣhāḥ",
+      "iast": "apāne juhvati prāṇaṁ prāṇe ’pānaṁ tathāpare\nprāṇāpāna-gatī ruddhvā prāṇāyāma-parāyaṇāḥ\n apare niyatāhārāḥ prāṇān prāṇeṣhu juhvati\nsarve ’pyete yajña-vido yajña-kṣhapita-kalmaṣhāḥ",
       "chapter": 4,
       "verse": 29,
       "meter": "Anuṣṭubh",
@@ -277,7 +277,7 @@
     {
       "record_id": "AIGAANE-BGM-04.030",
       "text": "अपरे नियताहाराः प्राणान्प्राणेषु जुह्वति।\nसर्वेऽप्येते यज्ञविदो यज्ञक्षपितकल्मषाः",
-      "iast": "apare niyatāhārāḥ prāṇān  prāṇeṣu juhvati\nsarve py 'ete yajña-vido yajña-kṣapita-kalmaṣāḥ",
+      "iast": "apare niyatāhārāḥ prāṇān  prāṇeṣu juhvati\n\nsarve py 'ete yajña-vido yajña-kṣapita-kalmaṣāḥ",
       "chapter": 4,
       "verse": 30,
       "meter": "Anuṣṭubh",

@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 78,
-    "generated_at": "2026-09-25T08:57:31.162208+00:00",
-    "last_updated": "2026-09-25T08:57:31.162215+00:00",
+    "generated_at": "2026-09-25T08:59:43.508254+00:00",
+    "last_updated": "2026-09-25T08:59:43.508262+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-18.001",
       "text": "संन्यासस्य महाबाहो तत्त्वमिच्छामि वेदितुम्।\nत्यागस्य च हृषीकेश पृथक्केशिनिषूदन",
-      "iast": "arjuna uvācha\nsannyāsasya mahā-bāho tattvam ichchhāmi veditum\ntyāgasya cha hṛiṣhīkeśha pṛithak keśhi-niṣhūdana",
+      "iast": "sannyāsasya mahā-bāho tattvam ichchhāmi veditum\ntyāgasya cha hṛiṣhīkeśha pṛithak keśhi-niṣhūdana",
       "chapter": 18,
       "verse": 1,
       "meter": "Anuṣṭubh",
@@ -331,7 +331,7 @@
     {
       "record_id": "AIGAANE-BGM-18.036",
       "text": "सुखं त्विदानीं त्रिविधं श्रृणु मे भरतर्षभ।अभ्यासाद्रमते यत्र दुःखान्तं च निगच्छति",
-      "iast": "sukhaṁ tv idānīṁ tri-vidhaṁ śhṛiṇu me bharatarṣhabha\nabhyāsād ramate yatra duḥkhāntaṁ cha nigachchhati\nyat tad agre viṣham iva pariṇāme ‘mṛitopamam\ntat sukhaṁ sāttvikaṁ proktam ātma-buddhi-prasāda-jam",
+      "iast": "sukhaṁ tv idānīṁ tri-vidhaṁ śhṛiṇu me bharatarṣhabha\nabhyāsād ramate yatra duḥkhāntaṁ cha nigachchhati\n yat tad agre viṣham iva pariṇāme ‘mṛitopamam\ntat sukhaṁ sāttvikaṁ proktam ātma-buddhi-prasāda-jam",
       "chapter": 18,
       "verse": 36,
       "meter": "Anuṣṭubh",
@@ -664,7 +664,7 @@
     {
       "record_id": "AIGAANE-BGM-18.073",
       "text": "",
-      "iast": "arjuna uvācha\nnaṣhṭo mohaḥ smṛitir labdhā tvat-prasādān mayāchyuta\nsthito ‘smi gata-sandehaḥ kariṣhye vachanaṁ tava",
+      "iast": "naṣhṭo mohaḥ smṛitir labdhā tvat-prasādān mayāchyuta\nsthito ‘smi gata-sandehaḥ kariṣhye vachanaṁ tava",
       "chapter": 18,
       "verse": 73,
       "meter": "Anuṣṭubh",
@@ -674,7 +674,7 @@
     {
       "record_id": "AIGAANE-BGM-18.074",
       "text": "",
-      "iast": "sañjaya uvācha\nity ahaṁ vāsudevasya pārthasya cha mahātmanaḥ\nsaṁvādam imam aśhrauṣham adbhutaṁ roma-harṣhaṇam",
+      "iast": "ity ahaṁ vāsudevasya pārthasya cha mahātmanaḥ\nsaṁvādam imam aśhrauṣham adbhutaṁ roma-harṣhaṇam",
       "chapter": 18,
       "verse": 74,
       "meter": "Anuṣṭubh",

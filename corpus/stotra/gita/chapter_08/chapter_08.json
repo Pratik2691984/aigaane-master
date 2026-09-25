@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 28,
-    "generated_at": "2026-09-25T08:57:31.148128+00:00",
-    "last_updated": "2026-09-25T08:57:31.148137+00:00",
+    "generated_at": "2026-09-25T08:59:43.496604+00:00",
+    "last_updated": "2026-09-25T08:59:43.496612+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-08.001",
       "text": "किं तद्ब्रह्म किमध्यात्मं किं कर्म पुरुषोत्तम।\nअधिभूतं च किं प्रोक्तमधिदैवं किमुच्यते",
-      "iast": "arjuna uvācha\nkiṁ tad brahma kim adhyātmaṁ kiṁ karma puruṣhottama\nadhibhūtaṁ cha kiṁ proktam adhidaivaṁ kim uchyate",
+      "iast": "kiṁ tad brahma kim adhyātmaṁ kiṁ karma puruṣhottama\nadhibhūtaṁ cha kiṁ proktam adhidaivaṁ kim uchyate",
       "chapter": 8,
       "verse": 1,
       "meter": "Anuṣṭubh",

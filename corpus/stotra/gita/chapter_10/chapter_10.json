@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 42,
-    "generated_at": "2026-09-25T08:57:31.151049+00:00",
-    "last_updated": "2026-09-25T08:57:31.151057+00:00",
+    "generated_at": "2026-09-25T08:59:43.498829+00:00",
+    "last_updated": "2026-09-25T08:59:43.498849+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -114,7 +114,7 @@
     {
       "record_id": "AIGAANE-BGM-10.012",
       "text": "परं ब्रह्म परं धाम पवित्रं परमं भवान्।\nपुरुषं शाश्वतं दिव्यमादिदेवमजं विभुम्",
-      "iast": "arjuna uvācha\nparaṁ brahma paraṁ dhāma pavitraṁ paramaṁ bhavān\npuruṣhaṁ śhāśhvataṁ divyam ādi-devam ajaṁ vibhum",
+      "iast": "paraṁ brahma paraṁ dhāma pavitraṁ paramaṁ bhavān\npuruṣhaṁ śhāśhvataṁ divyam ādi-devam ajaṁ vibhum",
       "chapter": 10,
       "verse": 12,
       "meter": "Anuṣṭubh",
@@ -304,7 +304,7 @@
     {
       "record_id": "AIGAANE-BGM-10.033",
       "text": "अक्षराणामकारोऽस्मि द्वन्द्वः सामासिकस्य च।\nअहमेवाक्षयः कालो धाताऽहं विश्वतोमुखः",
-      "iast": "अहमेवाक्षय: कालो धाताहं विश्वतोमुख: || 33||\nakṣharāṇām a-kāro ’smi dvandvaḥ sāmāsikasya cha\naham evākṣhayaḥ kālo dhātāhaṁ viśhvato-mukhaḥ",
+      "iast": "अहमेवाक्षय: कालो धाताहं विश्वतोमुख: || 33||\n\nakṣharāṇām a-kāro ’smi dvandvaḥ sāmāsikasya cha\naham evākṣhayaḥ kālo dhātāhaṁ viśhvato-mukhaḥ",
       "chapter": 10,
       "verse": 33,
       "meter": "Anuṣṭubh",

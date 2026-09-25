@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 47,
-    "generated_at": "2026-09-25T08:57:31.136398+00:00",
-    "last_updated": "2026-09-25T08:57:31.136411+00:00",
+    "generated_at": "2026-09-25T08:59:43.486315+00:00",
+    "last_updated": "2026-09-25T08:59:43.486329+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -25,7 +25,7 @@
     {
       "record_id": "AIGAANE-BGM-01.002",
       "text": "दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा।\nआचार्यमुपसङ्गम्य राजा वचनमब्रवीत्",
-      "iast": "sañjaya uvācha\ndṛiṣhṭvā tu pāṇḍavānīkaṁ vyūḍhaṁ duryodhanastadā\nāchāryamupasaṅgamya rājā vachanamabravīt",
+      "iast": "dṛiṣhṭvā tu pāṇḍavānīkaṁ vyūḍhaṁ duryodhanastadā\nāchāryamupasaṅgamya rājā vachanamabravīt",
       "chapter": 1,
       "verse": 2,
       "meter": "Anuṣṭubh",
@@ -197,7 +197,7 @@
     {
       "record_id": "AIGAANE-BGM-01.021",
       "text": "हृषीकेशं तदा वाक्यमिदमाह महीपते।\nसेनयोरुभयोर्मध्ये रथं स्थापय मेऽच्युत",
-      "iast": "arjuna uvācha\nsenayor ubhayor madhye rathaṁ sthāpaya me ’chyuta",
+      "iast": "senayor ubhayor madhye rathaṁ sthāpaya me ’chyuta",
       "chapter": 1,
       "verse": 21,
       "meter": "Anuṣṭubh",
@@ -225,7 +225,7 @@
     {
       "record_id": "AIGAANE-BGM-01.024",
       "text": "एवमुक्तो हृषीकेशो गुडाकेशेन भारत।\nसेनयोरुभयोर्मध्ये स्थापयित्वा रथोत्तमम्",
-      "iast": "sañjaya uvācha\nevam ukto hṛiṣhīkeśho guḍākeśhena bhārata\nsenayor ubhayor madhye sthāpayitvā rathottamam",
+      "iast": "evam ukto hṛiṣhīkeśho guḍākeśhena bhārata\nsenayor ubhayor madhye sthāpayitvā rathottamam",
       "chapter": 1,
       "verse": 24,
       "meter": "Anuṣṭubh",
@@ -262,7 +262,7 @@
     {
       "record_id": "AIGAANE-BGM-01.028",
       "text": "कृपया परयाऽऽविष्टो विषीदन्निदमब्रवीत्।\nदृष्ट्वेमं स्वजनं कृष्ण युयुत्सुं समुपस्थितम्",
-      "iast": "arjuna uvācha\ndṛiṣhṭvemaṁ sva-janaṁ kṛiṣhṇa yuyutsuṁ samupasthitam",
+      "iast": "dṛiṣhṭvemaṁ sva-janaṁ kṛiṣhṇa yuyutsuṁ samupasthitam",
       "chapter": 1,
       "verse": 28,
       "meter": "Anuṣṭubh",
@@ -344,7 +344,7 @@
     {
       "record_id": "AIGAANE-BGM-01.037",
       "text": "तस्मान्नार्हा वयं हन्तुं धार्तराष्ट्रान्स्वबान्धवान्।\nस्वजनं हि कथं हत्वा सुखिनः स्याम माधव",
-      "iast": "tasmān nārhā vayaṁ hantuṁ dhārtarāṣhṭrān sa-bāndhavān\nsva-janaṁ hi kathaṁ hatvā sukhinaḥ syāma mādhava",
+      "iast": "tasmān nārhā vayaṁ hantuṁ dhārtarāṣhṭrān sa-bāndhavān \nsva-janaṁ hi kathaṁ hatvā sukhinaḥ syāma mādhava",
       "chapter": 1,
       "verse": 37,
       "meter": "Anuṣṭubh",
@@ -434,7 +434,7 @@
     {
       "record_id": "AIGAANE-BGM-01.047",
       "text": "एवमुक्त्वाऽर्जुनः संख्ये रथोपस्थ उपाविशत्।\nविसृज्य सशरं चापं शोकसंविग्नमानसः",
-      "iast": "sañjaya uvācha\nevam uktvārjunaḥ saṅkhye rathopastha upāviśhat\nvisṛijya sa-śharaṁ chāpaṁ śhoka-saṁvigna-mānasaḥ",
+      "iast": "evam uktvārjunaḥ saṅkhye rathopastha upāviśhat\nvisṛijya sa-śharaṁ chāpaṁ śhoka-saṁvigna-mānasaḥ",
       "chapter": 1,
       "verse": 47,
       "meter": "Anuṣṭubh",

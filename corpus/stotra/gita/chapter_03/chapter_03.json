@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 43,
-    "generated_at": "2026-09-25T08:57:31.139911+00:00",
-    "last_updated": "2026-09-25T08:57:31.139920+00:00",
+    "generated_at": "2026-09-25T08:59:43.489247+00:00",
+    "last_updated": "2026-09-25T08:59:43.489268+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-03.001",
       "text": "ज्यायसी चेत्कर्मणस्ते मता बुद्धिर्जनार्दन।\nतत्किं कर्मणि घोरे मां नियोजयसि केशव",
-      "iast": "arjuna uvācha\njyāyasī chet karmaṇas te matā buddhir janārdana\ntat kiṁ karmaṇi ghore māṁ niyojayasi keśhava",
+      "iast": "jyāyasī chet karmaṇas te matā buddhir janārdana\ntat kiṁ karmaṇi ghore māṁ niyojayasi keśhava",
       "chapter": 3,
       "verse": 1,
       "meter": "Anuṣṭubh",
@@ -331,7 +331,7 @@
     {
       "record_id": "AIGAANE-BGM-03.036",
       "text": "अथ केन प्रयुक्तोऽयं पापं चरति पूरुषः।\nअनिच्छन्नपि वार्ष्णेय बलादिव नियोजितः",
-      "iast": "arjuna uvācha\natha kena prayukto ’yaṁ pāpaṁ charati pūruṣhaḥ\nanichchhann api vārṣhṇeya balād iva niyojitaḥ",
+      "iast": "atha kena prayukto ’yaṁ pāpaṁ charati pūruṣhaḥ\nanichchhann api vārṣhṇeya balād iva niyojitaḥ",
       "chapter": 3,
       "verse": 36,
       "meter": "Anuṣṭubh",

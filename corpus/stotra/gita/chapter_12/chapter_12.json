@@ -6,8 +6,8 @@
     "cabinet": "CABINET_SMRITI_ITIHASA",
     "room": "MAHABHARATA_GITA",
     "record_count": 20,
-    "generated_at": "2026-09-25T08:57:31.154441+00:00",
-    "last_updated": "2026-09-25T08:57:31.154468+00:00",
+    "generated_at": "2026-09-25T08:59:43.501512+00:00",
+    "last_updated": "2026-09-25T08:59:43.501519+00:00",
     "line_endings": "LF",
     "encoding": "UTF-8-NOBOM"
   },
@@ -15,7 +15,7 @@
     {
       "record_id": "AIGAANE-BGM-12.001",
       "text": "",
-      "iast": "arjuna uvācha\nevaṁ satata-yuktā ye bhaktās tvāṁ paryupāsate\nye chāpy akṣharam avyaktaṁ teṣhāṁ ke yoga-vittamāḥ",
+      "iast": "evaṁ satata-yuktā ye bhaktās tvāṁ paryupāsate\nye chāpy akṣharam avyaktaṁ teṣhāṁ ke yoga-vittamāḥ",
       "chapter": 12,
       "verse": 1,
       "meter": "Anuṣṭubh",
@@ -34,7 +34,7 @@
     {
       "record_id": "AIGAANE-BGM-12.003",
       "text": "ये त्वक्षरमनिर्देश्यमव्यक्तं पर्युपासते।सर्वत्रगमचिन्त्यं च कूटस्थमचलं ध्रुवम्",
-      "iast": "ye tv akṣharam anirdeśhyam avyaktaṁ paryupāsate\nsarvatra-gam achintyañcha kūṭa-stham achalandhruvam\nsanniyamyendriya-grāmaṁ sarvatra sama-buddhayaḥ\nte prāpnuvanti mām eva sarva-bhūta-hite ratāḥ",
+      "iast": "ye tv akṣharam anirdeśhyam avyaktaṁ paryupāsate\nsarvatra-gam achintyañcha kūṭa-stham achalandhruvam\n sanniyamyendriya-grāmaṁ sarvatra sama-buddhayaḥ\nte prāpnuvanti mām eva sarva-bhūta-hite ratāḥ",
       "chapter": 12,
       "verse": 3,
       "meter": "Anuṣṭubh",
