@@ -23,5 +23,40 @@
   "dedupedUniqueOnDisk": 45,
   "status": "INCOMPLETE",
   "blockReason": "discovered 45 < target 2000; do not promote",
-  "note": "1341 is a pipeline design figure, not loaded inventory. Targets are metadata only."
+  "note": "1341 is a pipeline design figure, not loaded inventory. Targets are metadata only.",
+  "texts": {
+    "Bhagavad Gītā": {
+      "cabinet": "CABINET_SMRITI_ITIHASA",
+      "room": "MAHABHARATA_GITA",
+      "total_verses": 200,
+      "chapters": [
+        {
+          "chapter": 1,
+          "path": "corpus/stotra/gita/chapter_01/chapter_01.json",
+          "verse_count": 47
+        },
+        {
+          "chapter": 2,
+          "path": "corpus/stotra/gita/chapter_02/chapter_02.json",
+          "verse_count": 70
+        },
+        {
+          "chapter": 3,
+          "path": "corpus/stotra/gita/chapter_03/chapter_03.json",
+          "verse_count": 41
+        },
+        {
+          "chapter": 4,
+          "path": "corpus/stotra/gita/chapter_04/chapter_04.json",
+          "verse_count": 40
+        },
+        {
+          "chapter": 5,
+          "path": "corpus/stotra/gita/chapter_05/chapter_05.json",
+          "verse_count": 2
+        }
+      ],
+      "last_updated": "2026-09-25T08:43:56.892548+00:00"
+    }
+  }
 }

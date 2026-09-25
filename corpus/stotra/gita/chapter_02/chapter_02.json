@@ -1,0 +1,646 @@
+{
+  "schema_version": "2.0.0",
+  "file_metadata": {
+    "book": "Bhagavad Gītā",
+    "section": "Chapter 2",
+    "cabinet": "CABINET_SMRITI_ITIHASA",
+    "room": "MAHABHARATA_GITA",
+    "record_count": 70,
+    "generated_at": "2026-09-25T08:43:56.882342+00:00",
+    "last_updated": "2026-09-25T08:43:56.882349+00:00",
+    "line_endings": "LF",
+    "encoding": "UTF-8-NOBOM"
+  },
+  "records": [
+    {
+      "record_id": "AIGAANE-BGM-02.001",
+      "text": "तं तथा कृपयाऽविष्टमश्रुपूर्णाकुलेक्षणम्।",
+      "iast": "taṃ tathā kṛpayā'viṣṭamaśrupūrṇākulekṣaṇam।",
+      "chapter": 2,
+      "verse": 1,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.002",
+      "text": "श्री भगवानुवाच",
+      "iast": "śrī bhagavānuvāca",
+      "chapter": 2,
+      "verse": 2,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.003",
+      "text": "क्लैब्यं मा स्म गमः पार्थ नैतत्त्वय्युपपद्यते।",
+      "iast": "klibyaṃ mā sma gamaḥ pārtha nitattvayyupapadyate।",
+      "chapter": 2,
+      "verse": 3,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.004",
+      "text": "कथं भीष्ममहं संख्ये द्रोणं च मधुसूदन।",
+      "iast": "kathaṃ bhīṣmamahaṃ saṃkhye droṇaṃ ca madhusūdana।",
+      "chapter": 2,
+      "verse": 4,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.005",
+      "text": "गुरूनहत्वा हि महानुभावान्",
+      "iast": "gurūnahatvā hi mahānubhāvān",
+      "chapter": 2,
+      "verse": 5,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.006",
+      "text": "न चैतद्विद्मः कतरन्नो गरीयो",
+      "iast": "na citadvidmaḥ kataranno garīyo",
+      "chapter": 2,
+      "verse": 6,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.007",
+      "text": "कार्पण्यदोषोपहतस्वभावः",
+      "iast": "kārpaṇyadoṣopahatasvabhāvaḥ",
+      "chapter": 2,
+      "verse": 7,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.008",
+      "text": "न हि प्रपश्यामि ममापनुद्या",
+      "iast": "na hi prapaśyāmi mamāpanudyā",
+      "chapter": 2,
+      "verse": 8,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.009",
+      "text": "एवमुक्त्वा हृषीकेशं गुडाकेशः परन्तप।",
+      "iast": "evamuktvā hṛṣīkeśaṃ guḍākeśaḥ parantapa।",
+      "chapter": 2,
+      "verse": 9,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.010",
+      "text": "तमुवाच हृषीकेशः प्रहसन्निव भारत।",
+      "iast": "tamuvāca hṛṣīkeśaḥ prahasanniva bhārata।",
+      "chapter": 2,
+      "verse": 10,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.012",
+      "text": "न त्वेवाहं जातु नासं न त्वं नेमे जनाधिपाः।",
+      "iast": "na tvevāhaṃ jātu nāsaṃ na tvaṃ neme janādhipāḥ।",
+      "chapter": 2,
+      "verse": 12,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.013",
+      "text": "देहिनोऽस्मिन्यथा देहे कौमारं यौवनं जरा।",
+      "iast": "dehino'sminyathā dehe kumāraṃ yuvanaṃ jarā।",
+      "chapter": 2,
+      "verse": 13,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.014",
+      "text": "मात्रास्पर्शास्तु कौन्तेय शीतोष्णसुखदुःखदाः।",
+      "iast": "mātrāsparśāstu kunteya śītoṣṇasukhaduḥkhadāḥ।",
+      "chapter": 2,
+      "verse": 14,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.015",
+      "text": "यं हि न व्यथयन्त्येते पुरुषं पुरुषर्षभ।",
+      "iast": "yaṃ hi na vyathayantyete puruṣaṃ puruṣarṣabha।",
+      "chapter": 2,
+      "verse": 15,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.016",
+      "text": "नासतो विद्यते भावो नाभावो विद्यते सतः।",
+      "iast": "nāsato vidyate bhāvo nābhāvo vidyate sataḥ।",
+      "chapter": 2,
+      "verse": 16,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.017",
+      "text": "अविनाशि तु तद्विद्धि येन सर्वमिदं ततम्।",
+      "iast": "avināśi tu tadviddhi yena sarvamidaṃ tatam।",
+      "chapter": 2,
+      "verse": 17,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.018",
+      "text": "अन्तवन्त इमे देहा नित्यस्योक्ताः शरीरिणः।",
+      "iast": "antavanta ime dehā nityasyoktāḥ śarīriṇaḥ।",
+      "chapter": 2,
+      "verse": 18,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.019",
+      "text": "य एनं वेत्ति हन्तारं यश्चैनं मन्यते हतम्।",
+      "iast": "ya enaṃ vetti hantāraṃ yaścinaṃ manyate hatam।",
+      "chapter": 2,
+      "verse": 19,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.020",
+      "text": "न जायते म्रियते वा कदाचि",
+      "iast": "na jāyate mriyate vā kadāci",
+      "chapter": 2,
+      "verse": 20,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.021",
+      "text": "वेदाविनाशिनं नित्यं य एनमजमव्ययम्।",
+      "iast": "vedāvināśinaṃ nityaṃ ya enamajamavyayam।",
+      "chapter": 2,
+      "verse": 21,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.022",
+      "text": "वासांसि जीर्णानि यथा विहाय",
+      "iast": "vāsāṃsi jīrṇāni yathā vihāya",
+      "chapter": 2,
+      "verse": 22,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.023",
+      "text": "नैनं छिन्दन्ति शस्त्राणि नैनं दहति पावकः।",
+      "iast": "ninaṃ chindanti śastrāṇi ninaṃ dahati pāvakaḥ।",
+      "chapter": 2,
+      "verse": 23,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.024",
+      "text": "अच्छेद्योऽयमदाह्योऽयमक्लेद्योऽशोष्य एव च।",
+      "iast": "acchedyo'yamadāhyo'yamakledyo'śoṣya eva ca।",
+      "chapter": 2,
+      "verse": 24,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.025",
+      "text": "अव्यक्तोऽयमचिन्त्योऽयमविकार्योऽयमुच्यते।",
+      "iast": "avyakto'yamacintyo'yamavikāryo'yamucyate।",
+      "chapter": 2,
+      "verse": 25,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.026",
+      "text": "अथ चैनं नित्यजातं नित्यं वा मन्यसे मृतम्।",
+      "iast": "atha cinaṃ nityajātaṃ nityaṃ vā manyase mṛtam।",
+      "chapter": 2,
+      "verse": 26,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.027",
+      "text": "जातस्य हि ध्रुवो मृत्युर्ध्रुवं जन्म मृतस्य च।",
+      "iast": "jātasya hi dhruvo mṛtyurdhruvaṃ janma mṛtasya ca।",
+      "chapter": 2,
+      "verse": 27,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.028",
+      "text": "अव्यक्तादीनि भूतानि व्यक्तमध्यानि भारत।",
+      "iast": "avyaktādīni bhūtāni vyaktamadhyāni bhārata।",
+      "chapter": 2,
+      "verse": 28,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.029",
+      "text": "आश्चर्यवत्पश्यति कश्चिदेन",
+      "iast": "āścaryavatpaśyati kaścidena",
+      "chapter": 2,
+      "verse": 29,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.030",
+      "text": "देही नित्यमवध्योऽयं देहे सर्वस्य भारत।",
+      "iast": "dehī nityamavadhyo'yaṃ dehe sarvasya bhārata।",
+      "chapter": 2,
+      "verse": 30,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.031",
+      "text": "स्वधर्ममपि चावेक्ष्य न विकम्पितुमर्हसि।",
+      "iast": "svadharmamapi cāvekṣya na vikampitumarhasi।",
+      "chapter": 2,
+      "verse": 31,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.032",
+      "text": "यदृच्छया चोपपन्नं स्वर्गद्वारमपावृतम्।",
+      "iast": "yadṛcchayā copapannaṃ svargadvāramapāvṛtam।",
+      "chapter": 2,
+      "verse": 32,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.033",
+      "text": "अथ चैत्त्वमिमं धर्म्यं संग्रामं न करिष्यसि।",
+      "iast": "atha cittvamimaṃ dharmyaṃ saṃgrāmaṃ na kariṣyasi।",
+      "chapter": 2,
+      "verse": 33,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.034",
+      "text": "अकीर्तिं चापि भूतानि कथयिष्यन्ति तेऽव्ययाम्।",
+      "iast": "akīrtiṃ cāpi bhūtāni kathayiṣyanti te'vyayām।",
+      "chapter": 2,
+      "verse": 34,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.035",
+      "text": "भयाद्रणादुपरतं मंस्यन्ते त्वां महारथाः।",
+      "iast": "bhayādraṇāduparataṃ maṃsyante tvāṃ mahārathāḥ।",
+      "chapter": 2,
+      "verse": 35,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.036",
+      "text": "अवाच्यवादांश्च बहून् वदिष्यन्ति तवाहिताः।",
+      "iast": "avācyavādāṃśca bahūn vadiṣyanti tavāhitāḥ।",
+      "chapter": 2,
+      "verse": 36,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.037",
+      "text": "हतो वा प्राप्स्यसि स्वर्गं जित्वा वा भोक्ष्यसे महीम्।",
+      "iast": "hato vā prāpsyasi svargaṃ jitvā vā bhokṣyase mahīm।",
+      "chapter": 2,
+      "verse": 37,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.038",
+      "text": "सुखदुःखे समे कृत्वा लाभालाभौ जयाजयौ।",
+      "iast": "sukhaduḥkhe same kṛtvā lābhālābhu jayājayu।",
+      "chapter": 2,
+      "verse": 38,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.039",
+      "text": "एषा तेऽभिहिता सांख्ये बुद्धिर्योगे त्विमां शृणु।",
+      "iast": "eṣā te'bhihitā sāṃkhye buddhiryoge tvimāṃ śṛṇu।",
+      "chapter": 2,
+      "verse": 39,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.040",
+      "text": "नेहाभिक्रमनाशोऽस्ति प्रत्यवायो न विद्यते।",
+      "iast": "nehābhikramanāśo'sti pratyavāyo na vidyate।",
+      "chapter": 2,
+      "verse": 40,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.041",
+      "text": "व्यवसायात्मिका बुद्धिरेकेह कुरुनन्दन।",
+      "iast": "vyavasāyātmikā buddhirekeha kurunandana।",
+      "chapter": 2,
+      "verse": 41,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.042",
+      "text": "यामिमां पुष्पितां वाचं प्रवदन्त्यविपश्चितः।",
+      "iast": "yāmimāṃ puṣpitāṃ vācaṃ pravadantyavipaścitaḥ।",
+      "chapter": 2,
+      "verse": 42,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.043",
+      "text": "कामात्मानः स्वर्गपरा जन्मकर्मफलप्रदाम्।",
+      "iast": "kāmātmānaḥ svargaparā janmakarmaphalapradām।",
+      "chapter": 2,
+      "verse": 43,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.044",
+      "text": "भोगैश्वर्यप्रसक्तानां तयापहृतचेतसाम्।",
+      "iast": "bhogiśvaryaprasaktānāṃ tayāpahṛtacetasām।",
+      "chapter": 2,
+      "verse": 44,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.045",
+      "text": "त्रैगुण्यविषया वेदा निस्त्रैगुण्यो भवार्जुन।",
+      "iast": "triguṇyaviṣayā vedā nistriguṇyo bhavārjuna।",
+      "chapter": 2,
+      "verse": 45,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.046",
+      "text": "यावानर्थ उदपाने सर्वतः संप्लुतोदके।",
+      "iast": "yāvānartha udapāne sarvataḥ saṃplutodake।",
+      "chapter": 2,
+      "verse": 46,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.047",
+      "text": "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।",
+      "iast": "karmaṇyevādhikāraste mā phaleṣu kadācana।",
+      "chapter": 2,
+      "verse": 47,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.048",
+      "text": "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।",
+      "iast": "yogasthaḥ kuru karmāṇi saṅgaṃ tyaktvā dhanañjaya।",
+      "chapter": 2,
+      "verse": 48,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.049",
+      "text": "दूरेण ह्यवरं कर्म बुद्धियोगाद्धनञ्जय।",
+      "iast": "dūreṇa hyavaraṃ karma buddhiyogāddhanañjaya।",
+      "chapter": 2,
+      "verse": 49,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.050",
+      "text": "बुद्धियुक्तो जहातीह उभे सुकृतदुष्कृते।",
+      "iast": "buddhiyukto jahātīha ubhe sukṛtaduṣkṛte।",
+      "chapter": 2,
+      "verse": 50,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.051",
+      "text": "कर्मजं बुद्धियुक्ता हि फलं त्यक्त्वा मनीषिणः।",
+      "iast": "karmajaṃ buddhiyuktā hi phalaṃ tyaktvā manīṣiṇaḥ।",
+      "chapter": 2,
+      "verse": 51,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.052",
+      "text": "यदा ते मोहकलिलं बुद्धिर्व्यतितरिष्यति।",
+      "iast": "yadā te mohakalilaṃ buddhirvyatitariṣyati।",
+      "chapter": 2,
+      "verse": 52,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.053",
+      "text": "श्रुतिविप्रतिपन्ना ते यदा स्थास्यति निश्चला।",
+      "iast": "śrutivipratipannā te yadā sthāsyati niścalā।",
+      "chapter": 2,
+      "verse": 53,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.054",
+      "text": "स्थितप्रज्ञस्य का भाषा समाधिस्थस्य केशव।",
+      "iast": "sthitaprajñasya kā bhāṣā samādhisthasya keśava।",
+      "chapter": 2,
+      "verse": 54,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.056",
+      "text": "दुःखेष्वनुद्विग्नमनाः सुखेषु विगतस्पृहः।",
+      "iast": "duḥkheṣvanudvignamanāḥ sukheṣu vigataspṛhaḥ।",
+      "chapter": 2,
+      "verse": 56,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.057",
+      "text": "यः सर्वत्रानभिस्नेहस्तत्तत्प्राप्य शुभाशुभम्।",
+      "iast": "yaḥ sarvatrānabhisnehastattatprāpya śubhāśubham।",
+      "chapter": 2,
+      "verse": 57,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.058",
+      "text": "यदा संहरते चायं कूर्मोऽङ्गानीव सर्वशः।",
+      "iast": "yadā saṃharate cāyaṃ kūrmo'ṅgānīva sarvaśaḥ।",
+      "chapter": 2,
+      "verse": 58,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.059",
+      "text": "विषया विनिवर्तन्ते निराहारस्य देहिनः।",
+      "iast": "viṣayā vinivartante nirāhārasya dehinaḥ।",
+      "chapter": 2,
+      "verse": 59,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.060",
+      "text": "यततो ह्यपि कौन्तेय पुरुषस्य विपश्चितः।",
+      "iast": "yatato hyapi kunteya puruṣasya vipaścitaḥ।",
+      "chapter": 2,
+      "verse": 60,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.061",
+      "text": "तानि सर्वाणि संयम्य युक्त आसीत मत्परः।",
+      "iast": "tāni sarvāṇi saṃyamya yukta āsīta matparaḥ।",
+      "chapter": 2,
+      "verse": 61,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.062",
+      "text": "ध्यायतो विषयान्पुंसः सङ्गस्तेषूपजायते।",
+      "iast": "dhyāyato viṣayānpuṃsaḥ saṅgasteṣūpajāyate।",
+      "chapter": 2,
+      "verse": 62,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.063",
+      "text": "क्रोधाद्भवति संमोहः संमोहात्स्मृतिविभ्रमः।",
+      "iast": "krodhādbhavati saṃmohaḥ saṃmohātsmṛtivibhramaḥ।",
+      "chapter": 2,
+      "verse": 63,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.064",
+      "text": "रागद्वेषवियुक्तैस्तु विषयानिन्द्रियैश्चरन्।",
+      "iast": "rāgadveṣaviyuktistu viṣayānindriyiścaran।",
+      "chapter": 2,
+      "verse": 64,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.065",
+      "text": "प्रसादे सर्वदुःखानां हानिरस्योपजायते।",
+      "iast": "prasāde sarvaduḥkhānāṃ hānirasyopajāyate।",
+      "chapter": 2,
+      "verse": 65,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.066",
+      "text": "नास्ति बुद्धिरयुक्तस्य न चायुक्तस्य भावना।",
+      "iast": "nāsti buddhirayuktasya na cāyuktasya bhāvanā।",
+      "chapter": 2,
+      "verse": 66,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.067",
+      "text": "इन्द्रियाणां हि चरतां यन्मनोऽनुविधीयते।",
+      "iast": "indriyāṇāṃ hi caratāṃ yanmano'nuvidhīyate।",
+      "chapter": 2,
+      "verse": 67,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.068",
+      "text": "तस्माद्यस्य महाबाहो निगृहीतानि सर्वशः।",
+      "iast": "tasmādyasya mahābāho nigṛhītāni sarvaśaḥ।",
+      "chapter": 2,
+      "verse": 68,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.069",
+      "text": "या निशा सर्वभूतानां तस्यां जागर्ति संयमी।",
+      "iast": "yā niśā sarvabhūtānāṃ tasyāṃ jāgarti saṃyamī।",
+      "chapter": 2,
+      "verse": 69,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.070",
+      "text": "आपूर्यमाणमचलप्रतिष्ठं",
+      "iast": "āpūryamāṇamacalapratiṣṭhaṃ",
+      "chapter": 2,
+      "verse": 70,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.071",
+      "text": "विहाय कामान्यः सर्वान्पुमांश्चरति निःस्पृहः।",
+      "iast": "vihāya kāmānyaḥ sarvānpumāṃścarati niḥspṛhaḥ।",
+      "chapter": 2,
+      "verse": 71,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    },
+    {
+      "record_id": "AIGAANE-BGM-02.072",
+      "text": "एषा ब्राह्मी स्थितिः पार्थ नैनां प्राप्य विमुह्यति।",
+      "iast": "eṣā brāhmī sthitiḥ pārtha nināṃ prāpya vimuhyati।",
+      "chapter": 2,
+      "verse": 72,
+      "meter": "Anuṣṭubh",
+      "source": "DharmicData/SrimadBhagvadGita"
+    }
+  ]
+}
