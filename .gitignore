@@ -110,3 +110,5 @@ dist/
 # Firebase CLI cache
 .firebase/*.cache
 .firebase/hosting.*.cache
+
+raw_sources/
