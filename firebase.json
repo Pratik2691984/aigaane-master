@@ -2,6 +2,13 @@
   "hosting": {
     "site": "aigaane-sanctuary",
     "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.bak-*",
+      "**/*.py"
+    ],
     "rewrites": [
       {
         "source": "/api/**",
@@ -9,10 +16,20 @@
           "serviceId": "aigaane-engine",
           "region": "asia-south1"
         }
+      }
+    ],
+    "headers": [
+      {
+        "source": "/index.html",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        ]
       },
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/**/*.@(js|css|mjs|wasm|db|json)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300" }
+        ]
       }
     ]
   }

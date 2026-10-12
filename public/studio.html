@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIGAANE Studio - First Voice</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --panel: #131820;
+    --border: #1f2630;
+    --text: #d8dee9;
+    --dim: #6b7684;
+    --accent: #4fd1c5;
+    --accent-dim: #2c7a72;
+    --warn: #e0a458;
+    --fail: #e06c75;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  h1 {
+    font-size: 18px;
+    margin: 0 0 4px 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .sub {
+    color: var(--dim);
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  label {
+    display: block;
+    font-size: 11px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  textarea {
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 60px;
+  }
+  textarea:focus { outline: none; border-color: var(--accent-dim); }
+  .row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  button {
+    background: var(--accent-dim);
+    color: var(--text);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  button:hover:not(:disabled) { background: var(--accent); color: var(--bg); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.secondary { background: #2a3038; }
+  button.secondary:hover:not(:disabled) { background: #3a424e; color: var(--text); }
+  .status {
+    font-size: 12px;
+    color: var(--dim);
+    margin-left: auto;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 4px;
+  }
+  .cell {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--dim);
+    transition: all 0.08s;
+    min-height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+  }
+  .cell.guru { border-color: var(--accent-dim); }
+  .cell.laghu { border-color: #3a424e; }
+  .cell.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: scale(1.05);
+  }
+  .cell .w { font-weight: 700; font-size: 13px; }
+  .cell .f { font-size: 10px; opacity: 0.7; }
+  .log {
+    font-size: 11px;
+    color: var(--dim);
+    max-height: 120px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-family: inherit;
+  }
+</style>
+</head>
+<body>
+
+<h1>AIGAANE Studio</h1>
+<div class="sub">First Voice - Sanskrit verse to Web Audio</div>
+
+<div class="panel">
+  <label for="verse">Sanskrit verse (Devanagari or IAST)</label>
+  <textarea id="verse">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः</textarea>
+  <div class="row">
+    <button id="play">PLAY</button>
+    <button id="stop" class="secondary" disabled>STOP</button>
+    <span class="status" id="status">ready</span>
+  </div>
+</div>
+
+<div class="panel">
+  <label>16-step sequence</label>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="panel">
+  <label>Event log</label>
+  <div class="log" id="log">Press PLAY to scan the verse and schedule audio.</div>
+</div>
+
+<script type="module">
+import { buildSequence } from './js/sequencer.mjs';
+
+const verseEl = document.getElementById('verse');
+const playBtn = document.getElementById('play');
+const stopBtn = document.getElementById('stop');
+const statusEl = document.getElementById('status');
+const gridEl = document.getElementById('grid');
+const logEl = document.getElementById('log');
+
+let audioCtx = null;
+let currentSources = [];
+let animationId = null;
+let sequenceStartTime = 0;
+
+function log(msg) {
+  logEl.textContent = msg + '\n' + logEl.textContent;
+}
+
+function buildGrid(events) {
+  gridEl.innerHTML = '';
+  for (const ev of events) {
+    const cell = document.createElement('div');
+    cell.className = 'cell ' + (ev.weight === 'G' ? 'guru' : 'laghu');
+    cell.dataset.step = ev.step;
+    cell.innerHTML =
+      '<div class="w">' + ev.weight + '</div>' +
+      '<div class="f">' + ev.freqHz.toFixed(1) + ' Hz</div>';
+    gridEl.appendChild(cell);
+  }
+}
+
+function highlightStep(step) {
+  const cells = gridEl.querySelectorAll('.cell');
+  cells.forEach(c => c.classList.toggle('active', Number(c.dataset.step) === step));
+}
+
+async function play() {
+  if (audioCtx) return;
+
+  const verse = verseEl.value.trim();
+  if (!verse) {
+    log('No verse entered.');
+    return;
+  }
+
+  playBtn.disabled = true;
+  statusEl.textContent = 'scanning...';
+
+  let seq;
+  try {
+   seq = buildSequence(verse, { thaat: 'yaman', rasa: 'shanta', bpm: 108, baseSaHz: 261.63 });
+  } catch (err) {
+    log('Scansion error: ' + err.message);
+    playBtn.disabled = false;
+    statusEl.textContent = 'error';
+    return;
+  }
+
+  const events = seq.events;
+  const meta = seq.meta;
+
+  buildGrid(events);
+
+  log('Chandas: ' + meta.matchedChandas);
+  log('Syllables: ' + meta.totalMatras + ' matras, ' + events.length + ' events');
+  log('BPM: ' + meta.bpm + ', Sa base: ' + meta.baseSaHz + ' Hz');
+  events.slice(0, 4).forEach(e => {
+    log('  step ' + e.step + ': ' + e.syllable + ' -> ' + e.freqHz + ' Hz, gate=' + e.gate);
+  });
+
+  statusEl.textContent = 'playing';
+
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+  const startTime = audioCtx.currentTime + 0.1;
+  sequenceStartTime = startTime;
+
+  const stepDuration = (60.0 / meta.bpm) / 4.0;
+  const totalDuration = events.length * stepDuration;
+
+  for (const ev of events) {
+    const t0 = startTime + ev.time;
+    const dur = ev.duration;
+
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.value = ev.freqHz;
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = Math.min(18000, 1200 * ev.cutoffMod);
+    filter.Q.value = ev.filterQ;
+
+    const gain = audioCtx.createGain();
+   const peak = ev.velocity * 0.6;
+    const sustainLevel = Math.max(0.0001, peak * ev.adsr.sustain);
+
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.linearRampToValueAtTime(peak, t0 + 0.01);
+    gain.gain.exponentialRampToValueAtTime(
+      sustainLevel,
+      t0 + ev.adsr.attack + ev.adsr.decay
+    );
+    const noteOff = t0 + dur * ev.gate;
+    gain.gain.setValueAtTime(Math.max(0.0001, peak * 0.7), noteOff);
+    gain.gain.exponentialRampToValueAtTime(0.0001, noteOff + ev.adsr.release);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(t0);
+    osc.stop(noteOff + ev.adsr.release + 0.05);
+
+    currentSources.push(osc);
+  }
+
+  stopBtn.disabled = false;
+
+  function animate() {
+    if (!audioCtx) return;
+    const elapsed = audioCtx.currentTime - sequenceStartTime;
+    if (elapsed < 0) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    const idx = Math.floor(elapsed / stepDuration);
+    if (idx >= events.length) {
+      stop();
+      return;
+    }
+    highlightStep(idx);
+    animationId = requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+function stop() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  for (const src of currentSources) {
+    try { src.stop(); } catch (_) {}
+  }
+  currentSources = [];
+  if (audioCtx) {
+    audioCtx.close();
+    audioCtx = null;
+  }
+  playBtn.disabled = false;
+  stopBtn.disabled = true;
+  statusEl.textContent = 'stopped';
+  highlightStep(-1);
+}
+
+playBtn.addEventListener('click', play);
+stopBtn.addEventListener('click', stop);
+
+logEl.textContent = 'Ready. Verse pre-filled with Gita 1.1. Press PLAY.';
+</script>
+
+</body>
+</html>

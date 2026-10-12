@@ -13,11 +13,19 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS_ROOT = Path(__file__).resolve().parent
 API_ROOT = ROOT / "api"
-if str(API_ROOT) not in sys.path:
-    sys.path.insert(0, str(API_ROOT))
+
+# api/ must come first so `import engines.dhatu_registry` resolves there.
+# scripts/ goes last so it cannot shadow anything in api/ or site-packages.
+for _entry in (str(SCRIPTS_ROOT), str(API_ROOT)):
+    while _entry in sys.path:
+        sys.path.remove(_entry)
+sys.path.insert(0, str(API_ROOT))
+sys.path.append(str(SCRIPTS_ROOT))
 
 from engines.dhatu_registry import build_dhatu_index, validate_dhatu_record, validate_lakara_matrix
+from immutability import audited_write
 
 
 DHATU_ID_PATTERN = r"^[0-9]{2}\.[0-9]{4}$"
@@ -409,12 +417,13 @@ def _load_gana_payload(path: Path, gana_id: str, slug: str, gana_name: str) -> D
 def _atomic_write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_suffix(path.suffix + ".tmp")
-    with tmp_path.open("w", encoding="utf-8", newline="\n") as handle:
-        json.dump(payload, handle, ensure_ascii=False, indent=2, sort_keys=True)
-        handle.write("\n")
-    if path.exists():
-        shutil.copystat(path, tmp_path, follow_symlinks=False)
-    tmp_path.replace(path)
+    with audited_write(path, reason="import_dhatus._atomic_write_json"):
+        with tmp_path.open("w", encoding="utf-8", newline="\n") as handle:
+            json.dump(payload, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
+        if path.exists():
+            shutil.copystat(path, tmp_path, follow_symlinks=False)
+        tmp_path.replace(path)
 
 
 def _read_json(path: Path) -> Dict[str, Any]:
