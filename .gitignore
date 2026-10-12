@@ -112,3 +112,5 @@ dist/
 .firebase/hosting.*.cache
 
 raw_sources/
+
+data/sanskrit/ingestion/write_audit.jsonl
