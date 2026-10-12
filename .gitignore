@@ -114,3 +114,5 @@ dist/
 raw_sources/
 
 data/sanskrit/ingestion/write_audit.jsonl
+
+data/sanskrit/ingestion/canonical_promotion_audit.v1.json

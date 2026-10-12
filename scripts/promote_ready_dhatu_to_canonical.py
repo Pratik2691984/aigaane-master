@@ -21,7 +21,7 @@ from validate_large_scale_ingestion import (
     load_large_scale_manifest,
     scan_all_staged_batch_files,
 )
-
+from immutability import authorized_write, audited_write
 
 WRITE_FLAG = "AIGAANE_ENABLE_CANONICAL_DHATU_WRITE"
 TEST_WRITE_FLAG = "AIGAANE_ALLOW_TEST_CANONICAL_WRITE"
@@ -311,18 +311,26 @@ def apply_promotions_to_registry(
 def write_canonical_registry_index(registry: Dict[str, Any], path: Any = DEFAULT_CANONICAL_REGISTRY_PATH) -> Path:
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open("w", encoding="utf-8", newline="\n") as handle:
-        json.dump(registry, handle, ensure_ascii=False, indent=2, sort_keys=True)
-        handle.write("\n")
+    flag_value = os.environ.get(WRITE_FLAG)
+    if flag_value != "1":
+        raise RuntimeError(
+            f"write_canonical_registry_index refused: {WRITE_FLAG} is not '1' (got {flag_value!r})"
+        )
+    token = f"env:{WRITE_FLAG}=1"
+    with authorized_write(output_path, token=token):
+        with output_path.open("w", encoding="utf-8", newline="\n") as handle:
+            json.dump(registry, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
     return output_path
 
 
 def write_promotion_audit(audit: Dict[str, Any], path: Any = DEFAULT_AUDIT_PATH) -> Path:
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open("w", encoding="utf-8", newline="\n") as handle:
-        json.dump(audit, handle, ensure_ascii=False, indent=2, sort_keys=True)
-        handle.write("\n")
+    with audited_write(output_path, reason="promote_ready_dhatu_to_canonical.write_promotion_audit"):
+        with output_path.open("w", encoding="utf-8", newline="\n") as handle:
+            json.dump(audit, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
     return output_path
 
 
