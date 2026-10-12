@@ -1,5 +1,10 @@
-* text=auto eol=lf
-*.png binary
-*.jpg binary
-*.pdf binary
-*.woff2 binary
+﻿* text=auto eol=lf
+*.json text eol=lf
+*.py   text eol=lf
+*.js   text eol=lf
+*.mjs  text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+*.sql  text eol=lf
+*.wasm binary
+*.db   binary
