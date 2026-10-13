@@ -2,7 +2,7 @@
 routers/sandhi.py
 POST /api/v3/sandhi — Pāṇinian sandhi endpoint.
 """
-
+from engines.phonology.sandhi_splitter import SandhiSplitter
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -10,7 +10,7 @@ from engines.phonology.sandhi import SandhiEngine, _HAŚ, _ŚAR, _KHAR
 
 router = APIRouter(prefix="/api/v3", tags=["Sandhi Engine"])
 sandhi_engine = SandhiEngine()
-
+sandhi_splitter = SandhiSplitter()
 
 class SandhiRequest(BaseModel):
     p1: str = Field(..., min_length=1, max_length=8,
@@ -80,3 +80,47 @@ def compute_sandhi(payload: SandhiRequest) -> SandhiResponse:
     except ValueError as e:
         raise HTTPException(status_code=422, detail=f"Invalid phoneme: {e}")
 
+
+
+class SandhiSplitRequest(BaseModel):
+    text: str = Field(..., min_length=2, max_length=200)
+    script: str = Field("iast", max_length=16)
+    max_results: int = Field(20, ge=1, le=50)
+
+
+class SandhiSplitItem(BaseModel):
+    first: str
+    second: str
+    valid: bool
+    split_index: int
+    first_known: bool
+    second_known: bool
+
+
+class SandhiSplitResponse(BaseModel):
+    text: str
+    text_slp1: str
+    script: str
+    count: int
+    splits: list[SandhiSplitItem]
+
+
+@router.post(
+    "/sandhi/split",
+    response_model=SandhiSplitResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Split a joined Sanskrit string into candidate word pairs",
+)
+def split_sandhi(payload: SandhiSplitRequest) -> SandhiSplitResponse:
+    try:
+        result = sandhi_splitter.split(
+            text=payload.text,
+            script=payload.script,
+            max_results=payload.max_results,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    return SandhiSplitResponse(**{
+        k: v for k, v in result.items()
+        if k in {"text", "text_slp1", "script", "count", "splits"}
+    })
