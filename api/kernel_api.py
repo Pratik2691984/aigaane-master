@@ -53,6 +53,7 @@ from routers.export import router as export_router
 from routers.morphology import router as morphology_router
 from routers.corpus import router as corpus_router
 from routers.changelog import router as changelog_router
+from routers.lexicon import router as lexicon_router
 
 # ────────────────────────────────────────────────────────────────
 # Lifespan context — replaces deprecated @app.on_event("startup")
@@ -159,6 +160,7 @@ app.include_router(morphology_router)
 app.include_router(corpus_router)
 # Changelog mount
 app.include_router(changelog_router)
+app.include_router(lexicon_router)
 
 # ════════════════════════════════════════════════════════════════
 # 49D KERNEL MODELS & ENDPOINTS
