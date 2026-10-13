@@ -84,6 +84,25 @@ class SandhiSplitter:
     def _is_known(self, slp1: str) -> bool:
         return slp1 in self._common_slp1
 
+    def _expand_visarga(self, slp1: str) -> List[str]:
+        """
+        Try to restore a visarga elided by the rule aH + a -> o '.
+        Returns candidate SLP1 strings with the original first.
+        """
+        variants = [slp1]
+        if "'" not in slp1:
+            return variants
+
+        idx = slp1.find("'")
+        if idx > 0 and slp1[idx - 1] == "o":
+            prefix = slp1[: idx - 1]
+            suffix = slp1[idx + 1 :]
+            # Restore o ' to aH + a
+            variants.append(prefix + "aHa" + suffix)
+            # Restore o ' to aH alone (no following vowel)
+            variants.append(prefix + "aH" + suffix)
+        return variants
+
     def split(
         self,
         text: str,
@@ -95,43 +114,48 @@ class SandhiSplitter:
         if not text or len(text) < 2:
             raise ValueError("text must be at least two characters")
 
-        slp1 = self._to_slp1(text, script)
+        slp1_input = self._to_slp1(text, script)
         results: List[Dict[str, Any]] = []
         seen = set()
 
-        for index in range(1, len(slp1)):
-            try:
-                candidates = self._splitter.split_at(slp1, index)
-            except Exception:
-                continue
-            for candidate in candidates:
-                if not include_invalid and not candidate.is_valid:
-                    continue
-                first_slp1 = str(candidate.first)
-                second_slp1 = str(candidate.second)
-                if len(first_slp1) < min_side_length:
-                    continue
-                if len(second_slp1) < min_side_length:
-                    continue
-                key = (first_slp1, second_slp1)
-                if key in seen:
-                    continue
-                seen.add(key)
+        variants = self._expand_visarga(slp1_input)
 
-                first_known = self._is_known(first_slp1)
-                second_known = self._is_known(second_slp1)
-                results.append(
-                    {
-                        "first": self._from_slp1(first_slp1, script),
-                        "second": self._from_slp1(second_slp1, script),
-                        "valid": bool(candidate.is_valid),
-                        "split_index": index,
-                        "first_len": len(first_slp1),
-                        "second_len": len(second_slp1),
-                        "first_known": first_known,
-                        "second_known": second_known,
-                    }
-                )
+        for slp1 in variants:
+            is_expansion = slp1 != slp1_input
+            for index in range(1, len(slp1)):
+                try:
+                    candidates = self._splitter.split_at(slp1, index)
+                except Exception:
+                    continue
+                for candidate in candidates:
+                    if not include_invalid and not candidate.is_valid:
+                        continue
+                    first_slp1 = str(candidate.first)
+                    second_slp1 = str(candidate.second)
+                    if len(first_slp1) < min_side_length:
+                        continue
+                    if len(second_slp1) < min_side_length:
+                        continue
+                    key = (first_slp1, second_slp1)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+
+                    first_known = self._is_known(first_slp1)
+                    second_known = self._is_known(second_slp1)
+                    results.append(
+                        {
+                            "first": self._from_slp1(first_slp1, script),
+                            "second": self._from_slp1(second_slp1, script),
+                            "valid": bool(candidate.is_valid),
+                            "split_index": index,
+                            "first_len": len(first_slp1),
+                            "second_len": len(second_slp1),
+                            "first_known": first_known,
+                            "second_known": second_known,
+                            "from_expansion": is_expansion,
+                        }
+                    )
 
         # Rank: known words first, both sides known highest, then length.
         def _rank_key(r: Dict[str, Any]) -> tuple:
@@ -150,7 +174,7 @@ class SandhiSplitter:
 
         return {
             "text": text,
-            "text_slp1": slp1,
+            "text_slp1": slp1_input,
             "script": script,
             "rules": self._rules_path,
             "known_words_loaded": len(self._common_slp1),
