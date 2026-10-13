@@ -92,7 +92,7 @@ __pycache__/
 scan_body.json
 *.bak*
 
-# aigaane.in � additional ignores
+# aigaane.in additional ignores
 .env
 .env.*
 *.key
