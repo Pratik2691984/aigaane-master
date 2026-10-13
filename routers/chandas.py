@@ -1,6 +1,6 @@
-﻿"""
+"""
 routers/chandas.py
-POST /api/v3/chandas/scan and /api/v3/chandas/anustubh
+POST /api/v3/chandas/scan, /anustubh, /trishtubh, /jagati, /vrtta
 """
 from engines.chandas.trishtubh import validate_trishtubh
 from engines.chandas.jagati import validate_jagati
@@ -9,8 +9,11 @@ from pydantic import BaseModel, Field
 
 from engines.chandas.scansion import scan
 from engines.chandas.anustubh import validate_anustubh
+from engines.chandas.vidyut_chandas import VidyutChandas
 
 router = APIRouter(prefix="/api/v3/chandas", tags=["Chandas Engine"])
+
+_vidyut_chandas = VidyutChandas()
 
 
 class ScanRequest(BaseModel):
@@ -75,6 +78,8 @@ def anustubh_endpoint(payload: AnustubhRequest) -> AnustubhResponse:
                for p in result.padas],
         errors=result.errors,
     )
+
+
 @router.post(
     "/trishtubh",
     response_model=AnustubhResponse,
@@ -123,3 +128,47 @@ def jagati_endpoint(payload: AnustubhRequest) -> AnustubhResponse:
         ],
         errors=result.errors,
     )
+
+
+class VrttaRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=2000)
+    script: str = Field("iast", max_length=16)
+    include_aksharas: bool = Field(False)
+
+
+class VrttaPadaModel(BaseModel):
+    index: int
+    padya: str | None
+    akshara_count: int
+    weights: str
+    aksharas: list[dict] | None = None
+
+
+class VrttaResponse(BaseModel):
+    text: str
+    text_slp1: str
+    script: str
+    pada_count: int
+    matched_meters: list[str]
+    all_padas_matched: bool
+    padas: list[VrttaPadaModel]
+    known_vrttas: int
+    known_jatis: int
+
+
+@router.post(
+    "/vrtta",
+    response_model=VrttaResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Classify each pada against 145 classical vrttas",
+)
+def vrtta_endpoint(payload: VrttaRequest) -> VrttaResponse:
+    try:
+        result = _vidyut_chandas.scan(
+            text=payload.text,
+            script=payload.script,
+            include_aksharas=payload.include_aksharas,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    return VrttaResponse(**result)
