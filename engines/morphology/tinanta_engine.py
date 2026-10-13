@@ -2,6 +2,10 @@
 engines/morphology/tinanta_engine.py
 
 Tiṅanta (finite verb) generator backed by vidyut-prakriya.
+
+Vidyut expects roots in SLP1 and in their Dhātupāṭha upadeśa form.
+For most roots the surface form matches the upadeśa form. For irregular
+roots, the override table below maps the surface root to what Vidyut expects.
 """
 from __future__ import annotations
 
@@ -77,6 +81,31 @@ SCHEME_MAP = {
     "wx": Scheme.Wx,
 }
 
+# Surface root (IAST, lowercase) -> vidyut upadesha form (SLP1).
+# Only roots whose surface form differs from the Dhātupāṭha entry need
+# an entry. Verified by probing vidyut for the correct laṭ 3sg form.
+UPADESHA_OVERRIDES = {
+    # gam (to go, bhvādi) -> gacchati
+    "gam": "gacCa",
+    "gacch": "gacCa",
+    # i (to go, adādi) -> eti
+    "i": "i",
+    # as (to be, adādi) -> asti
+    "as": "asa",
+    # brū (to speak, adādi) -> bravīti
+    "brū": "brU",
+    "bru": "brU",
+    # dā (to give, juhotyādi) -> dadāti
+    "dā": "dA",
+    "da": "dA",
+    # dhā (to place, juhotyādi) -> dadhāti
+    "dhā": "DA",
+    "dha": "DA",
+    # sthā (to stand, tiṣṭhati)
+    "sthā": "tizWa",
+    "stha": "tizWa",
+}
+
 
 class TinantaEngine:
     """Generate finite verb paradigms using vidyut-prakriya."""
@@ -101,6 +130,10 @@ class TinantaEngine:
         if target.strip().lower() == "slp1":
             return text
         return transliterate(text, Scheme.Slp1, self._resolve_scheme(target))
+
+    def _apply_override(self, root: str, root_slp1: str) -> str:
+        key = (root or "").strip().lower()
+        return UPADESHA_OVERRIDES.get(key, root_slp1)
 
     def _step_to_dict(self, step: Any) -> Dict[str, str]:
         raw = getattr(step, "result", []) or []
@@ -136,7 +169,9 @@ class TinantaEngine:
                 "unknown prayoga %r; known: %s" % (prayoga, sorted(PRAYOGA_MAP))
             )
 
-        root_slp1 = self.to_slp1(root, input_script)
+        root_slp1_raw = self.to_slp1(root, input_script)
+        root_slp1 = self._apply_override(root, root_slp1_raw)
+
         gana_enum = GANA_MAP[gana]
         lakara_enum = LAKARA_MAP[lakara_key]
         prayoga_enum = PRAYOGA_MAP[prayoga_key]
@@ -207,6 +242,7 @@ class TinantaEngine:
 
         return {
             "root": root,
+            "root_slp1_raw": root_slp1_raw,
             "root_slp1": root_slp1,
             "gana": gana,
             "lakara": lakara_key,
