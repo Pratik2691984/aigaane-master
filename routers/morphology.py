@@ -11,10 +11,11 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
 from engines.morphology.subanta import inflect, Stem, Inflected
+from engines.morphology.tinanta_engine import TinantaEngine
 
 
 router = APIRouter(prefix="/api/v3/morphology", tags=["Morphology"])
-
+_tinanta = TinantaEngine()
 
 # ─────────────────────── Schemas ───────────────────────
 
@@ -148,3 +149,39 @@ def list_stem_classes() -> dict:
             {"id": "ū-fem", "example": "bhū", "gender": "strī", "gloss": "earth"},
         ]
     }
+
+
+
+# ─────────────────────── Tiṅanta (verb conjugation) ───────────────────────
+
+class VerbConjugateRequest(BaseModel):
+    root: str = Field(..., min_length=1, max_length=64)
+    gana: int = Field(1, ge=1, le=10)
+    lakara: str = Field("lat", max_length=32)
+    prayoga: str = Field("kartari", max_length=16)
+    script: str = Field("iast", max_length=16)
+    include_traces: bool = False
+
+
+@router.post(
+    "/verb/conjugate",
+    status_code=status.HTTP_200_OK,
+    summary="Generate a 3x3 finite verb paradigm",
+)
+def conjugate_verb(payload: VerbConjugateRequest) -> dict:
+    """Generate the nine finite forms of a root in a given lakāra."""
+    try:
+          return _tinanta.conjugate_grid(
+            root=payload.root,
+            gana=payload.gana,
+            lakara=payload.lakara,
+            prayoga=payload.prayoga,
+            input_script="iast",
+            output_script=payload.script,
+            include_traces=payload.include_traces,
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e),
+        )
