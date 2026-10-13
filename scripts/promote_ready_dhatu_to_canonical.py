@@ -317,7 +317,8 @@ def write_canonical_registry_index(registry: Dict[str, Any], path: Any = DEFAULT
             f"write_canonical_registry_index refused: {WRITE_FLAG} is not '1' (got {flag_value!r})"
         )
     token = f"env:{WRITE_FLAG}=1"
-    with authorized_write(output_path, token=token):
+    gana_files = sorted(output_path.parent.glob("*.json"))
+    with authorized_write(output_path, *gana_files, token=token):
         with output_path.open("w", encoding="utf-8", newline="\n") as handle:
             json.dump(registry, handle, ensure_ascii=False, indent=2, sort_keys=True)
             handle.write("\n")
