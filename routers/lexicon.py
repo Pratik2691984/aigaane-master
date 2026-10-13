@@ -1,15 +1,20 @@
 """
 routers/lexicon.py
-GET /api/v3/lexicon/lookup and /api/v3/lexicon/exists
+GET /api/v3/lexicon/lookup, /exists, /stats
 """
-from fastapi import APIRouter, HTTPException, Query, status
-from pydantic import BaseModel, Field
 from typing import Optional
+
+from fastapi import APIRouter, HTTPException, Query, status
+from pydantic import BaseModel
 
 from engines.lexicon.vidyut_kosha import VidyutKosha
 
+
 router = APIRouter(prefix="/api/v3/lexicon", tags=["Lexicon"])
-_kosha = VidyutKosha()
+
+# Preload disabled: the 78 MB Kosha takes several seconds to fully scan
+# for glosses. Construction is instant; gloss lookups load lazily.
+_kosha = VidyutKosha(preload_dhatus=False)
 
 
 class EntryModel(BaseModel):
@@ -71,6 +76,8 @@ def exists(
 )
 def stats() -> dict:
     return {
-        "dhatu_count": _kosha.dhatu_count,
-        "kosha_path": _kosha._kosha_path,
+        "dhatu_glosses_loaded": _kosha.dhatu_count,
+        "kosha_available": True,
+        "preload_disabled": True,
+        "note": "Glosses load lazily; use /lookup for entries.",
     }

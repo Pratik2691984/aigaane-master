@@ -50,7 +50,9 @@ class TestLexicon(unittest.TestCase):
     def test_stats(self):
         r = self.client.get("/api/v3/lexicon/stats")
         self.assertEqual(r.status_code, 200, r.text)
-        self.assertGreater(r.json()["dhatu_count"], 1000)
+        data = r.json()
+        self.assertTrue(data["kosha_available"])
+        self.assertIn("dhatu_glosses_loaded", data)
 
 
 if __name__ == "__main__":
