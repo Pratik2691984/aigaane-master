@@ -22,12 +22,6 @@
       "exists"
     ]
   },
-  "latency_ms": {
-    "max": 1.136,
-    "n": 30,
-    "p50": 1.011,
-    "p95": 1.093
-  },
   "param": "q",
   "responses": {
     "inflected_iast": {

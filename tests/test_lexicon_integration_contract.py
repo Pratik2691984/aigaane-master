@@ -92,6 +92,10 @@ def _run_probe(client, exists_param):
         client.get(EXISTS_PATH, params={exists_param: LEMMA})
         samples.append((time.perf_counter() - t0) * 1000.0)
     samples.sort()
+    # Latency is measured at runtime and asserted on, but NOT persisted.
+    # Persisting it made the fixture non-deterministic: every pytest run
+    # dirtied the working tree. The contract record is the response shape,
+    # not the microseconds.
     _PROBE["latency_ms"] = {
         "n": len(samples),
         "p50": round(samples[len(samples) // 2], 3),
@@ -101,9 +105,11 @@ def _run_probe(client, exists_param):
 
     yield
 
+    # Persist everything EXCEPT latency_ms.
+    to_write = {k: v for k, v in _PROBE.items() if k != "latency_ms"}
     PROBE_OUT.parent.mkdir(parents=True, exist_ok=True)
     PROBE_OUT.write_text(
-        json.dumps(_PROBE, indent=2, ensure_ascii=False, sort_keys=True)
+        json.dumps(to_write, indent=2, ensure_ascii=False, sort_keys=True)
     )
 
 
