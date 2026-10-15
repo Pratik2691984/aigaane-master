@@ -3,7 +3,7 @@ tests/test_prosody_pipeline.py
 Automated Unit Tests for Sanskrit Phonology, Akṣara Weight, and Multi-Meter Metrics
 """
 import pytest
-from engine.prosody.chandas import (
+from engines.prosody.chandas import (
     tokenize_aksaras, 
     classify_syllables, 
     scan_anustubh, 
