@@ -1,0 +1,94 @@
+{
+  "batch": {
+    "payload": {
+      "detail": "Not Found"
+    },
+    "status_code": 404
+  },
+  "boolean_keys": {
+    "inflected_iast": [
+      "exists"
+    ],
+    "lemma_deva": [
+      "exists"
+    ],
+    "lemma_iast": [
+      "exists"
+    ],
+    "negative_control": [
+      "exists"
+    ],
+    "sandhi_surface": [
+      "exists"
+    ]
+  },
+  "latency_ms": {
+    "max": 1.136,
+    "n": 30,
+    "p50": 1.011,
+    "p95": 1.093
+  },
+  "param": "q",
+  "responses": {
+    "inflected_iast": {
+      "payload": {
+        "exists": true,
+        "word": "rāmāya"
+      },
+      "shape": {
+        "exists": "bool",
+        "word": "str"
+      },
+      "status_code": 200,
+      "word": "rāmāya"
+    },
+    "lemma_deva": {
+      "payload": {
+        "exists": false,
+        "word": "राम"
+      },
+      "shape": {
+        "exists": "bool",
+        "word": "str"
+      },
+      "status_code": 200,
+      "word": "राम"
+    },
+    "lemma_iast": {
+      "payload": {
+        "exists": true,
+        "word": "rāma"
+      },
+      "shape": {
+        "exists": "bool",
+        "word": "str"
+      },
+      "status_code": 200,
+      "word": "rāma"
+    },
+    "negative_control": {
+      "payload": {
+        "exists": false,
+        "word": "zzzqqqxyz"
+      },
+      "shape": {
+        "exists": "bool",
+        "word": "str"
+      },
+      "status_code": 200,
+      "word": "zzzqqqxyz"
+    },
+    "sandhi_surface": {
+      "payload": {
+        "exists": false,
+        "word": "rāmo'pi"
+      },
+      "shape": {
+        "exists": "bool",
+        "word": "str"
+      },
+      "status_code": 200,
+      "word": "rāmo'pi"
+    }
+  }
+}
