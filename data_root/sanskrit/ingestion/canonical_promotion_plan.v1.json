@@ -1,0 +1,278 @@
+{
+  "blockedCount": 0,
+  "conflictSummary": {
+    "blockedRootIds": [],
+    "byType": {},
+    "totalConflicts": 0
+  },
+  "generatedBy": "scripts/plan_dhatu_canonical_promotion.py",
+  "manifestVersion": "1.0.0",
+  "needsReviewCount": 12,
+  "plannedRecords": [
+    {
+      "artha": "to move or wander",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "चर्",
+      "gana": "01",
+      "iast": "car",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0003",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0012"
+    },
+    {
+      "artha": "to see",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "दृश्",
+      "gana": "01",
+      "iast": "dṛś",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0004",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0005"
+    },
+    {
+      "artha": "to go",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "गम्",
+      "gana": "01",
+      "iast": "gam",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0005",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0001"
+    },
+    {
+      "artha": "to obtain",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "लभ्",
+      "gana": "01",
+      "iast": "labh",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "atmanepada",
+      "proposedCanonicalId": "01.0006",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0010"
+    },
+    {
+      "artha": "to write",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "लिख्",
+      "gana": "01",
+      "iast": "likh",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0007",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0008"
+    },
+    {
+      "artha": "to lead",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "नी",
+      "gana": "01",
+      "iast": "nī",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0008",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0003"
+    },
+    {
+      "artha": "to read or recite",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "पठ्",
+      "gana": "01",
+      "iast": "paṭh",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0009",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0007"
+    },
+    {
+      "artha": "to drink",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "पा",
+      "gana": "01",
+      "iast": "pā",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0010",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0004"
+    },
+    {
+      "artha": "to serve",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "सेव्",
+      "gana": "01",
+      "iast": "sev",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "atmanepada",
+      "proposedCanonicalId": "01.0011",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0011"
+    },
+    {
+      "artha": "to remember",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "स्मृ",
+      "gana": "01",
+      "iast": "smṛ",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0012",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0009"
+    },
+    {
+      "artha": "to stand",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "स्था",
+      "gana": "01",
+      "iast": "sthā",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0013",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0002"
+    },
+    {
+      "artha": "to speak",
+      "classification": "needs_review",
+      "conflicts": [],
+      "devanagari": "वद्",
+      "gana": "01",
+      "iast": "vad",
+      "missingOptionalMetadata": [
+        "upadesha",
+        "artha_en",
+        "source_detail",
+        "recension",
+        "editorial_note"
+      ],
+      "pada": "parasmaipada",
+      "proposedCanonicalId": "01.0014",
+      "recommendedAction": "manual-review-required",
+      "source": "local-staged-bhvadi-batch-001",
+      "sourceFile": "raw/dhatupatha_batches/01_bhvadi/bhvadi_batch_001.json",
+      "sourceRootId": "01.STAGED.0006"
+    }
+  ],
+  "readyCount": 0,
+  "safetyChecks": {
+    "batchMutation": false,
+    "canonicalRegistryMutation": false,
+    "deterministicOrdering": true,
+    "goldsetMutation": false,
+    "promotionPreviewRegenerated": true,
+    "safeToRegenerate": true,
+    "stagedValidationPassed": true
+  },
+  "schemaVersion": "1.0.0",
+  "sourcePreviewFile": "data/sanskrit/ingestion/promotion_preview.v1.json",
+  "totalRecords": 12
+}

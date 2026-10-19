@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Aigaane — Track B Frontend
  * Deterministic Sanskrit sandhi + chandas client.
  *
@@ -16,10 +16,10 @@
   // ─────────────────────── Configuration ───────────────────────
 
   const API = Object.freeze({
-    SANDHI:   '/api/v4/sandhi',
-    SCAN:     '/api/v3/chandas/scan',
-    ANUSTUBH: '/api/v3/chandas/anustubh',
-    HEALTH:   '/api/v3/sandhi', // best-effort ping
+    SANDHI:   'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/sandhi',
+    SCAN:     'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/chandas/scan',
+    ANUSTUBH: 'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/chandas/anustubh',
+    HEALTH:   'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/sandhi', // best-effort ping
   });
 
   const LIMITS = Object.freeze({
@@ -57,7 +57,7 @@
         body: JSON.stringify(body),
         signal: controller.signal,
         credentials: 'omit',
-        mode: 'same-origin',
+        mode: 'cors',
         cache: 'no-store',
       });
       clearTimeout(timer);
@@ -359,3 +359,4 @@
     init();
   }
 })();
+

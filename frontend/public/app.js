@@ -1,4 +1,4 @@
-// public/app.js
+﻿// public/app.js
 // Aigaane — Frontend
 // Live tabs: Sanskrit, Agent, Morphology, Corpus
 // Informational tabs: Śāstra, Coming Soon, About
@@ -522,7 +522,7 @@
     const grid = el('div', { class: 'studios-grid' });
 
     const studios = [
-      { title: 'Gāndharvaveda Studio', desc: 'Music, rāga matrices, tālas, Pingal scansion engine, and AI prompt generation.', href: '/gandharvaveda.html', color: '#c9a227' },
+      { title: 'Gāndharvaveda Studio', desc: 'Music, rāga matrices, tālas, Pingal scansion engine, and AI prompt generation.', href: '/gandharvaveda.html', target: '_blank', color: '#c9a227' },
       { title: 'Āyurveda Studio',      desc: '20-question Prakṛti constitution analyzer, 20 guṇas, and dinacaryā routines.',   href: '/ayurveda.html',      color: '#7a9a5a' },
       { title: 'Sthāpatyaveda Studio', desc: '81-pada Vāstu Puruṣa Maṇḍala, directional compass, and classical māna converter.', href: '/sthapatyaveda.html', color: '#c9a06a' },
       { title: 'Dhanurveda Studio',    desc: 'Army divisions, weapons compendium, and battle formations from the classical texts.', href: '/dhanurveda.html',   color: '#8a9bb0' },
@@ -1232,7 +1232,7 @@
           parts: [
             { name: 'Āyurveda', meta: 'Medicine', status: 'live', external: true, link: '/ayurveda.html' },
             { name: 'Dhanurveda', meta: 'Warfare', status: 'live', external: true, link: '/dhanurveda.html' },
-            { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html' },
+            { name: 'Gāndharvaveda', meta: 'Music & drama', status: 'live', external: true, link: '/gandharvaveda.html', target: '_blank' },
             { name: 'Sthāpatyaveda', meta: 'Architecture', status: 'live', external: true, link: '/sthapatyaveda.html' },
           ] },
         { name: 'Āgamas & Tantras', subtitle: 'Initiatory practice, iconography', status: 'metadata',

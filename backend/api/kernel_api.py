@@ -429,6 +429,14 @@ def render_mantra(req: MantraRequest):
 
 @app.get("/api/v1/gandharva/audio/{filename}", tags=["Gandharva"])
 def get_audio(filename: str):
-    if os.path.exists(filename):
-        return FileResponse(filename, media_type="audio/wav")
-    raise HTTPException(status_code=404, detail="File not found")
+    filepath = os.path.join(os.getcwd(), filename)
+    if os.path.exists(filepath):
+        return FileResponse(
+            filepath, 
+            media_type="audio/wav", 
+            headers={
+                "Accept-Ranges": "bytes",
+                "Access-Control-Allow-Origin": "*"
+            }
+        )
+    raise HTTPException(status_code=404, detail=f"File {filename} not found")

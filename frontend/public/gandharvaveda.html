@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gāndharvaveda Studio — Just Intonation Audio Engine">
+  <meta name="theme-color" content="#0f172a">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' blob: https://aigaane-engine-977695793163.asia-south1.run.app; media-src 'self' blob: https://aigaane-engine-977695793163.asia-south1.run.app; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+  <title>Gāndharvaveda Studio · Vādya Vidyā</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #0f172a; --panel: #1e293b; --text: #f8fafc; --accent: #fbbf24; --border: #334155; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 2rem; font-family: 'Noto Serif', serif; background: var(--bg); color: var(--text); }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { color: var(--accent); font-size: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+    .panel { background: var(--panel); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+    textarea { width: 100%; padding: 0.75rem; font-family: 'JetBrains Mono', monospace; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; resize: vertical; }
+    button { background: var(--accent); color: var(--bg); border: none; padding: 0.75rem 1.5rem; font-weight: 600; font-size: 1rem; border-radius: 4px; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .output { margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 4px; border: 1px dashed var(--border); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+    .error { color: #f87171; }
+    .success { color: #34d399; }
+    audio { width: 100%; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Gāndharvaveda Studio</h1>
+    <p style="color: #94a3b8; margin-bottom: 2rem;">Live Just-Intonation audio synthesis via Cloud Run.</p>
+
+    <div class="panel">
+      <label for="verse">Sanskrit Verse (IAST)</label>
+      <textarea id="verse" rows="3">dharmakṣetre kurukṣetre</textarea>
+      <button id="render-btn" onclick="renderAudio()">Synthesize Audio</button>
+    </div>
+
+    <div class="panel">
+      <label>Output</label>
+      <div id="output" class="output">Awaiting input...</div>
+      <!-- The audio tag is now permanently in the HTML, hidden by default -->
+      <audio id="audio-player" controls style="display: none; width: 100%; margin-top: 1rem;"></audio>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://aigaane-engine-977695793163.asia-south1.run.app';
+    let currentAudioUrl = null;
+
+    async function renderAudio() {
+      const btn = document.getElementById('render-btn');
+      const out = document.getElementById('output');
+      const player = document.getElementById('audio-player');
+      const text = document.getElementById('verse').value;
+
+      btn.disabled = true;
+      btn.innerText = 'Synthesizing...';
+      out.className = 'output';
+      out.innerText = 'Processing...';
+      player.style.display = 'none'; // Hide player while processing
+
+      if (currentAudioUrl) {
+        URL.revokeObjectURL(currentAudioUrl);
+        currentAudioUrl = null;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/gandharva/render`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text })
+        });
+        
+        const data = await res.json();
+        
+        if (data.status === 'success') {
+          out.className = 'output success';
+          out.innerHTML = `<strong>Scansion:</strong> ${data.scansion}<br><span style="color: #94a3b8;">Loading audio...</span>`;
+          
+          const audioRes = await fetch(`${API_BASE}/api/v1/gandharva/audio/${data.file}`);
+          if (!audioRes.ok) throw new Error(`Failed to load audio file (Status: ${audioRes.status})`);
+          
+          const audioBlob = await audioRes.blob();
+          currentAudioUrl = URL.createObjectURL(audioBlob);
+          
+          // Update the pre-existing audio tag and show it
+          player.src = currentAudioUrl;
+          player.style.display = 'block';
+          
+          // Remove the "Loading..." text
+          out.innerHTML = `<strong>Scansion:</strong> ${data.scansion}`;
+          
+        } else {
+          out.className = 'output error';
+          out.innerText = `Error: ${data.detail || 'Unknown error'}`;
+        }
+      } catch (err) {
+        out.className = 'output error';
+        out.innerText = `Connection failed: ${err.message}`;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Synthesize Audio';
+      }
+    }
+  </script>
+</body>
+</html>

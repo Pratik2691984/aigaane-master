@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pydantic
+httpx
+python-dotenv
+mangum
+vidyut
+mido
+numpy
+google-genai
+reportlab
