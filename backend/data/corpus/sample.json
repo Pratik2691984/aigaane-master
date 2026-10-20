@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-09-21",
+  "description": "Sample Itihāsa corpus — starter verses from Rāmāyaṇa and Mahābhārata",
+  "verses": [
+    {
+      "id": "ram-1-1-1",
+      "source": "Rāmāyaṇa",
+      "kanda": "Bālakāṇḍa",
+      "sarga": 1,
+      "verse": 1,
+      "iast": "tapaḥsvādhyāyanirataṃ tapasvī vāgvidāṃ varam | nāradaṃ paripapraccha vālmīkir munisattamam",
+      "meter": "anuṣṭubh",
+      "themes": ["invocation", "sage", "knowledge"],
+      "gloss": "The ascetic Vālmīki, devoted to austerity and study, asked Nārada, the best of sages and eloquent speaker."
+    },
+    {
+      "id": "ram-1-1-2",
+      "source": "Rāmāyaṇa",
+      "kanda": "Bālakāṇḍa",
+      "sarga": 1,
+      "verse": 2,
+      "iast": "ko nv asmin sāmprataṃ loke guṇavān kaś ca vīryavān | dharmajñaś ca kṛtajñaś ca satyavākyo dṛḍhavrataḥ",
+      "meter": "anuṣṭubh",
+      "themes": ["virtue", "hero", "inquiry"],
+      "gloss": "Who in this world today is virtuous, valiant, knowing dharma, grateful, truthful, and firm in vows?"
+    },
+    {
+      "id": "ram-1-2-1",
+      "source": "Rāmāyaṇa",
+      "kanda": "Bālakāṇḍa",
+      "sarga": 2,
+      "verse": 1,
+      "iast": "kāvyam ity eva tasyāsīt tapasā brahmaṇā samam | kāvyasya karaṇād dhīmān saṃpannaḥ kavipuṅgavaḥ",
+      "meter": "anuṣṭubh",
+      "themes": ["poetry", "sage", "creation"],
+      "gloss": "Through his austerity, his poetry became equal to Brahman. Through composing poetry, the wise one became the foremost of poets."
+    },
+    {
+      "id": "mbh-1-1-1",
+      "source": "Mahābhārata",
+      "parva": "Ādiparva",
+      "adhyaya": 1,
+      "verse": 1,
+      "iast": "nārāyaṇaṃ namaskṛtya naraṃ caiva narottamam | devīṃ sarasvatīṃ caiva tato jayam udīrayet",
+      "meter": "anuṣṭubh",
+      "themes": ["invocation", "nārāyaṇa", "sarasvatī", "victory"],
+      "gloss": "Having bowed to Nārāyaṇa and Nara (the best of men), and to the goddess Sarasvatī, one should declare victory."
+    },
+    {
+      "id": "mbh-1-1-2",
+      "source": "Mahābhārata",
+      "parva": "Ādiparva",
+      "adhyaya": 1,
+      "verse": 2,
+      "iast": "lomaharṣaṇaputra ugraśravāḥ sūtaḥ paurāṇiko naimiṣāraṇyake | śaunakaṃ kulapatiṃ abhyagacchat",
+      "meter": "anuṣṭubh",
+      "themes": ["narrative", "sūta", "assembly"],
+      "gloss": "Ugraśravā, the son of Lomaharṣaṇa, a bard learned in the Purāṇas, came to the forest of Naimiṣa to the head of the family, Śaunaka."
+    },
+    {
+      "id": "bg-2-47",
+      "source": "Mahābhārata",
+      "parva": "Bhīṣmaparva",
+      "adhyaya": 2,
+      "verse": 47,
+      "iast": "karmaṇy evādhikāras te mā phaleṣu kadācana | mā karmaphalahetur bhūr mā te saṅgo 'stv akarmaṇi",
+      "meter": "anuṣṭubh",
+      "themes": ["karma", "action", "detachment", "gītā"],
+      "gloss": "You have a right only to action, never to its fruits. Do not be the cause of the fruits of action. Do not be attached to inaction."
+    },
+    {
+      "id": "bg-4-7",
+      "source": "Mahābhārata",
+      "parva": "Bhīṣmaparva",
+      "adhyaya": 4,
+      "verse": 7,
+      "iast": "yadā yadā hi dharmasya glānir bhavati bhārata | abhyutthānam adharmasya tadātmānaṃ sṛjāmy aham",
+      "meter": "anuṣṭubh",
+      "themes": ["dharma", "avatāra", "gītā"],
+      "gloss": "Whenever there is a decline of dharma and a rise of adharma, O Bhārata, then I manifest myself."
+    },
+    {
+      "id": "bg-4-8",
+      "source": "Mahābhārata",
+      "parva": "Bhīṣmaparva",
+      "adhyaya": 4,
+      "verse": 8,
+      "iast": "paritrāṇāya sādhūnāṃ vināśāya ca duṣkṛtām | dharmasaṃsthāpanārthāya sambhavāmi yuge yuge",
+      "meter": "anuṣṭubh",
+      "themes": ["dharma", "avatāra", "protection", "gītā"],
+      "gloss": "For the protection of the good, for the destruction of the wicked, and for the establishment of dharma, I am born age after age."
+    },
+    {
+      "id": "bg-18-66",
+      "source": "Mahābhārata",
+      "parva": "Bhīṣmaparva",
+      "adhyaya": 18,
+      "verse": 66,
+      "iast": "sarvadharmān parityajya mām ekaṃ śaraṇaṃ vraja | ahaṃ tvāṃ sarvapāpebhyo mokṣayiṣyāmi mā śucaḥ",
+      "meter": "anuṣṭubh",
+      "themes": ["surrender", "mokṣa", "gītā"],
+      "gloss": "Abandoning all dharmas, take refuge in me alone. I will liberate you from all sins. Do not grieve."
+    },
+    {
+      "id": "ram-2-105-15",
+      "source": "Rāmāyaṇa",
+      "kanda": "Ayodhyākāṇḍa",
+      "sarga": 105,
+      "verse": 15,
+      "iast": "rāmo rāmo rāma iti prajānām abhavan kathāḥ | rāme rājyaṃ praśāsati",
+      "meter": "anuṣṭubh",
+      "themes": ["rāma", "reign", "devotion"],
+      "gloss": "During Rāma's reign, 'Rāma, Rāma, Rāma' became the constant talk of the people."
+    }
+  ]
+}
