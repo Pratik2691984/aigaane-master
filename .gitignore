@@ -102,3 +102,6 @@ build_canon.py
 generate_coverage_report.py
 gita_to_envelope.py
 harvest_all_upanisads.ps1
+
+# third-party corpus mirror (GRETIL) - fetched on demand
+mirror_tar/
