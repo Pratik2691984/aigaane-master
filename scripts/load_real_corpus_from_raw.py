@@ -3,6 +3,27 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+
+MAX_UPANISHAD_SIZE_KB = 50
+MIN_UPANISHAD_SIZE_KB = 1
+
+
+def validate_upanishad_file(filepath: str) -> bool:
+    """Rejects corrupted, mislabeled, or truncated Upanishad XML files."""
+    size_kb = os.path.getsize(filepath) / 1024
+    if size_kb < MIN_UPANISHAD_SIZE_KB:
+        raise ValueError(
+            f"File '{filepath}' is {size_kb:.2f} KB, below minimum "
+            f"{MIN_UPANISHAD_SIZE_KB} KB. Suspected empty or truncated download."
+        )
+    if size_kb > MAX_UPANISHAD_SIZE_KB:
+        raise ValueError(
+            f"File '{filepath}' is {size_kb:.1f} KB, exceeding "
+            f"{MAX_UPANISHAD_SIZE_KB} KB. Suspected commentary or "
+            "Atharvaveda Saṃhitā mislabel."
+        )
+    return True
 from pathlib import Path
 from typing import Any, Dict, List
 

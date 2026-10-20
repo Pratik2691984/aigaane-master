@@ -1,4 +1,4 @@
-"""
+﻿"""
 api/kernel_api.py
 Unified FastAPI Application for Aigaane Engine
 
@@ -399,10 +399,17 @@ else:
 # ────────────────────────────────────────────────────────────────
 # Gandharva Studio — Just Intonation Audio Synthesis
 # ────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────
+# Gandharva Studio — Just Intonation Audio Synthesis
+# ────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────
+# Gandharva Studio — Just Intonation Audio Synthesis
+# ────────────────────────────────────────────────────────────────
 from fastapi.responses import FileResponse
 from aigaane.chandas import scan_iast
 from aigaane.tala import align_to_tala
-from aigaane.raga import assign_svaras
+from aigaane.raga import svara_ratio
+from aigaane.samcara import generate_samcara
 from aigaane.midi import assign_timings
 from aigaane.synth import render_to_wav
 import uuid as _uuid
@@ -411,6 +418,7 @@ class MantraRequest(BaseModel):
     text: str
     reference_hz: float = 146.83
     akshara_duration_s: float = 0.5
+    raga: str = "mayamalavagowla"
 
 @app.post("/api/v1/gandharva/render", tags=["Gandharva"])
 def render_mantra(req: MantraRequest):
@@ -419,10 +427,10 @@ def render_mantra(req: MantraRequest):
         if not weights:
             raise HTTPException(status_code=400, detail="Could not scan text.")
         aligned = align_to_tala(weights, "adi")
-        svaras = assign_svaras(aligned, "mayamalavagowla")
+        svaras = generate_samcara(aligned, req.raga)
         timed = assign_timings(svaras, req.akshara_duration_s)
         filename = f"{_uuid.uuid4().hex}.wav"
-        render_to_wav(timed, "mayamalavagowla", req.reference_hz, filename)
+        render_to_wav(timed, req.raga, req.reference_hz, filename)
         return {"status": "success", "scansion": "".join(weights), "file": filename}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

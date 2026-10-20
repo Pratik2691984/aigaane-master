@@ -1,362 +1,185 @@
 ﻿/**
- * Aigaane — Track B Frontend
- * Deterministic Sanskrit sandhi + chandas client.
- *
- * Security posture:
- *  - No eval, no innerHTML with user content, no dynamic script tags.
- *  - All DOM updates via textContent / createElement.
- *  - All fetch calls pinned to same-origin /api/** (CSP enforced).
- *  - Input is length-bounded before send.
- *  - No credentials, no secrets, no cookies.
+ * Aigaane — Master Frontend Controller
+ * Wires all 10 endpoint panels in index.html to Cloud Run.
  */
-
 (() => {
   'use strict';
 
-  // ─────────────────────── Configuration ───────────────────────
+  const API_BASE = 'https://aigaane-engine-977695793163.asia-south1.run.app';
 
-  const API = Object.freeze({
-    SANDHI:   'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/sandhi',
-    SCAN:     'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/chandas/scan',
-    ANUSTUBH: 'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/chandas/anustubh',
-    HEALTH:   'https://aigaane-engine-977695793163.asia-south1.run.app/api/v3/sandhi', // best-effort ping
+  const $ = (id) => document.getElementById(id);
+
+  async function postJSON(endpoint, body) {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  async function getJSON(endpoint) {
+    const res = await fetch(`${API_BASE}${endpoint}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    return await res.json();
+  }
+
+  // 1. Sandhi Join
+  $('btn-sandhi-join')?.addEventListener('click', async () => {
+    const out = $('out-sandhi-join');
+    out.textContent = 'Processing...';
+    try {
+      const p1 = $('sandhi-p1').value;
+      const p2 = $('sandhi-p2').value;
+      const data = await postJSON('/api/v3/sandhi', { p1, p2 });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
   });
 
-  const LIMITS = Object.freeze({
-    PHONEME_MAX: 8,
-    TEXT_MAX:    2000,
-    TIMEOUT_MS:  15000,
+  // 2. Sandhi Split
+  $('btn-sandhi-split')?.addEventListener('click', async () => {
+    const out = $('out-sandhi-split');
+    out.textContent = 'Processing...';
+    try {
+      const text = $('sandhi-split-input').value;
+      const data = await postJSON('/api/v3/sandhi/split', { text });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
   });
 
-  // ─────────────────────── Utilities ───────────────────────
-
-  const $  = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-
-  /** Create an element with optional class and text. Never uses innerHTML. */
-  function el(tag, opts = {}, children = []) {
-    const node = document.createElement(tag);
-    if (opts.class)   node.className = opts.class;
-    if (opts.text)    node.textContent = opts.text;
-    if (opts.attrs)   for (const [k, v] of Object.entries(opts.attrs)) node.setAttribute(k, v);
-    if (opts.dataset) for (const [k, v] of Object.entries(opts.dataset)) node.dataset[k] = v;
-    for (const child of children) {
-      node.appendChild(typeof child === 'string' ? document.createTextNode(child) : child);
-    }
-    return node;
-  }
-
-  /** Safe fetch with timeout and JSON parsing. */
-  async function postJSON(url, body) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), LIMITS.TIMEOUT_MS);
+  // 3. Chandas Scan
+  $('btn-chandas-scan')?.addEventListener('click', async () => {
+    const out = $('out-chandas');
+    out.textContent = 'Scanning...';
     try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-        signal: controller.signal,
-        credentials: 'omit',
-        mode: 'cors',
-        cache: 'no-store',
-      });
-      clearTimeout(timer);
-      const data = await res.json().catch(() => ({ detail: 'Invalid JSON response' }));
-      if (!res.ok) {
-        const message = typeof data.detail === 'string'
-          ? data.detail
-          : `Request failed with status ${res.status}`;
-        throw new Error(message);
-      }
-      return data;
-    } catch (err) {
-      clearTimeout(timer);
-      if (err.name === 'AbortError') throw new Error('Request timed out');
-      throw err;
-    }
-  }
+      const text = $('chandas-input').value;
+      const data = await postJSON('/api/v3/chandas/scan', { text });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
 
-  /** Sanitize user input before send. */
-  function sanitize(s, maxLen) {
-    if (typeof s !== 'string') return '';
-    // Strip control characters except standard whitespace.
-    return s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
-            .slice(0, maxLen)
-            .trim();
-  }
-
-  /** Clear an output region. */
-  function clearOutput(node) {
-    node.replaceChildren(el('p', { class: 'placeholder', text: 'Result will appear here.' }));
-    node.classList.remove('has-error', 'has-success');
-  }
-
-  /** Render an error in an output region. */
-  function renderError(node, message) {
-    node.replaceChildren(
-      el('div', { class: 'output-result' }, [
-        el('span', { class: 'rule-tag rule-none', text: 'Error' }),
-        el('p', { class: 'placeholder', text: message }),
-      ])
-    );
-    node.classList.add('has-error');
-    node.classList.remove('has-success');
-  }
-
-  /** Render a loading state. */
-  function renderLoading(node) {
-    node.replaceChildren(el('div', { class: 'loading', text: 'Computing…' }));
-    node.classList.remove('has-error', 'has-success');
-  }
-
-  // ─────────────────────── Sandhi ───────────────────────
-
-  function renderSandhi(node, data) {
-    const wrapper = el('div', { class: 'output-result' }, [
-      el('div', { class: 'output-eq' }, [
-        el('span', { class: 'in',    text: data.p1 }),
-        el('span', { class: 'arrow', text: ' + ' }),
-        el('span', { class: 'in',    text: data.p2 }),
-        el('span', { class: 'arrow', text: ' → ' }),
-        el('span', { class: 'out',   text: data.result }),
-      ]),
-      data.rule_applied && data.rule_applied !== 'none'
-        ? el('span', { class: 'rule-tag', text: 'Sūtra ' + data.rule_applied })
-        : el('span', { class: 'rule-tag rule-none', text: 'No rule — literal' }),
-    ]);
-    node.replaceChildren(wrapper);
-    node.classList.add('has-success');
-    node.classList.remove('has-error');
-  }
-
-  function bindSandhi() {
-    const form   = $('#sandhi-form');
-    const p1     = $('#sandhi-p1');
-    const p2     = $('#sandhi-p2');
-    const output = $('#sandhi-output');
-    const swap   = $('#sandhi-swap');
-    const clear  = $('#sandhi-clear');
-
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const v1 = sanitize(p1.value, LIMITS.PHONEME_MAX);
-      const v2 = sanitize(p2.value, LIMITS.PHONEME_MAX);
-
-      if (!v1 || !v2) {
-        renderError(output, 'Both inputs are required.');
-        return;
-      }
-
-      renderLoading(output);
-      try {
-        const data = await postJSON(API.SANDHI, { p1: v1, p2: v2 });
-        renderSandhi(output, data);
-      } catch (err) {
-        renderError(output, err.message);
-      }
-    });
-
-    swap.addEventListener('click', () => {
-      const a = p1.value;
-      p1.value = p2.value;
-      p2.value = a;
-      p1.focus();
-    });
-
-    clear.addEventListener('click', () => {
-      p1.value = '';
-      p2.value = '';
-      clearOutput(output);
-      p1.focus();
-    });
-
-    // Presets
-    $$('.chip[data-sandhi-p1]').forEach((chip) => {
-      chip.addEventListener('click', () => {
-        p1.value = chip.dataset.sandhiP1 || '';
-        p2.value = chip.dataset.sandhiP2 || '';
-        form.requestSubmit();
-      });
-    });
-  }
-
-  // ─────────────────────── Chandas ───────────────────────
-
-  function renderScansion(node, data) {
-    const syllables = Array.isArray(data.syllables) ? data.syllables : [];
-    const nodes = [];
-
-    // Pattern line
-    nodes.push(el('p', { class: 'pattern-line', text: data.pattern || '' }));
-
-    // Syllable grid
-    const grid = el('div', { class: 'pattern' });
-    for (const s of syllables) {
-      const weight = s.weight === 'G' ? 'Guru −' : 'Laghu ⏑';
-      grid.appendChild(
-        el('div', { class: 'syllable', attrs: { 'aria-label': `${s.text} ${weight}` } }, [
-          el('span', { class: 'glyph',  text: s.text }),
-          el('span', { class: 'weight ' + s.weight, text: s.weight }),
-        ])
-      );
-    }
-    nodes.push(grid);
-
-    // Summary
-    nodes.push(
-      el('div', { class: 'output-result' }, [
-        el('span', { class: 'rule-tag', text: `${data.length} syllables` }),
-        data.is_valid_anuṣṭubh
-          ? el('span', { class: 'rule-tag', text: '32 — possible Anuṣṭubh' })
-          : null,
-      ].filter(Boolean))
-    );
-
-    node.replaceChildren(...nodes);
-    node.classList.add('has-success');
-    node.classList.remove('has-error');
-  }
-
-  function bindChandas() {
-    const form   = $('#chandas-form');
-    const input  = $('#chandas-text');
-    const output = $('#chandas-output');
-    const clear  = $('#chandas-clear');
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const text = sanitize(input.value, LIMITS.TEXT_MAX);
-      if (!text) {
-        renderError(output, 'Enter some text to scan.');
-        return;
-      }
-      renderLoading(output);
-      try {
-        const data = await postJSON(API.SCAN, { text });
-        renderScansion(output, data);
-      } catch (err) {
-        renderError(output, err.message);
-      }
-    });
-
-    clear.addEventListener('click', () => {
-      input.value = '';
-      clearOutput(output);
-      input.focus();
-    });
-  }
-
-  // ─────────────────────── Anuṣṭubh ───────────────────────
-
-  function renderAnustubh(node, data) {
-    const nodes = [];
-
-    // Summary banner
-    const banner = el('div', {
-      class: 'validation-summary ' + (data.is_valid ? 'valid' : 'invalid'),
-    }, [
-      el('span', { class: 'label', text: data.is_valid ? '✓ Valid Anuṣṭubh' : '✗ Not a valid Anuṣṭubh' }),
-    ]);
-    nodes.push(banner);
-
-    // Pāda list
-    if (Array.isArray(data.padas) && data.padas.length) {
-      const list = el('div', { class: 'pada-list' });
-      for (const p of data.padas) {
-        const row = el('div', {
-          class: 'pada ' + (p.is_valid ? 'is-valid' : 'is-invalid'),
-        }, [
-          el('span', { class: 'pada-num', text: `Pāda ${p.index}` }),
-          el('span', { class: 'pada-pattern', text: p.text_pattern || '—' }),
-          el('span', { class: 'pada-variety', text: p.variety || '—' }),
-        ]);
-        if (p.reason) {
-          row.appendChild(el('span', { class: 'pada-reason', text: p.reason }));
-        }
-        list.appendChild(row);
-      }
-      nodes.push(list);
-    }
-
-    // Errors
-    if (Array.isArray(data.errors) && data.errors.length) {
-      const ul = el('ul', { class: 'error-list' });
-      for (const err of data.errors) ul.appendChild(el('li', { text: err }));
-      nodes.push(ul);
-    }
-
-    node.replaceChildren(...nodes);
-    node.classList.add(data.is_valid ? 'has-success' : 'has-error');
-  }
-
-  function bindAnustubh() {
-    const form   = $('#anustubh-form');
-    const input  = $('#anustubh-text');
-    const output = $('#anustubh-output');
-    const clear  = $('#anustubh-clear');
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const text = sanitize(input.value, LIMITS.TEXT_MAX);
-      if (!text) {
-        renderError(output, 'Enter a verse to validate.');
-        return;
-      }
-      renderLoading(output);
-      try {
-        const data = await postJSON(API.ANUSTUBH, { text });
-        renderAnustubh(output, data);
-      } catch (err) {
-        renderError(output, err.message);
-      }
-    });
-
-    clear.addEventListener('click', () => {
-      input.value = '';
-      clearOutput(output);
-      input.focus();
-    });
-  }
-
-  // ─────────────────────── Health check ───────────────────────
-
-  async function probeHealth() {
-    const dot  = $('#status-dot');
-    const text = $('#status-text');
-    if (!dot || !text) return;
-
+  // 4. Chandas Vrtta
+  $('btn-chandas-vrtta')?.addEventListener('click', async () => {
+    const out = $('out-chandas');
+    out.textContent = 'Classifying...';
     try {
-      await postJSON(API.HEALTH, { p1: 'a', p2: 'a' });
-      dot.classList.add('online');
-      dot.classList.remove('offline');
-      text.textContent = 'API online';
+      const text = $('chandas-input').value;
+      const data = await postJSON('/api/v3/chandas/vrtta', { text });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 5. Chandas Anustubh
+  $('btn-chandas-anustubh')?.addEventListener('click', async () => {
+    const out = $('out-chandas');
+    out.textContent = 'Validating...';
+    try {
+      const text = $('chandas-input').value;
+      const data = await postJSON('/api/v3/chandas/anustubh', { text });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 6. Noun Inflect
+  $('btn-noun-inflect')?.addEventListener('click', async () => {
+    const out = $('out-noun');
+    out.textContent = 'Inflecting...';
+    try {
+      const lemma = $('noun-lemma').value;
+      const stem_class = $('noun-stem-class').value;
+      const data = await postJSON('/api/v3/morphology/noun/inflect', { lemma, stem_class });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 7. Verb Conjugate
+  $('btn-verb-conjugate')?.addEventListener('click', async () => {
+    const out = $('out-verb');
+    out.textContent = 'Conjugating...';
+    try {
+      const root = $('verb-root').value;
+      const gana = parseInt($('verb-gana').value, 10);
+      const lakara = $('verb-lakara').value;
+      const data = await postJSON('/api/v3/morphology/verb/conjugate', { root, gana, lakara, script: 'iast' });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 8. Lexicon Lookup
+  $('btn-lexicon-lookup')?.addEventListener('click', async () => {
+    const out = $('out-lexicon');
+    out.textContent = 'Looking up...';
+    try {
+      const q = $('lexicon-query').value;
+      const data = await getJSON(`/api/v3/lexicon/lookup?q=${encodeURIComponent(q)}`);
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 9. Lexicon Exists
+  $('btn-lexicon-exists')?.addEventListener('click', async () => {
+    const out = $('out-lexicon');
+    out.textContent = 'Checking...';
+    try {
+      const q = $('lexicon-query').value;
+      const data = await getJSON(`/api/v3/lexicon/exists?q=${encodeURIComponent(q)}`);
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 10. Gandharva Render (Blob Audio)
+  $('btn-gandharva-render')?.addEventListener('click', async () => {
+    const out = $('out-gandharva');
+    const player = $('gandharva-audio-player');
+    out.textContent = 'Synthesizing...';
+    player.style.display = 'none';
+    
+    try {
+      const text = $('gandharva-text').value;
+      const renderData = await postJSON('/api/v1/gandharva/render', { text });
+      
+      if (renderData.status === 'success') {
+        out.textContent = `Scansion: ${renderData.scansion}\nFetching audio...`;
+        const audioRes = await fetch(`${API_BASE}/api/v1/gandharva/audio/${renderData.file}`);
+        const blob = await audioRes.blob();
+        const url = URL.createObjectURL(blob);
+        
+        player.src = url;
+        player.style.display = 'block';
+        out.textContent += '\nAudio loaded!';
+      } else {
+        out.textContent = `Error: ${renderData.detail}`;
+      }
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 11. Corpus Search
+  $('btn-corpus-search')?.addEventListener('click', async () => {
+    const out = $('out-corpus');
+    out.textContent = 'Searching...';
+    try {
+      const query = $('corpus-query').value;
+      const data = await postJSON('/api/v3/corpus/search', { query, limit: 2 });
+      out.textContent = JSON.stringify(data, null, 2);
+    } catch (e) { out.textContent = `Error: ${e.message}`; }
+  });
+
+  // 12. Footer Health Check (turns status green if Cloud Run is alive)
+  async function checkHealth() {
+    const text = document.getElementById('status-text');
+    if (!text) return;
+    try {
+      await postJSON('/api/v3/sandhi', { p1: 'a', p2: 'i' });
+      text.textContent = 'API Online';
+      text.style.color = '#34d399'; // Green
     } catch {
-      dot.classList.add('offline');
-      dot.classList.remove('online');
-      text.textContent = 'API unreachable';
+      text.textContent = 'API Offline';
+      text.style.color = '#f87171'; // Red
     }
   }
 
-  // ─────────────────────── Bootstrap ───────────────────────
+  // Run health check when the page loads
+  checkHealth();
 
-  function init() {
-    const yearNode = $('#year');
-    if (yearNode) yearNode.textContent = String(new Date().getFullYear());
-
-    bindSandhi();
-    bindChandas();
-    bindAnustubh();
-    probeHealth();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-  } else {
-    init();
-  }
 })();
-

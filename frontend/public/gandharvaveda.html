@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Gāndharvaveda Studio — Just Intonation Audio Engine">
   <meta name="theme-color" content="#0f172a">
-    <meta http-equiv="Content-Security-Policy"
+  <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' blob: https://aigaane-engine-977695793163.asia-south1.run.app; media-src 'self' blob: https://aigaane-engine-977695793163.asia-south1.run.app; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
   <title>Gāndharvaveda Studio · Vādya Vidyā</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
@@ -19,6 +19,7 @@
     .panel { background: var(--panel); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border); }
     label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
     textarea { width: 100%; padding: 0.75rem; font-family: 'JetBrains Mono', monospace; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; resize: vertical; }
+    select { width: 100%; padding: 0.75rem; margin-top: 0.5rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; font-family: inherit; }
     button { background: var(--accent); color: var(--bg); border: none; padding: 0.75rem 1.5rem; font-weight: 600; font-size: 1rem; border-radius: 4px; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; }
     button:hover { opacity: 0.9; }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -36,13 +37,21 @@
     <div class="panel">
       <label for="verse">Sanskrit Verse (IAST)</label>
       <textarea id="verse" rows="3">dharmakṣetre kurukṣetre</textarea>
+      
+      <label for="raga-select" style="margin-top: 1rem;">Select Rāga</label>
+      <select id="raga-select">
+        <option value="mayamalavagowla">Mayamalavagowla (Morning)</option>
+        <option value="todi">Tōḍī (Late Morning)</option>
+        <option value="kalyani">Kalyāṇi (Evening)</option>
+        <option value="bhairavi">Bhairavī (Any)</option>
+      </select>
+      
       <button id="render-btn" onclick="renderAudio()">Synthesize Audio</button>
     </div>
 
     <div class="panel">
       <label>Output</label>
       <div id="output" class="output">Awaiting input...</div>
-      <!-- The audio tag is now permanently in the HTML, hidden by default -->
       <audio id="audio-player" controls style="display: none; width: 100%; margin-top: 1rem;"></audio>
     </div>
   </div>
@@ -56,6 +65,7 @@
       const out = document.getElementById('output');
       const player = document.getElementById('audio-player');
       const text = document.getElementById('verse').value;
+      const raga = document.getElementById('raga-select').value; // Get selected raga
 
       btn.disabled = true;
       btn.innerText = 'Synthesizing...';
@@ -72,7 +82,10 @@
         const res = await fetch(`${API_BASE}/api/v1/gandharva/render`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: text })
+          body: JSON.stringify({ 
+            text: text,
+            raga: raga // Send the selected raga to backend
+          })
         });
         
         const data = await res.json();
@@ -87,12 +100,10 @@
           const audioBlob = await audioRes.blob();
           currentAudioUrl = URL.createObjectURL(audioBlob);
           
-          // Update the pre-existing audio tag and show it
           player.src = currentAudioUrl;
           player.style.display = 'block';
           
-          // Remove the "Loading..." text
-          out.innerHTML = `<strong>Scansion:</strong> ${data.scansion}`;
+          out.innerHTML = `<strong>Scansion:</strong> ${data.scansion} <br><span style="color: #94a3b8;">Rāga: ${raga}</span>`;
           
         } else {
           out.className = 'output error';

@@ -5,13 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Aigaane — Pāṇinian Sanskrit sandhi and chandas engine. Live deterministic analysis of Sanskrit phonology and prosody.">
 <meta name="theme-color" content="#0f172a">
-
-<!-- Content Security Policy: allowing live Cloud Run endpoint -->
 <meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://aigaane.in https://aigaane-engine-977695793163.asia-south1.run.app; font-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://aigaane-engine-977695793163.asia-south1.run.app; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
 
 <title>Aigaane · Sanskrit Sandhi & Chandas Engine</title>
-
 <link rel="stylesheet" href="css/app.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
 </head>
@@ -27,9 +24,10 @@
     <nav class="site-nav" aria-label="Primary">
       <a href="#sandhi">Sandhi</a>
       <a href="#chandas">Chandas</a>
-      <a href="#anustubh">Anuṣṭubh</a>
+      <a href="#morphology">Morphology</a>
+      <a href="#lexicon">Lexicon</a>
       <a href="#gandharva">Gāndharva</a>
-      <a href="#about">About</a>
+      <a href="canon.html">Canon</a>
     </nav>
   </div>
 </header>
@@ -39,208 +37,90 @@
   <section class="hero">
     <div class="container">
       <h1>Deterministic Pāṇinian Sanskrit</h1>
-      <p class="hero-sub">
-        Live phonology and prosody tools built on the Aṣṭādhyāyī.
-        Every derivation cites the governing sūtra.
-        No guesswork, no LLM hallucination.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#sandhi">Try Sandhi</a>
-        <a class="btn btn-ghost" href="#chandas">Scan a Verse</a>
-      </div>
+      <p class="hero-sub">Live phonology and prosody tools built on the Aṣṭādhyāyī. Every derivation cites the governing sūtra.</p>
     </div>
   </section>
 
-  <section id="sandhi" class="panel" aria-labelledby="sandhi-title">
+  <section id="sandhi" class="panel">
     <div class="container">
-      <header class="panel-head">
-        <h2 id="sandhi-title">Sandhi Combiner</h2>
-        <p class="panel-sub">Combine two phonemes per Aṣṭādhyāyī 6.1 and 8.4. Svara, Hal, and Visarga sandhi supported.</p>
-      </header>
-
-      <form id="sandhi-form" class="form" autocomplete="off">
-        <div class="form-row">
-          <label>
-            <span class="label">First phoneme / word-final</span>
-            <input id="sandhi-p1" name="p1" type="text" required maxlength="8" placeholder="a or aḥ" value="a" spellcheck="false">
-          </label>
-          <label>
-            <span class="label">Second phoneme / word-initial</span>
-            <input id="sandhi-p2" name="p2" type="text" required maxlength="8" placeholder="i or iti" value="i" spellcheck="false">
-          </label>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Combine</button>
-          <button type="button" id="sandhi-swap" class="btn btn-ghost">Swap</button>
-          <button type="button" id="sandhi-clear" class="btn btn-ghost">Clear</button>
-        </div>
-      </form>
-
-      <div id="sandhi-output" class="output" role="region" aria-live="polite">
-        <p class="placeholder">Result will appear here.</p>
+      <h2>Sandhi Combiner</h2>
+      <div class="form-row">
+        <input id="sandhi-p1" type="text" value="a">
+        <input id="sandhi-p2" type="text" value="i">
+        <button id="btn-sandhi-join">Combine</button>
       </div>
-
-      <div class="presets">
-        <span class="presets-label">Quick examples:</span>
-        <button class="chip" data-sandhi-p1="a" data-sandhi-p2="i">a + i → e (6.1.87)</button>
-        <button class="chip" data-sandhi-p1="a" data-sandhi-p2="a">a + a → ā (6.1.101)</button>
-        <button class="chip" data-sandhi-p1="a" data-sandhi-p2="e">a + e → ai (6.1.88)</button>
-        <button class="chip" data-sandhi-p1="i" data-sandhi-p2="a">i + a → ya (6.1.77)</button>
-        <button class="chip" data-sandhi-p1="t" data-sandhi-p2="c">t + c → c (8.4.40)</button>
-        <button class="chip" data-sandhi-p1="aḥ" data-sandhi-p2="a">aḥ + a → o' (6.1.109)</button>
-      </div>
+      <pre id="out-sandhi-join" class="output-box"></pre>
     </div>
   </section>
 
-  <section id="chandas" class="panel" aria-labelledby="chandas-title">
+  <section id="chandas" class="panel">
     <div class="container">
-      <header class="panel-head">
-        <h2 id="chandas-title">Chandas Scanner</h2>
-        <p class="panel-sub">Scan IAST Sanskrit into syllables with Laghu (⏑) / Guru (−) weights, per Piṅgala's Chandasūtra.</p>
-      </header>
-
-      <form id="chandas-form" class="form" autocomplete="off">
-        <label class="form-full">
-          <span class="label">Sanskrit text (IAST)</span>
-          <textarea id="chandas-text" name="text" rows="3" required maxlength="2000" placeholder="rāmo gacchati" spellcheck="false">rāmo gacchati</textarea>
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Scan</button>
-          <button type="button" id="chandas-clear" class="btn btn-ghost">Clear</button>
-        </div>
-      </form>
-
-      <div id="chandas-output" class="output" role="region" aria-live="polite">
-        <p class="placeholder">Scansion will appear here.</p>
-      </div>
+      <h2>Chandas Scanner</h2>
+      <textarea id="chandas-input" rows="2">dharmakṣetre kurukṣetre</textarea>
+      <button id="btn-chandas-scan">Scan</button>
+      <pre id="out-chandas" class="output-box"></pre>
     </div>
   </section>
 
-  <section id="anustubh" class="panel" aria-labelledby="anustubh-title">
+  <section id="morphology" class="panel">
     <div class="container">
-      <header class="panel-head">
-        <h2 id="anustubh-title">Anuṣṭubh Validator</h2>
-        <p class="panel-sub">Validate a verse as classical Anuṣṭubh. Pathyā and five Vipulā variations supported.</p>
-      </header>
-
-      <form id="anustubh-form" class="form" autocomplete="off">
-        <label class="form-full">
-          <span class="label">Verse text (IAST, 32 syllables)</span>
-          <textarea id="anustubh-text" name="text" rows="4" required maxlength="2000" placeholder="tapaḥsvādhyāyanirataṃ tapasvī vāgvidāṃ varam" spellcheck="false">tapaḥsvādhyāyanirataṃ tapasvī vāgvidāṃ varam</textarea>
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Validate</button>
-          <button type="button" id="anustubh-clear" class="btn btn-ghost">Clear</button>
-        </div>
-      </form>
-
-      <div id="anustubh-output" class="output" role="region" aria-live="polite">
-        <p class="placeholder">Validation will appear here.</p>
+      <h2>Vyākaraṇa Morphology</h2>
+      <div class="form-row">
+        <input id="noun-lemma" type="text" value="deva">
+        <select id="noun-stem-class">
+          <option value="a-masc">a-masc (deva)</option>
+          <option value="a-neut">a-neut (phala)</option>
+          <option value="aa-fem">ā-fem (ramā)</option>
+        </select>
+        <button id="btn-noun-inflect">Inflect</button>
       </div>
+      <pre id="out-noun" class="output-box"></pre>
     </div>
   </section>
 
-  <!-- ─────────────── GANDHARVA STUDIO ─────────────── -->
-  <section id="gandharva" class="panel" aria-labelledby="gandharva-title">
+  <section id="lexicon" class="panel">
     <div class="container">
-      <header class="panel-head">
-        <h2 id="gandharva-title">Gāndharvaveda Studio</h2>
-        <p class="panel-sub">
-          Render exact Just Intonation audio from Sanskrit verses.
-        </p>
-      </header>
-
-      <form id="gandharva-form" class="form" autocomplete="off">
-        <label class="form-full">
-          <span class="label">Verse text (IAST)</span>
-          <textarea id="gandharva-text" name="text" rows="3" required maxlength="2000" spellcheck="false">dharmakṣetre kurukṣetre</textarea>
-        </label>
-
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="gandharva-btn">Synthesize Audio</button>
-        </div>
-      </form>
-
-      <div id="gandharva-output" class="output" role="region" aria-live="polite">
-        <p class="placeholder">Audio will appear here.</p>
+      <h2>Kosha Lexicon</h2>
+      <div class="form-row">
+        <input id="lexicon-query" type="text" value="dharma">
+        <button id="btn-lexicon-lookup">Lookup</button>
       </div>
+      <pre id="out-lexicon" class="output-box"></pre>
     </div>
   </section>
 
-  <section id="about" class="panel panel-about" aria-labelledby="about-title">
+  <section id="gandharva" class="panel">
     <div class="container">
-      <h2 id="about-title">About</h2>
-      <div class="about-grid">
-        <div>
-          <h3>Deterministic Engine</h3>
-          <p>Every derivation is governed by a named sūtra from the Aṣṭādhyāyī. Given the same input, the engine always returns the same output.</p>
-        </div>
-        <div>
-          <h3>Live Endpoints</h3>
-          <ul class="endpoint-list">
-            <li><code>POST /api/v3/sandhi</code> — svara, hal, visarga</li>
-            <li><code>POST /api/v3/chandas/scan</code> — laghu/guru scanner</li>
-            <li><code>POST /api/v3/chandas/anustubh</code> — pathyā + 5 vipulā</li>
-            <li><code>POST /api/v1/gandharva/render</code> — JI audio synthesis</li>
-          </ul>
-        </div>
+      <h2>Gāndharvaveda Studio</h2>
+      <textarea id="gandharva-text" rows="2">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ kim akurvata sañjaya samakṣaṁ prāṇino mama</textarea>
+      <button id="btn-gandharva-render">Synthesize Audio</button>
+      <div class="audio-player-row">
+        <audio id="gandharva-audio-player" controls style="display:none; width:100%; margin-top:10px;"></audio>
       </div>
+      <pre id="out-gandharva" class="output-box"></pre>
+    </div>
+  </section>
+
+  <section id="corpus" class="panel">
+    <div class="container">
+      <h2>Itihāsa Corpus Search</h2>
+      <div class="form-row">
+        <input id="corpus-query" type="text" value="dharma">
+        <button id="btn-corpus-search">Search</button>
+      </div>
+      <pre id="out-corpus" class="output-box"></pre>
     </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <p>© <span id="year"></span> Aigaane. Built on the Aṣṭādhyāyī. Deterministic Sanskrit phonology.</p>
-    <p class="footer-meta">
-      <span id="status-dot" class="dot" aria-hidden="true"></span>
-      <span id="status-text">Checking API…</span>
-    </p>
+  <div class="container">
+    <p>© Aigaane. Built on the Aṣṭādhyāyī.</p>
+    <p id="status-text">Checking API…</p>
   </div>
 </footer>
 
 <script src="js/app.js" defer></script>
-<script>
-  async function renderGandharva() {
-    const text = document.getElementById('gandharva-text').value;
-    const btn = document.getElementById('gandharva-btn');
-    const out = document.getElementById('gandharva-output');
-    
-    btn.disabled = true;
-    btn.innerText = "Synthesizing...";
-    out.innerHTML = "<p>Processing...</p>";
-
-    try {
-      const res = await fetch('https://aigaane-engine-977695793163.asia-south1.run.app/api/v1/gandharva/render', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: text })
-      });
-      const data = await res.json();
-      
-      if (data.status === 'success') {
-        out.innerHTML = `
-          <p><strong>Scansion:</strong> ${data.scansion}</p>
-          <audio controls autoplay src="https://aigaane-engine-977695793163.asia-south1.run.app/api/v1/gandharva/audio/${data.file}"></audio>
-        `;
-      } else {
-        out.innerHTML = `<p style="color:red;">Error: ${data.detail}</p>`;
-      }
-    } catch (err) {
-      out.innerHTML = `<p style="color:red;">Connection failed to Cloud Run API.</p>`;
-    }
-    
-    btn.disabled = false;
-    btn.innerText = "Synthesize Audio";
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('gandharva-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      renderGandharva();
-    });
-  });
-</script>
 </body>
 </html>
