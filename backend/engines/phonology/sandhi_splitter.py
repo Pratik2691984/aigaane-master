@@ -86,21 +86,27 @@ class SandhiSplitter:
 
     def _expand_visarga(self, slp1: str) -> List[str]:
         """
-        Try to restore a visarga elided by the rule aH + a -> o '.
+        Try to restore a visarga that was elided by sandhi rules.
         Returns candidate SLP1 strings with the original first.
         """
         variants = [slp1]
-        if "'" not in slp1:
-            return variants
 
-        idx = slp1.find("'")
-        if idx > 0 and slp1[idx - 1] == "o":
-            prefix = slp1[: idx - 1]
-            suffix = slp1[idx + 1 :]
-            # Restore o ' to aH + a
-            variants.append(prefix + "aHa" + suffix)
-            # Restore o ' to aH alone (no following vowel)
-            variants.append(prefix + "aH" + suffix)
+        # Rule: aH + c/ch → aS + c/ch (visarga becomes ś before palatal)
+        # Reverse: aS + c → aH + c
+        for i, ch in enumerate(slp1):
+            if ch == "S" and i + 1 < len(slp1) and slp1[i + 1] in ("c", "C"):
+                variants.append(slp1[:i] + "H" + slp1[i + 1:])
+                break  # only restore the first palatal-visarga boundary
+
+        # Rule: aH + a → o ' (avagraha)
+        if "'" in slp1:
+            idx = slp1.find("'")
+            if idx > 0 and slp1[idx - 1] == "o":
+                prefix = slp1[: idx - 1]
+                suffix = slp1[idx + 1 :]
+                variants.append(prefix + "aHa" + suffix)
+                variants.append(prefix + "aH" + suffix)
+
         return variants
 
     def split(
