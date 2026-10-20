@@ -87,3 +87,18 @@ data/sanskrit/ingestion/canonical_promotion_plan.v1.json
 data/sanskrit/ingestion/promotion_preview.v1.json
 data/vidyut/kosha/
 data/vidyut/cheda/
+
+# local debug artifacts and test outputs
+backend/*.wav
+inspect_*.py
+fix_*.py
+patch_*.py
+parse_*.py
+diff_*.py
+find_*.py
+renumber_*.py
+restore_*.py
+build_canon.py
+generate_coverage_report.py
+gita_to_envelope.py
+harvest_all_upanisads.ps1
