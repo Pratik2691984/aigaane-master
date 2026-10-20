@@ -105,3 +105,6 @@ harvest_all_upanisads.ps1
 
 # third-party corpus mirror (GRETIL) - fetched on demand
 mirror_tar/
+
+# generated normalized corpus (regenerable)
+canonical_store/
