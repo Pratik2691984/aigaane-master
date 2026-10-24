@@ -1,0 +1,41 @@
+:root {
+  --vi-bg: #0a0c10;
+  --vi-panel: #131820;
+  --vi-border: #2a3a4a;
+  --vi-gold: #fbbf24;
+  --vi-text: #e2e8f0;
+  --vi-dim: #94a3b8;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--vi-bg); color: var(--vi-text); font-family: -apple-system, sans-serif; }
+.vi-header { padding: 2rem; border-bottom: 1px solid var(--vi-border); }
+.vi-header h1 { color: var(--vi-gold); margin: 0.5rem 0 0.25rem; }
+.vi-subtitle { color: var(--vi-dim); font-size: 0.9rem; }
+.vi-main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+.vi-controls { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.vi-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.vi-tabs button { background: var(--vi-panel); color: var(--vi-dim); border: 1px solid var(--vi-border); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+.vi-tabs button.active { background: var(--vi-gold); color: var(--vi-bg); border-color: var(--vi-gold); }
+.vi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.vi-card { background: var(--vi-panel); border: 1px solid var(--vi-border); border-radius: 12px; padding: 1.25rem; cursor: pointer; transition: all 0.2s; }
+.vi-card:hover { border-color: var(--vi-gold); transform: translateY(-4px); }
+.vi-card-top { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--vi-dim); margin-bottom: 0.75rem; }
+.vi-badge { padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+.vi-tata { background: #3b2d18; color: #ffb74d; }
+.vi-avanaddha { background: #381f21; color: #f87171; }
+.vi-susira { background: #15332c; color: #4ade80; }
+.vi-ghana { background: #1c2b3d; color: #38bdf8; }
+.vi-card-name { color: var(--vi-gold); margin: 0 0 0.25rem; }
+.vi-card-deva { color: var(--vi-dim); margin-bottom: 0.75rem; font-size: 1.1rem; }
+.vi-card-formula { background: #0a0c10; padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.75rem; color: #7a9a5a; overflow-x: auto; white-space: nowrap; margin-bottom: 1rem; }
+.vi-excite { background: #2a3a4a; color: var(--vi-text); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; width: 100%; }
+.vi-excite:hover { background: var(--vi-gold); color: var(--vi-bg); }
+.vi-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: flex-end; z-index: 100; }
+.vi-drawer.open { display: flex; }
+.vi-drawer-inner { background: var(--vi-panel); width: 100%; max-width: 900px; max-height: 80vh; overflow-y: auto; padding: 2rem; border-radius: 12px 12px 0 0; position: relative; }
+.vi-drawer-inner #drawer-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: var(--vi-dim); font-size: 1.5rem; cursor: pointer; }
+.vi-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+.vi-detail-card { background: var(--vi-bg); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--vi-border); }
+.vi-excite-large { background: var(--vi-gold); color: var(--vi-bg); border: none; padding: 1rem 2rem; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%; font-size: 1rem; }
+.vi-scope-dock { position: fixed; bottom: 0; left: 0; right: 0; height: 52px; background: rgba(10,12,16,0.95); border-top: 1px solid var(--vi-border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; }
+.scope-label { color: var(--vi-dim); font-size: 0.7rem; font-family: monospace; }

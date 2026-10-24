@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vedic Instruments · Vādya-Śāstra</title>
+  <meta name="description" content="50 archaeoacoustic instruments from the Vedic corpus, synthesized in the browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪕</text></svg>">
+  <link rel="stylesheet" href="/shared/vendor/vedic-instruments.css">
+</head>
+<body>
+  <header class="vi-header">
+    <a href="/cabinet.html">← Cabinet</a>
+    <h1>Vedic Instruments</h1>
+    <p class="subtitle">Vādya-Śāstra · Nāṭyaśāstra & Saṅgīta Ratnākara</p>
+  </header>
+
+  <main class="vi-main">
+    <!-- Filter / Sort bar -->
+    <div class="vi-controls">
+      <div class="vi-tabs" id="category-tabs">
+        <button data-cat="all" class="active">All 50</button>
+        <button data-cat="tata">Tata (Strings)</button>
+        <button data-cat="avanaddha">Avanaddha (Drums)</button>
+        <button data-cat="susira">Suṣira (Wind)</button>
+        <button data-cat="ghana">Ghana (Idiophones)</button>
+      </div>
+      <select id="sort-select">
+        <option value="rank">Sort: Rank</option>
+        <option value="score">Sort: Score</option>
+        <option value="name">Sort: Name</option>
+      </select>
+    </div>
+
+    <!-- Grid -->
+    <div id="instrument-grid" class="vi-grid"></div>
+  </main>
+
+  <!-- Detail Drawer -->
+  <div id="detail-drawer" class="vi-drawer" aria-hidden="true">
+    <div class="vi-drawer-inner">
+      <button id="drawer-close" aria-label="Close">×</button>
+      <div id="drawer-content"></div>
+    </div>
+  </div>
+
+  <!-- Persistent audio scope (re-used from earlier work) -->
+  <div class="vi-scope-dock">
+    <canvas id="vi-scope" width="300" height="48"></canvas>
+    <span class="scope-label">REALTIME FFT · WEB AUDIO API</span>
+  </div>
+
+  <script src="/shared/vendor/vedic-instruments-data.js" defer></script>
+  <script src="/shared/vendor/vedic-instruments.js" defer></script>
+</body>
+</html>
