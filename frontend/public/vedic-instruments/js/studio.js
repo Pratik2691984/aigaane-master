@@ -33,7 +33,13 @@ class VedicAudioEngine {
     if (this.ctx.state === 'suspended') this.ctx.resume();
   }
 
-  toggleMute(btn) { this.init(); this.isMuted = !this.isMuted; this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.35, this.ctx.currentTime); btn.textContent = this.isMuted ? '🔇 Sound: MUTED' : '🔊 Sound: ON'; btn.classList.toggle('active', this.isMuted); }
+  toggleMute(btn) { 
+    this.init(); 
+    this.isMuted = !this.isMuted; 
+    this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.35, this.ctx.currentTime); 
+    btn.textContent = this.isMuted ? '🔇 Sound: MUTED' : '🔊 Sound: ON'; 
+    btn.classList.toggle('active', this.isMuted); 
+  }
   
   toggleTanpura(btn) {
     this.init();
@@ -118,7 +124,7 @@ class VedicAudioEngine {
       for (let x = 0; x < w; x++) { const y = mid + Math.sin(x * 0.025 - this.phasePingala + Math.PI) * 35; if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); } ctx.stroke();
     }; render();
   }
-} // ✅ CRITICAL FIX: Closing brace added here
+}
 
 class QuantaBrainEngine {
   constructor(audioEngine) {
@@ -167,47 +173,36 @@ document.addEventListener('DOMContentLoaded', () => {
     allInstruments = data.instruments || []; 
     console.log("✅ Loaded Instruments:", allInstruments.length); 
     updateCounts(); renderGrid(); bindEvents(); injectGatraVinaSVG('gatra-vina-mount'); 
-  }).catch(err => console.error("❌ Error loading instruments.json:", err));
+  }).catch(err => { 
+    console.error("❌ Error loading instruments.json:", err); 
+    renderGrid(); 
+    bindEvents(); 
+    injectGatraVinaSVG('gatra-vina-mount'); 
+  });
 });
+
+function updateCounts() {
+  const countEl = document.getElementById('count-all');
+  if (countEl) countEl.textContent = allInstruments.length;
+  ['tata', 'avanaddha', 'susira', 'ghana'].forEach(c => { 
+    const el = document.getElementById(`count-${c}`); 
+    if (el) el.textContent = allInstruments.filter(i => i.classification === c).length; 
+  });
+}
 
 function renderGrid() {
   const container = document.getElementById('instruments-grid');
   const query = document.getElementById('search-input').value.toLowerCase(); 
   const sortMode = document.getElementById('sort-select').value;
 
-  // THE FIX: Fallback dataset if instruments.json fails or is empty
   const fallbackInstruments = [
-    {
-      id: "rudra-veena", rank: 1, name: "Rudra Vīṇā", name_iast: "Rudra Vīṇā", name_devanagari: "रुद्रवीणा",
-      classification: "tata", organology: "Tubular stick zither with dual spherical calabash resonators",
-      primary_attestation: "Nāṭya Śāstra 28.14", score: 99.4, description_short: "Colossal dual-gourd stick zither consecrated to Lord Shiva.",
-      acoustics: { formula_latex: "f_n = (nv/2L)(1 + ε_j + π²Bn²/8L²)", fundamental_hz: 130.81, damping_ratio: 0.08 },
-      liturgical_context: { spatial_placement: "Brahmā-sthāna", actuator: "Wire mezrāb", bio_membrane: "Calabash & teak" }
-    },
-    {
-      id: "bhumi-dundubhi", rank: 18, name: "Bhūmi-dundubhi", name_iast: "Bhūmi-dundubhi", name_devanagari: "भूमिदुन्दुभि",
-      classification: "avanaddha", organology: "Earth-pit drum with pegged bovine hide",
-      primary_attestation: "Śatapatha Brāhmaṇa", score: 96.8, description_short: "An earth-pit resonator covered with staked bull hide.",
-      acoustics: { formula_latex: "f ≈ c_s / (4(d + 0.4D))", fundamental_hz: 42.0, damping_ratio: 0.45 },
-      liturgical_context: { spatial_placement: "West-Northwest perimeter", actuator: "Ox-tail switch", bio_membrane: "Untanned bovine hide" }
-    },
-    {
-      id: "venu", rank: 30, name: "Veṇu / Vaṃśa", name_iast: "Veṇu / Bānsurī", name_devanagari: "वेणु / बांसुरी",
-      classification: "susira", organology: "Transverse bamboo flute with fire-pierced embouchure",
-      primary_attestation: "Ṛgveda 8.69.9", score: 99.3, description_short: "Lord Krishna's sacred flute.",
-      acoustics: { formula_latex: "f_n = nc / 2(L + 1.2r)", fundamental_hz: 349.23, damping_ratio: 0.03 },
-      liturgical_context: { spatial_placement: "North of altar", actuator: "Planar lip air-stream", bio_membrane: "Cured bamboo" }
-    },
-    {
-      id: "ghanta", rank: 42, name: "Ghaṇṭā", name_iast: "Ghaṇṭā", name_devanagari: "घण्टा",
-      classification: "ghana", organology: "Panchaloha bell with Garuda clapper",
-      primary_attestation: "Yajurveda Taittirīya", score: 98.8, description_short: "The voice of all deities.",
-      acoustics: { formula_latex: "f_{m,n} = (h/2πR²)√(E/12ρ(1-ν²))λ_{m,n}", fundamental_hz: 523.25, damping_ratio: 0.002 },
-      liturgical_context: { spatial_placement: "Priest's left hand", actuator: "Bronze clapper", bio_membrane: "Panchaloha alloy" }
-    }
+    { id: "rudra-veena", rank: 1, name: "Rudra Vīṇā", name_iast: "Rudra Vīṇā", name_devanagari: "रुद्रवीणा", classification: "tata", organology: "Tubular stick zither with dual spherical calabash resonators", primary_attestation: "Nāṭya Śāstra 28.14", score: 99.4, description_short: "Colossal dual-gourd stick zither consecrated to Lord Shiva.", acoustics: { formula_latex: "f_n = (nv/2L)(1 + ε_j + π²Bn²/8L²)", fundamental_hz: 130.81, damping_ratio: 0.08 }, liturgical_context: { spatial_placement: "Brahmā-sthāna", actuator: "Wire mezrāb", bio_membrane: "Calabash & teak" } },
+    { id: "bhumi-dundubhi", rank: 18, name: "Bhūmi-dundubhi", name_iast: "Bhūmi-dundubhi", name_devanagari: "भूमिदुन्दुभि", classification: "avanaddha", organology: "Earth-pit drum with pegged bovine hide", primary_attestation: "Śatapatha Brāhmaṇa", score: 96.8, description_short: "An earth-pit resonator covered with staked bull hide.", acoustics: { formula_latex: "f ≈ c_s / (4(d + 0.4D))", fundamental_hz: 42.0, damping_ratio: 0.45 }, liturgical_context: { spatial_placement: "West-Northwest perimeter", actuator: "Ox-tail switch", bio_membrane: "Untanned bovine hide" } },
+    { id: "venu", rank: 30, name: "Veṇu / Vaṃśa", name_iast: "Veṇu / Bānsurī", name_devanagari: "वेणु / बांसुरी", classification: "susira", organology: "Transverse bamboo flute with fire-pierced embouchure", primary_attestation: "Ṛgveda 8.69.9", score: 99.3, description_short: "Lord Krishna's sacred flute.", acoustics: { formula_latex: "f_n = nc / 2(L + 1.2r)", fundamental_hz: 349.23, damping_ratio: 0.03 }, liturgical_context: { spatial_placement: "North of altar", actuator: "Planar lip air-stream", bio_membrane: "Cured bamboo" } },
+    { id: "ghanta", rank: 42, name: "Ghaṇṭā", name_iast: "Ghaṇṭā", name_devanagari: "घण्टा", classification: "ghana", organology: "Panchaloha bell with Garuda clapper", primary_attestation: "Yajurveda Taittirīya", score: 98.8, description_short: "The voice of all deities.", acoustics: { formula_latex: "f_{m,n} = (h/2πR²)√(E/12ρ(1-ν²))λ_{m,n}", fundamental_hz: 523.25, damping_ratio: 0.002 }, liturgical_context: { spatial_placement: "Priest's left hand", actuator: "Bronze clapper", bio_membrane: "Panchaloha alloy" } }
   ];
 
-  const sourceData = allInstruments.length > 0 ? allInstruments : fallbackInstruments;
+  const sourceData = (allInstruments && allInstruments.length > 0) ? allInstruments : fallbackInstruments;
 
   let list = sourceData.filter(i => {
     const matchesClass = activeClass === 'all' || i.classification === activeClass;
@@ -295,7 +290,6 @@ function triggerBioBus(address) {
 
 function openDetails(id) {
   const inst = allInstruments.find(i => i.id === id) || 
-    // Fallback if data is empty
     { id: 'rudra-veena', name: 'Rudra Vīṇā', name_iast: 'Rudra Vīṇā', name_devanagari: 'रुद्रवीणा', classification: 'tata', organology: 'Tubular stick zither', primary_attestation: 'Nāṭya Śāstra 28.14', acoustics: { formula_latex: 'f_n = (nv/2L)', fundamental_hz: 130.81 } };
   
   if (!inst) return;
