@@ -1,0 +1,347 @@
+:root {
+  --bg-primary: #0a0c10;
+  --bg-card: #12161f;
+  --bg-card-hover: #171d28;
+  --border-card: #232936;
+  --accent-gold: #ffb74d;
+  --accent-blue: #38bdf8;
+  --accent-teal: #80cbc4;
+  --text-main: #f1f5f9;
+  --text-sub: #94a3b8;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-primary);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  padding-bottom: 80px;
+}
+
+/* App Header */
+.app-header {
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border-card);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  background: linear-gradient(180deg, #111520 0%, var(--bg-primary) 100%);
+}
+.sub-tag { font-size: 0.75rem; text-transform: uppercase; color: var(--accent-gold); letter-spacing: 0.08em; display: block; margin-bottom: 0.3rem; }
+.app-header h1 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+.header-desc { max-width: 860px; font-size: 0.9rem; color: var(--text-sub); }
+.header-actions { display: flex; gap: 0.75rem; }
+
+.pill-action-btn {
+  background: #1e2532;
+  color: var(--text-main);
+  border: 1px solid var(--border-card);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.pill-action-btn:hover { border-color: var(--accent-gold); }
+.pill-action-btn.active { background: var(--accent-gold); color: #0a0c10; }
+
+/* Stats Bar */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #0d1017;
+  border-bottom: 1px solid var(--border-card);
+}
+.stat-item { display: flex; flex-direction: column; }
+.stat-val { font-size: 1.25rem; font-weight: 700; color: var(--accent-blue); font-family: var(--font-mono); }
+.stat-lbl { font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; }
+
+/* Quanta & Brainwave Dashboard */
+.quanta-brain-panel {
+  background: #0b0e14;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 2rem;
+}
+.quanta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1a2332;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+.quanta-header h3 { font-size: 1.3rem; color: #fff; margin-top: 0.2rem; }
+.quanta-badge-cluster { display: flex; gap: 1rem; }
+
+.q-metric-pill {
+  background: #121824;
+  border: 1px solid #233044;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+}
+.q-lbl { font-size: 0.65rem; color: var(--text-sub); }
+.q-val { font-size: 1rem; font-weight: 700; color: var(--accent-gold); }
+
+.quanta-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+}
+.eeg-oscilloscope-box {
+  background: #07090e;
+  border: 1px solid #1c2637;
+  border-radius: 8px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+.box-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-sub);
+  font-family: var(--font-mono);
+  margin-bottom: 0.5rem;
+}
+.energy-tag { color: var(--accent-teal); }
+#eeg-canvas { width: 100%; height: auto; border-radius: 4px; }
+.box-bottom { margin-top: 0.5rem; font-size: 0.8rem; font-family: var(--font-mono); color: #cbd5e1; }
+
+.eeg-states-matrix h5 { font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; margin-bottom: 0.75rem; }
+.eeg-btn-stack { display: flex; flex-direction: column; gap: 0.5rem; }
+.eeg-state-btn {
+  background: #111722;
+  border: 1px solid #222e42;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: center;
+  text-align: left;
+  transition: all 0.2s;
+}
+.eeg-state-btn:hover { border-color: var(--accent-blue); background: #172132; }
+.eeg-state-btn .b-name { font-weight: 700; font-size: 0.8rem; }
+.eeg-state-btn .b-hz { font-size: 0.75rem; color: #fff; font-family: var(--font-mono); }
+.eeg-state-btn .b-desc { grid-column: span 2; font-size: 0.7rem; color: var(--text-sub); margin-top: 2px; }
+
+.eeg-state-btn.delta .b-name { color: #ef4444; }
+.eeg-state-btn.theta .b-name { color: #a855f7; }
+.eeg-state-btn.alpha .b-name { color: #38bdf8; }
+.eeg-state-btn.gamma .b-name { color: #4ade80; }
+
+/* Filter & Navigation Bar */
+.studio-nav {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.tab-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-sub);
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.tab-btn.active { color: #fff; border-color: var(--accent-gold); background: #1a202c; }
+.tab-btn.bio-tab { background: #182635; border-color: #38bdf8; color: #38bdf8; font-weight: 700; }
+.tab-btn.bio-tab.active { background: #38bdf8; color: #0a0c10; }
+.tab-count { font-size: 0.75rem; opacity: 0.7; margin-left: 4px; }
+
+.search-sort-bar { display: flex; gap: 0.75rem; flex-grow: 1; max-width: 520px; }
+#search-input, #sort-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-main);
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+#search-input { flex-grow: 1; }
+
+/* Instrument Cards Grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  padding: 0 2rem 2rem;
+}
+.inst-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.inst-card:hover { transform: translateY(-2px); border-color: var(--accent-blue); background: var(--bg-card-hover); }
+
+.card-top { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 0.5rem; color: var(--text-sub); }
+.badge { text-transform: uppercase; font-weight: 700; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; }
+.badge.tata { background: #3b2d18; color: #ffb74d; }
+.badge.avanaddha { background: #381f21; color: #f87171; }
+.badge.susira { background: #15332c; color: #4ade80; }
+.badge.ghana { background: #1c2b3d; color: #38bdf8; }
+
+.card-title h3 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+.devanagari { font-size: 1rem; color: var(--accent-gold); display: block; }
+.organology-sub { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 0.75rem; }
+
+.formula-preview {
+  background: #090b0e;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-teal);
+  margin-bottom: 0.75rem;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.card-desc { font-size: 0.8rem; color: #cbd5e1; margin-bottom: 1rem; line-height: 1.4; }
+
+.card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1a202c; padding-top: 0.75rem; }
+.excite-card-btn {
+  background: #1f2937;
+  border: 1px solid var(--border-card);
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.excite-card-btn:hover { background: var(--accent-gold); color: #000; }
+
+/* Bio-Acoustic Laboratory */
+.bio-laboratory { padding: 1rem 2rem 3rem; animation: fadeIn 0.2s ease-in-out; }
+.bio-panel-header { margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-card); padding-bottom: 0.75rem; }
+.bio-panel-header h2 { color: #fff; font-size: 1.5rem; }
+.bio-panel-header p { color: var(--text-sub); font-size: 0.85rem; }
+.bio-workbench { display: grid; grid-template-columns: 380px 1fr; gap: 2rem; align-items: start; }
+.svg-container { background: #090b0e; border: 1px solid var(--border-card); border-radius: 12px; height: 680px; overflow: hidden; }
+.bio-telemetry-panel { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.scope-box { background: #0d1117; border: 1px solid var(--border-card); border-radius: 8px; padding: 1rem; }
+.scope-box h4 { font-size: 0.85rem; color: var(--accent-gold); margin-bottom: 0.75rem; text-transform: uppercase; font-family: var(--font-mono); }
+#ida-pingala-canvas { width: 100%; height: auto; background: #05070a; border: 1px solid #1a2230; border-radius: 6px; }
+
+.telemetry-log {
+  background: #0d1117;
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.25rem;
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.telemetry-row { display: flex; justify-content: space-between; font-size: 0.8rem; border-bottom: 1px dashed #1a2433; padding-bottom: 0.35rem; }
+.t-label { color: var(--text-sub); }
+.t-val { color: var(--accent-teal); font-weight: 700; }
+
+/* Realtime Scope Dock */
+.scope-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 52px;
+  background: rgba(10, 12, 16, 0.95);
+  border-top: 1px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  backdrop-filter: blur(8px);
+}
+.scope-label { font-size: 0.7rem; color: var(--text-sub); font-family: var(--font-mono); }
+
+/* Modal Drawer */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+.modal-backdrop.open { display: flex; }
+.modal-window {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 2rem;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-sub);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.swara-row { display: flex; gap: 0.5rem; overflow-x: auto; margin: 1rem 0; padding-bottom: 0.5rem; }
+.swara-btn {
+  background: #1a2230;
+  border: 1px solid #334155;
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+}
+.swara-btn:hover { background: var(--accent-gold); color: #000; }
+.swara-hz { font-size: 0.65rem; font-family: var(--font-mono); opacity: 0.7; }
+
+.binary-flow-box { background: #0d1117; border: 1px solid #1f2937; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+.flow-node { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+.flow-badge { background: #1f2733; color: var(--accent-teal); font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; }
+.flow-meta h6 { font-size: 0.85rem; color: #fff; }
+.flow-meta p { font-size: 0.75rem; color: var(--text-sub); }
+
+.research-subgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.subcard { background: #0c0f14; border: 1px solid #1e2634; padding: 1rem; border-radius: 6px; }
+.subcard h4 { font-size: 0.85rem; color: var(--accent-blue); margin-bottom: 0.5rem; }
+.subcard ul { list-style: none; font-size: 0.8rem; color: var(--text-sub); }
+.subcard li { margin-bottom: 0.3rem; }
+.subcard li strong { color: #cbd5e1; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 950px) {
+  .quanta-grid { grid-template-columns: 1fr; }
+  .bio-workbench { grid-template-columns: 1fr; }
+  .svg-container { height: 500px; }
+}

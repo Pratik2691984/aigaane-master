@@ -1,0 +1,1360 @@
+{
+  "meta": {
+    "title": "Vedic Archaeoacoustics & Bio-Physical Organology Dataset",
+    "version": "1.0.0",
+    "total_specimens": 50,
+    "classifications": ["tata", "avanaddha", "susira", "ghana"]
+  },
+  "instruments": [
+    {
+      "id": "rudra-veena",
+      "rank": 1,
+      "name": "Rudra Vina",
+      "name_iast": "Rudra Vīṇā",
+      "name_devanagari": "रुद्रवीणा",
+      "classification": "tata",
+      "organology": "Tubular stick zither with dual spherical calabash resonators and parabolic jawari bridge",
+      "primary_attestation": "Nāṭya Śāstra 28.14; Saṅgīta Ratnākara 6.12",
+      "impact": 5,
+      "ease": 5,
+      "score": 99.4,
+      "description_short": "Colossal dual-gourd stick zither consecrated to Lord Shiva. Wide curved bridge generates intense non-linear boundary perturbation (jawari), cascading energy into dynamic higher partials.",
+      "acoustics": {
+        "model_type": "Non-linear Jawari Boundary Oscillator",
+        "formula_latex": "f_n = \\frac{n v}{2L} \\left(1 + \\epsilon_j(A, x) + \\frac{\\pi^2 B n^2}{8 L^2}\\right)",
+        "fundamental_hz": 130.81,
+        "frequency_band": "Sub-bass to Low-Mid (65–350 Hz)",
+        "damping_ratio": 0.08
+      },
+      "liturgical_context": {
+        "spatial_placement": "Brahmā-sthāna / Central Dhrupad sanctum",
+        "actuator": "Wire plectrum (mezrāb) with fingertip flesh damping",
+        "bio_membrane": "Calabash gourds (Cucurbita lagenaria) & seasoned tun/teak"
+      },
+      "tags": ["chordophone", "zither", "jawari", "dhrupad", "shiva", "nada-brahma"]
+    },
+    {
+      "id": "saraswati-veena",
+      "rank": 2,
+      "name": "Saraswati Veena",
+      "name_iast": "Saraswatī Vīṇā",
+      "name_devanagari": "सरस्वतीवीणा",
+      "classification": "tata",
+      "organology": "Monolithic mature jackwood resonator lute with bell-metal bridge and yāli head",
+      "primary_attestation": "Sāmavedic Āraṇyaka; Nāṭya Śāstra",
+      "impact": 5,
+      "ease": 5,
+      "score": 98.9,
+      "description_short": "Consecrated archetype of Goddess Saraswati and divine speech (Vāc). The carved koodam bowl and secondary resonator provide luminous microtonal gamaka projection.",
+      "acoustics": {
+        "model_type": "Acoustic Impedance Loaded Lute",
+        "formula_latex": "Z_{in}(f) = \\rho c \\frac{Z_L + j Z_0 \\tan(kL)}{Z_0 + j Z_L \\tan(kL)}",
+        "fundamental_hz": 196.00,
+        "frequency_band": "Mid-range Gamaka Core (130–880 Hz)",
+        "damping_ratio": 0.09
+      },
+      "liturgical_context": {
+        "spatial_placement": "Vāc Sanctum / Sāman Chanting Enclosure",
+        "actuator": "Split wire plectra and bone bridge grazing",
+        "bio_membrane": "Artocarpus heterophyllus (Jackwood) single trunk"
+      },
+      "tags": ["chordophone", "lute", "saraswati", "gamaka", "carnatic", "sacred-wood"]
+    },
+    {
+      "id": "bana-veena",
+      "rank": 3,
+      "name": "Bana Veena / Maha Veena",
+      "name_iast": "Bāṇa Vīṇā / Mahā Vīṇā",
+      "name_devanagari": "बाणवीणा / महावीणा",
+      "classification": "tata",
+      "organology": "Hundred-stringed udumbara wood sacred harp strung with twisted muñja grass or sinew",
+      "primary_attestation": "Ṛgveda 2.43.3; Śatapatha Brāhmaṇa",
+      "impact": 5,
+      "ease": 3,
+      "score": 97.8,
+      "description_short": "The primary ritual harp of the winter solstice Mahāvrata sacrifice. 100 tensioned fibers excited simultaneously create an immense, shimmering acoustic cluster wave.",
+      "acoustics": {
+        "model_type": "Decadic Multi-String Gamut Array",
+        "formula_latex": "p(t) = \\sum_{m=1}^{100} A_m e^{-\\alpha_m t} \\cos(2\\pi f_m t + \\phi_m)",
+        "fundamental_hz": 220.00,
+        "frequency_band": "Broadband Sympathetic Cluster (110–1200 Hz)",
+        "damping_ratio": 0.12
+      },
+      "liturgical_context": {
+        "spatial_placement": "South seat of Udgātṛ on tall Āsandī",
+        "actuator": "Udumbara twig switch or curved reed plectrum (koṇa)",
+        "bio_membrane": "Ficus racemosa trough covered in hairy ox-hide"
+      },
+      "tags": ["chordophone", "harp", "multi-string", "mahavrata", "udgatar", "telluric"]
+    },
+    {
+      "id": "tanpura",
+      "rank": 4,
+      "name": "Tanpura",
+      "name_iast": "Tānpūrā / Tambūrā",
+      "name_devanagari": "तानपूरा / तम्बूरू",
+      "classification": "tata",
+      "organology": "Unfretted long-necked lute with dynamic silk thread boundary perturbation (jīvā)",
+      "primary_attestation": "Saṅgīta Ratnākara 6.22",
+      "impact": 5,
+      "ease": 5,
+      "score": 97.2,
+      "description_short": "The acoustic bedrock of Indian musical cosmology. The cotton jīvā thread shifts the effective string boundary continuously, triggering a cascading, spinning overtone spectrum.",
+      "acoustics": {
+        "model_type": "Dynamic Thread Perturbed Boundary Wave",
+        "formula_latex": "\\frac{\\partial^2 y}{\\partial t^2} = c^2 \\frac{\\partial^2 y}{\\partial x^2} - F_{\\text{jīvā}}(y, \\dot{y})",
+        "fundamental_hz": 130.81,
+        "frequency_band": "Harmonic Drone Bedrock (65–1046 Hz)",
+        "damping_ratio": 0.05
+      },
+      "liturgical_context": {
+        "spatial_placement": "Flanking the lead chanter / Master tonic reference",
+        "actuator": "Flesh pads of index, middle, and ring fingers",
+        "bio_membrane": "Dried round calabash with cedar neck and silk threads"
+      },
+      "tags": ["chordophone", "drone", "jiva", "harmonic", "nada-brahma"]
+    },
+    {
+      "id": "sarangi",
+      "rank": 5,
+      "name": "Sarangi",
+      "name_iast": "Sāraṅgī",
+      "name_devanagari": "सारङ्गी",
+      "classification": "tata",
+      "organology": "Carved box lute covered in goat parchment with 3 gut melody strings and 35 sympathetic steel tarab strings",
+      "primary_attestation": "Saṅgīta Ratnākara; Medieval Vedic commentaries",
+      "impact": 5,
+      "ease": 4,
+      "score": 96.5,
+      "description_short": "Acoustic mirror of the human vocal tract. Lateral fingernail sliding on gut combined with continuous sympathetic wire excitation creates a crying, stepless microtonal formant.",
+      "acoustics": {
+        "model_type": "Coupled Friction Bow & Resonant String Matrix",
+        "formula_latex": "F_{\\text{bow}} = \\mu(\\Delta v) F_N, \\quad \\ddot{\\xi}_k + 2\\zeta_k \\omega_k \\dot{\\xi}_k + \\omega_k^2 \\xi_k = \\Gamma_k(t)",
+        "fundamental_hz": 220.00,
+        "frequency_band": "Vocal Formant Emulation (130–3500 Hz)",
+        "damping_ratio": 0.07
+      },
+      "liturgical_context": {
+        "spatial_placement": "Directly flanking lead vocal reciter",
+        "actuator": "Heavy curved horsehair bow (gaj)",
+        "bio_membrane": "Single red cedar hollow body skinned with parchment"
+      },
+      "tags": ["chordophone", "bowed", "gut-string", "vocal-mirror", "sympathetic"]
+    },
+    {
+      "id": "surbahar",
+      "rank": 6,
+      "name": "Surbahar",
+      "name_iast": "Surabahār",
+      "name_devanagari": "सुरबहार",
+      "classification": "tata",
+      "organology": "Large flattened pumpkin gourd bass sitar with ultra-wide neck and heavy bronze strings",
+      "primary_attestation": "Gwalior & Senia Dhrupad lineages",
+      "impact": 4,
+      "ease": 4,
+      "score": 95.8,
+      "description_short": "The bass manifestation of Dhrupad alāp. The wide fingerboard allows transverse string deflection spanning an entire octave from a single fret location.",
+      "acoustics": {
+        "model_type": "Geometrically Non-linear String Deflection",
+        "formula_latex": "T(x, t) = T_0 + \\frac{EA}{2L} \\int_0^L \\left(\\frac{\\partial y}{\\partial x}\\right)^2 dx",
+        "fundamental_hz": 98.00,
+        "frequency_band": "Sub-bass to Low Melodic (49–440 Hz)",
+        "damping_ratio": 0.06
+      },
+      "liturgical_context": {
+        "spatial_placement": "Contemplative Alāp Core / Evening Sanctum",
+        "actuator": "Steel wire plectrum (mezrāb) with fingertip pulling",
+        "bio_membrane": "Flattened Cucurbita pepo shell with seasoned teak"
+      },
+      "tags": ["chordophone", "bass", "meend", "dhrupad", "wide-neck"]
+    },
+    {
+      "id": "kinnari-veena",
+      "rank": 7,
+      "name": "Kinnari Veena",
+      "name_iast": "Kinnarī Vīṇā",
+      "name_devanagari": "किन्नरीवीणा",
+      "classification": "tata",
+      "organology": "Bamboo tube carrying three graduated calabash resonators and 14 gut-tied bone frets",
+      "primary_attestation": "Saṅgīta Ratnākara 6.273; Matanga Bṛhaddeśī",
+      "impact": 4,
+      "ease": 4,
+      "score": 95.1,
+      "description_short": "Dedicated to the celestial Kinnara musicians. Triple acoustic chambers create graduated resonance peaks tuned to low, middle, and upper saptakas.",
+      "acoustics": {
+        "model_type": "Tri-Chamber Coupled Cavity Filter",
+        "formula_latex": "V(\\omega) = \\sum_{i=1}^3 \\frac{Q_i \\omega_{0,i}^2}{\\omega_{0,i}^2 - \\omega^2 + j \\frac{\\omega \\omega_{0,i}}{Q_i}} P(\\omega)",
+        "fundamental_hz": 164.81,
+        "frequency_band": "Tri-Modal Acoustic Core (82–660 Hz)",
+        "damping_ratio": 0.11
+      },
+      "liturgical_context": {
+        "spatial_placement": "Atmospheric invocation boundary",
+        "actuator": "Bone or horn plectrum with left hand fret glide",
+        "bio_membrane": "Giant bamboo tube, bone fret plates, three dried gourds"
+      },
+      "tags": ["chordophone", "frets", "calabash", "celestial", "bamboo"]
+    },
+    {
+      "id": "vichitra-veena",
+      "rank": 8,
+      "name": "Vichitra Veena",
+      "name_iast": "Vicitra Vīṇā",
+      "name_devanagari": "विचित्रवीणा",
+      "classification": "tata",
+      "organology": "Fretless horizontal zither with two colossal gourds, excited with wire plectra and stopped by a polished glass egg",
+      "primary_attestation": "Nāṭya Śāstra fretless zither lineages",
+      "impact": 4,
+      "ease": 4,
+      "score": 94.6,
+      "description_short": "The instrument of unbroken microtonal continuity (Akhaṇḍa Nāda). The heavy glass slider eliminates all fret quantization noise, enabling seamless glissandi across octaves.",
+      "acoustics": {
+        "model_type": "Fretless Continuous Moving Boundary State",
+        "formula_latex": "f(t) = \\frac{v}{2(L - v_s t)} \\left(1 + \\Delta_{\\text{slide}}\\right)",
+        "fundamental_hz": 130.81,
+        "frequency_band": "Stepless Microtonal Continuum (65–523 Hz)",
+        "damping_ratio": 0.08
+      },
+      "liturgical_context": {
+        "spatial_placement": "Central Dhrupad meditation space",
+        "actuator": "Heavy glass cylinder/egg (baṭṭā) and finger picks",
+        "bio_membrane": "Wide seasoned teak hollow stem with large round tumbas"
+      },
+      "tags": ["chordophone", "fretless", "slide", "microtonal", "nada-brahma"]
+    },
+    {
+      "id": "chitra-veena",
+      "rank": 9,
+      "name": "Chitra Veena",
+      "name_iast": "Citra Vīṇā / Goṭṭuvādyam",
+      "name_devanagari": "चित्रवीणा / गोट्टुवाद्यम्",
+      "classification": "tata",
+      "organology": "Fretless carved jackwood resonator lute stopped with a cylindrical ebony or bison horn slider",
+      "primary_attestation": "Nāṭya Śāstra 29.114; Śrautasūtras",
+      "impact": 4,
+      "ease": 4,
+      "score": 94.0,
+      "description_short": "Master of intricate Carnatic gamakas. Combines the acoustic fullness of the carved jackwood body with frictionless pitch continuous curvature.",
+      "acoustics": {
+        "model_type": "Dynamic Point-Load Stopped String",
+        "formula_latex": "y(x, t) = \\sum_n \\sin\\left(\\frac{n \\pi x}{L(t)}\\right) \\left[A_n \\cos(\\omega_n t) + B_n \\sin(\\omega_n t)\\right]",
+        "fundamental_hz": 196.00,
+        "frequency_band": "High Dynamic Gamaka Envelope (130–1200 Hz)",
+        "damping_ratio": 0.09
+      },
+      "liturgical_context": {
+        "spatial_placement": "Southern enclosure of vocal masters",
+        "actuator": "Cylindrical hardwood/bison horn slider and wire picks",
+        "bio_membrane": "Entirely monolithic seasoned jackwood cavity"
+      },
+      "tags": ["chordophone", "slide", "carnatic", "jackwood", "fretless"]
+    },
+    {
+      "id": "santur",
+      "rank": 10,
+      "name": "Santoor",
+      "name_iast": "Śatatantrī Vīṇā / Santūr",
+      "name_devanagari": "शततन्त्रीवीणा / सन्तूर",
+      "classification": "tata",
+      "organology": "Trapezoidal walnut wood soundbox with 25 rosewood bridges carrying 100 steel/bronze strings struck with curved walnut mezrāb",
+      "primary_attestation": "Sāmavedic Śatatantrī lineages; Rājataṅgiṇī",
+      "impact": 5,
+      "ease": 4,
+      "score": 93.5,
+      "description_short": "The mountain dulcimer of Kashmir. Struck with delicate curved wooden mallets, each stroke unleashes sympathetic cascades across dozens of neighboring tensioned strings.",
+      "acoustics": {
+        "model_type": "Struck String Membrane-Coupled Plate",
+        "formula_latex": "m \\frac{d^2 y_s}{dt^2} + k y_s = F_{\\text{mezrab}}(t), \\quad D \\nabla^4 w + \\rho h \\ddot{w} = p(x, y, t)",
+        "fundamental_hz": 261.63,
+        "frequency_band": "Impulse Cascading Array (130–2500 Hz)",
+        "damping_ratio": 0.14
+      },
+      "liturgical_context": {
+        "spatial_placement": "Northern Himalayan hermitage sanctuaries",
+        "actuator": "Pair of curved walnut wood strikers (mezrāb)",
+        "bio_membrane": "Aged walnut timber sounding board and brass pins"
+      },
+      "tags": ["chordophone", "dulcimer", "struck", "walnut", "multi-string"]
+    },
+    {
+      "id": "kanda-veena",
+      "rank": 11,
+      "name": "Kanda Veena",
+      "name_iast": "Kāṇḍa-vīṇā",
+      "name_devanagari": "काण्डवीणा",
+      "classification": "tata",
+      "organology": "Jointed reed or bamboo chordophone strung with plant grass fibers used in agricultural rites",
+      "primary_attestation": "Taittirīya Saṃhitā; Kāṭhaka Saṃhitā",
+      "impact": 4,
+      "ease": 5,
+      "score": 92.8,
+      "description_short": "Primitive jointed vegetative chordophone. Bound reed stalks act as an organic flexible sounding board during solstice fertility rituals.",
+      "acoustics": {
+        "model_type": "Cylindrical Reed Flexural Vibrator",
+        "formula_latex": "f_n = \\frac{n}{2L}\\sqrt{\\frac{T}{\\mu}} \\left(1 + \\alpha_{\\text{reed}}\\right)",
+        "fundamental_hz": 185.00,
+        "frequency_band": "Low-Mid Vegetal Drone (92–400 Hz)",
+        "damping_ratio": 0.18
+      },
+      "liturgical_context": {
+        "spatial_placement": "Perimeter agricultural furrow boundary",
+        "actuator": "Split cane plectrum or finger plucking",
+        "bio_membrane": "Jointed reed stems (Saccharum arundinaceum) tied with hemp"
+      },
+      "tags": ["chordophone", "reed", "fertility-rite", "folk-vedic", "plant-fiber"]
+    },
+    {
+      "id": "alabu-veena",
+      "rank": 12,
+      "name": "Alabu Veena",
+      "name_iast": "Alābu-vīṇā",
+      "name_devanagari": "अलाबुवीणा",
+      "classification": "tata",
+      "organology": "Single-stringed gourd zither utilizing a bottle-gourd resonator and bamboo staff",
+      "primary_attestation": "Lāṭyāyana Śrautasūtra; Nidāna Sūtra",
+      "impact": 4,
+      "ease": 5,
+      "score": 92.1,
+      "description_short": "Archaic bottle-gourd zither. Precursor of the single-string ektara, providing fundamental pitch reference during domestic ancestral rites.",
+      "acoustics": {
+        "model_type": "Monochord Gourd Resonator System",
+        "formula_latex": "f = \\frac{1}{2L} \\sqrt{\\frac{T}{\\mu}}, \\quad V_{\\text{cavity}} \\approx \\frac{4}{3}\\pi a b^2",
+        "fundamental_hz": 110.00,
+        "frequency_band": "Foundational Tonic Drone (55–220 Hz)",
+        "damping_ratio": 0.12
+      },
+      "liturgical_context": {
+        "spatial_placement": "Domestic Gārhapatya hearth side",
+        "actuator": "Bare finger flicking and palm dampening",
+        "bio_membrane": "Dried hollow bottle gourd (Lagenaria siceraria) with bamboo rod"
+      },
+      "tags": ["chordophone", "gourd", "monochord", "ancestral", "drone"]
+    },
+    {
+      "id": "godha-veena",
+      "rank": 13,
+      "name": "Godha Veena",
+      "name_iast": "Godhā-vīṇā",
+      "name_devanagari": "गोधावीणा",
+      "classification": "tata",
+      "organology": "Arched harp whose belly is skinned with the dermal carapace of the Bengal monitor lizard",
+      "primary_attestation": "Śāṅkhāyana Śrautasūtra XVII; Jaiminīya Brāhmaṇa",
+      "impact": 4,
+      "ease": 4,
+      "score": 91.5,
+      "description_short": "Lizard-skin skinned arched harp. The stiff keratinized scales of the monitor lizard membrane provide intense acoustic impedance matching for outdoor ritual spaces.",
+      "acoustics": {
+        "model_type": "Composite Anisotropic Skin Resonator",
+        "formula_latex": "T_{ij} \\nabla^2 w = \\rho_{\\text{scale}} \\frac{\\partial^2 w}{\\partial t^2} + \\eta \\frac{\\partial w}{\\partial t}",
+        "fundamental_hz": 240.00,
+        "frequency_band": "High-Mid Punch Core (120–800 Hz)",
+        "damping_ratio": 0.08
+      },
+      "liturgical_context": {
+        "spatial_placement": "West boundary of the Mahāvrata perimeter",
+        "actuator": "Carved bone stylus or hardened cane plectrum",
+        "bio_membrane": "Varanus bengalensis dried dermal skin stretched over fig frame"
+      },
+      "tags": ["chordophone", "lizard-skin", "mahavrata", "rare", "anisotropic"]
+    },
+    {
+      "id": "karkari",
+      "rank": 14,
+      "name": "Karkari",
+      "name_iast": "Karkari",
+      "name_devanagari": "कर्करी",
+      "classification": "tata",
+      "organology": "Ancient Rigvedic arched lyre or harp with animal gut strings and carved wooden horn arms",
+      "primary_attestation": "Ṛgveda 2.43.3; Atharvaveda 4.37.4",
+      "impact": 4,
+      "ease": 4,
+      "score": 91.0,
+      "description_short": "Rigvedic devotional harp. Described alongside the gargara as sounding during sacrificial Soma oblations to invite Gandharvas and Apsarases.",
+      "acoustics": {
+        "model_type": "Asymmetric Frame Lyre Dispersion",
+        "formula_latex": "f_k = \\frac{1}{2 L_k} \\sqrt{\\frac{T_k}{\\mu_k}} \\left(1 + \\xi_k\\right)",
+        "fundamental_hz": 293.66,
+        "frequency_band": "Melodic Lyre Register (146–900 Hz)",
+        "damping_ratio": 0.10
+      },
+      "liturgical_context": {
+        "spatial_placement": "Soma pressing platform (Havirdhāna)",
+        "actuator": "Bare finger plucking or animal claw plectrum",
+        "bio_membrane": "Curved hardwood branches bound with sinew cord"
+      },
+      "tags": ["chordophone", "lyre", "rigvedic", "soma-rite", "apsaras"]
+    },
+    {
+      "id": "gargara",
+      "rank": 15,
+      "name": "Gargara",
+      "name_iast": "Gargara",
+      "name_devanagari": "गर्गरा",
+      "classification": "tata",
+      "organology": "Resonant struck musical bow or ground-zither linked to sacrificial churn acoustics",
+      "primary_attestation": "Ṛgveda 8.69.9; Atharvaveda",
+      "impact": 4,
+      "ease": 4,
+      "score": 90.4,
+      "description_short": "Rigvedic percussive chordophone. Sounded with rapid strikes, its hollow sound matches the swirling gurgle of curd churning during midday offerings.",
+      "acoustics": {
+        "model_type": "Struck Tensioned Chordophone Transient",
+        "formula_latex": "y(t) = A_0 e^{-\\gamma t} \\sin(\\omega_0 t) + \\sum_{m=1}^M \\beta_m e^{-\\gamma_m t} \\cos(\\omega_m t)",
+        "fundamental_hz": 175.00,
+        "frequency_band": "Percussive Pluck Core (87–500 Hz)",
+        "damping_ratio": 0.16
+      },
+      "liturgical_context": {
+        "spatial_placement": "Mādhyandina-savana pressing site",
+        "actuator": "Smooth river stone or polished hardwood stick",
+        "bio_membrane": "Tensioned gut over deep hollowed wood basin"
+      },
+      "tags": ["chordophone", "struck", "rigvedic", "churning", "percussive-string"]
+    },
+    {
+      "id": "pinga",
+      "rank": 16,
+      "name": "Pinga",
+      "name_iast": "Piṅgā",
+      "name_devanagari": "पिङ्गा",
+      "classification": "tata",
+      "organology": "Arched hunting-bow transformed into a musical chordophone using tensioned bowstring",
+      "primary_attestation": "Ṛgveda; Taittirīya Brāhmaṇa",
+      "impact": 4,
+      "ease": 4,
+      "score": 89.8,
+      "description_short": "Vedic musical bow. Twanged by the sacrificer's attendants to announce victory and the expulsion of demonic presences from the ritual ground.",
+      "acoustics": {
+        "model_type": "Tensioned Stiff Bow Stave Oscillator",
+        "formula_latex": "f_1 = \\frac{1}{2L}\\sqrt{\\frac{T}{\\mu}} \\left[1 + \\frac{E I \\pi^2}{2 T L^2}\\right]",
+        "fundamental_hz": 200.00,
+        "frequency_band": "Short Impulse Snap (100–600 Hz)",
+        "damping_ratio": 0.22
+      },
+      "liturgical_context": {
+        "spatial_placement": "Eastern gate of sacrificial enclosure",
+        "actuator": "Arrow shaft release and wooden tap",
+        "bio_membrane": "Dhanus bow stave with raw sinew string"
+      },
+      "tags": ["chordophone", "musical-bow", "martial", "rigvedic", "apotropaic"]
+    },
+    {
+      "id": "vipanci",
+      "rank": 17,
+      "name": "Vipanci",
+      "name_iast": "Vipañcī",
+      "name_devanagari": "विपञ्ची",
+      "classification": "tata",
+      "organology": "Nine-stringed concert harp played strictly with a plectrum (koṇa) according to Bharata",
+      "primary_attestation": "Nāṭya Śāstra 29.114; Saṅgīta Ratnākara",
+      "impact": 4,
+      "ease": 3,
+      "score": 89.2,
+      "description_short": "Canonical nine-stringed arched harp. Designed for rapid rhythmic staccato passages across two complete register registers (Dhātu playing styles).",
+      "acoustics": {
+        "model_type": "Discrete Nine-Tone Scalic Gamut",
+        "formula_latex": "f_i = f_0 \\cdot 2^{\\frac{c_i}{1200}}, \\quad i \\in \\{1, 2, \\dots, 9\\}",
+        "fundamental_hz": 220.00,
+        "frequency_band": "Bright Staccato Harp Gamut (110–1400 Hz)",
+        "damping_ratio": 0.07
+      },
+      "liturgical_context": {
+        "spatial_placement": "Gandharva royal assembly enclosure",
+        "actuator": "Carved ivory or polished horn plectrum (koṇa)",
+        "bio_membrane": "Bent khadira wood body covered in deer parchment"
+      },
+      "tags": ["chordophone", "nine-string", "harp", "natyashastra", "staccato"]
+    },
+    {
+      "id": "bhumi-dundubhi",
+      "rank": 18,
+      "name": "Bhumi Dundubhi",
+      "name_iast": "Bhūmi-dundubhi",
+      "name_devanagari": "भूमिदुन्दुभि",
+      "classification": "avanaddha",
+      "organology": "Pit excavated directly into consecrated earth, covered with hair-on bovine hide and pegged with wooden stakes",
+      "primary_attestation": "Śatapatha Brāhmaṇa, Śāṅkhāyana Śrautasūtra (XVII)",
+      "impact": 5,
+      "ease": 3,
+      "score": 96.8,
+      "description_short": "An earth-pit resonator covered with staked bull hide and struck with an ox-tail, driving telluric low frequencies across the ritual ground to awaken Mother Earth (Pṛthivī).",
+      "acoustics": {
+        "model_type": "Coupled Soil-Cavity Infrasonic Resonator",
+        "formula_latex": "f \\approx \\frac{c_s}{4(d + 0.4D)}",
+        "fundamental_hz": 42.00,
+        "frequency_band": "Infrasonic & Sub-bass (20–80 Hz)",
+        "damping_ratio": 0.45
+      },
+      "liturgical_context": {
+        "spatial_placement": "West-Northwest edge of the Mahāvrata vedi",
+        "actuator": "Tail-switch of an ox with intact caudal bone",
+        "bio_membrane": "Wet untanned bull hide retaining hair (sa-loma go-carma)"
+      },
+      "tags": ["membranophone", "earth-pit", "hide", "mahavrata", "telluric", "struck"]
+    },
+    {
+      "id": "dundubhi",
+      "rank": 19,
+      "name": "Dundubhi",
+      "name_iast": "Dundubhi",
+      "name_devanagari": "दुन्दुभि",
+      "classification": "avanaddha",
+      "organology": "Hollowed tree trunk kettle drum covered in treated ox hide tensioned with hardwood wedges",
+      "primary_attestation": "Ṛgveda 1.28.5; Atharvaveda 5.20.1",
+      "impact": 5,
+      "ease": 4,
+      "score": 97.4,
+      "description_short": "The roar of Indra. Deployed in sacrificial Rājasūya ceremonies and martial vanguard. Generates massive acoustic shockwaves carrying up to three leagues across open terrain.",
+      "acoustics": {
+        "model_type": "Deep Cavity Circular Membrane Horn",
+        "formula_latex": "f_{01} = \\frac{2.4048}{2\\pi R} \\sqrt{\\frac{T}{\\sigma}} \\left(1 + \\frac{\\rho_0 c^2 S^2}{V_0 M_m \\omega^2}\\right)",
+        "fundamental_hz": 75.00,
+        "frequency_band": "Low-Bass Resonant Boom (40–250 Hz)",
+        "damping_ratio": 0.20
+      },
+      "liturgical_context": {
+        "spatial_placement": "Royal vanguard & sacrificial border perimeter",
+        "actuator": "Heavy curved hardwood drumsticks (lāṭha)",
+        "bio_membrane": "Hollowed mango or asana tree trunk with thick ox hide"
+      },
+      "tags": ["membranophone", "war-drum", "rigvedic", "rajasuya", "loud"]
+    },
+    {
+      "id": "mridangam",
+      "rank": 20,
+      "name": "Mridangam",
+      "name_iast": "Mṛdaṅga / Mṛdaṅgam",
+      "name_devanagari": "मृदङ्ग / मृदङ्गम्",
+      "classification": "avanaddha",
+      "organology": "Clay or Jackwood barrel with layered leather heads and permanent iron-ore loading (syāhi/karaṇi)",
+      "primary_attestation": "Nāṭya Śāstra Ch. 33 (origin myth of Sage Swāti)",
+      "impact": 5,
+      "ease": 5,
+      "score": 99.1,
+      "description_short": "The King of percussion. Concentric circular iron-ore loading (syāhi) damps non-harmonic Bessel modes, forcing the circular membrane into true harmonic overtones with pure singing pitch.",
+      "acoustics": {
+        "model_type": "Concentric Loaded Circular Membrane System",
+        "formula_latex": "\\nabla \\cdot \\left[T \\nabla w\\right] = \\sigma(r) \\frac{\\partial^2 w}{\\partial t^2}, \\quad \\sigma(r) = \\sigma_0 + \\sigma_{\\text{syāhi}} e^{-(r/r_0)^2}",
+        "fundamental_hz": 146.83,
+        "frequency_band": "Harmonically Pure Tone Core (73–600 Hz)",
+        "damping_ratio": 0.04
+      },
+      "liturgical_context": {
+        "spatial_placement": "Center stage right / Prime rhythmic driver",
+        "actuator": "Bare palm, fingertips, and heel of right hand",
+        "bio_membrane": "Layered cow, goat, and buffalo hide with iron slag paste"
+      },
+      "tags": ["membranophone", "syahi", "harmonic", "carnatic", "classical"]
+    },
+    {
+      "id": "pakhawaj",
+      "rank": 21,
+      "name": "Pakhawaj",
+      "name_iast": "Pakhāwaj",
+      "name_devanagari": "पखावज",
+      "classification": "avanaddha",
+      "organology": "Dense seasoned shisham barrel with moist wheat dough paste freshly applied to the bass face",
+      "primary_attestation": "Saṅgīta Ratnākara 6.800; Ain-i-Akbari",
+      "impact": 5,
+      "ease": 4,
+      "score": 98.4,
+      "description_short": "Sole percussion partner of Dhrupad. Fresh wheat dough applied to the bass head lowers the fundamental down to 45 Hz, producing a thunderous, hall-filling acoustic thud.",
+      "acoustics": {
+        "model_type": "Visco-Elastic Dough Mass Loaded Diaphragm",
+        "formula_latex": "f_{\\text{bass}} = \\frac{1}{2\\pi} \\sqrt{\\frac{K}{M_{\\text{skin}} + M_{\\text{dough}} + M_{\\text{air}}}}",
+        "fundamental_hz": 110.00,
+        "frequency_band": "Deep Thunderous Sub-Bass (45–350 Hz)",
+        "damping_ratio": 0.12
+      },
+      "liturgical_context": {
+        "spatial_placement": "Adjacent to Rudra Vīṇā / Dhrupad podium",
+        "actuator": "Full flat hand slaps and open palm thuds",
+        "bio_membrane": "Dalbergia sissoo barrel with multi-layer skin and wheat dough"
+      },
+      "tags": ["membranophone", "pakhawaj", "dhrupad", "dough-loading", "thunder"]
+    },
+    {
+      "id": "damaru",
+      "rank": 22,
+      "name": "Damaru",
+      "name_iast": "Ḍamaru",
+      "name_devanagari": "डमरू",
+      "classification": "avanaddha",
+      "organology": "Symmetrical hourglass shell with two stretched parchment faces and central cord carrying knotted strikers",
+      "primary_attestation": "Māheśvara Sūtras; Śiva Purāṇa",
+      "impact": 5,
+      "ease": 5,
+      "score": 98.0,
+      "description_short": "The cosmic pulse of Natarāja Shiva. Bidirectional wrist rotation flings knotted leather balls alternately across the heads, releasing the 14 Māheśvara phonemes of cosmic grammar.",
+      "acoustics": {
+        "model_type": "Bidirectional Hourglass Dual Impact Oscillator",
+        "formula_latex": "x(t) = \\sum_{k=1}^N I_k \\delta(t - t_k) * h_{\\text{membrane}}(t)",
+        "fundamental_hz": 320.00,
+        "frequency_band": "High Snap Rhythmic Pulses (160–900 Hz)",
+        "damping_ratio": 0.15
+      },
+      "liturgical_context": {
+        "spatial_placement": "Upper right hand of dancing Shiva (Tāṇḍava)",
+        "actuator": "Rapid rotary wrist oscillation swinging knotted strikers",
+        "bio_membrane": "Carved wood or skull bones with thin monitor/snake skin"
+      },
+      "tags": ["membranophone", "hourglass", "shiva", "maheshvara-sutra", "pulse"]
+    },
+    {
+      "id": "adambara",
+      "rank": 23,
+      "name": "Adambara",
+      "name_iast": "Āḍambara",
+      "name_devanagari": "आडम्बर",
+      "classification": "avanaddha",
+      "organology": "Immense ceremonial barrel drum sounded during royal consecrations and atmospheric rain charms",
+      "primary_attestation": "Vājasaneyi Saṃhitā 30.19; Śatapatha Brāhmaṇa",
+      "impact": 4,
+      "ease": 3,
+      "score": 90.8,
+      "description_short": "Loud sacrificial barrel drum. Played by the royal herald (āḍambara-āghāta) to publish sacrificial proclamations and dispel malevolent spirits.",
+      "acoustics": {
+        "model_type": "Long Barrel Acoustic Wave Driver",
+        "formula_latex": "f_{m,n} = \\frac{c}{2} \\sqrt{\\left(\\frac{m}{L}\\right)^2 + \\left(\\frac{\\alpha_{0n}}{\\pi R}\\right)^2}",
+        "fundamental_hz": 65.00,
+        "frequency_band": "Low Proclamation Rumble (32–200 Hz)",
+        "damping_ratio": 0.25
+      },
+      "liturgical_context": {
+        "spatial_placement": "Eastern gate of royal sacrificial camp",
+        "actuator": "Pair of thick knotted willow clubs",
+        "bio_membrane": "Seasoned fig wood trunk with heavy bull hide"
+      },
+      "tags": ["membranophone", "barrel-drum", "royal-rite", "proclamation", "loud"]
+    },
+    {
+      "id": "panava",
+      "rank": 24,
+      "name": "Panava",
+      "name_iast": "Paṇava",
+      "name_devanagari": "पणव",
+      "classification": "avanaddha",
+      "organology": "Small hourglass or barrel hand drum held with cords under the arm and pressed to modulate pitch",
+      "primary_attestation": "Nāṭya Śāstra 33; Harivaṃśa",
+      "impact": 4,
+      "ease": 4,
+      "score": 90.1,
+      "description_short": "Arm-pressure variable pitch drum. Pressing the cross-cords tightens the membrane dynamically during play, creating characteristic sliding vocal glides.",
+      "acoustics": {
+        "model_type": "Dynamic Lateral Tension-Modulated Diaphragm",
+        "formula_latex": "f(t) = \\frac{2.4048}{2\\pi R} \\sqrt{\\frac{T_0 + k \\Delta x(t)}{\\sigma}}",
+        "fundamental_hz": 180.00,
+        "frequency_band": "Sliding Pitch Glides (120–450 Hz)",
+        "damping_ratio": 0.10
+      },
+      "liturgical_context": {
+        "spatial_placement": "Ritual dance enclosure (Ranga-pīṭha)",
+        "actuator": "Bare fingers of right hand while left arm squeezes cords",
+        "bio_membrane": "Hollow wood cylinder with deer hide and hemp tension ropes"
+      },
+      "tags": ["membranophone", "variable-pitch", "talking-drum", "arm-squeezed", "dance"]
+    },
+    {
+      "id": "dardura",
+      "rank": 25,
+      "name": "Dardura",
+      "name_iast": "Dardura",
+      "name_devanagari": "दर्दुरु",
+      "classification": "avanaddha",
+      "organology": "Large bellied clay pot drum whose opening is skinned with thin parchment",
+      "primary_attestation": "Nāṭya Śāstra 33.15; Śrautasūtras",
+      "impact": 4,
+      "ease": 4,
+      "score": 89.5,
+      "description_short": "Terracotta vessel drum. The heavy earthenware shell prevents internal wall loss, resulting in an exceptionally round, bell-like low-mid sustain.",
+      "acoustics": {
+        "model_type": "Rigid Boundary Cavity Drum",
+        "formula_latex": "f = \\frac{1}{2\\pi} \\sqrt{\\frac{k_{\\text{membrane}}}{M_{\\text{air-cavity}}}}",
+        "fundamental_hz": 150.00,
+        "frequency_band": "Deep Hollow Clay Resonance (90–380 Hz)",
+        "damping_ratio": 0.08
+      },
+      "liturgical_context": {
+        "spatial_placement": "Center stage with Mridanga and Panava (Pushkara ensemble)",
+        "actuator": "Fingertip taps and palm drops on the skinned mouth",
+        "bio_membrane": "Burned kiln earthenware skinned with thin sheepskin"
+      },
+      "tags": ["membranophone", "clay-drum", "pushkara", "pot-resonator", "hollow"]
+    },
+    {
+      "id": "muraja",
+      "rank": 26,
+      "name": "Muraja",
+      "name_iast": "Muraja",
+      "name_devanagari": "मुरज",
+      "classification": "avanaddha",
+      "organology": "Archaic high-pitch barrel drum with narrow waist praised in early dramatic performances",
+      "primary_attestation": "Śatapatha Brāhmaṇa; Kālidāsa’s Mālavikāgnimitra",
+      "impact": 4,
+      "ease": 4,
+      "score": 88.9,
+      "description_short": "High-register barrel drum. Known for its sparkling, sharp strokes that accompany classical dance footwork with mathematical precision.",
+      "acoustics": {
+        "model_type": "High-Tension Cylindrical Wave Guide",
+        "formula_latex": "f_{01} = \\frac{2.4048}{2\\pi R} \\sqrt{\\frac{T_{\\text{high}}}{\\sigma}}",
+        "fundamental_hz": 220.00,
+        "frequency_band": "Crisp Articulated Percussion (140–800 Hz)",
+        "damping_ratio": 0.06
+      },
+      "liturgical_context": {
+        "spatial_placement": "Dance platform directly behind prima ballerina",
+        "actuator": "Fingertip snaps and palm edge strikes",
+        "bio_membrane": "Hard seasoned khadira timber with parchment heads"
+      },
+      "tags": ["membranophone", "dance-drum", "high-pitch", "classical", "barrel"]
+    },
+    {
+      "id": "pataha",
+      "rank": 27,
+      "name": "Pataha",
+      "name_iast": "Paṭaha",
+      "name_devanagari": "पटह",
+      "classification": "avanaddha",
+      "organology": "Wide double-headed military marching cylinder drum strapped over the shoulders",
+      "primary_attestation": "Atharvaveda Parisiṣṭa; Mahābhārata",
+      "impact": 3,
+      "ease": 4,
+      "score": 88.2,
+      "description_short": "Marching proclamation drum. Sounded to assemble troops, declare sacrificial boundaries, and maintain synchronized rhythm for royal retinues.",
+      "acoustics": {
+        "model_type": "Dual-Head Coupled Symmetric Membrane",
+        "formula_latex": "f_\\pm = f_0 \\left(1 \\pm \\frac{M_{\\text{mutual}}}{2 M_0}\\right)",
+        "fundamental_hz": 125.00,
+        "frequency_band": "Driving Military Cadence (60–400 Hz)",
+        "damping_ratio": 0.14
+      },
+      "liturgical_context": {
+        "spatial_placement": "Outer perimeter procession pathway",
+        "actuator": "Thick cane stick in right hand, bare left hand",
+        "bio_membrane": "Redwood cylindrical body skinned with tough steer parchment"
+      },
+      "tags": ["membranophone", "marching-drum", "military", "procession", "cadence"]
+    },
+    {
+      "id": "dindima",
+      "rank": 28,
+      "name": "Dindima",
+      "name_iast": "Ḍiṇḍima",
+      "name_devanagari": "डिण्डिम",
+      "classification": "avanaddha",
+      "organology": "Small double-headed drum struck with curved sticks, generating a dry, chattering rhythmic drone",
+      "primary_attestation": "Bṛhadāraṇyaka Upaniṣad; Epics",
+      "impact": 3,
+      "ease": 4,
+      "score": 87.5,
+      "description_short": "Chattering folk-rite drum. Its bright, dry sound provided the relentless rhythmic backbone for wandering ascetic minstrels and village rites.",
+      "acoustics": {
+        "model_type": "High-Frequency Dual Stiff Membrane",
+        "formula_latex": "f_1 \\approx \\frac{1.8}{R}\\sqrt{\\frac{T}{\\sigma}}",
+        "fundamental_hz": 280.00,
+        "frequency_band": "Chattering High Rhythms (140–900 Hz)",
+        "damping_ratio": 0.18
+      },
+      "liturgical_context": {
+        "spatial_placement": "Ascetic fire circle and folk perimeter",
+        "actuator": "Pair of thin curved tamarind switches",
+        "bio_membrane": "Lightweight hollow gourd or wood shell with goat skin"
+      },
+      "tags": ["membranophone", "folk-rite", "chattering", "ascetic", "sticks"]
+    },
+    {
+      "id": "picchora",
+      "rank": 29,
+      "name": "Picchora / Picchola",
+      "name_iast": "Picchorā / Piccholā",
+      "name_devanagari": "पिच्छोरा / पिच्छोला",
+      "classification": "susira",
+      "organology": "Quarter-wave narrow-bore ceremonial bone or river reed pipe blown by wives of priests during solar sacrifices",
+      "primary_attestation": "Kāṭhaka Saṃhitā 34.5; Pañcaviṃśa Brāhmaṇa",
+      "impact": 5,
+      "ease": 4,
+      "score": 93.8,
+      "description_short": "A high-register sacred reed aerophone. Blown to generate micro-air flutters and whistling overtones that repel atmospheric evil spirits during the solstice solar transition.",
+      "acoustics": {
+        "model_type": "Quarter-Wave Stopped Pipe Resonator",
+        "formula_latex": "f_n = \\frac{(2n - 1) c}{4(L + 0.3d)}, \\quad n \\in \\{1, 2, 3\\dots\\}",
+        "fundamental_hz": 1800.00,
+        "frequency_band": "High Whistling Register (900–4500 Hz)",
+        "damping_ratio": 0.05
+      },
+      "liturgical_context": {
+        "spatial_placement": "Circumambulating the Mārjālīya cleansing mound",
+        "actuator": "Direct lip air jet blown through terminal reed or bone hole",
+        "bio_membrane": "Cut wild river reed (kāṇḍa) or hollow bird wing bone"
+      },
+      "tags": ["aerophone", "quarter-wave", "high-register", "mahavrata", "patni", "whistle"]
+    },
+    {
+      "id": "venu",
+      "rank": 30,
+      "name": "Venu / Bansuri",
+      "name_iast": "Veṇu / Bānsurī",
+      "name_devanagari": "वेणु / बांसुरी",
+      "classification": "susira",
+      "organology": "Single node-free internode of virgin bamboo with fire-pierced embouchure and 6 to 7 finger holes",
+      "primary_attestation": "Ṛgveda 8.69.9; Aitareya Āraṇyaka",
+      "impact": 5,
+      "ease": 5,
+      "score": 99.3,
+      "description_short": "Lord Krishna’s sacred flute. An open cylindrical acoustic tube driven by an oscillating planar air-jet against the sharp embouchure edge, yielding breath-infused microtonal meend.",
+      "acoustics": {
+        "model_type": "Open Cylindrical Planar Jet Resonator",
+        "formula_latex": "f_n = \\frac{n c}{2(L + 2 \\Delta l)}, \\quad \\Delta l \\approx 0.6 r",
+        "fundamental_hz": 349.23,
+        "frequency_band": "Warm Breath Melodic Range (261–2100 Hz)",
+        "damping_ratio": 0.03
+      },
+      "liturgical_context": {
+        "spatial_placement": "North of the altar / Divine flute offering",
+        "actuator": "Focused planar lip air-stream (phūṅk) with finger pad stops",
+        "bio_membrane": "Internode of female bamboo (Bambusa tulda) fire-cured"
+      },
+      "tags": ["aerophone", "flute", "bamboo", "krishna", "meend", "prana"]
+    },
+    {
+      "id": "shankha",
+      "rank": 31,
+      "name": "Shankha",
+      "name_iast": "Śaṅkha",
+      "name_devanagari": "शङ्ख",
+      "classification": "susira",
+      "organology": "Naturally grown marine conch (Turbinella pyrum), sawn at spire tip to form circular embouchure",
+      "primary_attestation": "Atharvaveda 4.10; Bhagavad Gītā 1.15",
+      "impact": 5,
+      "ease": 5,
+      "score": 98.7,
+      "description_short": "The cosmic trumpet of Vishnu and embodiment of the Pranava (Om). Logarithmic internal spiral geometry acts as an acoustic horn horn producing immense acoustic standing waves.",
+      "acoustics": {
+        "model_type": "Logarithmic Spiral Horn Waveguide",
+        "formula_latex": "S(x) = S_0 e^{m x}, \\quad f_c = \\frac{m c}{4\\pi}",
+        "fundamental_hz": 261.63,
+        "frequency_band": "Powerful Radiant Core (261–1800 Hz)",
+        "damping_ratio": 0.02
+      },
+      "liturgical_context": {
+        "spatial_placement": "Apex of sacrificial enclosure / Battle start",
+        "actuator": "High-pressure lip reed vibration (labial buzzing)",
+        "bio_membrane": "Calcium carbonate shell (Turbinella pyrum) clockwise dextral whorl"
+      },
+      "tags": ["aerophone", "conch", "pranava", "vishnu", "horn", "sacred"]
+    },
+    {
+      "id": "nadaswaram",
+      "rank": 32,
+      "name": "Nadaswaram",
+      "name_iast": "Nādaśvaram",
+      "name_devanagari": "नादस्वरम्",
+      "classification": "susira",
+      "organology": "Dense conical aacha hardwood body with flared brass bell and quadruple marsh reed grass",
+      "primary_attestation": "Śilappadikāram; Sangam & Late Vedic temple texts",
+      "impact": 5,
+      "ease": 4,
+      "score": 97.9,
+      "description_short": "The primary Mangala Vadhyam. Quadruple reed oscillating into a steep conical bore projects sound levels over 110 dB across temple courtyards using circular breathing.",
+      "acoustics": {
+        "model_type": "Conical Bore Quadruple Reed System",
+        "formula_latex": "f_n = \\frac{n c}{2(L + x_0)}, \\quad Z(0) \\approx \\frac{\\rho c}{S_0} \\frac{j \\tan(kL)}{1 + j \\frac{\\tan(kL)}{k x_0}}",
+        "fundamental_hz": 293.66,
+        "frequency_band": "Immense Outdoor Projection (293–3500 Hz)",
+        "damping_ratio": 0.04
+      },
+      "liturgical_context": {
+        "spatial_placement": "Temple outer gateway (Gopuram) & marriage altar",
+        "actuator": "Quadruple wetland grass reeds and circular breath",
+        "bio_membrane": "Aged Hardwickia binata (Aacha) heartwood with cast brass bell"
+      },
+      "tags": ["aerophone", "double-reed", "conical-bore", "mangala", "high-db"]
+    },
+    {
+      "id": "shehnai",
+      "rank": 33,
+      "name": "Shehnai",
+      "name_iast": "Śahnāī / Sundarī",
+      "name_devanagari": "शहनाई / सुन्दरी",
+      "classification": "susira",
+      "organology": "Conical wooden oboe with double reed and flared metal bell, producing intense vocal gamakas",
+      "primary_attestation": "Saṅgīta Ratnākara; Mughal & late Vedic chronicles",
+      "impact": 5,
+      "ease": 4,
+      "score": 97.1,
+      "description_short": "The voice of auspicious sanctification. The delicate double reed manipulated entirely by embouchure lip pressure allows microtonal glides indistinguishable from a human cry.",
+      "acoustics": {
+        "model_type": "Lip-Controlled Conical Double Reed Pipe",
+        "formula_latex": "f_n = \\frac{n c}{2(L + \\Delta L)}, \\quad \\Delta L = f(\\text{lip-pressure})",
+        "fundamental_hz": 392.00,
+        "frequency_band": "Vocal Microtonal Range (392–4000 Hz)",
+        "damping_ratio": 0.05
+      },
+      "liturgical_context": {
+        "spatial_placement": "Sanctum entrance at dawn (Prātah-kāla)",
+        "actuator": "Delicate double cane reed held between wet lips",
+        "bio_membrane": "Burma teak or blackwood conical body with brass bell"
+      },
+      "tags": ["aerophone", "double-reed", "auspicious", "gamaka", "vocal"]
+    },
+    {
+      "id": "bakura",
+      "rank": 34,
+      "name": "Bakura",
+      "name_iast": "Bākura",
+      "name_devanagari": "बाकुर",
+      "classification": "susira",
+      "organology": "Archaic blowing trumpet or horn used by the Aśvins to dispel darkness and rout Dasyus",
+      "primary_attestation": "Ṛgveda 1.117.9",
+      "impact": 4,
+      "ease": 3,
+      "score": 91.2,
+      "description_short": "Rigvedic blast horn of the Aśvins. A high-energy curved brass or animal horn sounded at dawn to destroy nocturnal enemies and dispel spiritual blindness.",
+      "acoustics": {
+        "model_type": "Curved Horn High-Amplitude Blast Wave",
+        "formula_latex": "p(x, t) = P_0 \\left(1 - \\frac{x}{c t}\\right)^{\\frac{2\\gamma}{\\gamma - 1}}",
+        "fundamental_hz": 110.00,
+        "frequency_band": "Penetrating Battle Blast (55–800 Hz)",
+        "damping_ratio": 0.03
+      },
+      "liturgical_context": {
+        "spatial_placement": "Eastern horizon facing the rising Sun",
+        "actuator": "High-pressure lip buzzing directly into aperture",
+        "bio_membrane": "Hammered copper-bronze sheet or wild gaur horn"
+      },
+      "tags": ["aerophone", "horn", "rigvedic", "asvins", "dawn-charm", "blast"]
+    },
+    {
+      "id": "tunava",
+      "rank": 35,
+      "name": "Tunava",
+      "name_iast": "Tuṇava",
+      "name_devanagari": "तुणव",
+      "classification": "susira",
+      "organology": "Wooden cylindrical clarinet-type transverse aerophone blown during ancestral funeral and soma rites",
+      "primary_attestation": "Ṛgveda 10.34.1; Kāṭhaka Saṃhitā",
+      "impact": 4,
+      "ease": 4,
+      "score": 90.5,
+      "description_short": "Early Aryan wooden flute. Played during ancestral Pitṛmedha ceremonies to guide departing souls across the atmospheric intermediate realm (antariksha).",
+      "acoustics": {
+        "model_type": "Cylindrical Wood Pipe Transverse Excitation",
+        "formula_latex": "f_n = \\frac{n c}{2(L + 0.6 d)}",
+        "fundamental_hz": 260.00,
+        "frequency_band": "Somber Mid-Range Drone (130–1000 Hz)",
+        "damping_ratio": 0.06
+      },
+      "liturgical_context": {
+        "spatial_placement": "Southern ancestral hearth (Dakṣiṇāgni)",
+        "actuator": "Lateral embouchure stream blown across wooden orifice",
+        "bio_membrane": "Hollowed branch of sacred khadira or udumbara wood"
+      },
+      "tags": ["aerophone", "funeral", "ancestral", "pitrimedha", "wooden-flute"]
+    },
+    {
+      "id": "nadi",
+      "rank": 36,
+      "name": "Nadi / Nali",
+      "name_iast": "Nāḍī / Nālī",
+      "name_devanagari": "नाडी / नाली",
+      "classification": "susira",
+      "organology": "Tubular wild marsh reed pipe with single beating reed sounded during seasonal monsoon sacrifices",
+      "primary_attestation": "Ṛgveda 10.135.7; Atharvaveda",
+      "impact": 4,
+      "ease": 5,
+      "score": 89.9,
+      "description_short": "Marsh reed pipe. Symbolizes the biological channels (Nāḍīs) of breath; blown during funeral games to celebrate Yama's kingdom.",
+      "acoustics": {
+        "model_type": "Single Beating Reed Cylindrical Conduit",
+        "formula_latex": "f_n = \\frac{(2n - 1) c}{4 L}",
+        "fundamental_hz": 440.00,
+        "frequency_band": "Piercing Nasal Timbre (220–2200 Hz)",
+        "damping_ratio": 0.08
+      },
+      "liturgical_context": {
+        "spatial_placement": "Underneath the sacred funeral tree of Yama",
+        "actuator": "Direct enclosure of vibrating idioglottal cane tongue",
+        "bio_membrane": "Single slender internode of Phragmites karka (river reed)"
+      },
+      "tags": ["aerophone", "reed-pipe", "marsh-reed", "yama", "rigvedic"]
+    },
+    {
+      "id": "shringa",
+      "rank": 37,
+      "name": "Shringa / Kombu",
+      "name_iast": "Śṛṅga / Kombu",
+      "name_devanagari": "शृङ्ग / कोम्बु",
+      "classification": "susira",
+      "organology": "C-shaped or S-curved animal horn or beaten copper horn blown during temple processions",
+      "primary_attestation": "Late Vedic ritual fragments; Epics",
+      "impact": 4,
+      "ease": 4,
+      "score": 89.3,
+      "description_short": "Curved battle horn. Its wide conical flare yields a piercing natural harmonic series over blown to signal the arrival of deities.",
+      "acoustics": {
+        "model_type": "Curved Conical Acoustic Waveguide",
+        "formula_latex": "f_n \\approx \\frac{n c}{2 L_\\text{curve}} \\left(1 - \\frac{1}{4}\\left(\\frac{r_2 - r_1}{L}\\right)^2\\right)",
+        "fundamental_hz": 130.81,
+        "frequency_band": "Harmonic Overblowing Fanfare (130–1200 Hz)",
+        "damping_ratio": 0.04
+      },
+      "liturgical_context": {
+        "spatial_placement": "Processional perimeter around temple chariot",
+        "actuator": "High tension lip reed buzz",
+        "bio_membrane": "Water buffalo horn (Bubalus bubalis) or joined copper bells"
+      },
+      "tags": ["aerophone", "horn", "curved", "processional", "fanfare"]
+    },
+    {
+      "id": "turya",
+      "rank": 38,
+      "name": "Turya",
+      "name_iast": "Tūrya",
+      "name_devanagari": "तूर्य",
+      "classification": "susira",
+      "organology": "Long straight brass or bronze trumpet sounded in sacrificial ensembles and martial ceremonies",
+      "primary_attestation": "Atharvaveda Parisiṣṭa; Mahābhārata",
+      "impact": 3,
+      "ease": 4,
+      "score": 88.6,
+      "description_short": "Long straight herald trumpet. Produces a terrifying, pure clarion call across immense plains to strike dread into enemy forces.",
+      "acoustics": {
+        "model_type": "Straight Cylindrical-Conical Brass Trumpet",
+        "formula_latex": "f_n = \\frac{(2n - 1) c}{4 L}",
+        "fundamental_hz": 174.61,
+        "frequency_band": "Clear Clarion Fanfare (174–1500 Hz)",
+        "damping_ratio": 0.03
+      },
+      "liturgical_context": {
+        "spatial_placement": "Elevated royal ramparts and herald towers",
+        "actuator": "Cupped brass mouthpiece pressed against lips",
+        "bio_membrane": "Thin hammered sheet brass or bronze tube"
+      },
+      "tags": ["aerophone", "trumpet", "straight-horn", "military", "fanfare"]
+    },
+    {
+      "id": "gomukha",
+      "rank": 39,
+      "name": "Gomukha",
+      "name_iast": "Gomukha",
+      "name_devanagari": "गोमुख",
+      "classification": "susira",
+      "organology": "Brass horn fashioned in the shape of a cow's head, sounded alongside conches in battle",
+      "primary_attestation": "Mahābhārata 1.15; Epic-Vedic transition",
+      "impact": 3,
+      "ease": 4,
+      "score": 87.9,
+      "description_short": "Cow-mouthed ceremonial horn. The stylized bovine orifice alters the mouth radiation impedance, yielding a rounded, bellowing call.",
+      "acoustics": {
+        "model_type": "Zoomorphic Boundary Flared Horn",
+        "formula_latex": "Z_r(\\omega) = \\frac{\\rho c}{\\pi a^2} \\left(1 - \\frac{2 J_1(2 k a)}{2 k a}\\right) + j \\frac{\\rho c}{\\pi a^2} \\frac{2 K_1(2 k a)}{2 k a}",
+        "fundamental_hz": 140.00,
+        "frequency_band": "Mellow Bellowing Clarion (70–600 Hz)",
+        "damping_ratio": 0.05
+      },
+      "liturgical_context": {
+        "spatial_placement": "Vanguard flanking the sacred war chariot",
+        "actuator": "High velocity lip buzzing",
+        "bio_membrane": "Cast bell-metal zoomorphic bovine head on curved horn"
+      },
+      "tags": ["aerophone", "horn", "zoomorphic", "epic", "bovine-mouth"]
+    },
+    {
+      "id": "upavenu",
+      "rank": 40,
+      "name": "Upavenu",
+      "name_iast": "Upaveṇu",
+      "name_devanagari": "उपवेणु",
+      "classification": "susira",
+      "organology": "Small auxiliary bamboo piccolo flute tuned an octave above the primary reciting flute",
+      "primary_attestation": "Late Vedic Śikṣā Literature; Nāṭya Śāstra",
+      "impact": 3,
+      "ease": 5,
+      "score": 87.2,
+      "description_short": "High soprano accompaniment flute. Embellishes the main vocal melody with sparkling rapid microtonal ornaments in the upper saptaka.",
+      "acoustics": {
+        "model_type": "Short Open Cylindrical Air Jet Pipe",
+        "formula_latex": "f_n = \\frac{n c}{2(L_{\\text{short}} + 1.2 r)}",
+        "fundamental_hz": 698.46,
+        "frequency_band": "High Soprano Ornamentation (698–4200 Hz)",
+        "damping_ratio": 0.04
+      },
+      "liturgical_context": {
+        "spatial_placement": "Adjacent to the chief Veṇu flutist",
+        "actuator": "Sharp, fast lip stream directed onto tiny embouchure hole",
+        "bio_membrane": "Slender reed bamboo internode seasoned with almond oil"
+      },
+      "tags": ["aerophone", "flute", "piccolo", "high-register", "ornamentation"]
+    },
+    {
+      "id": "ghatakarkari",
+      "rank": 41,
+      "name": "Ghatakarkari",
+      "name_iast": "Ghāṭakarkari",
+      "name_devanagari": "घाटकर्करि",
+      "classification": "ghana",
+      "organology": "Fired terracotta globular vessel with narrow aperture struck at orifice and flank",
+      "primary_attestation": "Śatapatha Brāhmaṇa; Kātyāyana Śrautasūtra",
+      "impact": 4,
+      "ease": 4,
+      "score": 92.4,
+      "description_short": "Hollow ceramic Helmholtz resonator played by rhythmically bouncing the palm over the neck, driving acoustic air compression against the baked clay boundary.",
+      "acoustics": {
+        "model_type": "Cavity Air-Spring Helmholtz System",
+        "formula_latex": "f_H = \\frac{c}{2\\pi} \\sqrt{\\frac{A}{V (l + 0.85 d)}}",
+        "fundamental_hz": 140.00,
+        "frequency_band": "Deep Hollow Gulp & Thud (70–400 Hz)",
+        "damping_ratio": 0.12
+      },
+      "liturgical_context": {
+        "spatial_placement": "Ground seat of sacrificer's wives in the Mahāvrata",
+        "actuator": "Cupped open palm slapped against the jar mouth",
+        "bio_membrane": "Baked Ganga river silt clay tempered with mica"
+      },
+      "tags": ["idiophone", "pot-percussion", "helmholtz", "mahavrata", "patni", "clay"]
+    },
+    {
+      "id": "ghanta",
+      "rank": 42,
+      "name": "Ghanta",
+      "name_iast": "Ghaṇṭā",
+      "name_devanagari": "घण्टा",
+      "classification": "ghana",
+      "organology": "Panchaloha (five-metal bronze) lost-wax cast bell with Garuda/Trishula clapper handle",
+      "primary_attestation": "Yajurveda Taittirīya Saṃhitā; Āgama Śāstras",
+      "impact": 5,
+      "ease": 5,
+      "score": 98.8,
+      "description_short": "The voice of all deities (Sarva-Vādyātmikā). The bell-metal alloy provides Q-factors above 4,000, creating dual beating modal frequencies that induce serene alpha brainwave coherence.",
+      "acoustics": {
+        "model_type": "Axisymmetric Shell Beating Resonance",
+        "formula_latex": "f_{m, n} = \\frac{h}{2\\pi R^2} \\sqrt{\\frac{E}{12\\rho(1 - \\nu^2)}} \\lambda_{m, n}, \\quad \\Delta f = |f_a - f_b| \\approx 2\\text{ Hz}",
+        "fundamental_hz": 523.25,
+        "frequency_band": "High Harmonic Shimmer (523–8000 Hz)",
+        "damping_ratio": 0.002
+      },
+      "liturgical_context": {
+        "spatial_placement": "Held in left hand of priest during Ārati",
+        "actuator": "Internal swinging bronze clapper or exterior wooden rod",
+        "bio_membrane": "High-tin bell bronze (78% Cu, 22% Sn) lost-wax cast"
+      },
+      "tags": ["idiophone", "bell", "panchaloha", "arati", "alpha-wave", "sacred"]
+    },
+    {
+      "id": "jala-tarang",
+      "rank": 43,
+      "name": "Jala Tarang",
+      "name_iast": "Jala Taraṅga",
+      "name_devanagari": "जलतरङ्ग",
+      "classification": "ghana",
+      "organology": "Set of 16 to 22 graduated porcelain bowls filled with tuned water volumes struck with slender bamboo mallets",
+      "primary_attestation": "Kāmasūtra of Vātsyāyana (one of 64 arts); Saṅgīta Parijāta",
+      "impact": 5,
+      "ease": 4,
+      "score": 97.6,
+      "description_short": "The music of the water element (Jala Tattva). Exact water heights mass-load the porcelain bowl walls, lowering modal frequencies with microtonal millihertz precision.",
+      "acoustics": {
+        "model_type": "Hydrodynamically Mass-Loaded Shell Vibrator",
+        "formula_latex": "f_{\\text{water}} = f_0 \\left(1 + \\alpha \\frac{\\rho_{\\text{fluid}}}{\\rho_{\\text{shell}}} \\frac{h_{\\text{water}}}{H}\\right)^{-1/2}",
+        "fundamental_hz": 587.33,
+        "frequency_band": "Crystalline Fluid Chimes (293–2400 Hz)",
+        "damping_ratio": 0.015
+      },
+      "liturgical_context": {
+        "spatial_placement": "Inner courtyard garden pavilions",
+        "actuator": "Slender balanced bamboo sticks (tiyān)",
+        "bio_membrane": "Graduated fine porcelain china bowls filled with filtered water"
+      },
+      "tags": ["idiophone", "water-instrument", "tuned-bowls", "hydrodynamic", "crystal"]
+    },
+    {
+      "id": "ghatam",
+      "rank": 44,
+      "name": "Ghatam",
+      "name_iast": "Ghaṭam",
+      "name_devanagari": "घटम्",
+      "classification": "ghana",
+      "organology": "Specially tempered clay pot baked with copper/brass filings, struck on rim, neck, and belly with fingers and belly cavity damping",
+      "primary_attestation": "Nāṭya Śāstra 33; Tamil Sangam Classics",
+      "impact": 5,
+      "ease": 5,
+      "score": 96.7,
+      "description_short": "One of the ancient trinity of percussion. The player presses the pot’s mouth against the bare abdomen; varying the aperture closure modulates cavity Helmholtz resonance to produce deep bass gulps (gumki).",
+      "acoustics": {
+        "model_type": "Dynamic Aperture Modulated Clay Resonator",
+        "formula_latex": "f(t) = \\frac{c}{2\\pi} \\sqrt{\\frac{A_{\\text{eff}}(t)}{V L_{\\text{eff}}}}",
+        "fundamental_hz": 220.00,
+        "frequency_band": "Sharp Clay Taps to Deep Bass Gulps (80–1200 Hz)",
+        "damping_ratio": 0.05
+      },
+      "liturgical_context": {
+        "spatial_placement": "Upapakkavādyam seat in South Indian concert",
+        "actuator": "Fingers, thumbs, palms, and belly flesh occlusion",
+        "bio_membrane": "Manamadurai clay baked with iron/copper filings and graphite"
+      },
+      "tags": ["idiophone", "clay-pot", "gumki", "carnatic", "percussion", "fast"]
+    },
+    {
+      "id": "aghati",
+      "rank": 45,
+      "name": "Aghati",
+      "name_iast": "Āghāṭī",
+      "name_devanagari": "आघाटि",
+      "classification": "ghana",
+      "organology": "Ancient bronze cymbal plates or clappers struck together to maintain rhythmic talas during dances",
+      "primary_attestation": "Ṛgveda 10.146.2; Atharvaveda",
+      "impact": 4,
+      "ease": 5,
+      "score": 92.0,
+      "description_short": "Rigvedic cymbal pair. Mentioned in the hymn to the Forest Goddess Aranyani as ringing in the wild solitude of nature.",
+      "acoustics": {
+        "model_type": "Struck Free-Edge Circular Metal Plate",
+        "formula_latex": "f_{n,s} = \\frac{h}{2\\pi a^2} \\sqrt{\\frac{E}{12\\rho(1-\\nu^2)}} \\beta_{n,s}^2",
+        "fundamental_hz": 1200.00,
+        "frequency_band": "High Metallic Sizzle & Clash (1200–9000 Hz)",
+        "damping_ratio": 0.01
+      },
+      "liturgical_context": {
+        "spatial_placement": "Forest altar circle of Goddess Araṇyānī",
+        "actuator": "Manual striking of two rim edges at an angle",
+        "bio_membrane": "Lost-wax cast bronze alloy (copper-tin) with cord loop"
+      },
+      "tags": ["idiophone", "cymbals", "rigvedic", "aranyani", "rhythm", "bronze"]
+    },
+    {
+      "id": "kansya-tala",
+      "rank": 46,
+      "name": "Kansya Tala / Manjira",
+      "name_iast": "Kāṃsya-tāla / Mañjīrā",
+      "name_devanagari": "कांस्यताळ / मञ्जीरा",
+      "classification": "ghana",
+      "organology": "Pair of thick cupped bell-metal hand cymbals connected by cord, sounded for devotional singing",
+      "primary_attestation": "Late Vedic Sūtras; Saṅgīta Ratnākara",
+      "impact": 4,
+      "ease": 5,
+      "score": 91.3,
+      "description_short": "Bell-metal devotional cymbals. Their long sustained ring creates an unbroken high-frequency carrier wave anchoring devotional chanting (kīrtana).",
+      "acoustics": {
+        "model_type": "Coupled High-Q Cup Metal Resonator",
+        "formula_latex": "y(t) = e^{-\\frac{\\omega_0 t}{2Q}} \\sin(\\omega_0 t), \\quad Q > 3500",
+        "fundamental_hz": 1480.00,
+        "frequency_band": "Pure Devotional Chime (1480–12000 Hz)",
+        "damping_ratio": 0.003
+      },
+      "liturgical_context": {
+        "spatial_placement": "Front row of devotional kīrtana circle",
+        "actuator": "Rhythmic edge-to-rim clashing and flat clamping",
+        "bio_membrane": "Heavy high-tin bronze (Kāṃsya) cups tied with sacred cotton cord"
+      },
+      "tags": ["idiophone", "manjira", "kirtana", "bell-metal", "high-q"]
+    },
+    {
+      "id": "avaghatika",
+      "rank": 47,
+      "name": "Avaghatika",
+      "name_iast": "Avaghatīka",
+      "name_devanagari": "अवघटीका",
+      "classification": "ghana",
+      "organology": "Ritual wooden concussion sticks or clappers held and struck by women during solstice rites",
+      "primary_attestation": "Śāṅkhāyana Śrautasūtra XVII; Lāṭyāyana Śrautasūtra",
+      "impact": 3,
+      "ease": 5,
+      "score": 89.0,
+      "description_short": "Women's ritual concussion sticks. Sounded in unison to create sharp transient claps that dispel negative elemental forces during water-carrying circumambulations.",
+      "acoustics": {
+        "model_type": "Free-Free Hardwood Bar Concussion",
+        "formula_latex": "f_1 = \\frac{1.028 t}{L^2} \\sqrt{\\frac{E}{\\rho}}",
+        "fundamental_hz": 850.00,
+        "frequency_band": "Sharp Hardwood Transients (850–6000 Hz)",
+        "damping_ratio": 0.25
+      },
+      "liturgical_context": {
+        "spatial_placement": "Perimeter procession around the sacrificial hall",
+        "actuator": "Two polished hardwood sticks struck together in palms",
+        "bio_membrane": "Seasoned dense teak or khadira timber sticks"
+      },
+      "tags": ["idiophone", "clappers", "concussion", "mahavrata", "patni", "wood"]
+    },
+    {
+      "id": "dhavani",
+      "rank": 48,
+      "name": "Dhavani",
+      "name_iast": "Dhāvānī",
+      "name_devanagari": "धावानी",
+      "classification": "ghana",
+      "organology": "Hollowed wooden sounding board or rubbed trough functioning as an acoustic drone during extraction",
+      "primary_attestation": "Śatapatha Brāhmaṇa; Kātyāyana Śrautasūtra",
+      "impact": 3,
+      "ease": 4,
+      "score": 88.1,
+      "description_short": "Sacrificial sounding trough. Rubbed or tapped during the midday Soma pressing to fill the sacrificial pit with an ominous, low-frequency acoustic drone.",
+      "acoustics": {
+        "model_type": "Trough Bending-Mode Resonator",
+        "formula_latex": "f_n \\approx \\frac{n^2 \\pi h}{2 L^2}\\sqrt{\\frac{E}{12 \\rho}}",
+        "fundamental_hz": 95.00,
+        "frequency_band": "Low Subdued Drone (48–300 Hz)",
+        "damping_ratio": 0.30
+      },
+      "liturgical_context": {
+        "spatial_placement": "Underneath the Soma filtration trough",
+        "actuator": "Scraped with a flat wooden paddle or fist tap",
+        "bio_membrane": "Single carved block of udumbara (cluster fig) wood"
+      },
+      "tags": ["idiophone", "sounding-board", "soma-pressing", "trough", "rubbed"]
+    },
+    {
+      "id": "kila",
+      "rank": 49,
+      "name": "Kila",
+      "name_iast": "Kīla",
+      "name_devanagari": "कील",
+      "classification": "ghana",
+      "organology": "Consecrated wooden boundary stakes struck with mallets to sonically seal the sacrificial enclosure",
+      "primary_attestation": "Śatapatha Brāhmaṇa 3.6.4",
+      "impact": 3,
+      "ease": 4,
+      "score": 87.4,
+      "description_short": "Boundary wooden peg sounder. Hammering these stakes into the earth generates acoustic impulses that drive evil spirits downward into the underworld.",
+      "acoustics": {
+        "model_type": "Driven Wedge Soil-Impact Transient",
+        "formula_latex": "F(t) = M \\frac{dv}{dt} + K x(t) + C \\frac{dx}{dt}",
+        "fundamental_hz": 310.00,
+        "frequency_band": "Ground-Shock Impact Transient (80–1200 Hz)",
+        "damping_ratio": 0.35
+      },
+      "liturgical_context": {
+        "spatial_placement": "Four cardinal boundary pegs of the sacrificial vedi",
+        "actuator": "Heavy wooden sacrificial mallet strike",
+        "bio_membrane": "Pointed khadira wood stake driven into soil"
+      },
+      "tags": ["idiophone", "wooden-peg", "apotropaic", "boundary-seal", "hammered"]
+    },
+    {
+      "id": "talava",
+      "rank": 50,
+      "name": "Talava",
+      "name_iast": "Talava",
+      "name_devanagari": "तलव",
+      "classification": "ghana",
+      "organology": "Hand-held split bamboo clapper or castanet generating dry, crackling rhythmic pulses",
+      "primary_attestation": "Yajurveda Commentary Tradition; Vaitāna Sūtra",
+      "impact": 3,
+      "ease": 5,
+      "score": 86.8,
+      "description_short": "Split-bamboo clapper. Held in the palm, squeezing it produces rapid fire crackling percussion that sets the tempo for outdoor seasonal processions.",
+      "acoustics": {
+        "model_type": "Split Cantilever Impact Oscillators",
+        "formula_latex": "f = \\frac{0.56}{L^2}\\sqrt{\\frac{E I}{\\rho A}}",
+        "fundamental_hz": 720.00,
+        "frequency_band": "Dry Bamboo Snaps (720–5000 Hz)",
+        "damping_ratio": 0.20
+      },
+      "liturgical_context": {
+        "spatial_placement": "Procession perimeter alongside village dancers",
+        "actuator": "Repeated one-handed squeezing snap of split stalks",
+        "bio_membrane": "Seasoned internode of wild bamboo split lengthwise"
+      },
+      "tags": ["idiophone", "split-bamboo", "clapper", "processional", "crackling"]
+    }
+  ]
+}

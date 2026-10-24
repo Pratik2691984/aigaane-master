@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vedic Archaeoacoustics & Bio-Physical Organology Studio</title>
+  <link rel="stylesheet" href="css/studio.css">
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="header-branding">
+      <span class="sub-tag">Archaeoacoustic & Bio-Physical Organology · Nāṭya Śāstra & Saṅgīta Ratnākara</span>
+      <h1>Vedic Archaeoacoustics Studio</h1>
+      <p class="header-desc">
+        A rigorous mathematical, bio-physical, and liturgical research suite for ancient Indian organology. 
+        Embeds governing differential wave equations, spatial vedi boundary conditions, bio-substrates, and class-based DSP physical synthesis[cite: 1].
+      </p>
+    </div>
+    <div class="header-actions">
+      <button id="tanpura-btn" class="pill-action-btn">🪕 Tanpura Drone: OFF</button>
+      <button id="mute-btn" class="pill-action-btn">🔊 Sound: ON</button>
+    </div>
+  </header>
+
+  <!-- Metric Quick-Stats Bar -->
+  <section class="stats-bar">
+    <div class="stat-item"><span class="stat-val">50 Spec.</span><span class="stat-lbl">Archived Models</span></div>
+    <div class="stat-item"><span class="stat-val">LaTeX DSP</span><span class="stat-lbl">Governing Equations</span></div>
+    <div class="stat-item"><span class="stat-val">0.00 ms</span><span class="stat-lbl">Sample Latency (Native Web Audio)</span></div>
+    <div class="stat-item"><span class="stat-val">22 Śruti</span><span class="stat-lbl">107 Marma Nodes</span></div>
+  </section>
+
+  <!-- Real-Time Quanta & Brainwave Entrainment Cockpit -->
+  <section class="quanta-brain-panel">
+    <div class="quanta-header">
+      <div class="title-wrap">
+        <span class="sub-tag">Quantum Spanda & Neuro-Acoustic Transduction</span>
+        <h3>Brainwave Entrainment & Quantum Energy Telemetry</h3>
+      </div>
+      <div class="quanta-badge-cluster">
+        <div class="q-metric-pill">
+          <span class="q-lbl">ACOUSTIC QUANTA:</span>
+          <span class="q-val" id="hud-quanta-val">Q-99.00</span>
+        </div>
+        <div class="q-metric-pill">
+          <span class="q-lbl">EEG BAND:</span>
+          <span class="q-val" id="hud-eeg-band" style="color: #38bdf8;">ALPHA (α)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quanta-grid">
+      <div class="eeg-oscilloscope-box">
+        <div class="box-top">
+          <span class="eeg-tag">REAL-TIME TRANSDUCED EEG OSCILLOGRAM</span>
+          <span class="energy-tag" id="hud-energy-metric">8.6672e-32 J</span>
+        </div>
+        <canvas id="eeg-canvas" width="600" height="110"></canvas>
+        <div class="box-bottom">
+          <span class="state-indicator" id="hud-neuro-state">Sāttvic Stillness & Alert Serenity</span>
+        </div>
+      </div>
+
+      <div class="eeg-states-matrix">
+        <h5>Quick Neurological Presets</h5>
+        <div class="eeg-btn-stack">
+          <button class="eeg-state-btn delta" onclick="quantaBrain.evaluateAcousticQuanta(42); audioEngine.playVoice('avanaddha', 42)">
+            <span class="b-name">δ DELTA</span>
+            <span class="b-hz">42 Hz (Bhūmi-dundubhi)</span>
+            <span class="b-desc">Deep Grounding & Sleep</span>
+          </button>
+          <button class="eeg-state-btn theta" onclick="quantaBrain.evaluateAcousticQuanta(110); audioEngine.playVoice('avanaddha', 110)">
+            <span class="b-name">θ THETA</span>
+            <span class="b-hz">110 Hz (Pakhāwaj)</span>
+            <span class="b-desc">Dhyāna & Reflection</span>
+          </button>
+          <button class="eeg-state-btn alpha" onclick="quantaBrain.evaluateAcousticQuanta(130.81); audioEngine.playVoice('tata', 130.81)">
+            <span class="b-name">α ALPHA</span>
+            <span class="b-hz">130.81 Hz (Rudra Vīṇā)</span>
+            <span class="b-desc">Serenity & Clarity</span>
+          </button>
+          <button class="eeg-state-btn gamma" onclick="quantaBrain.evaluateAcousticQuanta(1800); audioEngine.playVoice('susira', 1800)">
+            <span class="b-name">γ GAMMA</span>
+            <span class="b-hz">1800 Hz (Picchorā)</span>
+            <span class="b-desc">Hyper-Cognition</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Search Navigation Bar -->
+  <nav class="studio-nav">
+    <div class="tab-group" id="class-tabs">
+      <button class="tab-btn active" data-class="all">All Organologies <span class="tab-count" id="count-all">0</span></button>
+      <button class="tab-btn" data-class="tata">Tata (Chordophones) <span class="tab-count" id="count-tata">0</span></button>
+      <button class="tab-btn" data-class="avanaddha">Avanaddha (Membranophones) <span class="tab-count" id="count-avanaddha">0</span></button>
+      <button class="tab-btn" data-class="susira">Suṣira (Aerophones) <span class="tab-count" id="count-susira">0</span></button>
+      <button class="tab-btn" data-class="ghana">Ghana (Idiophones) <span class="tab-count" id="count-ghana">0</span></button>
+      <button class="tab-btn bio-tab" data-class="bio">⚡ Gātra-Vīṇā (Bio-Bus)</button>
+    </div>
+
+    <div class="search-sort-bar">
+      <input type="text" id="search-input" placeholder="Search (IAST, Sanskrit, formula, vedi)..." autocomplete="off">
+      <select id="sort-select">
+        <option value="rank">Sort: Canonical Rank</option>
+        <option value="score">Sort: Vedic Score (Desc)</option>
+        <option value="alpha">Sort: Alphabetical (IAST)</option>
+      </select>
+    </div>
+  </nav>
+
+  <!-- Main Grid Container for 50 Instruments -->
+  <main class="grid-container" id="instruments-grid">
+    <!-- Populated dynamically via studio.js -->
+  </main>
+
+  <!-- Gātra-Vīṇā Bio-Acoustic Laboratory (Toggleable View) -->
+  <section class="bio-laboratory" id="bio-laboratory" style="display: none;">
+    <div class="bio-panel-header">
+      <h2>Gātra-Vīṇā: Human Body as Biological Waveguide (Yantra)</h2>
+      <p>Interactive 7-Node Suṣumnā Bus, Binary Gates, and Dual Oscillating Waveguide Tracking.</p>
+    </div>
+    <div class="bio-workbench">
+      <div class="svg-container" id="gatra-vina-mount"></div>
+
+      <div class="bio-telemetry-panel">
+        <div class="scope-box">
+          <h4>Dual Waveguide: Iḍā (0/Left/Blue) vs. Piṅgalā (1/Right/Red)</h4>
+          <canvas id="ida-pingala-canvas" width="460" height="200"></canvas>
+        </div>
+        <div class="telemetry-log">
+          <div class="telemetry-row"><span class="t-label">SYSTEM BUS:</span> <span id="tele-bus" class="t-val">IDLE</span></div>
+          <div class="telemetry-row"><span class="t-label">ACTIVE MARMA:</span> <span id="tele-marma" class="t-val">NONE</span></div>
+          <div class="telemetry-row"><span class="t-label">PHONETIC BĪJA:</span> <span id="tele-bija" class="t-val">NONE</span></div>
+          <div class="telemetry-row"><span class="t-label">CANONICAL HZ:</span> <span id="tele-hz" class="t-val">0.00 Hz</span></div>
+          <div class="telemetry-row"><span class="t-label">VĀK LAYER:</span> <span id="tele-vak" class="t-val">UNMANIFEST</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Persistent Bottom Scope Dock -->
+  <div class="scope-dock">
+    <canvas id="realtime-scope" width="300" height="48"></canvas>
+    <span class="scope-label">REALTIME FFT ANALYSER</span>
+  </div>
+
+  <!-- Deep Modal / Accession Spec Drawer -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="js/studio.js"></script>
+</body>
+</html>
