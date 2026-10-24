@@ -2,37 +2,39 @@
 
 class DoshaHomeostasisEngine {
     constructor(vata, pitta, kapha) {
+        // Position (state)
         this.q = { vata, pitta, kapha }; 
+        // Momentum (rate of change)
         this.p = { vata: 0, pitta: 0, kapha: 0 }; 
         
-        // Stable time step
-        this.dt = 0.05; 
+        // 1. Tiny time step for maximum stability
+        this.dt = 0.016; 
     }
 
     _force(energy) {
         const equilibrium = 1.0;
         const displacement = energy - equilibrium;
         
-        // Spring constant (alpha) and non-linear constraint (beta)
-        const alpha = 0.5; 
-        const beta = 0.1; 
+        // 2. Stronger spring constant (alpha) to pull back to 1.0
+        const alpha = 2.0; 
         
-        return -(alpha * displacement - beta * Math.pow(displacement, 3));
+        // Disable non-linear constraint for simple damped spring
+        // return -(alpha * displacement - beta * Math.pow(displacement, 3));
+        return -(alpha * displacement);
     }
 
     step() {
-        // THE FIX: Damping coefficient (friction)
-        // 0.95 means it loses 5% of its momentum each step
-        const damping = 0.95; 
+        // 3. High Damping (friction): 0.85 means it loses 15% of momentum every tick
+        const damping = 0.85; 
 
-        const clampMomentum = (p) => Math.max(-0.5, Math.min(0.5, p));
+        const clampMomentum = (p) => Math.max(-1.0, Math.min(1.0, p));
 
         // 1. Update Momentum by half step (Force only)
         this.p.vata += this._force(this.q.vata) * (this.dt / 2);
         this.p.pitta += this._force(this.q.pitta) * (this.dt / 2);
         this.p.kapha += this._force(this.q.kapha) * (this.dt / 2);
 
-        // Apply Damping
+        // Apply Damping to kill the bounce
         this.p.vata *= damping;
         this.p.pitta *= damping;
         this.p.kapha *= damping;
