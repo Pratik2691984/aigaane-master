@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIGAANE Studio - First Voice</title>
+<title>AIGAANE Studio - First Voice (Katha Agent)</title>
+<!-- Load the Navagraha Timing Engine -->
+<script src="/js/katha_timing.js"></script>
 <style>
   :root {
     --bg: #0a0e14;
@@ -135,8 +137,8 @@
 </head>
 <body>
 
-<h1>AIGAANE Studio</h1>
-<div class="sub">First Voice - Sanskrit verse to Web Audio</div>
+<h1>AIGAANE Studio · Katha Agent</h1>
+<div class="sub">First Voice - Sanskrit verse to Web Audio · Navagraha Synced</div>
 
 <div class="panel">
   <label for="verse">Sanskrit verse (Devanagari or IAST)</label>
@@ -207,9 +209,23 @@ async function play() {
   playBtn.disabled = true;
   statusEl.textContent = 'scanning...';
 
+  // 1. Get Navagraha timing config (requires katha_timing.js to be loaded)
+  let ritualConfig = { planet: 'Surya', raga: 'Bhairav', baseFreq: 432 }; // fallback
+  if (typeof getCurrentRitualConfig === 'function') {
+    ritualConfig = getCurrentRitualConfig();
+  } else {
+    log('Warning: katha_timing.js not loaded. Using default tuning.');
+  }
+
+  // 2. Build the sequence using the planetary Raga and Base Frequency
   let seq;
   try {
-   seq = buildSequence(verse, { thaat: 'yaman', rasa: 'shanta', bpm: 108, baseSaHz: 261.63 });
+   seq = buildSequence(verse, { 
+      thaat: ritualConfig.raga.toLowerCase(), 
+      rasa: 'shanta', 
+      bpm: 108, 
+      baseSaHz: ritualConfig.baseFreq // Dynamic frequency!
+   });
   } catch (err) {
     log('Scansion error: ' + err.message);
     playBtn.disabled = false;
@@ -222,9 +238,13 @@ async function play() {
 
   buildGrid(events);
 
+  log('--- Navagraha Ritual Configuration ---');
+  log('Planet: ' + ritualConfig.planet + ' | Rāga: ' + ritualConfig.raga);
+  log('--- Scansion Result ---');
   log('Chandas: ' + meta.matchedChandas);
   log('Syllables: ' + meta.totalMatras + ' matras, ' + events.length + ' events');
-  log('BPM: ' + meta.bpm + ', Sa base: ' + meta.baseSaHz + ' Hz');
+  log('Base Sa: ' + meta.baseSaHz + ' Hz (from planetary tuning)');
+  
   events.slice(0, 4).forEach(e => {
     log('  step ' + e.step + ': ' + e.syllable + ' -> ' + e.freqHz + ' Hz, gate=' + e.gate);
   });
@@ -238,7 +258,6 @@ async function play() {
   sequenceStartTime = startTime;
 
   const stepDuration = (60.0 / meta.bpm) / 4.0;
-  const totalDuration = events.length * stepDuration;
 
   for (const ev of events) {
     const t0 = startTime + ev.time;
@@ -254,7 +273,7 @@ async function play() {
     filter.Q.value = ev.filterQ;
 
     const gain = audioCtx.createGain();
-   const peak = ev.velocity * 0.6;
+    const peak = ev.velocity * 0.6;
     const sustainLevel = Math.max(0.0001, peak * ev.adsr.sustain);
 
     gain.gain.setValueAtTime(0.0001, t0);
@@ -319,7 +338,7 @@ function stop() {
 playBtn.addEventListener('click', play);
 stopBtn.addEventListener('click', stop);
 
-logEl.textContent = 'Ready. Verse pre-filled with Gita 1.1. Press PLAY.';
+logEl.textContent = 'Ready. Verse pre-filled with Gita 1.1. Press PLAY to activate planetary tuning.';
 </script>
 
 </body>
