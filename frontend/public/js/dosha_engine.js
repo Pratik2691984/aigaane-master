@@ -5,20 +5,26 @@ class DoshaHomeostasisEngine {
         this.q = { vata, pitta, kapha }; 
         this.p = { vata: 0, pitta: 0, kapha: 0 }; 
         
-        // THE FIX: Smaller time step for numerical stability
+        // Stable time step
         this.dt = 0.02; 
-        
-        // Slightly tuned Prakriti constants
-        this.alpha = 0.3; 
-        this.beta = 0.05; 
     }
 
     _force(energy) {
-        return -(this.alpha * energy - this.beta * Math.pow(energy, 3));
+        // THE FIX: Shift the equilibrium to 1.0
+        // This means if energy == 1.0, force == 0 (perfect Prakriti balance)
+        const equilibrium = 1.0;
+        const displacement = energy - equilibrium;
+        
+        // Spring constant (alpha) and non-linear constraint (beta)
+        const alpha = 0.5; 
+        const beta = 0.1; 
+        
+        // Restoring force pulls back to 1.0
+        return -(alpha * displacement - beta * Math.pow(displacement, 3));
     }
 
     step() {
-        // Helper to clamp momentum (velocity) so it doesn't overshoot
+        // Clamp momentum to prevent numerical explosion
         const clampMomentum = (p) => Math.max(-0.5, Math.min(0.5, p));
 
         // 1. Update Momentum by half step
@@ -26,7 +32,6 @@ class DoshaHomeostasisEngine {
         this.p.pitta += this._force(this.q.pitta) * (this.dt / 2);
         this.p.kapha += this._force(this.q.kapha) * (this.dt / 2);
 
-        // Clamp momentum to prevent explosion
         this.p.vata = clampMomentum(this.p.vata);
         this.p.pitta = clampMomentum(this.p.pitta);
         this.p.kapha = clampMomentum(this.p.kapha);
@@ -57,7 +62,6 @@ function injectAyurvedaEngine() {
     if (!root) return;
 
     setTimeout(() => {
-        // Prevent double injection
         if (document.getElementById('dosha-simulator-panel')) return;
 
         const container = document.createElement('div');
@@ -76,7 +80,7 @@ function injectAyurvedaEngine() {
 
         container.innerHTML = `
             <h2 style="color: #7a9a5a; margin-top:0;">Dynamic Dosha Homeostasis</h2>
-            <p style="color: #94a3b8; font-size: 0.9rem;">Symplectic Störmer-Verlet simulation. Adding aggravating factors (spicy food, stress) pushes the system out of balance. The Prakriti restoring force pulls it back.</p>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Symplectic Störmer-Verlet simulation. Adding aggravating factors (spicy food, stress) pushes the system out of balance. The Prakriti restoring force pulls it back to equilibrium (1.00).</p>
             
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;">
                 <div style="background: #0f172a; padding: 12px; border-radius: 8px; border-left: 4px solid #38bdf8;">
@@ -110,7 +114,6 @@ function injectAyurvedaEngine() {
             kapha: document.getElementById('sim-kapha')
         };
 
-        // Aggravate handlers (Push it by 0.3 to stay within safe bounds)
         document.getElementById('btn-vata').onclick = () => engine.q.vata += 0.3;
         document.getElementById('btn-pitta').onclick = () => engine.q.pitta += 0.3;
         document.getElementById('btn-kapha').onclick = () => engine.q.kapha += 0.3;
@@ -120,13 +123,12 @@ function injectAyurvedaEngine() {
             engine.p = { vata: 0, pitta: 0, kapha: 0 };
         };
 
-        // Simulation Loop
         setInterval(() => {
             const state = engine.step();
             ui.vata.textContent = state.vata.toFixed(2);
             ui.pitta.textContent = state.pitta.toFixed(2);
             ui.kapha.textContent = state.kapha.toFixed(2);
-        }, 50); // Faster update for smoother animation
+        }, 50); 
 
     }, 1000);
 }
