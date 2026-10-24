@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aigaane · Upaveda Cabinet</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .cabinet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .cabinet-card {
+            background: var(--bg-card, #1e293b);
+            border: 1px solid var(--border-color, #334155);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, border-color 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .cabinet-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-primary, #fbbf24);
+            box-shadow: 0 10px 30px rgba(241, 196, 15, 0.1);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: var(--gold-primary, #fbbf24);
+        }
+        .badge-live {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+        .badge-soon {
+            background: rgba(136, 146, 176, 0.1);
+            color: #94a3b8;
+            border: 1px solid #94a3b8;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #334155;
+            padding-top: 1rem;
+        }
+        .card-footer span {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-family: monospace;
+        }
+        .btn-enter {
+            color: var(--gold-primary, #fbbf24);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .section-title {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 3rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .site-header {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-item {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+        }
+        .nav-item.active { color: #fbbf24; }
+        .nav-item:hover { color: #fbbf24; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="/index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.8rem; color: #fbbf24;">ॐ</span>
+            <h1 style="margin: 0; font-size: 1.2rem; color: #fbbf24;">Aigaane</h1>
+        </a>
+        <nav>
+            <a href="/index.html" class="nav-item">Engine</a>
+            <a href="/cabinet.html" class="nav-item active">Cabinet</a>
+            <a href="/canon.html" class="nav-item">Canon</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.2rem; color: #f8fafc; margin-bottom: 0.5rem;">The Aigaane Cabinet</h2>
+            <p style="color: #94a3b8; font-size: 1.1rem;">Explore the interactive studios and applied Vedic sciences.</p>
+        </div>
+
+        <!-- LIVE STUDIOS -->
+        <h3 class="section-title">Live Studios</h3>
+        <div class="cabinet-grid">
+            
+            <!-- Jyotirlinga (inside /studio/ folder) -->
+            <a href="/studio/jyotirlinga.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Jyotirlinga Acoustic Nodes</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">12-Node Topological Fluidic-Acoustic Supercluster. Explore the acoustic resonance, Q-factors, and Bessel wave dynamics of the 12 sacred sites.</p>
+                <div class="card-footer">
+                    <span>48 kHz · Web Audio API</span>
+                    <span class="btn-enter">Enter Studio →</span>
+                </div>
+            </a>
+
+            <!-- Mantra (root) -->
+            <a href="/mantra.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Mantra Sanctuary</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Gapless Just Intonation Japa repetition. Load verses from the Canon, scan the Mātṛās, and download the full 108x loop.</p>
+                <div class="card-footer">
+                    <span>Just Intonation · Piṅgala</span>
+                    <span class="btn-enter">Enter Studio →</span>
+                </div>
+            </a>
+
+            <!-- Gāndharvaveda (root) -->
+            <a href="/gandharvaveda.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Gāndharvaveda Studio</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Neural music producer and polyphonic synthesizer mainframe. Compose Vedic Rāgas with 22-Shruti microtonal accuracy.</p>
+                <div class="card-footer">
+                    <span>Just Intonation · MIDI</span>
+                    <span class="btn-enter">Enter Studio →</span>
+                </div>
+            </a>
+
+            <!-- Katha Rituals (root, file is studio.html) -->
+            <a href="/studio.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Katha Rituals</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Live ritual and Yagna performance guide. Guides the user through step-by-step Pujas with the correct mantras and Navagraha timing.</p>
+                <div class="card-footer">
+                    <span>Navagraha · Live Guide</span>
+                    <span class="btn-enter">Enter Studio →</span>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- UPAVEDAS -->
+        <h3 class="section-title">The Four Upavedas</h3>
+        <div class="cabinet-grid">
+            
+            <a href="/ayurveda.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Āyurveda</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Medicine & Life-Science. Map the body through three Doshas, conduct Prakṛti assessments, and simulate homeostasis with Symplectic dynamics.</p>
+                <div class="card-footer">
+                    <span>Caraka Saṃhitā</span>
+                    <span class="btn-enter">Open Āyurveda →</span>
+                </div>
+            </a>
+
+            <a href="/sthapatyaveda.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Sthāpatyaveda</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Architecture & Sacred Geometry. Explore the 81-pada Vāstu Puruṣa Maṇḍala, nine-direction compass, and temple proportions.</p>
+                <div class="card-footer">
+                    <span>Mānasāra</span>
+                    <span class="btn-enter">Open Sthāpatyaveda →</span>
+                </div>
+            </a>
+
+            <a href="/dhanurveda.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Dhanurveda</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Archery & Martial Science. Study the four-fold army, celestial astras, hand-held śastras, and geometric battle formations.</p>
+                <div class="card-footer">
+                    <span>Agni Purāṇa</span>
+                    <span class="btn-enter">Open Dhanurveda →</span>
+                </div>
+            </a>
+
+            <!-- Upavedas Hub (contains interactive React cards for all 4) -->
+            <a href="/upavedas.html" class="cabinet-card">
+                <div class="card-header">
+                    <h3>Upaveda Master Hub</h3>
+                    <span class="badge-live">LIVE</span>
+                </div>
+                <p class="card-desc">Explore all four Upavedic studios through a single unified dashboard with shared navigation and classical text references.</p>
+                <div class="card-footer">
+                    <span>Master View</span>
+                    <span class="btn-enter">Open Hub →</span>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- FUTURE ROADMAP -->
+        <h3 class="section-title">Future Studios (In Development)</h3>
+        <div class="cabinet-grid">
+            
+            <div class="cabinet-card" style="opacity: 0.6; filter: grayscale(50%); cursor: not-allowed;">
+                <div class="card-header">
+                    <h3>Jyotiṣa</h3>
+                    <span class="badge-soon">ROADMAP</span>
+                </div>
+                <p class="card-desc">Astronomy, Vedic Time & Muhūrta. Generate Panchanga, calculate Tithi/Nakshatra, and track planetary positions.</p>
+                <div class="card-footer"><span>Sūrya Siddhānta</span></div>
+            </div>
+
+            <div class="cabinet-card" style="opacity: 0.6; filter: grayscale(50%); cursor: not-allowed;">
+                <div class="card-header">
+                    <h3>Gaṇita</h3>
+                    <span class="badge-soon">ROADMAP</span>
+                </div>
+                <p class="card-desc">Vedic Mathematics, Śulba Geometry, and the 16 Sūtras of Vedic Mathematics for rapid computation.</p>
+                <div class="card-footer"><span>Līlāvatī</span></div>
+            </div>
+
+            <div class="cabinet-card" style="opacity: 0.6; filter: grayscale(50%); cursor: not-allowed;">
+                <div class="card-header">
+                    <h3>Nyāya</h3>
+                    <span class="badge-soon">ROADMAP</span>
+                </div>
+                <p class="card-desc">Vedic Logic & Epistemology. Explore the 5-part syllogism and the 16 categories of valid knowledge.</p>
+                <div class="card-footer"><span>Nyāya Sūtras</span></div>
+            </div>
+
+            <div class="cabinet-card" style="opacity: 0.6; filter: grayscale(50%); cursor: not-allowed;">
+                <div class="card-header">
+                    <h3>Arthaśāstra</h3>
+                    <span class="badge-soon">ROADMAP</span>
+                </div>
+                <p class="card-desc">Statecraft, Economics & Dharmaśāstra. Study ancient political strategy, taxation models, and civil law.</p>
+                <div class="card-footer"><span>Kauṭilya</span></div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 40px 20px; color: #94a3b8; border-top: 1px solid #334155; margin-top: 4rem;">
+        <p>&copy; Aigaane. Built on the Aṣṭādhyāyī.</p>
+    </footer>
+</body>
+</html>
