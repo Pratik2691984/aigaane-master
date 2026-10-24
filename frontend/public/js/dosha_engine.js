@@ -6,12 +6,10 @@ class DoshaHomeostasisEngine {
         this.p = { vata: 0, pitta: 0, kapha: 0 }; 
         
         // Stable time step
-        this.dt = 0.02; 
+        this.dt = 0.05; 
     }
 
     _force(energy) {
-        // THE FIX: Shift the equilibrium to 1.0
-        // This means if energy == 1.0, force == 0 (perfect Prakriti balance)
         const equilibrium = 1.0;
         const displacement = energy - equilibrium;
         
@@ -19,18 +17,25 @@ class DoshaHomeostasisEngine {
         const alpha = 0.5; 
         const beta = 0.1; 
         
-        // Restoring force pulls back to 1.0
         return -(alpha * displacement - beta * Math.pow(displacement, 3));
     }
 
     step() {
-        // Clamp momentum to prevent numerical explosion
+        // THE FIX: Damping coefficient (friction)
+        // 0.95 means it loses 5% of its momentum each step
+        const damping = 0.95; 
+
         const clampMomentum = (p) => Math.max(-0.5, Math.min(0.5, p));
 
-        // 1. Update Momentum by half step
+        // 1. Update Momentum by half step (Force only)
         this.p.vata += this._force(this.q.vata) * (this.dt / 2);
         this.p.pitta += this._force(this.q.pitta) * (this.dt / 2);
         this.p.kapha += this._force(this.q.kapha) * (this.dt / 2);
+
+        // Apply Damping
+        this.p.vata *= damping;
+        this.p.pitta *= damping;
+        this.p.kapha *= damping;
 
         this.p.vata = clampMomentum(this.p.vata);
         this.p.pitta = clampMomentum(this.p.pitta);
@@ -41,12 +46,12 @@ class DoshaHomeostasisEngine {
         this.q.pitta += this.p.pitta * this.dt;
         this.q.kapha += this.p.kapha * this.dt;
 
-        // 3. Update Momentum by half step
+        // 3. Update Momentum by half step (Force only)
         this.p.vata += this._force(this.q.vata) * (this.dt / 2);
         this.p.pitta += this._force(this.q.pitta) * (this.dt / 2);
         this.p.kapha += this._force(this.q.kapha) * (this.dt / 2);
 
-        // Clamp position between 0.5 and 2.0 (healthy bounds)
+        // Clamp position to safe bounds
         this.q.vata = Math.max(0.5, Math.min(2.0, this.q.vata));
         this.q.pitta = Math.max(0.5, Math.min(2.0, this.q.pitta));
         this.q.kapha = Math.max(0.5, Math.min(2.0, this.q.kapha));
@@ -80,7 +85,7 @@ function injectAyurvedaEngine() {
 
         container.innerHTML = `
             <h2 style="color: #7a9a5a; margin-top:0;">Dynamic Dosha Homeostasis</h2>
-            <p style="color: #94a3b8; font-size: 0.9rem;">Symplectic Störmer-Verlet simulation. Adding aggravating factors (spicy food, stress) pushes the system out of balance. The Prakriti restoring force pulls it back to equilibrium (1.00).</p>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Symplectic Störmer-Verlet simulation with biological damping. Adding aggravating factors (spicy food, stress) pushes the system out of balance. The Prakriti restoring force pulls it back to equilibrium (1.00).</p>
             
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;">
                 <div style="background: #0f172a; padding: 12px; border-radius: 8px; border-left: 4px solid #38bdf8;">
@@ -114,9 +119,9 @@ function injectAyurvedaEngine() {
             kapha: document.getElementById('sim-kapha')
         };
 
-        document.getElementById('btn-vata').onclick = () => engine.q.vata += 0.3;
-        document.getElementById('btn-pitta').onclick = () => engine.q.pitta += 0.3;
-        document.getElementById('btn-kapha').onclick = () => engine.q.kapha += 0.3;
+        document.getElementById('btn-vata').onclick = () => engine.q.vata += 0.5;
+        document.getElementById('btn-pitta').onclick = () => engine.q.pitta += 0.5;
+        document.getElementById('btn-kapha').onclick = () => engine.q.kapha += 0.5;
         
         document.getElementById('btn-reset').onclick = () => {
             engine.q = { vata: 1.0, pitta: 1.0, kapha: 1.0 };
