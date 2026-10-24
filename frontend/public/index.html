@@ -1,126 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Aigaane — Pāṇinian Sanskrit sandhi and chandas engine. Live deterministic analysis of Sanskrit phonology and prosody.">
-<meta name="theme-color" content="#0f172a">
-<meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://aigaane-engine-977695793163.asia-south1.run.app; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
-
-<title>Aigaane · Sanskrit Sandhi & Chandas Engine</title>
-<link rel="stylesheet" href="css/app.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Aigaane · Deterministic Pāṇinian Sanskrit Engine</title>
+    <meta name="description" content="Live phonology, prosody tools built on the Aṣṭādhyāyī, and Just Intonation audio synthesis.">
+    
+    <meta property="og:title" content="Aigaane · Sanskrit Sandhi & Chandas Engine">
+    <meta property="og:description" content="Deterministic Pāṇinian Sanskrit phonology and prosody tools.">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
+    
+    <!-- Relative path to your existing CSS -->
+    <link rel="stylesheet" href="css/app.css">
+    
+    <style>
+        /* Quick fixes to make the new template look like your old UI */
+        .site-header { padding: 1rem 0; border-bottom: 1px solid #334155; }
+        .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+        .nav-links a { text-decoration: none; color: #94a3b8; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a:hover { color: #fbbf24; }
+        .version-tag { background: #1e293b; color: #fbbf24; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; }
+        .tool-section { margin-bottom: 2rem; background: #1e293b; padding: 1.5rem; border-radius: 8px; border: 1px solid #334155; }
+        .tool-interface { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .tool-interface input, .tool-interface textarea, .tool-interface select { padding: 0.5rem; background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 4px; }
+        .tool-interface button { padding: 0.5rem 1rem; background: #fbbf24; color: #0f172a; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        .result-box { background: #0f172a; border: 1px dashed #334155; padding: 1rem; border-radius: 4px; font-family: monospace; color: #34d399; white-space: pre-wrap; font-size: 0.85rem; min-height: 40px; }
+        .subtitle { color: #94a3b8; margin-bottom: 2rem; }
+        .external-link { color: #fbbf24; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-block; margin-top: 1rem; }
+    </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+            <div class="brand" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                <span class="logo-symbol" style="font-size: 2rem; color: #fbbf24;">ॐ</span>
+                <h1 style="margin: 0; font-size: 1.5rem; color: #fbbf24;">Aigaane</h1>
+            </div>
+            <nav class="nav-links" aria-label="Main Navigation">
+                <a href="#sandhi">Sandhi</a>
+                <a href="#chandas">Chandas</a>
+                <a href="#morphology">Morphology</a>
+                <a href="#lexicon">Lexicon</a>
+                <a href="#gandharva">Gāndharva</a>
+                <a href="#corpus">Corpus</a>
+                <a href="studio.html" style="color: #4fd1c5; font-weight: bold;">Studio</a>
+                <a href="upavedas.html" style="color: #c9a227; font-weight: bold;">Upavedas</a>
+                <a href="canon.html">Canon</a>
+                <a href="mantra.html">Mantra Loop</a>
+                <span class="version-tag">v3.1</span>
+            </nav>
+        </div>
+    </header>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="#" aria-label="Aigaane home">
-      <span class="brand-mark" aria-hidden="true">ॐ</span>
-      <span class="brand-name">Aigaane</span>
-      <span class="brand-tag">Sandhi · Chandas</span>
-    </a>
-    <nav class="site-nav" aria-label="Primary">
-      <a href="#sandhi">Sandhi</a>
-      <a href="#chandas">Chandas</a>
-      <a href="#morphology">Morphology</a>
-      <a href="#lexicon">Lexicon</a>
-      <a href="#gandharva">Gāndharva</a>
-      <a href="canon.html">Canon</a>
-    </nav>
-  </div>
-</header>
+    <main id="main-content" class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+        <section class="hero">
+            <h2 style="color: #fbbf24; font-size: 2rem; margin-bottom: 0.5rem;">Deterministic Pāṇinian Sanskrit</h2>
+            <p class="subtitle">Live phonology and prosody tools built on the Aṣṭādhyāyī. Every derivation cites the governing sūtra.</p>
+        </section>
 
-<main class="site-main">
+        <!-- 1. Sandhi (IDs match app.js) -->
+        <section id="sandhi" class="tool-section">
+            <h3 style="color: #fbbf24; margin-top: 0;">Sandhi Combiner</h3>
+            <p class="tool-desc" style="color: #94a3b8; font-size: 0.9rem;">Aṣṭādhyāyī 6.1 and 8.4 rules.</p>
+            <div class="tool-interface">
+                <input type="text" id="sandhi-p1" value="a" aria-label="First term">
+                <input type="text" id="sandhi-p2" value="i" aria-label="Second term">
+                <button id="btn-sandhi-join" type="button">Combine</button>
+            </div>
+            <div id="out-sandhi-join" class="result-box" aria-live="polite">Result will appear here.</div>
+        </section>
 
-  <section class="hero">
-    <div class="container">
-      <h1>Deterministic Pāṇinian Sanskrit</h1>
-      <p class="hero-sub">Live phonology and prosody tools built on the Aṣṭādhyāyī. Every derivation cites the governing sūtra.</p>
-    </div>
-  </section>
+        <!-- 2. Chandas -->
+        <section id="chandas" class="tool-section">
+            <h3 style="color: #fbbf24; margin-top: 0;">Chandas Scanner</h3>
+            <p class="tool-desc" style="color: #94a3b8; font-size: 0.9rem;">Laghu (⏑) and Guru (−) weights per Piṅgala.</p>
+            <div class="tool-interface">
+                <textarea id="chandas-input" rows="2" style="flex: 1;" aria-label="Verse text">dharmakṣetre kurukṣetre</textarea>
+            </div>
+            <div class="tool-interface" style="margin-top: -0.5rem;">
+                <button id="btn-chandas-scan" type="button">Scan L/G</button>
+            </div>
+            <div id="out-chandas" class="result-box" aria-live="polite">Scansion will appear here.</div>
+        </section>
 
-  <section id="sandhi" class="panel">
-    <div class="container">
-      <h2>Sandhi Combiner</h2>
-      <div class="form-row">
-        <input id="sandhi-p1" type="text" value="a">
-        <input id="sandhi-p2" type="text" value="i">
-        <button id="btn-sandhi-join">Combine</button>
-      </div>
-      <pre id="out-sandhi-join" class="output-box"></pre>
-    </div>
-  </section>
+        <!-- 3. Morphology -->
+        <section id="morphology" class="tool-section">
+            <h3 style="color: #fbbf24; margin-top: 0;">Vyākaraṇa Morphology</h3>
+            <p class="tool-desc" style="color: #94a3b8; font-size: 0.9rem;">Generate the full 24-form paradigm for nominal stems.</p>
+            <div class="tool-interface">
+                <input type="text" id="noun-lemma" value="deva" aria-label="Nominal stem">
+                <select id="noun-stem-class" aria-label="Declension type">
+                    <option value="a-masc" selected>a-masc (deva)</option>
+                    <option value="a-neut">a-neut (phala)</option>
+                    <option value="aa-fem">ā-fem (ramā)</option>
+                    <option value="i-masc">i-masc (agni)</option>
+                    <option value="u-masc">u-masc (viṣṇu)</option>
+                </select>
+                <button id="btn-noun-inflect" type="button">Inflect</button>
+            </div>
+            <div id="out-noun" class="result-box" aria-live="polite">Forms will appear here.</div>
+        </section>
 
-  <section id="chandas" class="panel">
-    <div class="container">
-      <h2>Chandas Scanner</h2>
-      <textarea id="chandas-input" rows="2">dharmakṣetre kurukṣetre</textarea>
-      <button id="btn-chandas-scan">Scan</button>
-      <pre id="out-chandas" class="output-box"></pre>
-    </div>
-  </section>
+        <!-- 4. Lexicon -->
+        <section id="lexicon" class="tool-section">
+            <h3 style="color: #fbbf24; margin-top: 0;">Kosha Lexicon</h3>
+            <p class="tool-desc" style="color: #94a3b8; font-size: 0.9rem;">Dictionary lookup across Vidyut entries.</p>
+            <div class="tool-interface">
+                <input type="text" id="lexicon-query" value="dharma" aria-label="Lexicon search term">
+                <button id="btn-lexicon-lookup" type="button">Lookup</button>
+            </div>
+            <div id="out-lexicon" class="result-box" aria-live="polite">Definitions will appear here.</div>
+        </section>
 
-  <section id="morphology" class="panel">
-    <div class="container">
-      <h2>Vyākaraṇa Morphology</h2>
-      <div class="form-row">
-        <input id="noun-lemma" type="text" value="deva">
-        <select id="noun-stem-class">
-          <option value="a-masc">a-masc (deva)</option>
-          <option value="a-neut">a-neut (phala)</option>
-          <option value="aa-fem">ā-fem (ramā)</option>
-        </select>
-        <button id="btn-noun-inflect">Inflect</button>
-      </div>
-      <pre id="out-noun" class="output-box"></pre>
-    </div>
-  </section>
+        <!-- 5. Gandharva -->
+        <section id="gandharva" class="tool-section">
+            <h3 style="color: #fbbf24; margin-top: 0;">Gāndharvaveda Studio</h3>
+            <p class="tool-desc" style="color: #94a3b8; font-size: 0.9rem;">Just Intonation audio synthesis.</p>
+            <div class="tool-interface">
+                <textarea id="gandharva-text" rows="2" style="flex: 1;" aria-label="Verse text for synthesis">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ kim akurvata sañjaya</textarea>
+            </div>
+            <div class="tool-interface" style="margin-top: -0.5rem;">
+                <button id="btn-gandharva-render" type="button">Synthesize Audio</button>
+            </div>
+            <div class="audio-player-row" style="margin-top: 1rem;">
+                <audio id="gandharva-audio-player" controls style="display:none; width:100%;"></audio>
+            </div>
+            <div id="out-gandharva" class="result-box" aria-live="polite">Audio status will appear here.</div>
+            <a href="gandharvaveda.html" class="external-link">Open Full Studio →</a>
+        </section>
 
-  <section id="lexicon" class="panel">
-    <div class="container">
-      <h2>Kosha Lexicon</h2>
-      <div class="form-row">
-        <input id="lexicon-query" type="text" value="dharma">
-        <button id="btn-lexicon-lookup">Lookup</button>
-      </div>
-      <pre id="out-lexicon" class="output-box"></pre>
-    </div>
-  </section>
+        <!-- 6. Corpus -->
+        <section id="corpus" class="tool-section">
+            <h3 style="color: #fbbf24; margin-top: 0;">Itihāsa Corpus Search</h3>
+            <p class="tool-desc" style="color: #94a3b8; font-size: 0.9rem;">Search Rāmāyaṇa and Mahābhārata verses.</p>
+            <div class="tool-interface">
+                <input type="text" id="corpus-query" value="dharma" aria-label="Corpus search query">
+                <button id="btn-corpus-search" type="button">Search</button>
+            </div>
+            <div id="out-corpus" class="result-box" aria-live="polite">Search results will appear here.</div>
+            <a href="canon.html" class="external-link">Explore the full 700-verse Canon →</a>
+        </section>
+    </main>
 
-  <section id="gandharva" class="panel">
-    <div class="container">
-      <h2>Gāndharvaveda Studio</h2>
-      <textarea id="gandharva-text" rows="2">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ kim akurvata sañjaya samakṣaṁ prāṇino mama</textarea>
-      <button id="btn-gandharva-render">Synthesize Audio</button>
-      <div class="audio-player-row">
-        <audio id="gandharva-audio-player" controls style="display:none; width:100%; margin-top:10px;"></audio>
-      </div>
-      <pre id="out-gandharva" class="output-box"></pre>
-    </div>
-  </section>
+    <footer class="site-footer" style="text-align: center; padding: 2rem; color: #94a3b8; border-top: 1px solid #334155; margin-top: 2rem;">
+        <p>&copy; Aigaane. Built on the Aṣṭādhyāyī. Deterministic Sanskrit phonology.</p>
+        <span id="status-text" class="api-status" aria-label="API Status">Checking API…</span>
+    </footer>
 
-  <section id="corpus" class="panel">
-    <div class="container">
-      <h2>Itihāsa Corpus Search</h2>
-      <div class="form-row">
-        <input id="corpus-query" type="text" value="dharma">
-        <button id="btn-corpus-search">Search</button>
-      </div>
-      <pre id="out-corpus" class="output-box"></pre>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="container">
-    <p>© Aigaane. Built on the Aṣṭādhyāyī.</p>
-    <p id="status-text">Checking API…</p>
-  </div>
-</footer>
-
-<script src="js/app.js" defer></script>
+    <!-- Relative path to your existing JS -->
+    <script src="js/app.js" defer></script>
 </body>
 </html>
