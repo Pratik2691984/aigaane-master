@@ -1,6 +1,3 @@
-Here is the complete, clean `studio.js` file with defensive guards to eliminate runtime errors (missing DOM elements, null pointers, audio context auto-resume policies, and missing JSON records):
-
-```javascript
 /**
  * studio.js - Comprehensive Vedic Archaeoacoustics Engine
  * Production Ready - Pure Client-side Integration
@@ -67,9 +64,7 @@ class VedicAudioEngine {
     this.init();
     if (!this.ctx) return;
     if (this.tanpuraNode) {
-      try {
-        this.tanpuraNode.stop();
-      } catch (e) {}
+      try { this.tanpuraNode.stop(); } catch (e) {}
       this.tanpuraNode = null;
       if (btn) {
         btn.textContent = "🪕 Tanpura Drone: OFF";
@@ -81,19 +76,16 @@ class VedicAudioEngine {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     const filter = this.ctx.createBiquadFilter();
-
     osc.type = "sawtooth";
     osc.frequency.setValueAtTime(130.81, t);
     filter.type = "lowpass";
     filter.frequency.setValueAtTime(450, t);
     gain.gain.setValueAtTime(0.12, t);
-
     osc.connect(filter);
     filter.connect(gain);
     gain.connect(this.masterGain);
     osc.start(t);
     this.tanpuraNode = osc;
-
     if (btn) {
       btn.textContent = "🪕 Tanpura Drone: ACTIVE";
       btn.classList.add("active");
@@ -105,10 +97,7 @@ class VedicAudioEngine {
     if (this.isMuted || !this.ctx) return;
     this.activeFreq = freq;
     const t = this.ctx.currentTime;
-
-    if (window.quantaBrain) {
-      window.quantaBrain.evaluateAcousticQuanta(freq);
-    }
+    if (window.quantaBrain) window.quantaBrain.evaluateAcousticQuanta(freq);
 
     if (type === "tata") {
       [1, 2, 3, 4, 5].forEach((m, i) => {
@@ -169,10 +158,7 @@ class VedicAudioEngine {
         osc.stop(t + 3.2);
       });
     }
-
-    if (bija) {
-      this.injectBijaFormants(freq, bija, t);
-    }
+    if (bija) this.injectBijaFormants(freq, bija, t);
   }
 
   injectBijaFormants(baseFreq, syllable, time) {
@@ -185,29 +171,20 @@ class VedicAudioEngine {
     f1.type = "bandpass";
     f2.type = "bandpass";
     const presets = {
-      "LAM": [400, 800],
-      "VAM": [500, 1500],
-      "RAM": [600, 1900],
-      "YAM": [350, 2200],
-      "HAM": [730, 1090],
-      "OM":  [450, 600]
+      "LAM": [400, 800], "VAM": [500, 1500], "RAM": [600, 1900],
+      "YAM": [350, 2200], "HAM": [730, 1090], "OM": [450, 600]
     };
     const [p1, p2] = presets[syllable] || presets["OM"];
-    f1.frequency.setValueAtTime(p1, time);
-    f1.Q.setValueAtTime(8, time);
-    f2.frequency.setValueAtTime(p2, time);
-    f2.Q.setValueAtTime(10, time);
+    f1.frequency.setValueAtTime(p1, time); f1.Q.setValueAtTime(8, time);
+    f2.frequency.setValueAtTime(p2, time); f2.Q.setValueAtTime(10, time);
     const g = this.ctx.createGain();
     g.gain.setValueAtTime(0.0001, time);
     g.gain.linearRampToValueAtTime(0.2, time + 0.05);
     g.gain.exponentialRampToValueAtTime(0.0001, time + 0.8);
-    src.connect(f1);
-    src.connect(f2);
-    f1.connect(g);
-    f2.connect(g);
+    src.connect(f1); src.connect(f2);
+    f1.connect(g); f2.connect(g);
     g.connect(this.masterGain);
-    src.start(time);
-    src.stop(time + 0.85);
+    src.start(time); src.stop(time + 0.85);
   }
 
   startFFTVisualizer() {
@@ -217,7 +194,6 @@ class VedicAudioEngine {
     if (!ctx) return;
     const bufferLength = this.analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-
     const draw = () => {
       requestAnimationFrame(draw);
       this.analyser.getByteFrequencyData(dataArray);
@@ -242,7 +218,6 @@ class VedicAudioEngine {
     canvas.height = canvas.offsetHeight || 200;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     const render = () => {
       requestAnimationFrame(render);
       ctx.fillStyle = "#05070a";
@@ -250,34 +225,22 @@ class VedicAudioEngine {
       const w = canvas.width;
       const h = canvas.height;
       const mid = h / 2;
-      ctx.strokeStyle = "#1b2333";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, mid);
-      ctx.lineTo(w, mid);
-      ctx.stroke();
-
+      ctx.strokeStyle = "#1b2333"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(w, mid); ctx.stroke();
       const speed = Math.max(0.02, Math.min(0.12, (this.activeFreq / 600) * 0.08));
-      this.phaseIda += speed;
-      this.phasePingala += speed;
-
-      ctx.strokeStyle = "#00f3ff";
-      ctx.lineWidth = 2;
+      this.phaseIda += speed; this.phasePingala += speed;
+      ctx.strokeStyle = "#00f3ff"; ctx.lineWidth = 2;
       ctx.beginPath();
       for (let x = 0; x < w; x++) {
         const y = mid + Math.sin(x * 0.025 + this.phaseIda) * 35;
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
-
-      ctx.strokeStyle = "#ff3b00";
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ff3b00"; ctx.lineWidth = 2;
       ctx.beginPath();
       for (let x = 0; x < w; x++) {
         const y = mid + Math.sin(x * 0.025 - this.phasePingala + Math.PI) * 35;
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
       ctx.stroke();
     };
@@ -304,7 +267,6 @@ class QuantaBrainEngine {
     else if (freq < 300) eegState = { band: "ALPHA (α)", color: "#38bdf8", stateDesc: "Sāttvic Stillness", frequencyDelta: 10.0 };
     else if (freq < 900) eegState = { band: "BETA (β)", color: "#eab308", stateDesc: "Cognitive Focus", frequencyDelta: 18.0 };
     else eegState = { band: "GAMMA (γ)", color: "#4ade80", stateDesc: "Prāṇic Surge", frequencyDelta: 40.0 };
-
     this.currentQuanta = quantaIndex;
     this.activeWave = eegState;
     this.updateHUD(energyJoules, quantaIndex, eegState);
@@ -316,10 +278,7 @@ class QuantaBrainEngine {
     const stateEl = document.getElementById("hud-neuro-state");
     const energyEl = document.getElementById("hud-energy-metric");
     if (qEl) qEl.textContent = `Q-${quantaIndex}`;
-    if (eegEl) {
-      eegEl.textContent = eegState.band;
-      eegEl.style.color = eegState.color;
-    }
+    if (eegEl) { eegEl.textContent = eegState.band; eegEl.style.color = eegState.color; }
     if (stateEl) stateEl.textContent = eegState.stateDesc;
     if (energyEl) energyEl.textContent = `${energyJoules.toExponential(4)} J`;
   }
@@ -340,24 +299,17 @@ class QuantaBrainEngine {
     const mid = h / 2;
     ctx.fillStyle = "#07090e";
     ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = "#161b26";
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(0, mid);
-    ctx.lineTo(w, mid);
-    ctx.stroke();
-
+    ctx.strokeStyle = "#161b26"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(w, mid); ctx.stroke();
     const delta = this.activeWave.frequencyDelta;
     const color = this.activeWave.color;
     this.wavePhase += delta * 0.015;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = color; ctx.lineWidth = 2;
     ctx.beginPath();
     for (let x = 0; x < w; x++) {
       const noise = Math.sin(x * 0.1 + this.wavePhase * 2) * 2.5;
       const y = mid + Math.sin(x * 0.04 + this.wavePhase) * (h * 0.32) + noise;
-      if (x === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
     ctx.stroke();
   }
@@ -367,53 +319,34 @@ const audioEngine = new VedicAudioEngine();
 window.audioEngine = audioEngine;
 const quantaBrain = new QuantaBrainEngine(audioEngine);
 window.quantaBrain = quantaBrain;
-
 let allInstruments = [];
 let activeClass = "all";
 
 document.addEventListener("DOMContentLoaded", () => {
   const muteBtn = document.getElementById("mute-btn");
-  if (muteBtn) {
-    muteBtn.onclick = (e) => audioEngine.toggleMute(e.target);
-  }
-
+  if (muteBtn) muteBtn.onclick = (e) => audioEngine.toggleMute(e.target);
   const tanpuraBtn = document.getElementById("tanpura-btn");
-  if (tanpuraBtn) {
-    tanpuraBtn.onclick = (e) => audioEngine.toggleTanpura(e.target);
-  }
-
+  if (tanpuraBtn) tanpuraBtn.onclick = (e) => audioEngine.toggleTanpura(e.target);
   const modalCloseBtn = document.getElementById("modal-close-btn");
-  if (modalCloseBtn) {
-    modalCloseBtn.onclick = () => {
-      const mb = document.getElementById("modal-backdrop");
-      if (mb) mb.classList.remove("open");
-    };
-  }
-
+  if (modalCloseBtn) modalCloseBtn.onclick = () => {
+    const mb = document.getElementById("modal-backdrop");
+    if (mb) mb.classList.remove("open");
+  };
   quantaBrain.initCanvas("eeg-canvas");
   quantaBrain.evaluateAcousticQuanta(130.81);
 
   fetch("data/instruments.json")
-    .then((r) => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.json();
-    })
+    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
     .then((data) => {
       allInstruments = Array.isArray(data) ? data : data.instruments || [];
       if (allInstruments.length === 0) throw new Error("Empty JSON");
       console.log("✅ Loaded Instruments from JSON:", allInstruments.length);
-      updateCounts();
-      renderGrid();
-      bindEvents();
-      injectGatraVinaSVG("gatra-vina-mount");
+      updateCounts(); renderGrid(); bindEvents(); injectGatraVinaSVG("gatra-vina-mount");
     })
     .catch((err) => {
       console.warn("⚠️ Using fallback dataset:", err);
       allInstruments = window.INSTRUMENTS_FALLBACK || [];
-      updateCounts();
-      renderGrid();
-      bindEvents();
-      injectGatraVinaSVG("gatra-vina-mount");
+      updateCounts(); renderGrid(); bindEvents(); injectGatraVinaSVG("gatra-vina-mount");
     });
 });
 
@@ -429,7 +362,6 @@ function updateCounts() {
 function renderGrid() {
   const container = document.getElementById("instruments-grid");
   if (!container) return;
-
   const searchInput = document.getElementById("search-input");
   const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
   const sortSelect = document.getElementById("sort-select");
@@ -443,11 +375,9 @@ function renderGrid() {
   ];
 
   const sourceData = allInstruments && allInstruments.length > 0 ? allInstruments : fallbackInstruments;
-
   let list = sourceData.filter((i) => {
     const matchesClass = activeClass === "all" || i.classification === activeClass;
-    const matchesSearch =
-      !query ||
+    const matchesSearch = !query ||
       (i.name && i.name.toLowerCase().includes(query)) ||
       (i.name_iast && i.name_iast.toLowerCase().includes(query)) ||
       (i.name_devanagari && i.name_devanagari.includes(query));
@@ -458,9 +388,7 @@ function renderGrid() {
   else if (sortMode === "alpha") list.sort((a, b) => (a.name_iast || "").localeCompare(b.name_iast || ""));
   else list.sort((a, b) => (a.rank || 99) - (b.rank || 99));
 
-  container.innerHTML = list
-    .map(
-      (inst) => `
+  container.innerHTML = list.map((inst) => `
     <div class="inst-card" onclick="openDetails('${inst.id}')">
       <div>
         <div class="card-top">
@@ -481,9 +409,7 @@ function renderGrid() {
         <button class="excite-card-btn" onclick="event.stopPropagation(); audioEngine.playVoice('${inst.classification}', ${inst.acoustics?.fundamental_hz || 220})">🔊 Excite Model</button>
       </div>
     </div>
-  `
-    )
-    .join("");
+  `).join("");
 }
 
 function bindEvents() {
@@ -504,10 +430,8 @@ function bindEvents() {
       }
     };
   });
-
   const searchInput = document.getElementById("search-input");
   if (searchInput) searchInput.oninput = renderGrid;
-
   const sortSelect = document.getElementById("sort-select");
   if (sortSelect) sortSelect.onchange = renderGrid;
 }
@@ -542,12 +466,9 @@ function injectGatraVinaSVG(containerId) {
       ${renderSVGNode("1010", 200, 580, "#f97316", "1010 SVĀDHIṢṬHĀNA")}
       ${renderSVGNode("1100", 200, 680, "#ef4444", "1100 MŪLĀDHĀRA")}
     </svg>`;
-
   mount.querySelectorAll(".node-gate").forEach((el) => {
     el.style.cursor = "pointer";
-    el.addEventListener("click", () => {
-      triggerBioBus(el.getAttribute("data-address"));
-    });
+    el.addEventListener("click", () => triggerBioBus(el.getAttribute("data-address")));
   });
 }
 
@@ -563,7 +484,6 @@ function triggerBioBus(address) {
   const node = VEDIC_BIO_BUS[address];
   if (!node) return;
   audioEngine.playVoice(node.instClass, node.canonical_hz, node.bija);
-
   document.querySelectorAll(".node-gate").forEach((el) => {
     const core = el.querySelector(".core");
     if (!core) return;
@@ -575,13 +495,11 @@ function triggerBioBus(address) {
       core.setAttribute("r", "6");
     }
   });
-
   const busEl = document.getElementById("tele-bus");
   const marmaEl = document.getElementById("tele-marma");
   const bijaEl = document.getElementById("tele-bija");
   const hzEl = document.getElementById("tele-hz");
   const vakEl = document.getElementById("tele-vak");
-
   if (busEl) busEl.textContent = `ACTIVE [${node.state}]`;
   if (marmaEl) marmaEl.textContent = node.marma_gates.join(" | ");
   if (bijaEl) bijaEl.textContent = node.bija;
@@ -590,33 +508,21 @@ function triggerBioBus(address) {
 }
 
 function openDetails(id) {
-  const inst =
-    allInstruments.find((i) => i.id === id) || {
-      id: "rudra-veena",
-      name: "Rudra Vīṇā",
-      name_iast: "Rudra Vīṇā",
-      name_devanagari: "रुद्रवीणा",
-      classification: "tata",
-      organology: "Tubular stick zither",
-      primary_attestation: "Nāṭya Śāstra 28.14",
-      acoustics: { formula_latex: "f_n = (nv/2L)", fundamental_hz: 130.81 }
-    };
-
+  const inst = allInstruments.find((i) => i.id === id) || {
+    id: "rudra-veena", name: "Rudra Vīṇā", name_iast: "Rudra Vīṇā", name_devanagari: "रुद्रवीणा",
+    classification: "tata", organology: "Tubular stick zither",
+    primary_attestation: "Nāṭya Śāstra 28.14",
+    acoustics: { formula_latex: "f_n = (nv/2L)", fundamental_hz: 130.81 }
+  };
   const fundHz = inst.acoustics?.fundamental_hz || 130.81;
   const ratios = [
-    { s: "Sa", d: "सा", r: 1.0 },
-    { s: "Re", d: "रे", r: 9 / 8 },
-    { s: "Ga", d: "ग", r: 5 / 4 },
-    { s: "Ma", d: "म", r: 4 / 3 },
-    { s: "Pa", d: "प", r: 3 / 2 },
-    { s: "Dha", d: "ध", r: 5 / 3 },
-    { s: "Ni", d: "नि", r: 15 / 8 },
-    { s: "Ṡa", d: "सां", r: 2.0 }
+    { s: "Sa", d: "सा", r: 1.0 }, { s: "Re", d: "रे", r: 9 / 8 },
+    { s: "Ga", d: "ग", r: 5 / 4 }, { s: "Ma", d: "म", r: 4 / 3 },
+    { s: "Pa", d: "प", r: 3 / 2 }, { s: "Dha", d: "ध", r: 5 / 3 },
+    { s: "Ni", d: "नि", r: 15 / 8 }, { s: "Ṡa", d: "सां", r: 2.0 }
   ];
-
   const modalContent = document.getElementById("modal-content");
   if (!modalContent) return;
-
   modalContent.innerHTML = `
     <div style="border-bottom: 1px solid var(--border-card); padding-bottom: 1rem;">
       <span class="badge ${inst.classification || ""}">${(inst.classification || "TATA").toUpperCase()}</span>
@@ -626,15 +532,11 @@ function openDetails(id) {
     <div style="margin: 1rem 0;">
       <h4 style="font-size:0.85rem; color:var(--accent-gold); text-transform:uppercase;">Interactive Swara Scale</h4>
       <div class="swara-row">
-        ${ratios
-          .map(
-            (x) => `<button class="swara-btn" onclick="audioEngine.playVoice('${inst.classification}', ${fundHz * x.r})">
-              <span>${x.d}</span>
-              <span style="font-size:0.75rem;">${x.s}</span>
-              <span class="swara-hz">${Math.round(fundHz * x.r)}Hz</span>
-            </button>`
-          )
-          .join("")}
+        ${ratios.map((x) => `<button class="swara-btn" onclick="audioEngine.playVoice('${inst.classification}', ${fundHz * x.r})">
+          <span>${x.d}</span>
+          <span style="font-size:0.75rem;">${x.s}</span>
+          <span class="swara-hz">${Math.round(fundHz * x.r)}Hz</span>
+        </button>`).join("")}
       </div>
     </div>
     <div class="research-subgrid">
@@ -653,16 +555,6 @@ function openDetails(id) {
         </ul>
       </div>
     </div>`;
-
   const modalBackdrop = document.getElementById("modal-backdrop");
   if (modalBackdrop) modalBackdrop.classList.add("open");
 }
-
-```
-
-### Key Error Fixes Applied
-
-1. **AudioContext Resume & Null Guards:** Eliminates Chrome/Edge `AudioContext was not allowed to start` errors by checking context state and invoking `.resume()` on direct user gesture.
-2. **Missing DOM Element Guards:** Wraps all `getElementById` operations (`count-all`, `count-*`, `search-input`, `sort-select`, `bio-laboratory`, `instruments-grid`, `modal-backdrop`, `hud-*`, and telemetric counters) in defensive checks to prevent `TypeError: Cannot read properties of null`.
-3. **Array vs. Object Wrapper Support:** The `fetch('data/instruments.json')` handler supports both raw array structures (`[...]`) and wrapped metadata envelopes (`{ "instruments": [...] }`).
-4. **Canvas Dimension Fallbacks:** Prevents zero-width/zero-height visualizer rendering failures when canvas elements resize or load asynchronously.
