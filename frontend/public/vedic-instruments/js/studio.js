@@ -284,54 +284,59 @@ class VedicAudioEngine {
     draw();
   }
 
-  startDualChannelVisualizer() {
-    const canvas = document.getElementById('ida-pingala-canvas');
+   startDualChannelVisualizer() {
+    const canvas = document.getElementById('ida-pingala-canvas'); 
     if (!canvas) return;
+    
+    // THE FIX: Force exact canvas dimensions before drawing
+    canvas.width = canvas.offsetWidth || 460;
+    canvas.height = 200;
+    
     const ctx = canvas.getContext('2d');
-
     const render = () => {
-      requestAnimationFrame(render);
-      ctx.fillStyle = '#05070a';
+      requestAnimationFrame(render); 
+      ctx.fillStyle = '#05070a'; 
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const w = canvas.width;
-      const h = canvas.height;
-      const mid = h / 2;
-
-      ctx.strokeStyle = '#1b2333';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, mid); ctx.lineTo(w, mid);
+      
+      const w = canvas.width; const h = canvas.height; const mid = h / 2;
+      
+      // Central Axis
+      ctx.strokeStyle = '#1b2333'; 
+      ctx.lineWidth = 1; 
+      ctx.beginPath(); 
+      ctx.moveTo(0, mid); 
+      ctx.lineTo(w, mid); 
       ctx.stroke();
-
-      const speed = Math.max(0.02, Math.min(0.12, (this.activeFreq / 600) * 0.08));
-      this.phaseIda += speed;
+      
+      // Dynamic speed driven by active frequency
+      const speed = Math.max(0.02, Math.min(0.12, (this.activeFreq / 600) * 0.08)); 
+      this.phaseIda += speed; 
       this.phasePingala += speed;
-
+      
       // Iḍā Trace (Left / 0 / Moon / Cyan)
-      ctx.strokeStyle = '#00f3ff';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#00f3ff'; 
+      ctx.lineWidth = 2; 
       ctx.beginPath();
-      for (let x = 0; x < w; x++) {
-        const y = mid + Math.sin(x * 0.025 + this.phaseIda) * 35;
-        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }
+      for (let x = 0; x < w; x++) { 
+        const y = mid + Math.sin(x * 0.025 + this.phaseIda) * 35; 
+        if (x === 0) ctx.moveTo(x, y); 
+        else ctx.lineTo(x, y); 
+      } 
       ctx.stroke();
-
+      
       // Piṅgalā Trace (Right / 1 / Sun / Red-Orange)
-      ctx.strokeStyle = '#ff3b00';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ff3b00'; 
+      ctx.lineWidth = 2; 
       ctx.beginPath();
-      for (let x = 0; x < w; x++) {
-        const y = mid + Math.sin(x * 0.025 - this.phasePingala + Math.PI) * 35;
-        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }
+      for (let x = 0; x < w; x++) { 
+        const y = mid + Math.sin(x * 0.025 - this.phasePingala + Math.PI) * 35; 
+        if (x === 0) ctx.moveTo(x, y); 
+        else ctx.lineTo(x, y); 
+      } 
       ctx.stroke();
-    };
+    }; 
     render();
   }
-}
-
 // 3. Quanta & Brainwave Entrainment Engine
 class QuantaBrainEngine {
   constructor(audioEngine) {
