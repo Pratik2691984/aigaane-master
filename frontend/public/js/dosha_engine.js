@@ -2,27 +2,34 @@
 
 class DoshaHomeostasisEngine {
     constructor(vata, pitta, kapha) {
-        // Position (state) - normalized 0 to 2
         this.q = { vata, pitta, kapha }; 
-        // Momentum (rate of change)
         this.p = { vata: 0, pitta: 0, kapha: 0 }; 
-        this.dt = 0.1; // Time step
-        this.alpha = 0.5; // Prakriti restoring force
-        this.beta = 0.1;  // Non-linear constraint
+        
+        // THE FIX: Smaller time step for numerical stability
+        this.dt = 0.02; 
+        
+        // Slightly tuned Prakriti constants
+        this.alpha = 0.3; 
+        this.beta = 0.05; 
     }
 
     _force(energy) {
-        // Duffing potential restoring force
         return -(this.alpha * energy - this.beta * Math.pow(energy, 3));
     }
 
     step() {
-        const { vata, pitta, kapha } = this.p;
-        
+        // Helper to clamp momentum (velocity) so it doesn't overshoot
+        const clampMomentum = (p) => Math.max(-0.5, Math.min(0.5, p));
+
         // 1. Update Momentum by half step
         this.p.vata += this._force(this.q.vata) * (this.dt / 2);
         this.p.pitta += this._force(this.q.pitta) * (this.dt / 2);
         this.p.kapha += this._force(this.q.kapha) * (this.dt / 2);
+
+        // Clamp momentum to prevent explosion
+        this.p.vata = clampMomentum(this.p.vata);
+        this.p.pitta = clampMomentum(this.p.pitta);
+        this.p.kapha = clampMomentum(this.p.kapha);
 
         // 2. Update Position by full step
         this.q.vata += this.p.vata * this.dt;
@@ -33,11 +40,11 @@ class DoshaHomeostasisEngine {
         this.p.vata += this._force(this.q.vata) * (this.dt / 2);
         this.p.pitta += this._force(this.q.pitta) * (this.dt / 2);
         this.p.kapha += this._force(this.q.kapha) * (this.dt / 2);
-        
-        // Clamp values between 0.1 and 3.0 to keep simulation sane
-        this.q.vata = Math.max(0.1, Math.min(3.0, this.q.vata));
-        this.q.pitta = Math.max(0.1, Math.min(3.0, this.q.pitta));
-        this.q.kapha = Math.max(0.1, Math.min(3.0, this.q.kapha));
+
+        // Clamp position between 0.5 and 2.0 (healthy bounds)
+        this.q.vata = Math.max(0.5, Math.min(2.0, this.q.vata));
+        this.q.pitta = Math.max(0.5, Math.min(2.0, this.q.pitta));
+        this.q.kapha = Math.max(0.5, Math.min(2.0, this.q.kapha));
 
         return this.q;
     }
@@ -45,15 +52,14 @@ class DoshaHomeostasisEngine {
 
 // UI Injection Function
 function injectAyurvedaEngine() {
-    // Only run on the Ayurveda page
     if (!window.location.pathname.includes('ayurveda')) return;
-
-    // Check if the React root exists
     const root = document.getElementById('root');
     if (!root) return;
 
-    // Wait for React to finish rendering
     setTimeout(() => {
+        // Prevent double injection
+        if (document.getElementById('dosha-simulator-panel')) return;
+
         const container = document.createElement('div');
         container.id = 'dosha-simulator-panel';
         container.style.cssText = `
@@ -95,10 +101,8 @@ function injectAyurvedaEngine() {
             </div>
         `;
 
-        // Insert at the top of the React root
         root.insertBefore(container, root.firstChild);
 
-        // Initialize Engine
         const engine = new DoshaHomeostasisEngine(1.0, 1.0, 1.0);
         const ui = {
             vata: document.getElementById('sim-vata'),
@@ -106,26 +110,25 @@ function injectAyurvedaEngine() {
             kapha: document.getElementById('sim-kapha')
         };
 
-        // Aggravate handlers
-        document.getElementById('btn-vata').onclick = () => engine.q.vata += 0.5;
-        document.getElementById('btn-pitta').onclick = () => engine.q.pitta += 0.5;
-        document.getElementById('btn-kapha').onclick = () => engine.q.kapha += 0.5;
+        // Aggravate handlers (Push it by 0.3 to stay within safe bounds)
+        document.getElementById('btn-vata').onclick = () => engine.q.vata += 0.3;
+        document.getElementById('btn-pitta').onclick = () => engine.q.pitta += 0.3;
+        document.getElementById('btn-kapha').onclick = () => engine.q.kapha += 0.3;
         
         document.getElementById('btn-reset').onclick = () => {
             engine.q = { vata: 1.0, pitta: 1.0, kapha: 1.0 };
             engine.p = { vata: 0, pitta: 0, kapha: 0 };
         };
 
-        // Simulation Loop (Update every 100ms)
+        // Simulation Loop
         setInterval(() => {
             const state = engine.step();
             ui.vata.textContent = state.vata.toFixed(2);
             ui.pitta.textContent = state.pitta.toFixed(2);
             ui.kapha.textContent = state.kapha.toFixed(2);
-        }, 100);
+        }, 50); // Faster update for smoother animation
 
-    }, 1000); // Wait 1 second for React to mount
+    }, 1000);
 }
 
-// Run on load
 document.addEventListener('DOMContentLoaded', injectAyurvedaEngine);
