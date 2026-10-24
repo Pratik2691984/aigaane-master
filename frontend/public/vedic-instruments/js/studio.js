@@ -577,9 +577,9 @@ function bindEvents() {
 
 // 5. Bio-Bus SVG Generator & Dispatcher
 function injectGatraVinaSVG(containerId) {
-  const mount = document.getElementById(containerId);
+  const mount = document.getElementById(containerId); 
   if (!mount) return;
-
+  
   mount.innerHTML = `
     <svg id="gatra-vina-ui" viewBox="0 0 400 780" style="width:100%; height:100%;">
       <defs>
@@ -594,10 +594,14 @@ function injectGatraVinaSVG(containerId) {
         </filter>
       </defs>
 
+      <!-- Central Suṣumnā Axis -->
       <line x1="200" y1="80" x2="200" y2="680" stroke="url(#central-axis)" stroke-width="4" opacity="0.6"/>
+      
+      <!-- Iḍā (Left) and Piṅgalā (Right) Helical Paths -->
       <path d="M200,80 C120,180 120,280 200,380 C280,480 280,580 200,680" fill="none" stroke="#00f3ff" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
       <path d="M200,80 C280,180 280,280 200,380 C120,480 120,580 200,680" fill="none" stroke="#ff3b00" stroke-width="2" stroke-dasharray="4,4" opacity="0.4"/>
 
+      <!-- 7 Chakra Nodes -->
       ${renderSVGNode("0000", 200, 80,  "#ffffff", "0000 SAHASRĀRA")}
       ${renderSVGNode("0001", 200, 160, "#00f3ff", "0001 ĀJÑĀ")}
       ${renderSVGNode("0010", 200, 260, "#a855f7", "0010 VIŚUDDHA")}
@@ -608,7 +612,9 @@ function injectGatraVinaSVG(containerId) {
     </svg>
   `;
 
+  // Attach click handlers to every node
   mount.querySelectorAll('.node-gate').forEach(el => {
+    el.style.cursor = 'pointer';
     el.addEventListener('click', () => {
       triggerBioBus(el.getAttribute('data-address'));
     });
@@ -629,19 +635,22 @@ function triggerBioBus(address) {
   const node = VEDIC_BIO_BUS[address];
   if (!node) return;
 
+  // Play the voice using the correct instrument class and Bīja formant
   audioEngine.playVoice(node.instClass, node.canonical_hz, node.bija);
 
+  // Highlight the active SVG node
   document.querySelectorAll('.node-gate').forEach(el => {
     const core = el.querySelector('.core');
     if (el.getAttribute('data-address') === address) {
       core.setAttribute('filter', 'url(#glow)');
-      core.setAttribute('r', '8');
+      core.setAttribute('r', '9');
     } else {
       core.removeAttribute('filter');
       core.setAttribute('r', '6');
     }
   });
 
+  // Update the telemetry log
   document.getElementById('tele-bus').textContent = `ACTIVE [${node.state}]`;
   document.getElementById('tele-marma').textContent = node.marma_gates.join(' | ');
   document.getElementById('tele-bija').textContent = node.bija;
