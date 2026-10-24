@@ -6,37 +6,102 @@
   <title>Vedic Instruments · Vādya-Śāstra</title>
   <meta name="description" content="50 archaeoacoustic instruments from the Vedic corpus, synthesized in the browser.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪕</text></svg>">
-  <link rel="stylesheet" href="/shared/vendor/vedic-instruments.css">
+  <style>
+    :root {
+      --bg: #0a0c10; --panel: #131820; --border: #2a3a4a; 
+      --gold: #fbbf24; --text: #e2e8f0; --dim: #94a3b8; --green: #4ade80;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    
+    /* Header */
+    .vi-header { padding: 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .vi-header h1 { color: var(--gold); margin: 0; font-size: 1.8rem; }
+    .vi-header a { color: var(--dim); text-decoration: none; font-size: 0.9rem; }
+    .vi-header a:hover { color: var(--gold); }
+    
+    /* Controls */
+    .vi-main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .vi-controls { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .vi-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .vi-tabs button { background: var(--panel); color: var(--dim); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+    .vi-tabs button.active { background: var(--gold); color: var(--bg); border-color: var(--gold); font-weight: 600; }
+    
+    /* Grid */
+    .vi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .vi-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; cursor: pointer; transition: all 0.2s; }
+    .vi-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+    .vi-card-top { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--dim); margin-bottom: 0.75rem; }
+    .vi-badge { padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .vi-tata { background: #3b2d18; color: #ffb74d; }
+    .vi-avanaddha { background: #381f21; color: #f87171; }
+    .vi-susira { background: #15332c; color: #4ade80; }
+    .vi-ghana { background: #1c2b3d; color: #38bdf8; }
+    .vi-card-name { color: var(--gold); margin: 0 0 0.25rem; font-size: 1.2rem; }
+    .vi-card-deva { color: var(--dim); margin-bottom: 0.75rem; font-size: 1.1rem; }
+    .vi-card-formula { background: var(--bg); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.75rem; color: var(--green); overflow-x: auto; white-space: nowrap; margin-bottom: 1rem; }
+    .vi-excite { background: #2a3a4a; color: var(--text); border: none; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; width: 100%; font-weight: 600; }
+    .vi-excite:hover { background: var(--gold); color: var(--bg); }
+    
+    /* Detail Drawer */
+    .vi-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: flex-end; z-index: 100; backdrop-filter: blur(4px); }
+    .vi-drawer.open { display: flex; }
+    .vi-drawer-inner { background: var(--panel); width: 100%; max-width: 900px; max-height: 85vh; overflow-y: auto; padding: 2rem; border-radius: 16px 16px 0 0; position: relative; border: 1px solid var(--border); border-bottom: none; }
+    .vi-drawer-inner #drawer-close { position: absolute; top: 1rem; right: 1.5rem; background: transparent; border: none; color: var(--dim); font-size: 2rem; cursor: pointer; }
+    .vi-drawer-inner #drawer-close:hover { color: var(--gold); }
+    
+    /* Drawer Content */
+    .vi-detail-header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    .vi-detail-header h2 { color: var(--gold); margin: 0.5rem 0; }
+    .vi-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+    @media (max-width: 768px) { .vi-detail-grid { grid-template-columns: 1fr; } }
+    .vi-detail-card { background: var(--bg); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border); }
+    .vi-detail-card h4 { color: var(--gold); margin-top: 0; margin-bottom: 0.75rem; }
+    .vi-detail-card p { margin: 0.4rem 0; font-size: 0.9rem; color: var(--dim); }
+    .vi-detail-card strong { color: var(--text); }
+    
+    /* Swara Ribbon */
+    .vi-swara-row { display: flex; gap: 0.5rem; overflow-x: auto; margin: 1rem 0; padding-bottom: 0.5rem; }
+    .vi-swara-btn { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 60px; transition: all 0.15s; }
+    .vi-swara-btn:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+    .vi-swara-btn .deva { font-size: 1.2rem; font-weight: 600; }
+    .vi-swara-btn .label { font-size: 0.75rem; opacity: 0.8; }
+    .vi-swara-btn .hz { font-size: 0.65rem; opacity: 0.6; font-family: monospace; }
+    
+    /* Binary Flow */
+    .vi-binary-flow { background: var(--bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; }
+    .vi-flow-step { display: flex; gap: 1rem; margin-bottom: 0.75rem; }
+    .vi-flow-marker { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+    .vi-flow-num { font-size: 0.7rem; color: var(--gold); font-weight: 700; }
+    .vi-flow-state { font-size: 0.6rem; background: #1f2733; color: #80cbc4; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+    .vi-flow-content h5 { margin: 0; color: var(--text); font-size: 0.9rem; }
+    .vi-flow-content p { margin: 2px 0 0; color: var(--dim); font-size: 0.8rem; }
+
+    /* Scope Dock */
+    .vi-scope-dock { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; background: rgba(10,12,16,0.95); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 50; }
+    .scope-label { color: var(--dim); font-size: 0.7rem; font-family: monospace; letter-spacing: 1px; }
+  </style>
 </head>
 <body>
   <header class="vi-header">
+    <h1>Vedic Instruments · Vādya-Śāstra</h1>
     <a href="/cabinet.html">← Cabinet</a>
-    <h1>Vedic Instruments</h1>
-    <p class="subtitle">Vādya-Śāstra · Nāṭyaśāstra & Saṅgīta Ratnākara</p>
   </header>
 
   <main class="vi-main">
-    <!-- Filter / Sort bar -->
     <div class="vi-controls">
       <div class="vi-tabs" id="category-tabs">
-        <button data-cat="all" class="active">All 50</button>
+        <button data-cat="all" class="active">All</button>
         <button data-cat="tata">Tata (Strings)</button>
         <button data-cat="avanaddha">Avanaddha (Drums)</button>
         <button data-cat="susira">Suṣira (Wind)</button>
         <button data-cat="ghana">Ghana (Idiophones)</button>
       </div>
-      <select id="sort-select">
-        <option value="rank">Sort: Rank</option>
-        <option value="score">Sort: Score</option>
-        <option value="name">Sort: Name</option>
-      </select>
     </div>
 
-    <!-- Grid -->
     <div id="instrument-grid" class="vi-grid"></div>
   </main>
 
-  <!-- Detail Drawer -->
   <div id="detail-drawer" class="vi-drawer" aria-hidden="true">
     <div class="vi-drawer-inner">
       <button id="drawer-close" aria-label="Close">×</button>
@@ -44,13 +109,278 @@
     </div>
   </div>
 
-  <!-- Persistent audio scope (re-used from earlier work) -->
   <div class="vi-scope-dock">
     <canvas id="vi-scope" width="300" height="48"></canvas>
     <span class="scope-label">REALTIME FFT · WEB AUDIO API</span>
   </div>
 
-  <script src="/shared/vendor/vedic-instruments-data.js" defer></script>
-  <script src="/shared/vendor/vedic-instruments.js" defer></script>
+  <script>
+    // 1. Data (Subset of 6 for demonstration, structure matches the 50-record master)
+    const INSTRUMENTS = [
+      {
+        id: "rudra-veena", rank: 1, name: "Rudra Vīṇā", deva: "रुद्रवीणा", classification: "tata", score: 99.4,
+        organology: "Tubular stick zither with dual calabash resonators and parabolic jawari bridge",
+        attestation: "Nāṭyaśāstra 28.14; Saṅgīta Ratnākara 6.12",
+        acoustics: { formula: "f_n = (nv/2L)(1 + ε_j + π²Bn²/8L²)", fundamental_hz: 130.81, damping: 0.08 },
+        liturgical: { placement: "Brahmā-sthāna", actuator: "Wire mezrāb with fingertip damping", bio: "Calabash gourds & seasoned teak" },
+        binary_flow: [
+          { step: 1, node: "Plectrum Excitation", state: "Impulse (0→1)", desc: "Wire mezrāb imparts kinetic energy" },
+          { step: 2, node: "Jawārī Grazing Bridge", state: "Dynamic Roll (0|1)", desc: "String rolls across parabolic bridge boundary" },
+          { step: 3, node: "Dual Tumbā Coupling", state: "Acoustic Cavity Ringing", desc: "Twin gourds amplify resonant spectrum" }
+        ]
+      },
+      {
+        id: "bhumi-dundubhi", rank: 18, name: "Bhūmi-dundubhi", deva: "भूमिदुन्दुभि", classification: "avanaddha", score: 96.8,
+        organology: "Earth-pit drum with pegged bovine hide and ox-tail beater",
+        attestation: "Śatapatha Brāhmaṇa, Śāṅkhāyana Śrautasūtra (XVII)",
+        acoustics: { formula: "f ≈ c_s / (4(d + 0.4D))", fundamental_hz: 42.0, damping: 0.45 },
+        liturgical: { placement: "West-Northwest perimeter", actuator: "Ox-tail switch (lāṅgūla)", bio: "Untanned bovine hide (sa-loma)" },
+        binary_flow: [
+          { step: 1, node: "Actuator Impulse", state: "Ox-tail strike (0→1)", desc: "Terminal switch strikes hide" },
+          { step: 2, node: "Bovine Diaphragm", state: "Equilibrium/Displaced", desc: "Hair damping (sa-loma) filters highs" },
+          { step: 3, node: "Soil Cavity", state: "Excavated Depth", desc: "Ground-coupled telluric shear waves" }
+        ]
+      },
+      {
+        id: "venu", rank: 30, name: "Veṇu / Vaṃśa", deva: "वेणु", classification: "susira", score: 99.3,
+        organology: "Transverse bamboo flute with fire-pierced embouchure",
+        attestation: "Ṛgveda 8.69.9; Aitareya Āraṇyaka",
+        acoustics: { formula: "f_n = nc / 2(L + 1.2r)", fundamental_hz: 349.23, damping: 0.03 },
+        liturgical: { placement: "North of altar", actuator: "Planar lip air-stream", bio: "Cured internode of virgin bamboo" },
+        binary_flow: [
+          { step: 1, node: "Breath Jet", state: "Air Flow (0→1)", desc: "Lip stream crosses embouchure hole" },
+          { step: 2, node: "Tube Resonance", state: "Standing Wave", desc: "Length + tone holes determine pitch" },
+          { step: 3, node: "Radiation", state: "Harmonic Field", desc: "Open end radiates fundamental + overtones" }
+        ]
+      },
+      {
+        id: "ghanta", rank: 42, name: "Ghaṇṭā", deva: "घण्टा", classification: "ghana", score: 98.8,
+        organology: "Panchaloha bell with Garuda/Trishula clapper",
+        attestation: "Yajurveda Taittirīya Saṃhitā; Āgamas",
+        acoustics: { formula: "f_{m,n} = (h/2πR²)√(E/12ρ(1-ν²))λ_{m,n}", fundamental_hz: 523.25, damping: 0.002 },
+        liturgical: { placement: "Priest's left hand during Ārati", actuator: "Internal swinging bronze clapper", bio: "Panchaloha (5-metal alloy)" },
+        binary_flow: [
+          { step: 1, node: "Clapper Strike", state: "Impulse (0→1)", desc: "Bronze clapper strikes inner wall" },
+          { step: 2, node: "Modal Ringing", state: "Dual Beating", desc: "High Q-factor sustains for seconds" },
+          { step: 3, node: "Alpha Induction", state: "2-4 Hz Beat", desc: "Binaural beating calms nervous system" }
+        ]
+      }
+    ];
+
+    let activeCategory = 'all';
+    let audioCtx = null;
+    let analyser = null;
+
+    // 2. Audio Engine
+    function initAudio() {
+      if (audioCtx) return;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.connect(audioCtx.destination);
+    }
+
+    function exciteModel(classification, freqHz) {
+      initAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const t = audioCtx.currentTime;
+
+      if (classification === 'tata') {
+        [1, 2, 3, 4, 5].forEach((m, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = i % 2 === 0 ? 'sawtooth' : 'triangle';
+          osc.frequency.value = freqHz * m;
+          gain.gain.setValueAtTime(0.22 / m, t);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + 2.6 - i * 0.2);
+          osc.connect(gain).connect(analyser);
+          osc.start(t); osc.stop(t + 2.6);
+        });
+      } else if (classification === 'avanaddha') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freqHz * 2.2, t);
+        osc.frequency.exponentialRampToValueAtTime(freqHz, t + 0.08);
+        osc.frequency.linearRampToValueAtTime(25, t + 1.8);
+        gain.gain.setValueAtTime(0.8, t);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+        osc.connect(gain).connect(analyser);
+        osc.start(t); osc.stop(t + 1.8);
+      } else if (classification === 'susira') {
+        const osc = audioCtx.createOscillator();
+        const trem = audioCtx.createOscillator();
+        const tremG = audioCtx.createGain();
+        const gain = audioCtx.createGain();
+        trem.frequency.value = 5.5; tremG.gain.value = 8;
+        trem.connect(osc.frequency);
+        osc.type = 'sine'; osc.frequency.value = freqHz;
+        gain.gain.setValueAtTime(0.01, t);
+        gain.gain.linearRampToValueAtTime(0.35, t + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 2.0);
+        osc.connect(gain).connect(analyser);
+        osc.start(t); osc.stop(t + 2.0);
+        trem.start(t); trem.stop(t + 2.0);
+      } else if (classification === 'ghana') {
+        [freqHz, freqHz + 2.0].forEach(f => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine'; osc.frequency.value = f;
+          gain.gain.setValueAtTime(0.3, t);
+          gain.gain.exponentialRampToValueAtTime(0.00001, t + 3.2);
+          osc.connect(gain).connect(analyser);
+          osc.start(t); osc.stop(t + 3.2);
+        });
+      }
+    }
+
+    function drawScope() {
+      const canvas = document.getElementById('vi-scope');
+      if (!canvas || !analyser) { requestAnimationFrame(drawScope); return; }
+      const ctx = canvas.getContext('2d');
+      const buf = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(buf);
+      ctx.fillStyle = '#0a0c10'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const barW = canvas.width / buf.length * 1.5;
+      let x = 0;
+      for (let i = 0; i < buf.length; i++) {
+        const h = (buf[i] / 255) * canvas.height;
+        ctx.fillStyle = '#fbbf24';
+        ctx.fillRect(x, canvas.height - h, barW, h);
+        x += barW + 1;
+      }
+      requestAnimationFrame(drawScope);
+    }
+
+    // 3. Render
+    function renderGrid() {
+      const grid = document.getElementById('instrument-grid');
+      const list = activeCategory === 'all' ? INSTRUMENTS : INSTRUMENTS.filter(i => i.classification === activeCategory);
+      
+      grid.innerHTML = list.map(inst => `
+        <div class="vi-card" data-id="${inst.id}">
+          <div class="vi-card-top">
+            <span>#${inst.rank}</span>
+            <span class="vi-badge vi-${inst.classification}">${inst.classification}</span>
+            <span>${inst.score.toFixed(1)}</span>
+          </div>
+          <h3 class="vi-card-name">${inst.name}</h3>
+          <div class="vi-card-deva">${inst.deva}</div>
+          <div class="vi-card-formula">${inst.acoustics.formula}</div>
+          <button class="vi-excite" data-class="${inst.classification}" data-freq="${inst.acoustics.fundamental_hz}">🔊 Excite Model</button>
+        </div>
+      `).join('');
+
+      grid.querySelectorAll('.vi-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.classList.contains('vi-excite')) return;
+          openDrawer(card.dataset.id);
+        });
+      });
+
+      grid.querySelectorAll('.vi-excite').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          exciteModel(btn.dataset.class, parseFloat(btn.dataset.freq));
+        });
+      });
+    }
+
+    function renderSwaraButtons(fundHz, type) {
+      const ratios = [
+        { swara: 'Sa', deva: 'सा', ratio: 1.0 },
+        { swara: 'Re', deva: 'रे', ratio: 9/8 },
+        { swara: 'Ga', deva: 'ग', ratio: 5/4 },
+        { swara: 'Ma', deva: 'म', ratio: 4/3 },
+        { swara: 'Pa', deva: 'प', ratio: 3/2 },
+        { swara: 'Dha', deva: 'ध', ratio: 5/3 },
+        { swara: 'Ni', deva: 'नि', ratio: 15/8 },
+        { swara: 'Ṡa', deva: 'सां', ratio: 2.0 }
+      ];
+      return ratios.map(r => `
+        <button class="vi-swara-btn" onclick="exciteModel('${type}', ${fundHz * r.ratio})">
+          <span class="deva">${r.deva}</span>
+          <span class="label">${r.swara}</span>
+          <span class="hz">${Math.round(fundHz * r.ratio)}Hz</span>
+        </button>
+      `).join('');
+    }
+
+    function openDrawer(id) {
+      const inst = INSTRUMENTS.find(i => i.id === id);
+      if (!inst) return;
+      const content = document.getElementById('drawer-content');
+      
+      const flowHTML = inst.binary_flow.map(node => `
+        <div class="vi-flow-step">
+          <div class="vi-flow-marker">
+            <span class="vi-flow-num">${node.step}</span>
+            <span class="vi-flow-state">${node.state}</span>
+          </div>
+          <div class="vi-flow-content">
+            <h5>${node.node}</h5>
+            <p>${node.desc}</p>
+          </div>
+        </div>
+      `).join('');
+
+      content.innerHTML = `
+        <div class="vi-detail-header">
+          <span class="vi-badge vi-${inst.classification}">${inst.classification.toUpperCase()}</span>
+          <h2>${inst.name} <span style="color: var(--dim); font-size: 1.2rem;">(${inst.deva})</span></h2>
+          <p style="color: var(--dim); margin: 0;">${inst.organology}</p>
+        </div>
+
+        <div class="vi-detail-grid">
+          <div class="vi-detail-card">
+            <h4>🔬 Governing Physics</h4>
+            <div class="vi-card-formula" style="white-space: normal; margin-bottom: 0.75rem;">${inst.acoustics.formula}</div>
+            <p><strong>Fundamental:</strong> ${inst.acoustics.fundamental_hz} Hz</p>
+            <p><strong>Damping (ζ):</strong> ${inst.acoustics.damping}</p>
+          </div>
+          <div class="vi-detail-card">
+            <h4>📜 Ritual Context</h4>
+            <p><strong>Attestation:</strong> ${inst.attestation}</p>
+            <p><strong>Placement:</strong> ${inst.liturgical.placement}</p>
+            <p><strong>Actuator:</strong> ${inst.liturgical.actuator}</p>
+            <p><strong>Bio-Substrate:</strong> ${inst.liturgical.bio}</p>
+          </div>
+        </div>
+
+        <h4 style="color: var(--gold); margin-top: 1.5rem;">Microtonal Swara Excitation</h4>
+        <div class="vi-swara-row">
+          ${renderSwaraButtons(inst.acoustics.fundamental_hz, inst.classification)}
+        </div>
+
+        <div class="vi-binary-flow">
+          <h4 style="color: var(--gold); margin-top: 0;">⚡ Binary Acoustic Signal Flow</h4>
+          ${flowHTML}
+        </div>
+      `;
+
+      const drawer = document.getElementById('detail-drawer');
+      drawer.setAttribute('aria-hidden', 'false');
+      drawer.classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('detail-drawer').classList.remove('open');
+    }
+
+    // 4. Init
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('#category-tabs button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#category-tabs button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCategory = btn.dataset.cat;
+          renderGrid();
+        });
+      });
+      document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+      renderGrid();
+      drawScope();
+    });
+  </script>
 </body>
 </html>
