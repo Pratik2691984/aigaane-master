@@ -333,11 +333,14 @@ class VedicAudioEngine {
         if (x === 0) ctx.moveTo(x, y); 
         else ctx.lineTo(x, y); 
       } 
-      ctx.stroke();
+            ctx.stroke();
     }; 
     render();
   }
+} // <--- ADD THIS CLOSING BRACE
+
 // 3. Quanta & Brainwave Entrainment Engine
+class QuantaBrainEngine {
 class QuantaBrainEngine {
   constructor(audioEngine) {
     this.audio = audioEngine;
