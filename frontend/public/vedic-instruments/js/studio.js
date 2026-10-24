@@ -400,14 +400,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((data) => {
       allInstruments = Array.isArray(data) ? data : data.instruments || [];
-      console.log("Loaded Instruments:", allInstruments.length);
+      if (allInstruments.length === 0) throw new Error("Empty JSON");
+      console.log("✅ Loaded Instruments from JSON:", allInstruments.length);
       updateCounts();
       renderGrid();
       bindEvents();
       injectGatraVinaSVG("gatra-vina-mount");
     })
     .catch((err) => {
-      console.warn("Using fallback dataset due to instruments.json fetch:", err);
+      console.warn("⚠️ Using fallback dataset:", err);
+      allInstruments = window.INSTRUMENTS_FALLBACK || [];
+      updateCounts();
       renderGrid();
       bindEvents();
       injectGatraVinaSVG("gatra-vina-mount");
