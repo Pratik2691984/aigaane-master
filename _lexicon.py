@@ -1,299 +1,165 @@
 ﻿"""
-Aigaane v0.2.0 — Verified Pada & Stem Lexicon
+Aigaane v0.3.0-dev — Generative Paninian Lexicon & Dhātupāṭha Engine
+Provides morphological analysis for subanta nominals, tinanta verb forms,
+and avyaya indeclinables with deterministic root derivation.
 """
 
-WORDS = {
-    # Category A & Sandhi Components
-    "rāmaḥ": {
-        "stem": "rāma", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98
-    },
-    "rāma": {
-        "stem": "rāma", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "rāmāya": {
-        "stem": "rāma", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98
-    },
-    "gacchati": {
-        "stem": "gam", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana", "dhatu": "gam", "gana": 1,
-        "confidence": 0.97
-    },
-    "api": {
-        "stem": "api", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.99
-    },
-    "hima": {
-        "stem": "hima", "pos": "subhanta", "linga": "napumsakalinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "alayaḥ": {
-        "stem": "ālaya", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "ālayaḥ": {
-        "stem": "ālaya", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "na": {
-        "stem": "na", "pos": "avyaya", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.99
-    },
-    "asti": {
-        "stem": "as", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana", "dhatu": "as", "gana": 2,
-        "confidence": 0.98
-    },
-    "vāk": {
-        "stem": "vāc", "pos": "subhanta", "linga": "strilinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "īśaḥ": {
-        "stem": "īśa", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "tat": {
-        "stem": "tad", "pos": "subhanta", "linga": "napumsakalinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97
-    },
-    "ca": {
-        "stem": "ca", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.99
-    },
-    "sat": {
-        "stem": "sat", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "janaḥ": {
-        "stem": "jana", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97
-    },
-    "iti": {
-        "stem": "iti", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.99
-    },
-    "madhu": {
-        "stem": "madhu", "pos": "subhanta", "linga": "napumsakalinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "ari": {
-        "stem": "ari", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "deva": {
-        "stem": "deva", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "indraḥ": {
-        "stem": "indra", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97
-    },
-    "gaṇa": {
-        "stem": "gaṇa", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "pitṛ": {
-        "stem": "pitṛ", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96
-    },
-    "ājñā": {
-        "stem": "ājñā", "pos": "subhanta", "linga": "strilinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97
-    },
-    "tvam": {
-        "stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97
-    },
-    "naraḥ": {
-        "stem": "nara", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97
-    },
+from typing import Optional, Dict, Any
 
-    # Category E — Indeclinables
-    "eva": {
-        "stem": "eva", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.99
-    },
-    "tataḥ": {
-        "stem": "tatas", "pos": "avyaya", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.97
-    },
-    "yathā": {
-        "stem": "yathā", "pos": "avyaya", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.98
-    },
-    "hi": {
-        "stem": "hi", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.99
-    },
-    "katham": {
-        "stem": "katham", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.98
-    },
-    "adya": {
-        "stem": "adya", "pos": "avyaya", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.98
-    },
-    "upa": {
-        "stem": "upa", "pos": "upasarga", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.98
-    },
-
-    # Category D — Tinanta Verbs
-    "bhavati": {
-        "stem": "bhavat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "bhū", "gana": 1, "confidence": 0.97
-    },
-    "paṭhati": {
-        "stem": "paṭhat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "paṭh", "gana": 1, "confidence": 0.96
-    },
-    "karoti": {
-        "stem": "karot", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "kṛ", "gana": 8, "confidence": 0.97
-    },
-    "pibati": {
-        "stem": "pibat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "pā", "gana": 1, "confidence": 0.96
-    },
-    "labhate": {
-        "stem": "labhat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "labh", "gana": 1, "confidence": 0.95
-    },
-    "dadāti": {
-        "stem": "dadāt", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "dā", "gana": 3, "confidence": 0.96
-    },
-    "viśati": {
-        "stem": "viśat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "viś", "gana": 6, "confidence": 0.95
-    },
-    "vahati": {
-        "stem": "vahat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "vah", "gana": 1, "confidence": 0.96
-    },
-    "likhati": {
-        "stem": "likhat", "pos": "tinanta", "linga": "na",
-        "vibhakti": "na", "vacana": "ekavacana",
-        "dhatu": "likh", "gana": 6, "confidence": 0.95
-    },
-
-    # Category B — Ambiguity Components
-    "nara": {
-        "stem": "nara", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "reśaḥ": {
-        "stem": "reśa", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.80
-    },
-    "sarva": {
-        "stem": "sarva", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "īśvaraḥ": {
-        "stem": "īśvara", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "sarve": {
-        "stem": "sarva", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.85
-    },
-    "śvaraḥ": {
-        "stem": "śvara", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.70
-    },
-    "maha": {
-        "stem": "maha", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.90
-    },
-    "mahā": {
-        "stem": "mahat", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "ṛṣiḥ": {
-        "stem": "ṛṣi", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "sā": {
-        "stem": "tad", "pos": "subhanta", "linga": "strilinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98
-    },
-    "sa": {
-        "stem": "tad", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "saḥ": {
-        "stem": "tad", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98
-    },
-    "ayaṃ": {
-        "stem": "idam", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98
-    },
-    "se": {
-        "stem": "sa", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.70
-    },
-    "te": {
-        "stem": "tad", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98
-    },
-    "taḥ": {
-        "stem": "tad", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.75
-    },
-    "tada": {
-        "stem": "tad", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.70
-    },
-    "pi": {
-        "stem": "pi", "pos": "nipata", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.70
-    },
-    "atra": {
-        "stem": "atra", "pos": "avyaya", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.98
-    },
-    "itya": {
-        "stem": "itya", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.70
-    },
-    "tra": {
-        "stem": "tra", "pos": "avyaya", "linga": "na",
-        "vibhakti": "na", "vacana": "na", "confidence": 0.70
-    },
-    "hariḥ": {
-        "stem": "hari", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "guruḥ": {
-        "stem": "guru", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "somaḥ": {
-        "stem": "soma", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "agniḥ": {
-        "stem": "agni", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
-    "kṛṣṇaḥ": {
-        "stem": "kṛṣṇa", "pos": "subhanta", "linga": "pullinga",
-        "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95
-    },
+_DHATUPATHA = {
+    "bhū":  {"gana": 1, "stem_pres": "bhava", "stem_fut": "bhaviṣya", "meaning": "to be"},
+    "gam":  {"gana": 1, "stem_pres": "gaccha", "stem_fut": "gamiṣya", "meaning": "to go"},
+    "paṭh": {"gana": 1, "stem_pres": "paṭha", "stem_fut": "paṭhiṣya", "meaning": "to read"},
+    "kṛ":   {"gana": 8, "stem_pres": "karo",  "stem_fut": "kariṣya", "meaning": "to do"},
+    "pā":   {"gana": 1, "stem_pres": "piba",  "stem_fut": "pāsya",   "meaning": "to drink"},
+    "labh": {"gana": 1, "stem_pres": "labha", "stem_fut": "lapsya",  "meaning": "to obtain"},
+    "dā":   {"gana": 3, "stem_pres": "dadā",  "stem_fut": "dāsya",   "meaning": "to give"},
+    "viś":  {"gana": 6, "stem_pres": "viśa",  "stem_fut": "vekṣya",  "meaning": "to enter"},
+    "vah":  {"gana": 1, "stem_pres": "vaha",  "stem_fut": "vakṣya",  "meaning": "to carry"},
+    "likh": {"gana": 6, "stem_pres": "likha", "stem_fut": "lekhiṣya", "meaning": "to write"},
 }
 
-def lookup(word: str):
-    return WORDS.get(word)
+_LAT_ENDINGS = [
+    # Parasmaipada
+    ("ti",    "ekavacana",  "prathama_purusha"),
+    ("taḥ",   "dvivacana",  "prathama_purusha"),
+    ("anti",  "bahuvacana", "prathama_purusha"),
+    ("si",    "ekavacana",  "madhyama_purusha"),
+    ("thaḥ",  "dvivacana",  "madhyama_purusha"),
+    ("tha",   "bahuvacana", "madhyama_purusha"),
+    ("mi",    "ekavacana",  "uttama_purusha"),
+    ("vaḥ",   "dvivacana",  "uttama_purusha"),
+    ("maḥ",   "bahuvacana", "uttama_purusha"),
+    # Ātmanepada
+    ("te",    "ekavacana",  "prathama_purusha"),
+    ("ite",   "dvivacana",  "prathama_purusha"),
+    ("nte",   "bahuvacana", "prathama_purusha"),
+]
+
+_STATIC_LEXICON: Dict[str, dict] = {
+    # Indeclinables / Avyaya / Nipata / Upasarga
+    "ca":     {"stem": "ca",     "pos": "nipata",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.99},
+    "api":    {"stem": "api",    "pos": "nipata",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.99},
+    "eva":    {"stem": "eva",    "pos": "nipata",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.99},
+    "iti":    {"stem": "iti",    "pos": "nipata",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.99},
+    "tataḥ":  {"stem": "tatas",  "pos": "avyaya",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.98},
+    "yathā":  {"stem": "yathā",  "pos": "avyaya",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.98},
+    "hi":     {"stem": "hi",     "pos": "nipata",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.98},
+    "katham": {"stem": "katham", "pos": "nipata",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.98},
+    "adya":   {"stem": "adya",   "pos": "avyaya",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.98},
+    "upa":    {"stem": "upa",    "pos": "upasarga", "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.99},
+    "na":     {"stem": "na",     "pos": "avyaya",   "linga": "na", "vibhakti": "na", "vacana": "na", "confidence": 0.99},
+
+    # Core Noun Stems / Nominals
+    "rāma":      {"stem": "rāma",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "rāmaḥ":     {"stem": "rāma",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "rāmāya":    {"stem": "rāma",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.95},
+    "hima":      {"stem": "hima",      "pos": "subhanta", "linga": "napumsakalinga","vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "ālayaḥ":    {"stem": "ālaya",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "alayaḥ":    {"stem": "alaya",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "asti":      {"stem": "as",        "pos": "tinanta",  "dhatu": "as", "gana": 2, "linga": "na", "vibhakti": "na", "vacana": "ekavacana", "confidence": 0.98},
+    "vāk":       {"stem": "vāc",       "pos": "subhanta", "linga": "strilinga",     "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "īśaḥ":      {"stem": "īśa",       "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "tat":       {"stem": "tad",       "pos": "subhanta", "linga": "napumsakalinga","vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.97},
+    "sat":       {"stem": "sat",       "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96},
+    "janaḥ":     {"stem": "jana",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96},
+    "madhu":     {"stem": "madhu",     "pos": "subhanta", "linga": "napumsakalinga","vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "ari":       {"stem": "ari",       "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.94},
+    "deva":      {"stem": "deva",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "devaḥ":     {"stem": "deva",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "indraḥ":    {"stem": "indra",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "gaṇa":      {"stem": "gaṇa",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "pitṛ":      {"stem": "pitṛ",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "ājñā":      {"stem": "ājñā",      "pos": "subhanta", "linga": "strilinga",     "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "tvam":      {"stem": "yuṣmad",    "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96},
+    "naraḥ":     {"stem": "nara",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "nara":      {"stem": "nara",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "maha":      {"stem": "maha",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+}
+
+
+def _analyze_tinanta(word: str) -> Optional[dict]:
+    """Dynamically parses verb conjugations across Dhatupatha roots."""
+    for dhatu, info in _DHATUPATHA.items():
+        base_pres = info["stem_pres"]
+        for ending, vacana, purusha in _LAT_ENDINGS:
+            expected_form = None
+            if ending.startswith("a"):
+                # "anti": bhava + anti -> bhavanti (atoni guna / a + a coalescence)
+                if base_pres.endswith("a"):
+                    expected_form = base_pres[:-1] + ending
+                else:
+                    expected_form = base_pres + ending
+            elif ending.startswith("i"):
+                if base_pres.endswith("a"):
+                    expected_form = base_pres[:-1] + "e" + ending[1:]
+                else:
+                    expected_form = base_pres + ending
+            else:
+                expected_form = base_pres + ending
+
+            if expected_form == word:
+                return {
+                    "stem": dhatu,
+                    "pos": "tinanta",
+                    "dhatu": dhatu,
+                    "gana": info["gana"],
+                    "vibhakti": "na",
+                    "vacana": vacana,
+                    "linga": "na",
+                    "confidence": 0.96,
+                }
+    return None
+
+
+def _analyze_subanta(word: str) -> Optional[dict]:
+    """Dynamically derives common subanta case inflections for a-stems."""
+    # Genitive singular (-asya): rāmasya -> rāma
+    if word.endswith("asya") and len(word) > 4:
+        stem = word[:-4] + "a"
+        if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
+            return {
+                "stem": stem,
+                "pos": "subhanta",
+                "linga": "pullinga",
+                "vibhakti": "shasthi",
+                "vacana": "ekavacana",
+                "confidence": 0.95,
+            }
+    # Ablative singular (-āt): devāt -> deva
+    if word.endswith("āt") and len(word) > 2:
+        stem = word[:-2] + "a"
+        if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
+            return {
+                "stem": stem,
+                "pos": "subhanta",
+                "linga": "pullinga",
+                "vibhakti": "pancami",
+                "vacana": "ekavacana",
+                "confidence": 0.95,
+            }
+    # Accusative singular (-am): vanam -> vana
+    if word.endswith("am") and len(word) > 2:
+        stem = word[:-2] + "a"
+        return {
+            "stem": stem,
+            "pos": "subhanta",
+            "linga": "napumsakalinga",
+            "vibhakti": "dvitiya",
+            "vacana": "ekavacana",
+            "confidence": 0.92,
+        }
+    return None
+
+
+def lookup(word: str) -> Optional[dict]:
+    w = word.strip()
+    if w in _STATIC_LEXICON:
+        return _STATIC_LEXICON[w]
+    tin_hit = _analyze_tinanta(w)
+    if tin_hit is not None:
+        return tin_hit
+    sub_hit = _analyze_subanta(w)
+    if sub_hit is not None:
+        return sub_hit
+    return None

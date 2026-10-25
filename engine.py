@@ -1,5 +1,5 @@
 ﻿"""
-Aigaane v0.2.0 — Multi-Script & Verse Prosody Orchestration Parser & Router
+Aigaane v0.3.0-dev — Multi-Script, Generative Parser & Router Orchestrator
 """
 
 import uuid
@@ -136,7 +136,6 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
     amb_data = _ambiguity.resolve(surface)
     if amb_data is not None:
         primary_parts, prim_rule, prim_canon, prim_conf = amb_data["primary"]
-
         tokens = []
         token_confs = []
         for i, p in enumerate(primary_parts):
@@ -231,7 +230,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             doc["samasa_tree"] = tree
         return doc
 
-    # 1. Exact Sandhi split (Category A, Category I Sandhi)
+    # 1. Exact / Generative Sandhi split (Category A, Category I Sandhi)
     split_info = _sandhi.split_surface(surface)
     if split_info:
         parts, rule_name, rule_canon_ref, rule_conf = split_info
@@ -368,7 +367,51 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-exact", "lexicon=min-v0.2"],
         }
 
-    # 4. Nyaya complex sentences (Category F)
+    # 4. Multi-word sentence parsing (Generic Pada Sequence / Vākyam)
+    if " " in surface:
+        words = surface.split()
+        lex_words = [_lexicon.lookup(w) for w in words]
+        if all(lw is not None for lw in lex_words):
+            tokens = []
+            token_confs = []
+            for i, (w, hit) in enumerate(zip(words, lex_words)):
+                tok = {
+                    "token_id": f"T{i}",
+                    "pada": w,
+                    "stem": hit["stem"],
+                    "vibhakti": hit["vibhakti"],
+                    "vacana": hit["vacana"],
+                    "linga": hit["linga"],
+                    "pos": hit["pos"],
+                    "confidence": hit["confidence"],
+                }
+                if "dhatu" in hit:
+                    tok["dhatu"] = hit["dhatu"]
+                    tok["gana"] = hit["gana"]
+                tokens.append(tok)
+                token_confs.append(hit["confidence"])
+
+            min_c = min(token_confs)
+            mean_c = sum(token_confs) / len(token_confs)
+
+            return {
+                "schema_version": "0.2.0",
+                "trace_id": str(uuid.uuid4()),
+                "script_original": script_original,
+                "surface": raw_surface,
+                "normalized": deva,
+                "transliteration": {"devanagari": deva, "iast": surface},
+                "parse_rank": 1,
+                "tokens": tokens,
+                "sandhi_splits": [],
+                "ambiguous_parses": [],
+                "canon_refs": [],
+                "confidence": min_c,
+                "confidence_aggregate": {"min": min_c, "mean": mean_c},
+                "provenance": ["engine=0.3.0-sentence", "lexicon=dhatupatha-v0.3"],
+            }
+
+    # 5. Nyaya complex sentences (Category F)
     f_spec = _f_parses.get(surface)
     if f_spec is not None:
         confs = [t["confidence"] for t in f_spec["tokens"]]
@@ -391,10 +434,9 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-nyaya"],
         }
 
-    # 5. Prosody / Chhandas (Category G single words & Category J verses)
+    # 6. Prosody / Chhandas (Category G single words & Category J verses)
     ch_info = _chhandas.lookup(surface)
     if ch_info is not None:
-        # Create standard token breakdown for the verse/word
         words = surface.split()
         tokens = []
         for idx, w in enumerate(words):
@@ -431,7 +473,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-chhandas"],
         }
 
-    # 6. Cross-domain Canons (Category H)
+    # 7. Cross-domain Canons (Category H)
     h_info = _h_cross.lookup(surface)
     if h_info is not None:
         tok = {
