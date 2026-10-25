@@ -1,10 +1,11 @@
 ﻿"""
-Aigaane v0.2.0 — Complete Orchestration Parser & Multi-Studio Router
+Aigaane v0.2.0 — Multi-Script Orchestration Parser & Multi-Studio Router
 """
 
 import uuid
 from typing import Optional, Dict, Any
 
+import _script
 import _lexicon
 import _sandhi
 import _samasa
@@ -127,13 +128,14 @@ _IAST_TO_DEVA: Dict[str, str] = {
 
 
 def parse(text: str) -> Optional[Dict[str, Any]]:
-    surface = text.strip()
+    raw_surface = text.strip()
+    script_original, surface = _script.to_canonical_iast(raw_surface)
+    deva = _IAST_TO_DEVA.get(surface, raw_surface if script_original == "devanagari" else surface)
 
     # 0. Ambiguity resolution (Category B)
     amb_data = _ambiguity.resolve(surface)
     if amb_data is not None:
         primary_parts, prim_rule, prim_canon, prim_conf = amb_data["primary"]
-        deva = _IAST_TO_DEVA.get(surface, surface)
 
         tokens = []
         token_confs = []
@@ -211,8 +213,8 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
         doc = {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
@@ -229,7 +231,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             doc["samasa_tree"] = tree
         return doc
 
-    # 1. Exact Sandhi split (Category A)
+    # 1. Exact Sandhi split (Category A, Category I Sandhi)
     split_info = _sandhi.split_surface(surface)
     if split_info:
         parts, rule_name, rule_canon_ref, rule_conf = split_info
@@ -261,20 +263,19 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
 
         min_c = min(token_confs)
         mean_c = sum(token_confs) / len(token_confs)
-        deva = _IAST_TO_DEVA.get(surface, surface)
 
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
             "tokens": tokens,
             "sandhi_splits": [
                 {
-                    "parts": parts,
+                    "parts": _script.format_parts_to_script(parts, script_original),
                     "rule": rule_name,
                     "rule_canon_ref": rule_canon_ref,
                     "confidence": rule_conf,
@@ -309,12 +310,11 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "pos": "subhanta",
             "confidence": samasa_tree["confidence"],
         }
-        deva = _IAST_TO_DEVA.get(surface, surface)
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
@@ -331,7 +331,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-samasa", "lexicon=min-v0.2"],
         }
 
-    # 3. Single pada lookup (Category E, Category D)
+    # 3. Single pada lookup (Category E, Category D, Category I Single)
     lex_single = _lexicon.lookup(surface)
     if lex_single and " " not in surface:
         token = {
@@ -348,12 +348,11 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             token["dhatu"] = lex_single["dhatu"]
             token["gana"] = lex_single["gana"]
 
-        deva = _IAST_TO_DEVA.get(surface, surface)
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
@@ -372,15 +371,14 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
     # 4. Nyaya complex sentences (Category F)
     f_spec = _f_parses.get(surface)
     if f_spec is not None:
-        deva = _IAST_TO_DEVA.get(surface, surface)
         confs = [t["confidence"] for t in f_spec["tokens"]]
         min_c = min(confs) if confs else 0.90
         mean_c = sum(confs) / len(confs) if confs else 0.90
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
@@ -393,10 +391,9 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-nyaya"],
         }
 
-    # 5. Prosody / Chhandas (Category G)
+    # 5. Prosody / Chhandas (Category G, Category I Chhandas)
     ch_info = _chhandas.lookup(surface)
     if ch_info is not None:
-        deva = _IAST_TO_DEVA.get(surface, surface)
         tok = {
             "token_id": "T0",
             "pada": surface,
@@ -410,8 +407,8 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
@@ -433,7 +430,6 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
     # 6. Cross-domain Canons (Category H)
     h_info = _h_cross.lookup(surface)
     if h_info is not None:
-        deva = _IAST_TO_DEVA.get(surface, surface)
         tok = {
             "token_id": "T0",
             "pada": surface,
@@ -447,8 +443,8 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
-            "script_original": "iast",
-            "surface": surface,
+            "script_original": script_original,
+            "surface": raw_surface,
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
@@ -472,7 +468,8 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
 
 def route(doc: Dict[str, Any], policy: Dict[str, Any], intent_hint: Optional[str] = None) -> Dict[str, Any]:
     intent = intent_hint or "unknown"
-    surface = doc.get("surface", "")
+    raw_surface = doc.get("surface", "")
+    _, surface = _script.to_canonical_iast(raw_surface)
 
     # Nyaya logical argumentation (Category F)
     syllogism = _nyaya.build(surface)
@@ -488,7 +485,7 @@ def route(doc: Dict[str, Any], policy: Dict[str, Any], intent_hint: Optional[str
             "nyaya_syllogism": syllogism,
         }
 
-    # Prosody Chhandas (Category G)
+    # Prosody Chhandas (Category G, Category I)
     if _chhandas.lookup(surface) is not None:
         return {
             "studio": "Studio_III",
@@ -538,3 +535,4 @@ def route(doc: Dict[str, Any], policy: Dict[str, Any], intent_hint: Optional[str
         decision["nyaya_verifier_mode"] = verifier_mode
 
     return decision
+
