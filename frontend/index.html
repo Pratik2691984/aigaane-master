@@ -31,7 +31,7 @@
   .brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
   .brand-mark { font-size: 2rem; }
   .site-nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-  .site-nav a { color: var(--text-dim); font-size: 0.9rem; font-weight: 500; }
+  .site-nav a { color: var(--text-dim); font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
   .site-nav a:hover, .site-nav a.active { color: var(--accent); }
   
   /* Main Container */
@@ -74,14 +74,17 @@
       <span class="brand-mark">ॐ</span> Aigaane
     </div>
     <nav class="site-nav">
-      <a href="#sandhi">Sandhi</a>
-      <a href="#chandas">Chandas</a>
-      <a href="#morphology">Morphology</a>
-      <a href="#lexicon">Lexicon</a>
-      <a href="#gandharva">Gandharva</a>
-      <a href="#corpus">Corpus</a>
-      <a href="canon.html" style="color: var(--accent);">Canon ↗</a>
-      <a href="mantra.html" style="color: var(--accent);">Mantra Sanctuary ↗</a>
+      <!-- 1. ENGINE (Active) -->
+      <a href="index.html" class="active">Sanskrit Engine</a>
+      
+      <!-- 2. CABINET (All Studios) -->
+      <a href="cabinet.html">Cabinet</a>
+      
+      <!-- 3. CANON (Texts) -->
+      <a href="canon.html">Canon</a>
+      
+      <!-- 4. VEDIC INSTRUMENTS (Upavedas) -->
+      <a href="upavedas.html">Vedic Instruments</a>
     </nav>
   </div>
 </header>
@@ -141,7 +144,7 @@
     </section>
 
     <section id="gandharva" class="panel">
-      <div class="panel-head"><h2>Gāndharvaveda Studio</h2><span class="badge">Just Intonation</span></div>
+      <div class="panel-head"><h2>Gāndharvaveda Audio</h2><span class="badge">Just Intonation</span></div>
       <textarea id="gandharva-text" rows="2">dharmakṣetre kurukṣetre</textarea>
       <div class="form-row" style="margin-top: 1rem;">
         <button id="btn-gandharva-render">Synthesize Audio</button>
