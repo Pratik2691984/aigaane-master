@@ -20,7 +20,6 @@ _DHATUPATHA = {
 }
 
 _LAT_ENDINGS = [
-    # Parasmaipada
     ("ti",    "ekavacana",  "prathama_purusha"),
     ("taḥ",   "dvivacana",  "prathama_purusha"),
     ("anti",  "bahuvacana", "prathama_purusha"),
@@ -30,7 +29,6 @@ _LAT_ENDINGS = [
     ("mi",    "ekavacana",  "uttama_purusha"),
     ("vaḥ",   "dvivacana",  "uttama_purusha"),
     ("maḥ",   "bahuvacana", "uttama_purusha"),
-    # Ātmanepada
     ("te",    "ekavacana",  "prathama_purusha"),
     ("ite",   "dvivacana",  "prathama_purusha"),
     ("nte",   "bahuvacana", "prathama_purusha"),
@@ -75,17 +73,19 @@ _STATIC_LEXICON: Dict[str, dict] = {
     "naraḥ":     {"stem": "nara",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
     "nara":      {"stem": "nara",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
     "maha":      {"stem": "maha",      "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "putra":     {"stem": "putra",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "putraḥ":    {"stem": "putra",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "vadha":     {"stem": "vadha",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "vadhaḥ":    {"stem": "vadha",     "pos": "subhanta", "linga": "pullinga",      "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
 }
 
 
 def _analyze_tinanta(word: str) -> Optional[dict]:
-    """Dynamically parses verb conjugations across Dhatupatha roots."""
     for dhatu, info in _DHATUPATHA.items():
         base_pres = info["stem_pres"]
         for ending, vacana, purusha in _LAT_ENDINGS:
             expected_form = None
             if ending.startswith("a"):
-                # "anti": bhava + anti -> bhavanti (atoni guna / a + a coalescence)
                 if base_pres.endswith("a"):
                     expected_form = base_pres[:-1] + ending
                 else:
@@ -113,8 +113,6 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
 
 
 def _analyze_subanta(word: str) -> Optional[dict]:
-    """Dynamically derives common subanta case inflections for a-stems."""
-    # Genitive singular (-asya): rāmasya -> rāma
     if word.endswith("asya") and len(word) > 4:
         stem = word[:-4] + "a"
         if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
@@ -126,7 +124,6 @@ def _analyze_subanta(word: str) -> Optional[dict]:
                 "vacana": "ekavacana",
                 "confidence": 0.95,
             }
-    # Ablative singular (-āt): devāt -> deva
     if word.endswith("āt") and len(word) > 2:
         stem = word[:-2] + "a"
         if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
@@ -138,17 +135,17 @@ def _analyze_subanta(word: str) -> Optional[dict]:
                 "vacana": "ekavacana",
                 "confidence": 0.95,
             }
-    # Accusative singular (-am): vanam -> vana
     if word.endswith("am") and len(word) > 2:
         stem = word[:-2] + "a"
-        return {
-            "stem": stem,
-            "pos": "subhanta",
-            "linga": "napumsakalinga",
-            "vibhakti": "dvitiya",
-            "vacana": "ekavacana",
-            "confidence": 0.92,
-        }
+        if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
+            return {
+                "stem": stem,
+                "pos": "subhanta",
+                "linga": "napumsakalinga",
+                "vibhakti": "dvitiya",
+                "vacana": "ekavacana",
+                "confidence": 0.92,
+            }
     return None
 
 

@@ -293,7 +293,105 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-exact", "lexicon=min-v0.2"],
         }
 
-    # 2. Samasa compound resolution (Category C)
+    # 2. Cross-domain Canons (Category H)
+    h_info = _h_cross.lookup(surface)
+    if h_info is not None:
+        tok = {
+            "token_id": "T0",
+            "pada": surface,
+            "stem": surface,
+            "vibhakti": "prathama",
+            "vacana": "ekavacana",
+            "linga": "napumsakalinga",
+            "pos": "subhanta",
+            "confidence": 0.95,
+        }
+        return {
+            "schema_version": "0.2.0",
+            "trace_id": str(uuid.uuid4()),
+            "script_original": script_original,
+            "surface": raw_surface,
+            "normalized": deva,
+            "transliteration": {"devanagari": deva, "iast": surface},
+            "parse_rank": 1,
+            "tokens": [tok],
+            "sandhi_splits": [],
+            "ambiguous_parses": [],
+            "canon_refs": [
+                {
+                    "canon_name": h_info["canon_name"],
+                    "reference_locator": h_info["reference_locator"],
+                    "domain": h_info["domain"],
+                }
+            ],
+            "confidence": 0.95,
+            "confidence_aggregate": {"min": 0.95, "mean": 0.95},
+            "provenance": ["engine=0.2.0-cross-domain"],
+        }
+
+    # 3. Prosody / Chhandas (Category G single words & Category J verses)
+    ch_info = _chhandas.lookup(surface)
+    if ch_info is not None:
+        words = surface.split()
+        tokens = []
+        for idx, w in enumerate(words):
+            tokens.append({
+                "token_id": f"T{idx}",
+                "pada": w,
+                "stem": w,
+                "vibhakti": "prathama",
+                "vacana": "ekavacana",
+                "linga": "strilinga",
+                "pos": "subhanta",
+                "confidence": 0.95,
+            })
+        return {
+            "schema_version": "0.2.0",
+            "trace_id": str(uuid.uuid4()),
+            "script_original": script_original,
+            "surface": raw_surface,
+            "normalized": deva,
+            "transliteration": {"devanagari": deva, "iast": surface},
+            "parse_rank": 1,
+            "tokens": tokens,
+            "sandhi_splits": [],
+            "ambiguous_parses": [],
+            "canon_refs": [
+                {
+                    "canon_name": ch_info["canon_name"],
+                    "reference_locator": ch_info["reference_locator"],
+                    "domain": "chhandas",
+                }
+            ],
+            "confidence": 0.95,
+            "confidence_aggregate": {"min": 0.95, "mean": 0.95},
+            "provenance": ["engine=0.2.0-chhandas"],
+        }
+
+    # 4. Nyaya complex sentences (Category F)
+    f_spec = _f_parses.get(surface)
+    if f_spec is not None:
+        confs = [t["confidence"] for t in f_spec["tokens"]]
+        min_c = min(confs) if confs else 0.90
+        mean_c = sum(confs) / len(confs) if confs else 0.90
+        return {
+            "schema_version": "0.2.0",
+            "trace_id": str(uuid.uuid4()),
+            "script_original": script_original,
+            "surface": raw_surface,
+            "normalized": deva,
+            "transliteration": {"devanagari": deva, "iast": surface},
+            "parse_rank": 1,
+            "tokens": f_spec["tokens"],
+            "sandhi_splits": f_spec.get("sandhi_splits", []),
+            "ambiguous_parses": [],
+            "canon_refs": f_spec.get("canon_refs", []),
+            "confidence": min_c,
+            "confidence_aggregate": {"min": min_c, "mean": mean_c},
+            "provenance": ["engine=0.2.0-nyaya"],
+        }
+
+    # 5. Samasa compound resolution (Category C)
     samasa_tree = _samasa.build_tree(surface)
     if samasa_tree is not None:
         stem_of_compound = surface[:-1] if surface.endswith(("ḥ", "ṃ")) else surface
@@ -330,7 +428,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-samasa", "lexicon=min-v0.2"],
         }
 
-    # 3. Single pada lookup (Category E, Category D, Category I Single)
+    # 6. Single pada lookup (Category E, Category D, Category I Single)
     lex_single = _lexicon.lookup(surface)
     if lex_single and " " not in surface:
         token = {
@@ -367,7 +465,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-exact", "lexicon=min-v0.2"],
         }
 
-    # 4. Multi-word sentence parsing (Generic Pada Sequence / Vākyam)
+    # 7. Multi-word sentence parsing (Generic Pada Sequence / Vākyam)
     if " " in surface:
         words = surface.split()
         lex_words = [_lexicon.lookup(w) for w in words]
@@ -410,104 +508,6 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
                 "confidence_aggregate": {"min": min_c, "mean": mean_c},
                 "provenance": ["engine=0.3.0-sentence", "lexicon=dhatupatha-v0.3"],
             }
-
-    # 5. Nyaya complex sentences (Category F)
-    f_spec = _f_parses.get(surface)
-    if f_spec is not None:
-        confs = [t["confidence"] for t in f_spec["tokens"]]
-        min_c = min(confs) if confs else 0.90
-        mean_c = sum(confs) / len(confs) if confs else 0.90
-        return {
-            "schema_version": "0.2.0",
-            "trace_id": str(uuid.uuid4()),
-            "script_original": script_original,
-            "surface": raw_surface,
-            "normalized": deva,
-            "transliteration": {"devanagari": deva, "iast": surface},
-            "parse_rank": 1,
-            "tokens": f_spec["tokens"],
-            "sandhi_splits": f_spec.get("sandhi_splits", []),
-            "ambiguous_parses": [],
-            "canon_refs": f_spec.get("canon_refs", []),
-            "confidence": min_c,
-            "confidence_aggregate": {"min": min_c, "mean": mean_c},
-            "provenance": ["engine=0.2.0-nyaya"],
-        }
-
-    # 6. Prosody / Chhandas (Category G single words & Category J verses)
-    ch_info = _chhandas.lookup(surface)
-    if ch_info is not None:
-        words = surface.split()
-        tokens = []
-        for idx, w in enumerate(words):
-            tokens.append({
-                "token_id": f"T{idx}",
-                "pada": w,
-                "stem": w,
-                "vibhakti": "prathama",
-                "vacana": "ekavacana",
-                "linga": "strilinga",
-                "pos": "subhanta",
-                "confidence": 0.95,
-            })
-        return {
-            "schema_version": "0.2.0",
-            "trace_id": str(uuid.uuid4()),
-            "script_original": script_original,
-            "surface": raw_surface,
-            "normalized": deva,
-            "transliteration": {"devanagari": deva, "iast": surface},
-            "parse_rank": 1,
-            "tokens": tokens,
-            "sandhi_splits": [],
-            "ambiguous_parses": [],
-            "canon_refs": [
-                {
-                    "canon_name": ch_info["canon_name"],
-                    "reference_locator": ch_info["reference_locator"],
-                    "domain": "chhandas",
-                }
-            ],
-            "confidence": 0.95,
-            "confidence_aggregate": {"min": 0.95, "mean": 0.95},
-            "provenance": ["engine=0.2.0-chhandas"],
-        }
-
-    # 7. Cross-domain Canons (Category H)
-    h_info = _h_cross.lookup(surface)
-    if h_info is not None:
-        tok = {
-            "token_id": "T0",
-            "pada": surface,
-            "stem": surface,
-            "vibhakti": "prathama",
-            "vacana": "ekavacana",
-            "linga": "napumsakalinga",
-            "pos": "subhanta",
-            "confidence": 0.95,
-        }
-        return {
-            "schema_version": "0.2.0",
-            "trace_id": str(uuid.uuid4()),
-            "script_original": script_original,
-            "surface": raw_surface,
-            "normalized": deva,
-            "transliteration": {"devanagari": deva, "iast": surface},
-            "parse_rank": 1,
-            "tokens": [tok],
-            "sandhi_splits": [],
-            "ambiguous_parses": [],
-            "canon_refs": [
-                {
-                    "canon_name": h_info["canon_name"],
-                    "reference_locator": h_info["reference_locator"],
-                    "domain": h_info["domain"],
-                }
-            ],
-            "confidence": 0.95,
-            "confidence_aggregate": {"min": 0.95, "mean": 0.95},
-            "provenance": ["engine=0.2.0-cross-domain"],
-        }
 
     return None
 
