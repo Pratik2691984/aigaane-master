@@ -2,7 +2,7 @@
   "corpus_version": "0.2.0",
   "contract": "sanskrit_contract.json",
   "router": "router_policy.json",
-  "total_cases": 95,
+  "total_cases": 106,
   "categories": {
     "A_simple_sandhi": 15,
     "B_ambiguity": 15,
@@ -11,7 +11,9 @@
     "E_indeclinables": 10,
     "F_nyaya": 10,
     "G_prosody": 10,
-    "H_cross_domain": 10
+    "H_cross_domain": 10,
+    "I_multiscript": 8,
+    "J_verse_prosody": 3
   },
   "cases": [
     {"id":"A01","cat":"A_simple_sandhi","input":"rāmo gacchati","expect":{"split":["rāmaḥ","gacchati"],"sandhi_rule":"visarga_o","tokens":2,"ambiguous_parses":0,"router_studio":"Studio_I"}},
@@ -108,6 +110,17 @@
     {"id":"H07","cat":"H_cross_domain","input":"vyākaraṇa","expect":{"mapping":"formal grammar","canon_domain":"vyakarana","router_studio":"Studio_II"}},
     {"id":"H08","cat":"H_cross_domain","input":"nyāya","expect":{"mapping":"formal logic","canon_domain":"nyaya","router_studio":"Studio_II"}},
     {"id":"H09","cat":"H_cross_domain","input":"tarka","expect":{"mapping":"argumentation theory","canon_domain":"nyaya","router_studio":"Studio_II"}},
-    {"id":"H10","cat":"H_cross_domain","input":"mīmāṃsā","expect":{"mapping":"hermeneutics","canon_domain":"shastra","router_studio":"Studio_II"}}
+        {"id":"H10","cat":"H_cross_domain","input":"mīmāṃsā","expect":{"mapping":"hermeneutics","canon_domain":"shastra","router_studio":"Studio_II"}},
+    {"id":"I01","cat":"I_multiscript","input":"च","expect":{"pos":"nipata","linga":"na","vibhakti":"na","vacana":"na","router_studio":"Studio_I"},"skip_reason":"engine multi-script support pending"},
+    {"id":"I02","cat":"I_multiscript","input":"रामापि","expect":{"split":["राम","अपि"],"sandhi_rule":"savarna_dirgha","tokens":2,"ambiguous_parses":0,"router_studio":"Studio_I"},"skip_reason":"engine multi-script support pending"},
+    {"id":"I03","cat":"I_multiscript","input":"नास्ति","expect":{"split":["न","अस्ति"],"sandhi_rule":"savarna_dirgha","tokens":2,"ambiguous_parses":0,"router_studio":"Studio_I"},"skip_reason":"engine multi-script support pending"},
+    {"id":"I04","cat":"I_multiscript","input":"भवति","expect":{"pos":"tinanta","dhatu":"bhū","gana":1,"vibhakti":"na","router_studio":"Studio_I"},"skip_reason":"engine multi-script support pending"},
+    {"id":"I05","cat":"I_multiscript","input":"गायत्री","expect":{"chhandas":"gāyatrī","syllables_per_quarter":8,"router_studio":"Studio_III"},"skip_reason":"engine multi-script support pending"},
+    {"id":"I06","cat":"I_multiscript","input":"rAmApi","expect":{"split":["rAma","api"],"sandhi_rule":"savarna_dirgha","tokens":2,"ambiguous_parses":0,"router_studio":"Studio_I"},"skip_reason":"engine ITRANS support pending"},
+    {"id":"I07","cat":"I_multiscript","input":"nAsti","expect":{"split":["na","asti"],"sandhi_rule":"savarna_dirgha","tokens":2,"ambiguous_parses":0,"router_studio":"Studio_I"},"skip_reason":"engine ITRANS support pending"},
+    {"id":"I08","cat":"I_multiscript","input":"bhavati","expect":{"pos":"tinanta","dhatu":"bhū","gana":1,"vibhakti":"na","router_studio":"Studio_I"},"skip_reason":"engine ITRANS support pending"},
+    {"id":"J01","cat":"J_verse_prosody","input":"tat savitur vareṇyaṃ bhargo devasya dhīmahi dhiyo yo naḥ pracodayāt","expect":{"chhandas":"gāyatrī","syllables_per_quarter":8,"router_studio":"Studio_III"},"skip_reason":"engine verse-level prosody pending"},
+    {"id":"J02","cat":"J_verse_prosody","input":"dharmakṣetre kurukṣetre samavetā yuyutsavaḥ māmakāḥ pāṇḍavāś caiva kim akurvata sañjaya","expect":{"chhandas":"anuṣṭubh","syllables_per_quarter":8,"router_studio":"Studio_III"},"skip_reason":"engine verse-level prosody pending"},
+    {"id":"J03","cat":"J_verse_prosody","input":"agnim īḷe purohitaṃ yajñasya devam ṛtvijam hotāraṃ ratnadhātamam","expect":{"chhandas":"triṣṭubh","syllables_per_quarter":11,"router_studio":"Studio_III"},"skip_reason":"engine verse-level prosody pending"}
   ]
 }

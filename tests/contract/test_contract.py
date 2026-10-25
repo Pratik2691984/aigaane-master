@@ -1,5 +1,5 @@
-"""
-Aigaane v0.2.0 — Golden Corpus Test Harness
+﻿"""
+Aigaane v0.2.0 â€” Golden Corpus Test Harness
 
 Run from repo root:
     python -m pytest tests/contract/test_contract.py -q -p no:cacheprovider -c NUL --rootdir=.
@@ -276,7 +276,7 @@ def _assert_expectations(case_id, doc, decision, exp):
         syl = decision.get("nyaya_syllogism")
         if not syl:
             fail(
-                "decision['nyaya_syllogism'] missing — Nyaya payload MUST live "
+                "decision['nyaya_syllogism'] missing â€” Nyaya payload MUST live "
                 "on the decision, not on the parse document."
             )
         steps = [s.get("step") for s in syl.get("steps", [])]
@@ -301,7 +301,7 @@ def _assert_expectations(case_id, doc, decision, exp):
         actual = decision.get("nyaya_verifier_mode")
         if actual is None:
             fail(
-                "decision['nyaya_verifier_mode'] missing — must be set "
+                "decision['nyaya_verifier_mode'] missing â€” must be set "
                 "directly on the decision."
             )
         if actual != exp["verifier_mode"]:
@@ -322,7 +322,7 @@ def _assert_expectations(case_id, doc, decision, exp):
 
 
 # ---------------------------------------------------------------------------
-# Meta tests — schemas themselves must be valid
+# Meta tests â€” schemas themselves must be valid
 # ---------------------------------------------------------------------------
 
 class TestSchemasSelfValid:
@@ -419,7 +419,7 @@ class TestSchemasSelfValid:
 class TestCorpusSanity:
     def test_total_cases(self):
         assert len(CORPUS["cases"]) == CORPUS["total_cases"]
-        assert CORPUS["total_cases"] == 95
+        assert CORPUS["total_cases"] == 106
 
     def test_category_counts(self):
         actual = Counter(c["cat"] for c in CORPUS["cases"])
@@ -436,21 +436,29 @@ class TestCorpusSanity:
 # ---------------------------------------------------------------------------
 
 def _corpus_cases():
-    return [(c["id"], c) for c in CORPUS["cases"]]
+    """Yield (id, case, skip_marker) tuples. skip_marker is None or a string."""
+    out = []
+    for c in CORPUS["cases"]:
+        skip = c.get("skip_reason")
+        out.append((c["id"], c, skip))
+    return out
 
 
 def _corpus_ids():
     return [c["id"] for c in CORPUS["cases"]]
 
 
-@pytest.mark.parametrize("case_id,case", _corpus_cases(), ids=_corpus_ids())
-def test_golden_case(case_id, case):
+@pytest.mark.parametrize("case_id,case,skip_reason", _corpus_cases(), ids=_corpus_ids())
+def test_golden_case(case_id, case, skip_reason):
+    if skip_reason:
+        pytest.skip(f"[{case_id}] {skip_reason}")
+
     engine = _get_engine()
 
     doc = engine.parse(case["input"])
     if doc is None:
         pytest.fail(
-            f"[{case_id}] engine.parse({case['input']!r}) returned None — "
+            f"[{case_id}] engine.parse({case['input']!r}) returned None â€” "
             f"not yet implemented for this case."
         )
 
