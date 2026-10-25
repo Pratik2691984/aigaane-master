@@ -1288,8 +1288,7 @@
         "chhandas": "gāyatrī",
         "syllables_per_quarter": 8,
         "router_studio": "Studio_III"
-      },
-      "skip_reason": "engine verse-level prosody pending"
+      }
     },
     {
       "id": "J02",
@@ -1299,8 +1298,7 @@
         "chhandas": "anuṣṭubh",
         "syllables_per_quarter": 8,
         "router_studio": "Studio_III"
-      },
-      "skip_reason": "engine verse-level prosody pending"
+      }
     },
     {
       "id": "J03",
@@ -1310,8 +1308,7 @@
         "chhandas": "triṣṭubh",
         "syllables_per_quarter": 11,
         "router_studio": "Studio_III"
-      },
-      "skip_reason": "engine verse-level prosody pending"
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 ﻿"""
-Aigaane v0.2.0 — Multi-Script Orchestration Parser & Multi-Studio Router
+Aigaane v0.2.0 — Multi-Script & Verse Prosody Orchestration Parser & Router
 """
 
 import uuid
@@ -165,7 +165,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
         canon_refs = []
         if prim_rule:
             sandhi_splits.append({
-                "parts": primary_parts,
+                "parts": _script.format_parts_to_script(primary_parts, script_original),
                 "rule": prim_rule,
                 "rule_canon_ref": prim_canon,
                 "confidence": prim_conf,
@@ -391,19 +391,23 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "provenance": ["engine=0.2.0-nyaya"],
         }
 
-    # 5. Prosody / Chhandas (Category G, Category I Chhandas)
+    # 5. Prosody / Chhandas (Category G single words & Category J verses)
     ch_info = _chhandas.lookup(surface)
     if ch_info is not None:
-        tok = {
-            "token_id": "T0",
-            "pada": surface,
-            "stem": surface,
-            "vibhakti": "prathama",
-            "vacana": "ekavacana",
-            "linga": "strilinga",
-            "pos": "subhanta",
-            "confidence": 0.95,
-        }
+        # Create standard token breakdown for the verse/word
+        words = surface.split()
+        tokens = []
+        for idx, w in enumerate(words):
+            tokens.append({
+                "token_id": f"T{idx}",
+                "pada": w,
+                "stem": w,
+                "vibhakti": "prathama",
+                "vacana": "ekavacana",
+                "linga": "strilinga",
+                "pos": "subhanta",
+                "confidence": 0.95,
+            })
         return {
             "schema_version": "0.2.0",
             "trace_id": str(uuid.uuid4()),
@@ -412,7 +416,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
             "normalized": deva,
             "transliteration": {"devanagari": deva, "iast": surface},
             "parse_rank": 1,
-            "tokens": [tok],
+            "tokens": tokens,
             "sandhi_splits": [],
             "ambiguous_parses": [],
             "canon_refs": [
@@ -485,7 +489,7 @@ def route(doc: Dict[str, Any], policy: Dict[str, Any], intent_hint: Optional[str
             "nyaya_syllogism": syllogism,
         }
 
-    # Prosody Chhandas (Category G, Category I)
+    # Prosody Chhandas (Category G & Category J)
     if _chhandas.lookup(surface) is not None:
         return {
             "studio": "Studio_III",
@@ -535,4 +539,3 @@ def route(doc: Dict[str, Any], policy: Dict[str, Any], intent_hint: Optional[str
         decision["nyaya_verifier_mode"] = verifier_mode
 
     return decision
-
