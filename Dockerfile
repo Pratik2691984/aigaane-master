@@ -3,6 +3,7 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     AIGAANE_ENABLE_CANONICAL_DHATU_WRITE=0 \
+    AIGAANE_ENGINE_MODULE=engine \
     PORT=8080
 
 WORKDIR /app
@@ -14,4 +15,4 @@ RUN python -c "import vidyut; vidyut.download_data('/app/data/vidyut')"
 COPY . .
 
 EXPOSE 8080
-CMD ["uvicorn", "api.index:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8080"]
