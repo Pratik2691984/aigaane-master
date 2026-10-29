@@ -162,3 +162,34 @@ def test_unseen_sentence_with_lit_engine_parse():
     assert doc["tokens"][0]["stem"] == "rāma"
     assert doc["tokens"][1]["stem"] == "gam"
     assert doc["tokens"][1]["pos"] == "tinanta"
+def test_unseen_gana1_vad_vadati():
+    res = _lexicon.lookup("vadati")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "vad"
+    assert res["gana"] == 1
+
+def test_unseen_gana1_vad_avadat():
+    res = _lexicon.lookup("avadat")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "vad"
+
+def test_unseen_gana1_vad_vadisyati():
+    res = _lexicon.lookup("vadiṣyati")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "vad"
+
+def test_unseen_gana10_cur_corayati():
+    res = _lexicon.lookup("corayati")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "cur"
+    assert res["gana"] == 10
+
+def test_unseen_gana10_cur_corayisyati():
+    res = _lexicon.lookup("corayiṣyati")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "cur"
