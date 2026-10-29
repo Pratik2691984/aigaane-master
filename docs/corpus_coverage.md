@@ -29,3 +29,17 @@ The 84 fallback cases cleanly route through legacy deterministic components:
 
 ## Architectural Decision Record: Deferred Ambiguity Injection
 Dynamic ambiguity injection via ambiguous_parses is intentionally deferred. Rule intersection across current disjoint sutra families yields a branching factor of 1 for 99% of inputs. Dynamic ambiguity injection will only be introduced once overlapping rule families (e.g. Visarga vs. Purvarupa vs. Yan homophonic cuts) are algorithmically modeled.
+
+## Milestone v0.7.1 Truth-Audit Footprint
+
+### Dhātupāṭha Coverage
+- **Total Roots Registered**: 15 canonical roots across classical gaṇas 1, 2, 3, 6, 8, 9, 10.
+- **Root Attribution Invariant**: 100% of registered roots have at least one verified inflected surface test in `test_lexicon_coverage.py`.
+- **Defective Root Fencing**: Root `as` (2P) strictly excludes ārdhadhātuka borrowed stems (*bhaviṣya*, *babhūv*), enforcing Pāṇini 2.4.52 (*aster bhūḥ*).
+- **Liṭ Ākārānta Rule**: Enforces Pāṇini 3.4.82 (*āto ṇala auḥ*) for diphthong perfect singulars (`dadau`).
+
+### Verified Lakāra Forms
+- **Laṭ**: *ekavacana*, *dvivacana*, *bahuvacana* across thematic and athematic present bases.
+- **Laṅ**: Secondary endings with *aṭ-āgama* (6.4.71) differentiated by pada (`_LAN_PARASMAI`, `_LAN_ATMANE`).
+- **Lṛṭ**: Thematic future stem resolution via `stem_fut` (3.3.133).
+- **Liṭ**: Reduplicated base stem mappings (*abhyāsa*, 3.2.115 & 6.1.8) covering *ṇal*, *atus*, *us*, *eś*, and *irec*.

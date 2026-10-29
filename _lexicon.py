@@ -18,7 +18,7 @@ _DHATUPATHA = {
     "vah":  {"gana": 1, "pada": "ubhayapada",   "stem_pres": "vaha",   "stem_fut": "vakṣya",   "stem_perf": "uvāh",    "meaning": "to carry"},
     "likh": {"gana": 6, "pada": "parasmaipada", "stem_pres": "likha",  "stem_fut": "lekhiṣya", "stem_perf": "lilekh",  "meaning": "to write"},
     "vad":  {"gana": 1,  "pada": "parasmaipada", "stem_pres": "vada",    "stem_fut": "vadiṣya",    "stem_perf": "uvād",        "meaning": "to speak"},
-    "as":   {"gana": 2,  "pada": "parasmaipada", "stem_pres": "as",      "stem_fut": "bhaviṣya",   "stem_perf": "babhūv",      "meaning": "to be"},
+    "as":   {"gana": 2,  "pada": "parasmaipada", "stem_pres": "as",      "stem_fut": None,         "stem_perf": None,          "meaning": "to be"},
     "hu":   {"gana": 3,  "pada": "parasmaipada", "stem_pres": "juho",    "stem_fut": "hoṣya",      "stem_perf": "juhāv",       "meaning": "to offer"},
     "jñā":  {"gana": 9,  "pada": "ubhayapada",   "stem_pres": "jānā",    "stem_fut": "jñāsya",     "stem_perf": "jajñau",      "meaning": "to know"},
     "cur":  {"gana": 10, "pada": "ubhayapada",   "stem_pres": "coraya",  "stem_fut": "corayiṣya",  "stem_perf": "corayāmāsa",  "meaning": "to steal"},
@@ -224,8 +224,8 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
 
         if stem_sg:
             if pada_lit in ("parasmaipada", "ubhayapada"):
-                # 3rd sg / 1st sg: Nal (-a)
-                if word == stem_sg + "a":
+                # 3rd sg / 1st sg: Nal (-a) or āto ṇala auḥ (3.4.82)
+                if (word == stem_sg + "a") or (stem_sg.endswith("au") and word == stem_sg):
                     return {
                         "stem": dhatu,
                         "pos": "tinanta",
