@@ -214,3 +214,28 @@ def test_engine_parse_uses_generator_for_a_cases():
             f"{surface}: engine.parse split is {produced_split}, "
             f"expected generator rank-1 {expected_split}"
         )
+# 11. Corpus Coverage Audit Invariant (v0.6.4)
+def test_corpus_coverage_audit_metrics():
+    doc_path = Path(__file__).resolve().parents[2] / "docs" / "corpus_coverage.md"
+    assert doc_path.exists(), "docs/corpus_coverage.md must exist"
+    content = doc_path.read_text(encoding="utf-8")
+    assert "106" in content and "fires_1" in content and "fallback" in content
+    assert "fires_1" in content
+    assert "fallback" in content
+
+    # Empirical assertion against live manifest
+    p = Path(__file__).resolve().parents[2] / "corpus" / "golden_corpus_manifest.json"
+    with open(p, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    fires = 0
+    fallback = 0
+    for c in data.get("cases", []):
+        cands, _ = _sandhi_gen.invert_sandhi(c["input"])
+        if cands:
+            fires += 1
+        else:
+            fallback += 1
+            
+    assert fires == 22, f"Expected 22 firing cases, got {fires}"
+    assert fallback == 84, f"Expected 84 fallback cases, got {fallback}"
