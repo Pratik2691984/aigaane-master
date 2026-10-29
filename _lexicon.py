@@ -160,6 +160,53 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
                     "confidence": 0.96,
                 }
 
+
+        # Lṛṭ (Simple Future) evaluation with stem_fut
+        base_fut = info.get("stem_fut")
+        if base_fut:
+            pada_fut = info.get("pada", "parasmaipada")
+            # Define primary endings for future tense
+            lrt_endings = []
+            if pada_fut in ("ātmanepada", "ubhayapada"):
+                lrt_endings.extend([
+                    ("te",   "ekavacana",   "prathama_purusha"),
+                    ("ete",  "dvivacana",   "prathama_purusha"),
+                    ("nte",  "bahuvacana",  "prathama_purusha"),
+                    ("se",   "ekavacana",   "madhyama_purusha"),
+                    ("ethe", "dvivacana",   "madhyama_purusha"),
+                    ("dhve", "bahuvacana",  "madhyama_purusha"),
+                    ("e",    "ekavacana",   "uttama_purusha"),
+                    ("vahe", "dvivacana",   "uttama_purusha"),
+                    ("mahe", "bahuvacana",  "uttama_purusha"),
+                ])
+            if pada_fut in ("parasmaipada", "ubhayapada"):
+                lrt_endings.extend(_LAT_ENDINGS)
+
+            for ending, vacana, purusha in lrt_endings:
+                expected_lrt = None
+                if ending.startswith("a"):
+                    expected_lrt = base_fut[:-1] + ending if base_fut.endswith("a") else base_fut + ending
+                elif ending == "nte":
+                    expected_lrt = base_fut[:-1] + "nte" if base_fut.endswith("a") else base_fut + ending
+                elif ending.startswith("e"):
+                    expected_lrt = base_fut[:-1] + ending if base_fut.endswith("a") else base_fut + ending
+                elif ending.startswith("i"):
+                    expected_lrt = base_fut[:-1] + "e" + ending[1:] if base_fut.endswith("a") else base_fut + ending
+                else:
+                    expected_lrt = base_fut + ending
+
+                if expected_lrt == word:
+                    return {
+                        "stem": dhatu,
+                        "pos": "tinanta",
+                        "dhatu": dhatu,
+                        "gana": info["gana"],
+                        "vibhakti": "na",
+                        "vacana": vacana,
+                        "linga": "na",
+                        "confidence": 0.96,
+                    }
+
     return None
 
 

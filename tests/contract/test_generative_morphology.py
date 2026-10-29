@@ -83,3 +83,39 @@ def test_unseen_sentence_with_lan_engine_parse():
     assert doc["tokens"][0]["stem"] == "rāma"
     assert doc["tokens"][1]["stem"] == "paṭh"
     assert doc["tokens"][1]["pos"] == "tinanta"
+def test_unseen_tinanta_lrt_bhavisyati():
+    res = _lexicon.lookup("bhaviṣyati")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "bhū"
+    assert res["vacana"] == "ekavacana"
+    assert res["vibhakti"] == "na"
+
+def test_unseen_tinanta_lrt_gamisyanti():
+    res = _lexicon.lookup("gamiṣyanti")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "gam"
+    assert res["vacana"] == "bahuvacana"
+
+def test_unseen_tinanta_lrt_pathisyasi():
+    res = _lexicon.lookup("paṭhiṣyasi")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "paṭh"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_tinanta_lrt_lapsyate():
+    res = _lexicon.lookup("lapsyate")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "labh"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_sentence_with_lrt_engine_parse():
+    doc = engine.parse("rāmaḥ gamiṣyati")
+    assert doc is not None
+    assert len(doc["tokens"]) == 2
+    assert doc["tokens"][0]["stem"] == "rāma"
+    assert doc["tokens"][1]["stem"] == "gam"
+    assert doc["tokens"][1]["pos"] == "tinanta"
