@@ -47,3 +47,39 @@ def test_unseen_sentence_engine_parse():
     assert tok1["pos"] == "tinanta"
     assert tok1["dhatu"] == "bhū"
     assert tok1["vibhakti"] == "na"
+def test_unseen_tinanta_lan_abhavat():
+    res = _lexicon.lookup("abhavat")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "bhū"
+    assert res["vacana"] == "ekavacana"
+    assert res["vibhakti"] == "na"
+
+def test_unseen_tinanta_lan_agacchat():
+    res = _lexicon.lookup("agacchat")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "gam"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_tinanta_lan_apathan():
+    res = _lexicon.lookup("apaṭhan")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "paṭh"
+    assert res["vacana"] == "bahuvacana"
+
+def test_unseen_tinanta_lan_alabhata():
+    res = _lexicon.lookup("alabhata")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "labh"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_sentence_with_lan_engine_parse():
+    doc = engine.parse("rāmaḥ apaṭhat")
+    assert doc is not None
+    assert len(doc["tokens"]) == 2
+    assert doc["tokens"][0]["stem"] == "rāma"
+    assert doc["tokens"][1]["stem"] == "paṭh"
+    assert doc["tokens"][1]["pos"] == "tinanta"

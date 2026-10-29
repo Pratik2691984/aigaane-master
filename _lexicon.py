@@ -12,12 +12,30 @@ _DHATUPATHA = {
     "paṭh": {"gana": 1, "stem_pres": "paṭha", "stem_fut": "paṭhiṣya", "meaning": "to read"},
     "kṛ":   {"gana": 8, "stem_pres": "karo",  "stem_fut": "kariṣya", "meaning": "to do"},
     "pā":   {"gana": 1, "stem_pres": "piba",  "stem_fut": "pāsya",   "meaning": "to drink"},
-    "labh": {"gana": 1, "stem_pres": "labha", "stem_fut": "lapsya",  "meaning": "to obtain"},
+    "labh": {"gana": 1, "pada": "ātmanepada", "stem_pres": "labha", "stem_fut": "lapsya",  "meaning": "to obtain"},
     "dā":   {"gana": 3, "stem_pres": "dadā",  "stem_fut": "dāsya",   "meaning": "to give"},
     "viś":  {"gana": 6, "stem_pres": "viśa",  "stem_fut": "vekṣya",  "meaning": "to enter"},
     "vah":  {"gana": 1, "stem_pres": "vaha",  "stem_fut": "vakṣya",  "meaning": "to carry"},
     "likh": {"gana": 6, "stem_pres": "likha", "stem_fut": "lekhiṣya", "meaning": "to write"},
 }
+
+_LAN_PARASMAI = [
+    ("t",    "ekavacana",   "prathama_purusha"),
+    ("tām",  "dvivacana",   "prathama_purusha"),
+    ("n",    "bahuvacana",  "prathama_purusha"),
+    ("ḥ",    "ekavacana",   "madhyama_purusha"),
+    ("tam",  "dvivacana",   "madhyama_purusha"),
+    ("ta",   "bahuvacana",  "madhyama_purusha"),
+    ("am",   "ekavacana",   "uttama_purusha"),
+    ("va",   "dvivacana",   "uttama_purusha"),
+    ("ma",   "bahuvacana",  "uttama_purusha"),
+]
+
+_LAN_ATMANE = [
+    ("ta",   "ekavacana",   "prathama_purusha"),
+    ("etām", "dvivacana",   "prathama_purusha"),
+    ("anta", "bahuvacana",  "prathama_purusha"),
+]
 
 _LAT_ENDINGS = [
     ("ti",    "ekavacana",  "prathama_purusha"),
@@ -109,6 +127,39 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
                     "linga": "na",
                     "confidence": 0.96,
                 }
+
+        # Laṅ (Imperfect Past) evaluation with aṭ-āgama (6.4.71)
+        aug_base = "a" + base_pres
+        is_atmane = info.get("pada") == "ātmanepada"
+        lan_endings = _LAN_ATMANE if is_atmane else _LAN_PARASMAI
+
+        for ending, vacana, purusha in lan_endings:
+            expected_lan = None
+            if ending == "am":
+                expected_lan = aug_base[:-1] + "am" if aug_base.endswith("a") else aug_base + "am"
+            elif ending == "n":
+                expected_lan = aug_base[:-1] + "an" if aug_base.endswith("a") else aug_base + "an"
+            elif ending in ("va", "ma"):
+                expected_lan = aug_base[:-1] + "ā" + ending if aug_base.endswith("a") else aug_base + ending
+            elif ending.startswith("e"):
+                expected_lan = aug_base[:-1] + ending if aug_base.endswith("a") else aug_base + ending
+            elif ending == "anta":
+                expected_lan = aug_base[:-1] + "anta" if aug_base.endswith("a") else aug_base + ending
+            else:
+                expected_lan = aug_base + ending
+
+            if expected_lan == word:
+                return {
+                    "stem": dhatu,
+                    "pos": "tinanta",
+                    "dhatu": dhatu,
+                    "gana": info["gana"],
+                    "vibhakti": "na",
+                    "vacana": vacana,
+                    "linga": "na",
+                    "confidence": 0.96,
+                }
+
     return None
 
 
