@@ -1,3 +1,4 @@
+import engine
 """
 Test suite for _sandhi_gen.py (Standalone Paninian Sandhi Inverter)
 Verifies Savarna-dirgha, Guna, Yan, Scutva, Visarga, and Purvarupa inversions
@@ -165,3 +166,51 @@ def test_no_false_positives_on_golden_corpus_surfaces(case_id, surface, expected
         f"[{case_id}] invert_sandhi({surface!r}) rank-1 split is {cands[0][0]}, "
         f"which contradicts golden expected split {expected_split}"
     )
+# 4b. Explicit Hal & Yan-r Unit Verification (v0.6.3 additions)
+def test_yan_r_inversion_pitrajna():
+    cands, reason = _sandhi_gen.invert_sandhi("pitrājñā")
+    assert reason is None
+    splits = [c[0] for c in cands]
+    assert ["pitṛ", "ājñā"] in splits
+    assert cands[0][1] == "ṛ_varṇa_sandhi"
+
+def test_scutva_jja_sajjanah():
+    cands, reason = _sandhi_gen.invert_sandhi("sajjanaḥ")
+    assert reason is None
+    splits = [c[0] for c in cands]
+    assert ["sat", "janaḥ"] in splits
+    assert cands[0][1] == "jastva"
+
+def test_scutva_ttva_tattvam():
+    cands, reason = _sandhi_gen.invert_sandhi("tattvam")
+    assert reason is None
+    splits = [c[0] for c in cands]
+    assert ["tat", "tvam"] in splits
+
+# 10. End-to-End Engine Wiring Verification
+def test_engine_parse_uses_generator_for_a_cases():
+    active_a_cases = [
+        ("rāmo gacchati", ["rāmaḥ", "gacchati"]),
+        ("himālayaḥ", ["hima", "alayaḥ"]),
+        ("nāsti", ["na", "asti"]),
+        ("tacca", ["tat", "ca"]),
+        ("sajjanaḥ", ["sat", "janaḥ"]),
+        ("rāmāyeti", ["rāmāya", "iti"]),
+        ("ityapi", ["iti", "api"]),
+        ("madhvari", ["madhu", "ari"]),
+        ("devendraḥ", ["deva", "indraḥ"]),
+        ("gaṇeśaḥ", ["gaṇa", "īśaḥ"]),
+        ("pitrājñā", ["pitṛ", "ājñā"]),
+        ("tattvam", ["tat", "tvam"]),
+        ("naro 'pi", ["naraḥ", "api"])
+    ]
+    for surface, expected_split in active_a_cases:
+        gen_cands, _ = _sandhi_gen.invert_sandhi(surface)
+        assert gen_cands, f"{surface} must fire in _sandhi_gen"
+        doc = engine.parse(surface)
+        assert doc is not None, f"engine.parse({surface!r}) returned None"
+        produced_split = doc["sandhi_splits"][0]["parts"]
+        assert produced_split == expected_split, (
+            f"{surface}: engine.parse split is {produced_split}, "
+            f"expected generator rank-1 {expected_split}"
+        )
