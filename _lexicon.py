@@ -63,7 +63,7 @@ _LAT_PARASMAI = [
 _LAT_ATMANE = [
     ("te",    "ekavacana",   "prathama_purusha"),
     ("ete",   "dvivacana",   "prathama_purusha"),
-    ("nte",   "bahuvacana",  "prathama_purusha"),
+    ("ante",  "bahuvacana",  "prathama_purusha"),
     ("se",    "ekavacana",   "madhyama_purusha"),
     ("ethe",  "dvivacana",   "madhyama_purusha"),
     ("dhve",  "bahuvacana",  "madhyama_purusha"),
@@ -210,12 +210,16 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
                 expected_lan = aug_base[:-1] + "am" if aug_base.endswith("a") else aug_base + "am"
             elif ending == "n":
                 expected_lan = aug_base[:-1] + "an" if aug_base.endswith("a") else aug_base + "an"
-            elif ending in ("va", "ma"):
+            elif ending in ("va", "ma", "vahi", "mahi"):
+                # Ato dīrgho yañi (7.3.101): lengthening before v/m
                 expected_lan = aug_base[:-1] + "ā" + ending if aug_base.endswith("a") else aug_base + ending
             elif ending.startswith("e"):
                 expected_lan = aug_base[:-1] + ending if aug_base.endswith("a") else aug_base + ending
             elif ending == "anta":
                 expected_lan = aug_base[:-1] + "anta" if aug_base.endswith("a") else aug_base + ending
+            elif ending == "i":
+                # 1st person singular Ātmanepada: a + i -> e
+                expected_lan = aug_base[:-1] + "e" if aug_base.endswith("a") else aug_base + "i"
             else:
                 expected_lan = aug_base + ending
 
@@ -231,38 +235,30 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
                     "confidence": 0.96,
                 }
 
-
-        # Lṛṭ (Simple Future) evaluation with stem_fut
+        # Lṛṭ (Simple Future) evaluation with stem_fut (3.1.33)
         base_fut = info.get("stem_fut")
         if base_fut:
             pada_fut = info.get("pada", "parasmaipada")
-            # Define primary endings for future tense
-            lrt_endings = []
-            if pada_fut in ("ātmanepada", "ubhayapada"):
-                lrt_endings.extend([
-                    ("te",   "ekavacana",   "prathama_purusha"),
-                    ("ete",  "dvivacana",   "prathama_purusha"),
-                    ("nte",  "bahuvacana",  "prathama_purusha"),
-                    ("se",   "ekavacana",   "madhyama_purusha"),
-                    ("ethe", "dvivacana",   "madhyama_purusha"),
-                    ("dhve", "bahuvacana",  "madhyama_purusha"),
-                    ("e",    "ekavacana",   "uttama_purusha"),
-                    ("vahe", "dvivacana",   "uttama_purusha"),
-                    ("mahe", "bahuvacana",  "uttama_purusha"),
-                ])
+            lrt_candidates = []
             if pada_fut in ("parasmaipada", "ubhayapada"):
-                lrt_endings.extend(_LAT_ENDINGS)
+                lrt_candidates.extend(_LAT_PARASMAI)
+            if pada_fut in ("ātmanepada", "ubhayapada"):
+                lrt_candidates.extend(_LAT_ATMANE)
 
-            for ending, vacana, purusha in lrt_endings:
+            for ending, vacana, purusha in lrt_candidates:
                 expected_lrt = None
-                if ending.startswith("a"):
+                if ending.startswith("a") or ending.startswith("e"):
                     expected_lrt = base_fut[:-1] + ending if base_fut.endswith("a") else base_fut + ending
                 elif ending == "nte":
-                    expected_lrt = base_fut[:-1] + "nte" if base_fut.endswith("a") else base_fut + ending
-                elif ending.startswith("e"):
-                    expected_lrt = base_fut[:-1] + ending if base_fut.endswith("a") else base_fut + ending
+                    expected_lrt = base_fut + "nte" if not base_fut.endswith("a") else base_fut[:-1] + "ante"
                 elif ending.startswith("i"):
                     expected_lrt = base_fut[:-1] + "e" + ending[1:] if base_fut.endswith("a") else base_fut + ending
+                elif ending in ("vaḥ", "maḥ", "vahe", "mahe"):
+                    # Ato dīrgho yañi (7.3.101): lengthening before v/m
+                    expected_lrt = base_fut[:-1] + "ā" + ending if base_fut.endswith("a") else base_fut + ending
+                elif ending == "mi":
+                    # Ato dīrgho yañi (7.3.101): lengthening before mi
+                    expected_lrt = base_fut[:-1] + "āmi" if base_fut.endswith("a") else base_fut + ending
                 else:
                     expected_lrt = base_fut + ending
 
@@ -277,7 +273,6 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
                         "linga": "na",
                         "confidence": 0.96,
                     }
-
 
         # Liṭ (Perfect Past) evaluation with reduplicated stems (3.2.115)
         pada_lit = info.get("pada", "parasmaipada")
