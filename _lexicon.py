@@ -7,16 +7,16 @@ and avyaya indeclinables with deterministic root derivation.
 from typing import Optional, Dict, Any
 
 _DHATUPATHA = {
-    "bhū":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "bhava", "stem_fut": "bhaviṣya", "stem_perf": "babhūv", "meaning": "to be"},
-    "gam":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "gaccha", "stem_fut": "gamiṣya", "stem_perf_sg": "jagām", "stem_perf_pl": "jagm", "meaning": "to go"},
-    "paṭh":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "paṭha", "stem_fut": "paṭhiṣya", "stem_perf": "papāṭh", "meaning": "to read"},
-    "kṛ":  {"gana": 8, "pada": "ubhayapada", "stem_pres": "karo", "stem_fut": "kariṣya", "stem_perf_sg": "cakār", "stem_perf_pl": "cakr", "meaning": "to do"},
-    "pā":   {"gana": 1, "stem_pres": "piba",  "stem_fut": "pāsya",   "meaning": "to drink"},
-    "labh":  {"gana": 1, "pada": "ātmanepada", "stem_pres": "labha", "stem_fut": "lapsya", "stem_perf": "lebh", "meaning": "to obtain"},
-    "dā":   {"gana": 3, "stem_pres": "dadā",  "stem_fut": "dāsya",   "meaning": "to give"},
-    "viś":  {"gana": 6, "stem_pres": "viśa",  "stem_fut": "vekṣya",  "meaning": "to enter"},
-    "vah":  {"gana": 1, "stem_pres": "vaha",  "stem_fut": "vakṣya",  "meaning": "to carry"},
-    "likh":  {"gana": 6, "pada": "parasmaipada", "stem_pres": "likha", "stem_fut": "lekhiṣya", "stem_perf": "lilekh", "meaning": "to write"},
+    "bhū":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "bhava",  "stem_fut": "bhaviṣya", "stem_perf": "babhūv", "meaning": "to be"},
+    "gam":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "gaccha", "stem_fut": "gamiṣya",  "stem_perf_sg": "jagām", "stem_perf_pl": "jagm", "meaning": "to go"},
+    "paṭh": {"gana": 1, "pada": "parasmaipada", "stem_pres": "paṭha",  "stem_fut": "paṭhiṣya", "stem_perf": "papāṭh", "meaning": "to read"},
+    "kṛ":   {"gana": 8, "pada": "ubhayapada",   "stem_pres": "karo",   "stem_fut": "kariṣya",  "stem_perf_sg": "cakār", "stem_perf_pl": "cakr", "meaning": "to do"},
+    "pā":   {"gana": 1, "pada": "parasmaipada", "stem_pres": "piba",   "stem_fut": "pāsya",    "stem_perf": "papau",   "meaning": "to drink"},
+    "labh": {"gana": 1, "pada": "ātmanepada",   "stem_pres": "labha",  "stem_fut": "lapsya",   "stem_perf": "lebh",    "meaning": "to obtain"},
+    "dā":   {"gana": 3, "pada": "ubhayapada",   "stem_pres": "dadā",   "stem_fut": "dāsya",    "stem_perf": "dadau",   "meaning": "to give"},
+    "viś":  {"gana": 6, "pada": "parasmaipada", "stem_pres": "viśa",   "stem_fut": "vekṣya",   "stem_perf": "viveś",   "meaning": "to enter"},
+    "vah":  {"gana": 1, "pada": "ubhayapada",   "stem_pres": "vaha",   "stem_fut": "vakṣya",   "stem_perf": "uvāh",    "meaning": "to carry"},
+    "likh": {"gana": 6, "pada": "parasmaipada", "stem_pres": "likha",  "stem_fut": "lekhiṣya", "stem_perf": "lilekh",  "meaning": "to write"},
 }
 
 _LAN_PARASMAI = [
