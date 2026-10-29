@@ -17,7 +17,8 @@ _KNOWN_STEMS = {
     "madhu", "ari", "ariḥ", "rājaputra", "rājaputrat", "ca",
     "saḥ", "ayam", "api", "na", "asti", "rāma", "rāmaḥ",
     "gacchati", "tat", "tvam", "nara", "īśa", "īśaḥ", "sarva",
-    "īśvara", "īśvaraḥ", "sā", "te"
+    "īśvara", "īśvaraḥ", "sā", "te", "pitṛ", "ājñā", "sat",
+    "jana", "janaḥ", "rāmāya", "gaṇa"
 }
 
 def _is_valid_stem(pada: str) -> bool:
@@ -138,6 +139,13 @@ def _invert_yan(surface: str) -> List[Candidate]:
                 p2 = right_base
                 if _is_valid_stem(p1) and _is_valid_stem(p2):
                     cands.append(([p1, p2], "iko_yan_aci", "6.1.77", 0.93))
+        elif surface[i] == "r" and surface[i+1] in vowels:
+            left_base = surface[:i]
+            right_base = surface[i+1:]
+            p1 = left_base + "ṛ"
+            p2 = right_base
+            if _is_valid_stem(p1) and _is_valid_stem(p2):
+                cands.append(([p1, p2], "ṛ_varṇa_sandhi", "6.1.77", 0.93))
     return cands
 
 def _invert_scutva(surface: str) -> List[Candidate]:
@@ -147,6 +155,18 @@ def _invert_scutva(surface: str) -> List[Candidate]:
         p1 = parts[0] + "t"
         p2 = "ca" + parts[1]
         cands.append(([p1, p2], "ścutva", "8.4.40", 0.95))
+    if "jja" in surface:
+        parts = surface.split("jja", 1)
+        p1 = parts[0] + "t"
+        p2 = "ja" + parts[1]
+        if _is_valid_stem(p1) and _is_valid_stem(p2):
+            cands.append(([p1, p2], "jastva", "8.2.39", 0.95))
+    if "ttva" in surface:
+        parts = surface.split("ttva", 1)
+        p1 = parts[0] + "t"
+        p2 = "tva" + parts[1]
+        if _is_valid_stem(p1) and _is_valid_stem(p2):
+            cands.append(([p1, p2], "ścutva", "8.4.40", 0.95))
     return cands
 
 def _invert_visarga_o(surface: str) -> List[Candidate]:

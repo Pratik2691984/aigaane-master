@@ -129,7 +129,7 @@ def test_contract_rule_enums_valid():
 
 # 8. Jastva and Yan-r Deferral Safety Fence (Risk 2)
 def test_deferred_surfaces_remain_empty_in_v060():
-    deferred = ["vāgīśaḥ", "pitrājñā", "tadapi"]
+    deferred = ["vāgīśaḥ", "tadapi"]
     for s in deferred:
         cands, reason = _sandhi_gen.invert_sandhi(s)
         assert cands == [], (
