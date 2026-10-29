@@ -37,24 +37,70 @@ _LAN_PARASMAI = [
 ]
 
 _LAN_ATMANE = [
-    ("ta",   "ekavacana",   "prathama_purusha"),
-    ("etām", "dvivacana",   "prathama_purusha"),
-    ("anta", "bahuvacana",  "prathama_purusha"),
+    ("ta",    "ekavacana",   "prathama_purusha"),
+    ("etām",  "dvivacana",   "prathama_purusha"),
+    ("anta",  "bahuvacana",  "prathama_purusha"),
+    ("thāḥ",  "ekavacana",   "madhyama_purusha"),
+    ("ethām", "dvivacana",   "madhyama_purusha"),
+    ("dhvam", "bahuvacana",  "madhyama_purusha"),
+    ("i",     "ekavacana",   "uttama_purusha"),
+    ("vahi",  "dvivacana",   "uttama_purusha"),
+    ("mahi",  "bahuvacana",  "uttama_purusha"),
 ]
 
-_LAT_ENDINGS = [
-    ("ti",    "ekavacana",  "prathama_purusha"),
-    ("taḥ",   "dvivacana",  "prathama_purusha"),
-    ("anti",  "bahuvacana", "prathama_purusha"),
-    ("si",    "ekavacana",  "madhyama_purusha"),
-    ("thaḥ",  "dvivacana",  "madhyama_purusha"),
-    ("tha",   "bahuvacana", "madhyama_purusha"),
-    ("mi",    "ekavacana",  "uttama_purusha"),
-    ("vaḥ",   "dvivacana",  "uttama_purusha"),
-    ("maḥ",   "bahuvacana", "uttama_purusha"),
-    ("te",    "ekavacana",  "prathama_purusha"),
-    ("ite",   "dvivacana",  "prathama_purusha"),
-    ("nte",   "bahuvacana", "prathama_purusha"),
+_LAT_PARASMAI = [
+    ("ti",    "ekavacana",   "prathama_purusha"),
+    ("taḥ",   "dvivacana",   "prathama_purusha"),
+    ("anti",  "bahuvacana",  "prathama_purusha"),
+    ("si",    "ekavacana",   "madhyama_purusha"),
+    ("thaḥ",  "dvivacana",   "madhyama_purusha"),
+    ("tha",   "bahuvacana",  "madhyama_purusha"),
+    ("mi",    "ekavacana",   "uttama_purusha"),
+    ("vaḥ",   "dvivacana",   "uttama_purusha"),
+    ("maḥ",   "bahuvacana",  "uttama_purusha"),
+]
+
+_LAT_ATMANE = [
+    ("te",    "ekavacana",   "prathama_purusha"),
+    ("ete",   "dvivacana",   "prathama_purusha"),
+    ("nte",   "bahuvacana",  "prathama_purusha"),
+    ("se",    "ekavacana",   "madhyama_purusha"),
+    ("ethe",  "dvivacana",   "madhyama_purusha"),
+    ("dhve",  "bahuvacana",  "madhyama_purusha"),
+    ("e",     "ekavacana",   "uttama_purusha"),
+    ("vahe",  "dvivacana",   "uttama_purusha"),
+    ("mahe",  "bahuvacana",  "uttama_purusha"),
+]
+
+_LIT_PARASMAI = [
+    ("a",     "ekavacana",   "prathama_purusha"),
+    ("atuḥ",  "dvivacana",   "prathama_purusha"),
+    ("uḥ",    "bahuvacana",  "prathama_purusha"),
+    ("tha",   "ekavacana",   "madhyama_purusha"),
+    ("athuḥ", "dvivacana",   "madhyama_purusha"),
+    ("a",     "bahuvacana",  "madhyama_purusha"),
+    ("a",     "ekavacana",   "uttama_purusha"),
+    ("va",    "dvivacana",   "uttama_purusha"),
+    ("ma",    "bahuvacana",  "uttama_purusha"),
+]
+
+_LIT_ATMANE = [
+    ("e",     "ekavacana",   "prathama_purusha"),
+    ("āte",   "dvivacana",   "prathama_purusha"),
+    ("ire",   "bahuvacana",  "prathama_purusha"),
+    ("se",    "ekavacana",   "madhyama_purusha"),
+    ("āthe",  "dvivacana",   "madhyama_purusha"),
+    ("dhve",  "bahuvacana",  "madhyama_purusha"),
+    ("e",     "ekavacana",   "uttama_purusha"),
+    ("vahe",  "dvivacana",   "uttama_purusha"),
+    ("mahe",  "bahuvacana",  "uttama_purusha"),
+]
+
+_LAT_ENDINGS = _LAT_PARASMAI + [
+    ("te",  "ekavacana",  "prathama_purusha"),
+    ("ite", "dvivacana",  "prathama_purusha"),
+    ("ete", "dvivacana",  "prathama_purusha"),
+    ("nte", "bahuvacana", "prathama_purusha"),
 ]
 
 _STATIC_LEXICON: Dict[str, dict] = {
@@ -106,9 +152,17 @@ _STATIC_LEXICON: Dict[str, dict] = {
 def _analyze_tinanta(word: str) -> Optional[dict]:
     for dhatu, info in _DHATUPATHA.items():
         base_pres = info["stem_pres"]
-        for ending, vacana, purusha in _LAT_ENDINGS:
+        pada_lat = info.get("pada", "parasmaipada")
+        lat_candidates = []
+        if pada_lat in ("parasmaipada", "ubhayapada"):
+            lat_candidates.extend(_LAT_PARASMAI)
+        if pada_lat in ("ātmanepada", "ubhayapada"):
+            lat_candidates.extend(_LAT_ATMANE)
+            lat_candidates.append(("ite", "dvivacana", "prathama_purusha"))
+
+        for ending, vacana, purusha in lat_candidates:
             expected_form = None
-            if ending.startswith("a"):
+            if ending.startswith("a") or ending.startswith("e"):
                 if base_pres.endswith("a"):
                     expected_form = base_pres[:-1] + ending
                 else:
@@ -116,6 +170,18 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
             elif ending.startswith("i"):
                 if base_pres.endswith("a"):
                     expected_form = base_pres[:-1] + "e" + ending[1:]
+                else:
+                    expected_form = base_pres + ending
+            elif ending in ("vaḥ", "maḥ", "vahe", "mahe"):
+                # Ato dīrgho yañi (7.3.101): lengthening before v/m
+                if base_pres.endswith("a"):
+                    expected_form = base_pres[:-1] + "ā" + ending
+                else:
+                    expected_form = base_pres + ending
+            elif ending == "mi":
+                # Ato dīrgho yañi (7.3.101): lengthening before mi
+                if base_pres.endswith("a"):
+                    expected_form = base_pres[:-1] + "āmi"
                 else:
                     expected_form = base_pres + ending
             else:
@@ -214,81 +280,76 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
 
 
         # Liṭ (Perfect Past) evaluation with reduplicated stems (3.2.115)
-        # Parasmaipada: ṇal (a), atus (atuḥ), us (uḥ)
-        # Ātmanepada: eś (e), āte (āte), irec (ire)
         pada_lit = info.get("pada", "parasmaipada")
-        
-        # Check singular (strong grade)
         stem_sg = info.get("stem_perf_sg") or info.get("stem_perf")
         stem_pl = info.get("stem_perf_pl") or info.get("stem_perf")
 
-        if stem_sg:
-            if pada_lit in ("parasmaipada", "ubhayapada"):
-                # 3rd sg / 1st sg: Nal (-a) or āto ṇala auḥ (3.4.82)
-                if (word == stem_sg + "a") or (stem_sg.endswith("au") and word == stem_sg):
-                    return {
-                        "stem": dhatu,
-                        "pos": "tinanta",
-                        "dhatu": dhatu,
-                        "gana": info["gana"],
-                        "vibhakti": "na",
-                        "vacana": "ekavacana",
-                        "linga": "na",
-                        "confidence": 0.96,
-                    }
-            if pada_lit in ("ātmanepada", "ubhayapada"):
-                # 3rd sg / 1st sg: eś (-e)
-                if word == stem_sg + "e":
-                    return {
-                        "stem": dhatu,
-                        "pos": "tinanta",
-                        "dhatu": dhatu,
-                        "gana": info["gana"],
-                        "vibhakti": "na",
-                        "vacana": "ekavacana",
-                        "linga": "na",
-                        "confidence": 0.96,
-                    }
+        if stem_sg or stem_pl:
+            # Āto ṇala auḥ (3.4.82) for ākārānta roots (dadau, papau)
+            if stem_sg and stem_sg.endswith("au") and word == stem_sg:
+                return {
+                    "stem": dhatu,
+                    "pos": "tinanta",
+                    "dhatu": dhatu,
+                    "gana": info["gana"],
+                    "vibhakti": "na",
+                    "vacana": "ekavacana",
+                    "linga": "na",
+                    "confidence": 0.96,
+                }
 
-        if stem_pl:
             if pada_lit in ("parasmaipada", "ubhayapada"):
-                # 3rd dual: atus (-atuḥ)
-                if word == stem_pl + "atuḥ":
-                    return {
-                        "stem": dhatu,
-                        "pos": "tinanta",
-                        "dhatu": dhatu,
-                        "gana": info["gana"],
-                        "vibhakti": "na",
-                        "vacana": "dvivacana",
-                        "linga": "na",
-                        "confidence": 0.96,
-                    }
-                # 3rd plural: us (-uḥ)
-                if word == stem_pl + "uḥ":
-                    return {
-                        "stem": dhatu,
-                        "pos": "tinanta",
-                        "dhatu": dhatu,
-                        "gana": info["gana"],
-                        "vibhakti": "na",
-                        "vacana": "bahuvacana",
-                        "linga": "na",
-                        "confidence": 0.96,
-                    }
+                for ending, vacana, purusha in _LIT_PARASMAI:
+                    # Select strong grade for 3sg/1sg ṇal, weak for dual/plural
+                    curr_stem = stem_sg if purusha == "prathama_purusha" and vacana == "ekavacana" else (stem_pl or stem_sg)
+                    if not curr_stem:
+                        continue
+                    
+                    expected = curr_stem + ending
+                    # iḍ-āgama (7.2.35) for valādi ardhadhātuka endings (-tha, -va, -ma) on set roots like bhū
+                    if dhatu == "bhū":
+                        if ending == "tha":
+                            expected = curr_stem + "itha"
+                        elif ending in ("va", "ma"):
+                            expected = curr_stem + "i" + ending
+                    
+                    if word == expected:
+                        return {
+                            "stem": dhatu,
+                            "pos": "tinanta",
+                            "dhatu": dhatu,
+                            "gana": info["gana"],
+                            "vibhakti": "na",
+                            "vacana": vacana,
+                            "linga": "na",
+                            "confidence": 0.96,
+                        }
+
             if pada_lit in ("ātmanepada", "ubhayapada"):
-                # 3rd plural: irec (-ire)
-                if word == stem_pl + "ire":
-                    return {
-                        "stem": dhatu,
-                        "pos": "tinanta",
-                        "dhatu": dhatu,
-                        "gana": info["gana"],
-                        "vibhakti": "na",
-                        "vacana": "bahuvacana",
-                        "linga": "na",
-                        "confidence": 0.96,
-                    }
+                base_stem = stem_pl or stem_sg
+                if base_stem:
+                    for ending, vacana, purusha in _LIT_ATMANE:
+                        expected = base_stem + ending
+                        # iṭ-āgama & ṣatva for labh: se -> iṣe, dhve -> idhve, vahe -> ivahe, mahe -> imahe
+                        if dhatu == "labh":
+                            if ending == "se":
+                                expected = base_stem + "iṣe"
+                            elif ending == "dhve":
+                                expected = base_stem + "idhve"
+                            elif ending in ("vahe", "mahe"):
+                                expected = base_stem + "i" + ending
+                        
+                        if word == expected:
+                            return {
+                                "stem": dhatu,
+                                "pos": "tinanta",
+                                "dhatu": dhatu,
+                                "gana": info["gana"],
+                                "vibhakti": "na",
+                                "vacana": vacana,
+                                "linga": "na",
+                                "confidence": 0.96,
+                            }
 
     return None
 
