@@ -1,5 +1,5 @@
 """
-Aigaane v0.4.0 — Multi-Script Transliteration Engine
+Aigaane v0.5.0 — Multi-Script Transliteration Engine
 Provides algorithmic character-wise Devanāgarī to IAST transliteration,
 ITRANS conversion, script detection, and script-aware parts formatting.
 """
@@ -25,9 +25,8 @@ DEVA_CONS = {
     "ळ": "ḻ", "ऱ": "ṟ", "ऩ": "ṉ",
 }
 DEVA_MISC = {"ं": "ṃ", "ँ": "m̐", "ः": "ḥ", "ऽ": "'", "ॐ": "oṃ"}
-VIRAMA = "\u094d"  # ्
+VIRAMA = "\u094d"
 
-# Reverse mappings for IAST -> Devanāgarī formatting
 IAST_TO_DEVA_MAP = {
     "rāma": "राम",
     "rāmaḥ": "रामः",
@@ -104,7 +103,6 @@ def detect_script(text: str) -> str:
     for ch in text:
         if "\u0900" <= ch <= "\u097f":
             return "devanagari"
-    # Check ITRANS markers (including uppercase vowel markers A, I, U)
     itrans_markers = ["~N", "~n", "R^i", "aa", "ii", "uu", ".m", "A", "I", "U", "Sh", "Th", "Dh"]
     for marker in itrans_markers:
         if marker in text:
@@ -123,7 +121,6 @@ def format_parts_to_script(parts: List[str], target_script: str) -> List[str]:
     if target_script == "devanagari":
         return [IAST_TO_DEVA_MAP.get(p, p) for p in parts]
     elif target_script == "itrans":
-        # Standard corpus ITRANS expectation: rAma, api, na, asti
         def _to_itrans(s: str) -> str:
             return s.replace("ā", "A").replace("ī", "I").replace("ū", "U")
         return [_to_itrans(p) for p in parts]
