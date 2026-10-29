@@ -1,7 +1,7 @@
 """
 Test suite for _sandhi_gen.py (Standalone Paninian Sandhi Inverter)
 Verifies Savarna-dirgha, Guna, Yan, Scutva, Visarga, and Purvarupa inversions
-alongside determinism, diagnostics, and non-contradiction safety fences.
+alongside determinism, diagnostics, rank-1 alignment, and deferral safety fences.
 """
 
 import json
@@ -86,6 +86,13 @@ def test_purvarupa_avagraha():
     assert reason is None
     splits = [c[0] for c in cands]
     assert ["saḥ", "ayam"] in splits
+    assert cands[0][1] == "visarga_o_with_avagraha"
+
+def test_purvarupa_e_avagraha():
+    cands, reason = _sandhi_gen.invert_sandhi("te 'pi")
+    assert reason is None
+    splits = [c[0] for c in cands]
+    assert ["te", "api"] in splits
     assert cands[0][1] == "pūrvarūpa"
 
 # 7. Diagnostics & Determinism
@@ -120,7 +127,17 @@ def test_contract_rule_enums_valid():
             assert canon != ""
             assert 0.0 < conf <= 1.0
 
-# 8. Golden Corpus Non-Contradiction Fence (~106 Cases)
+# 8. Jastva and Yan-r Deferral Safety Fence (Risk 2)
+def test_deferred_surfaces_remain_empty_in_v060():
+    deferred = ["vāgīśaḥ", "pitrājñā", "tadapi"]
+    for s in deferred:
+        cands, reason = _sandhi_gen.invert_sandhi(s)
+        assert cands == [], (
+            f"Deferred surface {s!r} produced {cands}. "
+            f"v0.6.1 scope requires these to remain empty until jastva/yan-r land."
+        )
+
+# 9. Golden Corpus Rank-1 Non-Contradiction Fence (Risk 1)
 def _load_manifest_cases():
     p = Path(__file__).resolve().parents[2] / "corpus" / "golden_corpus_manifest.json"
     if not p.exists():
@@ -142,10 +159,9 @@ _MANIFEST_CASES = _load_manifest_cases()
 def test_no_false_positives_on_golden_corpus_surfaces(case_id, surface, expected_split):
     cands, reason = _sandhi_gen.invert_sandhi(surface)
     if not cands:
-        # Returning [] means the fallback path handles it safely.
         return
-    produced_splits = [c[0] for c in cands]
-    assert expected_split in produced_splits, (
-        f"[{case_id}] invert_sandhi({surface!r}) produced candidates {produced_splits} "
+    # Risk 1 Check: Must align at rank-1 when generator engages
+    assert cands[0][0] == expected_split, (
+        f"[{case_id}] invert_sandhi({surface!r}) rank-1 split is {cands[0][0]}, "
         f"which contradicts golden expected split {expected_split}"
     )

@@ -8,6 +8,7 @@ from typing import Optional, Dict, Any
 import _script
 import _lexicon
 import _sandhi
+import _sandhi_gen
 import _samasa
 import _ambiguity
 import _f_parses
@@ -231,7 +232,12 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
         return doc
 
     # 1. Exact / Generative Sandhi split (Category A, Category I Sandhi)
-    split_info = _sandhi.split_surface(surface)
+    # 1. Algorithmic Paninian Sandhi Inverter (v0.6.1 Primary Path)
+    gen_cands, _ = _sandhi_gen.invert_sandhi(surface)
+    if gen_cands:
+        split_info = gen_cands[0]
+    else:
+        split_info = _sandhi.split_surface(surface)
     if split_info:
         parts, rule_name, rule_canon_ref, rule_conf = split_info
         tokens = []

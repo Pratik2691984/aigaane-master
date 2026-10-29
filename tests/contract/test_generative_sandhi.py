@@ -1,4 +1,5 @@
-﻿"""
+import engine
+"""
 Aigaane v0.3.0 — Generative Sandhi Generalization Test Suite
 Tests unseen inputs that do not exist in golden_corpus_manifest.json.
 """
@@ -31,3 +32,9 @@ def test_unseen_scutva_generative():
     parts, rule, ref, conf = res
     assert parts == ["rājaputrat", "ca"]
     assert rule == "ścutva"
+def test_unseen_kavindra_generative_engine():
+    doc = engine.parse("kavīndraḥ")
+    assert doc is not None
+    assert doc["tokens"][0]["stem"] == "kavi"
+    assert doc["tokens"][1]["stem"] == "indra"
+    assert doc["sandhi_splits"][0]["rule"] == "savarna_dirgha"

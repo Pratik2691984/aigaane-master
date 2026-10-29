@@ -168,7 +168,7 @@ def _invert_purvarupa(surface: str) -> List[Candidate]:
         p2 = "a" + w2
         if w1.endswith("o"):
             p1 = w1[:-1] + "aḥ"
-            cands.append(([p1, p2], "pūrvarūpa", "6.1.109", 0.95))
+            cands.append(([p1, p2], "visarga_o_with_avagraha", "6.1.114", 0.95))
         elif w1.endswith("e"):
             p1 = w1
             cands.append(([p1, p2], "pūrvarūpa", "6.1.109", 0.95))
