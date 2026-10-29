@@ -7,16 +7,16 @@ and avyaya indeclinables with deterministic root derivation.
 from typing import Optional, Dict, Any
 
 _DHATUPATHA = {
-    "bhū":  {"gana": 1, "stem_pres": "bhava", "stem_fut": "bhaviṣya", "meaning": "to be"},
-    "gam":  {"gana": 1, "stem_pres": "gaccha", "stem_fut": "gamiṣya", "meaning": "to go"},
-    "paṭh": {"gana": 1, "stem_pres": "paṭha", "stem_fut": "paṭhiṣya", "meaning": "to read"},
-    "kṛ":   {"gana": 8, "stem_pres": "karo",  "stem_fut": "kariṣya", "meaning": "to do"},
+    "bhū":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "bhava", "stem_fut": "bhaviṣya", "stem_perf": "babhūv", "meaning": "to be"},
+    "gam":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "gaccha", "stem_fut": "gamiṣya", "stem_perf_sg": "jagām", "stem_perf_pl": "jagm", "meaning": "to go"},
+    "paṭh":  {"gana": 1, "pada": "parasmaipada", "stem_pres": "paṭha", "stem_fut": "paṭhiṣya", "stem_perf": "papāṭh", "meaning": "to read"},
+    "kṛ":  {"gana": 8, "pada": "ubhayapada", "stem_pres": "karo", "stem_fut": "kariṣya", "stem_perf_sg": "cakār", "stem_perf_pl": "cakr", "meaning": "to do"},
     "pā":   {"gana": 1, "stem_pres": "piba",  "stem_fut": "pāsya",   "meaning": "to drink"},
-    "labh": {"gana": 1, "pada": "ātmanepada", "stem_pres": "labha", "stem_fut": "lapsya",  "meaning": "to obtain"},
+    "labh":  {"gana": 1, "pada": "ātmanepada", "stem_pres": "labha", "stem_fut": "lapsya", "stem_perf": "lebh", "meaning": "to obtain"},
     "dā":   {"gana": 3, "stem_pres": "dadā",  "stem_fut": "dāsya",   "meaning": "to give"},
     "viś":  {"gana": 6, "stem_pres": "viśa",  "stem_fut": "vekṣya",  "meaning": "to enter"},
     "vah":  {"gana": 1, "stem_pres": "vaha",  "stem_fut": "vakṣya",  "meaning": "to carry"},
-    "likh": {"gana": 6, "stem_pres": "likha", "stem_fut": "lekhiṣya", "meaning": "to write"},
+    "likh":  {"gana": 6, "pada": "parasmaipada", "stem_pres": "likha", "stem_fut": "lekhiṣya", "stem_perf": "lilekh", "meaning": "to write"},
 }
 
 _LAN_PARASMAI = [
@@ -203,6 +203,84 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
                         "gana": info["gana"],
                         "vibhakti": "na",
                         "vacana": vacana,
+                        "linga": "na",
+                        "confidence": 0.96,
+                    }
+
+
+        # Liṭ (Perfect Past) evaluation with reduplicated stems (3.2.115)
+        # Parasmaipada: ṇal (a), atus (atuḥ), us (uḥ)
+        # Ātmanepada: eś (e), āte (āte), irec (ire)
+        pada_lit = info.get("pada", "parasmaipada")
+        
+        # Check singular (strong grade)
+        stem_sg = info.get("stem_perf_sg") or info.get("stem_perf")
+        stem_pl = info.get("stem_perf_pl") or info.get("stem_perf")
+
+        if stem_sg:
+            if pada_lit in ("parasmaipada", "ubhayapada"):
+                # 3rd sg / 1st sg: Nal (-a)
+                if word == stem_sg + "a":
+                    return {
+                        "stem": dhatu,
+                        "pos": "tinanta",
+                        "dhatu": dhatu,
+                        "gana": info["gana"],
+                        "vibhakti": "na",
+                        "vacana": "ekavacana",
+                        "linga": "na",
+                        "confidence": 0.96,
+                    }
+            if pada_lit in ("ātmanepada", "ubhayapada"):
+                # 3rd sg / 1st sg: eś (-e)
+                if word == stem_sg + "e":
+                    return {
+                        "stem": dhatu,
+                        "pos": "tinanta",
+                        "dhatu": dhatu,
+                        "gana": info["gana"],
+                        "vibhakti": "na",
+                        "vacana": "ekavacana",
+                        "linga": "na",
+                        "confidence": 0.96,
+                    }
+
+        if stem_pl:
+            if pada_lit in ("parasmaipada", "ubhayapada"):
+                # 3rd dual: atus (-atuḥ)
+                if word == stem_pl + "atuḥ":
+                    return {
+                        "stem": dhatu,
+                        "pos": "tinanta",
+                        "dhatu": dhatu,
+                        "gana": info["gana"],
+                        "vibhakti": "na",
+                        "vacana": "dvivacana",
+                        "linga": "na",
+                        "confidence": 0.96,
+                    }
+                # 3rd plural: us (-uḥ)
+                if word == stem_pl + "uḥ":
+                    return {
+                        "stem": dhatu,
+                        "pos": "tinanta",
+                        "dhatu": dhatu,
+                        "gana": info["gana"],
+                        "vibhakti": "na",
+                        "vacana": "bahuvacana",
+                        "linga": "na",
+                        "confidence": 0.96,
+                    }
+            if pada_lit in ("ātmanepada", "ubhayapada"):
+                # 3rd plural: irec (-ire)
+                if word == stem_pl + "ire":
+                    return {
+                        "stem": dhatu,
+                        "pos": "tinanta",
+                        "dhatu": dhatu,
+                        "gana": info["gana"],
+                        "vibhakti": "na",
+                        "vacana": "bahuvacana",
                         "linga": "na",
                         "confidence": 0.96,
                     }

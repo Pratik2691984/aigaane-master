@@ -119,3 +119,46 @@ def test_unseen_sentence_with_lrt_engine_parse():
     assert doc["tokens"][0]["stem"] == "rāma"
     assert doc["tokens"][1]["stem"] == "gam"
     assert doc["tokens"][1]["pos"] == "tinanta"
+def test_unseen_tinanta_lit_babhūva():
+    res = _lexicon.lookup("babhūva")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "bhū"
+    assert res["vacana"] == "ekavacana"
+    assert res["vibhakti"] == "na"
+
+def test_unseen_tinanta_lit_jagāma():
+    res = _lexicon.lookup("jagāma")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "gam"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_tinanta_lit_jagmuh():
+    res = _lexicon.lookup("jagmuḥ")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "gam"
+    assert res["vacana"] == "bahuvacana"
+
+def test_unseen_tinanta_lit_cakāra():
+    res = _lexicon.lookup("cakāra")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "kṛ"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_tinanta_lit_lebhe():
+    res = _lexicon.lookup("lebhe")
+    assert res is not None
+    assert res["pos"] == "tinanta"
+    assert res["dhatu"] == "labh"
+    assert res["vacana"] == "ekavacana"
+
+def test_unseen_sentence_with_lit_engine_parse():
+    doc = engine.parse("rāmaḥ jagāma")
+    assert doc is not None
+    assert len(doc["tokens"]) == 2
+    assert doc["tokens"][0]["stem"] == "rāma"
+    assert doc["tokens"][1]["stem"] == "gam"
+    assert doc["tokens"][1]["pos"] == "tinanta"

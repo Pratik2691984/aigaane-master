@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aigaane.in/schemas/samasa_node.json",
+  "title": "SamasaNode",
+  "type": "object",
+  "properties": {
+    "samasa_id": { "type": "string" },
+    "component_surface": { "type": "string", "minLength": 1 },
+    "role": { "enum": ["purva_pada", "uttara_pada", "madhyama_pada", "single"] },
+    "type": { "enum": ["tatpurusha", "bahuvrihi", "dvandva", "avyayibhava", "karmadharaya", "dvigu"] },
+    "vigraha": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "children": { "type": "array", "items": { "$ref": "#" } }
+  },
+  "required": ["component_surface", "role", "confidence"],
+  "additionalProperties": false
+}
