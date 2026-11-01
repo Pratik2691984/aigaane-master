@@ -97,6 +97,8 @@
           <option value="a-masc">a-stem masculine (deva)</option>
           <option value="aa-fem">ā-stem feminine (latā)</option>
           <option value="a-neut">a-stem neuter (phala)</option>
+          <option value="t-masc">t-stem consonant (marut)</option>
+          <option value="c-fem">c-stem consonant (vāc · coḥ kuḥ)</option>
         </select>
         <button onclick="renderMorphology()">Generate Forms</button>
       </div>
@@ -231,10 +233,10 @@
     </footer>
   </div>
 
-  <script>
+    <script>
     const API_BASE = "https://aigaane-api-977695793163.asia-south1.run.app";
 
-    // 1. Live Sandhi Combiner / Inversion
+    // --- 1. Sandhi Combiner ---
     async function combineSandhi() {
       const p1 = document.getElementById("sandhi-p1").value.trim();
       const p2 = document.getElementById("sandhi-p2").value.trim();
@@ -273,7 +275,7 @@
       }
     }
 
-    // 2. Live Chandas Prosody Scanner
+    // --- 2. Chandas Prosody Scanner ---
     async function scanChandas() {
       const text = document.getElementById("chandas-input").value.trim();
       const chips = document.getElementById("c-chips");
@@ -311,7 +313,7 @@
       }
     }
 
-    // 3. Morphology Subanta Table Renderer
+    // --- 3. Morphology Subanta Table ---
     function renderMorphology() {
       const paradigm = document.getElementById("morph-paradigm").value;
       const lemmaInput = document.getElementById("morph-lemma");
@@ -348,6 +350,34 @@
           ["Saptamī (7th)", "phale", "phalayoḥ", "phaleṣu"],
           ["Sambodhana (Voc.)", "phala", "phale", "phalāni"]
         ];
+      } else if (paradigm === "t-masc") {
+        lemmaInput.value = "marut";
+        title.textContent = "marut";
+        chip.textContent = "Takārānta · Pulliṅga (Halanta)";
+        rows = [
+          ["Prathamā (1st)", "marut", "marutau", "marutaḥ"],
+          ["Dvitīyā (2nd)", "marutam", "marutau", "marutaḥ"],
+          ["Tṛtīyā (3rd)", "marutā", "marudbhyām", "marudbhiḥ"],
+          ["Caturthī (4th)", "marute", "marudbhyām", "marudbhyaḥ"],
+          ["Pañcamī (5th)", "marutaḥ", "marudbhyām", "marudbhyaḥ"],
+          ["Ṣaṣṭhī (6th)", "marutaḥ", "marutoḥ", "marutām"],
+          ["Saptamī (7th)", "maruti", "marutoḥ", "marutsu"],
+          ["Sambodhana (Voc.)", "marut", "marutau", "marutaḥ"]
+        ];
+      } else if (paradigm === "c-fem") {
+        lemmaInput.value = "vāc";
+        title.textContent = "vāc";
+        chip.textContent = "Cakārānta · Strīliṅga (coḥ kuḥ 8.2.30)";
+        rows = [
+          ["Prathamā (1st)", "vāk", "vācau", "vācaḥ"],
+          ["Dvitīyā (2nd)", "vācam", "vācau", "vācaḥ"],
+          ["Tṛtīyā (3rd)", "vācā", "vāgbhyām", "vāgbhiḥ"],
+          ["Caturthī (4th)", "vāce", "vāgbhyām", "vāgbhyaḥ"],
+          ["Pañcamī (5th)", "vācaḥ", "vāgbhyām", "vāgbhyaḥ"],
+          ["Ṣaṣṭhī (6th)", "vācaḥ", "vācoḥ", "vācām"],
+          ["Saptamī (7th)", "vāci", "vācoḥ", "vākṣu"],
+          ["Sambodhana (Voc.)", "vāk", "vācau", "vācaḥ"]
+        ];
       } else {
         lemmaInput.value = "deva";
         title.textContent = "deva";
@@ -364,12 +394,12 @@
         ];
       }
 
-      tbody.innerHTML = rows.map(([vib, e, d, b]) => 
+      tbody.innerHTML = rows.map(([vib, e, d, b]) =>
         `<tr><th>${vib}</th><td class="form">${e}</td><td class="form">${d}</td><td class="form">${b}</td></tr>`
       ).join("");
     }
 
-    // 4. Live Kosha Lookup
+    // --- 4. Kosha Lexicon Lookup ---
     async function lookupKosha() {
       const word = document.getElementById("kosha-word").value.trim();
       const badge = document.getElementById("k-badge");
@@ -386,14 +416,18 @@
         });
         if (resp.ok) {
           const data = await resp.json();
+          const tok = data.tokens[0];
           document.getElementById("k-word").textContent = word;
           badge.className = "badge ok";
           badge.textContent = "✓ In Lexicon";
-          const tok = data.tokens[0];
+          
           let lingaStr = tok.linga ? ` · ${tok.linga}` : "";
           if (tok.stem === "latā") lingaStr = " · Ākārānta Strīliṅga";
           else if (tok.stem === "phala") lingaStr = " · Akārānta Napuṃsakaliṅga";
           else if (tok.stem === "rāma" || tok.stem === "deva") lingaStr = " · Akārānta Pulliṅga";
+          else if (tok.stem === "marut") lingaStr = " · Takārānta Pulliṅga (Halanta)";
+          else if (tok.stem === "vāc") lingaStr = " · Cakārānta Strīliṅga (coḥ kuḥ 8.2.30)";
+          
           hint.textContent = `Stem: ${tok.stem} | POS: ${tok.pos}${lingaStr}`;
         } else {
           badge.className = "badge err";
@@ -406,21 +440,108 @@
       }
     }
 
-    // 5. Audio Simulation
-    function toggleAudioPlayback() {
-      const btn = document.getElementById("play-btn");
-      const label = document.getElementById("audio-track-label");
-      if (btn.textContent === "▶") {
-        btn.textContent = "⏸";
-        label.textContent = "Playing Just Intonation acoustic scansion...";
-      } else {
-        btn.textContent = "▶";
-        label.textContent = "Ready: Just Intonation tuning (C 256Hz base)";
+    // --- 5. Gāndharvaveda 22-Śruti Audio Synthesis ---
+    let audioCtx = null;
+    let isPlaying = false;
+    let scheduledTimeouts = [];
+
+    const SRUTI_RATIOS = {
+      "Sa": 1.0, "Ri_komal": 16/15, "Ri_tivra": 9/8, "Ga_komal": 6/5,
+      "Ga_tivra": 5/4, "Ma_shuddha": 4/3, "Ma_tivra": 45/32, "Pa": 3/2,
+      "Dha_komal": 8/5, "Dha_tivra": 5/3, "Ni_komal": 9/5, "Ni_tivra": 15/8, "Sa_high": 2.0
+    };
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
       }
     }
 
+    function playTone(freq, duration, startTime) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, startTime);
+      
+      gain.gain.setValueAtTime(0.0001, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.3, startTime + 0.05);
+      gain.gain.setValueAtTime(0.3, startTime + duration - 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + duration);
+    }
+
+    function playSyllableSequence(syllables) {
+      initAudioContext();
+      stopAudioPlayback();
+      isPlaying = true;
+
+      const btn = document.getElementById("play-btn");
+      const label = document.getElementById("audio-track-label");
+      btn.textContent = "⏸";
+      label.textContent = "Playing 22-Śruti scansion (C 256Hz Just Intonation)...";
+
+      const baseFreq = 256.0;
+      let now = audioCtx.currentTime + 0.1;
+
+      syllables.forEach((item) => {
+        const isGuru = item.weight === "G";
+        const duration = isGuru ? 0.65 : 0.35;
+        const intervalRatio = isGuru ? SRUTI_RATIOS["Pa"] : SRUTI_RATIOS["Sa"];
+        const freq = baseFreq * intervalRatio;
+
+        playTone(freq, duration, now);
+        now += duration + 0.08;
+      });
+
+      const totalDurationMs = (now - audioCtx.currentTime) * 1000;
+      const tid = setTimeout(() => { stopAudioPlayback(); }, totalDurationMs);
+      scheduledTimeouts.push(tid);
+    }
+
+    function stopAudioPlayback() {
+      scheduledTimeouts.forEach(clearTimeout);
+      scheduledTimeouts = [];
+      isPlaying = false;
+      const btn = document.getElementById("play-btn");
+      const label = document.getElementById("audio-track-label");
+      if (btn) btn.textContent = "▶";
+      if (label) label.textContent = "Ready: Just Intonation tuning (C 256Hz base)";
+    }
+
+    function toggleAudioPlayback() {
+      if (isPlaying) {
+        stopAudioPlayback();
+      } else {
+        synthesizeAudio();
+      }
+    }
+
+    function synthesizeAudio() {
+      const syllables = [
+        { txt: "dhar", weight: "G" }, { txt: "mak", weight: "G" },
+        { txt: "ṣet", weight: "G" },  { txt: "re", weight: "G" },
+        { txt: "ku", weight: "L" },   { txt: "ruk", weight: "G" },
+        { txt: "ṣet", weight: "G" },  { txt: "re", weight: "G" }
+      ];
+      playSyllableSequence(syllables);
+    }
+
+    function playScannedAudio() {
+      const audioSection = document.getElementById("audio-result");
+      audioSection.scrollIntoView({ behavior: "smooth" });
+      synthesizeAudio();
+    }
+
+    // --- 6. Itihāsa Search ---
     function searchItihasa() {
-      // Static verified cards
+      // Static verified cards remain
     }
   </script>
 </body>
