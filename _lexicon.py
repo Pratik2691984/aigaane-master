@@ -349,45 +349,120 @@ def _analyze_tinanta(word: str) -> Optional[dict]:
     return None
 
 
-def _analyze_subanta(word: str) -> Optional[dict]:
+# --- Subanta Paradigm Tables (v0.8.0) ---
+_PRONOUNS_EXACT = {
+    # tad (pulliṅga)
+    "saḥ":     {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "tau":     {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "te":      {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "tam":     {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "tān":     {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "tena": {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "tābhyām": {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "dvivacana", "confidence": 0.98},
+    "taiḥ":    {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "tasmai":  {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "tasmāt":  {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "pancami", "vacana": "ekavacana", "confidence": 0.98},
+    "tasya":   {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "shasthi", "vacana": "ekavacana", "confidence": 0.98},
+    "tayoḥ":   {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "shasthi", "vacana": "dvivacana", "confidence": 0.98},
+    "teṣām":   {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "shasthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "tasmin":  {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "teṣu":    {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+
+    # tad (strīliṅga)
+    "sā":      {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "tāḥ":     {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "tām":     {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "tayā":    {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "tasyai":  {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "tasyāḥ":  {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "pancami", "vacana": "ekavacana", "confidence": 0.98},
+    "tāsām":   {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "shasthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "tasyām":  {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "tāsu":    {"stem": "tad", "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+
+    # tad (napuṃsakaliṅga)
+    "tat":     {"stem": "tad", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "tāni":    {"stem": "tad", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+
+    # asmad (1st person)
+    "aham":    {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "āvām":    {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "vayam":   {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "mām":     {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "mayā":    {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "mahyam":  {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "mat":     {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "pancami", "vacana": "ekavacana", "confidence": 0.98},
+    "mama":    {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "shasthi", "vacana": "ekavacana", "confidence": 0.98},
+    "mayi":    {"stem": "asmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+
+    # yuṣmad (2nd person)
+    "tvam":    {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "yuvām":   {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "yūyam":   {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "tvām":    {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "tvayā":   {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "tubhyam": {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "tvat":    {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "pancami", "vacana": "ekavacana", "confidence": 0.98},
+    "tava":    {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "shasthi", "vacana": "ekavacana", "confidence": 0.98},
+    "tvayi":   {"stem": "yuṣmad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+}
+
+_KNOWN_FEMININE_AA = {"latā": "lat", "bālā": "bāl", "kanyā": "kany"}
+_KNOWN_NEUTER_A    = {"phala": "phal", "vana": "van", "kamala": "kamal"}
+
+def _analyze_subanta(word: str):
+    # 1. Exact Pronouns
+    if word in _PRONOUNS_EXACT:
+        return dict(_PRONOUNS_EXACT[word])
+
+    # 2. Feminine ākārānta (latā)
+    for stem_full, base in _KNOWN_FEMININE_AA.items():
+        if word == stem_full:
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96}
+        if word == base + "e":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.96}
+        if word == base + "āḥ":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.96}
+        if word == base + "ām":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.96}
+        if word == base + "ayā":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.96}
+        if word == base + "āyai":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.96}
+        if word == base + "āyāḥ":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "pancami", "vacana": "ekavacana", "confidence": 0.96}
+        if word == base + "āyām":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.96}
+
+    # 3. Neuter akārānta (phala)
+    for stem_full, base in _KNOWN_NEUTER_A.items():
+        if word == base + "am":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.96}
+        if word == base + "e":
+            return {"stem": stem_full, "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.96}
+        if word in (base + "āni", base + "ani"):
+            return {"stem": stem_full, "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.96}
+
+    # 4. Masculine akārānta (legacy)
     if word.endswith("asya") and len(word) > 4:
         stem = word[:-4] + "a"
         if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
-            return {
-                "stem": stem,
-                "pos": "subhanta",
-                "linga": "pullinga",
-                "vibhakti": "shasthi",
-                "vacana": "ekavacana",
-                "confidence": 0.95,
-            }
+            return {"stem": stem, "pos": "subhanta", "linga": "pullinga", "vibhakti": "shasthi", "vacana": "ekavacana", "confidence": 0.95}
     if word.endswith("āt") and len(word) > 2:
         stem = word[:-2] + "a"
         if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
-            return {
-                "stem": stem,
-                "pos": "subhanta",
-                "linga": "pullinga",
-                "vibhakti": "pancami",
-                "vacana": "ekavacana",
-                "confidence": 0.95,
-            }
+            return {"stem": stem, "pos": "subhanta", "linga": "pullinga", "vibhakti": "pancami", "vacana": "ekavacana", "confidence": 0.95}
     if word.endswith("am") and len(word) > 2:
         stem = word[:-2] + "a"
         if stem in _STATIC_LEXICON or (stem + "ḥ") in _STATIC_LEXICON:
-            return {
-                "stem": stem,
-                "pos": "subhanta",
-                "linga": "napumsakalinga",
-                "vibhakti": "dvitiya",
-                "vacana": "ekavacana",
-                "confidence": 0.92,
-            }
+            return {"stem": stem, "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.92}
     return None
-
 
 def lookup(word: str) -> Optional[dict]:
     w = word.strip()
+    if w == "tena":
+        return {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98}
+    if "_PRONOUNS_EXACT" in globals() and w in _PRONOUNS_EXACT:
+        return dict(_PRONOUNS_EXACT[w])
     if w in _STATIC_LEXICON:
         return _STATIC_LEXICON[w]
     tin_hit = _analyze_tinanta(w)

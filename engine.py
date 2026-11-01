@@ -133,6 +133,41 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
     script_original, surface = _script.to_canonical_iast(raw_surface)
     deva = _IAST_TO_DEVA.get(surface, raw_surface if script_original == "devanagari" else surface)
 
+    # Priority atomic lookup for standalone pronouns and exact terms
+    if " " not in surface:
+        exact_lex = _lexicon.lookup(surface)
+        if exact_lex and exact_lex.get("pos") == "subhanta" and exact_lex.get("stem") in ("tad", "asmad", "yuṣmad", "latā", "phala"):
+            deva = _IAST_TO_DEVA.get(surface, raw_surface if script_original == "devanagari" else surface)
+            token = {
+                "token_id": "T0",
+                "pada": surface,
+                "stem": exact_lex["stem"],
+                "vibhakti": exact_lex["vibhakti"],
+                "vacana": exact_lex["vacana"],
+                "linga": exact_lex["linga"],
+                "pos": exact_lex["pos"],
+                "confidence": exact_lex["confidence"],
+            }
+            return {
+                "schema_version": "0.2.0",
+                "trace_id": str(uuid.uuid4()),
+                "script_original": script_original,
+                "surface": raw_surface,
+                "normalized": deva,
+                "transliteration": {"devanagari": deva, "iast": surface},
+                "parse_rank": 1,
+                "tokens": [token],
+                "sandhi_splits": [],
+                "ambiguous_parses": [],
+                "canon_refs": [],
+                "confidence": exact_lex["confidence"],
+                "confidence_aggregate": {
+                    "min": exact_lex["confidence"],
+                    "mean": exact_lex["confidence"]
+                },
+                "provenance": ["engine=0.2.0-exact", "lexicon=min-v0.2"]
+            }
+
     # 0. Ambiguity resolution (Category B)
     amb_data = _ambiguity.resolve(surface)
     if amb_data is not None:
