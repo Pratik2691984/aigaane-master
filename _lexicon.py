@@ -457,8 +457,44 @@ def _analyze_subanta(word: str):
             return {"stem": stem, "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.92}
     return None
 
+
+# Halanta (Consonant-ending) Nominal Paradigms (v0.8.2)
+_HALANTA_LOOKUP = {
+    # marut (m., t-stem)
+    "marut": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "marutau": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "marutaḥ": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "marutam": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "marutā": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "marudbhyām": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "dvivacana", "confidence": 0.98},
+    "marudbhiḥ": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "marute": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "marudbhyaḥ": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "marutoḥ": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "sasthi", "vacana": "dvivacana", "confidence": 0.98},
+    "marutām": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "sasthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "maruti": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "marutsu": {"stem": "marut", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+
+    # vāc (f., c-stem, coḥ kuḥ 8.2.30)
+    "vāk": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "vācau": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "vācaḥ": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "vācam": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "vācā": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "vāgbhyām": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "trtiya", "vacana": "dvivacana", "confidence": 0.98},
+    "vāgbhiḥ": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "trtiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "vāce": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "vāgbhyaḥ": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "caturthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "vācoḥ": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "sasthi", "vacana": "dvivacana", "confidence": 0.98},
+    "vācām": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "sasthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "vāci": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "vākṣu": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+}
+
 def lookup(word: str) -> Optional[dict]:
     w = word.strip()
+    if "_HALANTA_LOOKUP" in globals() and w in _HALANTA_LOOKUP:
+        return _HALANTA_LOOKUP[w]
     if w == "tena":
         return {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98}
     if "_PRONOUNS_EXACT" in globals() and w in _PRONOUNS_EXACT:
@@ -472,3 +508,4 @@ def lookup(word: str) -> Optional[dict]:
     if sub_hit is not None:
         return sub_hit
     return None
+
