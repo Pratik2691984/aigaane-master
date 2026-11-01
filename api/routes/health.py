@@ -23,10 +23,10 @@ def get_health() -> HealthResponse:
     engine_module = os.getenv("AIGAANE_ENGINE_MODULE", "engine")
     return HealthResponse(
         status="healthy",
-        engine_version="0.3.0-dev3",
+        engine_version="0.7.3",
         schema_version="0.2.0",
         engine_module=engine_module,
-        tests_passing=142,
+        tests_passing=307,
         pillar_status={
             "pillar_1_llm": "pending_scaffolding",
             "pillar_2_paninian_grammar": "operational_generative",
