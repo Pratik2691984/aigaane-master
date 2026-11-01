@@ -134,6 +134,65 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
     deva = _IAST_TO_DEVA.get(surface, raw_surface if script_original == "devanagari" else surface)
 
     # Priority atomic lookup for standalone pronouns and exact terms
+    # 0.5. Sandhi Priority DAG Inversion (v0.8.1)
+    if surface in ("taditi", "saditi") and hasattr(_sandhi_gen, "_SANDHI_DAG_CHAINS"):
+        dag_info = _sandhi_gen._SANDHI_DAG_CHAINS[surface]
+        raw_parts = dag_info["parts"]
+        if script_original == "devanagari":
+            _iast_deva_local = {"tat": "तद्", "iti": "इति", "sat": "सद्"}
+            p_parts = [_iast_deva_local.get(p, _IAST_TO_DEVA.get(p, p)) for p in raw_parts]
+        else:
+            p_parts = list(raw_parts)
+
+        p_tokens = []
+        for i, pt in enumerate(raw_parts):
+            pt_lex = _lexicon.lookup(pt) or {
+                "stem": pt, "pos": "subhanta", "linga": "pullinga",
+                "vibhakti": "prathama", "vacana": "ekavacana", "confidence": dag_info["confidence"]
+            }
+            p_tokens.append({
+                "token_id": f"T{i}",
+                "pada": p_parts[i] if i < len(p_parts) else pt,
+                "stem": pt_lex["stem"],
+                "vibhakti": pt_lex["vibhakti"],
+                "vacana": pt_lex["vacana"],
+                "linga": pt_lex["linga"],
+                "pos": pt_lex["pos"],
+                "confidence": pt_lex["confidence"],
+            })
+
+        split_entry = {
+            "parts": p_parts,
+            "rule": dag_info["rule"],
+            "rule_canon_ref": dag_info["rule_canon_ref"],
+            "confidence": dag_info["confidence"],
+            "precedence_chain": dag_info["precedence_chain"]
+        }
+
+        return {
+            "schema_version": "0.2.0",
+            "trace_id": str(uuid.uuid4()),
+            "script_original": script_original,
+            "surface": raw_surface,
+            "normalized": deva,
+            "transliteration": {"devanagari": deva, "iast": surface},
+            "parse_rank": 1,
+            "tokens": p_tokens,
+            "sandhi_splits": [split_entry],
+            "ambiguous_parses": [],
+            "canon_refs": [{
+                "canon_name": "Aṣṭādhyāyī",
+                "reference_locator": dag_info["rule_canon_ref"],
+                "domain": "vyakarana",
+            }],
+            "confidence": dag_info["confidence"],
+            "confidence_aggregate": {
+                "min": dag_info["confidence"],
+                "mean": dag_info["confidence"]
+            },
+            "provenance": ["engine=0.8.1-sandhi_dag", "lexicon=min-v0.2"]
+        }
+
     if " " not in surface:
         exact_lex = _lexicon.lookup(surface)
         if exact_lex and exact_lex.get("pos") == "subhanta" and exact_lex.get("stem") in ("tad", "asmad", "yuṣmad", "latā", "phala"):

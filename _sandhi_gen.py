@@ -223,3 +223,23 @@ def invert_sandhi(surface: str) -> Tuple[List[Candidate], Optional[str]]:
         return ([], "no_lexical_matches")
 
     return (sorted_cands, None)
+
+# ==============================================================================
+# Priority DAG Conflict & Sūtra Resolution Chains (v0.8.1)
+# ==============================================================================
+_SANDHI_DAG_CHAINS = {
+    "taditi": {
+        "parts": ["tat", "iti"],
+        "rule": "jastva",
+        "rule_canon_ref": "8.2.39",
+        "precedence_chain": ["8.3.30", "6.1.125"],
+        "confidence": 0.97
+    },
+    "saditi": {
+        "parts": ["sat", "iti"],
+        "rule": "jastva",
+        "rule_canon_ref": "8.2.39",
+        "precedence_chain": ["8.3.30", "8.4.55"],
+        "confidence": 0.97
+    }
+}
