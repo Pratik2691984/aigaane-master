@@ -99,6 +99,8 @@
           <option value="a-neut">a-stem neuter (phala)</option>
           <option value="t-masc">t-stem consonant (marut)</option>
           <option value="c-fem">c-stem consonant (vāc · coḥ kuḥ)</option>
+          <option value="n-masc">n-stem masculine (rājan · naḥ lopaḥ)</option>
+          <option value="n-neut">n-stem neuter (nāman · śi/num)</option>
         </select>
         <button onclick="renderMorphology()">Generate Forms</button>
       </div>
@@ -314,7 +316,7 @@
     }
 
     // --- 3. Morphology Subanta Table ---
-    function renderMorphology() {
+        function renderMorphology() {
       const paradigm = document.getElementById("morph-paradigm").value;
       const lemmaInput = document.getElementById("morph-lemma");
       const title = document.getElementById("m-title");
@@ -377,6 +379,34 @@
           ["Ṣaṣṭhī (6th)", "vācaḥ", "vācoḥ", "vācām"],
           ["Saptamī (7th)", "vāci", "vācoḥ", "vākṣu"],
           ["Sambodhana (Voc.)", "vāk", "vācau", "vācaḥ"]
+        ];
+      } else if (paradigm === "n-masc") {
+        lemmaInput.value = "rājan";
+        title.textContent = "rājan";
+        chip.textContent = "Nakārānta · Pulliṅga (naḥ lopaḥ 8.2.7)";
+        rows = [
+          ["Prathamā (1st)", "rājā", "rājānau", "rājānaḥ"],
+          ["Dvitīyā (2nd)", "rājānam", "rājānau", "rājñaḥ"],
+          ["Tṛtīyā (3rd)", "rājñā", "rājabhyām", "rājabhiḥ"],
+          ["Caturthī (4th)", "rājñe", "rājabhyām", "rājabhyaḥ"],
+          ["Pañcamī (5th)", "rājñaḥ", "rājabhyām", "rājabhyaḥ"],
+          ["Ṣaṣṭhī (6th)", "rājñaḥ", "rājñoḥ", "rājñām"],
+          ["Saptamī (7th)", "rājñi / rājani", "rājñoḥ", "rājasu"],
+          ["Sambodhana (Voc.)", "rājan", "rājānau", "rājānaḥ"]
+        ];
+      } else if (paradigm === "n-neut") {
+        lemmaInput.value = "nāman";
+        title.textContent = "nāman";
+        chip.textContent = "Nakārānta · Napuṃsakaliṅga (śi 7.1.20)";
+        rows = [
+          ["Prathamā (1st)", "nāma", "nāmnī / nāmanī", "nāmāni"],
+          ["Dvitīyā (2nd)", "nāma", "nāmnī / nāmanī", "nāmāni"],
+          ["Tṛtīyā (3rd)", "nāmnā", "nāmabhyām", "nāmabhiḥ"],
+          ["Caturthī (4th)", "nāmne", "nāmabhyām", "nāmabhyaḥ"],
+          ["Pañcamī (5th)", "nāmnaḥ", "nāmabhyām", "nāmabhyaḥ"],
+          ["Ṣaṣṭhī (6th)", "nāmnaḥ", "nāmnoḥ", "nāmnām"],
+          ["Saptamī (7th)", "nāmni / nāmani", "nāmnoḥ", "nāmasu"],
+          ["Sambodhana (Voc.)", "nāma / nāman", "nāmnī / nāmanī", "nāmāni"]
         ];
       } else {
         lemmaInput.value = "deva";

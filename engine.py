@@ -195,7 +195,7 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
 
     if " " not in surface:
         exact_lex = _lexicon.lookup(surface)
-        if exact_lex and exact_lex.get("pos") == "subhanta" and exact_lex.get("stem") in ("tad", "asmad", "yuṣmad", "latā", "phala", "marut", "vāc"):
+        if exact_lex and exact_lex.get("pos") == "subhanta" and exact_lex.get("stem") in ("tad", "asmad", "yuṣmad", "latā", "phala", "marut", "vāc", "rājan", "nāman"):
             deva = _IAST_TO_DEVA.get(surface, raw_surface if script_original == "devanagari" else surface)
             token = {
                 "token_id": "T0",

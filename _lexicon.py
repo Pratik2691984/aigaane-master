@@ -489,6 +489,41 @@ _HALANTA_LOOKUP = {
     "vācām": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "sasthi", "vacana": "bahuvacana", "confidence": 0.98},
     "vāci": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
     "vākṣu": {"stem": "vāc", "pos": "subhanta", "linga": "strilinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+
+    # rājan (m., an-anta n-stem: naḥ lopaḥ 8.2.7, allopo 'naḥ 6.4.134)
+    "rājā": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "rājānau": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "rājānaḥ": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "rājānam": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "ekavacana", "confidence": 0.98},
+    "rājñaḥ": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "dvitiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "rājñā": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "rājabhyām": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "dvivacana", "confidence": 0.98},
+    "rājabhiḥ": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "rājñe": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "rājabhyaḥ": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "caturthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "rājñoḥ": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "sasthi", "vacana": "dvivacana", "confidence": 0.98},
+    "rājñām": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "sasthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "rājñi": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "rājani": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "rājasu": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+    "rājan": {"stem": "rājan", "pos": "subhanta", "linga": "pullinga", "vibhakti": "sambodhana", "vacana": "ekavacana", "confidence": 0.98},
+
+    # nāman (n., an-anta n-stem: naḥ lopaḥ 8.2.7, śi 7.1.20)
+    "nāma": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.98},
+    "nāmnī": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "nāmanī": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "dvivacana", "confidence": 0.98},
+    "nāmāni": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "bahuvacana", "confidence": 0.98},
+    "nāmnā": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98},
+    "nāmabhyām": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "trtiya", "vacana": "dvivacana", "confidence": 0.98},
+    "nāmabhiḥ": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "trtiya", "vacana": "bahuvacana", "confidence": 0.98},
+    "nāmne": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "caturthi", "vacana": "ekavacana", "confidence": 0.98},
+    "nāmabhyaḥ": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "caturthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "nāmnaḥ": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "sasthi", "vacana": "ekavacana", "confidence": 0.98},
+    "nāmnoḥ": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "sasthi", "vacana": "dvivacana", "confidence": 0.98},
+    "nāmnām": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "sasthi", "vacana": "bahuvacana", "confidence": 0.98},
+    "nāmni": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "saptami", "vacana": "ekavacana", "confidence": 0.98},
+    "nāmasu": {"stem": "nāman", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "saptami", "vacana": "bahuvacana", "confidence": 0.98},
+
 }
 
 def lookup(word: str) -> Optional[dict]:
