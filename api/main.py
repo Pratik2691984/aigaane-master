@@ -5,12 +5,12 @@ Provides HTTP endpoints for Paninian morphological analysis and multi-studio rou
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import health, parse, route
+from api.routes import health, parse, route, sruti
 
 app = FastAPI(
     title="Aigaane Sanskrit Engine API",
     description="Deterministic Pāṇinian morphological parsing and multi-studio routing gateway.",
-    version="0.8.5",
+    version="0.8.6",
 )
 
 # Cross-Origin Resource Sharing (CORS) Middleware
@@ -25,3 +25,4 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(parse.router)
 app.include_router(route.router)
+app.include_router(sruti.router)
