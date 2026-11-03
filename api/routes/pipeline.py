@@ -1,3 +1,4 @@
+import _chhandas_scanner
 import base64
 import uuid
 from typing import Dict, Any, List, Optional
@@ -74,11 +75,7 @@ async def execute_studio_pipeline(req: PipelineRequest):
         }
 
     # --- Phase 3: Studio III (Prosody & Acoustics) ---
-    meter_analysis = _chhandas.scan(req.text) if hasattr(_chhandas, "scan") else {
-        "meter": "anuṣṭubh" if len(req.text) > 20 else "gāyatrī",
-        "syllables": len(req.text.split()),
-        "pattern": "default_metric"
-    }
+    meter_analysis = _chhandas_scanner.scan_text(req.text)
 
     # Synthesize 22-Śruti microtonal MIDI
     midi_bytes = _sruti.generate_sruti_midi(
