@@ -241,7 +241,7 @@
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
       if (!text) return;
 
-      status.innerHTML = '<span class="hint">Scanning prosody and executing Studio Pipeline...</span>';
+      status.innerHTML = '<span class="hint">Calling Studio Pipeline (Nyāya Logic → Pāṇini Grammar → Chandas Scansion)...</span>';
 
       try {
         const resp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/pipeline", {
@@ -261,22 +261,25 @@
         const meter = meterInfo.meter || "Anuṣṭubh";
         const midiB64 = data.studio_iii_acoustics?.midi_base64;
 
-        // Accurate Syllable Weights Calculation (Anuṣṭubh: 8 + 8 = 16 per hemistich)
+        // Primary: Use genuine Piṅgala weights from backend
         let weights = [];
-        const words = text.split(/\s+/);
-        
-        words.forEach(w => {
-          // Vowel-centered syllabification for Sanskrit IAST
-          const syls = w.match(/[^aāiīuūṛṝeaiouo]*[aāiīuūṛṝeaiouo]+(?:[^aāiīuūṛṝeaiouo]+(?=[^aāiīuūṛṝeaiouo][aāiīuūṛṝeaiouo])|[^aāiīuūṛṝeaiouo]*$)/gi) || [w];
-          syls.forEach(s => {
-            // Guru (G) if long vowel or followed by conjunct consonants
-            const isGuru = /[āīūṛṝeaiouo]/i.test(s) || /[^aāiīuūṛṝeaiouo]{2,}/i.test(s);
-            weights.push(isGuru ? "G" : "L");
-          });
-        });
+        let sourceTag = "Backend";
 
-        if (weights.length === 0) {
-          weights = ["G","G","G","G","L","G","G","G","G","G","G","G","L","G","G","G"];
+        if (Array.isArray(meterInfo.syllable_weights) && meterInfo.syllable_weights.length > 0) {
+          weights = meterInfo.syllable_weights;
+        } else if (typeof meterInfo.pattern === "string" && /^[GL]+$/i.test(meterInfo.pattern)) {
+          weights = meterInfo.pattern.split("");
+        } else {
+          // Offline fallback
+          sourceTag = "Client-Fallback";
+          const words = text.split(/\s+/);
+          words.forEach(w => {
+            const syls = w.match(/[^aāiīuūṛṝeaiouo]*[aāiīuūṛṝeaiouo]+(?:[^aāiīuūṛṝeaiouo]+(?=[^aāiīuūṛṝeaiouo][aāiīuūṛṝeaiouo])|[^aāiīuūṛṝeaiouo]*$)/gi) || [w];
+            syls.forEach(s => {
+              const isGuru = /[āīūṛṝeaiouo]/i.test(s) || /[^aāiīuūṛṝeaiouo]{2,}/i.test(s);
+              weights.push(isGuru ? "G" : "L");
+            });
+          });
         }
 
         const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
@@ -297,7 +300,7 @@
           midiButtonHtml = ` <button class="btn" style="padding:2px 8px; font-size:0.75rem; margin-left:8px;" onclick="downloadBase64Midi('${midiB64}', '${meter}')">📥 Download Pipeline MIDI</button>`;
         }
 
-        status.innerHTML = `<span class="badge ok">✓ Scanned: ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}).</span>${midiButtonHtml}`;
+        status.innerHTML = `<span class="badge ok">✓ ${sourceTag} ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}).</span>${midiButtonHtml}`;
       } catch (e) {
         status.innerHTML = `<span class="badge warn">Fallback: ${e.message}</span>`;
         driver.playSwaraSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
