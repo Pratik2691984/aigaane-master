@@ -285,3 +285,19 @@ def recursive_split_compound(word: str, depth: int = 1) -> Optional[Dict[str, An
         "sub_tree": sub_right,
         "confidence": split_res.get("confidence", 0.85)
     }
+
+
+
+def is_compound(word: str) -> bool:
+    """Checks if a word is a decomposable compound (2-stem or multi-stem)."""
+    if not word or len(word) < 4:
+        return False
+    if "recursive_split_compound" in globals():
+        res = recursive_split_compound(word)
+        if res is not None:
+            return True
+    if "split_compound" in globals():
+        return split_compound(word) is not None
+    if "decompose" in globals():
+        return decompose(word) is not None
+    return False
