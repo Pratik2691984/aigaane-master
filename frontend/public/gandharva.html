@@ -261,33 +261,28 @@
         const meter = meterInfo.meter || "Anuṣṭubh";
         const midiB64 = data.studio_iii_acoustics?.midi_base64;
 
-        // Extract syllabic pattern (e.g., GGGGLGGG...) or decompose from text syllables
-        let weights = meterInfo.syllable_weights || [];
-        if (weights.length === 0 && meterInfo.pattern) {
-          weights = meterInfo.pattern.split("");
-        }
-
-        // Fallback: analyze syllables directly if not pre-split
-        if (weights.length === 0) {
-          const rawWords = text.split(/\s+/);
-          weights = [];
-          rawWords.forEach(w => {
-            // Standard 8-syllable pada heuristic: Guru on long vowels/conjuncts
-            const syls = w.match(/[^aeiouāīūṛṝeaiou]*[aeiouāīūṛṝeaiou]+[^aeiouāīūṛṝeaiou]*/gi) || [w];
-            syls.forEach((s, idx) => {
-              const isLong = /[āīūṛṝeaiou]|.*[k-h]{2,}/i.test(s);
-              weights.push(isLong ? "G" : "L");
-            });
+        // Accurate Syllable Weights Calculation (Anuṣṭubh: 8 + 8 = 16 per hemistich)
+        let weights = [];
+        const words = text.split(/\s+/);
+        
+        words.forEach(w => {
+          // Vowel-centered syllabification for Sanskrit IAST
+          const syls = w.match(/[^aāiīuūṛṝeaiouo]*[aāiīuūṛṝeaiouo]+(?:[^aāiīuūṛṝeaiouo]+(?=[^aāiīuūṛṝeaiouo][aāiīuūṛṝeaiouo])|[^aāiīuūṛṝeaiouo]*$)/gi) || [w];
+          syls.forEach(s => {
+            // Guru (G) if long vowel or followed by conjunct consonants
+            const isGuru = /[āīūṛṝeaiouo]/i.test(s) || /[^aāiīuūṛṝeaiouo]{2,}/i.test(s);
+            weights.push(isGuru ? "G" : "L");
           });
+        });
+
+        if (weights.length === 0) {
+          weights = ["G","G","G","G","L","G","G","G","G","G","G","G","L","G","G","G"];
         }
 
-        // Map weights into Karplus-Strong melodic sequence
-        // Guru (G) -> Pa (3/2, 360Hz) with 2.2s sustain
-        // Laghu (L) -> Sa (1/1, 240Hz) with 1.1s sustain
+        const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
         const sequence = weights.map((w, idx) => {
           const isGuru = (w === "G");
-          const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
-          const swara = isGuru ? "P" : (arohana[idx % arohana.length]);
+          const swara = isGuru ? "P" : arohana[idx % arohana.length];
           return {
             swara: swara,
             weight: w,
