@@ -227,7 +227,15 @@ class StudioIIIAudioEngine {
       freqParam.exponentialRampToValueAtTime(targetHz, glideEnd);
     }
 
-    node.port.postMessage({ type: 'trigger', frequency: startHz, velocity });
+    const delayMs = Math.max(0, (startTime - this.ctx.currentTime) * 1000);
+    const nodeRef = node;
+    const hzRef = startHz;
+    const velRef = velocity;
+    setTimeout(() => {
+      if (this.ctx && this.ctx.state !== 'closed') {
+        nodeRef.port.postMessage({ type: 'trigger', frequency: hzRef, velocity: velRef });
+      }
+    }, delayMs);
   }
 
   async startTanpuraDrone(saHz = 240.0) {
