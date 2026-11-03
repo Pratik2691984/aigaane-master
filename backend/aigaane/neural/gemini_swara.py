@@ -1,8 +1,10 @@
 """Pillar 1: Gemini neural boundary for rāga swara phrasing.
 
 Consumes metrical chandas weights, emits structured SwaraSequence.
+Supports both Gemini Developer API (AI Studio API key) and Vertex AI ADC.
 Falls back deterministically if Gemini is unavailable or emits malformed tokens.
 """
+import os
 import json
 import logging
 from typing import Optional
@@ -31,7 +33,7 @@ class GeminiSwaraEngine:
     def __init__(
         self,
         project_id: str = "gen-lang-client-0991678000",
-        model: str = "gemini-2.0-flash",
+        model: str = "gemini-2.5-flash",
     ):
         self.project_id = project_id
         self.model = model
@@ -41,11 +43,17 @@ class GeminiSwaraEngine:
     @property
     def client(self):
         if self._client is None:
-            self._client = genai.Client(
-                vertexai=True,
-                project=self.project_id,
-                location="us-central1"
-            )
+            api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+            if api_key:
+                # Gemini Developer API (Google AI Studio)
+                self._client = genai.Client(api_key=api_key)
+            else:
+                # Vertex AI API (Google Cloud Project)
+                self._client = genai.Client(
+                    vertexai=True,
+                    project=self.project_id,
+                    location="us-central1"
+                )
         return self._client
 
     def phrase(self, chandas: ChandasInput) -> Optional[SwaraSequence]:
