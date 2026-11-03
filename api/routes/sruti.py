@@ -1,4 +1,4 @@
-﻿from typing import Dict, Any, List
+from typing import Dict, Any, List
 from fastapi import APIRouter, Query, Response
 from pydantic import BaseModel, Field
 import _sruti

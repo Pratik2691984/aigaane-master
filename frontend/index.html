@@ -575,7 +575,140 @@
         ).join("");
       }
 
-// --- 4. Kosha Lexicon Lookup ---
+
+      // --- 5. Gāndharvaveda 22-Śruti Web Audio Synthesizer ---
+      let audioCtx = null;
+      let activeOsc = null;
+      let activeGain = null;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function stopAllAudio() {
+        if (activeOsc) {
+          try {
+            activeGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.05);
+            setTimeout(() => {
+              if (activeOsc) {
+                activeOsc.stop();
+                activeOsc.disconnect();
+                activeOsc = null;
+              }
+            }, 60);
+          } catch(e) {}
+        }
+        const badge = document.getElementById("active-svara-badge");
+        if (badge) {
+          badge.className = "badge";
+          badge.textContent = "Silence";
+        }
+      }
+
+      function playFrequency(hz, name, symbol) {
+        const ctx = getAudioContext();
+        stopAllAudio();
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(hz, ctx.currentTime);
+
+        gain.gain.setValueAtTime(0.001, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + 0.04);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        activeOsc = osc;
+        activeGain = gain;
+
+        const badge = document.getElementById("active-svara-badge");
+        if (badge) {
+          badge.className = "badge ok";
+          badge.textContent = `▶ Playing ${symbol} (${name}) · ${hz} Hz`;
+        }
+      }
+
+      async function loadSrutiMatrix() {
+        const saHz = parseFloat(document.getElementById("sa-hz-input").value) || 240.0;
+        const tbody = document.getElementById("sruti-table-body");
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:16px;">Loading 22-Śruti Matrix...</td></tr>`;
+
+        try {
+          const resp = await fetch(`${API_BASE}/api/v1/sruti?sa_hz=${saHz}`);
+          if (!resp.ok) throw new Error("Failed to fetch sruti matrix");
+          const data = await resp.json();
+
+          tbody.innerHTML = data.intervals.map(item => `
+            <tr style="cursor:pointer;" onclick="playFrequency(${item.frequency_hz}, '${item.name}', '${item.svara_symbol}')">
+              <td>${item.index}</td>
+              <td style="font-weight:600;">${item.name}</td>
+              <td>${item.svara}</td>
+              <td style="font-family:monospace; font-weight:700; color:var(--accent);">${item.svara_symbol}</td>
+              <td style="font-family:monospace;">${item.ratio}</td>
+              <td style="font-family:monospace; color:var(--primary);">${item.frequency_hz} Hz</td>
+              <td style="font-family:monospace;">${item.cents}¢</td>
+              <td style="font-family:monospace; color:${item.tet_deviation_cents >= 0 ? '#10b981' : '#f59e0b'};">
+                ${item.tet_deviation_cents > 0 ? '+' : ''}${item.tet_deviation_cents}¢
+              </td>
+              <td>
+                <button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="event.stopPropagation(); playFrequency(${item.frequency_hz}, '${item.name}', '${item.svara_symbol}')">
+                  ▶ Play
+                </button>
+              </td>
+            </tr>
+          `).join("");
+        } catch (e) {
+          tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--danger); padding:16px;">Error: ${e.message}</td></tr>`;
+        }
+      }
+
+      
+      // --- 5B. 22-Śruti MIDI Downloader ---
+      async function downloadSrutiMidi() {
+        const sel = document.getElementById("midi-scale-select");
+        const saHz = parseFloat(document.getElementById("sa-hz-input").value) || 240.0;
+        if (!sel) return;
+        const svaras = sel.value.split(",");
+
+        const payload = {
+          svaras: svaras,
+          sa_hz: saHz,
+          sa_midi_note: 60,
+          tempo_bpm: 76
+        };
+
+        try {
+          const resp = await fetch(`${API_BASE}/api/v1/sruti/midi/export`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          if (!resp.ok) throw new Error("Failed to export MIDI");
+          const blob = await resp.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = `aigaane_22_sruti_${svaras.slice(0, 3).join("_")}.mid`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        } catch (e) {
+          alert("Error downloading MIDI: " + e.message);
+        }
+      }
+
+      // --- 4. Kosha Lexicon Lookup ---
     async function lookupKosha() {
       const word = document.getElementById("kosha-word").value.trim();
       const badge = document.getElementById("k-badge");
