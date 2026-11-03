@@ -619,8 +619,17 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def route(doc: Dict[str, Any], policy: Dict[str, Any], intent_hint: Optional[str] = None) -> Dict[str, Any]:
+def route(doc: Optional[Dict[str, Any]], policy: Dict[str, Any], intent_hint: Optional[str] = None) -> Dict[str, Any]:
     intent = intent_hint or "unknown"
+    if not doc:
+        return {
+            "studio": policy.get("default_studio", "Studio_I"),
+            "intent_class": intent,
+            "classifier_confidence": 0.5,
+            "rule_id": None,
+            "risk_flags": [],
+            "governance_flags": []
+        }
     raw_surface = doc.get("surface", "")
     _, surface = _script.to_canonical_iast(raw_surface)
 
