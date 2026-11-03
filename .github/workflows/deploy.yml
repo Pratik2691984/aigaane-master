@@ -1,4 +1,4 @@
-﻿name: CI/CD Pipeline - Test, Build & Deploy
+name: CI/CD Pipeline - Test, Build & Deploy
 
 on:
   push:
@@ -25,10 +25,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-asyncio anyio httpx
+          python -c "import vidyut; vidyut.download_data('./data/vidyut')" || true
 
-      - name: Run Test Battery (344 tests)
+      - name: Run Test Battery (356 tests)
         env:
           AIGAANE_ENGINE_MODULE: engine
+          PYTHONPATH: .
         run: |
           python -m pytest tests/contract tests/api -v -p no:cacheprovider --rootdir=.
 
