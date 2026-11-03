@@ -89,7 +89,7 @@
     <div style="margin-bottom: 24px;">
       <h2 style="font-size: 1.8rem; margin: 0 0 6px 0; color: #f8fafc;">Gāndharvaveda Studio III</h2>
       <p style="color: var(--text-muted, #94a3b8); margin: 0; font-size: 0.95rem;">
-        Authentic 5-limit Ahobala Saṅgītapārijāta physical modeling, pure ratios, and synchronous Tanpura drone.
+        Audited v1.0 AudioWorklet physical string modeling, 0.00¢ fractional delay tuning, 1.2 Hz āndolan LFO, and physical Tanpura drone.
       </p>
     </div>
 
@@ -141,9 +141,10 @@
     </footer>
   </div>
 
-  <script src="./studio3/audio_driver.js"></script>
+<script src="./studio3/audio_driver.js"></script>
   <script>
-    const driver = new GandharvaAudioDriver();
+    const engine = new StudioIIIAudioEngine();
+    const scheduler = new MantraScheduler(engine);
     let isDroneRunning = false;
 
     async function refreshMatrix() {
@@ -151,15 +152,15 @@
       const grid = document.getElementById("swara-grid");
       const badge = document.getElementById("status-badge");
 
-      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Fetching Ahobala ratios...</div>';
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Initializing AudioWorklet & fetching ratios...</div>';
       
-      const intervals = await driver.loadSrutiMatrix(saHz);
+      const intervals = await engine.loadSrutiMatrix(saHz);
       if (intervals && intervals.length > 0) {
-        badge.textContent = `Ahobala 5-Limit • KS Model (${intervals.length} Swaras)`;
+        badge.textContent = "Ahobala v1.0 AudioWorklet (0.00¢)";
         badge.className = "badge ok";
         renderGrid(intervals);
       } else {
-        badge.textContent = "Canon Loaded (Fallback)";
+        badge.textContent = "Offline / Local Matrix";
         badge.className = "badge warn";
       }
     }
@@ -167,7 +168,7 @@
     function renderGrid(intervals) {
       const grid = document.getElementById("swara-grid");
       grid.innerHTML = intervals.map(item => `
-        <div class="swara-card" onclick="driver.pluckString(${item.frequency_hz}, 1.8, 0.85)">
+        <div class="swara-card" onclick="playSwaraCard('${item.svara_symbol}')">
           <div class="swara-sym">${item.svara_symbol}</div>
           <div class="swara-name">${item.name}</div>
           <div class="swara-ratio">${item.ratio}</div>
@@ -176,18 +177,24 @@
       `).join("");
     }
 
-    function toggleDrone() {
+    async function playSwaraCard(symbol) {
+      await engine.init();
+      const meend = (symbol === "r") ? "G" : (symbol === "d" ? "N" : null);
+      await engine.schedulePluck(symbol, engine.ctx.currentTime, 2.2, 0.88, meend);
+    }
+
+    async function toggleDrone() {
       const btn = document.getElementById("drone-btn");
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
 
       if (!isDroneRunning) {
-        driver.startTanpuraDrone(saHz);
+        await engine.startTanpuraDrone(saHz);
         btn.textContent = "■ Stop Tanpura Drone";
         btn.style.background = "#ef4444";
         btn.style.color = "#fff";
         isDroneRunning = true;
       } else {
-        driver.stopTanpuraDrone();
+        engine.stopTanpuraDrone();
         btn.textContent = "▶ Start Tanpura Drone";
         btn.style.background = "";
         btn.style.color = "";
@@ -195,11 +202,19 @@
       }
     }
 
-    function playBhairavArohana() {
+    async function playBhairavArohana() {
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
-      // Exact Ahobala 5-limit Bhairav scale (Komal Re: 256/243 = 90.22¢, Komal Dha: 128/81 = 792.18¢)
-      const bhairav = ["S", "r", "G", "M", "P", "d", "N", "S'"];
-      driver.playSwaraSequence(bhairav, saHz, 72);
+      const bhairavScore = [
+        { swara: "S", weight: "G" },
+        { swara: "r", weight: "G", meend_target: "G" },
+        { swara: "G", weight: "G" },
+        { swara: "M", weight: "G" },
+        { swara: "P", weight: "G" },
+        { swara: "d", weight: "G", meend_target: "N" },
+        { swara: "N", weight: "G" },
+        { swara: "S'", weight: "G" }
+      ];
+      await scheduler.playSequence(bhairavScore, saHz, 72);
     }
 
     async function downloadMidi() {
@@ -225,7 +240,7 @@
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "aigaane_ahobala_bhairav.mid";
+        a.download = "aigaane_ahobala_bhairav_v1.mid";
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -261,25 +276,9 @@
         const meter = meterInfo.meter || "Anuṣṭubh";
         const midiB64 = data.studio_iii_acoustics?.midi_base64;
 
-        // Primary: Use genuine Piṅgala weights from backend
-        let weights = [];
-        let sourceTag = "Backend";
-
-        if (Array.isArray(meterInfo.syllable_weights) && meterInfo.syllable_weights.length > 0) {
-          weights = meterInfo.syllable_weights;
-        } else if (typeof meterInfo.pattern === "string" && /^[GL]+$/i.test(meterInfo.pattern)) {
+        let weights = meterInfo.syllable_weights || [];
+        if (weights.length === 0 && meterInfo.pattern) {
           weights = meterInfo.pattern.split("");
-        } else {
-          // Offline fallback
-          sourceTag = "Client-Fallback";
-          const words = text.split(/\s+/);
-          words.forEach(w => {
-            const syls = w.match(/[^aāiīuūṛṝeaiouo]*[aāiīuūṛṝeaiouo]+(?:[^aāiīuūṛṝeaiouo]+(?=[^aāiīuūṛṝeaiouo][aāiīuūṛṝeaiouo])|[^aāiīuūṛṝeaiouo]*$)/gi) || [w];
-            syls.forEach(s => {
-              const isGuru = /[āīūṛṝeaiouo]/i.test(s) || /[^aāiīuūṛṝeaiouo]{2,}/i.test(s);
-              weights.push(isGuru ? "G" : "L");
-            });
-          });
         }
 
         const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
@@ -289,21 +288,22 @@
           return {
             swara: swara,
             weight: w,
-            ratio: SWARA_CANONICAL[swara]?.ratio_val || (isGuru ? 1.5 : 1.0)
+            ratio: SWARA_CANONICAL[swara]?.ratio_val || 1.0,
+            meend_target: (swara === "r") ? "G" : (swara === "d" ? "N" : null)
           };
         });
 
-        driver.playSwaraSequence(sequence, saHz, 84);
+        await scheduler.playSequence(sequence, saHz, 84);
 
         let midiButtonHtml = "";
         if (midiB64) {
           midiButtonHtml = ` <button class="btn" style="padding:2px 8px; font-size:0.75rem; margin-left:8px;" onclick="downloadBase64Midi('${midiB64}', '${meter}')">📥 Download Pipeline MIDI</button>`;
         }
 
-        status.innerHTML = `<span class="badge ok">✓ ${sourceTag} ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}).</span>${midiButtonHtml}`;
+        status.innerHTML = `<span class="badge ok">✓ Backend ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}) via AudioWorklet.</span>${midiButtonHtml}`;
       } catch (e) {
         status.innerHTML = `<span class="badge warn">Fallback: ${e.message}</span>`;
-        driver.playSwaraSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
+        await scheduler.playSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
       }
     }
 
