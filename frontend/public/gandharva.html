@@ -155,7 +155,7 @@
       
       const intervals = await driver.loadSrutiMatrix(saHz);
       if (intervals && intervals.length > 0) {
-        badge.textContent = `Ahobala 5-Limit Live (${intervals.length} Swaras)`;
+        badge.textContent = `Ahobala 5-Limit • KS Model (${intervals.length} Swaras)`;
         badge.className = "badge ok";
         renderGrid(intervals);
       } else {
