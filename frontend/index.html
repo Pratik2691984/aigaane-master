@@ -429,7 +429,153 @@
       ).join("");
     }
 
-    // --- 4. Kosha Lexicon Lookup ---
+    
+      // --- 3B. Tiṅanta Conjugation Engine (Gaṇas 1-10) ---
+      const VERB_MATRICES = {
+        "bhu-1": {
+          title: "bhū (bhavati · to be)",
+          chip: "Gaṇa 1 · Bhvādi (śap 3.1.68) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "bhavati", "bhavataḥ", "bhavanti"],
+            ["Madhyama (2nd)", "bhavasi", "bhavathaḥ", "bhavatha"],
+            ["Uttama (1st)", "bhavāmi", "bhavāvaḥ", "bhavāmaḥ"]
+          ]
+        },
+        "ad-2": {
+          title: "ad (atti · to eat)",
+          chip: "Gaṇa 2 · Adādi (luk-vikaraṇa 2.4.72) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "atti", "attaḥ", "adanti"],
+            ["Madhyama (2nd)", "atsi", "atthaḥ", "attha"],
+            ["Uttama (1st)", "admi", "advaḥ", "admaḥ"]
+          ]
+        },
+        "as-2": {
+          title: "as (asti · to be)",
+          chip: "Gaṇa 2 · Adādi (śnasor allopaḥ 6.4.111) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "asti", "staḥ", "santi"],
+            ["Madhyama (2nd)", "asi", "sthaḥ", "stha"],
+            ["Uttama (1st)", "asmi", "svaḥ", "smaḥ"]
+          ]
+        },
+        "hu-3": {
+          title: "hu (juhoti · to sacrifice)",
+          chip: "Gaṇa 3 · Juhotyādi (ślu-vikaraṇa 6.1.10) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "juhoti", "juhutaḥ", "juhvati"],
+            ["Madhyama (2nd)", "jahoṣi", "juhuthaḥ", "juhutha"],
+            ["Uttama (1st)", "juhomi", "juhuvaḥ", "juhumaḥ"]
+          ]
+        },
+        "da-3": {
+          title: "dā (dadāti · to give)",
+          chip: "Gaṇa 3 · Juhotyādi (dādā ghādvāp 1.1.20) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "dadāti", "dattaḥ", "dadati"],
+            ["Madhyama (2nd)", "dadāsi", "datthaḥ", "dattha"],
+            ["Uttama (1st)", "dadāmi", "dadvaḥ", "dadmaḥ"]
+          ]
+        },
+        "div-4": {
+          title: "div (dīvyati · to play/shine)",
+          chip: "Gaṇa 4 · Divādi (śyan-vikaraṇa 3.1.69) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "dīvyati", "dīvyataḥ", "dīvyanti"],
+            ["Madhyama (2nd)", "dīvyasi", "dīvyathaḥ", "dīvyatha"],
+            ["Uttama (1st)", "dīvyāmi", "dīvyāvaḥ", "dīvyāmaḥ"]
+          ]
+        },
+        "su-5": {
+          title: "su (sunoti · to press soma)",
+          chip: "Gaṇa 5 · Svādi (śnu-vikaraṇa 3.1.73) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "sunoti", "sunutaḥ", "sunvanti"],
+            ["Madhyama (2nd)", "sunoṣi", "sunuthaḥ", "sunutha"],
+            ["Uttama (1st)", "sunomi", "sunuvaḥ", "sunumaḥ"]
+          ]
+        },
+        "tud-6": {
+          title: "tud (tudati · to strike)",
+          chip: "Gaṇa 6 · Tudādi (śa-vikaraṇa 3.1.77) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "tudati", "tudataḥ", "tudanti"],
+            ["Madhyama (2nd)", "tudasi", "tudathaḥ", "tudatha"],
+            ["Uttama (1st)", "tudāmi", "tudāvaḥ", "tudāmaḥ"]
+          ]
+        },
+        "rudh-7": {
+          title: "rudh (ruṇaddhi · to obstruct)",
+          chip: "Gaṇa 7 · Rudhādi (śnam-vikaraṇa 3.1.78) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "ruṇaddhi", "runddhaḥ", "rundhanti"],
+            ["Madhyama (2nd)", "ruṇatsi", "runddhaḥ", "runddha"],
+            ["Uttama (1st)", "ruṇadhmi", "rundhvaḥ", "rundhmaḥ"]
+          ]
+        },
+        "tan-8": {
+          title: "tan (tanoti · to stretch)",
+          chip: "Gaṇa 8 · Tanādi (u-vikaraṇa 3.1.79) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "tanoti", "tanutaḥ", "tanvanti"],
+            ["Madhyama (2nd)", "tanoṣi", "tanuthaḥ", "tanutha"],
+            ["Uttama (1st)", "tanomi", "tanuvaḥ", "tanumaḥ"]
+          ]
+        },
+        "kr-8": {
+          title: "kṛ (karoti · to do/make)",
+          chip: "Gaṇa 8 · Tanādi (tanādikṛñbhya uḥ 3.1.79) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "karoti", "kurutaḥ", "kurvanti"],
+            ["Madhyama (2nd)", "karoṣi", "kuruthaḥ", "kurutha"],
+            ["Uttama (1st)", "karomi", "kurvaḥ", "kurmaḥ"]
+          ]
+        },
+        "kri-9": {
+          title: "krī (krīṇāti · to buy)",
+          chip: "Gaṇa 9 · Kryādi (śnā-vikaraṇa 3.1.81) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "krīṇāti", "krīṇītaḥ", "krīṇanti"],
+            ["Madhyama (2nd)", "krīṇāsi", "krīṇīthaḥ", "krīṇītha"],
+            ["Uttama (1st)", "krīṇāmi", "krīṇīvaḥ", "krīṇīmaḥ"]
+          ]
+        },
+        "jna-9": {
+          title: "jñā (jānāti · to know)",
+          chip: "Gaṇa 9 · Kryādi (jñājanorjā 7.3.79) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "jānāti", "jānītaḥ", "jānanti"],
+            ["Madhyama (2nd)", "jānāsi", "jānīthaḥ", "jānītha"],
+            ["Uttama (1st)", "jānāmi", "jānīvaḥ", "jānīmaḥ"]
+          ]
+        },
+        "cur-10": {
+          title: "cur (corayati · to steal)",
+          chip: "Gaṇa 10 · Curādi (ṇic-vikaraṇa 3.1.25) · Parasmaipada",
+          rows: [
+            ["Prathama (3rd)", "corayati", "corayataḥ", "corayanti"],
+            ["Madhyama (2nd)", "corayasi", "corayathaḥ", "corayatha"],
+            ["Uttama (1st)", "corayāmi", "corayāvaḥ", "corayāmaḥ"]
+          ]
+        }
+      };
+
+      function renderVerbConjugation() {
+        const sel = document.getElementById("verb-root-select");
+        if (!sel) return;
+        const key = sel.value;
+        const data = VERB_MATRICES[key];
+        if (!data) return;
+
+        document.getElementById("v-title").textContent = data.title;
+        document.getElementById("v-chip").textContent = data.chip;
+        const tbody = document.getElementById("v-table-body");
+        tbody.innerHTML = data.rows.map(([purusa, e, d, b]) =>
+          `<tr><th>${purusa}</th><td class="form">${e}</td><td class="form">${d}</td><td class="form">${b}</td></tr>`
+        ).join("");
+      }
+
+// --- 4. Kosha Lexicon Lookup ---
     async function lookupKosha() {
       const word = document.getElementById("kosha-word").value.trim();
       const badge = document.getElementById("k-badge");
