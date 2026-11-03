@@ -291,6 +291,13 @@
       target.selectionStart = target.selectionEnd = start + char.length;
     }
 
+    
+    // --- Defensive Input Getter ---
+    function safeVal(id, defaultVal = "") {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : defaultVal;
+    }
+
     const API_BASE = "https://aigaane-api-977695793163.asia-south1.run.app";
 
     // --- 1. Sandhi Combiner ---
@@ -869,7 +876,7 @@
     }
 
     // --- 5. Gāndharvaveda 22-Śruti Audio Synthesis ---
-    let audioCtx = null;
+    // Reusing existing audioCtx declaration
     let isPlaying = false;
     let scheduledTimeouts = [];
 
@@ -1006,7 +1013,7 @@
               </div>
               <div style="font-family:'Noto Serif Devanagari', serif; font-size:1.05rem; margin-bottom:6px;">${highlighted}</div>
               <div style="font-size:0.85rem; color:var(--text-muted, #9ca3af); margin-bottom:8px;">${m.meaning}</div>
-              <button class="btn" style="padding:2px 8px; font-size:0.75rem;" onclick="loadVerseToPipeline('${m.verse.replace(/'/g, "\'")}')">⚡ Run in Pipeline</button>
+              <button class="btn" style="padding:2px 8px; font-size:0.75rem;" onclick="loadVerseToPipeline(decodeURIComponent('${encodeURIComponent(m.verse)}'))">⚡ Run in Pipeline</button>
             </article>
           `;
         });
@@ -1015,6 +1022,20 @@
         resultDiv.innerHTML = `<span class="badge err">Error: ${e.message}</span>`;
       }
     }
+  
+    function loadVerseToPipeline(verseText) {
+      const pipeInput = document.getElementById("pipeline-input") || document.getElementById("chandas-input");
+      if (pipeInput) {
+        pipeInput.value = verseText;
+        pipeInput.scrollIntoView({ behavior: "smooth" });
+        if (typeof runStudioPipeline === "function" && document.getElementById("pipeline-input")) {
+          runStudioPipeline();
+        } else if (typeof scanChandas === "function") {
+          scanChandas();
+        }
+      }
+    }
+
   </script>
 </body>
 </html>
