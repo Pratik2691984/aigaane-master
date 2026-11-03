@@ -16,26 +16,6 @@ from aigaane.neural.confidence import cap_confidence
 
 logger = logging.getLogger(__name__)
 
-RESPONSE_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "sequence": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "swara": {"type": "string"},
-                    "meend_target": {"type": "string", "nullable": True},
-                },
-                "required": ["swara"],
-            },
-        },
-        "confidence": {"type": "number"},
-        "rationale": {"type": "string"},
-    },
-    "required": ["sequence", "confidence", "rationale"],
-}
-
 SYSTEM_PROMPT = """You are the swara phrasing engine for Rāga Bhairav.
 
 RULES:
@@ -48,23 +28,36 @@ RULES:
 
 
 class GeminiSwaraEngine:
-    def __init__(self, project_id: str = "gen-lang-client-0991678000", model: str = "gemini-2.5-flash"):
+    def __init__(
+        self,
+        project_id: str = "gen-lang-client-0991678000",
+        model: str = "gemini-2.5-flash",
+    ):
         self.project_id = project_id
         self.model = model
+        self.last_error: Optional[str] = None
         self._client = None
 
     @property
     def client(self):
         if self._client is None:
-            self._client = genai.Client(vertexai=True, project=self.project_id, location="us-central1")
+            self._client = genai.Client(
+                vertexai=True,
+                project=self.project_id,
+                location="us-central1"
+            )
         return self._client
 
     def phrase(self, chandas: ChandasInput) -> Optional[SwaraSequence]:
         """Attempt neural phrasing with deterministic validation."""
+        self.last_error = None
+
         if not validate_sanskrit_text(chandas.verse_text):
+            self.last_error = "Text failed Sanskrit orthography guard."
             return None
 
         if not all(w in ("L", "G") for w in chandas.weights):
+            self.last_error = "Weights contain invalid non-L/G tokens."
             return None
 
         prompt = (
@@ -82,9 +75,10 @@ class GeminiSwaraEngine:
                 config=types.GenerateContentConfig(
                     system_instruction=SYSTEM_PROMPT,
                     temperature=0.2,
-                    max_output_tokens=1024,
+                    max_output_tokens=4096,
+                    thinking_config=types.ThinkingConfig(thinking_budget=0),
                     response_mime_type="application/json",
-                    response_schema=RESPONSE_SCHEMA,
+                    response_schema=SwaraSequence,
                 ),
             )
             raw = json.loads(response.text)
@@ -100,7 +94,11 @@ class GeminiSwaraEngine:
             return seq
 
         except Exception as e:
-            logger.warning(f"Neural phrasing fallback triggered: {e}")
+            self.last_error = f"{type(e).__name__}: {e}"
+            logger.error(
+                f"NEURAL_FALLBACK_ERROR model={self.model}: {type(e).__name__}: {e}",
+                exc_info=True
+            )
             return None
 
 

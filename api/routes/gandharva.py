@@ -3,7 +3,7 @@ Gāndharva Neural Phrasing Endpoint
 Route: POST /api/v1/gandharva/phrase
 Pillar 1: Bounded neural swara phrase generation with deterministic fallback.
 """
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
@@ -33,7 +33,10 @@ class PhraseResponse(BaseModel):
 
 
 @router.post("/phrase", response_model=PhraseResponse)
-async def phrase_verse(req: PhraseRequest) -> PhraseResponse:
+async def phrase_verse(
+    req: PhraseRequest,
+    debug: bool = Query(False, description="Surface backend error details in rationale if fallback occurs")
+) -> PhraseResponse:
     if not validate_sanskrit_text(req.verse_text):
         raise HTTPException(
             status_code=422,
@@ -76,11 +79,15 @@ async def phrase_verse(req: PhraseRequest) -> PhraseResponse:
         )
 
     fallback_res = deterministic_fallback(chandas_input)
+    rationale_str = fallback_res.rationale
+    if debug and _engine.last_error:
+        rationale_str = f"Fallback ({_engine.last_error}) | {fallback_res.rationale}"
+
     return PhraseResponse(
         status="success",
         target_raga=req.target_raga,
         neural_used=False,
         confidence=fallback_res.confidence,
-        rationale=fallback_res.rationale,
+        rationale=rationale_str,
         swara_sequence=fallback_res.sequence,
     )
