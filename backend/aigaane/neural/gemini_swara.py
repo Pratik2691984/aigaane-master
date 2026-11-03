@@ -56,7 +56,7 @@ class GeminiSwaraEngine:
     @property
     def client(self):
         if self._client is None:
-            self._client = genai.Client(vertexai=True, project=self.project_id)
+            self._client = genai.Client(vertexai=True, project=self.project_id, location="us-central1")
         return self._client
 
     def phrase(self, chandas: ChandasInput) -> Optional[SwaraSequence]:
