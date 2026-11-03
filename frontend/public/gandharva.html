@@ -241,7 +241,7 @@
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
       if (!text) return;
 
-      status.innerHTML = '<span class="hint">Calling Studio Pipeline (Nyāya Logic → Pāṇini Grammar → Chandas Metrical Scansion)...</span>';
+      status.innerHTML = '<span class="hint">Scanning prosody and executing Studio Pipeline...</span>';
 
       try {
         const resp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/pipeline", {
@@ -258,30 +258,73 @@
         const data = await resp.json();
 
         const meterInfo = data.studio_iii_acoustics?.meter_scansion || {};
-        const meter = meterInfo.meter || "Classical Sanskrit Scansion";
-        const tokens = data.studio_i_analysis?.tokens || [];
-        
-        // Map Ahobala Bhairav melodic contour using syllabic scansion weights
-        const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
-        const sequence = [];
+        const meter = meterInfo.meter || "Anuṣṭubh";
+        const midiB64 = data.studio_iii_acoustics?.midi_base64;
 
-        const count = tokens.length > 0 ? tokens.length : text.split(" ").length;
-        for (let i = 0; i < count; i++) {
-          const swara = arohana[i % arohana.length];
-          const isGuru = (i % 2 === 0);
-          sequence.push({
-            swara: swara,
-            weight: isGuru ? "G" : "L",
-            ratio: SWARA_CANONICAL[swara]?.ratio_val || 1.0
+        // Extract syllabic pattern (e.g., GGGGLGGG...) or decompose from text syllables
+        let weights = meterInfo.syllable_weights || [];
+        if (weights.length === 0 && meterInfo.pattern) {
+          weights = meterInfo.pattern.split("");
+        }
+
+        // Fallback: analyze syllables directly if not pre-split
+        if (weights.length === 0) {
+          const rawWords = text.split(/\s+/);
+          weights = [];
+          rawWords.forEach(w => {
+            // Standard 8-syllable pada heuristic: Guru on long vowels/conjuncts
+            const syls = w.match(/[^aeiouāīūṛṝeaiou]*[aeiouāīūṛṝeaiou]+[^aeiouāīūṛṝeaiou]*/gi) || [w];
+            syls.forEach((s, idx) => {
+              const isLong = /[āīūṛṝeaiou]|.*[k-h]{2,}/i.test(s);
+              weights.push(isLong ? "G" : "L");
+            });
           });
         }
 
-        driver.playSwaraSequence(sequence, saHz, 80);
-        status.innerHTML = `<span class="badge ok">✓ Scanned as ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} padas in Karplus-Strong Bhairav.</span>`;
+        // Map weights into Karplus-Strong melodic sequence
+        // Guru (G) -> Pa (3/2, 360Hz) with 2.2s sustain
+        // Laghu (L) -> Sa (1/1, 240Hz) with 1.1s sustain
+        const sequence = weights.map((w, idx) => {
+          const isGuru = (w === "G");
+          const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
+          const swara = isGuru ? "P" : (arohana[idx % arohana.length]);
+          return {
+            swara: swara,
+            weight: w,
+            ratio: SWARA_CANONICAL[swara]?.ratio_val || (isGuru ? 1.5 : 1.0)
+          };
+        });
+
+        driver.playSwaraSequence(sequence, saHz, 84);
+
+        let midiButtonHtml = "";
+        if (midiB64) {
+          midiButtonHtml = ` <button class="btn" style="padding:2px 8px; font-size:0.75rem; margin-left:8px;" onclick="downloadBase64Midi('${midiB64}', '${meter}')">📥 Download Pipeline MIDI</button>`;
+        }
+
+        status.innerHTML = `<span class="badge ok">✓ Scanned: ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}).</span>${midiButtonHtml}`;
       } catch (e) {
         status.innerHTML = `<span class="badge warn">Fallback: ${e.message}</span>`;
         driver.playSwaraSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
       }
+    }
+
+    function downloadBase64Midi(b64, meterName) {
+      const byteChars = atob(b64);
+      const byteNumbers = new Array(byteChars.length);
+      for (let i = 0; i < byteChars.length; i++) {
+        byteNumbers[i] = byteChars.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: "audio/midi" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `aigaane_${meterName.toLowerCase().replace(/\s+/g, '_')}_pipeline.mid`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
     }
 
     window.addEventListener("DOMContentLoaded", () => {
