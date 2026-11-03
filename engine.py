@@ -1236,6 +1236,41 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
 
 
 
+    # 4b. Pillar 2: High-Frequency Classical Verb Lookup (10 Gaṇas)
+    if hasattr(_lexicon, "lookup_classical_verb"):
+        v_info = _lexicon.lookup_classical_verb(surface)
+        if v_info:
+            token = {
+                "token_id": "T0",
+                "pada": surface,
+                "stem": v_info["dhatu"],
+                "pos": "tinanta",
+                "vibhakti": None,
+                "vacana": v_info["vacana"],
+                "linga": None,
+                "dhatu": v_info["dhatu"],
+                "gana": v_info["gana"],
+                "lakara": v_info["lakara"],
+                "purusha": v_info["purusha"],
+                "confidence": 1.0
+            }
+            return {
+                "schema_version": "0.2.0",
+                "trace_id": str(uuid.uuid4()),
+                "script_original": script_original,
+                "surface": raw_surface,
+                "normalized": deva,
+                "transliteration": {"devanagari": deva, "iast": surface},
+                "parse_rank": 1,
+                "tokens": [token],
+                "sandhi_splits": [],
+                "ambiguous_parses": [],
+                "canon_refs": [],
+                "confidence": 1.0,
+                "confidence_aggregate": {"min": 1.0, "mean": 1.0},
+                "provenance": ["engine=dhatupatha-generative", f"panini=gana-{v_info['gana']}"],
+            }
+
     # 5. Pillar 2: Recursive Samāsa Compound Decomposition
     if hasattr(_samasa, "recursive_split_compound"):
         rec_samasa = _samasa.recursive_split_compound(surface)

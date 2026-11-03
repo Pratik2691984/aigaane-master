@@ -1,4 +1,4 @@
-﻿"""
+"""
 Aigaane v0.3.0-dev — Generative Paninian Lexicon & Dhātupāṭha Engine
 Provides morphological analysis for subanta nominals, tinanta verb forms,
 and avyaya indeclinables with deterministic root derivation.
@@ -606,3 +606,86 @@ def lookup(word: str) -> Optional[dict]:
         return sub_hit
     return None
 
+
+
+# Classical High-Frequency Dhātupāṭha Roots Expansion (10 Gaṇas)
+CLASSICAL_VERB_TABLE = {
+    # Gaṇa 1: Bhāvādi
+    "gacchati": {"dhatu": "gam", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "goes"},
+    "gacchataḥ": {"dhatu": "gam", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "dvivacana", "meaning": "two go"},
+    "gacchanti": {"dhatu": "gam", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they go"},
+    "vadati": {"dhatu": "vad", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "speaks"},
+    "vadanti": {"dhatu": "vad", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they speak"},
+    "paṭhati": {"dhatu": "paṭh", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "reads/recites"},
+    "paṭhanti": {"dhatu": "paṭh", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they read/recite"},
+    "paśyati": {"dhatu": "dṛś", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "sees"},
+    "paśyanti": {"dhatu": "dṛś", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they see"},
+    "tiṣṭhati": {"dhatu": "sthā", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "stands"},
+    "tiṣṭhanti": {"dhatu": "sthā", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they stand"},
+    "nayati": {"dhatu": "nī", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "leads"},
+    "nayanti": {"dhatu": "nī", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they lead"},
+    "yacchati": {"dhatu": "dā", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "gives"},
+    "yacchanti": {"dhatu": "dā", "gana": 1, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they give"},
+    
+    # Gaṇa 2: Adādi
+    "asti": {"dhatu": "as", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "is/exists"},
+    "staḥ": {"dhatu": "as", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "dvivacana", "meaning": "two exist"},
+    "santi": {"dhatu": "as", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they exist"},
+    "vetti": {"dhatu": "vid", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "knows"},
+    "vidanti": {"dhatu": "vid", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they know"},
+    "hanti": {"dhatu": "han", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "kills/strikes"},
+    "ghnanti": {"dhatu": "han", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they kill/strike"},
+    "yāti": {"dhatu": "yā", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "goes"},
+    "yānti": {"dhatu": "yā", "gana": 2, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they go"},
+
+    # Gaṇa 3: Juhotyādi
+    "dadhāti": {"dhatu": "dhā", "gana": 3, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "places/holds"},
+    "daphati": {"dhatu": "dhā", "gana": 3, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they place/hold"},
+    "bibheti": {"dhatu": "bhī", "gana": 3, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "fears"},
+
+    # Gaṇa 4: Divādi
+    "jāyate": {"dhatu": "jan", "gana": 4, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "is born"},
+    "jāyante": {"dhatu": "jan", "gana": 4, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they are born"},
+    "naśyati": {"dhatu": "naś", "gana": 4, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "perishes"},
+    "manyate": {"dhatu": "man", "gana": 4, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "thinks/believes"},
+
+    # Gaṇa 5: Svādi
+    "śṛṇoti": {"dhatu": "śru", "gana": 5, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "hears/listens"},
+    "śṛṇvanti": {"dhatu": "śru", "gana": 5, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they hear/listen"},
+    "āpnoti": {"dhatu": "āp", "gana": 5, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "obtains"},
+    "śaknoti": {"dhatu": "śak", "gana": 5, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "is able"},
+
+    # Gaṇa 6: Tudādi
+    "icchati": {"dhatu": "iṣ", "gana": 6, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "wishes/desires"},
+    "icchantti": {"dhatu": "iṣ", "gana": 6, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they wish/desire"},
+    "pṛcchati": {"dhatu": "prach", "gana": 6, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "asks"},
+    "viśati": {"dhatu": "viś", "gana": 6, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "enters"},
+    "muñcati": {"dhatu": "muc", "gana": 6, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "releases/frees"},
+
+    # Gaṇa 7: Rudhādi
+    "ruṇaddhi": {"dhatu": "rudh", "gana": 7, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "obstructs"},
+    "bhinatti": {"dhatu": "bhid", "gana": 7, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "splits"},
+    "chinatti": {"dhatu": "chid", "gana": 7, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "cuts"},
+
+    # Gaṇa 8: Tanādi
+    "karoti": {"dhatu": "kṛ", "gana": 8, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "does/makes"},
+    "kurutaḥ": {"dhatu": "kṛ", "gana": 8, "lakara": "lat", "purusha": "prathama", "vacana": "dvivacana", "meaning": "two do/make"},
+    "kurvanti": {"dhatu": "kṛ", "gana": 8, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they do/make"},
+
+    # Gaṇa 9: Kryādi
+    "jānāti": {"dhatu": "jñā", "gana": 9, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "knows"},
+    "jānanti": {"dhatu": "jñā", "gana": 9, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they know"},
+    "gṛhṇāti": {"dhatu": "grah", "gana": 9, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "grasps/takes"},
+    "krīṇāti": {"dhatu": "krī", "gana": 9, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "buys"},
+
+    # Gaṇa 10: Curādi
+    "cintayati": {"dhatu": "cint", "gana": 10, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "thinks/contemplates"},
+    "cintayanti": {"dhatu": "cint", "gana": 10, "lakara": "lat", "purusha": "prathama", "vacana": "bahuvacana", "meaning": "they think"},
+    "kathayati": {"dhatu": "kath", "gana": 10, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "narrates/tells"},
+    "pūjayati": {"dhatu": "pūj", "gana": 10, "lakara": "lat", "purusha": "prathama", "vacana": "ekavacana", "meaning": "worships/honors"},
+}
+
+
+def lookup_classical_verb(form: str) -> Optional[Dict[str, Any]]:
+    """Looks up high-frequency expanded classical verb forms."""
+    return CLASSICAL_VERB_TABLE.get(form)
