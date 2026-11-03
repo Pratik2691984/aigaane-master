@@ -25,6 +25,27 @@
       </nav>
     </header>
 
+    <!-- Floating Quick Diacritics Helper -->
+    <div id="diacritics-dock" style="background:var(--bg-card, #1e293b); border:1px solid #334155; border-radius:8px; padding:8px 12px; margin-bottom:18px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+      <span style="font-size:0.75rem; color:#fbbf24; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">IAST Insert:</span>
+      <div style="display:flex; gap:4px; flex-wrap:wrap;">
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ā')">ā</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ī')">ī</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ū')">ū</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ṛ')">ṛ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ṝ')">ṝ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ṭ')">ṭ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ḍ')">ḍ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ṇ')">ṇ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ś')">ś</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ṣ')">ṣ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ṃ')">ṃ</button>
+        <button type="button" class="btn" style="padding:2px 8px; font-size:0.85rem;" onclick="insertDiacritic('ḥ')">ḥ</button>
+      </div>
+      <span class="hint" style="font-size:0.75rem; margin-left:auto;">Click to append to focused input</span>
+    </div>
+
+
     <header>
       <div class="header-om">ॐ</div>
       <h1 class="header-title">Aigaane Sanskrit Engine</h1>
@@ -168,7 +189,7 @@
           <span class="sa-lg" id="k-word">dharma</span>
           <span class="badge ok" id="k-badge">✓ Lexical Match</span>
         </div>
-        <p class="hint" id="k-hint" style="margin-top:10px;">Found in canonical headword index (SLP1: <code>Darma</code>).</p>
+        <p class="hint" id="k-hint" style="margin-top:10px;">Found in canonical headword index (SLP1: <code>Darma</code> · <i>D represents dental aspirated ध</i>).</p>
       </div>
     </section>
 
@@ -250,6 +271,26 @@
   </div>
 
     <script>
+    
+    // --- Diacritics Helper & Active Input Tracking ---
+    let lastActiveInput = null;
+    document.addEventListener("focusin", (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+        lastActiveInput = e.target;
+      }
+    });
+
+    function insertDiacritic(char) {
+      const target = lastActiveInput || document.getElementById("sandhi-p1");
+      if (!target) return;
+      const start = target.selectionStart || target.value.length;
+      const end = target.selectionEnd || target.value.length;
+      const val = target.value;
+      target.value = val.substring(0, start) + char + val.substring(end);
+      target.focus();
+      target.selectionStart = target.selectionEnd = start + char.length;
+    }
+
     const API_BASE = "https://aigaane-api-977695793163.asia-south1.run.app";
 
     // --- 1. Sandhi Combiner ---
