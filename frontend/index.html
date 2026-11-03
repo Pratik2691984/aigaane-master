@@ -913,8 +913,52 @@
     }
 
     // --- 6. Itihāsa Search ---
-    function searchItihasa() {
-      // Static verified cards remain
+    async function searchItihasa() {
+      const qInput = document.getElementById("itihasa-q");
+      const resultDiv = document.getElementById("itihasa-result");
+      if (!qInput || !resultDiv) return;
+
+      const query = qInput.value.trim();
+      if (!query) {
+        resultDiv.innerHTML = '<span class="hint">Enter a keyword (e.g., "dharma", "karma", "tapaḥ").</span>';
+        return;
+      }
+
+      resultDiv.innerHTML = '<span class="hint">Searching classical canon...</span>';
+
+      try {
+        const resp = await fetch(`${API_BASE}/api/v1/itihasa/search`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: query, limit: 10 })
+        });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+
+        if (!data.matches || data.matches.length === 0) {
+          resultDiv.innerHTML = `<span class="badge warn">No verses found for "${query}"</span>`;
+          return;
+        }
+
+        let out = `<div style="margin-bottom:12px;"><span class="badge ok">${data.total_matches} verse(s) found</span></div>`;
+        data.matches.forEach(m => {
+          const highlighted = m.verse.replace(new RegExp(query, 'gi'), '<mark style="background:#fef08a;color:#854d0e;border-radius:2px;padding:0 2px;">$&</mark>');
+          out += `
+            <article class="verse" style="margin-bottom:14px; padding:12px; border-radius:6px; background:var(--bg-card, #1a1a24); border-left:3px solid var(--accent, #6366f1);">
+              <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <span class="badge ok">${m.source} · ${m.canto}</span>
+                <span style="font-size:0.8rem; color:var(--text-muted, #9ca3af);">${m.meter}</span>
+              </div>
+              <div style="font-family:'Noto Serif Devanagari', serif; font-size:1.05rem; margin-bottom:6px;">${highlighted}</div>
+              <div style="font-size:0.85rem; color:var(--text-muted, #9ca3af); margin-bottom:8px;">${m.meaning}</div>
+              <button class="btn" style="padding:2px 8px; font-size:0.75rem;" onclick="loadVerseToPipeline('${m.verse.replace(/'/g, "\'")}')">⚡ Run in Pipeline</button>
+            </article>
+          `;
+        });
+        resultDiv.innerHTML = out;
+      } catch (e) {
+        resultDiv.innerHTML = `<span class="badge err">Error: ${e.message}</span>`;
+      }
     }
   </script>
 </body>
