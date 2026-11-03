@@ -1,4 +1,5 @@
-﻿"""
+import _neural_fallback
+"""
 Aigaane v0.3.0-dev — Multi-Script, Generative Parser & Router Orchestrator
 """
 
@@ -616,7 +617,8 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
                 "provenance": ["engine=0.3.0-sentence", "lexicon=dhatupatha-v0.3"],
             }
 
-    return None
+    # 8. Pillar 1: Neural-Symbolic / Heuristic Fallback
+    return _neural_fallback.fallback_parse(surface, raw_surface, deva, script_original)
 
 
 def route(doc: Optional[Dict[str, Any]], policy: Dict[str, Any], intent_hint: Optional[str] = None) -> Dict[str, Any]:
