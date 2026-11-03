@@ -1,4 +1,4 @@
-﻿"""
+"""
 22-Śruti Microtonal Acoustic Model for Aigaane Gāndharvaveda (Studio III).
 Implements exact integer frequency ratios, cent calculations, and MIDI pitch-bend offsets.
 """
@@ -85,7 +85,7 @@ def lookup_svara(symbol: str, sa_hz: float = DEFAULT_SA_HZ) -> Dict[str, Any]:
 
 import io
 import mido
-from mido import Message, MidiFile, MidiTrack
+from mido import Message, MidiFile, MidiTrack, MetaMessage
 
 
 def cents_to_midi_pitch_bend(cents_deviation: float, semitone_range: float = 2.0) -> int:
@@ -102,41 +102,54 @@ def cents_to_midi_pitch_bend(cents_deviation: float, semitone_range: float = 2.0
 
 def generate_sruti_midi(svara_sequence: List[str], sa_midi_note: int = 60, sa_hz: float = DEFAULT_SA_HZ, tempo_bpm: int = 80) -> bytes:
     """
-    Generates a Type 0 MIDI file in-memory with pitch-bend messages calibrated
-    to exact 22-Śruti microtonal tuning.
+    Generates a Type 1 Standard MIDI file with two synchronous tracks:
+    - Track 0: Melody sequence with exact 22-Śruti pitch-bend modulation
+    - Track 1: Continuous 4-string Tanpura drone (Pa - Sa - Sa - Sa)
     """
-    mid = MidiFile(type=0)
-    track = MidiTrack()
-    mid.tracks.append(track)
+    mid = MidiFile(type=1)
 
+    # --- Track 0: Melody ---
+    melody_track = MidiTrack()
+    mid.tracks.append(melody_track)
     tempo = mido.bpm2tempo(tempo_bpm)
-    track.append(mido.MetaMessage('set_tempo', tempo=tempo, time=0))
+    melody_track.append(MetaMessage('set_tempo', tempo=tempo, time=0))
+    melody_track.append(MetaMessage('track_name', name='22-Sruti Melody', time=0))
 
     ticks_per_beat = mid.ticks_per_beat
-    note_duration = ticks_per_beat  # 1 beat per svara
+    note_duration = ticks_per_beat
 
     for sym in svara_sequence:
         svara_info = lookup_svara(sym, sa_hz=sa_hz)
         if not svara_info:
             continue
-
         cents = svara_info["cents"]
         semitone_offset = int(round(cents / 100.0))
         target_note = sa_midi_note + semitone_offset
         cents_deviation = svara_info["tet_deviation_cents"]
-
         bend_val = cents_to_midi_pitch_bend(cents_deviation)
 
-        # 1. Apply microtonal pitch bend right before note-on
-        track.append(Message('pitchwheel', pitch=bend_val - 8192, time=0))
-        # 2. Note on
-        track.append(Message('note_on', note=target_note, velocity=84, time=0))
-        # 3. Note off after duration
-        track.append(Message('note_off', note=target_note, velocity=0, time=note_duration))
+        melody_track.append(Message('pitchwheel', pitch=bend_val - 8192, channel=0, time=0))
+        melody_track.append(Message('note_on', note=target_note, velocity=88, channel=0, time=0))
+        melody_track.append(Message('note_off', note=target_note, velocity=0, channel=0, time=note_duration))
 
-    # Reset pitch wheel at end
-    track.append(Message('pitchwheel', pitch=0, time=0))
+    melody_track.append(Message('pitchwheel', pitch=0, channel=0, time=0))
+
+    # --- Track 1: Tanpura Drone ---
+    tanpura_track = MidiTrack()
+    mid.tracks.append(tanpura_track)
+    tanpura_track.append(MetaMessage('track_name', name='Tanpura Drone', time=0))
+    tanpura_track.append(Message('program_change', program=104, channel=1, time=0))  # Sitar / Tanpura timbre
+
+    # Tanpura tuning pattern: Pa (Mandra), Sa (Madhya), Sa (Madhya), Sa (Kharja/Lower)
+    drone_notes = [sa_midi_note + 7 - 12, sa_midi_note, sa_midi_note, sa_midi_note - 12]
+    total_beats = max(len(svara_sequence), 4)
+
+    for i in range(total_beats):
+        note = drone_notes[i % 4]
+        tanpura_track.append(Message('note_on', note=note, velocity=52, channel=1, time=0))
+        tanpura_track.append(Message('note_off', note=note, velocity=0, channel=1, time=ticks_per_beat))
 
     bio = io.BytesIO()
     mid.save(file=bio)
     return bio.getvalue()
+

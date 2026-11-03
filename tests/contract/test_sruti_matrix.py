@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 import _sruti
 
 def test_sruti_table_has_all_22_intervals():
@@ -35,3 +35,16 @@ def test_sruti_midi_binary_generation():
     data = _sruti.generate_sruti_midi(seq, sa_midi_note=60)
     assert len(data) > 0
     assert data[:4] == b"MThd", "Valid MIDI file must start with MThd header"
+
+
+def test_sruti_midi_type_1_tanpura_tracks():
+    import mido
+    import io
+    seq = ["S", "R2", "G2", "M1", "P", "D2", "N2", "S"]
+    data = _sruti.generate_sruti_midi(seq, sa_midi_note=60)
+    mid = mido.MidiFile(file=io.BytesIO(data))
+    assert mid.type == 1, "Must be Type 1 multi-track MIDI"
+    assert len(mid.tracks) == 2, "Must contain Melody and Tanpura drone tracks"
+    track_names = [msg.name for track in mid.tracks for msg in track if msg.type == 'track_name']
+    assert "22-Sruti Melody" in track_names
+    assert "Tanpura Drone" in track_names

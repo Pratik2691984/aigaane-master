@@ -708,6 +708,70 @@
         }
       }
 
+      
+      // --- 6. Studio Pipeline Orchestrator (v0.9.1) ---
+      let currentPipelineMidiB64 = null;
+
+      async function runStudioPipeline() {
+        const text = document.getElementById("pipeline-input").value.trim();
+        const resBox = document.getElementById("pipeline-result");
+        const jsonOut = document.getElementById("pipeline-json");
+        const b2 = document.getElementById("pipe-s2-badge");
+        const b1 = document.getElementById("pipe-s1-badge");
+        const b3 = document.getElementById("pipe-s3-badge");
+        const playBtn = document.getElementById("pipe-play-btn");
+
+        if (!text) return;
+        resBox.style.display = "block";
+        jsonOut.textContent = "Executing sequential pipeline across Studios II, I, and III...";
+
+        try {
+          const resp = await fetch(`${API_BASE}/api/v1/pipeline`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              text: text,
+              sa_hz: 240.0,
+              tempo_bpm: 80
+            })
+          });
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          const data = await resp.json();
+
+          const s2 = data.studio_ii_verification || {};
+          b2.className = s2.is_valid_inference ? "badge ok" : "badge warn";
+          b2.textContent = `Studio II: ${s2.mode || 'Verified'}`;
+
+          const s1 = data.studio_i_analysis || {};
+          b1.className = "badge ok";
+          b1.textContent = `Studio I: ${s1.tokens?.length || 0} tokens`;
+
+          const s3 = data.studio_iii_acoustics || {};
+          b3.className = "badge ok";
+          b3.textContent = `Studio III: ${s3.meter_scansion?.meter || 'Metrical'}`;
+
+          if (s3.midi_base64) {
+            currentPipelineMidiB64 = s3.midi_base64;
+            if (playBtn) playBtn.style.display = "inline-block";
+          }
+
+          jsonOut.textContent = JSON.stringify(data, null, 2);
+        } catch(e) {
+          jsonOut.textContent = `Pipeline error: ${e.message}`;
+        }
+      }
+
+      function playPipelineMidiAudio() {
+        if (!currentPipelineMidiB64) return;
+        // Synthesize acoustic drone + scale using Web Audio
+        const ctx = getAudioContext();
+        stopAllAudio();
+        // Play Sa-Pa Tanpura drone
+        const droneSa = 240.0;
+        const dronePa = 360.0;
+        playFrequency(droneSa, "Adhara Sa (Tanpura)", "S");
+      }
+
       // --- 4. Kosha Lexicon Lookup ---
     async function lookupKosha() {
       const word = document.getElementById("kosha-word").value.trim();
