@@ -1,4 +1,4 @@
-﻿"""
+"""
 Aigaane v0.3.0-dev — Generative Paninian Samāsa (Compound) Engine
 Decomposes Sanskrit compound words into recursive SamasaNode trees.
 """
@@ -235,3 +235,53 @@ def build_tree(surface: str) -> Optional[dict]:
             node["children"] = info["children"]
         return node
     return generate_compound_tree(surface)
+
+
+
+def recursive_split_compound(word: str, depth: int = 1) -> Optional[Dict[str, Any]]:
+    """
+    Recursively splits compounds up to depth 3 adhering to samasa_node schema.
+    """
+    if depth > 3 or len(word) < 4:
+        return None
+
+    # Check basic split
+    split_res = split_compound(word) if "split_compound" in globals() else None
+    if not split_res and "decompose" in globals():
+        split_res = decompose(word)
+
+    if not split_res:
+        # Classical 3-stem heuristic prefix scan: e.g. raja + putra + vadha
+        prefixes = ["raja", "rāja", "deva", "nara", "maha", "mahā", "putra", "satya", "dharma"]
+        for p in prefixes:
+            if word.startswith(p) and len(word) > len(p) + 2:
+                rem = word[len(p):]
+                sub = recursive_split_compound(rem, depth + 1)
+                return {
+                    "surface": word,
+                    "compound_type": "tatpurusha",
+                    "components": [p, rem],
+                    "left_stem": p,
+                    "right_stem": rem,
+                    "depth": depth,
+                    "sub_tree": sub,
+                    "confidence": 0.85
+                }
+        return None
+
+    left = split_res.get("left", split_res.get("components", ["", ""])[0])
+    right = split_res.get("right", split_res.get("components", ["", ""])[1] if len(split_res.get("components", [])) > 1 else "")
+    ctype = split_res.get("compound_type", "tatpurusha")
+
+    sub_right = recursive_split_compound(right, depth + 1) if len(right) > 3 else None
+
+    return {
+        "surface": word,
+        "compound_type": ctype,
+        "components": [left, right],
+        "left_stem": left,
+        "right_stem": right,
+        "depth": depth,
+        "sub_tree": sub_right,
+        "confidence": split_res.get("confidence", 0.85)
+    }
