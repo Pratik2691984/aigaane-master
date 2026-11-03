@@ -108,3 +108,6 @@ mirror_tar/
 
 # generated normalized corpus (regenerable)
 canonical_store/
+
+gcp-sa-key.json
+
