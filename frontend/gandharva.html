@@ -256,40 +256,67 @@
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
       if (!text) return;
 
-      status.innerHTML = '<span class="hint">Calling Studio Pipeline (Nyāya Logic → Pāṇini Grammar → Chandas Scansion)...</span>';
+      status.innerHTML = '<span class="hint">Invoking Pipeline & Pillar 1 Neural Swara Boundary...</span>';
 
       try {
-        const resp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/pipeline", {
+        // Step 1: Metrical scansion & morphological tokens
+        const pipeResp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/pipeline", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            text: text,
-            sa_hz: saHz,
-            tempo_bpm: 80
-          })
+          body: JSON.stringify({ text: text, sa_hz: saHz, tempo_bpm: 80 })
         });
+        if (!pipeResp.ok) throw new Error(`Pipeline HTTP ${pipeResp.status}`);
+        const pipeData = await pipeResp.json();
 
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
-
-        const meterInfo = data.studio_iii_acoustics?.meter_scansion || {};
+        const meterInfo = pipeData.studio_iii_acoustics?.meter_scansion || {};
         const meter = meterInfo.meter || "Anuṣṭubh";
-        const midiB64 = data.studio_iii_acoustics?.midi_base64;
-
+        const midiB64 = pipeData.studio_iii_acoustics?.midi_base64;
         let weights = meterInfo.syllable_weights || [];
         if (weights.length === 0 && meterInfo.pattern) {
           weights = meterInfo.pattern.split("");
         }
 
+        // Generate syllable placeholders if needed
+        const syllables = weights.map((w, i) => `syl_${i + 1}`);
+
+        // Step 2: Request Pillar 1 neural phrasing (or bounded fallback)
+        let swaraTokens = [];
+        let neuralTag = "Fallback";
+        let conf = 0.0;
+
+        try {
+          const phraseResp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/gandharva/phrase", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              verse_text: text,
+              syllables: syllables,
+              weights: weights,
+              target_raga: "Bhairav"
+            })
+          });
+          if (phraseResp.ok) {
+            const phraseData = await phraseResp.json();
+            swaraTokens = phraseData.swara_sequence || [];
+            neuralTag = phraseData.neural_used ? "Neural" : "Fallback";
+            conf = phraseData.confidence || 0.0;
+          }
+        } catch (err) {
+          console.warn("Pillar 1 phrase request error, using arohana mapping", err);
+        }
+
+        // Fallback to arohana if needed
         const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
         const sequence = weights.map((w, idx) => {
+          const token = swaraTokens[idx];
           const isGuru = (w === "G");
-          const swara = isGuru ? "P" : arohana[idx % arohana.length];
+          const swara = token?.swara || (isGuru ? "P" : arohana[idx % arohana.length]);
+          const meend = token?.meend_target || ((swara === "r") ? "G" : ((swara === "d") ? "N" : null));
           return {
             swara: swara,
             weight: w,
             ratio: SWARA_CANONICAL[swara]?.ratio_val || 1.0,
-            meend_target: (swara === "r") ? "G" : (swara === "d" ? "N" : null)
+            meend_target: meend
           };
         });
 
@@ -300,7 +327,8 @@
           midiButtonHtml = ` <button class="btn" style="padding:2px 8px; font-size:0.75rem; margin-left:8px;" onclick="downloadBase64Midi('${midiB64}', '${meter}')">📥 Download Pipeline MIDI</button>`;
         }
 
-        status.innerHTML = `<span class="badge ok">✓ Backend ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}) via AudioWorklet.</span>${midiButtonHtml}`;
+        const tagClass = neuralTag === "Neural" ? "ok" : "ok";
+        status.innerHTML = `<span class="badge ${tagClass}">✓ ${neuralTag} (Conf ${conf.toFixed(2)}) ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}) via AudioWorklet.</span>${midiButtonHtml}`;
       } catch (e) {
         status.innerHTML = `<span class="badge warn">Fallback: ${e.message}</span>`;
         await scheduler.playSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
