@@ -7,7 +7,7 @@ def test_health_status_and_versions(client):
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "healthy"
-    assert data["engine_version"] == "0.8.3"
+    assert data["engine_version"] == "0.8.4"
     assert data["schema_version"] == "0.2.0"
     assert data["tests_passing"] >= 142
     assert "engine_module" in data

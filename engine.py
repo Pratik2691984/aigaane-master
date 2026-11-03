@@ -544,6 +544,13 @@ def parse(text: str) -> Optional[Dict[str, Any]]:
         if "dhatu" in lex_single:
             token["dhatu"] = lex_single["dhatu"]
             token["gana"] = lex_single["gana"]
+        if lex_single.get("pos") == "tinanta":
+            if "purusa" in lex_single:
+                token["purusa"] = lex_single["purusa"]
+            if "lakara" in lex_single:
+                token["lakara"] = lex_single["lakara"]
+            if "pada" in lex_single:
+                token["pada_type"] = lex_single["pada"]
 
         return {
             "schema_version": "0.2.0",

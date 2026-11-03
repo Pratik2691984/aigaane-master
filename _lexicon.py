@@ -526,10 +526,72 @@ _HALANTA_LOOKUP = {
 
 }
 
+# Tiṅanta Multi-Gaṇa Anchor Paradigms (Gaṇas 2 through 10 - v0.8.4)
+_TINANTA_MULTI_GANA = {
+    # Gaṇa 2 (Adādi: luk-vikaraṇa 2.4.72)
+    "atti": {"stem": "ad", "dhatu": "ad", "pos": "tinanta", "gana": 2, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "attaḥ": {"stem": "ad", "dhatu": "ad", "pos": "tinanta", "gana": 2, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "adanti": {"stem": "ad", "dhatu": "ad", "pos": "tinanta", "gana": 2, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "asti": {"stem": "as", "dhatu": "as", "pos": "tinanta", "gana": 2, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "staḥ": {"stem": "as", "dhatu": "as", "pos": "tinanta", "gana": 2, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "santi": {"stem": "as", "dhatu": "as", "pos": "tinanta", "gana": 2, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 3 (Juhotyādi: ślu-vikaraṇa 6.1.10)
+    "juhoti": {"stem": "hu", "dhatu": "hu", "pos": "tinanta", "gana": 3, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "juhutaḥ": {"stem": "hu", "dhatu": "hu", "pos": "tinanta", "gana": 3, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "juhvati": {"stem": "hu", "dhatu": "hu", "pos": "tinanta", "gana": 3, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "dadāti": {"stem": "dā", "dhatu": "dā", "pos": "tinanta", "gana": 3, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "dattaḥ": {"stem": "dā", "dhatu": "dā", "pos": "tinanta", "gana": 3, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "dadati": {"stem": "dā", "dhatu": "dā", "pos": "tinanta", "gana": 3, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 5 (Svādi: śnu-vikaraṇa 3.1.73)
+    "sunoti": {"stem": "su", "dhatu": "su", "pos": "tinanta", "gana": 5, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "sunutaḥ": {"stem": "su", "dhatu": "su", "pos": "tinanta", "gana": 5, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "sunvanti": {"stem": "su", "dhatu": "su", "pos": "tinanta", "gana": 5, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "āpnoti": {"stem": "āp", "dhatu": "āp", "pos": "tinanta", "gana": 5, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "āpnutaḥ": {"stem": "āp", "dhatu": "āp", "pos": "tinanta", "gana": 5, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "āpnuvanti": {"stem": "āp", "dhatu": "āp", "pos": "tinanta", "gana": 5, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 6 (Tudādi: śa-vikaraṇa 3.1.77)
+    "tudati": {"stem": "tud", "dhatu": "tud", "pos": "tinanta", "gana": 6, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "tudataḥ": {"stem": "tud", "dhatu": "tud", "pos": "tinanta", "gana": 6, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "tudanti": {"stem": "tud", "dhatu": "tud", "pos": "tinanta", "gana": 6, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "likhati": {"stem": "likh", "dhatu": "likh", "pos": "tinanta", "gana": 6, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "likhataḥ": {"stem": "likh", "dhatu": "likh", "pos": "tinanta", "gana": 6, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "likhanti": {"stem": "likh", "dhatu": "likh", "pos": "tinanta", "gana": 6, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 7 (Rudhādi: śnam-vikaraṇa 3.1.78)
+    "ruṇaddhi": {"stem": "rudh", "dhatu": "rudh", "pos": "tinanta", "gana": 7, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "runddhaḥ": {"stem": "rudh", "dhatu": "rudh", "pos": "tinanta", "gana": 7, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "rundhanti": {"stem": "rudh", "dhatu": "rudh", "pos": "tinanta", "gana": 7, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 8 (Tanādi: u-vikaraṇa 3.1.79)
+    "tanoti": {"stem": "tan", "dhatu": "tan", "pos": "tinanta", "gana": 8, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "tanutaḥ": {"stem": "tan", "dhatu": "tan", "pos": "tinanta", "gana": 8, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "tanvanti": {"stem": "tan", "dhatu": "tan", "pos": "tinanta", "gana": 8, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "karoti": {"stem": "kṛ", "dhatu": "kṛ", "pos": "tinanta", "gana": 8, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "kurutaḥ": {"stem": "kṛ", "dhatu": "kṛ", "pos": "tinanta", "gana": 8, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "kurvanti": {"stem": "kṛ", "dhatu": "kṛ", "pos": "tinanta", "gana": 8, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 9 (Kryādi: śnā-vikaraṇa 3.1.81)
+    "krīṇāti": {"stem": "krī", "dhatu": "krī", "pos": "tinanta", "gana": 9, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "krīṇītaḥ": {"stem": "krī", "dhatu": "krī", "pos": "tinanta", "gana": 9, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "krīṇanti": {"stem": "krī", "dhatu": "krī", "pos": "tinanta", "gana": 9, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "jānāti": {"stem": "jñā", "dhatu": "jñā", "pos": "tinanta", "gana": 9, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "jānītaḥ": {"stem": "jñā", "dhatu": "jñā", "pos": "tinanta", "gana": 9, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "jānanti": {"stem": "jñā", "dhatu": "jñā", "pos": "tinanta", "gana": 9, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+
+    # Gaṇa 10 (Curādi: ṇic-vikaraṇa 3.1.25)
+    "corayati": {"stem": "cur", "dhatu": "cur", "pos": "tinanta", "gana": 10, "purusa": "prathama", "vacana": "ekavacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "corayataḥ": {"stem": "cur", "dhatu": "cur", "pos": "tinanta", "gana": 10, "purusa": "prathama", "vacana": "dvivacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+    "corayanti": {"stem": "cur", "dhatu": "cur", "pos": "tinanta", "gana": 10, "purusa": "prathama", "vacana": "bahuvacana", "lakara": "lat", "pada": "parasmaipada", "vibhakti": "na", "linga": "na", "confidence": 0.98},
+}
 def lookup(word: str) -> Optional[dict]:
     w = word.strip()
     if "_HALANTA_LOOKUP" in globals() and w in _HALANTA_LOOKUP:
         return _HALANTA_LOOKUP[w]
+    if "_TINANTA_MULTI_GANA" in globals() and w in _TINANTA_MULTI_GANA:
+        return _TINANTA_MULTI_GANA[w]
     if w == "tena":
         return {"stem": "tad", "pos": "subhanta", "linga": "pullinga", "vibhakti": "trtiya", "vacana": "ekavacana", "confidence": 0.98}
     if "_PRONOUNS_EXACT" in globals() and w in _PRONOUNS_EXACT:
