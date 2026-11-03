@@ -25,3 +25,18 @@ async def test_lookup_individual_svara():
         assert data["svara_symbol"] == "G1"
         assert data["ratio"] == "5/4"
         assert abs(data["cents"] - 386.31) < 0.1
+
+
+@pytest.mark.asyncio
+async def test_export_sruti_midi_endpoint():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        payload = {
+            "svaras": ["S", "R1", "g2", "M1", "P", "d1", "n2"],
+            "sa_hz": 240.0,
+            "tempo_bpm": 80
+        }
+        res = await ac.post("/api/v1/sruti/midi/export", json=payload)
+        assert res.status_code == 200
+        assert res.headers["content-type"] == "audio/midi"
+        assert res.content[:4] == b"MThd"

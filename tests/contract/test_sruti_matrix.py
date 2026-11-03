@@ -27,3 +27,11 @@ def test_pramana_sruti_difference():
     r2 = _sruti.lookup_svara("R2")
     diff = r2["cents"] - r1["cents"]
     assert abs(diff - 21.51) < 0.1
+
+
+def test_sruti_midi_binary_generation():
+    # Kalyāṇī / Yaman svara sequence
+    seq = ["S", "R2", "G2", "M2", "P", "D2", "N2"]
+    data = _sruti.generate_sruti_midi(seq, sa_midi_note=60)
+    assert len(data) > 0
+    assert data[:4] == b"MThd", "Valid MIDI file must start with MThd header"

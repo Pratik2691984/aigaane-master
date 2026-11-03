@@ -81,3 +81,62 @@ def lookup_svara(symbol: str, sa_hz: float = DEFAULT_SA_HZ) -> Dict[str, Any]:
         if item["name"].lower() == sym.lower() or item["svara_symbol"].lower() == sym.lower():
             return item
     return {}
+
+
+import io
+import mido
+from mido import Message, MidiFile, MidiTrack
+
+
+def cents_to_midi_pitch_bend(cents_deviation: float, semitone_range: float = 2.0) -> int:
+    """
+    Converts cents deviation (-100 to +100) to standard 14-bit MIDI pitch bend (0 to 16383).
+    8192 is center (0 deviation).
+    """
+    max_cents = semitone_range * 100.0
+    clamped = max(-max_cents, min(max_cents, cents_deviation))
+    normalized = clamped / max_cents
+    bend_val = int(round(8192 + normalized * 8191))
+    return max(0, min(16383, bend_val))
+
+
+def generate_sruti_midi(svara_sequence: List[str], sa_midi_note: int = 60, sa_hz: float = DEFAULT_SA_HZ, tempo_bpm: int = 80) -> bytes:
+    """
+    Generates a Type 0 MIDI file in-memory with pitch-bend messages calibrated
+    to exact 22-Śruti microtonal tuning.
+    """
+    mid = MidiFile(type=0)
+    track = MidiTrack()
+    mid.tracks.append(track)
+
+    tempo = mido.bpm2tempo(tempo_bpm)
+    track.append(mido.MetaMessage('set_tempo', tempo=tempo, time=0))
+
+    ticks_per_beat = mid.ticks_per_beat
+    note_duration = ticks_per_beat  # 1 beat per svara
+
+    for sym in svara_sequence:
+        svara_info = lookup_svara(sym, sa_hz=sa_hz)
+        if not svara_info:
+            continue
+
+        cents = svara_info["cents"]
+        semitone_offset = int(round(cents / 100.0))
+        target_note = sa_midi_note + semitone_offset
+        cents_deviation = svara_info["tet_deviation_cents"]
+
+        bend_val = cents_to_midi_pitch_bend(cents_deviation)
+
+        # 1. Apply microtonal pitch bend right before note-on
+        track.append(Message('pitchwheel', pitch=bend_val - 8192, time=0))
+        # 2. Note on
+        track.append(Message('note_on', note=target_note, velocity=84, time=0))
+        # 3. Note off after duration
+        track.append(Message('note_off', note=target_note, velocity=0, time=note_duration))
+
+    # Reset pitch wheel at end
+    track.append(Message('pitchwheel', pitch=0, time=0))
+
+    bio = io.BytesIO()
+    mid.save(file=bio)
+    return bio.getvalue()
