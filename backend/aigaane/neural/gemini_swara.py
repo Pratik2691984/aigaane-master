@@ -31,7 +31,7 @@ class GeminiSwaraEngine:
     def __init__(
         self,
         project_id: str = "gen-lang-client-0991678000",
-        model: str = "gemini-2.5-flash",
+        model: str = "gemini-2.0-flash",
     ):
         self.project_id = project_id
         self.model = model
