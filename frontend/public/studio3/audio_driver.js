@@ -1,6 +1,8 @@
 /**
- * Gāndharva Studio III - High-Fidelity Acoustic Driver (v1.0 Production)
- * Ahobala 5-limit tuning, physical string modeling, and drone resonance.
+ * Gāndharva Studio III - Karplus-Strong Physical Modeling Engine (v1.0 Production)
+ * - Recursive circular delay buffer with feedback damping for authentic string plucks.
+ * - Dual-string alternating Tanpura drone (Sa 240Hz / Pa 360Hz).
+ * - Ahobala 5-limit pure mathematical ratios.
  */
 
 const SWARA_CANONICAL = {
@@ -20,8 +22,8 @@ class GandharvaAudioDriver {
     this.ctx = null;
     this.masterGain = null;
     this.droneGain = null;
-    this.droneNodes = [];
-    this.srutiProfile = null;
+    this.droneTimer = null;
+    this.isDroneActive = false;
     this.baseHz = 240.0;
   }
 
@@ -35,13 +37,112 @@ class GandharvaAudioDriver {
       this.masterGain.connect(this.ctx.destination);
 
       this.droneGain = this.ctx.createGain();
-      this.droneGain.gain.setValueAtTime(0.22, this.ctx.currentTime);
+      this.droneGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
       this.droneGain.connect(this.masterGain);
     }
     if (this.ctx.state === "suspended") {
       this.ctx.resume();
     }
     return this.ctx;
+  }
+
+  /**
+   * Karplus-Strong string pluck synthesis.
+   * Generates a burst of white noise fed into a feedback delay loop with lowpass damping.
+   */
+  pluckString(freqHz, duration = 2.2, velocity = 0.9) {
+    this.init();
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+
+    const period = 1.0 / freqHz;
+    const bufferSize = Math.max(128, Math.floor(ctx.sampleRate * period));
+
+    // 1. Excitation Noise Burst
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const noiseData = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      noiseData[i] = (Math.random() * 2 - 1) * velocity;
+    }
+
+    const noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = noiseBuffer;
+
+    // 2. Delay Line with Lowpass Damping Filter
+    const delay = ctx.createDelay();
+    delay.delayTime.setValueAtTime(period, now);
+
+    const dampingFilter = ctx.createBiquadFilter();
+    dampingFilter.type = "lowpass";
+    dampingFilter.frequency.setValueAtTime(Math.min(freqHz * 6.0, 16000), now);
+
+    const feedback = ctx.createGain();
+    feedback.gain.setValueAtTime(0.992, now); // high string resonance
+
+    const voiceGain = ctx.createGain();
+    voiceGain.gain.setValueAtTime(1.0, now);
+    voiceGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    // Feedback loop wiring: noise -> delay -> damping -> feedback -> delay
+    noiseSource.connect(delay);
+    delay.connect(dampingFilter);
+    dampingFilter.connect(feedback);
+    feedback.connect(delay);
+
+    // Output wiring
+    dampingFilter.connect(voiceGain);
+    voiceGain.connect(this.masterGain);
+
+    noiseSource.start(now);
+    noiseSource.stop(now + period);
+
+    // Clean disconnect
+    setTimeout(() => {
+      try {
+        voiceGain.disconnect();
+        delay.disconnect();
+        dampingFilter.disconnect();
+        feedback.disconnect();
+      } catch (e) {}
+    }, duration * 1000 + 100);
+  }
+
+  /**
+   * Authentic Karplus-Strong Tanpura Drone.
+   * Periodically plucks Pa (360Hz) and Sa (240Hz) with natural decay overlap.
+   */
+  startTanpuraDrone(saHz = 240.0) {
+    this.init();
+    this.stopTanpuraDrone();
+    this.isDroneActive = true;
+    this.baseHz = saHz;
+
+    const paHz = saHz * 1.5;
+    const mandraSaHz = saHz * 0.5;
+    let step = 0;
+
+    const cyclePluck = () => {
+      if (!this.isDroneActive) return;
+      if (step === 0) {
+        this.pluckString(paHz, 4.5, 0.45); // Pa
+      } else if (step === 1 || step === 2) {
+        this.pluckString(saHz, 4.0, 0.40); // Madhya Sa
+      } else {
+        this.pluckString(mandraSaHz, 5.0, 0.50); // Kharja / Mandra Sa
+      }
+      step = (step + 1) % 4;
+      this.droneTimer = setTimeout(cyclePluck, 1200); // 1.2s alternating plucks
+    };
+
+    cyclePluck();
+  }
+
+  stopTanpuraDrone() {
+    this.isDroneActive = false;
+    if (this.droneTimer) {
+      clearTimeout(this.droneTimer);
+      this.droneTimer = null;
+    }
   }
 
   async loadSrutiMatrix(saHz = 240.0) {
@@ -53,126 +154,37 @@ class GandharvaAudioDriver {
 
       let items = [];
       if (data.profile) {
-        // Adapt live Ahobala profile schema
         items = Object.entries(data.profile).map(([sym, v]) => ({
           svara_symbol: sym,
-          name: (SWARA_CANONICAL[sym] && SWARA_CANONICAL[sym].name) || sym,
-          ratio: v.ratio || (SWARA_CANONICAL[sym] ? SWARA_CANONICAL[sym].ratio_str : "1"),
-          frequency_hz: v.freq_hz ? +(v.freq_hz * (saHz / (data.base_hz || 240.0))).toFixed(2) : +(saHz * (SWARA_CANONICAL[sym]?.ratio_val || 1.0)).toFixed(2),
+          name: SWARA_CANONICAL[sym]?.name || sym,
+          ratio: v.ratio || SWARA_CANONICAL[sym]?.ratio_str || "1",
+          frequency_hz: +(saHz * (SWARA_CANONICAL[sym]?.ratio_val || 1.0)).toFixed(2),
           cents: v.cents || 0.0,
-          midi_anchor: v.midi_anchor || (SWARA_CANONICAL[sym]?.midi_anchor || 60)
-        }));
-      } else if (Array.isArray(data.intervals)) {
-        items = data.intervals.map(i => ({
-          svara_symbol: i.svara_symbol || i.symbol,
-          name: i.name,
-          ratio: i.ratio,
-          frequency_hz: +(i.frequency_hz || i.freq_hz).toFixed(2),
-          cents: i.cents || 0.0,
-          midi_anchor: 60
+          midi_anchor: v.midi_anchor || SWARA_CANONICAL[sym]?.midi_anchor || 60
         }));
       }
-
-      this.srutiProfile = items;
       return items;
     } catch (e) {
-      console.warn("API offline or unreachable, using local Ahobala canon:", e);
-      return this.getLocalAhobalaCanon(saHz);
+      return Object.entries(SWARA_CANONICAL).map(([sym, c]) => ({
+        svara_symbol: sym,
+        name: c.name,
+        ratio: c.ratio_str,
+        frequency_hz: +(saHz * c.ratio_val).toFixed(2),
+        cents: +(1200 * Math.log2(c.ratio_val)).toFixed(2),
+        midi_anchor: c.midi_anchor
+      }));
     }
-  }
-
-  getLocalAhobalaCanon(saHz = 240.0) {
-    this.srutiProfile = Object.entries(SWARA_CANONICAL).map(([sym, c]) => ({
-      svara_symbol: sym,
-      name: c.name,
-      ratio: c.ratio_str,
-      frequency_hz: +(saHz * c.ratio_val).toFixed(2),
-      cents: +(1200 * Math.log2(c.ratio_val)).toFixed(2),
-      midi_anchor: c.midi_anchor
-    }));
-    return this.srutiProfile;
-  }
-
-  pluckString(frequencyHz, duration = 1.8, velocity = 0.85) {
-    this.init();
-    const now = this.ctx.currentTime;
-
-    const osc1 = this.ctx.createOscillator();
-    const osc2 = this.ctx.createOscillator();
-    const filter = this.ctx.createBiquadFilter();
-    const gain = this.ctx.createGain();
-
-    // Physical pluck emulation: fundamental + 2nd harmonic
-    osc1.type = "sawtooth";
-    osc2.type = "triangle";
-    osc1.frequency.setValueAtTime(frequencyHz, now);
-    osc2.frequency.setValueAtTime(frequencyHz * 2.0, now);
-
-    // Dynamic damping
-    filter.type = "lowpass";
-    filter.frequency.setValueAtTime(frequencyHz * 7.0, now);
-    filter.frequency.exponentialRampToValueAtTime(frequencyHz * 1.1, now + duration);
-
-    // Attack impulse envelope
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.linearRampToValueAtTime(velocity * 0.45, now + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-    osc1.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gain);
-    gain.connect(this.masterGain);
-
-    osc1.start(now);
-    osc2.start(now);
-    osc1.stop(now + duration);
-    osc2.stop(now + duration);
-  }
-
-  startTanpuraDrone(saHz = 240.0) {
-    this.init();
-    this.stopTanpuraDrone();
-
-    // Ahobala Drone: Mandra Pa (saHz * 0.75), Madhya Sa (saHz), Tāra Sa (saHz * 2.0)
-    const pitches = [saHz * 0.75, saHz, saHz, saHz * 0.5];
-    this.droneNodes = pitches.map((hz, idx) => {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-
-      osc.type = idx === 0 ? "triangle" : "sine";
-      osc.frequency.setValueAtTime(hz, this.ctx.currentTime);
-      // Gentle micro-chorus
-      osc.detune.setValueAtTime((idx - 1.5) * 4.2, this.ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.18 / (idx + 1), this.ctx.currentTime + 1.2);
-
-      osc.connect(gain);
-      gain.connect(this.droneGain);
-      osc.start();
-      return { osc, gain };
-    });
-  }
-
-  stopTanpuraDrone() {
-    if (!this.ctx || this.droneNodes.length === 0) return;
-    const now = this.ctx.currentTime;
-    this.droneNodes.forEach(({ osc, gain }) => {
-      try {
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
-        osc.stop(now + 0.75);
-      } catch (e) {}
-    });
-    this.droneNodes = [];
   }
 
   playSwaraSequence(swaraList, saHz = 240.0, tempoBpm = 76) {
     this.init();
     const beatSec = 60.0 / tempoBpm;
-    let offset = 0.08;
+    let offset = 0.05;
 
     swaraList.forEach((item) => {
-      let hz = 240.0;
+      let hz = saHz;
+      let dur = beatSec * 1.8;
+
       if (typeof item === "string" && SWARA_CANONICAL[item]) {
         hz = saHz * SWARA_CANONICAL[item].ratio_val;
       } else if (item.ratio) {
@@ -181,8 +193,11 @@ class GandharvaAudioDriver {
         hz = item.hz;
       }
 
+      if (item.weight === "G") dur = beatSec * 2.4;
+      if (item.weight === "L") dur = beatSec * 1.2;
+
       setTimeout(() => {
-        this.pluckString(hz, beatSec * 1.6, 0.8);
+        this.pluckString(hz, dur, 0.85);
       }, offset * 1000);
 
       offset += beatSec;

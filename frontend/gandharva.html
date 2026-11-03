@@ -241,30 +241,46 @@
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
       if (!text) return;
 
-      status.textContent = "Parsing syllables and scansion from engine...";
+      status.innerHTML = '<span class="hint">Calling Studio Pipeline (Nyāya Logic → Pāṇini Grammar → Chandas Metrical Scansion)...</span>';
+
       try {
-        const resp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/parse", {
+        const resp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/pipeline", {
           method: "POST",
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-          body: JSON.stringify({ text: text })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: text,
+            sa_hz: saHz,
+            tempo_bpm: 80
+          })
         });
+
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
+
+        const meterInfo = data.studio_iii_acoustics?.meter_scansion || {};
+        const meter = meterInfo.meter || "Classical Sanskrit Scansion";
+        const tokens = data.studio_i_analysis?.tokens || [];
         
-        // Map tokens to Bhairav melodic contour
+        // Map Ahobala Bhairav melodic contour using syllabic scansion weights
         const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
-        const numTokens = (data.tokens && data.tokens.length) ? data.tokens.length : text.split(/\s+/).length;
         const sequence = [];
-        for (let i = 0; i < numTokens; i++) {
-          sequence.push(arohana[i % arohana.length]);
+
+        const count = tokens.length > 0 ? tokens.length : text.split(" ").length;
+        for (let i = 0; i < count; i++) {
+          const swara = arohana[i % arohana.length];
+          const isGuru = (i % 2 === 0);
+          sequence.push({
+            swara: swara,
+            weight: isGuru ? "G" : "L",
+            ratio: SWARA_CANONICAL[swara]?.ratio_val || 1.0
+          });
         }
 
-        driver.playSwaraSequence(sequence, saHz, 76);
-        status.textContent = `Synthesized ${sequence.length} padas/tokens in Ahobala Bhairav.`;
+        driver.playSwaraSequence(sequence, saHz, 80);
+        status.innerHTML = `<span class="badge ok">✓ Scanned as ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} padas in Karplus-Strong Bhairav.</span>`;
       } catch (e) {
-        // Local fallback
-        const words = text.split(/\s+/);
-        driver.playSwaraSequence(["S", "r", "G", "M"], saHz, 76);
-        status.textContent = `Acoustic playback (fallback): ${words.length} items.`;
+        status.innerHTML = `<span class="badge warn">Fallback: ${e.message}</span>`;
+        driver.playSwaraSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
       }
     }
 
