@@ -16,7 +16,7 @@ class SwaraToken(BaseModel):
 
 class SwaraSequence(BaseModel):
     """Gemini's ONLY legal output structure for Pillar 1."""
-    sequence: List[SwaraToken] = Field(..., min_length=1, max_length=64)
+    sequence: List[SwaraToken] = Field(..., min_length=1, max_length=128)
     confidence: float = Field(..., ge=0.0, le=0.75)   # Hard ceiling
     rationale: str = Field(..., max_length=280)
 

@@ -8,7 +8,7 @@ class VocalSahaya {
         this.buffers = {};
         this.isLoaded = false;
         this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.setValueAtTime(0.7, this.ctx.currentTime);
+        this.masterGain.gain.setValueAtTime(1.0, this.ctx.currentTime);
         this.masterGain.connect(this.ctx.destination);
 
         // Ahobala 5-limit cents table fallback (S = 220 Hz)
@@ -76,6 +76,7 @@ class VocalSahaya {
      * Plays a single syllable matched to an Ahobala swara and meend target.
      */
     playSyllable(syllable, swara, startTime, durationSec, meendTarget = null) {
+        startTime = Math.max(startTime || 0, this.ctx.currentTime + 0.02);
         if (!this.isLoaded) return;
 
         const vowel = this.extractVowel(syllable);
@@ -99,8 +100,8 @@ class VocalSahaya {
 
         // Amplitude ADSR envelope
         const env = this.ctx.createGain();
-        env.gain.setValueAtTime(0.001, startTime);
-        env.gain.linearRampToValueAtTime(0.8, startTime + 0.04);
+        env.gain.setValueAtTime(0.05, startTime);
+        env.gain.linearRampToValueAtTime(1.0, startTime + 0.04);
         env.gain.setValueAtTime(0.7, startTime + durationSec - 0.08);
         env.gain.exponentialRampToValueAtTime(0.001, startTime + durationSec);
 

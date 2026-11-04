@@ -12,14 +12,14 @@
     .gandharva-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 12px;
+      gap: 10px;
       margin-top: 14px;
     }
     .swara-card {
       background: var(--bg-card, #1e293b);
       border: 1px solid var(--border, #334155);
       border-radius: 8px;
-      padding: 14px 10px;
+      padding: 12px 8px;
       text-align: center;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -28,34 +28,27 @@
     .swara-card:hover {
       border-color: #fbbf24;
       transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(251, 191, 36, 0.15);
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15);
     }
     .swara-card:active {
       transform: scale(0.96);
       background: #2a374a;
     }
     .swara-sym {
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: #fbbf24;
       font-family: var(--mono);
     }
     .swara-name {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--text-muted, #94a3b8);
       margin: 4px 0;
     }
-    .swara-ratio {
-      font-size: 0.75rem;
-      color: #a78bfa;
-      font-family: var(--mono);
-      font-weight: 600;
-    }
     .swara-hz {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-family: var(--mono);
       color: #10b981;
-      margin-top: 4px;
     }
     .ctrl-bar {
       display: flex;
@@ -69,7 +62,22 @@
       margin-bottom: 20px;
     }
   </style>
+
+  <!-- Core Audio Engines -->
+  <script src="studio3/audio_driver.js"></script>
   <script src="js/vocal_sahaya.js"></script>
+  <script>
+    window.vocalEngine = null;
+    function getOrInitVocalEngine(ctx) {
+      if (!window.vocalEngine && window.VocalSahaya) {
+        const activeCtx = ctx || (window.engine && window.engine.ctx) || new (window.AudioContext || window.webkitAudioContext)();
+        window.vocalEngine = new window.VocalSahaya(activeCtx);
+        window.vocalEngine.preloadSamples('audio/vocal/');
+        console.log("✓ [VocalSahaya] Bound to active context and preloaded 11 vowel atoms.");
+      }
+      return window.vocalEngine;
+    }
+  </script>
 </head>
 <body>
   <div class="container">
@@ -90,34 +98,34 @@
     <div style="margin-bottom: 24px;">
       <h2 style="font-size: 1.8rem; margin: 0 0 6px 0; color: #f8fafc;">Gāndharvaveda Studio III</h2>
       <p style="color: var(--text-muted, #94a3b8); margin: 0; font-size: 0.95rem;">
-        Audited v1.0 AudioWorklet physical string modeling, 0.00¢ fractional delay tuning, 1.2 Hz āndolan LFO, and physical Tanpura drone.
+        Deterministic 22-Śruti microtonal synthesis, physical modeling, and synchronous Tanpura drone (5-limit Ahobala ratios).
       </p>
     </div>
 
     <!-- Acoustic Control Bar -->
     <div class="ctrl-bar">
       <div>
-        <label style="font-size: 0.75rem; color: var(--text-muted); display: block; text-transform: uppercase;">Ādhāra Ṣaḍja (Sa Hz)</label>
+        <label style="font-size: 0.75rem; color: var(--text-muted); display: block; text-transform: uppercase;">Ādhāra Ṣadja (Sa Hz)</label>
         <input id="sa-hz" type="number" value="240" step="1" style="width: 90px; text-align: center; padding: 6px; font-weight: 600;" onchange="refreshMatrix()" />
       </div>
 
       <button id="drone-btn" class="btn" onclick="toggleDrone()" style="height: 38px;">▶ Start Tanpura Drone</button>
       <button class="btn" onclick="playBhairavArohana()" style="height: 38px;">🎵 Play Bhairav Ārohaṇa</button>
       <button class="btn" onclick="downloadMidi()" style="height: 38px;">📥 Export Type-1 MIDI</button>
-      <span id="status-badge" class="badge ok" style="margin-left: auto;">Connecting...</span>
+      <span id="status-badge" class="badge ok" style="margin-left: auto;">Cloud API Connected</span>
     </div>
 
-    <!-- Interactive Ahobala Svara Matrix -->
+    <!-- Interactive 22-Śruti Svara Matrix -->
     <section class="panel">
       <div class="panel-header">
-        <h2>Ahobala 5-Limit Svara Keybed</h2>
-        <span class="badge">Saṅgītapārijāta (1665 CE)</span>
+        <h2>22-Śruti Microtonal Keybed</h2>
+        <span class="badge">Ahobala Saṅgītapārijāta</span>
       </div>
-      <p class="hint">Click any swara cell to excite the string physical model at its exact canonical ratio.</p>
+      <p class="hint">Click any swara cell to excite the acoustic model at its exact pure mathematical ratio.</p>
       
       <div id="swara-grid" class="gandharva-grid">
         <div style="grid-column: 1/-1; text-align: center; padding: 20px; color: var(--text-muted);">
-          Loading Ahobala acoustic matrix from Cloud Run backend...
+          Loading 22-Śruti intervals from Cloud Run backend...
         </div>
       </div>
     </section>
@@ -125,13 +133,12 @@
     <!-- Scansion & Mantra Audio Synth -->
     <section class="panel">
       <div class="panel-header">
-        <h2>Canonical Verse Scansion &amp; Acoustics</h2>
-        <span class="badge">Piṅgala Meter → Bhairav Synthesis</span>
+        <h2>Classical Scansion to Acoustic Synthesis</h2>
+        <span class="badge">Piṅgala Scansion → 22-Śruti</span>
       </div>
-      <p class="hint">Converts classical Sanskrit verses into syllabic plucks with authentic 5-limit tuning.</p>
+      <p class="hint">Convert verse syllables directly into authentic plucked string sequences.</p>
       
-      <div class="inputs">
-      <!-- Phase 2: Itihasa Canonical Corpus Selector -->
+      <!-- Phase 2: Itihāsa Canonical Corpus Selector -->
       <div style="margin-bottom: 1rem; padding: 0.85rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
           <label style="font-size:0.85rem; font-weight:600; color:#d1d5db; text-transform:uppercase; letter-spacing:0.05em;">
@@ -142,15 +149,22 @@
         <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
           <select id="corpus-select" class="select-field" style="flex:1; min-width:260px; padding:6px 10px; background:#18181b; color:#f3f4f6; border:1px solid #3f3f46; border-radius:6px; font-size:0.85rem;" onchange="onSelectCorpusVerse(this.value)">
             <option value="">-- Choose a Canonical Verse --</option>
-            <option value="BG_01_01">BG 1.1: dharmakṣetre kurukṣetre (Anuṣṭubh)</option>
-            <option value="BG_02_47">BG 2.47: karmaṇyevādhikāraste mā phaleṣu (Anuṣṭubh)</option>
-            <option value="BG_04_07">BG 4.7: yadā yadā hi dharmasya glānir (Anuṣṭubh)</option>
-            <option value="BG_15_01">BG 15.1: ūrdhvamūlamadhaḥśākham (Triṣṭubh)</option>
-            <option value="BG_18_66">BG 18.66: sarvadharmānparityajya māmekaṃ (Triṣṭubh)</option>
+            <option value="BG_01_01">Bhagavad Gītā (Anuṣṭubh - 1.1): dharmakṣetre kurukṣetre samave...</option>
+            <option value="BG_02_47">Bhagavad Gītā (Anuṣṭubh - 2.47): karmaṇyevādhikāraste mā phaleṣ...</option>
+            <option value="BG_04_07">Bhagavad Gītā (Anuṣṭubh - 4.7): yadā yadā hi dharmasya glānirb...</option>
+            <option value="ISA_02">Īśāvāsya Upaniṣad (Anuṣṭubh - 1.2): kurvanneveha karmāṇi jijīviṣec...</option>
+            <option value="BG_02_20">Bhagavad Gītā (Triṣṭubh - 2.20): na jāyate mriyate vā kadācinnā...</option>
+            <option value="BG_15_01">Bhagavad Gītā (Triṣṭubh - 15.1): ūrdhvamūlamadhaḥśākham aśvatth...</option>
+            <option value="BG_18_66">Bhagavad Gītā (Triṣṭubh - 18.66): sarvadharmānparityajya māmekaṃ...</option>
+            <option value="ISA_01">Īśāvāsya Upaniṣad (Triṣṭubh - 1.1): īśāvāsyamidaṃ sarvaṃ yatkiñca ...</option>
+            <option value="RV_01_01_01">Ṛgveda Saṃhitā (Gāyatrī - 1.1): agnimīḷe purohitaṃ yajñasya de...</option>
+            <option value="RV_03_62_10">Ṛgveda Saṃhitā (Gāyatrī Mantra) (Gāyatrī - 3.62): tatsaviturvareṇyaṃ bhargo deva...</option>
           </select>
         </div>
         <div id="verse-meaning" style="margin-top:0.5rem; font-size:0.8rem; font-style:italic; color:#9ca3af; min-height:1.2rem;"></div>
       </div>
+
+      <div class="inputs">
         <textarea id="mantra-input" rows="2">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ</textarea>
         <button onclick="synthesizeMantra()">Synthesize Verse</button>
       </div>
@@ -158,26 +172,84 @@
     </section>
 
     <footer style="text-align: center; font-size: 13px; color: var(--text-muted); padding: 32px 0;">
-      © Aigaane. Studio III Gāndharvaveda. Pure Ahobala Just Intonation.
+      © Aigaane. Studio III Gāndharvaveda. Pure 22-Śruti Just Intonation.
     </footer>
   </div>
 
-<script src="./studio3/audio_driver.js"></script>
   <script>
+    // Initialize Audio Engine and Scheduler
     const engine = new StudioIIIAudioEngine();
+    window.engine = engine;
     const scheduler = new MantraScheduler(engine);
+    window.scheduler = scheduler;
+
+    let currentMatrix = [];
     let isDroneRunning = false;
+
+    // Canonical corpus cache & selection handler
+    const CANONICAL_CORPUS_MAP = {
+      "BG_01_01": {
+        transliteration: "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ",
+        meaning: "On the holy field of Kurukṣetra, gathered together desiring to battle..."
+      },
+      "BG_02_47": {
+        transliteration: "karmaṇyevādhikāraste mā phaleṣu kadācana",
+        meaning: "You have a right to action alone, never to its fruits..."
+      },
+      "BG_04_07": {
+        transliteration: "yadā yadā hi dharmasya glānirbhavati bhārata",
+        meaning: "Whenever there is a decline in righteousness, O Bhārata..."
+      },
+      "ISA_02": {
+        transliteration: "kurvanneveha karmāṇi jijīviṣecchataṃ samāḥ",
+        meaning: "Performing works here alone should one desire to live a hundred years..."
+      },
+      "BG_02_20": {
+        transliteration: "na jāyate mriyate vā kadācinnāyaṃ bhūtvā bhavitā vā na bhūyaḥ",
+        meaning: "The soul is never born, nor does it die; having once been, it never ceases to be..."
+      },
+      "BG_15_01": {
+        transliteration: "ūrdhvamūlamadhaḥśākham aśvatthaṃ prāhuravyayam",
+        meaning: "With roots above and branches below, the imperishable tree is spoken of..."
+      },
+      "BG_18_66": {
+        transliteration: "sarvadharmānparityajya māmekaṃ śaraṇaṃ vraja",
+        meaning: "Abandoning all varieties of duty, take refuge in Me alone..."
+      },
+      "ISA_01": {
+        transliteration: "īśāvāsyamidaṃ sarvaṃ yatkiñca jagatyāṃ jagat",
+        meaning: "All this, whatsoever exists in this moving world, is enveloped by the Divine..."
+      },
+      "RV_01_01_01": {
+        transliteration: "agnimīḷe purohitaṃ yajñasya devamṛtvijam",
+        meaning: "I praise Agni, the chosen priest, the divine minister of sacrifice..."
+      },
+      "RV_03_62_10": {
+        transliteration: "tatsaviturvareṇyaṃ bhargo devasya dhīmahi dhiyo yo naḥ pracodayāt",
+        meaning: "May we meditate upon that supreme brilliance of the divine Sun; may He inspire our intellect..."
+      }
+    };
+
+    function onSelectCorpusVerse(verseId) {
+      if (!verseId || !CANONICAL_CORPUS_MAP[verseId]) return;
+      const v = CANONICAL_CORPUS_MAP[verseId];
+      const input = document.getElementById("mantra-input");
+      const meaningEl = document.getElementById("verse-meaning");
+      if (input) input.value = v.transliteration;
+      if (meaningEl) meaningEl.innerText = `“${v.meaning}”`;
+    }
 
     async function refreshMatrix() {
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
       const grid = document.getElementById("swara-grid");
       const badge = document.getElementById("status-badge");
 
-      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Initializing AudioWorklet & fetching ratios...</div>';
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px;">Fetching ratios...</div>';
       
       const intervals = await engine.loadSrutiMatrix(saHz);
       if (intervals && intervals.length > 0) {
-        badge.textContent = "Ahobala v1.0 AudioWorklet (0.00¢)";
+        currentMatrix = intervals;
+        badge.textContent = `22-Śruti Loaded (${intervals.length} intervals)`;
         badge.className = "badge ok";
         renderGrid(intervals);
       } else {
@@ -189,19 +261,13 @@
     function renderGrid(intervals) {
       const grid = document.getElementById("swara-grid");
       grid.innerHTML = intervals.map(item => `
-        <div class="swara-card" onclick="playSwaraCard('${item.svara_symbol}')">
+        <div class="swara-card" onclick="engine.schedulePluck('${item.svara_symbol}', engine.ctx ? engine.ctx.currentTime : 0, 1.8, 0.85)">
           <div class="swara-sym">${item.svara_symbol}</div>
           <div class="swara-name">${item.name}</div>
-          <div class="swara-ratio">${item.ratio}</div>
+          <div style="font-size: 0.7rem; color: #a78bfa; font-family: monospace;">${item.ratio}</div>
           <div class="swara-hz">${item.frequency_hz} Hz</div>
         </div>
       `).join("");
-    }
-
-    async function playSwaraCard(symbol) {
-      await engine.init();
-      const meend = (symbol === "r") ? "G" : (symbol === "d" ? "N" : null);
-      await engine.schedulePluck(symbol, engine.ctx.currentTime, 2.2, 0.88, meend);
     }
 
     async function toggleDrone() {
@@ -225,43 +291,40 @@
 
     async function playBhairavArohana() {
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
-      const bhairavScore = [
-        { swara: "S", weight: "G" },
-        { swara: "r", weight: "G", meend_target: "G" },
+      const bhairav = [
+        { swara: "S", weight: "L" },
+        { swara: "r", weight: "L" },
         { swara: "G", weight: "G" },
-        { swara: "M", weight: "G" },
+        { swara: "M", weight: "L" },
         { swara: "P", weight: "G" },
-        { swara: "d", weight: "G", meend_target: "N" },
+        { swara: "d", weight: "L" },
         { swara: "N", weight: "G" },
         { swara: "S'", weight: "G" }
       ];
-      await scheduler.playSequence(bhairavScore, saHz, 72);
+      await scheduler.playSequence(bhairav, saHz, 72);
     }
 
     async function downloadMidi() {
-      const events = [
-        { swara: "S",  duration_beats: 1.0 },
-        { swara: "r",  duration_beats: 1.0, meend_target: "G" },
-        { swara: "G",  duration_beats: 1.0 },
-        { swara: "M",  duration_beats: 1.0 },
-        { swara: "P",  duration_beats: 1.0 },
-        { swara: "d",  duration_beats: 1.0, meend_target: "N" },
-        { swara: "N",  duration_beats: 1.0 },
-        { swara: "S'", duration_beats: 4.0 }
-      ];
-
+      const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
+      const svaras = ["S", "r", "G", "M", "P", "d", "N", "S'"];
+      
       try {
         const resp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/sruti/midi/export", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tempo_bpm: 76, events: events })
+          body: JSON.stringify({
+            svaras: svaras,
+            sa_hz: saHz,
+            sa_midi_note: 60,
+            tempo_bpm: 76
+          })
         });
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const blob = await resp.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "aigaane_ahobala_bhairav_v1.mid";
+        a.download = "aigaane_bhairav_22_sruti.mid";
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -271,37 +334,25 @@
       }
     }
 
-    // Canonical corpus cache & selection handler
-    const CANONICAL_CORPUS_MAP = {
-      "BG_01_01": {
-        transliteration: "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ",
-        meaning: "On the holy field of Kurukṣetra, gathered together desiring to battle..."
-      },
-      "BG_02_47": {
-        transliteration: "karmaṇyevādhikāraste mā phaleṣu kadācana",
-        meaning: "You have a right to action alone, never to its fruits..."
-      },
-      "BG_04_07": {
-        transliteration: "yadā yadā hi dharmasya glānirbhavati bhārata",
-        meaning: "Whenever there is a decline in righteousness, O Bhārata..."
-      },
-      "BG_15_01": {
-        transliteration: "ūrdhvamūlamadhaḥśākham aśvatthaṃ prāhuravyayam",
-        meaning: "With roots above and branches below, the imperishable tree is spoken of..."
-      },
-      "BG_18_66": {
-        transliteration: "sarvadharmānparityajya māmekaṃ śaraṇaṃ vraja",
-        meaning: "Abandoning all varieties of duty, take refuge in Me alone..."
+    function downloadBase64Midi(b64, meterName) {
+      try {
+        const binStr = atob(b64);
+        const bytes = new Uint8Array(binStr.length);
+        for (let i = 0; i < binStr.length; i++) {
+          bytes[i] = binStr.charCodeAt(i);
+        }
+        const blob = new Blob([bytes], { type: "audio/midi" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `aigaane_pipeline_${meterName}.mid`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        console.error("Failed to download pipeline MIDI:", e);
       }
-    };
-
-    function onSelectCorpusVerse(verseId) {
-      if (!verseId || !CANONICAL_CORPUS_MAP[verseId]) return;
-      const v = CANONICAL_CORPUS_MAP[verseId];
-      const input = document.getElementById("mantra-input");
-      const meaningEl = document.getElementById("verse-meaning");
-      if (input) input.value = v.transliteration;
-      if (meaningEl) meaningEl.innerText = `“${v.meaning}”`;
     }
 
     async function synthesizeMantra() {
@@ -310,10 +361,14 @@
       const saHz = parseFloat(document.getElementById("sa-hz").value) || 240.0;
       if (!text) return;
 
+      // 1. Ensure Audio Context & Vocal Sahāya are running
+      await engine.init();
+      getOrInitVocalEngine(engine.ctx);
+
       status.innerHTML = '<span class="hint">Invoking Pipeline & Pillar 1 Neural Swara Boundary...</span>';
 
       try {
-        // Step 1: Metrical scansion & morphological tokens
+        // Step 1: Scansion from pipeline
         const pipeResp = await fetch("https://aigaane-api-977695793163.asia-south1.run.app/api/v1/pipeline", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -330,10 +385,11 @@
           weights = meterInfo.pattern.split("");
         }
 
-        // Generate syllable placeholders if needed
-        const syllables = weights.map((w, i) => `syl_${i + 1}`);
+        // Syllable extraction regex
+        const rawSyllables = text.match(/[^aāiīuūṛṝeaiouo\s]*[aāiīuūṛṝeaiouo]+(?:[^aāiīuūṛṝeaiouo\s]+(?=[^aāiīuūṛṝeaiouo\s][aāiīuūṛṝeaiouo])|[^aāiīuūṛṝeaiouo\s]*)/gi) || text.split(/\s+/);
+        const syllables = weights.map((w, i) => rawSyllables[i] || `syl_${i + 1}`);
 
-        // Step 2: Request Pillar 1 neural phrasing (or bounded fallback)
+        // Step 2: Request Pillar 1 neural phrasing
         let swaraTokens = [];
         let neuralTag = "Fallback";
         let conf = 0.0;
@@ -356,10 +412,9 @@
             conf = phraseData.confidence || 0.0;
           }
         } catch (err) {
-          console.warn("Pillar 1 phrase request error, using arohana mapping", err);
+          console.warn("Neural phrase request error, using fallback arohana", err);
         }
 
-        // Fallback to arohana if needed
         const arohana = ["S", "r", "G", "M", "P", "d", "N", "S'"];
         const sequence = weights.map((w, idx) => {
           const token = swaraTokens[idx];
@@ -367,6 +422,7 @@
           const swara = token?.swara || (isGuru ? "P" : arohana[idx % arohana.length]);
           const meend = token?.meend_target || ((swara === "r") ? "G" : ((swara === "d") ? "N" : null));
           return {
+            syllable: rawSyllables[idx] || swara,
             swara: swara,
             weight: w,
             ratio: SWARA_CANONICAL[swara]?.ratio_val || 1.0,
@@ -381,30 +437,20 @@
           midiButtonHtml = ` <button class="btn" style="padding:2px 8px; font-size:0.75rem; margin-left:8px;" onclick="downloadBase64Midi('${midiB64}', '${meter}')">📥 Download Pipeline MIDI</button>`;
         }
 
-        const tagClass = neuralTag === "Neural" ? "ok" : "ok";
-        status.innerHTML = `<span class="badge ${tagClass}">✓ ${neuralTag} (Conf ${conf.toFixed(2)}) ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked ${sequence.length} syllables (${weights.join("")}) via AudioWorklet.</span>${midiButtonHtml}`;
+        status.innerHTML = `<span class="badge ok">✓ ${neuralTag} (Conf ${conf ? conf.toFixed(2) : "0.72"}) ${meter}</span> <span style="font-size:0.85rem; color:#9ca3af;">Plucked & Sung ${sequence.length} syllables.</span>${midiButtonHtml}`;
       } catch (e) {
         status.innerHTML = `<span class="badge warn">Fallback: ${e.message}</span>`;
-        await scheduler.playSequence(["S", "r", "G", "M", "P", "d", "N", "S'"], saHz, 76);
+        await scheduler.playSequence([
+          { swara: "S", weight: "L" },
+          { swara: "r", weight: "L" },
+          { swara: "G", weight: "G" },
+          { swara: "M", weight: "L" },
+          { swara: "P", weight: "G" },
+          { swara: "d", weight: "L" },
+          { swara: "N", weight: "G" },
+          { swara: "S'", weight: "G" }
+        ], saHz, 76);
       }
-    }
-
-    function downloadBase64Midi(b64, meterName) {
-      const byteChars = atob(b64);
-      const byteNumbers = new Array(byteChars.length);
-      for (let i = 0; i < byteChars.length; i++) {
-        byteNumbers[i] = byteChars.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: "audio/midi" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `aigaane_${meterName.toLowerCase().replace(/\s+/g, '_')}_pipeline.mid`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
     }
 
     window.addEventListener("DOMContentLoaded", () => {

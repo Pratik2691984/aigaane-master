@@ -296,7 +296,14 @@ class MantraScheduler {
 
       const tid = setTimeout(async () => {
         if (!this.isPlaying) return;
-        await this.engine.schedulePluck(swara, this.engine.ctx.currentTime, dur, isGuru ? 0.9 : 0.75, meend);
+        const audioNow = this.engine.ctx.currentTime + 0.03;
+        await this.engine.schedulePluck(swara, audioNow, dur, isGuru ? 0.9 : 0.75, meend);
+        
+        // Phase 3 Dual-Mix: Trigger Vocal Sahāya syllabic singing
+        if (window.vocalEngine && window.vocalEngine.isLoaded) {
+          const syllableText = item.syllable || item.text || swara;
+          window.vocalEngine.playSyllable(syllableText, swara, audioNow, dur, meend);
+        }
       }, time * 1000);
 
       this.scheduledTimers.push(tid);
