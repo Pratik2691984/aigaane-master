@@ -6,10 +6,12 @@ import _sruti
 router = APIRouter(prefix="/api/v1", tags=["Gāndharvaveda / 22-Śruti Matrix"])
 
 class SrutiMidiRequest(BaseModel):
-    svaras: List[str] = Field(default=["S", "R2", "G2", "M1", "P", "D2", "N2", "S"], description="List of svara symbols")
+    svaras: List[Any] = Field(default=["S", "R2", "G2", "M1", "P", "D2", "N2", "S"], description="List of svara symbols or sequence objects")
     sa_hz: float = Field(default=240.0, description="Fundamental Sa frequency in Hz")
     sa_midi_note: int = Field(default=60, description="MIDI base note for Sa (60 = C4)")
-    tempo_bpm: int = Field(default=72, description="Tempo in beats per minute")
+    tempo_bpm: int = Field(default=80, description="Tempo in beats per minute")
+    include_tanpura: bool = Field(default=True, description="Whether to include Track 2 continuous Tanpura drone")
+    verse_title: str = Field(default="Aigaane · Gāndharvaveda", description="Verse or track identifier")
 
 SrutiMidiRequest.model_rebuild()
 
@@ -48,7 +50,7 @@ async def export_sruti_midi(req: SrutiMidiRequest):
         svara_sequence=req.svaras,
         sa_midi_note=req.sa_midi_note,
         sa_hz=req.sa_hz,
-        tempo_bpm=req.tempo_bpm
+        tempo_bpm=req.tempo_bpm, include_tanpura=req.include_tanpura, verse_title=req.verse_title
     )
     return Response(
         content=midi_bytes,

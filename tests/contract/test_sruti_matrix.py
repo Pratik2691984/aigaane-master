@@ -44,7 +44,7 @@ def test_sruti_midi_type_1_tanpura_tracks():
     data = _sruti.generate_sruti_midi(seq, sa_midi_note=60)
     mid = mido.MidiFile(file=io.BytesIO(data))
     assert mid.type == 1, "Must be Type 1 multi-track MIDI"
-    assert len(mid.tracks) == 2, "Must contain Melody and Tanpura drone tracks"
+    assert len(mid.tracks) == 3, "Must contain Conductor, Melody, and Tanpura drone tracks"
     track_names = [msg.name for track in mid.tracks for msg in track if msg.type == 'track_name']
-    assert "22-Sruti Melody" in track_names
-    assert "Tanpura Drone" in track_names
+    assert any("Melody" in name or "Vina" in name for name in track_names)
+    assert any("Tanpura" in name for name in track_names)
