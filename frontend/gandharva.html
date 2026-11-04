@@ -130,6 +130,26 @@
       <p class="hint">Converts classical Sanskrit verses into syllabic plucks with authentic 5-limit tuning.</p>
       
       <div class="inputs">
+      <!-- Phase 2: Itihasa Canonical Corpus Selector -->
+      <div style="margin-bottom: 1rem; padding: 0.85rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+          <label style="font-size:0.85rem; font-weight:600; color:#d1d5db; text-transform:uppercase; letter-spacing:0.05em;">
+            Canonical Itihasa Corpus
+          </label>
+          <span id="corpus-status" style="font-size:0.75rem; color:#9ca3af;">5 landmark verses loaded</span>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <select id="corpus-select" class="select-field" style="flex:1; min-width:260px; padding:6px 10px; background:#18181b; color:#f3f4f6; border:1px solid #3f3f46; border-radius:6px; font-size:0.85rem;" onchange="onSelectCorpusVerse(this.value)">
+            <option value="">-- Choose a Canonical Verse --</option>
+            <option value="BG_01_01">BG 1.1: dharmakṣetre kurukṣetre (Anuṣṭubh)</option>
+            <option value="BG_02_47">BG 2.47: karmaṇyevādhikāraste mā phaleṣu (Anuṣṭubh)</option>
+            <option value="BG_04_07">BG 4.7: yadā yadā hi dharmasya glānir (Anuṣṭubh)</option>
+            <option value="BG_15_01">BG 15.1: ūrdhvamūlamadhaḥśākham (Triṣṭubh)</option>
+            <option value="BG_18_66">BG 18.66: sarvadharmānparityajya māmekaṃ (Triṣṭubh)</option>
+          </select>
+        </div>
+        <div id="verse-meaning" style="margin-top:0.5rem; font-size:0.8rem; font-style:italic; color:#9ca3af; min-height:1.2rem;"></div>
+      </div>
         <textarea id="mantra-input" rows="2">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ</textarea>
         <button onclick="synthesizeMantra()">Synthesize Verse</button>
       </div>
@@ -248,6 +268,39 @@
       } catch (e) {
         alert("MIDI Export failed: " + e.message);
       }
+    }
+
+    // Canonical corpus cache & selection handler
+    const CANONICAL_CORPUS_MAP = {
+      "BG_01_01": {
+        transliteration: "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ",
+        meaning: "On the holy field of Kurukṣetra, gathered together desiring to battle..."
+      },
+      "BG_02_47": {
+        transliteration: "karmaṇyevādhikāraste mā phaleṣu kadācana",
+        meaning: "You have a right to action alone, never to its fruits..."
+      },
+      "BG_04_07": {
+        transliteration: "yadā yadā hi dharmasya glānirbhavati bhārata",
+        meaning: "Whenever there is a decline in righteousness, O Bhārata..."
+      },
+      "BG_15_01": {
+        transliteration: "ūrdhvamūlamadhaḥśākham aśvatthaṃ prāhuravyayam",
+        meaning: "With roots above and branches below, the imperishable tree is spoken of..."
+      },
+      "BG_18_66": {
+        transliteration: "sarvadharmānparityajya māmekaṃ śaraṇaṃ vraja",
+        meaning: "Abandoning all varieties of duty, take refuge in Me alone..."
+      }
+    };
+
+    function onSelectCorpusVerse(verseId) {
+      if (!verseId || !CANONICAL_CORPUS_MAP[verseId]) return;
+      const v = CANONICAL_CORPUS_MAP[verseId];
+      const input = document.getElementById("mantra-input");
+      const meaningEl = document.getElementById("verse-meaning");
+      if (input) input.value = v.transliteration;
+      if (meaningEl) meaningEl.innerText = `“${v.meaning}”`;
     }
 
     async function synthesizeMantra() {

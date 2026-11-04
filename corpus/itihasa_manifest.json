@@ -1,0 +1,57 @@
+[
+  {
+    "id": "BG_01_01",
+    "source": "Bhagavad Gītā",
+    "chapter": 1,
+    "verse": 1,
+    "text": "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः",
+    "transliteration": "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ",
+    "meter": "anuṣṭubh",
+    "default_raga": "Bhairav",
+    "meaning": "On the holy field of Kurukṣetra, gathered together desiring to battle..."
+  },
+  {
+    "id": "BG_02_47",
+    "source": "Bhagavad Gītā",
+    "chapter": 2,
+    "verse": 47,
+    "text": "कर्मण्येवाधिकारस्ते मा फोषु कदाचन",
+    "transliteration": "karmaṇyevādhikāraste mā phaleṣu kadācana",
+    "meter": "anuṣṭubh",
+    "default_raga": "Bhairav",
+    "meaning": "You have a right to action alone, never to its fruits..."
+  },
+  {
+    "id": "BG_04_07",
+    "source": "Bhagavad Gītā",
+    "chapter": 4,
+    "verse": 7,
+    "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत",
+    "transliteration": "yadā yadā hi dharmasya glānirbhavati bhārata",
+    "meter": "anuṣṭubh",
+    "default_raga": "Bhairav",
+    "meaning": "Whenever there is a decline in righteousness, O Bhārata..."
+  },
+  {
+    "id": "BG_15_01",
+    "source": "Bhagavad Gītā",
+    "chapter": 15,
+    "verse": 1,
+    "text": "ऊर्ध्वमूलमधःशाखमश्वत्थं प्राहुरव्ययम्",
+    "transliteration": "ūrdhvamūlamadhaḥśākham aśvatthaṃ prāhuravyayam",
+    "meter": "triṣṭubh",
+    "default_raga": "Bhairav",
+    "meaning": "With roots above and branches below, the imperishable tree is spoken of..."
+  },
+  {
+    "id": "BG_18_66",
+    "source": "Bhagavad Gītā",
+    "chapter": 18,
+    "verse": 66,
+    "text": "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज",
+    "transliteration": "sarvadharmānparityajya māmekaṃ śaraṇaṃ vraja",
+    "meter": "triṣṭubh",
+    "default_raga": "Bhairav",
+    "meaning": "Abandoning all varieties of duty, take refuge in Me alone..."
+  }
+]
