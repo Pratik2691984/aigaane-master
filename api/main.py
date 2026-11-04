@@ -10,7 +10,7 @@ from api.routes import health, parse, route, sruti, pipeline, gandharva, itihasa
 app = FastAPI(
     title="Aigaane Sanskrit Engine API",
     description="Deterministic Pāṇinian morphological parsing and multi-studio routing gateway.",
-    version="0.9.5",
+    version="1.0.0",
 )
 
 # Cross-Origin Resource Sharing (CORS) Middleware

@@ -1,0 +1,235 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aigaane · Sanskrit Engine — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="apps/web/src/styles/engine.css" />
+</head>
+<body>
+
+<header style="max-width:900px; margin:0 auto 24px;">
+  <h1 style="font-family:var(--serif); color:var(--gold-bright); font-size:32px; margin:0;">ॐ Aigaane</h1>
+  <p class="hint" style="margin-top:4px;">Sanskrit Engine · preview</p>
+</header>
+
+<!-- 1. Sandhi -->
+<section class="panel">
+  <h2>Sandhi Combiner</h2>
+  <p class="hint">Śikṣā — join two Sanskrit phonemes and see the governing sūtra.</p>
+  <div class="inputs">
+    <input class="sa-lg" value="a" />
+    <span class="eq" style="font-size:20px;">+</span>
+    <input class="sa-lg" value="i" />
+    <button>Combine</button>
+  </div>
+  <div class="result">
+    <div class="eq">
+      <span class="sa">a</span><span class="op">+</span>
+      <span class="sa">i</span><span class="op">=</span>
+      <span class="sa">e</span>
+    </div>
+    <div style="margin-top:12px;">
+      <span class="badge">Guṇa Sandhi</span>
+      <span class="badge">Pāṇini 6.1.87</span>
+    </div>
+    <p class="hint" style="margin-top:10px;">
+      Guṇa replacement: <em>a</em> + <em>i</em> → <em>e</em>. The vowel <em>a</em> merges with <em>i</em> into the Guṇa grade of <em>i</em>.
+    </p>
+    <details class="tech">
+      <summary>&lt;/&gt; Technical</summary>
+      <pre>{ "p1": "a", "p2": "i", "result": "e", "rule_applied": "6.1.87" }</pre>
+    </details>
+  </div>
+</section>
+
+<!-- 2. Chandas -->
+<section class="panel">
+  <h2>Chandas Scanner</h2>
+  <p class="hint">Piṅgala — scan syllable weights (L = laghu, G = guru) and classify the meter.</p>
+  <textarea>dharmakṣetre kurukṣetre</textarea>
+  <button>Scan</button>
+  <div class="result">
+    <div style="margin-bottom:14px;">
+      <span class="syl G"><span class="txt">dhar</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">mak</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">ṣet</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">re</span><span class="w">G</span></span>
+      <span class="syl L"><span class="txt">ku</span><span class="w">L</span></span>
+      <span class="syl G"><span class="txt">ruk</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">ṣet</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">re</span><span class="w">G</span></span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+      <span class="badge ok">✓ Anuṣṭubh</span>
+      <span class="badge">8 syllables</span>
+      <code style="font-family:var(--mono); color:var(--gold); letter-spacing:.1em;">GGGGLGGG</code>
+    </div>
+    <p class="hint" style="margin-top:10px;">
+      The first pāda matches the <strong>Anuṣṭubh</strong> pattern — the most common Vedic and Epic meter, typically 8 syllables per quarter-verse.
+    </p>
+    <details class="tech">
+      <summary>&lt;/&gt; Technical</summary>
+      <pre>{ "pattern": "GGGGLGGG", "length": 8 }</pre>
+    </details>
+  </div>
+</section>
+
+<!-- 3. Subanta -->
+<section class="panel">
+  <h2>Vyākaraṇa Morphology · Subanta</h2>
+  <p class="hint">Deterministic declension across all 8 vibhaktis × 3 vacanas.</p>
+  <div class="inputs">
+    <input class="sa-lg" value="deva" style="width:140px;" />
+    <select><option>a-masc (deva)</option></select>
+    <button>Inflect</button>
+  </div>
+  <div class="result">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+      <div><span class="sa-lg">deva</span> <span class="chip">a-stem · masculine</span></div>
+      <span class="badge">24 forms</span>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="subanta">
+      <thead>
+        <tr><th>Vibhakti</th><th>Eka (1)</th><th>Dvi (2)</th><th>Bahu (3+)</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Prathamā · Nominative</th><td class="form">devaḥ</td><td class="form">devau</td><td class="form">devāḥ</td></tr>
+        <tr><th>Dvitīyā · Accusative</th><td class="form">devam</td><td class="form">devau</td><td class="form">devān</td></tr>
+        <tr><th>Tṛtīyā · Instrumental</th><td class="form">devena</td><td class="form">devābhyām</td><td class="form">devaiḥ</td></tr>
+        <tr><th>Caturthī · Dative</th><td class="form">devāya</td><td class="form">devābhyām</td><td class="form">devebhyaḥ</td></tr>
+        <tr><th>Pañcamī · Ablative</th><td class="form">devāt</td><td class="form">devābhyām</td><td class="form">devebhyaḥ</td></tr>
+        <tr><th>Ṣaṣṭhī · Genitive</th><td class="form">devasya</td><td class="form">devayoḥ</td><td class="form">devānām</td></tr>
+        <tr><th>Saptamī · Locative</th><td class="form">deve</td><td class="form">devayoḥ</td><td class="form">deveṣu</td></tr>
+        <tr><th>Sambodhana · Vocative</th><td class="form">deva</td><td class="form">devau</td><td class="form">devāḥ</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="hint" style="margin-top:12px;">
+      All 24 forms derived by <strong>Aṣṭādhyāyī 4.1.2</strong> · <em>ajādyataṣṭāp</em>.
+    </p>
+    <details class="tech">
+      <summary>&lt;/&gt; Technical (full sūtra citations per form)</summary>
+      <pre>{ "lemma": "deva", "stem_class": "a-masc", "count": 24 }</pre>
+    </details>
+  </div>
+</section>
+
+<!-- 4. Kosha -->
+<section class="panel">
+  <h2>Kosha Lexicon</h2>
+  <p class="hint">1.5M+ words · deterministic lookup, no fuzzy matching.</p>
+  <div class="inputs">
+    <input class="sa-lg" value="dharma" style="width:180px;" />
+    <button>Lookup</button>
+  </div>
+  <div class="result">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span class="sa-lg">dharma</span>
+      <span class="badge ok">✓ Found</span>
+    </div>
+    <p class="hint" style="margin-top:8px;"><em>dharma</em> exists in the 1.5M+ word lexicon.</p>
+    <details class="tech">
+      <summary>&lt;/&gt; Technical</summary>
+      <pre>{ "word": "dharma", "exists": true }</pre>
+    </details>
+  </div>
+</section>
+
+<!-- 5. Gāndharvaveda -->
+<section class="panel">
+  <h2>Gāndharvaveda Audio</h2>
+  <p class="hint">Just Intonation synthesis · deterministic, rule-driven, no neural guessing.</p>
+  <textarea>dharmakṣetre kurukṣetre</textarea>
+  <button>Synthesize Audio</button>
+  <div class="result">
+    <div style="margin-bottom:14px;">
+      <span class="syl G"><span class="txt">dhar</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">mak</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">ṣet</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">re</span><span class="w">G</span></span>
+      <span class="syl L"><span class="txt">ku</span><span class="w">L</span></span>
+      <span class="syl G"><span class="txt">ruk</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">ṣet</span><span class="w">G</span></span>
+      <span class="syl G"><span class="txt">re</span><span class="w">G</span></span>
+    </div>
+    <div class="player">
+      <button aria-label="Play">▶</button>
+      <span class="track">Rendering in Just Intonation…</span>
+      <span class="badge">JI · 22-śruti tuned</span>
+    </div>
+    <div style="margin-top:14px;">
+      <a href="/studio" style="color:var(--gold); text-decoration:none;">Open Full Studio →</a>
+    </div>
+    <details class="tech">
+      <summary>&lt;/&gt; Technical</summary>
+      <pre>{ "scansion": "GGGGLGGG", "tuning": "just", "status": "loaded" }</pre>
+    </details>
+  </div>
+</section>
+
+<!-- 6. Itihāsa -->
+<section class="panel">
+  <h2>Itihāsa Corpus Search</h2>
+  <p class="hint">Rāmāyaṇa & Gītā · indexed search across verses.</p>
+  <div class="inputs">
+    <input value="dharma" />
+    <button>Search</button>
+  </div>
+  <div class="result">
+    <div style="margin-bottom:14px;"><span class="badge">2 verses found</span></div>
+
+    <div class="verse">
+      <div class="src">
+        <span class="chip">Rāmāyaṇa</span>
+        <span>Bālakāṇḍa 1.2</span>
+        <span class="badge" style="font-size:10px;">Anuṣṭubh</span>
+      </div>
+      <div class="iast">
+        ko nv asmin sāmprataṃ loke guṇavān kaś ca vīryavān |<br>
+        <mark>dharma</mark>jñaś ca kṛtajñaś ca satyavākyo dṛḍhavrataḥ
+      </div>
+      <div style="margin:8px 0;">
+        <span class="chip">virtue</span><span class="chip">hero</span><span class="chip">inquiry</span>
+      </div>
+      <div class="gloss">
+        Who in this world today is virtuous, valiant, knowing <mark>dharma</mark>, grateful, truthful, and firm in vows?
+      </div>
+    </div>
+
+    <div class="verse">
+      <div class="src">
+        <span class="chip">Mahābhārata</span>
+        <span>Bhīṣmaparva 4.7</span>
+        <span class="badge" style="font-size:10px;">Anuṣṭubh</span>
+      </div>
+      <div class="iast">
+        yadā yadā hi <mark>dharma</mark>sya glānir bhavati bhārata |<br>
+        abhyutthānam adharmasya tadātmānaṃ sṛjāmy aham
+      </div>
+      <div style="margin:8px 0;">
+        <span class="chip">dharma</span><span class="chip">avatāra</span><span class="chip">gītā</span>
+      </div>
+      <div class="gloss">
+        Whenever there is a decline of <mark>dharma</mark> and a rise of adharma, O Bhārata, then I manifest myself.
+      </div>
+    </div>
+
+    <details class="tech">
+      <summary>&lt;/&gt; Technical</summary>
+      <pre>{ "query": "dharma", "results": [...], "total_returned": 2 }</pre>
+    </details>
+  </div>
+</section>
+
+<footer style="max-width:900px; margin:32px auto 0; padding-top:16px; border-top:1px solid var(--border); color:var(--text-muted); font-size:12px;">
+  <span class="badge ok">● API Online</span>
+  <span style="margin-left:12px;">© Aigaane · Built on the Aṣṭādhyāyī.</span>
+</footer>
+
+</body>
+</html>
