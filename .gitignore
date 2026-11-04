@@ -111,3 +111,9 @@ canonical_store/
 
 gcp-sa-key.json
 
+
+# Local backup snapshots
+_v0.*
+preview.html
+_tmp_*
+
