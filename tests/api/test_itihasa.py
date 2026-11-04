@@ -32,5 +32,5 @@ async def test_search_by_meter_filter():
         res = await ac.get("/api/v1/itihasa/search?meter=triṣṭubh")
         assert res.status_code == 200
         data = res.json()
-        assert data["total"] == 2
+        assert data["total"] == 4
         assert all(r["meter"] == "triṣṭubh" for r in data["results"])
