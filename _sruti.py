@@ -1,3 +1,4 @@
+from __future__ import annotations
 def _safe_midi_ascii(val: str) -> str:
     mapping = {'ā':'a','Ā':'A','ī':'i','Ī':'I','ū':'u','Ū':'U','ṛ':'ri','Ṛ':'Ri','ṝ':'ri','ḷ':'li','ḹ':'li','ṃ':'m','ḥ':'h','ṅ':'n','ñ':'n','ṭ':'t','ḍ':'d','ṇ':'n','ś':'s','ṣ':'sh'}
     s = str(val)
@@ -10,7 +11,7 @@ def _safe_midi_ascii(val: str) -> str:
 Implements exact integer frequency ratios, cent calculations, and MIDI pitch-bend offsets.
 """
 import math
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Tuple, Union, Dict, Any
 
 # Base reference Sa = 240.0 Hz (Standard Madhyama-grāma / Gandharva baseline) or 261.63 Hz (Middle C4)
 DEFAULT_SA_HZ = 240.0
