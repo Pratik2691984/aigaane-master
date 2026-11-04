@@ -7,6 +7,7 @@
     "text": "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः",
     "transliteration": "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ",
     "meter": "anuṣṭubh",
+    "syllables_expected": 16,
     "default_raga": "Bhairav",
     "meaning": "On the holy field of Kurukṣetra, gathered together desiring to battle..."
   },
@@ -18,6 +19,7 @@
     "text": "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन",
     "transliteration": "karmaṇyevādhikāraste mā phaleṣu kadācana",
     "meter": "anuṣṭubh",
+    "syllables_expected": 16,
     "default_raga": "Bhairav",
     "meaning": "You have a right to action alone, never to its fruits..."
   },
@@ -29,8 +31,33 @@
     "text": "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत",
     "transliteration": "yadā yadā hi dharmasya glānirbhavati bhārata",
     "meter": "anuṣṭubh",
+    "syllables_expected": 16,
     "default_raga": "Bhairav",
     "meaning": "Whenever there is a decline in righteousness, O Bhārata..."
+  },
+  {
+    "id": "ISA_02",
+    "source": "Īśāvāsya Upaniṣad",
+    "chapter": 1,
+    "verse": 2,
+    "text": "कुर्वन्नेवेह कर्माणि जिजीविषेच्छतं समाः",
+    "transliteration": "kurvanneveha karmāṇi jijīviṣecchataṃ samāḥ",
+    "meter": "anuṣṭubh",
+    "syllables_expected": 16,
+    "default_raga": "Bhairav",
+    "meaning": "Performing works here alone should one desire to live a hundred years..."
+  },
+  {
+    "id": "BG_02_20",
+    "source": "Bhagavad Gītā",
+    "chapter": 2,
+    "verse": 20,
+    "text": "न जायते म्रियते वा कदाचिन्नायं भूत्वा भविता वा न भूयः",
+    "transliteration": "na jāyate mriyate vā kadācinnāyaṃ bhūtvā bhavitā vā na bhūyaḥ",
+    "meter": "triṣṭubh",
+    "syllables_expected": 22,
+    "default_raga": "Bhairav",
+    "meaning": "The soul is never born, nor does it die; having once been, it never ceases to be..."
   },
   {
     "id": "BG_15_01",
@@ -40,6 +67,7 @@
     "text": "ऊर्ध्वमूलमधःशाखमश्वत्थं प्राहुरव्ययम्",
     "transliteration": "ūrdhvamūlamadhaḥśākham aśvatthaṃ prāhuravyayam",
     "meter": "triṣṭubh",
+    "syllables_expected": 11,
     "default_raga": "Bhairav",
     "meaning": "With roots above and branches below, the imperishable tree is spoken of..."
   },
@@ -51,7 +79,44 @@
     "text": "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज",
     "transliteration": "sarvadharmānparityajya māmekaṃ śaraṇaṃ vraja",
     "meter": "triṣṭubh",
+    "syllables_expected": 11,
     "default_raga": "Bhairav",
     "meaning": "Abandoning all varieties of duty, take refuge in Me alone..."
+  },
+  {
+    "id": "ISA_01",
+    "source": "Īśāvāsya Upaniṣad",
+    "chapter": 1,
+    "verse": 1,
+    "text": "ईशावास्यमिदं सर्वं यत्किञ्च जगत्यां जगत्",
+    "transliteration": "īśāvāsyamidaṃ sarvaṃ yatkiñca jagatyāṃ jagat",
+    "meter": "triṣṭubh",
+    "syllables_expected": 12,
+    "default_raga": "Bhairav",
+    "meaning": "All this, whatsoever exists in this moving world, is enveloped by the Divine..."
+  },
+  {
+    "id": "RV_01_01_01",
+    "source": "Ṛgveda Saṃhitā",
+    "chapter": 1,
+    "verse": 1,
+    "text": "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्",
+    "transliteration": "agnimīḷe purohitaṃ yajñasya devamṛtvijam",
+    "meter": "gāyatrī",
+    "syllables_expected": 16,
+    "default_raga": "Bhairav",
+    "meaning": "I praise Agni, the chosen priest, the divine minister of sacrifice..."
+  },
+  {
+    "id": "RV_03_62_10",
+    "source": "Ṛgveda Saṃhitā (Gāyatrī Mantra)",
+    "chapter": 3,
+    "verse": 62,
+    "text": "तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्",
+    "transliteration": "tatsaviturvareṇyaṃ bhargo devasya dhīmahi dhiyo yo naḥ pracodayāt",
+    "meter": "gāyatrī",
+    "syllables_expected": 24,
+    "default_raga": "Bhairav",
+    "meaning": "May we meditate upon that supreme brilliance of the divine Sun; may He inspire our intellect..."
   }
 ]
