@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "tonic_hz": 220.0,
+  "description": "Ahobala 22-Sruti Vocal Sahaya acoustic corpus",
+  "samples": {
+    "a": {
+      "file": "a.wav",
+      "length_beats": 1.0,
+      "vowel_type": "short"
+    },
+    "aa": {
+      "file": "aa.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    },
+    "i": {
+      "file": "i.wav",
+      "length_beats": 1.0,
+      "vowel_type": "short"
+    },
+    "ii": {
+      "file": "ii.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    },
+    "u": {
+      "file": "u.wav",
+      "length_beats": 1.0,
+      "vowel_type": "short"
+    },
+    "uu": {
+      "file": "uu.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    },
+    "ri": {
+      "file": "ri.wav",
+      "length_beats": 1.0,
+      "vowel_type": "short"
+    },
+    "e": {
+      "file": "e.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    },
+    "ai": {
+      "file": "ai.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    },
+    "o": {
+      "file": "o.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    },
+    "au": {
+      "file": "au.wav",
+      "length_beats": 2.0,
+      "vowel_type": "long"
+    }
+  }
+}
