@@ -25,7 +25,7 @@ class VocalSahaya {
             "D": 905.87,
             "n": 1017.60,
             "N": 1088.27,
-            "S+": 1200.0
+            "S'": 1200.0
         };
     }
 
@@ -34,17 +34,21 @@ class VocalSahaya {
      */
     extractVowel(syllable) {
         const s = (syllable || "").toLowerCase().trim();
-        if (s.includes("au") || s.includes("\u094b")) return "au";
-        if (s.includes("ai") || s.includes("\u0948")) return "ai";
-        if (s.includes("aa") || s.includes("\u0101") || s.includes("\u093e")) return "aa";
-        if (s.includes("ii") || s.includes("\u0119") || s.includes("\u0940")) return "ii";
-        if (s.includes("uu") || s.includes("\u010b") || s.includes("\u0942")) return "uu";
-        if (s.includes("ri") || s.includes("\u1e69H) || s.includes("\u090b") || s.includes("\u0943")) return "ri";
-        if (s.includes("e") || s.includes("\u0947")) return "e";
-        if (s.includes("o") || s.includes("\u094a")) return "o";
-        if (s.includes("i") || s.includes("\u093f")) return "i";
-        if (s.includes("u") || s.includes("\u0941")) return "u";
-        return "a"; // Inherent schwa
+        // Check diphthongs first
+        if (s.indexOf("au") !== -1 || s.indexOf("ौ") !== -1) return "au";
+        if (s.indexOf("ai") !== -1 || s.indexOf("ै") !== -1) return "ai";
+        // Long vowels
+        if (s.indexOf("aa") !== -1 || s.indexOf("ā") !== -1 || s.indexOf("ा") !== -1) return "aa";
+        if (s.indexOf("ii") !== -1 || s.indexOf("ī") !== -1 || s.indexOf("ी") !== -1) return "ii";
+        if (s.indexOf("uu") !== -1 || s.indexOf("ū") !== -1 || s.indexOf("ू") !== -1) return "uu";
+        // Vocalic r
+        if (s.indexOf("ri") !== -1 || s.indexOf("ṛ") !== -1 || s.indexOf("ऋ") !== -1 || s.indexOf("ृ") !== -1) return "ri";
+        // Simple vowels
+        if (s.indexOf("e") !== -1 || s.indexOf("े") !== -1) return "e";
+        if (s.indexOf("o") !== -1 || s.indexOf("ो") !== -1) return "o";
+        if (s.indexOf("i") !== -1 || s.indexOf("ि") !== -1) return "i";
+        if (s.indexOf("u") !== -1 || s.indexOf("ु") !== -1) return "u";
+        return "a";
     }
 
     /**
@@ -54,18 +58,18 @@ class VocalSahaya {
         const vowels = ["a", "aa", "i", "ii", "u", "uu", "ri", "e", "ai", "o", "au"];
         const loadPromises = vowels.map(async (v) => {
             try {
-                const res = await fetch(`${basePath}${v}.wav`);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const res = await fetch(basePath + v + ".wav");
+                if (!res.ok) throw new Error("HTTP " + res.status);
                 const arrayBuf = await res.arrayBuffer();
                 this.buffers[v] = await this.ctx.decodeAudioData(arrayBuf);
             } catch (err) {
-                console.warn(`[VocalSahaya] Fallback synthesizing for vowel: ${v}`, err);
+                console.warn("[VocalSahaya] Fallback synthesizing for vowel: " + v, err);
             }
         });
 
         await Promise.all(loadPromises);
         this.isLoaded = true;
-        console.log("\u2713 [VocalSahaya] All 11 vocalic atoms loaded successfully.");
+        console.log("✓ [VocalSahaya] All 11 vocalic atoms loaded successfully.");
     }
 
     /**
@@ -82,7 +86,7 @@ class VocalSahaya {
         source.buffer = buffer;
 
         // Calculate pitch shift from cents
-        const baseCents = this.srutiMap[swara] ?? 0.0;
+        const baseCents = (this.srutiMap[swara] !== undefined) ? this.srutiMap[swara] : 0.0;
         const baseRate = Math.pow(2.0, baseCents / 1200.0);
         source.playbackRate.setValueAtTime(baseRate, startTime);
 
