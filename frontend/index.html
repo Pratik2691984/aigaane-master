@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="sa">
 <head>
+  <title>Aigaane — Deterministic Pāṇinian Sanskrit Engine & 22-Śruti Acoustics</title>
+  <meta name="description" content="Pāṇini's 4,000 sūtras modeled as a deterministic rule graph. Zero LLM guesswork, strict Tripādī and asiddhavat derivation, and exact just-intonation 22-śruti physical synthesis.">
+  <meta name="theme-color" content="#0b0f19">
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="Aigaane — Deterministic Pāṇinian Engine">
+  <meta property="og:description" content="Formal Pāṇinian derivation graph and microtonal Karplus-Strong synthesis. 100% deterministic, rule-first vyākaraṇa.">
+  <meta property="og:url" content="https://aigaane.in">
+  <meta name="twitter:card" content="summary_large_image">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aigaane — Deterministic Pāṇinian Sanskrit Engine</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet">
@@ -25,6 +33,63 @@
         <a href="vedic-instruments.html" style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.95rem; transition: color 0.2s;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#94a3b8'">Vedic Instruments</a>
       </nav>
     </header>
+
+    <!-- Session 1: Deterministic Hero & Scholarly Accordion -->
+    <section class="deterministic-hero" style="background: linear-gradient(180deg, #121826 0%, #0b0f19 100%); border-bottom: 1px solid #1e293b; padding: 2.5rem 1.5rem 2rem; color: #f8fafc; font-family: ui-sans-serif, system-ui, sans-serif;">
+      <div style="max-width: 1080px; margin: 0 auto;">
+        
+        <!-- Determinism Badge (Visible without scrolling) -->
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.2rem;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.12); border: 1px solid #10b981; border-radius: 9999px; padding: 4px 12px; font-size: 0.82rem; font-weight: 600; color: #34d399;">
+            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+            <span>● Deterministic Log: Zero LLM Guesswork</span>
+          </div>
+          <div style="font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.75rem; color: #94a3b8;">
+            Aṣṭādhyāyī 1.4.2 · 6.4.22 · 8.2.1 Verified
+          </div>
+        </div>
+
+        <!-- Hero Statement -->
+        <h2 style="font-size: clamp(1.4rem, 3.2vw, 2.2rem); font-weight: 700; line-height: 1.25; margin: 0 0 1rem; color: #f8fafc;">
+          Pāṇini's 4,000 Sūtras as a <span style="color: #fbbf24; text-decoration: underline decoration-[#b45309]; text-underline-offset: 4px;">Deterministic Rule-First Engine</span>.
+        </h2>
+        <p style="font-size: clamp(0.95rem, 1.8vw, 1.1rem); color: #cbd5e1; max-width: 820px; line-height: 1.6; margin: 0 0 1.8rem;">
+          Formal derivation graph executing strict Tripādī and asiddhavat visibility constraints. Every phoneme, compound break, and 22-Śruti microtonal pitch is computed algorithmically—not by statistical approximation.
+        </p>
+
+        <!-- Scholarly Accordion (Accessible <details><summary>) -->
+        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid #334155; border-radius: 12px; padding: 0.5rem 1rem; margin-top: 1rem;">
+          <details style="margin-bottom: 0.5rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem;">
+            <summary style="font-weight: 600; font-size: 0.92rem; color: #fbbf24; cursor: pointer; padding: 0.5rem 0; outline: none; min-height: 36px; display: flex; align-items: center;">
+              1. Strict Ekasaṁjñā Scope (Sūtra 1.4.2 Vipratiṣedhe paraṁ kāryam)
+            </summary>
+            <div style="padding: 0.5rem 0.5rem 0.8rem; font-size: 0.88rem; color: #94a3b8; line-height: 1.55;">
+              Contrary to common misconception, metarule 1.4.2 does not govern the entire Aṣṭādhyāyī globally. It applies strictly within the Ekasaṁjñā adhikāra (1.4.1–2.2.38). Intersūtra conflicts across sandhi and morphophonemics are resolved under the classical Paribhāṣā priority lattice: <code style="color: #38bdf8;">apavāda &gt; nitya &gt; antaraṅga &gt; para</code>.
+            </div>
+          </details>
+
+          <details style="margin-bottom: 0.5rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem;">
+            <summary style="font-weight: 600; font-size: 0.92rem; color: #fbbf24; cursor: pointer; padding: 0.5rem 0; outline: none; min-height: 36px; display: flex; align-items: center;">
+              2. Multi-Tier Asiddhatva (Sūtras 8.2.1 pūrvatrāsiddham &amp; 6.4.22 asiddhavad atrabhāt)
+            </summary>
+            <div style="padding: 0.5rem 0.5rem 0.8rem; font-size: 0.88rem; color: #94a3b8; line-height: 1.55;">
+              The engine enforces strict Kāśikā backward-invisibility. Tripādī rules (8.2.1–8.4.68) are treated as non-existent to the preceding Sapta-adhyāyī, and later Tripādī rules are invisible to earlier ones. Sūtras 6.4.22–6.4.129 operate under isolated shadow-state evaluation.
+            </div>
+          </details>
+
+          <details>
+            <summary style="font-weight: 600; font-size: 0.92rem; color: #fbbf24; cursor: pointer; padding: 0.5rem 0; outline: none; min-height: 36px; display: flex; align-items: center;">
+              3. Microtonal 22-Śruti Synthesis (Nārada-śikṣā &amp; Ahobala Sangīta-pārijāta)
+            </summary>
+            <div style="padding: 0.5rem 0.5rem 0.8rem; font-size: 0.88rem; color: #94a3b8; line-height: 1.55;">
+              Sūtra 1.2.27 (<em>ūkālo'jjhrasvadīrghaplutaḥ</em>) defines syllabic moraic duration (Mātrā). The 22 microtonal intervals are derived from <em>Nārada-śikṣā</em> and 5-limit Ahobala Just-Intonation ratios (e.g. S=1/1, r₁=10/9, P=3/2), synthesized deterministically via Karplus-Strong AudioWorklet with 0.00¢ fractional-delay precision.
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </section>
+
 
     <!-- Floating Quick Diacritics Helper -->
     <div id="diacritics-dock" style="background:var(--bg-card, #1e293b); border:1px solid #334155; border-radius:8px; padding:8px 12px; margin-bottom:18px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
