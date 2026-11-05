@@ -94,6 +94,89 @@
     }
   </style>
 
+
+  <style id="session2-morph-card-style">
+    /* Script Toggle UI */
+    .script-toggle-bar {
+      display: inline-flex;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #0f172a;
+    }
+    .script-toggle-btn {
+      padding: 6px 14px;
+      min-height: 38px;
+      border: 0;
+      background: #1e293b;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .script-toggle-btn.active {
+      background: #38bdf8;
+      color: #0b0f19;
+      font-weight: 700;
+    }
+
+    /* Mobile Card-per-Vibhakti Table Transformation */
+    @media (max-width: 768px) {
+      .subanta-table-wrap table.subanta {
+        display: block;
+        width: 100%;
+        border: none;
+      }
+      .subanta-table-wrap thead {
+        display: none;
+      }
+      .subanta-table-wrap tbody {
+        display: block;
+        width: 100%;
+      }
+      .subanta-table-wrap tbody tr {
+        display: block;
+        margin-bottom: 12px;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 10px 14px;
+        background: #111827;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+      .subanta-table-wrap tbody th {
+        display: block;
+        text-align: left;
+        color: #fbbf24;
+        font-size: 0.95rem;
+        padding: 0 0 6px 0;
+        border-bottom: 1px solid #1e293b;
+        margin-bottom: 6px;
+      }
+      .subanta-table-wrap tbody td.form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px dashed #1e293b;
+        font-size: 1rem;
+      }
+      .subanta-table-wrap tbody td.form:last-child {
+        border-bottom: none;
+      }
+      .subanta-table-wrap tbody td.form::before {
+        content: attr(data-vacana);
+        font-size: 0.75rem;
+        color: #94a3b8;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 12px;
+      }
+    }
+  </style>
+
 </head>
 <body>
   <div class="container">
@@ -288,6 +371,14 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <div><span class="sa-lg" id="m-title">deva</span> <span class="chip" id="m-chip">Akārānta · Pulliṅga</span></div>
           <span class="badge">24 Forms</span>
+        </div>
+
+        
+        <!-- Session 2: Devanāgarī-First Script Selection -->
+        <div class="script-toggle-bar" role="group" aria-label="Script selection" id="morph-script-toggle">
+          <button type="button" class="script-toggle-btn active" data-script="deva" onclick="setMorphScript('deva')">देवनागरी</button>
+          <button type="button" class="script-toggle-btn" data-script="iast" onclick="setMorphScript('iast')">IAST</button>
+          <button type="button" class="script-toggle-btn" data-script="slp1" onclick="setMorphScript('slp1')">SLP1</button>
         </div>
 
         <div class="subanta-table-wrap">
@@ -630,8 +721,19 @@
         ];
       }
 
-      tbody.innerHTML = rows.map(([vib, e, d, b]) =>
-        `<tr><th>${vib}</th><td class="form">${e}</td><td class="form">${d}</td><td class="form">${b}</td></tr>`
+            function formatCell(val) {
+        if (currentMorphScript === "deva") return toDevanagari(val);
+        if (currentMorphScript === "slp1") return toSLP1(val);
+        return val;
+      }
+
+      tbody.innerHTML = rows.map(([vib, e, d, b]) => 
+        `<tr>
+          <th>${vib}</th>
+          <td class="form" data-vacana="Ekavacana (1)">${formatCell(e)}</td>
+          <td class="form" data-vacana="Dvivacana (2)">${formatCell(d)}</td>
+          <td class="form" data-vacana="Bahuvacana (3+)">${formatCell(b)}</td>
+        </tr>`
       ).join("");
     }
 
