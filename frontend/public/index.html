@@ -177,6 +177,54 @@
     }
   </style>
 
+
+  <style id="session3-sandhi-dag-style">
+    .sandhi-dag-container {
+      margin-top: 1.2rem;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+    }
+    .sandhi-dag-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .sandhi-dag-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: ui-monospace, monospace;
+    }
+    .copy-img-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #38bdf8;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .copy-img-btn:hover {
+      background: #38bdf8;
+      color: #0b0f19;
+    }
+    .sandhi-svg-canvas {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+
 </head>
 <body>
   <div class="container">
@@ -536,7 +584,117 @@
     const API_BASE = "https://aigaane-api-977695793163.asia-south1.run.app";
 
     // --- 1. Sandhi Combiner ---
-    async function combineSandhi() {
+    async 
+    // --- Session 3: Sandhi DAG SVG Visualizer & Image Exporter ---
+    function renderSandhiDAG(p1, p2, output, ruleName, ruleCanon) {
+      const container = document.getElementById("sandhi-dag-mount");
+      if (!container) return;
+
+      const canonUrl = "https://ashtadhyayi.com/sutraani/" + (ruleCanon || "6/1/87").replace(/\./g, "/");
+      const isGuna = ruleCanon === "6.1.87" || (ruleName && ruleName.includes("guna"));
+      const blockedSutra = isGuna ? "6.1.101 akaḥ savarṇe" : "8.3.30 hrasvasya";
+      const blockedReason = isGuna ? "Blocked: 6.1.87 apavāda priority over savarṇa-dīrgha" : "Blocked: Sūtra precedence order";
+
+      const svgMarkup = `
+        <svg id="sandhi-dag-svg" class="sandhi-svg-canvas" viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg" style="background:#0b0f19; border-radius:8px;">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+            </marker>
+            <marker id="arrow-blocked" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+            </marker>
+          </defs>
+
+          <!-- Links -->
+          <line x1="110" y1="50" x2="220" y2="105" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+          <line x1="430" y1="50" x2="320" y2="105" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+          <line x1="270" y1="130" x2="270" y2="165" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arrow)" />
+          <line x1="270" y1="50" x2="270" y2="70" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-blocked)" />
+
+          <!-- Input Node 1 -->
+          <g>
+            <rect x="30" y="25" width="130" height="42" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+            <text x="95" y="52" fill="#f8fafc" font-family="'Noto Serif', serif" font-size="15" font-weight="600" text-anchor="middle">${p1 || "pūrva"}</text>
+          </g>
+
+          <!-- Input Node 2 -->
+          <g>
+            <rect x="380" y="25" width="130" height="42" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+            <text x="445" y="52" fill="#f8fafc" font-family="'Noto Serif', serif" font-size="15" font-weight="600" text-anchor="middle">${p2 || "para"}</text>
+          </g>
+
+          <!-- Blocked Candidate Node -->
+          <g style="cursor:help;">
+            <title>${blockedReason}</title>
+            <rect x="200" y="15" width="140" height="32" rx="6" fill="#182234" stroke="#475569" stroke-width="1" stroke-dasharray="4 2" />
+            <text x="270" y="36" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="11" text-anchor="middle">✕ ${blockedSutra}</text>
+          </g>
+
+          <!-- Winning Rule Node -->
+          <g>
+            <a href="${canonUrl}" target="_blank" rel="noopener noreferrer">
+              <rect x="180" y="90" width="180" height="44" rx="8" fill="#1e1b4b" stroke="#fbbf24" stroke-width="2" />
+              <text x="270" y="112" fill="#fbbf24" font-family="ui-monospace, monospace" font-size="13" font-weight="bold" text-anchor="middle">★ Sūtra ${ruleCanon || "6.1.87"}</text>
+              <text x="270" y="126" fill="#cbd5e1" font-family="'Noto Serif', serif" font-size="11" text-anchor="middle">${ruleName || "ād guṇaḥ"}</text>
+            </a>
+          </g>
+
+          <!-- Result Node -->
+          <g>
+            <rect x="180" y="170" width="180" height="42" rx="8" fill="#042f2e" stroke="#14b8a6" stroke-width="2" />
+            <text x="270" y="197" fill="#2dd4bf" font-family="'Noto Serif', serif" font-size="16" font-weight="bold" text-anchor="middle">${output || "devendra"}</text>
+          </g>
+        </svg>
+      `;
+
+      container.innerHTML = `
+        <div class="sandhi-dag-container">
+          <div class="sandhi-dag-header">
+            <span class="sandhi-dag-title">Pāṇinian Derivation DAG</span>
+            <button type="button" class="copy-img-btn" onclick="copySandhiDAGImage()">Copy as Image</button>
+          </div>
+          ${svgMarkup}
+        </div>
+      `;
+    }
+
+    async function copySandhiDAGImage() {
+      const svg = document.getElementById("sandhi-dag-svg");
+      if (!svg) return;
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 440;
+      const ctx = canvas.getContext("2d");
+      const img = new Image();
+      img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+      img.onload = async function() {
+        ctx.fillStyle = "#0b0f19";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        try {
+          canvas.toBlob(async function(blob) {
+            if (navigator.clipboard && navigator.clipboard.write) {
+              await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+              alert("✓ Derivation DAG copied to clipboard as high-res PNG!");
+            } else {
+              const a = document.createElement("a");
+              a.download = "sandhi-derivation-dag.png";
+              a.href = canvas.toDataURL("image/png");
+              a.click();
+            }
+          }, "image/png");
+        } catch (err) {
+          const a = document.createElement("a");
+          a.download = "sandhi-derivation-dag.png";
+          a.href = canvas.toDataURL("image/png");
+          a.click();
+        }
+      };
+    }
+
+    function combineSandhi() {
       const p1 = document.getElementById("sandhi-p1").value.trim();
       const p2 = document.getElementById("sandhi-p2").value.trim();
       document.getElementById("s-p1").textContent = p1;
@@ -613,7 +771,60 @@
     }
 
     // --- 3. Morphology Subanta Table ---
-        function renderMorphology() {
+        
+    // --- Devanāgarī & SLP1 Transliteration Maps ---
+    const DEVA_EXACT_MAP = {
+      "devaḥ": "देवः", "devau": "देवौ", "devāḥ": "देवाः", "devam": "देवम्", "devān": "देवान्",
+      "devena": "देवेन", "devābhyām": "देवाभ्याम्", "devaiḥ": "देवैः", "devāya": "देवाय",
+      "devebhyaḥ": "देवेभ्यः", "devāt": "देवात्", "devasya": "देवस्य", "devayoḥ": "देवयोः",
+      "devānām": "देवानाम्", "deve": "देवे", "deveṣu": "देवेषु", "deva": "देव",
+      "latā": "लता", "late": "लते", "latāḥ": "लताः", "latām": "लताम्", "latayā": "लतया",
+      "latābhyām": "लताभ्याम्", "latābhiḥ": "लताभिः", "latāyai": "लतायै", "latābhyaḥ": "लताभ्यः",
+      "latāyāḥ": "लतायाः", "latayoḥ": "लतयोः", "latānām": "लतानाम्", "latāyām": "लतायाम्", "latāsu": "लतासु",
+      "phalam": "फलम्", "phale": "फले", "phalāni": "फलानि", "phalena": "फलेन",
+      "phalābhyām": "फलाभ्याम्", "phalaiḥ": "फलैः", "phalāya": "फलाय", "phalebhyaḥ": "फलेभ्यः",
+      "phalāt": "फलात्", "phalasya": "फलस्य", "phalayoḥ": "फलयोः", "phalānām": "फलानाम्", "phaleṣu": "फलेषु", "phala": "फल",
+      "marut": "मरुत्", "marutau": "मरुतौ", "marutaḥ": "मरुतः", "marutam": "मरुतम्", "marutā": "मरुता",
+      "marudbhyām": "मरुद्भ्याम्", "marudbhiḥ": "मरुद्भिः", "marute": "मरुते", "marudbhyaḥ": "मरुद्भ्यः",
+      "marutoḥ": "मरुतोः", "marutām": "मरुताम्", "maruti": "मरुति", "marutsu": "मरुत्सु",
+      "vāk": "वाक्", "vācau": "वाचौ", "vācaḥ": "वाचः", "vācam": "वाचम्", "vācā": "वाचा",
+      "vāgbhyām": "वाग्भ्याम्", "vāgbhiḥ": "वाग्भिः", "vāce": "वाचे", "vāgbhyaḥ": "वाग्भ्यः",
+      "vācoḥ": "वाचोः", "vācām": "वाचाम्", "vāci": "वाचि", "vākṣu": "वाक्षु"
+    };
+
+    function toDevanagari(text) {
+      if (!text) return "";
+      return text.split(" / ").map(w => DEVA_EXACT_MAP[w] || w).join(" / ");
+    }
+
+    function toSLP1(text) {
+      if (!text) return "";
+      const slpMap = {
+        "ā": "A", "ī": "I", "ū": "U", "ṛ": "f", "ṝ": "F", "ḷ": "x",
+        "ai": "E", "au": "O", "kh": "K", "gh": "G", "ṅ": "N",
+        "ch": "C", "jh": "J", "ñ": "Y", "ṭh": "W", "ṭ": "w", "ḍh": "Q", "ḍ": "q", "ṇ": "R",
+        "th": "T", "dh": "D", "ph": "P", "bh": "B", "ś": "S", "ṣ": "z",
+        "ṃ": "M", "ḥ": "H"
+      };
+      let out = text;
+      for (const [k, v] of Object.entries(slpMap)) {
+        out = out.split(k).join(v);
+      }
+      return out;
+    }
+
+    let currentMorphScript = localStorage.getItem("aigaane.morphScript") || "deva";
+
+    function setMorphScript(script) {
+      currentMorphScript = script;
+      localStorage.setItem("aigaane.morphScript", script);
+      document.querySelectorAll("#morph-script-toggle .script-toggle-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.script === script);
+      });
+      renderMorphology();
+    }
+
+    function renderMorphology() {
       const paradigm = document.getElementById("morph-paradigm").value;
       const lemmaInput = document.getElementById("morph-lemma");
       const title = document.getElementById("m-title");
