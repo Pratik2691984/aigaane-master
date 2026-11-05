@@ -16,6 +16,84 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/engine.css">
+
+  <style id="session2-sticky-iast-style">
+    /* Active input focus highlight */
+    input.iast-active-target, textarea.iast-active-target {
+      outline: none !important;
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35) !important;
+    }
+    
+    /* Viewport-pinned IAST Bar */
+    .sticky-iast-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(11, 15, 25, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid #1e293b;
+      padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    }
+    .sticky-iast-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 2px 0;
+    }
+    .sticky-iast-container::-webkit-scrollbar {
+      display: none;
+    }
+    .sticky-iast-label {
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      padding-right: 4px;
+    }
+    .iast-key {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #fbbf24;
+      border: 1px solid #334155;
+      font-family: 'Noto Serif', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      transition: all 0.1s ease;
+    }
+    .iast-key:active {
+      background: #fbbf24;
+      color: #0b0f19;
+      transform: scale(0.95);
+    }
+    /* Add bottom padding to body so content isn't obscured by fixed bar */
+    body {
+      padding-bottom: 65px !important;
+    }
+  </style>
+
 </head>
 <body>
   <div class="container">
@@ -1103,5 +1181,81 @@
     }
 
   </script>
+
+  <!-- Session 2: Viewport-Pinned Sticky IAST Thumb Bar -->
+  <aside class="sticky-iast-bar" aria-label="IAST Diacritic Input Bar">
+    <div class="sticky-iast-container">
+      <span class="sticky-iast-label">IAST:</span>
+      <button type="button" class="iast-key" data-char="ā" aria-label="Insert ā">ā</button>
+      <button type="button" class="iast-key" data-char="ī" aria-label="Insert ī">ī</button>
+      <button type="button" class="iast-key" data-char="ū" aria-label="Insert ū">ū</button>
+      <button type="button" class="iast-key" data-char="ṛ" aria-label="Insert ṛ">ṛ</button>
+      <button type="button" class="iast-key" data-char="ṝ" aria-label="Insert ṝ">ṝ</button>
+      <button type="button" class="iast-key" data-char="ḷ" aria-label="Insert ḷ">ḷ</button>
+      <button type="button" class="iast-key" data-char="ṭ" aria-label="Insert ṭ">ṭ</button>
+      <button type="button" class="iast-key" data-char="ḍ" aria-label="Insert ḍ">ḍ</button>
+      <button type="button" class="iast-key" data-char="ṇ" aria-label="Insert ṇ">ṇ</button>
+      <button type="button" class="iast-key" data-char="ś" aria-label="Insert ś">ś</button>
+      <button type="button" class="iast-key" data-char="ṣ" aria-label="Insert ṣ">ṣ</button>
+      <button type="button" class="iast-key" data-char="ṁ" aria-label="Insert ṁ">ṁ</button>
+      <button type="button" class="iast-key" data-char="ḥ" aria-label="Insert ḥ">ḥ</button>
+    </div>
+  </aside>
+
+  <!-- Session 2: Caret-Preserving Focus Handler -->
+  <script id="session2-iast-binding">
+    (function initIASTStickyBar() {
+      let lastFocusedInput = null;
+
+      function trackInput(el) {
+        if (!el || el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') return;
+        if (lastFocusedInput && lastFocusedInput !== el) {
+          lastFocusedInput.classList.remove('iast-active-target');
+        }
+        lastFocusedInput = el;
+        lastFocusedInput.classList.add('iast-active-target');
+      }
+
+      document.addEventListener('focusin', function(e) {
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+          trackInput(e.target);
+        }
+      });
+
+      // Default initial focus target if none selected yet
+      const defaultInput = document.getElementById('sandhi-p1') || 
+                           document.getElementById('chandas-input') || 
+                           document.querySelector('input[type=text]');
+      if (defaultInput) {
+        trackInput(defaultInput);
+      }
+
+      // Handle diacritic button taps without losing input focus or triggering mobile blur
+      document.querySelectorAll('.sticky-iast-bar .iast-key').forEach(function(btn) {
+        // Prevent default mousedown/touchstart so active input doesn't lose focus
+        btn.addEventListener('mousedown', function(e) { e.preventDefault(); });
+        btn.addEventListener('touchstart', function(e) { e.preventDefault(); }, { passive: false });
+
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const char = btn.getAttribute('data-char');
+          const target = lastFocusedInput || defaultInput;
+          if (!target || !char) return;
+
+          const start = target.selectionStart !== null ? target.selectionStart : target.value.length;
+          const end = target.selectionEnd !== null ? target.selectionEnd : target.value.length;
+          const val = target.value;
+
+          target.value = val.substring(0, start) + char + val.substring(end);
+          target.selectionStart = target.selectionEnd = start + char.length;
+          target.focus();
+
+          // Dispatch input event so live search/renderers detect change
+          target.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      });
+    })();
+  </script>
+
 </body>
 </html>
