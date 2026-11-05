@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mantra Sanctuary — Gapless Japa Loop">
+  <meta name="theme-color" content="#0f172a">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' blob: https://aigaane-engine-977695793163.asia-south1.run.app; media-src 'self' blob: https://aigaane-engine-977695793163.asia-south1.run.app; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+  <title>Mantra Sanctuary · Japa Loop</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ॐ</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #0f172a; --panel: #1e293b; --text: #f8fafc; --accent: #fbbf24; --border: #334155; --green: #34d399; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 2rem; font-family: 'Noto Serif', serif; background: var(--bg); color: var(--text); }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { color: var(--accent); font-size: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+    .panel { background: var(--panel); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--accent); }
+    textarea { width: 100%; padding: 0.75rem; font-family: 'JetBrains Mono', monospace; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; resize: vertical; }
+    select { width: 100%; padding: 0.75rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; font-family: inherit; margin-top: 0.5rem; }
+    button { background: var(--accent); color: var(--bg); border: none; padding: 0.75rem 1.5rem; font-weight: 600; font-size: 1rem; border-radius: 4px; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.stop { background: #ef4444; color: white; }
+    .repetition-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 0.5rem; }
+    .repetition-grid button { background: var(--bg); color: var(--accent); border: 1px solid var(--border); padding: 0.5rem; font-size: 0.9rem; }
+    .repetition-grid button.active { background: var(--accent); color: var(--bg); }
+    .counter { font-size: 4rem; font-weight: 600; color: var(--accent); text-align: center; font-family: 'JetBrains Mono', monospace; margin: 1rem 0; }
+    .progress-bar { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; margin-top: 1rem; }
+    .progress-fill { height: 100%; background: var(--green); width: 0%; transition: width 0.3s; }
+    .status { text-align: center; color: var(--text-dim); font-size: 0.9rem; }
+    .error { color: #f87171; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mantra Sanctuary · Japa Loop</h1>
+    <p style="color: #94a3b8; margin-bottom: 2rem;">Gapless repetition using Just Intonation synthesis and Web Audio API.</p>
+
+    <div class="panel">
+      <label for="mantra-text">Sanskrit Mantra (IAST)</label>
+      <textarea id="mantra-text" rows="2">dharmakṣetre kurukṣetre</textarea>
+
+      <label for="raga-select" style="margin-top: 1rem;">Rāga</label>
+      <select id="raga-select">
+        <option value="mayamalavagowla">Mayamalavagowla (Morning)</option>
+        <option value="todi">Tōḍī (Late Morning)</option>
+        <option value="kalyani">Kalyāṇi (Evening)</option>
+        <option value="bhairavi">Bhairavī (Any)</option>
+      </select>
+
+      <label style="margin-top: 1rem;">Repetitions (Japa Count)</label>
+      <div class="repetition-grid" id="repetition-grid">
+        <button data-count="1" class="active">1</button>
+        <button data-count="3">3</button>
+        <button data-count="9">9</button>
+        <button data-count="27">27</button>
+        <button data-count="108">108</button>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+        <button id="play-btn" onclick="startLoop()" style="flex: 1;">▶ Play Japa Loop</button>
+        <button id="stop-btn" class="stop" onclick="stopLoop()" style="display: none; flex: 1;">■ Stop</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="counter" id="counter">0 / 108</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="status" id="status" style="margin-top: 1rem;">Awaiting input...</div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://aigaane-engine-977695793163.asia-south1.run.app';
+    let audioContext = null;
+    let currentSource = null;
+    let selectedCount = 1;
+    let currentRepetition = 0;
+    let isPlaying = false;
+
+    // Repetition grid click handler
+    document.querySelectorAll('#repetition-grid button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#repetition-grid button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedCount = parseInt(btn.dataset.count);
+        document.getElementById('counter').textContent = `0 / ${selectedCount}`;
+      });
+    });
+
+    async function startLoop() {
+      const text = document.getElementById('mantra-text').value;
+      const raga = document.getElementById('raga-select').value;
+      const status = document.getElementById('status');
+      const playBtn = document.getElementById('play-btn');
+      const stopBtn = document.getElementById('stop-btn');
+
+      if (!text.trim()) {
+        status.innerHTML = '<span class="error">Please enter a mantra.</span>';
+        return;
+      }
+
+      playBtn.disabled = true;
+      status.textContent = 'Synthesizing audio from Cloud Run...';
+
+      try {
+        // Fetch the audio from Cloud Run
+        const res = await fetch(`${API_BASE}/api/v1/gandharva/render`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text, raga: raga })
+        });
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.detail || 'Synthesis failed');
+
+        const audioRes = await fetch(`${API_BASE}/api/v1/gandharva/audio/${data.file}`);
+        const blob = await audioRes.blob();
+
+        // Decode into AudioBuffer
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const arrayBuffer = await blob.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+        // Setup looping
+        currentRepetition = 0;
+        isPlaying = true;
+        playBtn.style.display = 'none';
+        stopBtn.style.display = 'block';
+        document.getElementById('counter').textContent = `0 / ${selectedCount}`;
+        document.getElementById('progress-fill').style.width = '0%';
+        status.textContent = `Playing 0 / ${selectedCount} (Rāga: ${raga})`;
+
+        playLoop(audioBuffer);
+      } catch (err) {
+        status.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+        playBtn.disabled = false;
+        playBtn.style.display = 'block';
+        stopBtn.style.display = 'none';
+      }
+    }
+
+    function playLoop(audioBuffer) {
+      if (!isPlaying || currentRepetition >= selectedCount) {
+        finishLoop();
+        return;
+      }
+
+      currentSource = audioContext.createBufferSource();
+      currentSource.buffer = audioBuffer;
+      currentSource.connect(audioContext.destination);
+
+      currentSource.onended = () => {
+        currentRepetition++;
+        document.getElementById('counter').textContent = `${currentRepetition} / ${selectedCount}`;
+        document.getElementById('progress-fill').style.width = `${(currentRepetition / selectedCount) * 100}%`;
+
+        if (currentRepetition >= selectedCount) {
+          finishLoop();
+        } else {
+          playLoop(audioBuffer);
+        }
+      };
+
+      currentSource.start(0);
+    }
+
+    function finishLoop() {
+      isPlaying = false;
+      document.getElementById('status').textContent = `Japa complete: ${currentRepetition} repetitions.`;
+      document.getElementById('play-btn').disabled = false;
+      document.getElementById('play-btn').style.display = 'block';
+      document.getElementById('stop-btn').style.display = 'none';
+      currentSource = null;
+    }
+
+    function stopLoop() {
+      isPlaying = false;
+      if (currentSource) {
+        try { currentSource.stop(); } catch (e) {}
+        currentSource = null;
+      }
+      document.getElementById('status').textContent = 'Stopped.';
+      document.getElementById('play-btn').disabled = false;
+      document.getElementById('play-btn').style.display = 'block';
+      document.getElementById('stop-btn').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
