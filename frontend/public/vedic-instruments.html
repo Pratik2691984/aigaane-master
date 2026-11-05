@@ -2,399 +2,475 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vedic Instruments · Vādya-Śāstra</title>
-  <meta name="description" content="50 archaeoacoustic instruments from the Vedic corpus, synthesized in the browser.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪕</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aigaane · Vedic Instruments & Archaeoacoustics Lab</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+Devanagari:wght@400&display=swap');
     :root {
-      --bg: #0a0c10; --panel: #131820; --border: #2a3a4a; 
-      --gold: #fbbf24; --text: #e2e8f0; --dim: #94a3b8; --green: #4ade80;
+      --ink: #1a1613; --paper: #f4eee1; --paper2: #ebe3d2; --terra: #b0492d; --indigo: #1f2a44; --gold: #c9a961;
+      --line: #d8cfba; --muted: #8a7f6d; --mono: 'IBM Plex Mono', monospace; --serif: 'Fraunces', serif;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); min-height: 100vh; }
+    button { font-family: inherit; }
+    .site-header { padding: 14px 28px; background: rgba(244, 238, 225, 0.95); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.92rem; font-family: var(--serif); transition: color 0.15s; }
+    .nav-link:hover { color: var(--ink); }
+    .nav-link.active { color: var(--terra); font-weight: 600; border-bottom: 2px solid var(--terra); padding-bottom: 2px; }
     
-    /* Header */
-    .vi-header { padding: 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .vi-header h1 { color: var(--gold); margin: 0; font-size: 1.8rem; }
-    .vi-header a { color: var(--dim); text-decoration: none; font-size: 0.9rem; }
-    .vi-header a:hover { color: var(--gold); }
+    .app-root { min-height: calc(100vh - 65px); display: flex; flex-direction: column; overflow-x: clip; }
+    .hero-strip { max-width: 1180px; margin: 0 auto; padding: 32px 24px 16px; width: 100%; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); font-weight: 600; font-family: var(--mono); }
+    .hero-h1 { font-size: clamp(24px, 3.8vw, 38px); line-height: 1.15; margin: 8px 0 12px; font-weight: 600; }
+    .hero-desc { font-size: 15px; color: var(--muted); max-width: 820px; margin: 0 0 16px; line-height: 1.5; }
+    .hero-desc strong { color: var(--ink); font-weight: 600; }
     
-    /* Controls */
-    .vi-main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-    .vi-controls { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-    .vi-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .vi-tabs button { background: var(--panel); color: var(--dim); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
-    .vi-tabs button.active { background: var(--gold); color: var(--bg); border-color: var(--gold); font-weight: 600; }
+    nav.tabs { display: flex; gap: 6px; margin-top: 10px; }
+    .tab { padding: 8px 16px; border-radius: 999px; border: 1px solid transparent; font-size: 13px; letter-spacing: 0.02em; cursor: pointer; background: transparent; color: var(--muted); transition: .2s; }
+    .tab.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .tab:hover:not(.on) { border-color: var(--line); color: var(--ink); }
     
-    /* Grid */
-    .vi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    .vi-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; cursor: pointer; transition: all 0.2s; }
-    .vi-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-    .vi-card-top { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--dim); margin-bottom: 0.75rem; }
-    .vi-badge { padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .vi-tata { background: #3b2d18; color: #ffb74d; }
-    .vi-avanaddha { background: #381f21; color: #f87171; }
-    .vi-susira { background: #15332c; color: #4ade80; }
-    .vi-ghana { background: #1c2b3d; color: #38bdf8; }
-    .vi-card-name { color: var(--gold); margin: 0 0 0.25rem; font-size: 1.2rem; }
-    .vi-card-deva { color: var(--dim); margin-bottom: 0.75rem; font-size: 1.1rem; }
-    .vi-card-formula { background: var(--bg); padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.75rem; color: var(--green); overflow-x: auto; white-space: nowrap; margin-bottom: 1rem; }
-    .vi-excite { background: #2a3a4a; color: var(--text); border: none; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; width: 100%; font-weight: 600; }
-    .vi-excite:hover { background: var(--gold); color: var(--bg); }
+    main { max-width: 1180px; width: 100%; margin: 0 auto; padding: 18px 24px 80px; flex: 1; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+    .card { border: 1px solid var(--line); background: var(--paper2); border-radius: 16px; padding: 20px 18px 16px; cursor: pointer; transition: .2s; display: flex; flex-direction: column; gap: 10px; }
+    .card:hover { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 8px 24px rgba(26,22,19,0.08); }
+    .card-icon { width: 100%; height: 96px; display: grid; place-items: center; background: var(--paper); border-radius: 12px; color: var(--ink); }
+    .card h3 { margin: 0; font-size: 18px; display: flex; align-items: baseline; gap: 8px; }
+    .card h3 .sa { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--muted); font-weight: 400; }
+    .card .ref { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .card .shape { font-size: 13px; line-height: 1.4; color: var(--muted); }
     
-    /* Detail Drawer */
-    .vi-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: flex-end; z-index: 100; backdrop-filter: blur(4px); }
-    .vi-drawer.open { display: flex; }
-    .vi-drawer-inner { background: var(--panel); width: 100%; max-width: 900px; max-height: 85vh; overflow-y: auto; padding: 2rem; border-radius: 16px 16px 0 0; position: relative; border: 1px solid var(--border); border-bottom: none; }
-    .vi-drawer-inner #drawer-close { position: absolute; top: 1rem; right: 1.5rem; background: transparent; border: none; color: var(--dim); font-size: 2rem; cursor: pointer; }
-    .vi-drawer-inner #drawer-close:hover { color: var(--gold); }
+    .physics { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
+    @media(max-width:900px){ .physics { grid-template-columns: 1fr; } }
+    .panel { border: 1px solid var(--line); border-radius: 16px; background: var(--paper2); padding: 18px; }
+    .panel h4 { margin: 0 0 12px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .ctrl { margin-bottom: 14px; }
+    .ctrl label { font-size: 12px; display: flex; justify-content: space-between; color: var(--muted); margin-bottom: 6px; }
+    .ctrl label b { color: var(--ink); font-family: var(--mono); }
+    .ctrl input[type=range] { width: 100%; accent-color: var(--terra); }
     
-    /* Drawer Content */
-    .vi-detail-header { border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem; }
-    .vi-detail-header h2 { color: var(--gold); margin: 0.5rem 0; }
-    .vi-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
-    @media (max-width: 768px) { .vi-detail-grid { grid-template-columns: 1fr; } }
-    .vi-detail-card { background: var(--bg); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border); }
-    .vi-detail-card h4 { color: var(--gold); margin-top: 0; margin-bottom: 0.75rem; }
-    .vi-detail-card p { margin: 0.4rem 0; font-size: 0.9rem; color: var(--dim); }
-    .vi-detail-card strong { color: var(--text); }
+    .mat-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .mat-chip { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font-size: 12px; cursor: pointer; }
+    .mat-chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .mat-note { font-size: 12px; line-height: 1.4; color: var(--ink); margin: 0 0 12px; }
     
-    /* Swara Ribbon */
-    .vi-swara-row { display: flex; gap: 0.5rem; overflow-x: auto; margin: 1rem 0; padding-bottom: 0.5rem; }
-    .vi-swara-btn { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; min-width: 60px; transition: all 0.15s; }
-    .vi-swara-btn:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
-    .vi-swara-btn .deva { font-size: 1.2rem; font-weight: 600; }
-    .vi-swara-btn .label { font-size: 0.75rem; opacity: 0.8; }
-    .vi-swara-btn .hz { font-size: 0.65rem; opacity: 0.6; font-family: monospace; }
+    .canvas-wrap { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); position: relative; }
+    .canvas-wrap canvas { width: 100%; height: 260px; display: block; }
+    .eq { font-family: var(--mono); font-size: 12px; background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 10px; margin-top: 12px; display: flex; gap: 18px; flex-wrap: wrap; }
+    .eq span.hl { color: var(--gold); }
     
-    /* Binary Flow */
-    .vi-binary-flow { background: var(--bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; }
-    .vi-flow-step { display: flex; gap: 1rem; margin-bottom: 0.75rem; }
-    .vi-flow-marker { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
-    .vi-flow-num { font-size: 0.7rem; color: var(--gold); font-weight: 700; }
-    .vi-flow-state { font-size: 0.6rem; background: #1f2733; color: #80cbc4; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-    .vi-flow-content h5 { margin: 0; color: var(--text); font-size: 0.9rem; }
-    .vi-flow-content p { margin: 2px 0 0; color: var(--dim); font-size: 0.8rem; }
-
-    /* Scope Dock */
-    .vi-scope-dock { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; background: rgba(10,12,16,0.95); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 50; }
-    .scope-label { color: var(--dim); font-size: 0.7rem; font-family: monospace; letter-spacing: 1px; }
+    .spectro { display: flex; align-items: flex-end; gap: 6px; height: 92px; padding: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; margin-top: 14px; }
+    .spectro-bar { flex: 1; background: linear-gradient(to top, var(--terra), var(--gold)); border-radius: 4px 4px 0 0; transition: height .28s cubic-bezier(.2,.8,.2,1); }
+    .sruti { display: flex; gap: 2px; margin-top: 10px; }
+    .sruti i { flex: 1; height: 6px; background: var(--line); border-radius: 2px; }
+    .sruti i.on { background: var(--terra); }
+    
+    .btn { padding: 9px 15px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-size: 13px; cursor: pointer; transition: .15s; font-weight: 500; }
+    .btn.ghost { background: var(--paper); color: var(--ink); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.wide { width: 100%; margin-top: 12px; }
+    .actions { display: flex; gap: 8px; margin: 10px 0; }
+    
+    .modal-scrim { position: fixed; inset: 0; z-index: 80; background: rgba(26,22,19,.55); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 24px; overflow: auto; }
+    .modal { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; max-width: 960px; width: 100%; max-height: calc(100vh - 48px); overflow: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 32px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
+    @media (max-width:820px){ .modal { grid-template-columns: 1fr; padding: 24px; } }
+    .modal-close { position: absolute; top: 14px; right: 16px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper2); font-size: 20px; line-height: 1; color: var(--muted); cursor: pointer; }
+    .modal-close:hover { background: var(--ink); color: var(--paper); }
+    .mode-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+    .mode-table th { text-align: left; font-weight: 600; color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+    .mode-table td { padding: 7px 0; border-bottom: 1px dashed var(--line); vertical-align: middle; }
+    .mode-table .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .mode-bar { display: block; height: 3px; background: var(--terra); border-radius: 2px; margin-top: 4px; opacity: .6; }
+    
+    .verse-inline { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--paper2); border: 1px solid var(--line); }
+    .verse-inline .shloka { font-family: 'Noto Serif Devanagari', serif; margin: 0; font-size: 16px; }
+    .verse-inline .trans { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+    .verse-inline .source { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: .06em; }
+    .mono { font-family: var(--mono); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="site-header" style="padding: 1rem 0; border-bottom: 1px solid var(--border, #334155); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-      <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1.8rem; color: #fbbf24;">ॐ</span>
-        <h1 style="margin: 0; font-size: 1.2rem; color: #fbbf24; font-family: inherit;">Aigaane</h1>
-      </a>
-      <nav style="display: flex; gap: 1.2rem; align-items: center;">
-        <a href="index.html" style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.95rem;">Sanskrit Engine</a>
-        <a href="gandharva.html" style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.95rem;">Gāndharva</a>
-        <a href="cabinet.html" style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.95rem;">Cabinet</a>
-        <a href="canon.html" style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.95rem;">Canon</a>
-        <a href="vedic-instruments.html" style="color: #fbbf24; text-decoration: none; font-weight: 600; font-size: 0.95rem; border-bottom: 2px solid #fbbf24; padding-bottom: 2px;" style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.95rem;">Vedic Instruments</a>
-      </nav>
-    </header>
-  </div>
-  <header class="vi-header">
-    <h1>Vedic Instruments · Vādya-Śāstra</h1>
-    <a href="/cabinet.html">← Cabinet</a>
+  <!-- Canonical Site Header -->
+  <header class="site-header">
+    <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 1.8rem; color: #b0492d;">ॐ</span>
+      <h1 style="margin: 0; font-size: 1.2rem; color: #1a1613; font-weight: 600;">Aigaane</h1>
+    </a>
+    <nav style="display: flex; gap: 1.2rem; align-items: center;">
+      <a href="index.html" class="nav-link">Sanskrit Engine</a>
+      <a href="gandharva.html" class="nav-link">Gāndharva</a>
+      <a href="cabinet.html" class="nav-link">Cabinet</a>
+      <a href="canon.html" class="nav-link">Canon</a>
+      <a href="vedic-instruments.html" class="nav-link active">Vedic Instruments</a>
+    </nav>
   </header>
 
-  <main class="vi-main">
-    <div class="vi-controls">
-      <div class="vi-tabs" id="category-tabs">
-        <button data-cat="all" class="active">All</button>
-        <button data-cat="tata">Tata (Strings)</button>
-        <button data-cat="avanaddha">Avanaddha (Drums)</button>
-        <button data-cat="susira">Suṣira (Wind)</button>
-        <button data-cat="ghana">Ghana (Idiophones)</button>
-      </div>
-    </div>
+  <div class="app-root">
+    <section class="hero-strip">
+      <div class="hero-eyebrow">Vedic Archaeoacoustics & Bio-Physical Organology Studio</div>
+      <h1 class="hero-h1">Hear how a vīṇā carved from jackfruit wood in a brick vedi sounded vs. a modern tuned one.</h1>
+      <p class="hero-desc">
+        Reconstructed from <strong>Nāṭya Śāstra</strong> & <strong>Saṅgīta Ratnākara</strong> using real governing differential wave equations, bio-substrate damping, and WebAudio DSP synthesis.
+      </p>
+      <nav class="tabs">
+        <button class="tab on" onclick="switchTab('instrumentarium')">Instrumentarium</button>
+        <button class="tab" onclick="switchTab('physics')">Physics Lab</button>
+        <button class="tab" onclick="switchTab('auralisation')">Auralisation</button>
+        <button class="tab" onclick="switchTab('liturgical')">Liturgical</button>
+      </nav>
+    </section>
 
-    <div id="instrument-grid" class="vi-grid"></div>
-  </main>
+    <main>
+      <!-- TAB 1: INSTRUMENTARIUM -->
+      <section id="tab-instrumentarium">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px;">
+          <div>
+            <h2 style="margin:0; font-size:26px;">Instrumentarium</h2>
+            <p style="margin:4px 0 0; color:var(--muted); font-size:13px;">Six canonical reconstructions with manuscript-anchored mini-labs.</p>
+          </div>
+          <div class="mono" style="font-size:11px; color:var(--muted);" id="audio-status">AudioContext: Singleton (Idle)</div>
+        </div>
+        <div class="grid" id="instruments-grid"></div>
+      </section>
 
-  <div id="detail-drawer" class="vi-drawer" aria-hidden="true">
-    <div class="vi-drawer-inner">
-      <button id="drawer-close" aria-label="Close">×</button>
-      <div id="drawer-content"></div>
-    </div>
+      <!-- TAB 2: PHYSICS LAB -->
+      <section id="tab-physics" style="display:none;">
+        <div class="physics">
+          <div class="panel">
+            <h4>Substrate Selection</h4>
+            <div class="mat-list" id="mat-chips-physics"></div>
+            <p class="mat-note" id="physics-mat-desc">Jackfruit · T=92, ρ=0.58, γ=0.18</p>
+
+            <div class="ctrl">
+              <label>Tension T <b id="val-T">92</b></label>
+              <input type="range" min="20" max="160" value="92" id="slider-T" oninput="updateParam('T', +this.value)">
+            </div>
+            <div class="ctrl">
+              <label>Density ρ <b id="val-rho">0.58</b></label>
+              <input type="range" min="0.2" max="1.6" step="0.02" value="0.58" id="slider-rho" oninput="updateParam('rho', +this.value)">
+            </div>
+            <div class="ctrl">
+              <label>Wall absorption γ <b id="val-gamma">0.18</b></label>
+              <input type="range" min="0" max="1" step="0.01" value="0.18" id="slider-gamma" oninput="updateParam('gamma', +this.value)">
+            </div>
+            <div class="ctrl">
+              <label>Vedi width W <b id="val-W">1.6 m</b></label>
+              <input type="range" min="0.5" max="3" step="0.1" value="1.6" id="slider-W" oninput="updateParam('W', +this.value)">
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <button class="btn ghost" id="btn-ideal" style="flex:1;" onclick="setModel('ideal')">Ideal</button>
+              <button class="btn" id="btn-bio" style="flex:1;" onclick="setModel('bio')">Bio-physical</button>
+            </div>
+
+            <div class="spectro" id="spec-physics"></div>
+            <div class="sruti" id="sruti-physics"></div>
+          </div>
+
+          <div>
+            <div class="canvas-wrap">
+              <canvas id="wave-canvas" width="800" height="260"></canvas>
+            </div>
+            <div class="eq">
+              <span>c = <span class="hl">√(T/ρ)</span></span>
+              <span>fₙ = n·c/2W · <span class="hl" id="eq-model-tag">√(1+Bn²)</span></span>
+              <span>ζ = <span class="hl">e^(-γ·m)</span></span>
+              <span class="mono" style="margin-left:auto;" id="raf-status">rAF: live</span>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:8px;">
+              <button class="btn" onclick="triggerVoice('pluck')">▷ Pluck</button>
+              <button class="btn" onclick="triggerVoice('blow')">▷ Blow</button>
+              <button class="btn ghost" onclick="triggerVoice('strike')">▷ Strike</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: AURALISATION -->
+      <section id="tab-auralisation" style="display:none;">
+        <div style="display:grid; grid-template-columns:1.2fr .8fr; gap:22px;">
+          <div class="panel">
+            <h4>Auralisation · Shared Signal Graph</h4>
+            <p style="font-size:13px; line-height:1.5; color:var(--muted); margin-top:0;">
+              Exciting the physical model with 22-Śruti harmonic overtones and material damping.
+            </p>
+            <div class="spectro" id="spec-aura"></div>
+            <div class="sruti" id="sruti-aura"></div>
+            <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;" id="aura-triggers"></div>
+          </div>
+          <div class="panel">
+            <h4>Current Acoustic State</h4>
+            <div class="mono" style="font-size:12px; line-height:1.8;" id="aura-state-summary"></div>
+            <div style="margin-top:14px; display:flex; gap:8px;">
+              <button class="btn" onclick="triggerVoice('pluck')">▷ Test Voice</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: LITURGICAL -->
+      <section id="tab-liturgical" style="display:none; max-width:740px;">
+        <h2 style="font-size:28px;">Liturgical Context</h2>
+        <p style="line-height:1.7;">
+          Instruments in Vedic ritual are not merely accompaniment — they are boundary markers, spatial sanctifiers, and power (vāja). The dundubhi marks the collective breath; the śaṅkha cuts the air for yajña; the vīṇā anchors the 22-Śruti lattice that speech cannot sustain.
+        </p>
+        <blockquote class="verse-inline" style="margin:20px 0;">
+          <p class="shloka">आ वो यज्ञाय यज्ञियाः शङ्खा दुन्दुभयो गिरः।</p>
+          <p class="trans">“May your conches, kettledrums, and songs come to our sacrifice.”</p>
+          <p class="source">Ṛg Veda · liturgical adaptation</p>
+        </blockquote>
+      </section>
+    </main>
   </div>
 
-  <div class="vi-scope-dock">
-    <canvas id="vi-scope" width="300" height="48"></canvas>
-    <span class="scope-label">REALTIME FFT · WEB AUDIO API</span>
+  <!-- MODAL MINI-LAB -->
+  <div id="detail-modal" class="modal-scrim" style="display:none;" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div id="modal-content-left"></div>
+      <div id="modal-content-right"></div>
+    </div>
   </div>
 
   <script>
-    // 1. Data (Subset of 6 for demonstration, structure matches the 50-record master)
+    // Singleton AudioContext
+    let ac = null;
+    function getAC() {
+      if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.state === 'suspended') ac.resume();
+      document.getElementById("audio-status").textContent = `AudioContext: Singleton (${ac.state})`;
+      return ac;
+    }
+
+    const MATERIALS = {
+      jackfruit: { label: "Jackfruit (Panasa)", T: 92, rho: 0.58, gamma: 0.18, desc: "Warm, fast-decaying low modes" },
+      khadira: { label: "Khadīra", T: 118, rho: 0.82, gamma: 0.12, desc: "Dense, bright resonance" },
+      gourd: { label: "Gourd (Tumba)", T: 48, rho: 0.22, gamma: 0.42, desc: "Light and highly damped" },
+      bamboo: { label: "Bamboo (Vaṃśa)", T: 64, rho: 0.35, gamma: 0.22, desc: "Hollow reed, breathy" },
+      copper: { label: "Copper (Tāmra)", T: 145, rho: 1.42, gamma: 0.06, desc: "Metallic, long sustain" },
+      conch: { label: "Conch (Śaṅkha)", T: 110, rho: 1.15, gamma: 0.09, desc: "Spiral cavity, filtered highs" },
+      leather: { label: "Leather (Carma)", T: 78, rho: 0.44, gamma: 0.32, desc: "Stretched membrane" }
+    };
+
     const INSTRUMENTS = [
-      {
-        id: "rudra-veena", rank: 1, name: "Rudra Vīṇā", deva: "रुद्रवीणा", classification: "tata", score: 99.4,
-        organology: "Tubular stick zither with dual calabash resonators and parabolic jawari bridge",
-        attestation: "Nāṭyaśāstra 28.14; Saṅgīta Ratnākara 6.12",
-        acoustics: { formula: "f_n = (nv/2L)(1 + ε_j + π²Bn²/8L²)", fundamental_hz: 130.81, damping: 0.08 },
-        liturgical: { placement: "Brahmā-sthāna", actuator: "Wire mezrāb with fingertip damping", bio: "Calabash gourds & seasoned teak" },
-        binary_flow: [
-          { step: 1, node: "Plectrum Excitation", state: "Impulse (0→1)", desc: "Wire mezrāb imparts kinetic energy" },
-          { step: 2, node: "Jawārī Grazing Bridge", state: "Dynamic Roll (0|1)", desc: "String rolls across parabolic bridge boundary" },
-          { step: 3, node: "Dual Tumbā Coupling", state: "Acoustic Cavity Ringing", desc: "Twin gourds amplify resonant spectrum" }
-        ]
-      },
-      {
-        id: "bhumi-dundubhi", rank: 18, name: "Bhūmi-dundubhi", deva: "भूमिदुन्दुभि", classification: "avanaddha", score: 96.8,
-        organology: "Earth-pit drum with pegged bovine hide and ox-tail beater",
-        attestation: "Śatapatha Brāhmaṇa, Śāṅkhāyana Śrautasūtra (XVII)",
-        acoustics: { formula: "f ≈ c_s / (4(d + 0.4D))", fundamental_hz: 42.0, damping: 0.45 },
-        liturgical: { placement: "West-Northwest perimeter", actuator: "Ox-tail switch (lāṅgūla)", bio: "Untanned bovine hide (sa-loma)" },
-        binary_flow: [
-          { step: 1, node: "Actuator Impulse", state: "Ox-tail strike (0→1)", desc: "Terminal switch strikes hide" },
-          { step: 2, node: "Bovine Diaphragm", state: "Equilibrium/Displaced", desc: "Hair damping (sa-loma) filters highs" },
-          { step: 3, node: "Soil Cavity", state: "Excavated Depth", desc: "Ground-coupled telluric shear waves" }
-        ]
-      },
-      {
-        id: "venu", rank: 30, name: "Veṇu / Vaṃśa", deva: "वेणु", classification: "susira", score: 99.3,
-        organology: "Transverse bamboo flute with fire-pierced embouchure",
-        attestation: "Ṛgveda 8.69.9; Aitareya Āraṇyaka",
-        acoustics: { formula: "f_n = nc / 2(L + 1.2r)", fundamental_hz: 349.23, damping: 0.03 },
-        liturgical: { placement: "North of altar", actuator: "Planar lip air-stream", bio: "Cured internode of virgin bamboo" },
-        binary_flow: [
-          { step: 1, node: "Breath Jet", state: "Air Flow (0→1)", desc: "Lip stream crosses embouchure hole" },
-          { step: 2, node: "Tube Resonance", state: "Standing Wave", desc: "Length + tone holes determine pitch" },
-          { step: 3, node: "Radiation", state: "Harmonic Field", desc: "Open end radiates fundamental + overtones" }
-        ]
-      },
-      {
-        id: "ghanta", rank: 42, name: "Ghaṇṭā", deva: "घण्टा", classification: "ghana", score: 98.8,
-        organology: "Panchaloha bell with Garuda/Trishula clapper",
-        attestation: "Yajurveda Taittirīya Saṃhitā; Āgamas",
-        acoustics: { formula: "f_{m,n} = (h/2πR²)√(E/12ρ(1-ν²))λ_{m,n}", fundamental_hz: 523.25, damping: 0.002 },
-        liturgical: { placement: "Priest's left hand during Ārati", actuator: "Internal swinging bronze clapper", bio: "Panchaloha (5-metal alloy)" },
-        binary_flow: [
-          { step: 1, node: "Clapper Strike", state: "Impulse (0→1)", desc: "Bronze clapper strikes inner wall" },
-          { step: 2, node: "Modal Ringing", state: "Dual Beating", desc: "High Q-factor sustains for seconds" },
-          { step: 3, node: "Alpha Induction", state: "2-4 Hz Beat", desc: "Binaural beating calms nervous system" }
-        ]
-      }
+      { key: "veena", name: "Vīṇā", sa: "वीणा", ref: "Nāṭya Śāstra 28.4 · SR 1.3", defaultMat: "jackfruit", shape: "Gourd/jackfruit resonator, long fretted neck. Four melody + three drone strings.", playKind: "pluck" },
+      { key: "venu", name: "Veṇu", sa: "वेणु", ref: "Nāṭya Śāstra 29.12 · SR 6.8", defaultMat: "bamboo", shape: "Transverse bamboo flute, 12 aṅgula, 6 finger holes + 1 blow hole. Edge-tone acoustics.", playKind: "blow" },
+      { key: "mridanga", name: "Mṛdaṅga", sa: "मृदङ्ग", ref: "Nāṭya Śāstra 33.12 · SR 6.124", defaultMat: "leather", shape: "Double-headed barrel drum, 22 aṅgula, center-weighted syāhī paste.", playKind: "strike" },
+      { key: "shankha", name: "Śaṅkha", sa: "शङ्ख", ref: "Nāṭya Śāstra 33.42 · Atharva 4.8", defaultMat: "conch", shape: "Turbinella pyrum spiral shell, apex cut. Natural acoustic lip-reed horn.", playKind: "blow" },
+      { key: "dundubhi", name: "Dundubhi", sa: "दुन्दुभि", ref: "Ṛg Veda 6.47 · NŚ 33.18", defaultMat: "leather", shape: "Large war kettle drum, ox-hide over copper bowl. Struck with curved stick.", playKind: "strike" },
+      { key: "bheri", name: "Bherī", sa: "भेरी", ref: "Nāṭya Śāstra 33.22 · Artha 2.33", defaultMat: "leather", shape: "War gong-drum, circular 24 aṅgula rim. Deep low fundamental ~40Hz.", playKind: "strike" }
     ];
 
-    let activeCategory = 'all';
-    let audioCtx = null;
-    let analyser = null;
+    let state = {
+      activeTab: "instrumentarium",
+      material: "jackfruit",
+      T: 92, rho: 0.58, gamma: 0.18, W: 1.6,
+      model: "bio",
+      spectroBars: [0.12, 0.08, 0.05, 0.03, 0.02]
+    };
 
-    // 2. Audio Engine
-    function initAudio() {
-      if (audioCtx) return;
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 256;
-      analyser.connect(audioCtx.destination);
-    }
-
-    function exciteModel(classification, freqHz) {
-      initAudio();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const t = audioCtx.currentTime;
-
-      if (classification === 'tata') {
-        [1, 2, 3, 4, 5].forEach((m, i) => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = i % 2 === 0 ? 'sawtooth' : 'triangle';
-          osc.frequency.value = freqHz * m;
-          gain.gain.setValueAtTime(0.22 / m, t);
-          gain.gain.exponentialRampToValueAtTime(0.0001, t + 2.6 - i * 0.2);
-          osc.connect(gain).connect(analyser);
-          osc.start(t); osc.stop(t + 2.6);
-        });
-      } else if (classification === 'avanaddha') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freqHz * 2.2, t);
-        osc.frequency.exponentialRampToValueAtTime(freqHz, t + 0.08);
-        osc.frequency.linearRampToValueAtTime(25, t + 1.8);
-        gain.gain.setValueAtTime(0.8, t);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
-        osc.connect(gain).connect(analyser);
-        osc.start(t); osc.stop(t + 1.8);
-      } else if (classification === 'susira') {
-        const osc = audioCtx.createOscillator();
-        const trem = audioCtx.createOscillator();
-        const tremG = audioCtx.createGain();
-        const gain = audioCtx.createGain();
-        trem.frequency.value = 5.5; tremG.gain.value = 8;
-        trem.connect(osc.frequency);
-        osc.type = 'sine'; osc.frequency.value = freqHz;
-        gain.gain.setValueAtTime(0.01, t);
-        gain.gain.linearRampToValueAtTime(0.35, t + 0.12);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 2.0);
-        osc.connect(gain).connect(analyser);
-        osc.start(t); osc.stop(t + 2.0);
-        trem.start(t); trem.stop(t + 2.0);
-      } else if (classification === 'ghana') {
-        [freqHz, freqHz + 2.0].forEach(f => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine'; osc.frequency.value = f;
-          gain.gain.setValueAtTime(0.3, t);
-          gain.gain.exponentialRampToValueAtTime(0.00001, t + 3.2);
-          osc.connect(gain).connect(analyser);
-          osc.start(t); osc.stop(t + 3.2);
-        });
-      }
-    }
-
-    function drawScope() {
-      const canvas = document.getElementById('vi-scope');
-      if (!canvas || !analyser) { requestAnimationFrame(drawScope); return; }
-      const ctx = canvas.getContext('2d');
-      const buf = new Uint8Array(analyser.frequencyBinCount);
-      analyser.getByteFrequencyData(buf);
-      ctx.fillStyle = '#0a0c10'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      const barW = canvas.width / buf.length * 1.5;
-      let x = 0;
-      for (let i = 0; i < buf.length; i++) {
-        const h = (buf[i] / 255) * canvas.height;
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(x, canvas.height - h, barW, h);
-        x += barW + 1;
-      }
-      requestAnimationFrame(drawScope);
-    }
-
-    // 3. Render
-    function renderGrid() {
-      const grid = document.getElementById('instrument-grid');
-      const list = activeCategory === 'all' ? INSTRUMENTS : INSTRUMENTS.filter(i => i.classification === activeCategory);
-      
-      grid.innerHTML = list.map(inst => `
-        <div class="vi-card" data-id="${inst.id}">
-          <div class="vi-card-top">
-            <span>#${inst.rank}</span>
-            <span class="vi-badge vi-${inst.classification}">${inst.classification}</span>
-            <span>${inst.score.toFixed(1)}</span>
-          </div>
-          <h3 class="vi-card-name">${inst.name}</h3>
-          <div class="vi-card-deva">${inst.deva}</div>
-          <div class="vi-card-formula">${inst.acoustics.formula}</div>
-          <button class="vi-excite" data-class="${inst.classification}" data-freq="${inst.acoustics.fundamental_hz}">🔊 Excite Model</button>
+    function renderInstruments() {
+      const grid = document.getElementById("instruments-grid");
+      grid.innerHTML = INSTRUMENTS.map(i => `
+        <div class="card" onclick="openModal('${i.key}')">
+          <div class="card-icon" style="font-size:38px;">${i.playKind === 'pluck' ? '🪕' : i.playKind === 'blow' ? '🪈' : '🥁'}</div>
+          <h3>${i.name} <span class="sa">${i.sa}</span></h3>
+          <div class="ref">${i.ref}</div>
+          <div class="shape">${i.shape}</div>
         </div>
-      `).join('');
+      `).join("");
 
-      grid.querySelectorAll('.vi-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-          if (e.target.classList.contains('vi-excite')) return;
-          openDrawer(card.dataset.id);
-        });
+      // Aura triggers
+      const triggers = document.getElementById("aura-triggers");
+      triggers.innerHTML = INSTRUMENTS.map(i => `
+        <button class="btn ghost" onclick="triggerVoice('${i.playKind}')">${i.name} · ${i.playKind}</button>
+      `).join("");
+    }
+
+    function switchTab(tab) {
+      state.activeTab = tab;
+      ["instrumentarium", "physics", "auralisation", "liturgical"].forEach(t => {
+        const el = document.getElementById("tab-" + t);
+        if (el) el.style.display = (t === tab) ? "block" : "none";
+      });
+      document.querySelectorAll("nav.tabs .tab").forEach((btn, idx) => {
+        btn.classList.toggle("on", ["instrumentarium", "physics", "auralisation", "liturgical"][idx] === tab);
+      });
+      document.getElementById("raf-status").textContent = (tab === 'physics') ? "rAF: live" : "rAF: paused";
+      updateAuraSummary();
+    }
+
+    function setMaterial(matKey) {
+      state.material = matKey;
+      const m = MATERIALS[matKey];
+      state.T = m.T; state.rho = m.rho; state.gamma = m.gamma;
+      document.getElementById("slider-T").value = m.T;
+      document.getElementById("slider-rho").value = m.rho;
+      document.getElementById("slider-gamma").value = m.gamma;
+      document.getElementById("val-T").textContent = m.T;
+      document.getElementById("val-rho").textContent = m.rho;
+      document.getElementById("val-gamma").textContent = m.gamma;
+      document.getElementById("physics-mat-desc").textContent = `${m.label} · ${m.desc}`;
+      renderMatChips();
+      updateAuraSummary();
+    }
+
+    function renderMatChips() {
+      const container = document.getElementById("mat-chips-physics");
+      container.innerHTML = Object.keys(MATERIALS).map(k => `
+        <button class="mat-chip ${k === state.material ? 'on' : ''}" onclick="setMaterial('${k}')">${MATERIALS[k].label.split(' ')[0]}</button>
+      `).join("");
+    }
+
+    function updateParam(p, val) {
+      state[p] = val;
+      document.getElementById(`val-${p}`).textContent = (p === 'W') ? val.toFixed(1) + " m" : val;
+      updateAuraSummary();
+    }
+
+    function setModel(m) {
+      state.model = m;
+      document.getElementById("btn-bio").className = "btn " + (m === 'bio' ? '' : 'ghost');
+      document.getElementById("btn-ideal").className = "btn " + (m === 'ideal' ? '' : 'ghost');
+      document.getElementById("eq-model-tag").textContent = (m === 'bio') ? "√(1+Bn²)" : "1.00 (Ideal)";
+      updateAuraSummary();
+    }
+
+    function updateAuraSummary() {
+      const s = document.getElementById("aura-state-summary");
+      if (s) {
+        s.innerHTML = `
+          <div>T = ${state.T} N · ρ = ${state.rho} g/cm³</div>
+          <div>γ = ${state.gamma} · W = ${state.W}m · Model = ${state.model.toUpperCase()}</div>
+          <div>Substrate = ${MATERIALS[state.material].label}</div>
+          <div>Wave Speed c = ${Math.sqrt(state.T / state.rho).toFixed(1)} m/s</div>
+        `;
+      }
+    }
+
+    // Audio Voice Trigger
+    function triggerVoice(kind) {
+      const ctx = getAC();
+      const now = ctx.currentTime;
+      const c = Math.sqrt(state.T / state.rho);
+      const B = (state.model === "bio") ? 0.0009 * state.rho * 10 : 0;
+
+      const modes = [1, 2, 3, 4, 5].map(m => {
+        const inharm = (state.model === "bio") ? Math.sqrt(1 + B * m * m) : 1;
+        const freq = Math.max(45, (m * c * 4.5 * inharm) / state.W);
+        const damp = Math.exp(-state.gamma * 0.5 * m * 0.4);
+        return { m, freq, damp };
       });
 
-      grid.querySelectorAll('.vi-excite').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          exciteModel(btn.dataset.class, parseFloat(btn.dataset.freq));
-        });
+      state.spectroBars = modes.map(m => m.damp);
+      updateSpectrograms();
+
+      modes.forEach((mode, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        filter.type = (kind === 'blow') ? 'bandpass' : 'lowpass';
+        filter.frequency.value = (kind === 'blow') ? mode.freq * 1.2 : 3600;
+        osc.type = (kind === 'pluck') ? 'triangle' : (kind === 'blow') ? 'sine' : 'square';
+        osc.frequency.setValueAtTime(mode.freq, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(mode.damp * (0.35 / (idx + 1)), now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6 + mode.damp * 1.8);
+
+        osc.connect(filter).connect(gain).connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.5);
       });
     }
 
-    function renderSwaraButtons(fundHz, type) {
-      const ratios = [
-        { swara: 'Sa', deva: 'सा', ratio: 1.0 },
-        { swara: 'Re', deva: 'रे', ratio: 9/8 },
-        { swara: 'Ga', deva: 'ग', ratio: 5/4 },
-        { swara: 'Ma', deva: 'म', ratio: 4/3 },
-        { swara: 'Pa', deva: 'प', ratio: 3/2 },
-        { swara: 'Dha', deva: 'ध', ratio: 5/3 },
-        { swara: 'Ni', deva: 'नि', ratio: 15/8 },
-        { swara: 'Ṡa', deva: 'सां', ratio: 2.0 }
-      ];
-      return ratios.map(r => `
-        <button class="vi-swara-btn" onclick="exciteModel('${type}', ${fundHz * r.ratio})">
-          <span class="deva">${r.deva}</span>
-          <span class="label">${r.swara}</span>
-          <span class="hz">${Math.round(fundHz * r.ratio)}Hz</span>
-        </button>
-      `).join('');
+    function updateSpectrograms() {
+      ["spec-physics", "spec-aura"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.innerHTML = state.spectroBars.map(b => `<div class="spectro-bar" style="height:${Math.max(10, b * 100)}%;"></div>`).join("");
+        }
+      });
     }
 
-    function openDrawer(id) {
-      const inst = INSTRUMENTS.find(i => i.id === id);
+    // Canvas Wave Animation Loop (rAF gated)
+    let canvasTime = 0;
+    function renderWave() {
+      if (state.activeTab === "physics") {
+        const cvs = document.getElementById("wave-canvas");
+        if (cvs) {
+          const ctx = cvs.getContext("2d");
+          const W = cvs.width, H = cvs.height;
+          ctx.fillStyle = "#f4eee1";
+          ctx.fillRect(0, 0, W, H);
+
+          ctx.strokeStyle = "rgba(26,22,19,0.08)";
+          ctx.beginPath();
+          ctx.moveTo(0, H/2); ctx.lineTo(W, H/2);
+          ctx.stroke();
+
+          ctx.strokeStyle = (state.model === "bio") ? "#b0492d" : "#1f2a44";
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          canvasTime += 0.02;
+
+          for (let x = 0; x < W; x += 3) {
+            const normX = x / W;
+            let yDisp = 0;
+            state.spectroBars.forEach((damp, idx) => {
+              const m = idx + 1;
+              yDisp += Math.sin(2 * Math.PI * m * normX + canvasTime * m * 1.2) * damp * (38 / m);
+            });
+            const y = H/2 - yDisp;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+      }
+      requestAnimationFrame(renderWave);
+    }
+
+    function openModal(instKey) {
+      const inst = INSTRUMENTS.find(i => i.key === instKey);
       if (!inst) return;
-      const content = document.getElementById('drawer-content');
-      
-      const flowHTML = inst.binary_flow.map(node => `
-        <div class="vi-flow-step">
-          <div class="vi-flow-marker">
-            <span class="vi-flow-num">${node.step}</span>
-            <span class="vi-flow-state">${node.state}</span>
-          </div>
-          <div class="vi-flow-content">
-            <h5>${node.node}</h5>
-            <p>${node.desc}</p>
-          </div>
+      document.getElementById("modal-content-left").innerHTML = `
+        <div style="font-size:42px; text-align:center; padding:18px 0; background:var(--paper2); border-radius:12px;">🪕</div>
+        <h2 style="margin:12px 0 4px;">${inst.name} <span style="font-family:'Noto Serif Devanagari'; font-weight:400; color:var(--muted);">${inst.sa}</span></h2>
+        <div class="ref">${inst.ref}</div>
+        <h4 style="margin:14px 0 6px;">Historical Form</h4>
+        <p style="font-size:13px; line-height:1.5;">${inst.shape}</p>
+        <blockquote class="verse-inline">
+          <p class="shloka">वीणावादनतत्त्वज्ञः श्रुतिजातिविशारदः।</p>
+          <p class="trans">“One who knows the truth of vīṇā-playing is skilled in śruti.”</p>
+          <p class="source">Saṅgīta Ratnākara 1.22</p>
+        </blockquote>
+      `;
+      document.getElementById("modal-content-right").innerHTML = `
+        <h4 style="margin:0 0 10px;">Scoped Physics mini-lab</h4>
+        <div class="ctrl">
+          <label>Tension T <b>${state.T}</b></label>
+          <input type="range" min="20" max="160" value="${state.T}" oninput="state.T=+this.value">
         </div>
-      `).join('');
-
-      content.innerHTML = `
-        <div class="vi-detail-header">
-          <span class="vi-badge vi-${inst.classification}">${inst.classification.toUpperCase()}</span>
-          <h2>${inst.name} <span style="color: var(--dim); font-size: 1.2rem;">(${inst.deva})</span></h2>
-          <p style="color: var(--dim); margin: 0;">${inst.organology}</p>
-        </div>
-
-        <div class="vi-detail-grid">
-          <div class="vi-detail-card">
-            <h4>🔬 Governing Physics</h4>
-            <div class="vi-card-formula" style="white-space: normal; margin-bottom: 0.75rem;">${inst.acoustics.formula}</div>
-            <p><strong>Fundamental:</strong> ${inst.acoustics.fundamental_hz} Hz</p>
-            <p><strong>Damping (ζ):</strong> ${inst.acoustics.damping}</p>
-          </div>
-          <div class="vi-detail-card">
-            <h4>📜 Ritual Context</h4>
-            <p><strong>Attestation:</strong> ${inst.attestation}</p>
-            <p><strong>Placement:</strong> ${inst.liturgical.placement}</p>
-            <p><strong>Actuator:</strong> ${inst.liturgical.actuator}</p>
-            <p><strong>Bio-Substrate:</strong> ${inst.liturgical.bio}</p>
-          </div>
-        </div>
-
-        <h4 style="color: var(--gold); margin-top: 1.5rem;">Microtonal Swara Excitation</h4>
-        <div class="vi-swara-row">
-          ${renderSwaraButtons(inst.acoustics.fundamental_hz, inst.classification)}
-        </div>
-
-        <div class="vi-binary-flow">
-          <h4 style="color: var(--gold); margin-top: 0;">⚡ Binary Acoustic Signal Flow</h4>
-          ${flowHTML}
+        <div class="actions">
+          <button class="btn" onclick="triggerVoice('${inst.playKind}')">▷ Play ${inst.name}</button>
+          <button class="btn ghost" onclick="closeModal(); switchTab('physics')">Open in Physics Lab →</button>
         </div>
       `;
-
-      const drawer = document.getElementById('detail-drawer');
-      drawer.setAttribute('aria-hidden', 'false');
-      drawer.classList.add('open');
+      document.getElementById("detail-modal").style.display = "grid";
     }
 
-    function closeDrawer() {
-      document.getElementById('detail-drawer').classList.remove('open');
+    function closeModal() {
+      document.getElementById("detail-modal").style.display = "none";
     }
 
-    // 4. Init
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('#category-tabs button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('#category-tabs button').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          activeCategory = btn.dataset.cat;
-          renderGrid();
-        });
-      });
-      document.getElementById('drawer-close').addEventListener('click', closeDrawer);
-      renderGrid();
-      drawScope();
+    // Init
+    window.addEventListener("DOMContentLoaded", () => {
+      renderInstruments();
+      renderMatChips();
+      updateSpectrograms();
+      updateAuraSummary();
+      requestAnimationFrame(renderWave);
     });
   </script>
 </body>

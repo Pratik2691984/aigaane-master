@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aigaane · Vedic Instruments & Archaeoacoustics Lab</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+Devanagari:wght@400&display=swap');
+    :root {
+      --ink: #1a1613; --paper: #f4eee1; --paper2: #ebe3d2; --terra: #b0492d; --indigo: #1f2a44; --gold: #c9a961;
+      --line: #d8cfba; --muted: #8a7f6d; --mono: 'IBM Plex Mono', monospace; --serif: 'Fraunces', serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); min-height: 100vh; }
+    button { font-family: inherit; }
+    .site-header { padding: 14px 28px; background: rgba(244, 238, 225, 0.95); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.92rem; font-family: var(--serif); transition: color 0.15s; }
+    .nav-link:hover { color: var(--ink); }
+    .nav-link.active { color: var(--terra); font-weight: 600; border-bottom: 2px solid var(--terra); padding-bottom: 2px; }
+    
+    .app-root { min-height: calc(100vh - 65px); display: flex; flex-direction: column; overflow-x: clip; }
+    .hero-strip { max-width: 1180px; margin: 0 auto; padding: 32px 24px 16px; width: 100%; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terra); font-weight: 600; font-family: var(--mono); }
+    .hero-h1 { font-size: clamp(24px, 3.8vw, 38px); line-height: 1.15; margin: 8px 0 12px; font-weight: 600; }
+    .hero-desc { font-size: 15px; color: var(--muted); max-width: 820px; margin: 0 0 16px; line-height: 1.5; }
+    .hero-desc strong { color: var(--ink); font-weight: 600; }
+    
+    nav.tabs { display: flex; gap: 6px; margin-top: 10px; }
+    .tab { padding: 8px 16px; border-radius: 999px; border: 1px solid transparent; font-size: 13px; letter-spacing: 0.02em; cursor: pointer; background: transparent; color: var(--muted); transition: .2s; }
+    .tab.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .tab:hover:not(.on) { border-color: var(--line); color: var(--ink); }
+    
+    main { max-width: 1180px; width: 100%; margin: 0 auto; padding: 18px 24px 80px; flex: 1; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+    .card { border: 1px solid var(--line); background: var(--paper2); border-radius: 16px; padding: 20px 18px 16px; cursor: pointer; transition: .2s; display: flex; flex-direction: column; gap: 10px; }
+    .card:hover { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 8px 24px rgba(26,22,19,0.08); }
+    .card-icon { width: 100%; height: 96px; display: grid; place-items: center; background: var(--paper); border-radius: 12px; color: var(--ink); }
+    .card h3 { margin: 0; font-size: 18px; display: flex; align-items: baseline; gap: 8px; }
+    .card h3 .sa { font-family: 'Noto Serif Devanagari', serif; font-size: 14px; color: var(--muted); font-weight: 400; }
+    .card .ref { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .card .shape { font-size: 13px; line-height: 1.4; color: var(--muted); }
+    
+    .physics { display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
+    @media(max-width:900px){ .physics { grid-template-columns: 1fr; } }
+    .panel { border: 1px solid var(--line); border-radius: 16px; background: var(--paper2); padding: 18px; }
+    .panel h4 { margin: 0 0 12px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .ctrl { margin-bottom: 14px; }
+    .ctrl label { font-size: 12px; display: flex; justify-content: space-between; color: var(--muted); margin-bottom: 6px; }
+    .ctrl label b { color: var(--ink); font-family: var(--mono); }
+    .ctrl input[type=range] { width: 100%; accent-color: var(--terra); }
+    
+    .mat-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .mat-chip { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font-size: 12px; cursor: pointer; }
+    .mat-chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .mat-note { font-size: 12px; line-height: 1.4; color: var(--ink); margin: 0 0 12px; }
+    
+    .canvas-wrap { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); position: relative; }
+    .canvas-wrap canvas { width: 100%; height: 260px; display: block; }
+    .eq { font-family: var(--mono); font-size: 12px; background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 10px; margin-top: 12px; display: flex; gap: 18px; flex-wrap: wrap; }
+    .eq span.hl { color: var(--gold); }
+    
+    .spectro { display: flex; align-items: flex-end; gap: 6px; height: 92px; padding: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; margin-top: 14px; }
+    .spectro-bar { flex: 1; background: linear-gradient(to top, var(--terra), var(--gold)); border-radius: 4px 4px 0 0; transition: height .28s cubic-bezier(.2,.8,.2,1); }
+    .sruti { display: flex; gap: 2px; margin-top: 10px; }
+    .sruti i { flex: 1; height: 6px; background: var(--line); border-radius: 2px; }
+    .sruti i.on { background: var(--terra); }
+    
+    .btn { padding: 9px 15px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-size: 13px; cursor: pointer; transition: .15s; font-weight: 500; }
+    .btn.ghost { background: var(--paper); color: var(--ink); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.wide { width: 100%; margin-top: 12px; }
+    .actions { display: flex; gap: 8px; margin: 10px 0; }
+    
+    .modal-scrim { position: fixed; inset: 0; z-index: 80; background: rgba(26,22,19,.55); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 24px; overflow: auto; }
+    .modal { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; max-width: 960px; width: 100%; max-height: calc(100vh - 48px); overflow: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 32px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.25); }
+    @media (max-width:820px){ .modal { grid-template-columns: 1fr; padding: 24px; } }
+    .modal-close { position: absolute; top: 14px; right: 16px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper2); font-size: 20px; line-height: 1; color: var(--muted); cursor: pointer; }
+    .modal-close:hover { background: var(--ink); color: var(--paper); }
+    .mode-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+    .mode-table th { text-align: left; font-weight: 600; color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+    .mode-table td { padding: 7px 0; border-bottom: 1px dashed var(--line); vertical-align: middle; }
+    .mode-table .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .mode-bar { display: block; height: 3px; background: var(--terra); border-radius: 2px; margin-top: 4px; opacity: .6; }
+    
+    .verse-inline { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--paper2); border: 1px solid var(--line); }
+    .verse-inline .shloka { font-family: 'Noto Serif Devanagari', serif; margin: 0; font-size: 16px; }
+    .verse-inline .trans { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+    .verse-inline .source { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: .06em; }
+    .mono { font-family: var(--mono); }
+  </style>
+</head>
+<body>
+  <!-- Canonical Site Header -->
+  <header class="site-header">
+    <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 1.8rem; color: #b0492d;">ॐ</span>
+      <h1 style="margin: 0; font-size: 1.2rem; color: #1a1613; font-weight: 600;">Aigaane</h1>
+    </a>
+    <nav style="display: flex; gap: 1.2rem; align-items: center;">
+      <a href="index.html" class="nav-link">Sanskrit Engine</a>
+      <a href="gandharva.html" class="nav-link">Gāndharva</a>
+      <a href="cabinet.html" class="nav-link">Cabinet</a>
+      <a href="canon.html" class="nav-link">Canon</a>
+      <a href="vedic-instruments.html" class="nav-link active">Vedic Instruments</a>
+    </nav>
+  </header>
+
+  <div class="app-root">
+    <section class="hero-strip">
+      <div class="hero-eyebrow">Vedic Archaeoacoustics & Bio-Physical Organology Studio</div>
+      <h1 class="hero-h1">Hear how a vīṇā carved from jackfruit wood in a brick vedi sounded vs. a modern tuned one.</h1>
+      <p class="hero-desc">
+        Reconstructed from <strong>Nāṭya Śāstra</strong> & <strong>Saṅgīta Ratnākara</strong> using real governing differential wave equations, bio-substrate damping, and WebAudio DSP synthesis.
+      </p>
+      <nav class="tabs">
+        <button class="tab on" onclick="switchTab('instrumentarium')">Instrumentarium</button>
+        <button class="tab" onclick="switchTab('physics')">Physics Lab</button>
+        <button class="tab" onclick="switchTab('auralisation')">Auralisation</button>
+        <button class="tab" onclick="switchTab('liturgical')">Liturgical</button>
+      </nav>
+    </section>
+
+    <main>
+      <!-- TAB 1: INSTRUMENTARIUM -->
+      <section id="tab-instrumentarium">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px;">
+          <div>
+            <h2 style="margin:0; font-size:26px;">Instrumentarium</h2>
+            <p style="margin:4px 0 0; color:var(--muted); font-size:13px;">Six canonical reconstructions with manuscript-anchored mini-labs.</p>
+          </div>
+          <div class="mono" style="font-size:11px; color:var(--muted);" id="audio-status">AudioContext: Singleton (Idle)</div>
+        </div>
+        <div class="grid" id="instruments-grid"></div>
+      </section>
+
+      <!-- TAB 2: PHYSICS LAB -->
+      <section id="tab-physics" style="display:none;">
+        <div class="physics">
+          <div class="panel">
+            <h4>Substrate Selection</h4>
+            <div class="mat-list" id="mat-chips-physics"></div>
+            <p class="mat-note" id="physics-mat-desc">Jackfruit · T=92, ρ=0.58, γ=0.18</p>
+
+            <div class="ctrl">
+              <label>Tension T <b id="val-T">92</b></label>
+              <input type="range" min="20" max="160" value="92" id="slider-T" oninput="updateParam('T', +this.value)">
+            </div>
+            <div class="ctrl">
+              <label>Density ρ <b id="val-rho">0.58</b></label>
+              <input type="range" min="0.2" max="1.6" step="0.02" value="0.58" id="slider-rho" oninput="updateParam('rho', +this.value)">
+            </div>
+            <div class="ctrl">
+              <label>Wall absorption γ <b id="val-gamma">0.18</b></label>
+              <input type="range" min="0" max="1" step="0.01" value="0.18" id="slider-gamma" oninput="updateParam('gamma', +this.value)">
+            </div>
+            <div class="ctrl">
+              <label>Vedi width W <b id="val-W">1.6 m</b></label>
+              <input type="range" min="0.5" max="3" step="0.1" value="1.6" id="slider-W" oninput="updateParam('W', +this.value)">
+            </div>
+
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <button class="btn ghost" id="btn-ideal" style="flex:1;" onclick="setModel('ideal')">Ideal</button>
+              <button class="btn" id="btn-bio" style="flex:1;" onclick="setModel('bio')">Bio-physical</button>
+            </div>
+
+            <div class="spectro" id="spec-physics"></div>
+            <div class="sruti" id="sruti-physics"></div>
+          </div>
+
+          <div>
+            <div class="canvas-wrap">
+              <canvas id="wave-canvas" width="800" height="260"></canvas>
+            </div>
+            <div class="eq">
+              <span>c = <span class="hl">√(T/ρ)</span></span>
+              <span>fₙ = n·c/2W · <span class="hl" id="eq-model-tag">√(1+Bn²)</span></span>
+              <span>ζ = <span class="hl">e^(-γ·m)</span></span>
+              <span class="mono" style="margin-left:auto;" id="raf-status">rAF: live</span>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:8px;">
+              <button class="btn" onclick="triggerVoice('pluck')">▷ Pluck</button>
+              <button class="btn" onclick="triggerVoice('blow')">▷ Blow</button>
+              <button class="btn ghost" onclick="triggerVoice('strike')">▷ Strike</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: AURALISATION -->
+      <section id="tab-auralisation" style="display:none;">
+        <div style="display:grid; grid-template-columns:1.2fr .8fr; gap:22px;">
+          <div class="panel">
+            <h4>Auralisation · Shared Signal Graph</h4>
+            <p style="font-size:13px; line-height:1.5; color:var(--muted); margin-top:0;">
+              Exciting the physical model with 22-Śruti harmonic overtones and material damping.
+            </p>
+            <div class="spectro" id="spec-aura"></div>
+            <div class="sruti" id="sruti-aura"></div>
+            <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;" id="aura-triggers"></div>
+          </div>
+          <div class="panel">
+            <h4>Current Acoustic State</h4>
+            <div class="mono" style="font-size:12px; line-height:1.8;" id="aura-state-summary"></div>
+            <div style="margin-top:14px; display:flex; gap:8px;">
+              <button class="btn" onclick="triggerVoice('pluck')">▷ Test Voice</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: LITURGICAL -->
+      <section id="tab-liturgical" style="display:none; max-width:740px;">
+        <h2 style="font-size:28px;">Liturgical Context</h2>
+        <p style="line-height:1.7;">
+          Instruments in Vedic ritual are not merely accompaniment — they are boundary markers, spatial sanctifiers, and power (vāja). The dundubhi marks the collective breath; the śaṅkha cuts the air for yajña; the vīṇā anchors the 22-Śruti lattice that speech cannot sustain.
+        </p>
+        <blockquote class="verse-inline" style="margin:20px 0;">
+          <p class="shloka">आ वो यज्ञाय यज्ञियाः शङ्खा दुन्दुभयो गिरः।</p>
+          <p class="trans">“May your conches, kettledrums, and songs come to our sacrifice.”</p>
+          <p class="source">Ṛg Veda · liturgical adaptation</p>
+        </blockquote>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL MINI-LAB -->
+  <div id="detail-modal" class="modal-scrim" style="display:none;" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div id="modal-content-left"></div>
+      <div id="modal-content-right"></div>
+    </div>
+  </div>
+
+  <script>
+    // Singleton AudioContext
+    let ac = null;
+    function getAC() {
+      if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.state === 'suspended') ac.resume();
+      document.getElementById("audio-status").textContent = `AudioContext: Singleton (${ac.state})`;
+      return ac;
+    }
+
+    const MATERIALS = {
+      jackfruit: { label: "Jackfruit (Panasa)", T: 92, rho: 0.58, gamma: 0.18, desc: "Warm, fast-decaying low modes" },
+      khadira: { label: "Khadīra", T: 118, rho: 0.82, gamma: 0.12, desc: "Dense, bright resonance" },
+      gourd: { label: "Gourd (Tumba)", T: 48, rho: 0.22, gamma: 0.42, desc: "Light and highly damped" },
+      bamboo: { label: "Bamboo (Vaṃśa)", T: 64, rho: 0.35, gamma: 0.22, desc: "Hollow reed, breathy" },
+      copper: { label: "Copper (Tāmra)", T: 145, rho: 1.42, gamma: 0.06, desc: "Metallic, long sustain" },
+      conch: { label: "Conch (Śaṅkha)", T: 110, rho: 1.15, gamma: 0.09, desc: "Spiral cavity, filtered highs" },
+      leather: { label: "Leather (Carma)", T: 78, rho: 0.44, gamma: 0.32, desc: "Stretched membrane" }
+    };
+
+    const INSTRUMENTS = [
+      { key: "veena", name: "Vīṇā", sa: "वीणा", ref: "Nāṭya Śāstra 28.4 · SR 1.3", defaultMat: "jackfruit", shape: "Gourd/jackfruit resonator, long fretted neck. Four melody + three drone strings.", playKind: "pluck" },
+      { key: "venu", name: "Veṇu", sa: "वेणु", ref: "Nāṭya Śāstra 29.12 · SR 6.8", defaultMat: "bamboo", shape: "Transverse bamboo flute, 12 aṅgula, 6 finger holes + 1 blow hole. Edge-tone acoustics.", playKind: "blow" },
+      { key: "mridanga", name: "Mṛdaṅga", sa: "मृदङ्ग", ref: "Nāṭya Śāstra 33.12 · SR 6.124", defaultMat: "leather", shape: "Double-headed barrel drum, 22 aṅgula, center-weighted syāhī paste.", playKind: "strike" },
+      { key: "shankha", name: "Śaṅkha", sa: "शङ्ख", ref: "Nāṭya Śāstra 33.42 · Atharva 4.8", defaultMat: "conch", shape: "Turbinella pyrum spiral shell, apex cut. Natural acoustic lip-reed horn.", playKind: "blow" },
+      { key: "dundubhi", name: "Dundubhi", sa: "दुन्दुभि", ref: "Ṛg Veda 6.47 · NŚ 33.18", defaultMat: "leather", shape: "Large war kettle drum, ox-hide over copper bowl. Struck with curved stick.", playKind: "strike" },
+      { key: "bheri", name: "Bherī", sa: "भेरी", ref: "Nāṭya Śāstra 33.22 · Artha 2.33", defaultMat: "leather", shape: "War gong-drum, circular 24 aṅgula rim. Deep low fundamental ~40Hz.", playKind: "strike" }
+    ];
+
+    let state = {
+      activeTab: "instrumentarium",
+      material: "jackfruit",
+      T: 92, rho: 0.58, gamma: 0.18, W: 1.6,
+      model: "bio",
+      spectroBars: [0.12, 0.08, 0.05, 0.03, 0.02]
+    };
+
+    function renderInstruments() {
+      const grid = document.getElementById("instruments-grid");
+      grid.innerHTML = INSTRUMENTS.map(i => `
+        <div class="card" onclick="openModal('${i.key}')">
+          <div class="card-icon" style="font-size:38px;">${i.playKind === 'pluck' ? '🪕' : i.playKind === 'blow' ? '🪈' : '🥁'}</div>
+          <h3>${i.name} <span class="sa">${i.sa}</span></h3>
+          <div class="ref">${i.ref}</div>
+          <div class="shape">${i.shape}</div>
+        </div>
+      `).join("");
+
+      // Aura triggers
+      const triggers = document.getElementById("aura-triggers");
+      triggers.innerHTML = INSTRUMENTS.map(i => `
+        <button class="btn ghost" onclick="triggerVoice('${i.playKind}')">${i.name} · ${i.playKind}</button>
+      `).join("");
+    }
+
+    function switchTab(tab) {
+      state.activeTab = tab;
+      ["instrumentarium", "physics", "auralisation", "liturgical"].forEach(t => {
+        const el = document.getElementById("tab-" + t);
+        if (el) el.style.display = (t === tab) ? "block" : "none";
+      });
+      document.querySelectorAll("nav.tabs .tab").forEach((btn, idx) => {
+        btn.classList.toggle("on", ["instrumentarium", "physics", "auralisation", "liturgical"][idx] === tab);
+      });
+      document.getElementById("raf-status").textContent = (tab === 'physics') ? "rAF: live" : "rAF: paused";
+      updateAuraSummary();
+    }
+
+    function setMaterial(matKey) {
+      state.material = matKey;
+      const m = MATERIALS[matKey];
+      state.T = m.T; state.rho = m.rho; state.gamma = m.gamma;
+      document.getElementById("slider-T").value = m.T;
+      document.getElementById("slider-rho").value = m.rho;
+      document.getElementById("slider-gamma").value = m.gamma;
+      document.getElementById("val-T").textContent = m.T;
+      document.getElementById("val-rho").textContent = m.rho;
+      document.getElementById("val-gamma").textContent = m.gamma;
+      document.getElementById("physics-mat-desc").textContent = `${m.label} · ${m.desc}`;
+      renderMatChips();
+      updateAuraSummary();
+    }
+
+    function renderMatChips() {
+      const container = document.getElementById("mat-chips-physics");
+      container.innerHTML = Object.keys(MATERIALS).map(k => `
+        <button class="mat-chip ${k === state.material ? 'on' : ''}" onclick="setMaterial('${k}')">${MATERIALS[k].label.split(' ')[0]}</button>
+      `).join("");
+    }
+
+    function updateParam(p, val) {
+      state[p] = val;
+      document.getElementById(`val-${p}`).textContent = (p === 'W') ? val.toFixed(1) + " m" : val;
+      updateAuraSummary();
+    }
+
+    function setModel(m) {
+      state.model = m;
+      document.getElementById("btn-bio").className = "btn " + (m === 'bio' ? '' : 'ghost');
+      document.getElementById("btn-ideal").className = "btn " + (m === 'ideal' ? '' : 'ghost');
+      document.getElementById("eq-model-tag").textContent = (m === 'bio') ? "√(1+Bn²)" : "1.00 (Ideal)";
+      updateAuraSummary();
+    }
+
+    function updateAuraSummary() {
+      const s = document.getElementById("aura-state-summary");
+      if (s) {
+        s.innerHTML = `
+          <div>T = ${state.T} N · ρ = ${state.rho} g/cm³</div>
+          <div>γ = ${state.gamma} · W = ${state.W}m · Model = ${state.model.toUpperCase()}</div>
+          <div>Substrate = ${MATERIALS[state.material].label}</div>
+          <div>Wave Speed c = ${Math.sqrt(state.T / state.rho).toFixed(1)} m/s</div>
+        `;
+      }
+    }
+
+    // Audio Voice Trigger
+    function triggerVoice(kind) {
+      const ctx = getAC();
+      const now = ctx.currentTime;
+      const c = Math.sqrt(state.T / state.rho);
+      const B = (state.model === "bio") ? 0.0009 * state.rho * 10 : 0;
+
+      const modes = [1, 2, 3, 4, 5].map(m => {
+        const inharm = (state.model === "bio") ? Math.sqrt(1 + B * m * m) : 1;
+        const freq = Math.max(45, (m * c * 4.5 * inharm) / state.W);
+        const damp = Math.exp(-state.gamma * 0.5 * m * 0.4);
+        return { m, freq, damp };
+      });
+
+      state.spectroBars = modes.map(m => m.damp);
+      updateSpectrograms();
+
+      modes.forEach((mode, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        filter.type = (kind === 'blow') ? 'bandpass' : 'lowpass';
+        filter.frequency.value = (kind === 'blow') ? mode.freq * 1.2 : 3600;
+        osc.type = (kind === 'pluck') ? 'triangle' : (kind === 'blow') ? 'sine' : 'square';
+        osc.frequency.setValueAtTime(mode.freq, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(mode.damp * (0.35 / (idx + 1)), now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6 + mode.damp * 1.8);
+
+        osc.connect(filter).connect(gain).connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 2.5);
+      });
+    }
+
+    function updateSpectrograms() {
+      ["spec-physics", "spec-aura"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.innerHTML = state.spectroBars.map(b => `<div class="spectro-bar" style="height:${Math.max(10, b * 100)}%;"></div>`).join("");
+        }
+      });
+    }
+
+    // Canvas Wave Animation Loop (rAF gated)
+    let canvasTime = 0;
+    function renderWave() {
+      if (state.activeTab === "physics") {
+        const cvs = document.getElementById("wave-canvas");
+        if (cvs) {
+          const ctx = cvs.getContext("2d");
+          const W = cvs.width, H = cvs.height;
+          ctx.fillStyle = "#f4eee1";
+          ctx.fillRect(0, 0, W, H);
+
+          ctx.strokeStyle = "rgba(26,22,19,0.08)";
+          ctx.beginPath();
+          ctx.moveTo(0, H/2); ctx.lineTo(W, H/2);
+          ctx.stroke();
+
+          ctx.strokeStyle = (state.model === "bio") ? "#b0492d" : "#1f2a44";
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          canvasTime += 0.02;
+
+          for (let x = 0; x < W; x += 3) {
+            const normX = x / W;
+            let yDisp = 0;
+            state.spectroBars.forEach((damp, idx) => {
+              const m = idx + 1;
+              yDisp += Math.sin(2 * Math.PI * m * normX + canvasTime * m * 1.2) * damp * (38 / m);
+            });
+            const y = H/2 - yDisp;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+      }
+      requestAnimationFrame(renderWave);
+    }
+
+    function openModal(instKey) {
+      const inst = INSTRUMENTS.find(i => i.key === instKey);
+      if (!inst) return;
+      document.getElementById("modal-content-left").innerHTML = `
+        <div style="font-size:42px; text-align:center; padding:18px 0; background:var(--paper2); border-radius:12px;">🪕</div>
+        <h2 style="margin:12px 0 4px;">${inst.name} <span style="font-family:'Noto Serif Devanagari'; font-weight:400; color:var(--muted);">${inst.sa}</span></h2>
+        <div class="ref">${inst.ref}</div>
+        <h4 style="margin:14px 0 6px;">Historical Form</h4>
+        <p style="font-size:13px; line-height:1.5;">${inst.shape}</p>
+        <blockquote class="verse-inline">
+          <p class="shloka">वीणावादनतत्त्वज्ञः श्रुतिजातिविशारदः।</p>
+          <p class="trans">“One who knows the truth of vīṇā-playing is skilled in śruti.”</p>
+          <p class="source">Saṅgīta Ratnākara 1.22</p>
+        </blockquote>
+      `;
+      document.getElementById("modal-content-right").innerHTML = `
+        <h4 style="margin:0 0 10px;">Scoped Physics mini-lab</h4>
+        <div class="ctrl">
+          <label>Tension T <b>${state.T}</b></label>
+          <input type="range" min="20" max="160" value="${state.T}" oninput="state.T=+this.value">
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="triggerVoice('${inst.playKind}')">▷ Play ${inst.name}</button>
+          <button class="btn ghost" onclick="closeModal(); switchTab('physics')">Open in Physics Lab →</button>
+        </div>
+      `;
+      document.getElementById("detail-modal").style.display = "grid";
+    }
+
+    function closeModal() {
+      document.getElementById("detail-modal").style.display = "none";
+    }
+
+    // Init
+    window.addEventListener("DOMContentLoaded", () => {
+      renderInstruments();
+      renderMatChips();
+      updateSpectrograms();
+      updateAuraSummary();
+      requestAnimationFrame(renderWave);
+    });
+  </script>
+</body>
+</html>
