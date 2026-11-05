@@ -120,3 +120,4 @@ _tmp_*
 
 # Local file backups
 *.backup
+*.pre-fix
