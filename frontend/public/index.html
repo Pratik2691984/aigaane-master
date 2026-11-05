@@ -831,6 +831,18 @@
         document.getElementById("s-sutra").textContent = "No Match";
         document.getElementById("s-desc").textContent = "Input parsed without registered junction.";
       }
+
+      // --- Session 3: Render DAG visualizer with derivation data ---
+      try {
+        const p1DomVal = document.getElementById("sandhi-p1")?.value?.trim() || "";
+        const p2DomVal = document.getElementById("sandhi-p2")?.value?.trim() || "";
+        const sRuleCanon = document.getElementById("s-sutra")?.textContent?.match(/\d+\.\d+\.\d+/)?.[0] || "6.1.87";
+        const sRuleName = document.getElementById("s-rule-name")?.textContent?.trim() || "Guna Sandhi";
+        const sOutput = document.getElementById("s-res")?.textContent?.trim() || p1DomVal + p2DomVal;
+        renderSandhiDAG(p1DomVal, p2DomVal, sOutput, sRuleName, sRuleCanon);
+      } catch(dagErr) {
+        console.warn("DAG render skipped:", dagErr);
+      }
     }
 
     // --- 2. Chandas Prosody Scanner ---
