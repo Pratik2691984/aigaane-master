@@ -1,0 +1,19 @@
+{
+  "schema_version": "samasa_golden_1.0.0",
+  "status": "skeleton",
+  "total_cases": 109,
+  "note": "All cases pending_validation. Populated in P1-B after authority review.",
+  "groups": {
+    "classifications": {"count": 12, "cases": []},
+    "two_token": {"count": 10, "cases": []},
+    "three_token": {"count": 10, "cases": []},
+    "nested": {"count": 10, "cases": []},
+    "internal_sandhi": {"count": 10, "cases": []},
+    "ambiguity": {"count": 10, "cases": []},
+    "invalid": {"count": 10, "cases": []},
+    "invariants_8a": {"count": 12, "cases": []},
+    "invariants_8b": {"count": 15, "cases": []},
+    "deterministic": {"count": 10, "cases": []}
+  },
+  "authority_pending_count": 109
+}

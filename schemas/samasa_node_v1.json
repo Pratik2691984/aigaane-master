@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aigaane.in/schemas/samasa_node.json",
+  "title": "SamasaNode",
+  "description": "Recursive compound decomposition node. Structural contract only; semantic invariants live in _samasa_validator.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "node_id",
+    "input_surface",
+    "normalized",
+    "surface",
+    "output_script",
+    "samasa_type",
+    "children",
+    "vigraha",
+    "internal_sandhi",
+    "derivation_rules",
+    "source_provenance",
+    "confidence",
+    "ambiguity_group",
+    "analysis_index"
+  ],
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "input_surface": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalized": {
+      "type": "string",
+      "pattern": "^[aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvSzsh.MH|]+$"
+    },
+    "surface": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_script": {
+      "type": "string",
+      "enum": ["devanagari", "iast", "slp1", "itrans", "hk"]
+    },
+    "samasa_type": {
+      "type": "string",
+      "enum": [
+        "avyayibhava", "tatpurusa", "karmadharaya", "dvigu",
+        "dvandva", "bahuvrihi", "_leaf"
+      ]
+    },
+    "children": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": { "$ref": "#" }
+        }
+      ]
+    },
+    "vigraha": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "internal_sandhi": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rule_id", "before", "after"],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "before": { "type": "string", "minLength": 1 },
+          "intermediate": {
+            "oneOf": [{ "type": "null" }, { "type": "string" }]
+          },
+          "after": { "type": "string", "minLength": 1 },
+          "boundary_index": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "derivation_rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      }
+    },
+    "source_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authority": { "type": "string", "minLength": 1 },
+        "citation": { "type": "string", "minLength": 1 },
+        "edition": { "type": "string" },
+        "lexical_entry": { "type": "string", "minLength": 1 }
+      },
+      "anyOf": [
+        { "required": ["authority", "citation"] },
+        { "required": ["lexical_entry"] }
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "ambiguity_group": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "analysis_index": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "samasa_type": { "const": "_leaf" } },
+        "required": ["samasa_type"]
+      },
+      "then": {
+        "properties": {
+          "children": { "type": "null" },
+          "vigraha": { "type": "null" },
+          "derivation_rules": { "maxItems": 0 },
+          "internal_sandhi": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "samasa_type": { "not": { "const": "_leaf" } } },
+        "required": ["samasa_type"]
+      },
+      "then": {
+        "properties": {
+          "children": { "type": "array", "minItems": 2 },
+          "vigraha": { "type": "string", "minLength": 1 },
+          "derivation_rules": { "minItems": 1 }
+        }
+      }
+    }
+  ]
+}
