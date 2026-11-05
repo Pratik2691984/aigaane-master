@@ -577,6 +577,24 @@
         <div class="player">
           <button id="play-btn" onclick="toggleAudioPlayback()">▶</button>
           <span class="track" id="audio-track-label">Ready: Just Intonation tuning (C 256Hz base)</span>
+
+        <div class="audio-playhead-container" id="audio-playhead-mount">
+          <div class="audio-playhead-track">
+            <div class="audio-playhead-bar" id="audio-playhead-progress"></div>
+          </div>
+          <div class="audio-controls-row">
+            <div class="speed-toggle-group" role="group" aria-label="Playback speed">
+              <button type="button" class="speed-btn" data-speed="0.8" onclick="setAudioSpeed(0.8)">0.8×</button>
+              <button type="button" class="speed-btn active" data-speed="1.0" onclick="setAudioSpeed(1.0)">1.0×</button>
+            </div>
+            <div class="drone-mixer-wrap">
+              <span>Tanpura Drone:</span>
+              <input type="range" min="0" max="1" step="0.05" value="0.25" id="tanpura-gain-slider" oninput="setTanpuraGain(this.value)" aria-label="Tanpura Drone Volume">
+              <span id="tanpura-gain-val">25%</span>
+            </div>
+          </div>
+        </div>
+
           <span class="badge ok">22-Śruti Loaded</span>
         </div>
       </div>
@@ -840,11 +858,13 @@
         }
 
         chips.innerHTML = "";
-        const syllables = text.split(" ");
-        syllables.forEach((s, idx) => {
-          const w = (idx % 2 === 0) ? "G" : "L";
-          chips.innerHTML += `<div class="syl ${w}"><span class="txt">${s}</span><span class="w">${w}</span></div>`;
-        });
+                  const syllables = text.split(" ");
+          lastScannedSyllables = [];
+          syllables.forEach((s, idx) => {
+            const w = (idx % 2 === 0) ? "G" : "L";
+            lastScannedSyllables.push({ txt: s, weight: w });
+            chips.innerHTML += `<div class="syl ${w}"><span class="txt">${s}</span><span class="w">${w}</span></div>`;
+          });
 
         verdict.textContent = `✓ ${meter}`;
         count.textContent = `${data.tokens ? data.tokens.length : 1} Words`;
