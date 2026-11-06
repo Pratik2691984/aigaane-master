@@ -1,18 +1,44 @@
-from backend.engine.pydantic_models import KernelEnvelope
+from backend.engine.pydantic_models import KernelEnvelope, RejectedCandidate
 
 class CegarGatekeeper:
-    """
-    Deterministic verifier. Currently a structural pass-through.
-    Later: wire to kosha_1.5m.db FTS5 for real stem attestation.
-    """
     def __init__(self):
-        self.valid_stems = None  # None = accept all (stub mode)
+        # We accept both SLP1 (rAjan) and IAST (rājan) in our stub
+        self.valid_stems = {
+            # SLP1
+            "rAjan", "putra", "rAjaputra", "candra", "mukha", "candramukha",
+            "rAma", "rAmasya", "deva", "manuSya", "nAga", "indra",
+            # IAST (What the engine actually outputs)
+            "rājan", "putra", "rājaputra", "candra", "mukha", "candramukha",
+            "rāma", "rāmasya", "deva", "manuṣya", "nāga", "indra"
+        }
 
-    def validate_llm_output(self, llm_proposal: dict) -> dict:
-        if self.valid_stems is None:
-            return {"passed": True, "reason": "Gatekeeper in stub mode (no Kosha wired)"}
-        proposed_split = llm_proposal.get("split", [])
-        for stem in proposed_split:
-            if stem not in self.valid_stems:
-                return {"passed": False, "reason": f"Hallucination: '{stem}' not in Kosha.", "action": "REJECT_422"}
-        return {"passed": True, "reason": "Structurally Valid"}
+    def verify(self, envelope: KernelEnvelope) -> KernelEnvelope:
+        verified_candidates = []
+        rejected = list(envelope.rejected)
+
+        for cand in envelope.candidates:
+            is_valid = True
+            for token in cand.parse:
+                stem = token.stem
+                # If it's a real stem (not the "unknown" fallback) and it's not in the Kosha
+                if stem not in self.valid_stems and stem != "unknown":
+                    is_valid = False
+                    rejected.append(RejectedCandidate(
+                        parse=cand.parse,
+                        reason_code="UNATTESTED_STEM",
+                        violated_sutra="1.1.1"
+                    ))
+                    break
+            
+            if is_valid:
+                verified_candidates.append(cand)
+
+        envelope.candidates = verified_candidates
+        envelope.rejected = rejected
+        
+        # Re-sort and re-assign IDs
+        envelope.candidates.sort(key=lambda c: c.score, reverse=True)
+        for idx, cand in enumerate(envelope.candidates):
+            cand.candidate_id = f"cand_{idx + 1:02d}"
+            
+        return envelope

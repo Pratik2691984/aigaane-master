@@ -30,3 +30,12 @@ app.include_router(aigaane_routes.router, prefix="/api/v3/aigaane", tags=["aigaa
 @app.get("/health")
 def health():
     return {"status": "ok", "architecture": "Neuro-Symbolic"}
+
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "engine": "Aigaane-Quanta Neuro-Symbolic",
+        "version": "0.2.0-backend",
+        "docs": "/docs"
+    }
