@@ -1,0 +1,67 @@
+﻿{
+    "input_triad":  {
+                        "devanagari":  "à¤°à¤¾à¤à¤ªà¥à¤¤à¥à¤°à¤",
+                        "iast":  "rÄjaputraá¸¥",
+                        "slp1":  "rAjaputraH"
+                    },
+    "candidates":  [
+                       {
+                           "candidate_id":  "cand_01",
+                           "parse":  [
+                                         {
+                                             "surface":  "rÄjan",
+                                             "stem":  "rÄjan",
+                                             "role":  "subanta:sambodhana"
+                                         },
+                                         {
+                                             "surface":  "putraá¸¥",
+                                             "stem":  "putra",
+                                             "role":  "subanta:prathama"
+                                         }
+                                     ],
+                           "samasa_type":  "tatpurusha",
+                           "vigraha":  "rÄjÃ±aá¸¥ putraá¸¥",
+                           "sutra_chain":  [
+                                               "2.1.22",
+                                               "2.2.8"
+                                           ],
+                           "authority":  {
+                                             "recension":  "Kasika_Vrtti",
+                                             "primary_source":  "Aá¹£á¹­ÄdhyÄyÄ« (0.2.0-ambiguity)",
+                                             "authority_notes":  "engine=0.2.0-ambiguity; lexicon=min-v0.2",
+                                             "disputed_alternatives":  [
+
+                                                                       ]
+                                         },
+                           "score":  0.95
+                       },
+                       {
+                           "candidate_id":  "cand_02",
+                           "parse":  [
+                                         {
+                                             "surface":  "rÄjaputraá¸¥",
+                                             "stem":  "rÄjaputra",
+                                             "role":  "subanta:prathama"
+                                         }
+                                     ],
+                           "samasa_type":  null,
+                           "vigraha":  null,
+                           "sutra_chain":  [
+                                               "1.4.14"
+                                           ],
+                           "authority":  {
+                                             "recension":  "Kasika_Vrtti",
+                                             "primary_source":  "Ambiguous reading (compound_vs_simple)",
+                                             "authority_notes":  "ambiguity_type=compound_vs_simple",
+                                             "disputed_alternatives":  [
+
+                                                                       ]
+                                         },
+                           "score":  0.28
+                       }
+                   ],
+    "rejected":  [
+
+                 ],
+    "engine_version":  "1.0.8-adapter"
+}
