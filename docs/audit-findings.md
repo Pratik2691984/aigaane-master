@@ -143,3 +143,27 @@ The Critic's behavior is correct in every failure case:
 | `rAjendraH` | ✅ PASS |
 
 **5/5 fully verified. No documented audit gaps remaining.**
+
+
+## v1.4.5 Update — Audit Status: 5/5 PASS ✅ FULLY CLOSED
+
+**Date:** 2026-11-07
+**Tags:** `v0.3.2-audit-closed` (aigaane-master), `v1.4.5-audit-complete` (aigaane-quanta)
+
+**Final fix:** Added SLP1 endings (`"aH"`, `"AH"`, `"iH"`, `"uH"`, `"H"`, etc.) to `_ENDINGS_TO_STRIP` in `gatekeeper.py`. Some engine outputs come in SLP1 form (`candramukhaH`) while others come as IAST (`nāgāḥ`). Both must be stripped before lexicon lookup.
+
+### Audit results — 5/5 PASS
+
+| Input | Result |
+|---|---|
+| `rAjaputraH` | ✅ PASS (tatpuruṣa, 0.95) |
+| `candramukhaH` | ✅ PASS (heuristic fallback, 0.50) |
+| `rAmasyaputraH` | ✅ CORRECTLY REJECTED (UNATTESTED_STEM) |
+| `devamanuSyanAgAH` | ✅ PASS (3-token dvandva, 0.85) |
+| `rAjendraH` | ✅ PASS (rājan + indra, 0.95) |
+
+### Regression checks
+- `aigaane-master` pytest: 398 passed
+- `aigaane-quanta` pytest: 4 passed
+
+**No remaining audit gaps. Framework is production-shape.**
