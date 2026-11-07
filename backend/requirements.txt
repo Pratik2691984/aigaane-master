@@ -1,3 +1,6 @@
-fastapi
+﻿fastapi
 uvicorn[standard]
 pydantic
+jsonschema
+referencing
+pytest
