@@ -1,21 +1,21 @@
 """
-CEGAR Gatekeeper — Real Lexicon-Backed Stem Attestation.
+CEGAR Gatekeeper — Two-Tier Stem Attestation (v1.3.0).
 
-Uses the engine's own `_lexicon.lookup()` as the authoritative source of
-truth. If a candidate's stem cannot be found in the lexicon, the candidate
-is REJECTED with reason_code UNATTESTED_STEM.
+Tier 1: `_lexicon.lookup()` — primary source, ~2,500–5,000 curated stems
+Tier 2: `canon.db` FTS5 — secondary source, 701 Gītā verses (proper nouns)
 
 Fail-closed design:
-  - If `_lexicon` cannot be imported, the backend refuses to start
-  - If `lookup()` raises for any reason, the stem is REJECTED (not accepted)
-  - No silent pass-through, no whitelist fallback, no LLM guessing
+  - If `_lexicon` cannot be imported, backend refuses to start
+  - If `canon.db` is missing, Tier 2 is skipped (with a warning)
+  - Any exception during lookup = UNATTESTED (fail-closed)
+  - The Critic boots only if Tier 1 is available
 """
 
 import logging
+import sqlite3
 import sys
 from pathlib import Path
 
-# The legacy engine lives in backend/engine/. We import its sibling _lexicon.
 _ENGINE_DIR = Path(__file__).resolve().parent.parent / "engine"
 if str(_ENGINE_DIR) not in sys.path:
     sys.path.insert(0, str(_ENGINE_DIR))
@@ -36,6 +36,8 @@ from backend.engine.pydantic_models import (
 
 logger = logging.getLogger(__name__)
 
+CANON_DB_PATH = Path("C:/aigaane-master/frontend/public/sqlite/canon.db")
+
 
 class CegarGatekeeper:
     def __init__(self):
@@ -43,46 +45,87 @@ class CegarGatekeeper:
             raise RuntimeError(
                 "FATAL: CegarGatekeeper cannot boot. "
                 "_lexicon.lookup is unavailable. "
-                "The Critic's entire purpose is stem attestation against "
-                "the engine's own lexicon. Without it, the backend refuses "
-                "to start (fail-closed)."
+                "Fail-closed design requires the primary attestation source."
             )
         self.lookup_fn = legacy_lexicon.lookup
-        logger.info("CegarGatekeeper online — backed by _lexicon.lookup()")
+
+        # Tier 2: canon.db (optional, does not fail-closed on absence)
+        if CANON_DB_PATH.exists():
+            try:
+                # Smoke-test: verify table exists
+                conn = sqlite3.connect(str(CANON_DB_PATH))
+                conn.execute("SELECT 1 FROM verses_fts LIMIT 1").fetchone()
+                conn.close()
+                self.canon_db = str(CANON_DB_PATH)
+                logger.info(f"Gatekeeper online — Tier 1 (_lexicon) + Tier 2 ({CANON_DB_PATH.name})")
+            except Exception as e:
+                logger.warning(f"canon.db present but unusable: {e}. Running with Tier 1 only.")
+                self.canon_db = None
+        else:
+            logger.warning(f"canon.db not found at {CANON_DB_PATH}. Running with Tier 1 only.")
+            self.canon_db = None
 
     # ---------------------------------------------------------------- #
-    #   Per-stem attestation                                            #
+    #   Tier 1: Engine lexicon                                          #
     # ---------------------------------------------------------------- #
-    def _attest_stem(self, stem_iast: str) -> bool:
-        """
-        Return True iff the stem is attested in the engine's lexicon.
-
-        Fails CLOSED: any exception from lookup() = unattested.
-        Empty/unknown/None stems are unattested.
-        """
-        if not stem_iast or not isinstance(stem_iast, str):
-            return False
-        if stem_iast.lower() in {"unknown", "unparsed", "error"}:
-            return False
-
+    def _attest_lexicon(self, stem: str) -> bool:
         try:
-            result = self.lookup_fn(stem_iast)
+            return self.lookup_fn(stem) is not None
         except Exception as e:
-            logger.warning(f"lookup('{stem_iast}') raised: {e} — rejecting (fail-closed)")
+            logger.warning(f"_lexicon.lookup('{stem}') raised: {e} — rejecting (fail-closed)")
             return False
 
-        return result is not None
+    # ---------------------------------------------------------------- #
+    #   Tier 2: canon.db FTS5                                           #
+    # ---------------------------------------------------------------- #
+    def _attest_canon(self, stem: str) -> bool:
+        if not self.canon_db:
+            return False
+        try:
+            # FTS5 MATCH searches for the term as a word; use prefix matching
+            # to catch inflected forms (e.g., "indr" matches "indra", "indrāḥ")
+            term = stem.lower().strip()
+            if not term:
+                return False
+            # Use FTS5 prefix search: "indr*" catches indra, indrāḥ, indreṇa, etc.
+            query = f"{term}*"
+            conn = sqlite3.connect(self.canon_db)
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT 1 FROM verses_fts WHERE verses_fts MATCH ? LIMIT 1",
+                (query,)
+            )
+            result = cursor.fetchone()
+            conn.close()
+            return result is not None
+        except Exception as e:
+            logger.warning(f"canon.db FTS query for '{stem}' failed: {e} — rejecting")
+            return False
+
+    # ---------------------------------------------------------------- #
+    #   Combined attestation                                            #
+    # ---------------------------------------------------------------- #
+    def _attest_stem(self, stem: str) -> bool:
+        if not stem or not isinstance(stem, str):
+            return False
+        if stem.lower() in {"unknown", "unparsed", "error"}:
+            return False
+
+        # Tier 1: engine lexicon (primary)
+        if self._attest_lexicon(stem):
+            return True
+
+        # Tier 2: canon.db (secondary, for proper nouns)
+        if self._attest_canon(stem):
+            logger.info(f"Stem '{stem}' attested via canon.db (Tier 2)")
+            return True
+
+        return False
 
     # ---------------------------------------------------------------- #
     #   Envelope verification                                           #
     # ---------------------------------------------------------------- #
     def verify(self, envelope: KernelEnvelope) -> KernelEnvelope:
-        """
-        Walk every candidate, attest every stem.
-
-        If ALL stems in a candidate are attested → keep the candidate.
-        If ANY stem fails → move it to rejected[] with UNATTESTED_STEM.
-        """
         kept: list[Candidate] = []
         rejected: list[RejectedCandidate] = list(envelope.rejected)
 
@@ -105,13 +148,10 @@ class CegarGatekeeper:
                 )
                 logger.info(
                     f"Candidate {cand.candidate_id} rejected: "
-                    f"stem '{bad_stem}' not in lexicon"
+                    f"stem '{bad_stem}' not in Tier 1 or Tier 2"
                 )
 
-        # Stable sort by score descending
         kept.sort(key=lambda c: c.score, reverse=True)
-
-        # Reassign candidate IDs in final ranking order
         for idx, cand in enumerate(kept):
             cand.candidate_id = f"cand_{idx + 1:02d}"
 

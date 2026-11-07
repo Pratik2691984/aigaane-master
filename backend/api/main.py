@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api import quanta_routes, aigaane_routes
+from backend.api import quanta_routes, aigaane_routes, corpus_routes
+
+APP_VERSION = "1.1.0-lexicon-verified"
 
 app = FastAPI(
     title="Quanta-Aigaane Neuro-Symbolic API",
-    version="1.0.0",
+    version=APP_VERSION,
 )
 
 app.add_middleware(
@@ -20,22 +22,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount both prefixes for backward compat (v1) and canonical (v3)
+# Dual-mount: /api/v1 (deprecated) and /api/v3 (canonical)
 app.include_router(quanta_routes.router, prefix="/api/v1/quanta", tags=["quanta"])
 app.include_router(quanta_routes.router, prefix="/api/v3/quanta", tags=["quanta"])
+
 app.include_router(aigaane_routes.router, prefix="/api/v1/aigaane", tags=["aigaane"])
 app.include_router(aigaane_routes.router, prefix="/api/v3/aigaane", tags=["aigaane"])
+
+app.include_router(corpus_routes.router, prefix="/api/v1/corpus", tags=["corpus"])
+app.include_router(corpus_routes.router, prefix="/api/v3/corpus", tags=["corpus"])
 
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "architecture": "Neuro-Symbolic"}
+    return {
+        "status": "ok",
+        "architecture": "Neuro-Symbolic",
+        "version": APP_VERSION,
+    }
+
 
 @app.get("/")
 def root():
     return {
         "status": "online",
         "engine": "Aigaane-Quanta Neuro-Symbolic",
-        "version": "0.2.0-backend",
-        "docs": "/docs"
+        "version": APP_VERSION,
+        "docs": "/docs",
     }

@@ -46,6 +46,15 @@ The Critic's behavior is correct in every failure case:
 
 **The Critic is the only component fully working as designed.** Both failures surface infrastructure gaps, not Critic bugs.
 
+## Finding 4 — canon.db is a verse corpus, not a proper-noun lexicon
+
+- **File:** `C:\aigaane-master\frontend\public\sqlite\canon.db` (568 KB, 701 Gītā verses)
+- **FTS rebuild performed:** `INSERT INTO verses_fts(verses_fts) VALUES('rebuild')`
+- **Verified match counts after rebuild:** dharma (22), karma (113), yoga (51), rājan (3), deva (27), putra (6), rāma (4), **indra (0)**
+- **Conclusion:** The Gītā is a philosophical corpus, not a Vedic invocation. It contains `indriya` (senses), not `indra` (the deva).
+- **Implication:** `canon.db` cannot attest `indra`. It **IS** usable for `/corpus/search` (verse search) and as supplementary attestation for words that actually appear (dharma, karma, yoga, deva, putra, rāma).
+- **Next steps:** Wire `/corpus/search`; move proper-noun attestation to lexicon expansion (E2) or dedicated Kosha DB (A1b).
+
 ## On the "1.5M Kosha" claim
 
 - **`kosha_1.5m.db` does not exist on disk.** Discovery via `Get-ChildItem -Recurse -Filter "*.db"` found only `C:\aigaane-master\frontend\public\sqlite\canon.db` (568 KB, 701 Gītā verses).
