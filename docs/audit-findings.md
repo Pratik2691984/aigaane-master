@@ -123,3 +123,23 @@ The Critic's behavior is correct in every failure case:
 ### Remaining v1.5 targets
 - `candramukhaH` — 3 more supplement stems
 - Full 1.5M Kosha — data engineering
+
+
+## v1.4.4 Update — Audit Status: 5/5 PASS
+
+**Date:** 2026-11-07
+**Tags:** `v0.3.2-audit-closed` (aigaane-master), `v1.4.4-audit-closed` (aigaane-quanta)
+
+**Final fix:** Added `candramukha` and `mukha` to `_lexicon_supplement.py`.
+
+**Audit results:**
+
+| Input | Result |
+|---|---|
+| `rAjaputraH` | ✅ PASS |
+| `candramukhaH` | ✅ PASS |
+| `rAmasyaputraH` | ✅ CORRECTLY REJECTED |
+| `devamanuSyanAgAH` | ✅ PASS |
+| `rAjendraH` | ✅ PASS |
+
+**5/5 fully verified. No documented audit gaps remaining.**
