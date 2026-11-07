@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aigaane.in/schemas/sanskrit_contract.schema.json",
+  "title": "Aigaane Sanskrit Kernel Contract Schema",
+  "type": "object",
+  "required": ["input_triad", "candidates", "rejected", "engine_version"],
+  "additionalProperties": false,
+  "properties": {
+    "input_triad": { "$ref": "#/$defs/orthographic_triad" },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate" }
+    },
+    "rejected": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rejected_candidate" }
+    },
+    "engine_version": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "orthographic_triad": {
+      "type": "object",
+      "required": ["devanagari", "iast", "slp1"],
+      "additionalProperties": false,
+      "properties": {
+        "devanagari": { "type": "string", "minLength": 1 },
+        "iast": { "type": "string", "minLength": 1 },
+        "slp1": { "type": "string", "minLength": 1 }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": ["recension", "primary_source"],
+      "additionalProperties": false,
+      "properties": {
+        "recension": {
+          "type": "string",
+          "enum": ["Kasika_Vrtti", "Mahabhasya", "Siddhantakaumudi", "Vulgate", "Critical_Edition"]
+        },
+        "primary_source": { "type": "string", "minLength": 1 },
+        "authority_notes": { "type": "string" },
+        "disputed_alternatives": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "parse_token": {
+      "type": "object",
+      "required": ["surface", "stem", "role"],
+      "additionalProperties": false,
+      "properties": {
+        "surface": { "type": "string", "minLength": 1 },
+        "stem": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "required": ["candidate_id", "parse", "sutra_chain", "authority", "score"],
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": { "type": "string", "minLength": 1 },
+        "parse": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/parse_token" }
+        },
+        "samasa_type": { "type": ["string", "null"] },
+        "vigraha": { "type": ["string", "null"] },
+        "sutra_chain": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[1-8]\\.[1-4]\\.[0-9]{1,3}$"
+          }
+        },
+        "authority": { "$ref": "#/$defs/authority" },
+        "score": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      }
+    },
+    "rejected_candidate": {
+      "type": "object",
+      "required": ["parse", "reason_code"],
+      "additionalProperties": false,
+      "properties": {
+        "parse": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/parse_token" }
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "UNATTESTED_STEM",
+            "UNATTESTED_PADA_BOUNDARY",
+            "SUTRA_CONFLICT_ASIDDHA",
+            "INVALID_SAMASA_ADHIKARA",
+            "CHANDAS_MATRA_MISMATCH",
+            "TIHAI_SAM_VIOLATION"
+          ]
+        },
+        "violated_sutra": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "version": "1.2.0-seed",
+  "cases": [
+    {
+      "case_id": "samasa_two_token_001",
+      "status": "verified",
+      "audit_notes": "Verified at v1.1.1-api-cleanup. Full ṣaṣṭhī-tatpuruṣa derivation with sūtra chain.",
+      "input_triad": {
+        "devanagari": "राजपुत्रः",
+        "iast": "rājaputraḥ",
+        "slp1": "rAjaputraH"
+      },
+      "expected_envelope": {
+        "input_triad": {
+          "devanagari": "राजपुत्रः",
+          "iast": "rājaputraḥ",
+          "slp1": "rAjaputraH"
+        },
+        "candidates": [
+          {
+            "candidate_id": "cand_01",
+            "parse": [
+              {"surface": "rājan", "stem": "rājan", "role": "subanta:sambodhana"},
+              {"surface": "putraḥ", "stem": "putra", "role": "subanta:prathama"}
+            ],
+            "samasa_type": "tatpurusha",
+            "vigraha": "rājñaḥ putraḥ",
+            "sutra_chain": ["2.1.22", "2.2.8"],
+            "authority": {
+              "recension": "Kasika_Vrtti",
+              "primary_source": "Aṣṭādhyāyī (0.2.0-ambiguity)",
+              "authority_notes": "engine=0.2.0-ambiguity; lexicon=min-v0.2",
+              "disputed_alternatives": []
+            },
+            "score": 0.95
+          }
+        ],
+        "rejected": [
+          {
+            "parse": [
+              {"surface": "rājaputraḥ", "stem": "rājaputra", "role": "subanta:prathama"}
+            ],
+            "reason_code": "UNATTESTED_STEM",
+            "violated_sutra": null
+          }
+        ],
+        "engine_version": "1.0.8-adapter"
+      }
+    },
+    {
+      "case_id": "samasa_invalid_001",
+      "status": "verified",
+      "audit_notes": "Verified at v1.1.1-api-cleanup. Correctly rejected as invalid compound (rāmāsyaputra not a valid stem).",
+      "input_triad": {
+        "devanagari": "रामस्यपुत्रः",
+        "iast": "rāmasyaputraḥ",
+        "slp1": "rAmasyaputraH"
+      },
+      "expected_envelope": {
+        "input_triad": {
+          "devanagari": "रामस्यपुत्रः",
+          "iast": "rāmasyaputraḥ",
+          "slp1": "rAmasyaputraH"
+        },
+        "candidates": [],
+        "rejected": [
+          {
+            "parse": [
+              {"surface": "rāmasyaputraḥ", "stem": "rāmāsyaputra", "role": "subanta:prathama"}
+            ],
+            "reason_code": "UNATTESTED_STEM",
+            "violated_sutra": null
+          }
+        ],
+        "engine_version": "1.0.8-adapter"
+      }
+    },
+    {
+      "case_id": "samasa_internal_sandhi_001",
+      "status": "authority_pending",
+      "audit_notes": "Verified at v1.1.1-api-cleanup. Rejected because 'indra' not in local _lexicon (documented lexicon gap). Expected to pass once lexicon is expanded or canon.db is wired.",
+      "input_triad": {
+        "devanagari": "राजेन्द्रः",
+        "iast": "rājendraḥ",
+        "slp1": "rAjendraH"
+      },
+      "expected_envelope": {
+        "input_triad": {
+          "devanagari": "राजेन्द्रः",
+          "iast": "rājendraḥ",
+          "slp1": "rAjendraH"
+        },
+        "candidates": [],
+        "rejected": [
+          {
+            "parse": [
+              {"surface": "rājā", "stem": "rājan", "role": "subanta:prathama"},
+              {"surface": "indrāḥ", "stem": "indra", "role": "subanta:prathama"}
+            ],
+            "reason_code": "UNATTESTED_STEM",
+            "violated_sutra": null
+          }
+        ],
+        "engine_version": "1.0.8-adapter"
+      }
+    }
+  ]
+}

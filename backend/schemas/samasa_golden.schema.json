@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aigaane.in/schemas/samasa_golden.schema.json",
+  "title": "Aigaane Samasa Golden Corpus — Release Schema",
+  "type": "object",
+  "required": ["version", "cases"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[a-z0-9]+)?$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 72,
+      "items": { "$ref": "#/$defs/golden_case" }
+    }
+  },
+  "$defs": {
+    "golden_case": {
+      "type": "object",
+      "required": ["case_id", "input_triad", "expected_envelope", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^(samasa_)?[a-z_]+[0-9]{3}$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["verified", "authority_pending", "disputed"]
+        },
+        "input_triad": {
+          "$ref": "https://aigaane.in/schemas/sanskrit_contract.schema.json#/$defs/orthographic_triad"
+        },
+        "expected_envelope": {
+          "$ref": "https://aigaane.in/schemas/sanskrit_contract.schema.json"
+        },
+        "audit_notes": { "type": "string" }
+      }
+    }
+  }
+}

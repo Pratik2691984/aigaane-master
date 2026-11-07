@@ -1,0 +1,14 @@
+{
+  "manifest_version": "1.2.0",
+  "corpora": [
+    {
+      "id": "samasa_golden",
+      "path": "corpus/samasa_golden.json",
+      "seed_schema": "schemas/samasa_golden.seed.schema.json",
+      "release_schema": "schemas/samasa_golden.schema.json",
+      "default_recension": "Kasika_Vrtti",
+      "current_count": 3,
+      "target_count": 72
+    }
+  ]
+}
