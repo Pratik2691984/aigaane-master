@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api import quanta_routes, aigaane_routes, corpus_routes
+from backend.api import quanta_routes, aigaane_routes, corpus_routes, samasa_routes
 
 APP_VERSION = "1.4.2-audit-updated"
 
@@ -31,6 +31,8 @@ app.include_router(aigaane_routes.router, prefix="/api/v3/aigaane", tags=["aigaa
 
 app.include_router(corpus_routes.router, prefix="/api/v1/corpus", tags=["corpus"])
 app.include_router(corpus_routes.router, prefix="/api/v3/corpus", tags=["corpus"])
+app.include_router(samasa_routes.router, prefix="/api/v1/samasa", tags=["samasa"])
+app.include_router(samasa_routes.router, prefix="/api/v3/samasa", tags=["samasa"])
 
 
 @app.get("/health")
