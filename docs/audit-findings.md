@@ -93,3 +93,33 @@ The Critic's behavior is correct in every failure case:
 - ✅ Dual-mount routing (drift structurally impossible)
 - ✅ Git ladder provides 1-command rollback from any tag
 - ✅ Version strings match git tags
+
+
+
+## v1.4.1 Update — Audit Status: 4/5 PASS
+
+**Date:** 2026-11-07
+**Engine tag:** `v0.3.1-recursion-fixed` (aigaane-master)
+**Framework tag:** `v1.4.1-ending-strip` (aigaane-quanta)
+
+### Fixes shipped
+1. **Engine recursion** — `_samasa.py` recurses to depth 3 (Finding 1 resolved)
+2. **Lexicon supplement** — `_lexicon_supplement.py` adds 30+ proper nouns (Finding 2 partially resolved)
+3. **Critic ending-strip** — `gatekeeper.py` strips Sanskrit endings before lookup (Finding 5 resolved)
+
+### Final audit results
+| Input | Result |
+|---|---|
+| `rAjaputraH` | ✅ PASS (tatpuruṣa, 0.95) |
+| `candramukhaH` | ⚠️ PARTIAL (needs `candramukha`/`candra`/`mukha` in supplement) |
+| `rAmasyaputraH` | ✅ CORRECTLY REJECTED |
+| `devamanuSyanAgAH` | ✅ PASS (3-token dvandva) |
+| `rAjendraH` | ✅ PASS (rājan + indra) |
+
+### Regression checks
+- `aigaane-master`: 398 passed
+- `aigaane-quanta`: 4 passed
+
+### Remaining v1.5 targets
+- `candramukhaH` — 3 more supplement stems
+- Full 1.5M Kosha — data engineering
