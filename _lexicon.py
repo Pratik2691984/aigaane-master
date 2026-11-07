@@ -689,3 +689,18 @@ CLASSICAL_VERB_TABLE = {
 def lookup_classical_verb(form: str) -> Optional[Dict[str, Any]]:
     """Looks up high-frequency expanded classical verb forms."""
     return CLASSICAL_VERB_TABLE.get(form)
+
+
+# Attempt to load supplement — inject into _STATIC_LEXICON
+try:
+    from _lexicon_supplement import SUPPLEMENT_STEMS
+    if isinstance(SUPPLEMENT_STEMS, dict):
+        _STATIC_LEXICON.update(SUPPLEMENT_STEMS)
+    elif isinstance(SUPPLEMENT_STEMS, (set, list)):
+        for _s in SUPPLEMENT_STEMS:
+            _STATIC_LEXICON[_s] = {
+                "stem": _s, "pos": "subhanta", "linga": "pullinga",
+                "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.90
+            }
+except ImportError:
+    pass
