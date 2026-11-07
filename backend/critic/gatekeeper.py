@@ -55,20 +55,15 @@ CANON_DB_PATH = Path("C:/aigaane-master/frontend/public/sqlite/canon.db")
 # This is a pragmatic heuristic: for a bare stem lookup to succeed,
 # we walk down this list until we find an attested form.
 _ENDINGS_TO_STRIP = [
-    "āḥ", "aḥ", "āṇi", "āni", "āni",  # nominative plural neuter / feminine
-    "āya", "āya",                       # dative singular
-    "āt", "āt",                         # ablative singular
-    "asya", "asya",                     # genitive singular
-    "e", "e",                           # locative/dative sg
-    "oḥ", "oḥ",                         # genitive dual
-    "au", "au",                         # nominative dual
-    "īḥ", "ūḥ",                         # feminine nominative plural
-    "am", "am",                         # accusative singular
-    "ā", "ā",                           # feminine nominative sg
-    "ī", "ī", "ū", "ū",                 # feminine stems
-    "aḥ", "aḥ",                         # masc nom sg
-    "ḥ", "ḥ",                           # visarga (masc nom sg)
-    "m", "m",                           # accusative sg neuter
+    # IAST endings (with diacritics)
+    "āḥ", "aḥ", "āṇi", "āni",
+    "āya", "āt", "asya",
+    "oḥ", "au", "īḥ", "ūḥ",
+    "ā", "ī", "ū", "ḥ", "m",
+    # SLP1 endings (engine may return stems in SLP1)
+    "aH", "AH", "iH", "IH", "uH", "UH",
+    "aM", "AM",
+    "H", "M",
 ]
 
 
