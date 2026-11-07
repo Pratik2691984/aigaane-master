@@ -44,4 +44,8 @@ SUPPLEMENT_STEMS = {
     # Places/factions
     "kuru": {"stem": "kuru", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
     "pāṇḍava": {"stem": "pāṇḍava", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+
+    # Compound parts (closes candramukhaH audit)
+    "candramukha": {"stem": "candramukha", "pos": "subhanta", "linga": "pullinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
+    "mukha": {"stem": "mukha", "pos": "subhanta", "linga": "napumsakalinga", "vibhakti": "prathama", "vacana": "ekavacana", "confidence": 0.95},
 }
