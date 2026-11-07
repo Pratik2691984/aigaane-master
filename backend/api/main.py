@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.api import quanta_routes, aigaane_routes
 
+APP_VERSION = "1.1.0-lexicon-verified"
+
 app = FastAPI(
     title="Quanta-Aigaane Neuro-Symbolic API",
-    version="1.0.0",
+    version=APP_VERSION,
 )
 
 app.add_middleware(
@@ -29,13 +31,18 @@ app.include_router(aigaane_routes.router, prefix="/api/v3/aigaane", tags=["aigaa
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "architecture": "Neuro-Symbolic"}
+    return {
+        "status": "ok",
+        "architecture": "Neuro-Symbolic",
+        "version": APP_VERSION,
+    }
+
 
 @app.get("/")
 def root():
     return {
         "status": "online",
         "engine": "Aigaane-Quanta Neuro-Symbolic",
-        "version": "0.2.0-backend",
-        "docs": "/docs"
+        "version": APP_VERSION,
+        "docs": "/docs",
     }
