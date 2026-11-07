@@ -121,3 +121,7 @@ _tmp_*
 # Local file backups
 *.backup
 *.pre-fix
+audit_*.json
+diag_canon.py
+rebuild_fts.py
+frontend/public/sqlite/canon.db
