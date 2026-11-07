@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.api import quanta_routes, aigaane_routes, corpus_routes
 
-APP_VERSION = "1.1.0-lexicon-verified"
+APP_VERSION = "1.4.2-audit-updated"
 
 app = FastAPI(
     title="Quanta-Aigaane Neuro-Symbolic API",
