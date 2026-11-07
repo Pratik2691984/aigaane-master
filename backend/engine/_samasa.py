@@ -196,8 +196,15 @@ def generate_compound_tree(surface: str) -> Optional[dict]:
         if hit1 and hit2:
             ctype = _infer_compound_type(stem1, p2)
             c2_surf = surface[i:]
+            sub_right = None
+            if len(p2) > 3:
+                try:
+                    sub_right = recursive_split_compound(p2, depth=2)
+                except Exception:
+                    sub_right = None
             return {
                 "samasa_id": "S_GEN_0",
+                "sub_tree": sub_right,
                 "component_surface": surface,
                 "role": "single",
                 "type": ctype,
@@ -252,7 +259,7 @@ def recursive_split_compound(word: str, depth: int = 1) -> Optional[Dict[str, An
 
     if not split_res:
         # Classical 3-stem heuristic prefix scan: e.g. raja + putra + vadha
-        prefixes = ["raja", "rāja", "deva", "nara", "maha", "mahā", "putra", "satya", "dharma"]
+        prefixes = ["raja", "rāja", "deva", "nara", "maha", "mahā", "putra", "satya", "dharma", "manuSya", "nAga", "indra", "agni", "soma", "yama", "arjuna", "bhīma", "rāma", "kuru"]
         for p in prefixes:
             if word.startswith(p) and len(word) > len(p) + 2:
                 rem = word[len(p):]
