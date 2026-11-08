@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api import quanta_routes, aigaane_routes, corpus_routes, samasa_routes, sandhi_routes, morphology_routes, chandas_routes, lexicon_routes
-
+from backend.api import quanta_routes, aigaane_routes, corpus_routes, samasa_routes, sandhi_routes, morphology_routes, chandas_routes, lexicon_routes, studio3_routes
 APP_VERSION = "1.4.2-audit-updated"
 
 app = FastAPI(
@@ -41,6 +40,8 @@ app.include_router(chandas_routes.router, prefix="/api/v1/chandas", tags=["chand
 app.include_router(chandas_routes.router, prefix="/api/v3/chandas", tags=["chandas"])
 app.include_router(lexicon_routes.router, prefix="/api/v1/lexicon", tags=["lexicon"])
 app.include_router(lexicon_routes.router, prefix="/api/v3/lexicon", tags=["lexicon"])
+app.include_router(studio3_routes.router, prefix="/api/v1/studio3", tags=["studio3"])
+app.include_router(studio3_routes.router, prefix="/api/v3/studio3", tags=["studio3"])
 
 @app.get("/health")
 def health():
