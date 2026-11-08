@@ -4,3 +4,4 @@ pydantic
 jsonschema
 referencing
 pytest
+mido
