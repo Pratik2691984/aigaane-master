@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api import quanta_routes, aigaane_routes, corpus_routes, samasa_routes
+from backend.api import quanta_routes, aigaane_routes, corpus_routes, samasa_routes, sandhi_routes, morphology_routes
 
 APP_VERSION = "1.4.2-audit-updated"
 
@@ -33,6 +33,10 @@ app.include_router(corpus_routes.router, prefix="/api/v1/corpus", tags=["corpus"
 app.include_router(corpus_routes.router, prefix="/api/v3/corpus", tags=["corpus"])
 app.include_router(samasa_routes.router, prefix="/api/v1/samasa", tags=["samasa"])
 app.include_router(samasa_routes.router, prefix="/api/v3/samasa", tags=["samasa"])
+app.include_router(sandhi_routes.router, prefix="/api/v1/sandhi", tags=["sandhi"])
+app.include_router(sandhi_routes.router, prefix="/api/v3/sandhi", tags=["sandhi"])
+app.include_router(morphology_routes.router, prefix="/api/v1/morphology", tags=["morphology"])
+app.include_router(morphology_routes.router, prefix="/api/v3/morphology", tags=["morphology"])
 
 
 @app.get("/health")
