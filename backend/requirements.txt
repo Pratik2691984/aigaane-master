@@ -5,3 +5,4 @@ jsonschema
 referencing
 pytest
 mido
+httpx
