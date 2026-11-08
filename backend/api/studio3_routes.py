@@ -35,6 +35,13 @@ except Exception:
     _SRUTI_OK = False
 
 
+# Default verse title.
+# NOTE: \u00b7 is the middle dot "·" (U+00B7). Written as an escape so the
+# value is correct even if this source file is ever saved as Latin-1/CP1252,
+# which would otherwise produce the "Â·" mojibake seen in v1.5.5 output.
+DEFAULT_VERSE_TITLE = "Aigaane \u00b7 Gandharvaveda"
+
+
 # ------------------------------------------------------------------ #
 #   GET endpoints — read-only reference data                         #
 # ------------------------------------------------------------------ #
@@ -157,7 +164,7 @@ class MidiExportRequest(BaseModel):
     tempo_bpm: int = Field(80, ge=20, le=400)
     include_tanpura: bool = Field(True, description="Add tanpura drone track")
     verse_title: str = Field(
-        "Aigaane · Gandharvaveda",
+        DEFAULT_VERSE_TITLE,
         max_length=80,
         description="Title embedded in the MIDI metadata",
     )

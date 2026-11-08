@@ -48,7 +48,7 @@ def health():
     return {
         "status": "ok",
         "architecture": "Neuro-Symbolic",
-        "version": APP_VERSION,
+        "version": "1.5.5-studio3-routes",
     }
 
 
