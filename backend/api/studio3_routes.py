@@ -1,7 +1,8 @@
 """
 Studio III — Mathematical Acoustics domain routes.
 
-Exposes the 22-śruti Just Intonation table, JI ratio math, and MIDI generation.
+Exposes the 22-śruti Just Intonation table, JI ratio math, MIDI generation,
+and (v2.0) tāla congruence validation.
 
 Backed by `_sruti.py`:
   - get_sruti_table()           → 22 entries with name, svara, ratio, cents, hz
@@ -10,8 +11,12 @@ Backed by `_sruti.py`:
   - lookup_svara(svara_symbol)  → ratio info for a swara
   - generate_sruti_midi(svara_sequence, ...) → MIDI bytes
 
-NOTE: Tāla congruence (3P + 2D + t_start ≡ 17 mod C) is NOT in the current
-codebase. Deferred to v2.0 as a documented target — see audit-findings.md.
+Backed by `_tala.py` (v2.0):
+  - TALA_REGISTRY               → Carnatic tāla registry
+  - lookup_tala(name)           → TalaSpec or None
+  - list_talas()                → JSON-friendly list
+  - check_congruence(...)       → 3P + 2D + L + t_start ≡ 17 (mod C)
+  - suggest_correction(...)     → minimal adjustments for non-congruent phrases
 """
 import sys
 import base64
@@ -33,6 +38,13 @@ try:
 except Exception:
     _sruti = None
     _SRUTI_OK = False
+
+try:
+    import _tala
+    _TALA_OK = True
+except Exception:
+    _tala = None
+    _TALA_OK = False
 
 
 # Default verse title.
@@ -218,6 +230,122 @@ async def export_midi(payload: MidiExportRequest):
 
 
 # ------------------------------------------------------------------ #
+#   v2.0 — Tāla congruence                                           #
+# ------------------------------------------------------------------ #
+
+@router.get("/tala/list")
+async def tala_list():
+    """Full Carnatic tāla registry with cycle lengths."""
+    if not _TALA_OK:
+        raise HTTPException(status_code=503, detail="_tala module unavailable")
+    return {"count": len(_tala.TALA_REGISTRY), "talas": _tala.list_talas()}
+
+
+@router.get("/tala/lookup")
+async def tala_lookup(
+    name: str = Query(..., description="Tāla name, e.g. 'adi', 'misra_chapu'")
+):
+    """Look up a single tāla by name (case-insensitive)."""
+    if not _TALA_OK:
+        raise HTTPException(status_code=503, detail="_tala module unavailable")
+    spec = _tala.lookup_tala(name)
+    if spec is None:
+        return {"name": name, "found": False, "spec": None}
+    return {"name": name, "found": True, "spec": spec.__dict__}
+
+
+class CongruenceRequest(BaseModel):
+    pluta_count: int = Field(..., ge=0, description="P — number of pluta syllables")
+    dirgha_count: int = Field(..., ge=0, description="D — number of dīrgha syllables")
+    cycle_length: int = Field(
+        ..., ge=1, le=64, description="C — tāla cycle length (aksharas)"
+    )
+    t_start: int = Field(0, ge=0, description="Starting offset within cycle")
+    laghu_count: int = Field(
+        0, ge=0, description="L — optional extension (default 0 = strict formula)"
+    )
+    sam_anchor: int = Field(17, description="Anchor constant (canonical: 17)")
+
+
+class CongruenceByTalaRequest(BaseModel):
+    pluta_count: int = Field(..., ge=0)
+    dirgha_count: int = Field(..., ge=0)
+    tala_name: str = Field(..., description="e.g. 'adi', 'misra_chapu'")
+    t_start: int = Field(0, ge=0)
+    laghu_count: int = Field(0, ge=0)
+    sam_anchor: int = Field(17)
+
+
+@router.post("/tala/congruence")
+async def tala_congruence(payload: CongruenceRequest):
+    """
+    Check 3P + 2D + L + t_start ≡ sam_anchor (mod C).
+
+    Default `laghu_count=0` and `sam_anchor=17` reproduces the documented
+    audit-findings formula exactly.
+    """
+    if not _TALA_OK:
+        raise HTTPException(status_code=503, detail="_tala module unavailable")
+    try:
+        result = _tala.check_congruence(
+            pluta_count=payload.pluta_count,
+            dirgha_count=payload.dirgha_count,
+            cycle_length=payload.cycle_length,
+            t_start=payload.t_start,
+            laghu_count=payload.laghu_count,
+            sam_anchor=payload.sam_anchor,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return result.to_dict()
+
+
+@router.post("/tala/congruence/by-tala")
+async def tala_congruence_by_name(payload: CongruenceByTalaRequest):
+    """Same as /tala/congruence, but resolves C from a named tāla."""
+    if not _TALA_OK:
+        raise HTTPException(status_code=503, detail="_tala module unavailable")
+    spec = _tala.lookup_tala(payload.tala_name)
+    if spec is None:
+        raise HTTPException(
+            status_code=404, detail=f"Unknown tāla: '{payload.tala_name}'"
+        )
+    try:
+        result = _tala.check_congruence(
+            pluta_count=payload.pluta_count,
+            dirgha_count=payload.dirgha_count,
+            cycle_length=spec.cycle_length,
+            t_start=payload.t_start,
+            laghu_count=payload.laghu_count,
+            sam_anchor=payload.sam_anchor,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return {"tala": spec.__dict__, "result": result.to_dict()}
+
+
+@router.post("/tala/suggest")
+async def tala_suggest(payload: CongruenceRequest):
+    """
+    If the phrase is not congruent, suggest minimal corrections
+    (laghu adjustments, t_start shift, or alternative cycle lengths).
+    """
+    if not _TALA_OK:
+        raise HTTPException(status_code=503, detail="_tala module unavailable")
+    try:
+        return _tala.suggest_correction(
+            pluta_count=payload.pluta_count,
+            dirgha_count=payload.dirgha_count,
+            cycle_length=payload.cycle_length,
+            t_start=payload.t_start,
+            laghu_count=payload.laghu_count,
+            sam_anchor=payload.sam_anchor,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+# ------------------------------------------------------------------ #
 #   Probe                                                            #
 # ------------------------------------------------------------------ #
 
@@ -230,5 +358,7 @@ async def studio3_probe():
         "has_lookup_svara": _SRUTI_OK and hasattr(_sruti, "lookup_svara"),
         "has_generate_sruti_midi": _SRUTI_OK and hasattr(_sruti, "generate_sruti_midi"),
         "has_cents_to_midi_pitch_bend": _SRUTI_OK and hasattr(_sruti, "cents_to_midi_pitch_bend"),
-        "tala_congruence": "not implemented (deferred to v2.0)",
+        "tala_ok": _TALA_OK,
+        "has_check_congruence": _TALA_OK and hasattr(_tala, "check_congruence"),
+        "tala_congruence": "implemented (v2.0)",
     }
